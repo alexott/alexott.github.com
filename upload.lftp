@@ -1,0 +1,3 @@
+open -u "ott@xtalk.it.niir" it.niir.ru
+cd my-page
+mirror -R -ne -X '*.muse' -X '.hg' .
