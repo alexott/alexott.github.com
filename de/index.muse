@@ -1,0 +1,6 @@
+#title Alex Ott's home page (german)
+#keywords alex ott
+
+
+* Kurz personal information
+

@@ -1,3 +1,7 @@
-#title Alex Ott's home page
+#title Alex Ott's home page (russian)
+#keywords alex ott, home page, emacs, linux, programming, c++, functional programming, scheme, lisp, common lisp, haskell, ocaml, articles, статьи, программирование, функциональное программирование, емакс, алекс отт, алексей отт
 
-�������� ��������
+* Коротко о себе
+
+* Чем я занимаюсь
+

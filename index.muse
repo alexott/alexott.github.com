@@ -1,0 +1,6 @@
+#title Alex Ott's home page (language selection)
+#keywords alex ott, alexey ott, personal page, home page
+#refresh 2;url=ru/index.html
+
+* Please select appropriate language (default -> russian)
+
