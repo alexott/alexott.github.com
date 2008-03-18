@@ -1,0 +1,371 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=koi8-r"><title>Командный процессор Zsh</title><meta name="generator" content="DocBook XSL Stylesheets V1.67.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article" lang="ru"><div class="titlepage"><div><div><h1 class="title"><a name="ott.articles.zsh"></a>Командный процессор Zsh</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Alex</span> <span class="surname">Ott</span></h3></div></div></div><hr></div><div class="toc"><p><b>Содержание</b></p><dl><dt><span class="section"><a href="#id2451037">Введение</a></span></dt><dt><span class="section"><a href="#id2451108">Запуск</a></span></dt><dd><dl><dt><span class="section"><a href="#id2451189">Файлы, используемые при запуске</a></span></dt></dl></dd><dt><span class="section"><a href="#id2451325">Грамматика команд</a></span></dt><dt><span class="section"><a href="#id2451350">Перенаправление вывода</a></span></dt><dt><span class="section"><a href="#id2451625">Функции</a></span></dt><dt><span class="section"><a href="#id2451741">Задания</a></span></dt><dt><span class="section"><a href="#id2451838">Подстановка переменных</a></span></dt><dd><dl><dt><span class="section"><a href="#id2451859">Подстановки в строке приглашения</a></span></dt><dt><span class="section"><a href="#id2451953">Прочие подстановки</a></span></dt></dl></dd><dt><span class="section"><a href="#id2452635">Параметры и настройки</a></span></dt><dd><dl><dt><span class="section"><a href="#id2452646">Параметры</a></span></dt><dt><span class="section"><a href="#id2449012">Настройки</a></span></dt></dl></dd><dt><span class="section"><a href="#id2452990">Дополнения (completitions)</a></span></dt><dd><dl><dt><span class="section"><a href="#id2453040">Виджеты дополнений</a></span></dt><dt><span class="section"><a href="#id2453066">Дополнения с использованием
+      <span><strong class="command">compctl</strong></span></a></span></dt><dt><span class="section"><a href="#id2453210">Подсистема дополнений</a></span></dt></dl></dd><dt><span class="section"><a href="#id2453326">Модули Zsh</a></span></dt><dd><dl><dt><span class="section"><a href="#id2453372">Модуль редактирования командной строки (zsh/zle)</a></span></dt><dt><span class="section"><a href="#id2453589">Модуль <span><strong class="command">zsh/zftp</strong></span></a></span></dt><dt><span class="section"><a href="#id2453741">Другие модули Zsh</a></span></dt></dl></dd><dt><span class="section"><a href="#id2453808">Дополнительные источники информации</a></span></dt></dl></div><div class="abstract"><p class="title"><b>Аннотация</b></p><p>Данная статья является кратким обзором возможностей коммандного процессора Zsh.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2451037"></a>Введение</h2></div></div></div><p>В этой статье предполагается, что читатель уже имеет навыки работы с одним из распространенных командных процессоров UNIX, и поэтому сосредоточимся на отличительных возможностях Zsh.</p><p>Zsh  &#8212;  командный процессор UNIX, который может использоваться как в качестве командного процессора для скриптов, так и в качестве интерактивной оболочки. Zsh обладает множеством возможностей, среди которых  &#8212; настраиваемый механизм дополнений (completions), редактирование командной строки, механизм сохранения историй, встроенное исправление неправильных команд.</p><p>По возможностям Zsh наибольшее сходство имеет с Ksh, но при этом еще обладает множеством расширений.</p><p>Свежие версии Zsh доступны с сервера <a href="http://www.zsh.org" target="_top">www.zsh.org</a> и его зеркал. Кроме
+    этого, Zsh часто включают в состав популярных дистрибутивов
+    Linux и других вариантов UNIX.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2451108"></a>Запуск</h2></div></div></div><p>Обычно Zsh указывают в качестве интерактивной оболочки для
+    входа в систему. Но, кроме этого, Zsh можно запускать и
+    отдельно, с разными ключами, определяющими его
+    поведение. Например, ключ <code class="option">-r</code> заставляет Zsh
+    работать в &#171;<span class="quote">ограниченном</span>&#187; (restricted) режиме, ключ
+    <code class="option">-c</code> указывает откуда читать команды для
+    выполнения, а ключ <code class="option">-i</code> заставляет работать в
+    интерактивном режиме.</p><p>При работе в &#171;<span class="quote">ограниченном</span>&#187; режиме запрещается
+    выполнять некоторые действия: изменять каталог, запускать
+    программы с помощью команды exec, перенаправлять вывод в файлы,
+    изменять значение переменных среды, используемых при запуске
+    программ, а также запускать программы, используя их абсолютные
+    имена.</p><p>При запуске Zsh старается эмулировать sh или Ksh в
+    зависимости от того, под каким именем его запустили. В режиме
+    эмуляции не исполняются обычные скрипты инициализации и завершения
+    работы Zsh. Для инициализации используются файлы
+    <code class="filename">/etc/profile</code> и
+    <code class="filename">$HOME/.profile</code></p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2451189"></a>Файлы, используемые при запуске</h3></div></div></div><p>При запуске Zsh читается некоторое количество файлов,
+      содержащих команды инициализации. В первую очередь читается файл
+      <code class="filename">/etc/zshenv</code>, затем читается файл
+      <code class="filename">$ZDOTDIR/.zshenv</code>. Затем, если запускаемый
+      процесс используется для входа в систему, то читаются файлы
+      <code class="filename">/etc/zprofile</code> и
+      <code class="filename">$ZDOTDIR/.zprofile</code>. Затем, если оболочка
+      является интерактивной, читаются файлы
+      <code class="filename">/etc/zshrc</code> и
+      <code class="filename">$ZDOTDIR/.zshrc</code>. И наконец, если процесс
+      используется для входа в систему, то читаются файлы
+      <code class="filename">/etc/zlogin</code> и
+      <code class="filename">$ZDOTDIR/.zlogin</code>. </p><p>Когда происходит выход из оболочки, использовавшейся для
+      входа в систему, то читаются файлы
+      <code class="filename">$ZDOTDIR/.zlogout</code> и затем
+      <code class="filename">/etc/zlogout</code>.</p><p>Если переменная <code class="varname">ZDOTDIR</code> не установлена,
+      то вместо нее используется значение переменной
+      <code class="varname">HOME</code>. Файл <code class="filename">/etc/zshenv</code>
+      читается при запуске любого процесса Zsh, поэтому он должен
+      быть настолько малым, насколько это возможно.</p><p>Все перечисленные файлы могут быть откомпилированы с
+      помощью команд <span><strong class="command">zcompile</strong></span>, что позволяет их
+      загружать быстрее. Откомпилированные файлы имеют расширение
+      <code class="filename">.zwc</code>, и загружаются в том случае, если они
+      новее исходного файла.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2451325"></a>Грамматика команд</h2></div></div></div><p>Грамматика команд по большей части совпадает с грамматикой
+    других командных процессоров семейства <span class="application">bourne shell</span>, хотя имеются различные расширения,
+    специфические для данного командного процессора. Схожесть
+    грамматики позволяет быстро перейти к работе с использованием
+    Zsh, и осваивать новые возможности уже в процессе его
+    эксплуатации.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2451350"></a>Перенаправление вывода</h2></div></div></div><p>Zsh поддерживает такое же перенаправление вывода как и
+    Bash, но кроме этого он поддерживает множество
+    расширений. Некоторые расширения работают только если заданы
+    соответствующие настройки. Например, если не задана опция
+    <code class="varname">CLOBBER</code>, то использование команды
+    <code class="computeroutput">&gt;</code> для существующего файла
+    приведет к возникновению ошибки и невыполнению команды. На этот
+    случай, для практически всех команд существуют их модификации,
+    которые не зависят от настроек. Например, для команды
+    <code class="computeroutput">&gt;</code> существуют ее модификации
+    <code class="computeroutput">&gt;!</code> и
+    <code class="computeroutput">&gt;|</code>.</p><p>Для одновременного перенаправления стандартного вывода и
+    стандартного потока сообщений об ошибках определены дополнительные
+    команды <code class="computeroutput">&gt;&amp;</code>,
+    <code class="computeroutput">&amp;&gt;</code>,
+    <code class="computeroutput">&gt;&gt;&amp;</code>,
+    <code class="computeroutput">&amp;&gt;&gt;</code> и их модификации со
+    знаками <code class="computeroutput">|</code> и
+    <code class="computeroutput">!</code> (например,
+    <code class="computeroutput">&amp;&gt;|</code>). Эти команды
+    соответственно переписывают и дополняют информацию в указанных
+    файлах, а также позволяют избавиться от неуклюжих конструкций вида
+    <code class="computeroutput">1&gt;FNAME 2&gt;&amp;1</code>.</p><p>Zsh также позволяет перенаправлять информацию в более чем
+    в один файл, аналогично использованию команды
+    <span><strong class="command">tee</strong></span> (это доступно только если определена
+    переменная <code class="varname">MULTIOS</code>, что обычно указано по
+    умолчанию). Кроме этого можно одновременно использовать
+    перенаправление и конвейеры. Например, команда
+    <span><strong class="command">date</strong></span> <code class="computeroutput">&gt;foo |
+    cat</code> запишет дату в файл <code class="filename">foo</code>
+    и выведет ее в стандартный поток вывода.</p><p>Если установлена переменная <code class="varname">MULTIOS</code>, то
+    имя файла, указанное в качестве того, куда надо будет
+    перенаправлять информацию, подвергается раскрытию шаблонов
+    (globbing). Таким образом можно использовать команду
+    </p><pre class="screen">      : &gt; *</pre><p>
+    для усечения всех файлов в текущем каталоге.</p><p>Множественное перенаправление также работает и при вводе
+    информации, позволяя заменять конструкции вида
+    </p><pre class="screen">      cat foo fubar | sort </pre><p>
+    на конструкции
+    </p><pre class="screen">    sort &lt;foo &lt;fubar</pre><p>
+    или даже
+    </p><pre class="screen">    sort &lt;f{oo,ubar}</pre><p>Zsh даже позволяет использовать перенаправление без
+    указания команды. Если не установлена переменная
+    <code class="varname">NULLCMD</code>, то при таком использовании будет
+    возникать ошибка. Но если установлена переменная
+    <code class="varname">NULLCMD</code>, или <code class="varname">READNULLCMD</code>
+    (она имеет преимущество над <code class="varname">NULLCMD</code>), то эти
+    команды будут использоваться для обработки данных. По умолчанию
+    <code class="varname">NULLCMD</code> имеет значением команду
+    <span><strong class="command">cat</strong></span>, а <code class="varname">READNULLCMD</code> значением
+    команду <span><strong class="command">more</strong></span>. Таким образом команда
+    </p><pre class="screen">    &lt; file</pre><p>
+    приведет к показу указанного файла.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2451625"></a>Функции</h2></div></div></div><p>Zsh позволяет пользователю определять собственные функции, которые могут выполняться точно также как и обычные программы. Функции выполняются в том же процессе, что и вызвавшая их программа. При вызове функции аргументы передаются как позиционные параметры.</p><p>Для ускорения загрузки Zsh может использовать
+    автоматически загружаемые функции, когда они только объявляются,
+    но не считываются. При первом использовании такой функции
+    происходит ее считывание и компиляция. Для объявления
+    автоматически загружаемой функции используется встроенная команда
+    <span><strong class="command">autoload</strong></span> (или ее налоги
+    `<code class="computeroutput">functions -u</code>' и
+    `<code class="computeroutput">typeset -fu</code>'). Поиск определений
+    функций осуществляется по каталогам, перечисленным в переменной
+    <code class="varname">fpath</code>.</p><p>Кроме обычных функций, Zsh позволяет определять функции со
+    специальным значением. Так, например, функция
+    <span><strong class="command">chpwd</strong></span> вызывается при изменении рабочего
+    каталога, а функции <span><strong class="command">precmd</strong></span> и
+    <span><strong class="command">preexec</strong></span> выполняются перед каждым выводом
+    приглашения и перед выполнением считанной команды
+    соответственно. Кроме того, может быть определена функция
+    <span><strong class="command">periodic</strong></span>, которая может выполнятся через каждые
+    <code class="varname">$PERIOD</code> (если этот параметр определен) секунд
+    перед выводом приглашения.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2451741"></a>Задания</h2></div></div></div><p>Zsh работает с задачами подобно Bash, но при этом
+    имеется возможность более гибко работать с заданиями запущенными в
+    фоновом режиме. Кроме команды
+    <code class="computeroutput">&amp;</code>, которая используется для
+    запуска задачи в фоновом режиме, также определены команды
+    <code class="computeroutput">&amp;|</code> или
+    <code class="computeroutput">&amp;!</code>, которые запускают
+    программу таким образом, что она не будет иметь записи в таблице
+    задач и с которой нельзя будет работать обычными функциями работы
+    с заданиями.</p><p>Для ссылки на задания можно использовать специальные
+    переменные: <code class="varname">%NUMBER</code>  &#8212;  для ссылки на
+    задание номер <code class="varname">NUMBER</code> (как в Bash);
+    <code class="varname">%STRING</code> и
+    <code class="varname">%?STRING</code>  &#8212;  для ссылки на задания,
+    чьи командные строки начинаются и содержат строку
+    <code class="computeroutput">STRING</code> соответственно;
+    <code class="varname">%%</code> (или <code class="varname">%+</code>) и
+    <code class="varname">%-</code> для ссылки на текущее и предыдущее
+    задание.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2451838"></a>Подстановка переменных</h2></div></div></div><p>Zsh имеет множество расширений в области различных
+    подстановок. По назначению подстановки можно разделить на две
+    группы: Подстановки в строке приглашения и прочие
+    подстановки. Подстановки в строке приглашения могут использовать
+    функции из группы &#171;<span class="quote">прочие подстановки</span>&#187;. </p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2451859"></a>Подстановки в строке приглашения</h3></div></div></div><p>Zsh позволяет пользователю очень гибко настроить строки приглашения командного процессора. Для этого используются различные подстановки. С их помощью можно выделять цветами части текста в командной строке, помещать строку с текущим каталогом в строку окна терминала и многое другое.</p><p>Для приглашения командной строки существует разделение на
+      левую и правую часть приглашения. Кроме привычных переменных,
+      таких как <code class="varname">PS1</code> и <code class="varname">PS2</code>, также
+      существуют их аналоги, имена которых начинаются с буквы
+      <code class="varname">R</code> и которые определяют приглашения, выводимые
+      в правой части экрана. Например, это позволяет вынести в правую
+      часть часы, которые показывают время выведения
+      приглашения.</p><p>Полное описание всех возможных подстановок для строки приглашения можно найти в справке по Zsh.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2451912"></a>Темы для строки приглашения</h4></div></div></div><p>Благодаря возможностям Zsh пользователи пишут
+	различные модули расширений. Одним из таких модулей является
+	модуль для установки тем для строк приглашения. Этот модуль
+	загружается с помощью команд:
+	</p><pre class="screen">          autoload -U promptinit
+          promptinit</pre><p>
+	и позволяет пользователям использовать заранее подготовленные
+	темы приглашений. Команда <span><strong class="command">prompt -p</strong></span> выдает
+	примеры всех установленных тем строки приглашения.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2451953"></a>Прочие подстановки</h3></div></div></div><p>Все остальные подстановки выполняются в пять
+      шагов, в перечисленном ниже порядке:
+      </p><div class="orderedlist"><ol type="1"><li><p>Сначала выполняются подстановки в истории. На этом
+	  этапе подставляются строки из истории, которые соответствуют
+	  заданным командам. См. раздел &#171;<span class="quote"><a href="#ott.articles.zsh.subst.history">Подстановки истории</a></span>&#187;П</p></li><li><p>Затем выполняется раскрытие псевдонимов (алиасов). Раскрытие алиасов выполняется немедленно, до того, как командная строка будет разобрана.</p></li><li><p>Затем выполняется подстановка процессов, параметров, команд, раскрытие арифметических выражений, и затем уже раскрытие выражений в скобках. Каждый из этих этапов подробно описан в справке по Zsh.</p></li><li><p>Раскрытие имен файлов. На этом этапе происходит
+	  подстановка комбинаций строк и чисел с символом
+	  <code class="varname">~</code>. Если используется комбинация с числом,
+	  то каталог берется из стека каталогов. Если после символа
+	  <code class="varname">~</code> задается строка, то эта строка будет
+	  использоваться как имя пользователя, и вместо сочетания ~ со
+	  строкой подставляется домашний каталог соответствующего
+	  пользователя.</p></li><li><p>И на последнем шаге происходит генерация имен файлов
+	  (globbing). См. раздел &#171;<span class="quote"><a href="#ott.articles.zsh.globbing">Генерация имен файлов</a></span>&#187; </p></li></ol></div><p>
+      </p><p>Полный перечень всех шаблонов и настроек вы сможете найти в справке по Zsh.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="ott.articles.zsh.subst.history"></a>Подстановки истории</h4></div></div></div><p>Система подстановок истории Zsh немного отличается от подстановок истории в командном процессоре bash. В Zsh сделано много добавлений, которые позволяют получить доступ к нужным аргументам выполненных команд, а также выполнить разные модификации аргументов.</p><p>Подстановки истории Zsh позволяют указать какое слово
+	из команды нужно задействовать. Для этого используются
+	следующие указатели слов:
+	</p><div class="variablelist"><dl><dt><span class="term"><code class="option">:0</code></span></dt><dd><p>первое слово в командной строке;</p></dd><dt><span class="term"><code class="option">:n</code></span></dt><dd><p>n-й аргумент;</p></dd><dt><span class="term"><code class="option">:^</code></span></dt><dd><p>1-й аргумент (аналогично :1);</p></dd><dt><span class="term"><code class="option">:$</code></span></dt><dd><p>последний аргумент строки;</p></dd><dt><span class="term"><code class="option">:X-Y</code></span></dt><dd><p>аргументы с X по Y;</p></dd><dt><span class="term"><code class="option">:X-</code></span></dt><dd><p>все аргументы начиная с X кроме последнего;</p></dd><dt><span class="term"><code class="option">:*</code></span></dt><dd><p>все аргументы;</p></dd><dt><span class="term"><code class="option">:X*</code></span></dt><dd><p>все аргументы начиная с X (аналогично :X-$).</p></dd></dl></div><p>Кроме этого, в подстановках истории после указателей
+	слов можно использовать модификаторы, которые позволяют
+	выполнять различные подстановки в истории. Так, например,
+	модификатор <code class="option">:h</code> работает подобно использованию
+	команды <span><strong class="command">dirname</strong></span>, а модификатор
+	<code class="option">:t</code> работает подобно команде
+	<span><strong class="command">basename</strong></span>. Полный список модификаторов можно
+	получить в руководстве по Zsh.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="ott.articles.zsh.globbing"></a>Генерация имен файлов</h4></div></div></div><p>Zsh предоставляет множество дополнений и настроек по генерации имен файлов.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h5 class="title"><a name="id2452273"></a>Операторы глоббинга</h5></div></div></div><p>Кроме стандартных символов (таких как
+	  <code class="option">*</code>, <code class="option">?</code>,
+	  <code class="option">[...]</code>), используемых для генерации имен
+	  файлов в других командных процессорах, в Zsh определены
+	  дополнительные операторы глоббинга, такие как:
+	  </p><div class="variablelist"><dl><dt><span class="term"><code class="option">^X</code></span></dt><dd><p>совпадает с любым кроме X. Например,
+	      <code class="option">^*.elc</code> будет соответствовать всем
+	      файлам, кроме тех которые указаны в маске (в нашем
+	      случае это файлы с расширением
+	      <code class="filename">.elc</code>);</p></dd><dt><span class="term"><code class="option">X~Y</code></span></dt><dd><p>совпадает со всем, что соответствует
+	      шаблону X, и не соответствует шаблону Y. Например,
+	      <code class="filename">*.el*~*.elc</code> соответствует всем
+	      файлам, чье расширение начинается с
+	      <code class="filename">.el</code>, но при этом не будут
+	      учитываться файлы с расширением
+	      <code class="filename">*.elc</code>;</p></dd><dt><span class="term"><code class="option">X#</code></span></dt><dd><p>соответствует нулю или нескольким вхождениям шаблона X;</p></dd><dt><span class="term"><code class="option">X##</code></span></dt><dd><p>соответствует одному или нескольким вхождениям шаблона X.</p></dd></dl></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h5 class="title"><a name="id2452405"></a>Флаги глоббинга</h5></div></div></div><p>Флаги глоббинга используются для воздействия на
+	  шаблон, который стоит правее указанного флага. Все флаги
+	  имеют форму (<code class="option">#X</code>), где <code class="option">X</code>
+	  определяет нужный модификатор. Ниже приведено описание
+	  нескольких флагов, которые могут наиболее часто
+	  использоваться в работе:
+	  </p><div class="variablelist"><dl><dt><span class="term"><code class="option">i</code></span></dt><dd><p>делает шаблон независимым от регистра символов, которые в нем применяются;</p></dd><dt><span class="term"><code class="option">l</code></span></dt><dd><p>заставляет символы в нижнем регистре, которые используются в шаблоне, соответствовать символам и в вернем и нижнем регистре. Символы в верхнем регистре, будут соответствовать точно тем же символам;</p></dd><dt><span class="term"><code class="option">I</code></span></dt><dd><p>локально отменяет воздействие флагов
+	      <code class="option">l</code> и
+	      <code class="option">i</code>;</p></dd></dl></div><p>
+	  другие флаги, описаны в руководстве по Zsh.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h5 class="title"><a name="id2452496"></a>Квалификаторы глоббинга</h5></div></div></div><p>При генерации имен файлов могут использоваться
+	  квалификаторы глоббинга, так что пользователь может
+	  указывать какие типы файлов будут подпадать под под
+	  генерацию имен. Квалификаторы указываются в конце шаблона и
+	  заключаются в круглые скобки. Среди квалификаторов есть
+	  например,
+	  </p><div class="variablelist"><dl><dt><span class="term"><code class="option">.</code></span></dt><dd><p>для указания обычных файлов,</p></dd><dt><span class="term"><code class="option">/</code></span></dt><dd><p>для указания каталогов,</p></dd><dt><span class="term"><code class="option">=</code></span></dt><dd><p>для указания сокетов,</p></dd></dl></div><p>
+	  и многие другие (можно указывать права доступа, времена
+	  модификации файлов и т.п.). Их полное описание можно найти в
+	  руководстве по Zsh.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h5 class="title"><a name="id2452569"></a>Рекурсивный глоббинг</h5></div></div></div><p>Zsh позволяет производить рекурсивное раскрытие имен
+	  файлов. Для этого используются формы <code class="option">**/</code> и
+	  <code class="option">***/</code> Первая форма отличается от второй лишь
+	  тем, что не следует по символьным ссылкам. Так, например
+	  </p><pre class="screen">            ls **/foo  </pre><p>
+	  произведет поиск файлов с именем <code class="filename">foo</code> во
+	  всех подкаталогах. </p><p>Эти формы не могут комбинироваться с другими формами в
+	  одном шаблоне. При одновременном использовании данных форм с
+	  другими, оператор <code class="option">*</code> приобретает свое
+	  обычное значение.</p><p>Кроме вышеперечисленных настроек. Zsh также позволяет использовать приблизительное соответствие, пытаясь найти файлы, в именах которых (по его мнению :-) могли бы быть сделаны ошибки.</p></div></div></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2452635"></a>Параметры и настройки</h2></div></div></div><p>В Zsh различают параметры и настройки. Параметры используются для передачи и хранения данных, а настройки используются для управления поведением Zsh.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2452646"></a>Параметры</h3></div></div></div><p>Каждый параметр имеет имя, значение и набор атрибутов. Имя может состоять из букв, цифр и специальных знаков. Значениями могут быть числа (целые), строки, массивы и хеши (ассоциативные массивы).</p><p>Для объявления типов параметров или присвоения целого или строкового значения параметру, используется встроенная команда typeset. Значения строкового или целого типа могут присваиваться простым приравниванием   &#8212; 
+      <code class="varname">ИМЯ=ЗНАЧЕНИЕ</code>. Для присваивания других типов
+      параметров используется команда <span><strong class="command">typeset</strong></span>.</p><p>Позиционные параметры используются для доступа к
+      аргументам командной строки для функции или скрипта командного
+      процессора. Специальные параметры <code class="option">*</code>,
+      <code class="option">@</code> и <code class="option">argv</code> являются массивами,
+      которые содержат все позиционные параметры. Позиционные
+      параметры могут быть изменены после запуска скрипта или функции
+      с помощью встроенной команды <span><strong class="command">set</strong></span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2449012"></a>Настройки</h3></div></div></div><p>Настройки устанавливаются с помощью встроенной команды
+      <span><strong class="command">setopt</strong></span>, а удаляются с помощью команды
+      <span><strong class="command">unsetopt</strong></span>. Список настроек приведен в
+      документации по Zsh.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2452990"></a>Дополнения (completitions)</h2></div></div></div><p>Дополнения обеспечивают набор строк за вас. Они могут быть в
+    разных формах, но для их выполнения (обычно) используется клавиша
+    <span class="keysym">TAB</span>.</p><p>В Zsh дополняться может все что угодно: имена и пути
+    файлов; имена встроенных и внешних команд, а также их ключи; имена
+    переменных среды; имена пользователей и компьютеров, а также
+    многое другое. Zsh имеет в своей поставке некоторое количество
+    определений дополнений для основных программ операционных
+    систем. Для первоначальной настройки дополнений, вам необходимо
+    лишь вставить команду <span><strong class="command">compinit</strong></span> в ваш файл
+    инициализации, после чего Zsh сможет использовать дополнения для
+    тех команд, настройка для которых имеется в поставке Zsh.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2453040"></a>Виджеты дополнений</h3></div></div></div><p>Виджеты дополнений определяются с помощью ключа
+      <code class="option">-C</code> встроенной команды <span><strong class="command">zle</strong></span>,
+      которая предоставляется модулем
+      <span><strong class="command">zsh/zle</strong></span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2453066"></a>Дополнения с использованием
+      <span><strong class="command">compctl</strong></span></h3></div></div></div><p>Данный метод аналогичен по настройке тем дополнениям, что
+      применяются в <span class="application">csh</span> &amp;
+      <span class="application">tcsh</span> и является устаревшим, так что
+      новые пользователи скорее всего предпочтут использовать другие
+      методы определения дополнений, но он все равно поддерживается
+      текущими версиями Zsh.</p><p>Задание дополнений с помощью данного метода имеет общую
+      форму:
+      </p><pre class="screen">        compctl ключи [command ...] </pre><p>Определение дополнения начинается с ключевого слова
+      <span><strong class="command">compctl</strong></span> и заканчивается списком команд для
+      которых будет действовать дополнение. </p><p>Ключи определяют типы параметров, которые будут подпадать под дополнение (ключи командной строки, списки выполняемых заданий, и т.п.).</p><p>Ключ <code class="option">-k</code> указывает, что параметры, которые
+      будут дополняться, будут переданы в массиве. Это ключ очень
+      полезен, когда у вас списки параметров приведены в файле, или
+      заданы в явной форме. Так, можно явно задать список серверов,
+      имена которых будут дополняться при использовании команды
+      <span><strong class="command">ssh</strong></span>:
+      </p><pre class="screen">        compctl -k "( server1 server2 )" ssh </pre><p>В том случае, если у вас много серверов, то вы можете
+      перечислить их в файле и вместо явного перечисления указать в
+      скобках команду для получения содержимого нужного файла (в нашем
+      примере пусть это будет <code class="filename">~/.servers</code>):
+      </p><pre class="screen">        compctl -k "( ` cat ~/.servers ` )" ssh     </pre><p>Ключ <code class="option">-K</code> позволяет пользователю указать
+      функцию, которая будет вызываться для получения списка
+      дополняемых параметров. </p><p>Другие ключи команды <span><strong class="command">compctl</strong></span> описаны в
+      справочном руководстве по Zsh.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2453210"></a>Подсистема дополнений</h3></div></div></div><p>Эта подсистема является новой и введена начиная с версии
+      4.0. При этом для пользователей остается доступной старая
+      подсистема дополнений с использованием команды
+      <span><strong class="command">compctl</strong></span>, однако можно запретить ее
+      использование с помощью команды:
+      </p><pre class="screen">        zstyle ':completion:*' use-compctl false      </pre><p>Основным отличием новой системы дополнений от старой
+      является то, что вместо того, чтобы задавать все настройки разом
+      при запуске командного процессора, соответствующие части кода
+      будут вызываться только тогда, когда будет нажата клавиша
+      <span class="keysym">TAB</span>, при этом будут генерироваться новые
+      дополнения. Также введены новые команды, которые заменяют
+      использование команды <span><strong class="command">compctl</strong></span> с разными
+      ключами, например, для задания списка дополнений должна
+      использоваться команда <span><strong class="command">compadd</strong></span>. </p><p>Поведение команд зависит от используемого контекста, что
+      позволяет генерировать разные списки дополнений для разных
+      контекстов. Эта возможность, как и остальные, управляются с
+      помощью команды <span><strong class="command">zstyle</strong></span>. Например, можно
+      выдавать список дополнений в виде меню, перебирать их
+      циклически, а также построить небольшой менеджер файлов с
+      помощью стандартных команд Zsh.</p><p>Полное описание всех возможностей новой системы дополнений можно найти в руководстве пользователя Zsh.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2453326"></a>Модули Zsh</h2></div></div></div><p>Часть возможностей Zsh оформлена в виде модулей, отделенных от основной части командного процессора. Каждый из этих модулей может быть подключен к командному процессору во время сборки, или может быть загружен динамически во время запуска.</p><p>Загрузка модулей производится с помощью команды
+    <span><strong class="command">zmodload</strong></span>. Например, для загрузки модуля
+    редактирования командной строки <span><strong class="command">zle</strong></span> будет
+    использоваться команда
+    </p><pre class="screen">    zmodload zsh/zle</pre><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2453372"></a>Модуль редактирования командной строки (zsh/zle)</h3></div></div></div><p>Данный модуль предоставляет пользователю возможность редактирования командной строки. Редактирование может осуществляться в одном из двух режимов  &#8212; 
+      многострочном, если терминал поддерживает перемещение между
+      строками и однострочном, если терминал не поддерживает
+      перемещения между строками или установлена опция
+      <code class="varname">SINGLE_LINE_ZLE</code>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2453411"></a>Привязки клавиш</h4></div></div></div><p>Модуль редактирования поддерживает концепцию таблиц
+	привязки клавиш (keymaps). В любой момент времени может
+	существовать любое количество таблиц привязки. По умолчанию в
+	Zsh определены 4 таблицы привязки клавиш, которые эмулируют
+	команды <span class="application">Emacs</span>, редактора
+	<span class="application">vi</span> в режиме вставки, редактора
+	<span class="application">vi</span> в режиме команд, а также
+	специальный режим <span><strong class="command">safe</strong></span>, которые не
+	определяет никаких привязок, кроме вставки символов
+	соответствующих клавишам.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2453465"></a>Встроенные команды <span><strong class="command">zle</strong></span></h4></div></div></div><p>Модуль <span><strong class="command">zle</strong></span> предоставляет пользователю некоторое количество встроенных команд. Сюда относятся команды привязки клавиш   &#8212;  <span><strong class="command">bindkey</strong></span>,
+	которая позволяет определять и переопределять сочетания
+	клавиш; команды управления виджетами
+	<span><strong class="command">zle</strong></span>  &#8212;  создания, удаления, выдачи
+	списка и другие. </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2453509"></a>Виджеты <span><strong class="command">zle</strong></span></h4></div></div></div><p>Все действия в модуле редактирования выполняются через виджеты. Задачей виджета является выполнение какой-то простой операции. Все клавиши привязываются к какому-то из виджетов. Виджеты могут быть встроенные или определенные пользователем.</p><p>Встроенные виджеты выполняют такие операции, как
+	модификация текста, контроль истории, операции перемещения,
+	работу с аргументами, контроль дополнений и другие. Поведение
+	этих виджетов можно контролировать с помощью команд
+	<span><strong class="command">zle</strong></span> и <span><strong class="command">zstyle</strong></span>.</p><p>Виджеты, определяемые пользователем, являются функциями
+	командного процессора, которые могут выполнять любые
+	команды. Кроме того, они могут запускать другие виджеты
+	используя встроенные команды
+	<span><strong class="command">zle</strong></span>. Определяемые функции могут получать
+	доступ к результатам выполнения команд, не создавая трудностей
+	для пользователя.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2453589"></a>Модуль <span><strong class="command">zsh/zftp</strong></span></h3></div></div></div><p>Данный модуль позволяет пользователю выполнять команды
+      <span><strong class="command">ftp</strong></span> в командной строке или внутри
+      скриптов. Интерфейс похож на тот, который используется в
+      традиционном клиенте <span><strong class="command">ftp</strong></span>, но при этом используются все возможности Zsh  &#8212;  дополнения, глоббинг и редактирование. Загрузка данного модуля предоставляет пользователю одну встроенную команду  &#8212; 
+      <span><strong class="command">zftp</strong></span>, с помощью которой и выполняются все
+      операции.</p><p>Загрузка модуля выполняется с помощью команд:
+      </p><pre class="screen">      autoload -U zfinit
+      zfinit     </pre><p>Встроенная команда <span><strong class="command">zftp</strong></span> обеспечивает
+      выполнение всех команд. Синтаксис команды выглядит следующим
+      образом:
+      </p><pre class="screen">      zftp подкоманда [аргументы]      </pre><p>Подкомандами являются обычные команды
+      <span><strong class="command">ftp</strong></span>  &#8212;  <span><strong class="command">open</strong></span>,
+      <span><strong class="command">cd</strong></span>, <span><strong class="command">get</strong></span>,
+      <span><strong class="command">put</strong></span>, <span><strong class="command">bin</strong></span> и другие. Кроме
+      того, модуль предоставляет другие команды, которые являются
+      алиасами для команд &#171;<span class="quote"><span><strong class="command">zftp подкоманда</strong></span></span>&#187;, такие как
+      <span><strong class="command">zfopen</strong></span>, <span><strong class="command">zfget</strong></span>,
+      <span><strong class="command">zfcd</strong></span> и другие.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2453741"></a>Другие модули Zsh</h3></div></div></div><p>Кроме вышеперечисленных модулей, в поставку Zsh входят
+      модули работы со списками привилегий POSIX.1e (модуль
+      <span><strong class="command">zsh/cap</strong></span>), работы с математическими функциями
+      (модуль <span><strong class="command">zsh/mathfunc</strong></span>), модуль использования
+      некоторых стандартных команд (<span><strong class="command">chown</strong></span>,
+      <span><strong class="command">chgrp</strong></span>, <span><strong class="command">ln</strong></span>,
+      <span><strong class="command">rm</strong></span> и других) как встроенных (модуль
+      <span><strong class="command">zsh/files</strong></span>) и другие модули. Для получения их
+      полного списка и описания работы с ними смотрите документацию из
+      поставки Zsh.</p></div></div><div class="section"
+      lang="ru"><div class="titlepage"><div><div><h2 class="title"
+      style="clear: both"><a name="id2453808"></a>Дополнительные
+      источники
+      информации</h2></div></div></div><div
+      class="itemizedlist"><p
+      class="title"><b></b></p><ul
+      type="disc"><li><p><a href="http://www.zsh.org"
+      target="_top">Домашняя страница
+      Zsh</a></p></li><li><p><a href="http://zsh.sunsite.dk/Doc/"
+      target="_top">Документация по
+      Zsh</a></p></li><li><p><a href="http://zsh.sunsite.dk/Guide/"
+      target="_top">Руководство пользователя
+      Zsh</a></p></li><li><p><a href="http://www.zsh.org/FAQ/"
+      target="_top">Zsh
+      FAQ</a></p></li><li><p><a href="http://zsh.sunsite.dk/Refcard/"
+      target="_top">Zsh
+      refcard</a></p></li><li><p><a
+      href="http://xtalk.msk.su/~ott/linux/zsh/zsh-refcard.pdf"
+      target="_top">Zsh refcard на
+      русском</a></p></li></ul></div></div></div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+	_uacct = "UA-78697-3";
+	urchinTracker();
+</script>
+</body></html>

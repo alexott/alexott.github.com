@@ -1,0 +1,191 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет DVC</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s02.html" title="Пакет VC"><link rel="next" href="ar01s04.html" title="Пакет PCL-CVS"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет <span class="application">DVC</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s02.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s04.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.dvc"></a>Пакет <span class="application">DVC</span></h2></div></div></div><p>С распространением распределенных систем контроля версий (distributed version
+  control systems), появилась необходимость в реализации их поддержки в <span class="application">Emacs</span>.  Для
+  поддержки конктретных реализаций распределнных систем контроля версий были созданы
+  отдельные пакеты, которые реализовали поддержку специфической системы, с учетом разницы
+  в идеологии и командах. </p><p>Однако как упоминалось ранее, для поддержки большинства централизованных систем
+  контроля версий существует пакет <span class="application">VC</span>, описанный в разделе <a class="xref" href="ar01s02.html" title="Пакет VC">Пакет <span class="application">VC</span></a>, поэтому была начата разработка пакета <span class="application">DVC</span>, который
+  должен реализовать общее ядро для поддержки различных распределнных систем контроля
+  версий.  Пакет <span class="application">DVC</span> во многом является продолжением разработки пакета <span class="application">xtla</span>, и
+  разрабатывается той же командой разработчиков.  Подробно о пакете можно прочитать на
+  <a class="ulink" href="http://download.gna.org/dvc/" target="_top">сайте проекта</a>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2572287"></a>Архитектура пакета и поддерживаемые системы контроля версий</h3></div></div></div><p><span class="application">DVC</span> имеет многоуровневую архитектуру.  На самом верхнем уровне находятся
+    функции обеспечивающие автоматическое определение системы контроля версий и выполнение
+    функций, общих для всех систем контроля версий.  Уровнем ниже находится функции,
+    специфические для каждой из систем контроля версий.  И на самом нижнем уровне
+    находятся функции, используемые подсистемами, отвечающими за работу с конкретными
+    системами контроля версий.</p><p>В настоящее время <span class="application">DVC</span> поддерживает следующие системы контроля версий:</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><thead><tr><th>название в dvc</th><th>система контроля версий</th></tr></thead><tbody><tr><td>xhg</td><td>mercurial (он же hg)</td></tr><tr><td>xgit</td><td>git</td></tr><tr><td>baz</td><td>GNU Arch (tla) и Bazaar 1.x</td></tr><tr><td>bzr</td><td>Bazaar-NG</td></tr><tr><td>xmtn</td><td>Monotone</td></tr><tr><td>xdarcs</td><td>Darcs</td></tr></tbody></table></div><p>Не все системы контроля версий имеют полную поддержку в <span class="application">DVC</span>.  На <a class="ulink" href="http://download.gna.org/dvc/" target="_top">сайте</a> вы можете посмотреть таблицу, в
+    которой перечислены поддерживаемые для каждой из систем функции.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2572453"></a>Установка пакета</h3></div></div></div><p>Установка пакета достаточно проста - необходимо скачать дистрибутив с сайта
+    проекта, распаковать его, и установить с помощью станлартной последовательности
+    команд:
+
+    </p><pre class="screen">./configure
+make
+make install
+</pre><p>
+    </p><p>Для того, чтобы воспользоваться функциями пакета необходимо добавить в файл
+    инициализации следующие строки:
+
+    </p><pre class="screen">(add-to-list 'load-path "path_to_installed_package")
+(require 'dvc-autoloads)
+</pre><p>
+
+    выполнение которых приведет к регистрации функций автозагрузки частей пакета при
+    первом обращении к ним. После выполнения этих команд можно выполнить настройку пакета
+    (см. раздел <a class="xref" href="ar01s03.html#emacs.vcs.dvc.customization" title="Настройка">Настройка</a> ), но это не обязательно, поскольку настроек
+    по умолчанию обычно хватает для начала работы.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2572524"></a>Начало работы с пакетом</h3></div></div></div><p><span class="application">DVC</span> можно пользоваться используя общее знание о соответствующей системе
+    контроля версий - для всех основных команд системы контроля версий имеются
+    соответствующие функции <span class="application">DVC</span>, начинающиеся с префикса
+    <span class="command"><strong>dvc-</strong></span><sup>[<a name="id2572558" href="#ftn.id2572558" class="footnote">1</a>]</sup>.</p><p>Основной командой используемой пользователем можно считать команду
+    <span class="command"><strong>dvc-status</strong></span> (она доступна через глобальное сочетание клавиш
+    <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">s</span>), которая создает буфер со
+    списком измененных файлов с который похож на интерфейс <span class="application">PCL-CVS</span>.  Название буфера
+    зависит от того, какая система контроля версий используется для данного репозитория,
+    но в общем виде оно выглядит как <code class="varname">*VCS-status*</code>, где
+    <code class="varname">VCS</code> заменяется на название соответствующего backend, реализующего
+    функции работы с конкретной системой контроля версий.</p><p>После получения буфера со статусом репозитория, в нем можно производить
+    различные операции. В этом буфере автоматически включается режим
+    <span class="command"><strong>dvc-diff</strong></span>, для которого определено некоторое количество специальных
+    команд.  Интерфейс и управляющие клавиши очень похожи на те, которые применяются в
+    <span class="application">PCL-CVS</span>, так что на освоение пакета <span class="application">DVC</span> уходит очень мало
+    времени.<sup>[<a name="id2572714" href="#ftn.id2572714" class="footnote">2</a>]</sup> Часть операций также доступна для выполения через меню.  <span class="application">DVC</span> создает несколько меню —  <code class="varname">DVC-Diff</code>,
+    <code class="varname">DVC-Buffers</code> и отдельное меню по названию используемой системы
+    контроля версий, которое предназначено для выполнения команд, относящихся к конкретной
+    системе. <code class="varname">DVC-Buffers</code> содержит список открытых буферов <span class="application">DVC</span> и
+    используется для операций над этими буферами.  Меню <code class="varname">DVC-Diff</code> в свою очередь используется для доступа к командам, общим для всех систем контроля версий —  получение изменений, удаление файлов, отмена изменений и т.п.</p><p>Также как и в <span class="application">PCL-CVS</span>, некоторые команды могут выполняться не нат отдельными
+    файлами, а над группами.  Для установки пометки используется клавиша
+    <span class="keysym">m</span>, а для снятия пометки —  <span class="keysym">u</span>.  Кроме того,
+    можно воспользоваться клавишей <span class="keysym">backspace</span>, которая снимает пометку с
+    предыдущего файла.</p><p>Наиболее часто при работе с репозиторием используется лишь ограниченное количество команд —  просмотреть сделанные изменения и подтвердить сделанные
+    изменения (commit) или наоборот вернуться к предыдущим версиям, добавить или удалить
+    файлы, просмотреть журнал изменений.  Для всех этих операций, <span class="application">DVC</span> предоставляет
+    соответствующие команды.</p><p>Просмотр файла осуществляется либо с помощью функции
+    <span class="command"><strong>dvc-diff-jump-to-change</strong></span> (клавиша <span class="keysym">RET</span>),
+    которая открывает файл и переходит к первой изменённой строке, либо с помощью функции
+    <span class="command"><strong>diff-goto-source</strong></span> (клавиша <span class="keysym">o</span> или средняя
+    кнопка мыши).  С помощью команды <span class="command"><strong>dvc-dired-jump</strong></span>
+    (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">C</span>+<span class="keysym">j</span>) можно также перейти к нужному файлу в буфере
+    Dired.</p><p>Чтобы откатить сделанные изменения можно воспользоваться командой
+    <span class="command"><strong>dvc-revert-files</strong></span> (клавиша <span class="keysym">U</span> или
+    <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">f</span> <span class="keysym">R</span>).
+    А вот подтверждение изменений может быть сделано одной из двух команд:
+    <span class="command"><strong>dvc-log-edit</strong></span> или
+    <span class="command"><strong>dvc-add-log-entry</strong></span>. <span class="command"><strong>dvc-log-edit</strong></span> (клавиша
+    <span class="keysym">c</span> или <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">c</span>) открывает буфер, в
+    который вы можете ввести текст, описывающий изменения, и затем выполнить команду
+    <span class="command"><strong>dvc-log-edit-done</strong></span> (она привязана к привычному сочетанию клавиш
+    <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">C</span>+<span class="keysym">c</span>). Вторая команда — 
+    <span class="command"><strong>dvc-add-log-entry</strong></span> (<span class="keysym">t</span> или
+    <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">a</span>) отличается от первой лишь тем, что сообщение будет выглядеть лучше —  в стиле файлов
+    <code class="filename">ChangeLog</code>.  Находясь в буфере статуса, можно сохранить сделанные
+    изменения в виде отдельного файла.  Это выполняется с помощью функции
+    <span class="command"><strong>dvc-save-diff</strong></span> (сочетание клавиш
+    <span class="keysym">W</span> <span class="keysym">s</span>).</p><p>Для просмотра сделанных изменений определено несколько функций.  Для
+    непосредственного просмотра изменений из буфера <code class="filename">*VCS-status*</code>
+    могут использоваться функции <span class="command"><strong>dvc-diff-diff</strong></span> (клавиша равно) или
+    функция <span class="command"><strong>dvc-diff-ediff</strong></span> (клавиша <span class="keysym">e</span>).  Вторая
+    функция отличается тем, что для просмотра изменений запускает ediff.  Для быстрого
+    переключения между буфером с изменениями и соответствующим элементом в буфере статуса,
+    может использоваться функция <span class="command"><strong>dvc-diff-diff-or-list</strong></span> (клавиша
+    <span class="keysym">j</span>) —  она работает в обоих буферах.  А с помощью функции
+    <span class="command"><strong>dvc-diff-view-source</strong></span> (клавиша <span class="keysym">v</span>) можно открыть отдельное окно с файлом и рассмотреть изменённый участок файла. Для того, чтобы просматривать содержимое буфера с изменениями, не переключаясь в него, определены две функции —  <span class="command"><strong>dvc-diff-scroll-down-or-diff</strong></span>
+    (<span class="keysym">M</span>+<span class="keysym">=</span>) и
+    <span class="command"><strong>dvc-diff-scroll-up-or-diff</strong></span> (<span class="keysym">M</span>+<span class="keysym">RET</span>), которые прокручивают буфер с изменениями вверх и
+    вниз.</p><p>Кроме этих функций, определены ещё три функции, которые могут выполняться не из
+    буфера <code class="filename">*VCS-status*</code> и имеют глобальные привязки клавиш.  Функция
+    <span class="command"><strong>dvc-diff</strong></span> (привязана к <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">=</span>)
+    отображает изменения между текущим и предыдущим состояниями репозитория.  Функции
+    <span class="command"><strong>dvc-file-diff</strong></span> (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">d</span>) и
+    <span class="command"><strong>dvc-file-ediff</strong></span> (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">e</span>)
+    показывают изменения для конкретного файла, используя буфер или ediff,
+    соответственно.</p><p>Для просмотра журнала изменений (log) также определено несколько команд,
+    действующих как в буфере статуса, так и привязанных к глобальным сочетаниям клавиш.
+    Так, команда <span class="command"><strong>dvc-log</strong></span> (<span class="keysym">L</span> или
+    <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">L</span>)
+    показывает список изменений для файла или проекта в сокращённой форме.  Для файла,
+    находящегося в текущей позиции буфера статуса, можно посмотреть этот же журнал с
+    помощью команды <span class="command"><strong>dvc-diff-log</strong></span> (клавиша <span class="keysym">l</span>).  Полный
+    же журнал изменений можно посмотреть с помощью команды
+    <span class="command"><strong>dvc-changelog</strong></span> (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">l</span>).  Все
+    эти команды могут принимать префиксный параметр, определяющий то, сколько последних
+    изменений необходимо показать. По умолчанию показываются все изменения.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2573419"></a>Работа с файлами</h3></div></div></div><p>Достаточно часто пользователю приходится выполнять и различные работы с файлами —  добавлять, удалять их и т.п.  <span class="application">DVC</span> определяет несколько команд, которые
+    предназначены для выполнения этих задач.  Команда <span class="command"><strong>dvc-add-files</strong></span>
+    (<span class="keysym">a</span> или <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">f</span> <span class="keysym">a</span>)
+    добавляет текущий или выбранные файлы в репозиторий.  Для удаления выбранных файлов из
+    репозитория служит команда <span class="command"><strong>dvc-remove-files</strong></span> (клавиши
+    <span class="keysym">d</span> или <span class="keysym">r</span>, или глобальное сочетание
+    <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">f</span> <span class="keysym">D</span>). Есть ещё одна команда для удаления файлов —  <span class="command"><strong>dvc-purge-files</strong></span>
+    (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">f</span> <span class="keysym">X</span>),
+    которая удаляет файлы с диска, не оставляя резервных копий.  Поскольку практически все
+    современные системы контроля версий поддерживают операцию переименования файлов, то
+    <span class="application">DVC</span> также предоставляет эту возможность с помощью команды
+    <span class="command"><strong>dvc-rename</strong></span> (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">f</span> <span class="keysym">M</span>).</p><p>Для работы с файлами, которые зарегистрированы в системе контроля версий, но не
+    отображены в буфере статуса, пользователь может использовать команду
+    <span class="command"><strong>dvc-inventory</strong></span> (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">i</span>), которая отображает
+    список файлов, известных данной системе контроля версий.  В этом буфере пользователь
+    может использовать те же команды, и сочетания клавиш, что и в буфере статуса.</p><p>Пользователь может управлять списком объектов (файлов и каталогов), которые
+    будут известны системе контроля версий.  Обычно, в каждой из систем контроля версий,
+    существует список игнорируемых файлов, который может изменяться пользователем.  Для
+    быстрого выполнения этой задачи, определено несколько команд.  Команда
+    <span class="command"><strong>dvc-ignore-files</strong></span> (<span class="keysym">#</span> <span class="keysym">i</span> или
+    просто <span class="keysym">i</span>) помещает выбранные файлы в список игнорируемых объектов.
+    Команда <span class="command"><strong>dvc-ignore-file-extensions</strong></span>
+    (<span class="keysym">#</span> <span class="keysym">I</span>) также изменяет этот список, но туда попадают не полные имена файлов, а только их расширения, что часто бывает очень удобным. Ну а если вам необходимо изменить этот список другим способом — 
+    удалить файл из этого списка, или добавить сложное регулярное выражение, то тут можно
+    воспользоваться командой <span class="command"><strong>dvc-edit-ignore-files</strong></span>
+    (<span class="keysym">#</span> <span class="keysym">e</span>), которая откроет список игнорируемых
+    объектов и позволит его отредактировать.  При этом синтаксис файла, зависит от
+    используемой системы контроля версий.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2573730"></a>Ветки и сторонние репозитории</h3></div></div></div><p>Работа с разными репозиториями и ветвями является актуальной для пользователей
+    распределённых систем контроля версий, поэтому <span class="application">DVC</span> представляет достаточный набор
+    возможностей для выполнения этих задач.</p><p>Для всех поддерживаемых систем контроля версий имеется общий набор команд,
+    обеспечивающий основную функциональность.  Но поскольку <span class="application">DVC</span> является развитием
+    проекта <span class="application">xtla</span>, то для <span class="application">GNU Arch</span> и <span class="application">Bazaar</span> имеется больший набор функций — 
+    закладки для репозиториев и т.п. (описание соответствующих функций можно найти в
+    разделе <a class="xref" href="ar01s05.html" title="Пакет xtla">Пакет <span class="application">xtla</span></a>.  Модули для
+    других систем контроля версий также могут предоставлять дополнительные команды.</p><p>Общими для всех систем контроля являются следующие команды:</p><div class="informaltable"><table border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Команда</th><th>Сочетание клавиш</th><th>Описание</th></tr></thead><tbody><tr><td><span class="command"><strong>dvc-missing</strong></span></td><td><span class="keysym">M</span> <span class="keysym">m</span> или
+            <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">m</span></td><td><p>показывает список изменений, присутствующих в удалённом репозитории</p></td></tr><tr><td><span class="command"><strong>dvc-merge</strong></span></td><td><span class="keysym">M</span> <span class="keysym">M</span> или
+            <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">M</span></td><td><p>скачивает и применяет изменения из удалённого репозитория</p></td></tr><tr><td><span class="command"><strong>dvc-pull</strong></span></td><td><span class="keysym">M</span> <span class="keysym">f</span> или
+            <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">F</span></td><td><p>скачивает изменения из удалённого репозитория (не применяя их)</p></td></tr><tr><td><span class="command"><strong>dvc-update</strong></span></td><td><span class="keysym">M</span> <span class="keysym">u</span> или
+            <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">u</span></td><td><p>применяет скачанные изменения к текущему репозиторию</p></td></tr><tr><td><span class="command"><strong>dvc-push</strong></span></td><td><span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">P</span></td><td><p>переносит изменения из текущего репозитория в удалённый репозиторий</p></td></tr><tr><td><span class="command"><strong>dvc-submit-patch</strong></span></td><td><span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">p</span></td><td><p>отправляет сделанные в текущем репозитории изменения на указанный почтовый адрес</p></td></tr><tr><td><span class="command"><strong>dvc-bookmarks</strong></span></td><td><span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">b</span></td><td><p>открывает буфер, содержащий закладки, с адресами удалённых репозиториев</p></td></tr><tr><td><span class="command"><strong>dvc-clone</strong></span></td><td><span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">C</span></td><td><p>клонирует удаленный репозиторий</p></td></tr></tbody></table></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2574174"></a>Прочие команды</h3></div></div></div><p>Чтобы покинуть буфер со статусом репозитория, пользователь может выполнить
+    команду <span class="command"><strong>dvc-buffer-quit</strong></span> (клавиша <span class="keysym">q</span>).
+    А чтобы обновить содержимое буфера, достаточно выполнить команду
+    <span class="command"><strong>dvc-generic-refresh</strong></span> (клавиша
+    <span class="keysym">g</span>).</p><p>Получить справку по использованию пакета можно используя стандартные средства
+    <span class="application">Emacs</span> —  находясь в буфере статуса, нажмите <span class="keysym">C</span>+<span class="keysym">h</span> <span class="keysym">m</span> и вам
+    будет выдано описание действующего режима, вместе со списком допустимых клавиш, и
+    названий соответствующих команд.  Список глобальных сочетаний клавиш, относящихся к
+    пакету, можно получить с помощью сочетания <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span> <span class="keysym">C</span>+<span class="keysym">h</span>.  Кроме того, в состав
+    пакета входят различные "советы" (tips), с которыми можно ознакомиться с
+    помощью команды <span class="command"><strong>dvc-tips-next-tip</strong></span>, и в появившемся буфере, можно
+    использовать клавиши <span class="keysym">n</span> и <span class="keysym">p</span> для
+    перехода к следующему или предыдущему совету.</p><p><span class="application">DVC</span> в процессе своей работы открывает некоторое количество буферов, и для того,
+    чтобы было легче перемещаться между ними, предоставляет некоторое количество команд.
+    При просмотре вложенных друг в друга изменений можно воспользоваться командой
+    <span class="command"><strong>dvc-diff-master-buffer</strong></span> (клавиша <span class="keysym">^</span>)
+    для перехода в главный буфер с изменениями.  <span class="application">DVC</span> также для каждого буфера
+    устанавливает специальную переменную, указывающую на буфер-партнёр, связанный с
+    текущим буфером общей задачей.  Это позволяет быстро переключаться между этими
+    буферами с помощью команды <span class="command"><strong>dvc-buffer-pop-to-partner-buffer</strong></span>
+    (клавиша <span class="keysym">h</span>).</p><p>Аналогичным образом можно просматривать и буфера, используемые <span class="application">DVC</span> в своих
+    целях.  Команда <span class="command"><strong>dvc-open-internal-log-buffer</strong></span>
+    (<span class="keysym">B</span> <span class="keysym">L</span>) открывает буфер, содержащий все команды
+    выполненные пакетом.  А с помощью команды <span class="command"><strong>dvc-show-process-buffer</strong></span>
+    (<span class="keysym">B</span> <span class="keysym">p</span>) можно посмотреть на результат выполнения
+    внешних команд, вызываемых пакетом для выполнения тех, или иных действий.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="emacs.vcs.dvc.customization"></a>Настройка</h3></div></div></div><p>Настройка пакета осуществляется с помощью стандартных механизмов настройки
+    <span class="application">Emacs</span>.  Соответствующая группа настройки имеет название
+    <span class="command"><strong>dvc</strong></span>.</p><p>Некоторые режимы, реализуемые пакетом, предоставляют пользователю возможность
+    установки параметров буферов путём запуска специальных хуков.  Так например, команда
+    <span class="command"><strong>dvc-status</strong></span> запускает хук
+    <span class="command"><strong>dvc-diff-mode-hook</strong></span> (если он определён) при завершении
+    инициализации буфера статуса.</p></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id2572558" href="#id2572558" class="para">1</a>] </sup>Кроме того, каждый из модулей, реализующий
+    поддержку конкретной системы контроля версий, определяет собственный набор функций,
+    соответствующих командам этой системы контроля версий и который может быть отличным от
+    команд <span class="application">DVC</span>.  Например, модуль реализующий поддержку <span class="application">Mercurial</span> объявляет функции с
+    префиксом <span class="command"><strong>xhg-</strong></span>, которые могут напрямую быть вызваны пользователем,
+    если для них нет соответствия среди функций <span class="application">DVC</span>.</p></div><div class="footnote"><p><sup>[<a name="ftn.id2572714" href="#id2572714" class="para">2</a>] </sup>Стоит отметить, что многие команды также доступны вне буфера
+    <code class="varname">*VCS-status*</code>.  Для их выполнения надо к соответствующей
+    клавиатурной команде добавить глобальный префикс
+    <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">V</span>.  В
+    данном тексте эти команды будут помечаться <span class="emphasis"><em>глобальные</em></span>.
+    </p></div></div></div><script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script type="text/javascript">
+      _uacct = "UA-78697-3";
+      urchinTracker();
+    </script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s02.html">Пред.</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s04.html">След.</a></td></tr><tr><td width="40%" align="left" valign="top">Пакет <span class="application">VC</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Начало</a></td><td width="40%" align="right" valign="top"> Пакет <span class="application">PCL-CVS</span></td></tr></table></div></body></html>

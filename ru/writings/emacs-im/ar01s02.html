@@ -1,0 +1,317 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет Erc</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="index.html" title="Emacs и средства интерактивного общения"><link rel="up" href="index.html" title="Emacs и средства интерактивного общения"><link rel="prev" href="ar01s01.html" title="Введение"><link rel="next" href="ar01s03.html" title="Пакет Rcirc"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет <span class="application">Erc</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s01.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s03.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.net.erc"></a>Пакет <span class="application">Erc</span></h2></div></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2523028"></a>Основные возможности пакета <span class="application">Erc</span></h3></div></div></div><p>Пакет <span class="application">Erc</span> предоставляет для пользователя множество возможностей, вот основные:
+    </p><div class="itemizedlist"><ul type="disc"><li><p>Поддержку работы с несколькими каналами и серверами. Каждый канал работает в своем буфере;</p></li><li><p>Уведомления;</p></li><li><p>Дополнения имен пользователей;</p></li><li><p>Поддержку разных языков;</p></li><li><p>Отслеживание активности на каналах;</p></li><li><p>Расширение возможностей, за счет написания скриптов;</p></li><li><p>Подсветку ключевых слов и различных действий;</p></li><li><p>Взаимодействовать с другими средствами обмена сообщениями, используя
+      BitlBee (более подробно о настройке Erc для использования вместе с BitlBee смотрите
+      страницу <a class="ulink" href="http://www.emacswiki.org/cgi-bin/wiki?BitlBee" target="_top">http://www.emacswiki.org/cgi-bin/wiki?BitlBee</a>;
+      </p></li><li><p>и многое, многое другое.</p></li></ul></div><p>
+    </p><p>Пакет работает как с GNU Emacs<sup>[<a name="id2523612" href="#ftn.id2523612" class="footnote">1</a>]</sup>, так и с XEmacs.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2523639"></a>Установка пакета</h3></div></div></div><p>Исходные тексты <span class="application">Erc</span> доступны по адресу <a class="ulink" href="http://sourceforge.net/projects/erc/" target="_top">http://sourceforge.net/projects/erc/</a>.
+    Необходимо только раскрыть полученный архив, и поместить несколько команд в ваш файл
+    инициализации, например вот так:
+
+    </p><pre class="screen">(add-to-list 'load-path "path_to_erc_dir")
+(require 'erc)
+</pre><p>
+    </p><p>Это минимальный набор команд, необходимых для загрузки данного пакета. Но <span class="application">Erc</span>
+    предоставляет намного больше возможностей, поэтому у человека, который часто
+    пользуется данным пакетом, файл инициализации выглядит намного сложнее.  Вы можете
+    найти такие примеры на Emacs WiKi, или в разделе <a class="xref" href="ar01s02.html#emacs.net.erc.init" title="Пример файла инициализации Erc">Пример файла инициализации Erc</a>. А более подробно про настройку я расскажу в разделе
+    <a class="xref" href="ar01s02.html#emacs.net.erc.customize" title="Настройка клиента">Настройка клиента</a>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2523829"></a>Основные операции</h3></div></div></div><p>Начала работы вам необходимо набрать команды
+    <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span>
+    erc-select</code>, которая запросит у вас имя сервера, порт и другие параметры. Вы
+    можете задать эти параметры один раз произведя настройку клиента (см. раздел <a class="xref" href="ar01s02.html#emacs.net.erc.customize" title="Настройка клиента">Настройка клиента</a>). В зависимости от настройки, клиент может сразу подключиться к нужным вам каналам —  это выполняется
+    пакетом erc-autojoin, который поставляется с <span class="application">Erc</span>.</p><p>После того, как вы подключились к IRC-серверу, вы можете выполняться обычные команды IRC —  подключение к новым каналам, получение информации и много других
+    вещей. Команды вводятся в строке, которая начинается с ERC&gt;. Окно канала может
+    выглядеть как изображено на рисунке <a class="xref" href="ar01s02.html#emacs.net.erc.window" title="Рисунок 1. Окно сеанса Erc">Окно сеанса Erc</a>, кроме того, вы можете использовать стандартные
+    команды Emacs для разделения фрейма на несколько окон и отображать в них разные
+    каналы.</p><p>
+      </p><div class="figure-float" style="float: left;"><div class="figure"><a name="emacs.net.erc.window"></a><p class="title"><b>Рисунок 1. Окно сеанса Erc</b></p><div class="figure-contents"><div class="screenshot"><div class="mediaobject"><img src="emacs-erc-window.png" alt="Окно сеанса Erc"></div></div></div></div><br class="figure-break"></div><p>
+    </p><p>Во время работы, erc изменяет строку состояния, в которой отображает имя канала
+    и сервера, а также изменение статуса других каналов, в виде сокращения
+    <code class="literal">#</code> и первой буквы имени канала, и разным цветом, синим —  когда
+    кто-то заходит на канал или покидает в него, и красным когда кто-то беседует на
+    канале. В верхней строке окна отображается название канала, текущий лаг, и тема
+    канала. Кроме этого, erc позволяет использовать стандартные механизмы дополнения имен
+    пользователей и каналов, при их наборе.</p><p>Для того, чтобы закончить работу с IRC, наберите команды
+    <code class="function">erc-quit-server</code>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2524116"></a>Модули Erc</h3></div></div></div><p>В составе <span class="application">Erc</span> идет некоторое количество модулей, которые расширяют основную
+    функциональность пакета. Для каждого из этих модулей пользователь может выполнить
+    дополнительную настройку, управляющую его поведением. Часть модулей загружается
+    автоматически, а некоторые требуют индивидуальной загрузки. Список автоматически
+    загружаемых модулей хранится в переменной <code class="varname">erc-modules</code>.</p><p>Ниже приведен список наиболее часто используемых модулей, и того какие настройки для них могут выполняться.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2524164"></a>erc-autojoin</h4></div></div></div><p>Данный пакет позволяет запоминать на какие каналы заходил пользователь
+      используя команды <code class="literal">/JOIN</code> и <code class="literal">/PART</code>, и при
+      следующем сеансе использования erc восстановить сохраненную конфигурацию.  Список
+      автоматически подключаемых каналов сохраняется в переменной
+      <code class="varname">erc-autojoin-channels-alist</code>.  Данная переменная состоит из
+      списков вида "имя сервера" "канал1" "канал2"..., например:
+
+      </p><pre class="screen">(setq erc-autojoin-channels-alist
+   '(("freenode.net" "#emacs" "#arch" "#squiddev")))
+</pre><p>
+      </p><p>По умолчанию, данный режим включен, и используется.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2524220"></a>erc-button</h4></div></div></div><p>Данный модуль позволяет создать нажимаемые кнопки на основе текста буфера.  По
+      умолчанию данный режим включен, и используется для организации нажимаемых кнопок для
+      самых разных объектов, таких как:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>адресов сайтов (URL's);</p></li><li><p>запросов к Google;</p></li><li><p>имен пользователей IRC;</p></li><li><p>RFC (что позволяет сразу перейти к нужному документу);</p></li><li><p>разделов документации в формате Info;</p></li><li><p>интернет-времени.</p></li></ul></div><p>Пользователи могут определять и свои типы, используя механизм сокращений
+      (abbrevs). Кроме этого, пользователь имеет возможность перехода между кнопками,
+      используя сочетание <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">w</span>
+      <span class="keysym">C</span>+<span class="keysym">b</span> для перехода на предыдущую
+      кнопку, и <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">w</span>
+      <span class="keysym">C</span>+<span class="keysym">f</span> для перехода на
+      следующую.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2524349"></a>erc-track</h4></div></div></div><p>Данный модуль позволяет отслеживать изменения в буферах erc —  данный режим включен по умолчанию. При использовании данного модуля, в строке статуса отображается список каналов, в которых произошли изменения. По умолчанию, отслеживается вся активность —  вход новых посетителей, выход с канала, и
+      изменение имени, что не всегда нужно знать. С помощью переменной
+      <code class="varname">erc-track-exclude-types</code> вы можете исключить некоторые команды из
+      списка отслеживаемой активности. Например, вот так:
+
+      </p><pre class="screen">(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT"))
+</pre><p>
+      </p><p>Для перехода в буфер, в котором, в последнем была какая-либо активность, вы
+      можете использовать сочетание клавиш
+      <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">space</span> или
+      <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">@</span>.  В том случае, если нет
+      больше активных каналов, данное сочетание переключает вас в тот буфер, в котором вы
+      работали перед этим.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2524444"></a>emacs-completion</h4></div></div></div><p>Данный модуль позволяет использовать дополнение имен каналов и посетителей, а
+      также команд <span class="application">Erc</span>, используя клавишу <span class="keysym">TAB</span>.  Этот модуль разрешен по
+      умолчанию, и для своей работы использует программируемый механизм дополнений,
+      который реализуется библиотекой <code class="filename">pcomplete</code>, которая обычно поставляется с Emacs. В том случае, если у вас нет этой библиотеки, вы все равно можете воспользоваться возможностями дополнения, переключившись на использование старого механизма, правда это не рекомендуется делать —  лучше установите
+      библиотеку pcomplete.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2570941"></a>erc-fill</h4></div></div></div><p>По умолчанию <span class="application">Erc</span> позволяет красиво заполнять и выравнивать отображаемый
+      текст.  По умолчанию используется режим заполнения, с переменным префиксом,
+      зависящим от длины имени посетителя, который написал данное сообщение. Однако вы
+      можете изменить эту настройку с помощью установки переменной
+      <code class="varname">erc-fill-prefix</code>, в которой вы можете задать данные для заполнения —  например, несколько пробелов подряд.  Кроме этого, существуют и
+      другие варианты заполнения, про которые вы можете прочитать на <a class="ulink" href="http://www.emacswiki.org/cgi-bin/wiki/ErcFilling" target="_top">Emacs WiKi</a>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2570992"></a>erc-stamp</h4></div></div></div><p>Кроме всего прочего, <span class="application">Erc</span> позволяет вам вставлять в текст буферов временные
+      пометки, для того, чтобы вам было удобней просматривать журналы бесед, или точно
+      находить нужную беседу.  По умолчанию данный модуль не подгружается автоматически,
+      так что вам необходимо добавить его к списку загружаемых модулей.  Для настройки
+      отображения можно задать несколько переменных, которые будут описывать вид
+      отображаемых временных пометок, и другие параметры.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571035"></a>erc-netsplit</h4></div></div></div><p>Данный модуль обеспечивает определение отключение от сети целых IRC-серверов
+      (так называемый netsplit), и подключение ранее отключенных серверов. Вы можете
+      выполнять свой код в данных случаях, воспользовавшись хуками
+      <code class="function">erc-netsplit-hook</code> и
+      <code class="function">erc-netjoin-hook</code>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571071"></a>erc-autoaway</h4></div></div></div><p>Иногда вы отходите от клавиатуры на длительный срок, и можете забыть сообщить
+      серверу, что вы отсутствуете. Чтобы это делалось автоматически, с <span class="application">Erc</span> поставляется
+      модуль <span class="emphasis"><em>erc-autoaway</em></span>, который сам изменит режим после заданного
+      отрезка времени. Данный модуль не загружается автоматически, так что вам нужно самим
+      подключить его, с помощью команд, подобных этим:
+
+      </p><pre class="screen">(require 'erc-autoaway)
+(setq erc-autoaway-idle-seconds 600)
+(setq erc-auto-discard-away t)
+</pre><p>
+
+      первая команда подгружает сам модуль, вторая задает через сколько времени вы будете
+      считаться отсутствующим, а последняя задает режим автоматического выхода из режима
+      отсутствия, если вы что-то напишете в каком-либо из буферов.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571125"></a>erc-log</h4></div></div></div><p><span class="application">Erc</span> позволяет вам сохранять журналы бесед на IRC. Для этого существует
+      модуль <span class="emphasis"><em>erc-log</em></span>. Однако, данная возможность не подключается
+      автоматически, а требует ручной загрузки, например вот так:
+
+      </p><pre class="screen">(require 'erc-log)
+(setq erc-log-channels-directory "~/.irc/logs/")
+</pre><p>
+      
+      первая команда загружает нужный модуль, а вторая задает расположение для журнальных
+      файлов.</p><p>Сохранение журналов может производиться несколькими способами. Для обычных
+      пользователей, наиболее приемлемым будет использование команды
+
+      </p><pre class="screen">        (setq erc-save-buffer-on-part t)
+</pre><p>
+      
+      что приведет к сохранению журналов при выходе из канала. Однако пользователи могут
+      явно сохранить журналы с помощью сочетания клавиш
+      <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">l</span> или явно выполнив команду
+      <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span>
+      erc-save-buffer-in-logs</code>. Вы можете также поместить временные метки в сохраняемые журналы —  это контролируется с помощью переменной
+      <code class="varname">erc-hide-timestamps</code>. </p><p><span class="application">Erc</span> умеет восстанавливать часть содержимого предыдущих сессий используя
+      журнальные файлы. Если вы хотите, чтобы в буфере отображались старые разговоры, то
+      установите переменную <code class="varname">erc-log-insert-log-on-open</code> в истинное
+      значение. По умолчанию, данная переменная равна
+      <code class="computeroutput">nil</code>.</p><p>Более подробную информацию о настройке журналирования, а также о возможных
+      проблемах, и способах их решения читайте на <a class="ulink" href="http://www.emacswiki.org/cgi-bin/wiki/ErcLogging" target="_top">Emacs WiKi</a>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571277"></a>erc-nickserv</h4></div></div></div><p>В некоторых IRC-сетях вы можете зарегистрировать свое имя, и таким образом
+      избежать возможных конфликтов между пользователями.  Эта возможность реализуется с
+      помощью сервиса под названием <span class="emphasis"><em>NickServ</em></span>. По умолчанию, когда вы
+      входите в такую сеть, в ответ на приглашение сервера, erc в мини-буфере запрашивает
+      у вас пароль для регистрации.  Чтобы избежать повторяющихся действий, был разработан
+      модуль <span class="emphasis"><em>erc-nickserv</em></span>, который идет в поставке erc, но не
+      загружается автоматически.  Настройку этого модуля можно выполнить с помощью
+      следующих команд:
+
+      </p><pre class="screen">(require 'erc-nickserv)
+(erc-nickserv-mode t)
+(setq erc-prompt-for-nickserv-password nil)
+(setq erc-nickserv-passwords
+   '((freenode     (("nick" . "password")))))
+</pre><p>
+      
+      Первые две команды загружают модуль и включают соответствующий режим. Третья команда
+      отключает запрос пароля у пользователя при запросе от сервера.  Ну а четвертая
+      команда задает параметры ассоциативного списка, описывающего сервера, имена и пароли
+      для них. Для каждого из серверов, вы можете задать одно или несколько имен, и
+      соответствующие пароли для них.  Заметьте, что в качестве ключа списка задается
+      символ, соответствующий IRC-сети.  Отображение между именами сетей и доменными
+      именами серверов хранится в переменной <code class="varname">erc-networks</code>, которую вы
+      при необходимости можете изменять.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571372"></a>erc-truncate</h4></div></div></div><p>В том случае, если вы постоянно пользуетесь IRC, размеры буферов с
+      разговорами, могут расти очень быстро, и поэтому может быть желательно держать их в
+      рамках определенных размеров. Для этого используется модуль
+      <span class="emphasis"><em>erc-truncate</em></span>, которые следит за размерами буферов каналов, и
+      при необходимости выбрасывает лишние данные. Данный модуль поставляется с erc, но не
+      загружается автоматически.</p><p>Параметры модуль контролируются несколькими переменными.  Переменная
+      <code class="varname">erc-max-buffer-size</code> задает максимальный размер буфера, в байтах.
+      А если установлена переменная <code class="varname">erc-truncate-buffer-on-save</code>, то
+      обрезание буферов будет происходить при сохранении журналов.  Вы также можете явно
+      выполнить обрезание буферов, используя команду
+      <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span>
+      erc-truncate-buffer</code>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571450"></a>erc-dcc и erc-xdcc</h4></div></div></div><p>Для <span class="application">Erc</span> реализована поддержка прямой передачи данных между клиентами (DCC),
+      которая реализуется с помощью модуля <span class="emphasis"><em>erc-dcc</em></span>.  Данный модуль не
+      загружается автоматически, так что вы должны сделать это сами.  После загрузки этого
+      модуля, вам будут доступны команды <code class="literal">/dcc</code>, которые вы можете
+      использовать для разговоров, и для передачи файлов между клиентами.</p><p>Кроме этого, в <span class="application">Erc</span> реализована возможность организации файловых сервисов, на
+      основе IRC.  Эта возможность реализуется с помощью модуля
+      <span class="emphasis"><em>erc-xdcc</em></span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571517"></a>Прочие модули</h4></div></div></div><p>Кроме описанных выше модулей существуют еще и другие:
+      </p><div class="itemizedlist"><ul type="disc"><li><p><span class="emphasis"><em>erc-bbdb</em></span> —  для интеграции erc и
+        BBDB;</p></li><li><p><span class="emphasis"><em>erc-notify</em></span> —  для организации оповещения,
+        когда определенный пользователь входит или выходит из сети;</p></li><li><p><span class="emphasis"><em>erc-smileys</em></span> —  для преобразования smileys
+        в изображения с соответствующими эмоциями;</p></li><li><p><span class="emphasis"><em>erc-sound</em></span> —  для проигрывания звуков при
+        некоторых событиях;</p></li><li><p><span class="emphasis"><em>erc-nicklist</em></span> —  отображает список имен
+        для данного канала в отдельном буфере; </p></li><li><p><span class="emphasis"><em>erc-speedbar</em></span> —  обеспечивает интеграцию
+        erc и speedbar;</p></li><li><p><span class="emphasis"><em>erc-chess</em></span> —  позволяет играть в шахматы с
+        другими пользователями на IRC;</p></li><li><p><span class="emphasis"><em>erc-lang</em></span> —  реализует новую команду /lang
+        для выбора языка на канале;</p></li><li><p><span class="emphasis"><em>erc-list</em></span> —  обеспечивает быстрый механизм
+        получения списка каналов;</p></li><li><p><span class="emphasis"><em>erc-menu</em></span> —  добавляет меню к буферам
+        <span class="application">Erc</span>, что может быть очень удобно, особенно для начинающих
+        пользователей;</p></li><li><p><span class="emphasis"><em>erc-speak</em></span> —  позволяет проговаривать
+        содержимое разговоров с помощью Emacspeak;</p></li><li><p><span class="emphasis"><em>erc-page</em></span> —  обеспечивает обработку /ctcp
+        page команд;</p></li><li><p><span class="emphasis"><em>erc-replace</em></span> —  выполняет замены в тексте
+        сообщений.</p></li></ul></div></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="emacs.net.erc.customize"></a>Настройка клиента</h3></div></div></div><p>Настройку <span class="application">Erc</span> можно выполнить используя команду
+    <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span>
+    customize-group</code> <code class="computeroutput">erc</code>.  Появившееся окно
+    настройки позволяет вам задать основные параметры клиента, а также перейти к настройку
+    разных подсистем клиента. Но кроме визуальной настройки, вы можете и сами определять
+    порядок инициализации, используя Emacs Lisp.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571734"></a>Настройка auto-query</h4></div></div></div><p><span class="application">Erc</span> позволяет настроить свое поведение в отношении личных сообщений.  По
+      умолчанию, они отображаются в буфере сервера, что не всегда удобно, когда ты
+      разговариваешь с несколькими людьми.  Однако, с помощью переменной
+      <code class="varname">erc-auto-query</code> вы можете изменить поведение <span class="application">Erc</span>.  Среди
+      разрешенных значений:
+      </p><div class="itemizedlist"><ul type="disc"><li><p><code class="computeroutput">'buffer</code> —  показывать личные
+        сообщения в отдельном буфере;</p></li><li><p><code class="computeroutput">'window</code> —  показывать новые
+        сообщения в новом, выбранном окне;</p></li><li><p><code class="computeroutput">'window-noselect</code> —  то же,
+        что и предыдущее, но без перехода в новое окно;</p></li><li><p><code class="computeroutput">'bury</code> —  создает новый буфер,
+        но не переходит в него;</p></li><li><p><code class="computeroutput">'frame</code> —  открывает новый
+        фрейм.</p></li></ul></div><p>
+      
+      Вы можете создавать такие буфера не только для личных сообщений, но и для
+      уведомлений сервера. Это делается добавлением соответствующего хука.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571847"></a>Игнорирование и скрытие лишней информации</h4></div></div></div><p>С помощью <span class="application">Erc</span> вы можете делать часть информации невидимой. Это относится как
+      к посетителям серверов, так и к различным уведомлениям, поступающим от самих
+      серверов.</p><p>Например, чтобы не отображать данные о входе и выходе с каналов, вы можете
+      использовать переменную <code class="varname">erc-hide-list</code>, в качестве значения
+      которой задается список игнорируемых команд. Например, вот так:
+
+      </p><pre class="screen">(setq erc-hide-list '("JOIN" "PART"))
+</pre><p>
+      </p><p>Для временного игнорирования сообщений от какого-либо посетителя, вы можете
+      использовать команду <code class="literal">/IGNORE</code>, но она будет действовать только до
+      окончания сессии.  Для установки постоянного игнорирования, вам необходимо в
+      переменной <code class="varname">erc-ignore-list</code> задать список имен пользователей, или
+      регулярных выражений, которые будут приводить к игнорированию сообщений от
+      посетителей, чьи имена и сетевые адреса подпадают под заданное выражение.</p><p>Кроме этого, вы можете скрывать часть содержимого, основываясь на более
+      сложных вещах, например, если кто-то произносит определенные фразы, или
+      разговаривает с роботами, засоряя канал ненужным текстом.  Как это сделать описано
+      на странице <a class="ulink" href="http://www.emacswiki.org/cgi-bin/wiki/ErcIgnoring" target="_top">Emacs WiKi</a>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571955"></a>Настройка подсветки</h4></div></div></div><p><span class="application">Erc</span> позволяет вам подсвечивать различные части сообщений на канале. Вы
+      можете подсвечивать текст, имена пользователей, при этом по умолчанию есть
+      разделение на "друзей" и "дураков" :-) Вы можете задать список имен, и они будут
+      отображаться с заданным оформлением. По умолчанию этот режим отключен, но вы можете
+      его легко включить с помощью команды
+      <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span>
+      customize-group</code> <code class="computeroutput">erc-match</code>. В этой группе
+      вы также обнаружите опции для настройки списков друзей, подсветки вашего
+      собственного имени, а также можете задать подсветку произвольного текста.  Для
+      настройки параметров отображения, воспользуйтесь группой настройки
+      <code class="computeroutput">erc-faces</code>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2572027"></a>Настройка кодировок каналов</h4></div></div></div><p><span class="application">Erc</span> позволяет своим пользователям использовать разные кодовые страницы для
+      разных каналов (конечно, это только для тех пользователей, которые используют Emacs
+      с поддержкой mule).  Используя переменную
+      <code class="varname">erc-encoding-coding-alist</code> вы можете задать соответствие между
+      именами каналов, и кодировками, которые используются на этих каналах. Например, я
+      могу нормально общаться на немецко-говорящих каналах, хотя на остальных каналах
+      будет использоваться кодировка koi8-r.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2572066"></a>Хуки</h4></div></div></div><p>По реализации <span class="application">Erc</span>, по большей части управляется событиями, которые
+      обрабатываются соответствующими хуками.  Существующие хуки можно разделить на
+      несколько больших групп:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>Хуки для сообщений сервера;</p></li><li><p>Хуки для <code class="literal">/ctcp</code> команд;</p></li><li><p>Хуки для отображения и ввода;</p></li><li><p>Прочие хуки.</p></li></ul></div><div class="section" lang="ru"><div class="titlepage"><div><div><h5 class="title"><a name="id2572120"></a>Хуки для сообщений сервера</h5></div></div></div><p>Стандарт для IRC определяет, что сервер должен посылать команды клиентам в
+        специальном формате. Сама команда может быть либо трехзначным числом, либо именем
+        команды. При получении данных команд <span class="application">Erc</span> запускает соответствующий обработчик, и
+        при его выполнении также запускает соответствующий хук, который именуется
+        <code class="function">erc-server-команда-hook</code>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h5 class="title"><a name="id2572163"></a>Хуки для команд <code class="literal">/ctcp</code></h5></div></div></div><p>Для команд <code class="literal">/ctcp</code> существует два вида хуков —  когда
+        вы получаете запрос на выполнение команды, и когда вы получаете ответ о выполнении
+        команды.  Соответственно запускаются хуки
+        <code class="function">erc-ctcp-query-команда-hook</code> и
+        <code class="function">erc-ctcp-reply-команда-hook</code>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h5 class="title"><a name="id2572210"></a>Хуки для отображения и ввода</h5></div></div></div><p>Эти хуки также делятся на две группы — для отображения, и для обработки ввода.</p><p>К хукам отображения относятся:
+        </p><div class="itemizedlist"><ul type="disc"><li><p><code class="function">erc-insert-pre-hook</code> —  вызывается перед
+          вставкой сообщения в буфер;</p></li><li><p><code class="function">erc-insert-modify-hook</code> —  вызывается
+          когда текст уже вставлен, но при этом, буфер в которые вставлен текст, сужается
+          до самого текста;</p></li><li><p><code class="function">erc-insert-post-hook</code> —  вызывается
+          после вставки текста, но может обрабатывать весь буфер.</p></li></ul></div><p>
+        </p><p>К хукам ввода относятся:
+        </p><div class="itemizedlist"><ul type="disc"><li><p><code class="function">erc-send-pre-hook</code> —  вызывается перед
+          отправкой введенного пользователем сообщения;</p></li><li><p><code class="function">erc-send-modify-hook</code> — 
+          вызывается после вставки текста в буфер, но при этом,
+          буфер в которые вставлен текст, сужается до самого
+          текста;</p></li><li><p><code class="function">erc-send-post-hook</code> —  вызывается после
+          вставки текста, но может обрабатывать весь буфер.</p></li></ul></div><p><code class="function">erc-send-modify-hook</code> и
+        <code class="function">erc-send-post-hook</code> никаким образом не влияют на отправляемый
+        на сервер текст, и в основном могут использоваться для изменения параметров
+        отображения текста в буфере.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h5 class="title"><a name="id2572355"></a>Прочие хуки</h5></div></div></div><p>
+          </p><div class="itemizedlist"><ul type="disc"><li><p><code class="function">erc-mode-hook</code> —  вызывается для каждого буфера erc —  буферов каналов, буферов серверов и
+            т.п.;</p></li><li><p><code class="function">erc-timer-hook</code> —  вызывается при
+            получении любого события от сервера;</p></li><li><p><code class="function">erc-before-connect</code> и
+            <code class="function">erc-after-connect</code> —  вызываются перед подключением к
+            конкретному серверу, а также после выдачи сервером сообщения дня
+            (MOTD).</p></li></ul></div><p>
+        </p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="emacs.net.erc.init"></a>Пример файла инициализации Erc</h4></div></div></div><p>Ниже приведен пример настройки <span class="application">Erc</span>, который используется у меня. Я буду
+      писать комментарии сразу в коде, чтобы сделать его понятным:
+
+      </p><pre class="screen">;; здесь мы просто загружаем erc
+(add-to-list 'load-path "~/emacs/erc")
+(require 'erc)
+
+;; загружаем авто-подключение к каналам, и задаем список каналов для
+;; подключения
+(require 'erc-autojoin)
+(erc-autojoin-mode t)
+(setq erc-autojoin-channels-alist
+   '(("relay2" "#dansguardian" "#emacs" "#arch" "#linux.de"
+               "#c.de" "#squiddev")))
+
+;; 
+(require 'erc-fill)
+(erc-fill-mode t)
+
+;; задаем персональные данные, хотя их можно задать и через 
+;; M-x customize-group erc
+(setq erc-user-full-name "Alex Ott")
+(setq erc-email-userid "alexott@gmail.com")
+
+;; часть относящаяся к логированию переговоров на каналах
+;; нужно ли вставлять старый лог в окно канала?
+(setq erc-log-insert-log-on-open nil)
+;; логировать переговоры на каналах?
+(setq erc-log-channels t)
+;; где будут храниться логи
+(setq erc-log-channels-directory "~/.irclogs/")
+;; сохранять ли логи при возникновении PART
+(setq erc-save-buffer-on-part t)
+;; убирать или нет временные отметки?
+(setq erc-hide-timestamps nil)
+;; максимальный размер буфера канала
+(setq erc-max-buffer-size 500000)
+</pre><p>
+      
+      большую часть использованных переменных можно установить воспользовавшись командами
+      настройки Emacs, я показал этот пример только для наглядности.  Вы можете найти
+      большое количество примеров настройки на страницах <a class="ulink" href="http://www.emacswiki.org/cgi-bin/emacs-en/EmacsIRCClient" target="_top">Emacs WiKi</a>.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2572508"></a>Дополнительная информация</h3></div></div></div><p>Вы можете найти огромное количество информации о <span class="application">Erc</span> на страницах Emacs WiKi
+    по адресу <a class="ulink" href="http://www.emacswiki.org/cgi-bin/emacs-en/EmacsIRCClient" target="_top">http://www.emacswiki.org/cgi-bin/emacs-en/EmacsIRCClient</a>.
+    Там вы сможете найти множество советов по настройке клиента, а также по интеграции его
+    с различными приложениями, например, клиентом для игры в шахматы.</p></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id2523612" href="#id2523612" class="para">1</a>] </sup>Пакет будет входить в поставку
+    <span class="application">GNU Emacs</span> версии 22, за исключением некоторых модулей, которым требуется наличие
+    пакетов, не входящих в поставку <span class="application">GNU Emacs</span>.</p></div></div></div><script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script type="text/javascript">
+      _uacct = "UA-78697-3";
+      urchinTracker();
+    </script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s01.html">Пред.</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s03.html">След.</a></td></tr><tr><td width="40%" align="left" valign="top">Введение </td><td width="20%" align="center"><a accesskey="h" href="index.html">Начало</a></td><td width="40%" align="right" valign="top"> Пакет <span class="application">Rcirc</span></td></tr></table></div></body></html>

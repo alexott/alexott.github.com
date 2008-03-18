@@ -1,0 +1,110 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет TeX-mode</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, TeX, LaTeX, BibTeX, RefTeX"><link rel="start" href="index.html" title="Использование Emacs для работы с TeX и LaTeX"><link rel="up" href="index.html" title="Использование Emacs для работы с TeX и LaTeX"><link rel="prev" href="index.html" title="Использование Emacs для работы с TeX и LaTeX"><link rel="next" href="ar01s02.html" title="Работа с TeXом с использованием пакета AUCTeX"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет TeX-mode</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="index.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s02.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.tex.texmode"></a>Пакет TeX-mode</h2></div></div></div><p>TeX-mode — это специальный режим, предназначенный для редактирования файлов с исходными текстами в формате TeX и его вариантов. Пакет предоставляет специальные команды для редактирования исходных текстов, подсветки разметки, и выполнения обработки текстов. Данный режим поддерживает следующие варианты — Plain TeX, LaTeX и SliTeX.</p><p>Режим поставляется в составе <span class="application">GNU Emacs</span>, а также в составе
+  пакетов для <span class="application">XEmacs</span>, так что специальных действий по его загрузке и
+  установке не требуется.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2523084"></a>Работа с пакетом</h3></div></div></div><p>Для начала работы с пакетом просто наберите
+    <span class="keysym">M</span>+<span class="keysym">x</span>
+    <code class="function">tex-mode</code>. Но обычно, пользователю не нужно это делать явно, путем настройки соотношения между расширениями файлов и соответствующими режимами. При инициализации режима пакет пытается автоматически определить в каком режиме он будет работать —  Plain TeX, LaTeX или SliTeX.  Это выполняется
+    на основе анализа команд, заданных в открываемом файле.  Но если
+    содержимого файла не достаточно, то для выбора нужного режима
+    используется значение переменной
+    <code class="varname">tex-default-mode</code>.  Когда определение варианта
+    TeX произошло неправильно, то пользователь может явно
+    переключиться на использование нужного варианта используя команды
+    <code class="function">plain-tex-mode</code>,
+    <code class="function">latex-mode</code> и
+    <code class="function">slitex-mode</code>.</p><p>Команды пакета можно разделить на несколько групп —  команды редактирования, команды печати результатов компиляции файлов, и прочие команды. О них и будет идти рассказ в соответствующих подразделах. Все описанные команды также доступны через соответствующие меню —  <code class="literal">TeX</code> и
+    <code class="literal">LaTeX</code>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2523697"></a>Редактирование файлов</h4></div></div></div><p>Для работы со всеми вариантами TeX пакет предоставляется относительно небольшое количество команд. Но кроме явных комманд, предоставляются возможности по подсвечиванию парных элементов, проверке правильности разметки и т.п. вещи.</p><p>Команда <code class="function">tex-terminate-paragraph</code> (она
+      привязана к <span class="keysym">C</span>+<span class="keysym">j</span>) заканчивает текущий параграф,
+      вставляя две пустых строки.  При этом производится проверка
+      параграфа на наличие несбалансированных знаков доллара и скобок.
+      Проверить несколько параграфов на наличие несбалансированных
+      элементов можно выделив их, и запустив команду
+      <code class="function">tex-validate-region</code>, которая проверит
+      параграфы в выделенной области.  </p><p>Пакет TeX-mode предоставляет пользователю удобные
+      средства для вставки и проверки элементов, которые должны иметь
+      свою пару.  Так, для кавычек может использоваться команда
+      <code class="function">tex-insert-quote</code>, привязанная к
+      <code class="literal">"</code>, которая вставляет либо
+      <code class="literal">``</code>, либо <code class="literal">"</code>, или
+      <code class="literal">''</code> в зависимости от контекста и наличия
+      предыдущей открывающей кавычки, что обеспечивает правильное
+      отображение кавычек в результирующем файле.  Для вставки парных
+      фигурных скобок может использоваться команда
+      <code class="function">tex-insert-braces</code>, привязанная к
+      <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">{</span>.  Для
+      поиска несбалансированных скобок используется команда
+      <code class="function">up-list</code> (она привязана к
+      <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">}</span>), которая
+      перемещает курсор за первую непарную закрывающую скобку.</p><p>Для редактирования исходных текстов с разметкой LaTeX, пакет предоставляет еще две команды — 
+      <code class="function">tex-latex-block</code> (привязана к
+      <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">o</span>) и
+      <code class="function">tex-close-latex-block</code> (она привязана к
+      <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">e</span>).
+      Первая функция вставляет команды <code class="literal">\begin</code> и
+      <code class="literal">\end</code> для заданного окружения LaTeX, и
+      помещает курсор на пустой строке между ними.  При использовании
+      этой команды пользователь указывает имя окружения, при этом он
+      может использовать стандартные механизмы дополнения <span class="application">Emacs</span>.
+      При дополнении могут использоваться как имена стандартных
+      окружений, так и имена окружений созданных пользователем,
+      которые можно задать изменяя значение переменной
+      <code class="varname">latex-block-names</code>.  Вторая команда
+      используется для вставки команды, закрывающей последнее
+      незакрытое окружение LaTeX.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2524097"></a>Печать результатов</h4></div></div></div><p>Набрав текст с разметкой, хочется увидеть как он будет выглядеть на бумаге. Для этого, пакет TeX-mode предоставляет набор команд, которые позволяют получить результат обработки файла с исходным текстом. Получение результатов происходит в два этапа. На первом этапе исходные тексты обрабатываются TeX'ом, а на втором этапе может работать с результатом обработки.</p><p>Для обработки исходного текста могут использоваться
+      следующие команды: <code class="function">tex-file</code> (сочетание
+      клавиш <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">C</span>+<span class="keysym">f</span>) обрабатывает текущий файл,
+      <code class="function">tex-buffer</code> (сочетание
+      <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">b</span>)
+      производит обработку текущего буфера, а
+      <code class="function">tex-region</code>, привязанная к
+      <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">r</span>,
+      производит обработку выделенной области.  Кроме этого, вы можете
+      обработать исходные тексты с помощью BibTeX, используя команду
+      <code class="function">tex-bibtex-file</code> (сочетание клавиш
+      <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">TAB</span>).  Для
+      больших проектов, состоящих из нескольких файлов, вы можете
+      указать головной файл, используя локальную переменную
+      <code class="function">tex-main-file</code>.</p><p>Во время обработки исходных текстов, вы можете видеть
+      журнал обработки в буфере <code class="literal">*tex-shell*</code>.  Для
+      того, чтобы видеть текущий результат, включая последнюю строку
+      вывода, можно использовать команду
+      <code class="function">tex-recenter-output-buffer</code>, привязанную к
+      <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">l</span>.
+      Если вы хотите прервать обработку документа, то можете
+      воспользоваться командой <code class="function">tex-kill-job</code>
+      (сочетание клавиш <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">C</span>+<span class="keysym">k</span>).</p><p>После обработки исходных текстов, пользователь может
+      просмотреть результаты с помощью команды
+      <code class="function">tex-view</code>, привязанной к сочетанию клавиш
+      <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">v</span>, или
+      напечатать результат с помощью команды
+      <code class="function">tex-print</code> (сочетание
+      <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">p</span>).
+      Для просмотра очереди печати можно использовать команду
+      <code class="function">tex-show-print-queue</code> (или сочетание клавиш
+      <span class="keysym">C</span>+<span class="keysym">c</span>
+      <span class="keysym">C</span>+<span class="keysym">q</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2524433"></a>Прочие команды</h4></div></div></div><p>Для преобразования между символами в кодировке Latin-1 и
+      соответствующими эквивалентами TeX могут использоваться
+      команды <code class="function">iso-iso2tex</code>,
+      <code class="function">iso-tex2iso</code>,
+      <code class="function">iso-iso2gtex</code> и
+      <code class="function">iso-gtex2iso</code>.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2570922"></a>Настройка</h3></div></div></div><p>Настройку данного режима пользователь можно произвести
+    используя средства настройки <span class="application">Emacs</span>.  Главной группой для этого
+    режима является группа настройки <code class="literal">tex</code>literal&gt;. Пользователь может задать, например, имена команд, которые будут выполняться на каждой из стадии —  обработке исходных текстов,
+    просмотре, печати и т.д.  При этом, пользователю необходимо задать
+    имя для команды просмотра результатов, используя переменную
+    <code class="varname">tex-dvi-view-command</code>, поскольку для этой
+    переменной нет значения по умолчанию.</p><p>Для тонкой настройки параметров редактирования файла, пользователю предоставляется несколько хуков. При открытии любого файла с разметкой TeX и его вариантов, вызываются два хука —  <code class="function">text-mode-hook</code> и
+    <code class="function">tex-mode-hook</code>, первый из которых применяется ко всем текстовым файлам, а второй —  только к файлам TeX. Кроме этого, для настройки редактирования файлов в отдельных вариантах TeX, пакет определяет специальные хуки — 
+    <code class="function">plain-tex-mode-hook</code>,
+    <code class="function">latex-mode-hook</code> и
+    <code class="function">slitex-mode-hook</code>, которые вызываются при
+    открытии файла с соответствующей разметкой.</p></div></div><script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script type="text/javascript">
+      _uacct = "UA-78697-3";
+      urchinTracker();
+    </script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="index.html">Пред.</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s02.html">След.</a></td></tr><tr><td width="40%" align="left" valign="top">Использование <span class="application">Emacs</span> для работы с TeX и LaTeX </td><td width="20%" align="center"><a accesskey="h" href="index.html">Начало</a></td><td width="40%" align="right" valign="top"> Работа с TeXом с использованием пакета AUCTeX</td></tr></table></div></body></html>

@@ -1,0 +1,367 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет xtla</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s04.html" title="Пакет PCL-CVS"><link rel="next" href="ar01s06.html" title="Пакет PSVN"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет <span class="application">xtla</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s04.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s06.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.xtla"></a>Пакет <span class="application">xtla</span></h2></div></div></div><p>Пакет <span class="application">xtla</span> значительно расширяет возможности интеграции
+  <span class="application">Emacs</span> с системой контроля версий <span class="application">GNU Arch</span> (он же
+  <span class="application">tla</span> и/или с
+  <span class="application">Bazaar</span>)<sup>[<a name="id2576347" href="#ftn.id2576347" class="footnote">3</a>]</sup>.  Данный пакет, в
+  отличии от модуля <span class="application">vc-arch</span>, предоставляет
+  пользователю полный спектр команд для работы с репозиториями
+  <span class="application">GNU Arch</span>.  К основным возможностям пакета относятся:
+  </p><div class="itemizedlist"><ul type="disc"><li><p>Поддержка как с <span class="application">GNU Arch</span>, так и с
+		<span class="application">Bazaar</span>;</p></li><li><p>Возможность работы с разными репозиториями, включая регистрацию новых и интерактивный просмотр содержимого зарегистрированных;</p></li><li><p>Работа со списками объектов (inventories);</p></li><li><p>Интерактивный просмотр изменений, возможность commit'ов, включая commit только выбранных файлов;</p></li><li><p> Интерфейс похожий на <span class="application">PCL-CVS</span>;</p></li><li><p>Менеджер закладок, позволяющий легко перемещаться между часто используемыми архивами;</p></li><li><p> Режимы для редактирования служебных файлов
+    <span class="application">GNU Arch</span>;</p></li><li><p>Просмотр отсутствующих изменений;</p></li><li><p>Поддержка как GNU Arch (tla), так и Bazaar (baz), учитывая специфические особенности каждой из систем;</p></li><li><p>и многое другое.</p></li></ul></div><p>
+  </p><p>Пакет <span class="application">xtla</span> в своей работе использует программу
+  <span class="command"><strong>tla</strong></span> или <span class="command"><strong>baz</strong></span>, так что она
+  должна быть установлена в вашей системе. На момент написания данной
+  статьи была выпущена версия 1.2 пакета <span class="application">xtla</span> так что в статье будут
+  описаны ее возможности.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2576537"></a>Установка пакета</h3></div></div></div><p>Для работы с пакетом необходимо наличие нескольких пакетов:
+    <span class="application">ewoc.el</span>, который необходим для работы всего
+    пакета <span class="application">xtla</span> (он поставляется вместе с <span class="application">xtla</span>, и находится в
+    каталоге <code class="filename">contrib</code>), <span class="application">tree-widget.el</span>,
+    который нужен для работы команды <code class="function">tla-browse</code>, и
+    пакет <span class="application">smerge-mode</span>, который не является совсем
+    необходимым, но может быть полезен при разрешении конфликтов. </p><p>Скачать пакет можно со страницы <a class="ulink" href="https://gna.org/projects/xtla-el" target="_top">проекта</a>. Настройка пакета
+    для установки выполняется с помощью стандартного скрипта
+    <span class="command"><strong>configure</strong></span>.  Если все прошло нормально, то после
+    установки и перезапуска Emacs, часть функций пакета будет помечена как
+    авто-загружаемая и вы можете использовать их не используя явных команд
+    загрузки. Однако, вы можете загрузить пакет явно, например так:
+
+    </p><pre class="screen">(require 'xtla-autoloads)
+</pre><p>
+    </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2576643"></a>Использование пакета</h3></div></div></div><p>Команды пакета имеют префиксы <code class="function">tla-</code>
+    и <code class="function">xtla</code> и доступны через предопределенные ключи
+    (сочетания клавиш), для которых используется префикс
+    <span class="keysym">C</span>+<span class="keysym">x</span>
+    <span class="keysym">T</span>.  Кроме явного вызова команд через
+    <span class="keysym">M</span>+<span class="keysym">x</span>, и
+    использования сочетаний клавиш, <span class="application">xtla</span> добавляет несколько пунктов в
+    меню <code class="literal">Tools</code>, а также создает отдельные меню с
+    именем <code class="literal">Tla-...</code>, при работе в режимах, специфичных для
+    работы с <span class="application">GNU Arch</span>.</p><p>В целом, работу с <span class="application">xtla</span> можно разделить на несколько больших
+    задач:
+    </p><div class="itemizedlist"><ul type="disc"><li><p>Работа с архивами;</p></li><li><p>Работа с файлами в выбранном репозитории.</p></li></ul></div><p>
+    </p><p>При работе с буферами <span class="application">xtla</span> для них всех
+    определены общие команды: <span class="keysym">p</span> —  перемещает к
+    предыдущему объекту, <span class="keysym">n</span> —  переходит к
+    следующему объекту, <span class="keysym">q</span> —  прекращает работу с
+    данным буфером, <span class="keysym">m</span> и <span class="keysym">u</span> — 
+    ставят и снимают пометку с текущего объекта.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2576795"></a>Работа с архивами</h4></div></div></div><p>Для работы с архивами используется команда
+      <code class="function">tla-archives</code> (или сочетание клавиш
+      <span class="keysym">C</span>+<span class="keysym">x</span>
+      <span class="keysym">T</span> <span class="keysym">A</span>).  При ее вызове, пользователю
+      будет показан список зарегистрированных архивов, по которому он сможет
+      перемещаться, и просматривать их содержимое.</p><p>При работе в данном режиме, в буфере действует специальный режим, для которого определено некоторое количество команд —  регистрация архивов, работа с закладками и
+      т.п. Наиболее часто используемые команды вынесены в отдельное меню,
+      которое называется <code class="literal">Archives</code>. Эти же команды
+      доступны через набор определенных клавиш, список наиболее часто
+      используемых клавиш и команд приведен ниже (в скобках приведено
+      название команды, вызываемой указанным сочетанием клавиш):
+
+      </p><div class="glosslist"><dl><dt><span class="keysym">a</span> <span class="keysym">a</span></dt><dd><p> (команда
+          <code class="function">tla-make-archive</code>) —  создать новый
+          архив;</p></dd><dt><span class="keysym">e</span></dt><dd><p> (команда
+          <code class="function">tla-archive-edit-archive-location</code>) — 
+          редактировать расположение выбранного архива; </p></dd><dt><span class="keysym">s</span></dt><dd><p> (команда
+          <code class="function">tla-archive-synchronize-archive</code>) — 
+          синхронизировать текущий архив;</p></dd><dt><span class="keysym">a</span> <span class="keysym">m</span></dt><dd><p> (команда
+          <code class="function">tla-archive-mirror-archive</code>) — 
+          создать зеркало текущего архива;</p></dd><dt><span class="keysym">a</span> <span class="keysym">r</span></dt><dd><p> (команда
+          <code class="function">tla-register-archive</code>) — 
+          зарегистрировать архив;</p></dd><dt><span class="keysym">r</span></dt><dd><p> (команда
+          <code class="function">tla-archive-unregister-archive</code>) — 
+          удалить регистрацию архива;</p></dd><dt><span class="keysym">*</span></dt><dd><p> (команда
+          <code class="function">tla-archive-select-default</code>) — 
+          сделать текущий архив архивом, используемым по
+          умолчанию;</p></dd><dt><span class="keysym">RET</span></dt><dd><p> (команда
+          <code class="function">tla-archive-list-categories</code>) — 
+          отобразить категории для текущего архива;</p></dd><dt><span class="keysym">o</span></dt><dd><p> (команда
+          <code class="function">tla-archive-browse-archive</code>) — 
+          интерактивно показать текущий архив; </p></dd><dt><span class="keysym">g</span></dt><dd><p> (команда
+          <code class="function">tla-archives</code>) —  обновить список
+          архивов;</p></dd><dt><span class="keysym">b</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-add</code>) —  добавить
+          закладку для текущего архива;</p></dd></dl></div><p>
+
+      Полный список клавиш, определенных для данного режима, вы можете
+      получить с помощью сочетания клавиш <span class="keysym">C</span>+<span class="keysym">h</span> <span class="keysym">m</span>.</p><p>Кроме использования <code class="function">tla-archives</code> вы можете
+      использовать команду <code class="function">tla-browse</code> для просмотра
+      списка зарегистрированных архивов и веток разработки, в более красивом
+      виде.  Вы можете видеть результат выполнения на рисунке <a class="xref" href="ar01s05.html#emacs.vcs.xtla.browse" title="Рисунок 1. Результат выполнения tla-browse">Результат выполнения tla-browse</a>.</p><p>
+      </p><div class="figure-float" style="float: left;"><div class="figure"><a name="emacs.vcs.xtla.browse"></a><p class="title"><b>Рисунок 1. Результат выполнения tla-browse</b></p><div class="figure-contents"><div class="screenshot"><div class="mediaobject"><img src="xtla-browse.png" alt="Результат выполнения tla-browse"></div></div></div></div><br class="figure-break"></div><p>
+    </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2577238"></a>Использование закладок</h4></div></div></div><p>Закладки сильно облегчают работу разработчика в том случае, если он работает с большим количеством репозиториев. Для наиболее часто используемых версий, разработчик может определить закладки и быстро переходить к нужным архивам и веткам разработки. Для работы с закладками существует специальная команда — 
+      <code class="function">tla-bookmarks</code>, которая вызывается сочетанием
+      клавиш <span class="keysym">C</span>+<span class="keysym">x</span>
+      <span class="keysym">T</span> <span class="keysym">b</span>.  После ее выполнения будет
+      создан буфер с именем <code class="literal">*tla-bookmarks*</code>, который вы
+      можете использовать для работы с закладками.  Для удобства работы
+      также создается меню <code class="literal">Tla-Bookmarks</code>, которое
+      содержит часто используемые команды.</p><p>Вы можете помечать несколько проектов как партнерские, и
+      использовать затем команды для группы закладок, что особенно удобно в
+      тех случаях, если ведется много веток разработки, и вы хотите быть в
+      курсе разных ветвей разработки.  Необходимо лишь пометить нужные
+      проекты и выполнить команду
+      <code class="function">tla-bookmarks-marked-are-partners</code> (она привязана
+      к сочетанию клавиш <span class="keysym">M</span>+<span class="keysym">p</span>).</p><p>Кроме этого, вы можете группировать проекты по разным принципам,
+      и также выполнять команды для отмеченных групп. Для работы с группами
+      используется серия команд <code class="function">tla-...-group-...</code>.
+      </p><p>При работе в буфере <code class="literal">*tla-bookmarks*</code> в нем
+      определены следующие команды:
+
+      </p><div class="glosslist"><dl><dt><span class="keysym">*</span> <span class="keysym">g</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-select-by-group</code>) — 
+          выбрать закладки в группе;</p></dd><dt><span class="keysym">*</span> <span class="keysym">!</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-unmark-all</code>) — 
+          снять пометку со всех закладок;</p></dd><dt><span class="keysym">RET</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-goto</code>) —  перейти к
+          архиву связанному с данной закладкой;</p></dd><dt><span class="keysym">&gt;</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-get</code>) —  получить
+          архив для текущей закладки; </p></dd><dt><span class="keysym">=</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-changes</code>) —  выполнить
+          <span class="command"><strong>tla changes</strong></span> для текущего дерева;</p></dd><dt><span class="keysym">o</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-open-tree</code>) — 
+          открыть локальное дерево в буфере dired;</p></dd><dt><span class="keysym">M</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-missing</code>) — 
+          просмотреть изменения, отсутствующие в вашем
+          дереве;</p></dd><dt><span class="keysym">P</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-move-up</code>) — 
+          переместить закладку на позицию вверх;</p></dd><dt><span class="keysym">N</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-move-down</code>) — 
+          переместить закладку на позицию вниз;</p></dd><dt><span class="keysym">i</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-inventory</code>) — 
+          запустить <span class="command"><strong>tla inventory</strong></span> для локального
+          дерева;</p></dd><dt><span class="keysym">t</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-toggle-details</code>) — 
+          переключить степень детализации вывода;</p></dd><dt><span class="keysym">e</span> </dt><dd><p> (команда
+          <code class="function">tla-bookmarks-edit</code>) — 
+          редактировать текущую закладку;</p></dd><dt><span class="keysym">B</span> <span class="keysym">L</span> </dt><dd><p> (команда
+          <code class="function">tla-open-internal-log-buffer</code>) — 
+          открыть внутренний буфер <span class="command"><strong>tla</strong></span>. В этом буфере
+          хранится список выполненных команд;</p></dd><dt><span class="keysym">B</span> <span class="keysym">p</span></dt><dd><p> (команда
+          <code class="function">tla-show-process-buffer</code>) — 
+          отобразить результаты выполнения последней
+          команды;</p></dd><dt><span class="keysym">M</span>+<span class="keysym">p</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-marked-are-partners</code>) — 
+          объявить помеченные закладки как партнеры; </p></dd><dt><span class="keysym">a</span> <span class="keysym">p</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-add-partner-interactive</code>) — 
+          добавить партнера к текущей или помеченной
+          закладке;</p></dd><dt><span class="keysym">r</span> <span class="keysym">p</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-delete-partner-interactive</code>) — 
+          удалить партнерство с текущей или помеченной
+          закладки;</p></dd><dt><span class="keysym">f</span> <span class="keysym">w</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-write-partners-to-file</code>) — 
+          сохранить партнерство для помеченных закладок в файл
+          партнеров;</p></dd><dt><span class="keysym">f</span> <span class="keysym">r</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-add-partners-from-file</code>) — 
+          добавить список партнеров из файла партнеров;</p></dd><dt><span class="keysym">a</span> <span class="keysym">n</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-add-nickname-interactive</code>) — 
+          добавить имя для текущей закладки;</p></dd><dt><span class="keysym">r</span> <span class="keysym">n</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-delete-nickname-interactive</code>) — 
+          удалить имя для текущей закладки; </p></dd><dt><span class="keysym">a</span> <span class="keysym">t</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-add-tree-interactive</code>) — 
+          добавить локальное дерево к закладке;</p></dd><dt><span class="keysym">r</span> <span class="keysym">t</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-delete-tree-interactive</code>) — 
+          удалить локальное дерево из закладки;</p></dd><dt><span class="keysym">a</span> <span class="keysym">b</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-add</code>) —  добавить
+          закладку для архива;</p></dd><dt><span class="keysym">r</span> <span class="keysym">b</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-delete</code>) —  удалить
+          текущую закладку;</p></dd><dt><span class="keysym">a</span> <span class="keysym">g</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-add-group-interactive</code>) — 
+          добавить группу закладок;</p></dd><dt><span class="keysym">r</span> <span class="keysym">g</span></dt><dd><p> (команда
+          <code class="function">tla-bookmarks-delete-group-interactive</code>) — 
+          удалить группу закладок.</p></dd></dl></div><p>
+    </p><p>Кроме работы с закладками из буфера
+    <code class="literal">*tla-bookmarks*</code>, вы можете выполнять действия
+    относящиеся к закладкам из других буферов, например, из буфера для
+    работы с архивами (команда <span class="keysym">b</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2578117"></a>Работа с файлами в выбранном репозитории</h4></div></div></div><p>При работе с выбранным репозиторием пользователь может выполнять самые разные действия —  добавлять и удалять файлы, вставлять
+    теги <span class="application">GNU Arch</span>, и многое другое. Для этого выделены отдельные команды.
+    Однако, более удобным способом работы будет использование буфера
+    объектов (inventories).
+    </p><p>Команда <code class="function">tla-inventory</code> (или сочетание клавиш
+    <span class="keysym">C</span>+<span class="keysym">x</span>
+    <span class="keysym">T</span> <span class="keysym">i</span>) создает буфер
+    <code class="literal">*tla-inventory*</code>, который содержит список объектов для
+    выбранного каталога.  Вы можете видеть результаты выполнения этой
+    команды на рисунке <a class="xref" href="ar01s05.html#emacs.vcs.xtla.inventory" title="Рисунок 2. Окно буфера *tla-inventory*">Окно буфера *tla-inventory*</a>. Используя данный буфер пользователь может интерактивно работать с объектами репозитория — 
+    добавлять и удалять объекты, указывать их тип, просматривать изменения,
+    и выполнять множество других операций. Для выполнения основных команд
+    может использоваться меню <code class="literal">Inventory</code>, создаваемое
+    данной командой.</p><p>
+      </p><div class="figure-float" style="float: left;"><div class="figure"><a name="emacs.vcs.xtla.inventory"></a><p class="title"><b>Рисунок 2. Окно буфера *tla-inventory*</b></p><div class="figure-contents"><div class="screenshot"><div class="mediaobject"><img src="xtla-inventory.png" alt="Окно буфера *tla-inventory*"></div></div></div></div><br class="figure-break"></div><p>
+    </p><p>При работе с буфером <code class="literal">*tla-inventory*</code> определены
+    следующие команды:
+
+    </p><div class="glosslist"><dl><dt><span class="keysym">g</span> </dt><dd><p> (команда
+        <code class="function">tla-generic-refresh</code>) —  обновить
+        содержимое буфера;</p></dd><dt><span class="keysym">U</span></dt><dd><p> (команда
+        <code class="function">tla-inventory-revert</code>) —  отменить
+        изменения в текущем файле;</p></dd><dt><span class="keysym">&lt;</span></dt><dd><p> (команда
+        <code class="function">tla-inventory-mirror</code>) —  сделать
+        зеркало для текущего архива;</p></dd><dt><span class="keysym">e</span></dt><dd><p> (команда
+        <code class="function">tla-inventory-file-ediff</code>) —  запустить
+        <span class="application">Ediff</span> для текущего файла;</p></dd><dt><span class="keysym">=</span></dt><dd><p> (команда
+        <code class="function">tla-inventory-changes</code>) —  просмотреть
+        изменения для вашего дерева;</p></dd><dt><span class="keysym">v</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-view-file</code>) —  показать
+        текущий файл;</p></dd><dt><span class="keysym">o</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-find-file-other-window</code>) — 
+        открыть текущий файл в другом окне;</p></dd><dt><span class="keysym">RET</span></dt><dd><p> (команда
+        <code class="function">tla-inventory-find-file</code>) —  открыть
+        текущий файл;</p></dd><dt><span class="keysym">f</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-find-file</code>) —  открыть
+        текущий файл;</p></dd><dt><span class="keysym">L</span> </dt><dd><p> (команда
+        <code class="function">tla-logs</code>) —  запустить <span class="command"><strong>tla logs</strong></span>;</p></dd><dt><span class="keysym">l</span> </dt><dd><p> (команда
+        <code class="function">tla-changelog</code>) —  запустить
+        <span class="command"><strong>tla changelog</strong></span>;</p></dd><dt><span class="keysym">c</span></dt><dd><p> (команда
+        <code class="function">tla-inventory-edit-log</code>) — 
+        редактировать лог для текущего дерева;</p></dd><dt><span class="keysym">R</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-move</code>) —  переименовать
+        текущий файл;</p></dd><dt><span class="keysym">X</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-delete-files</code>) — 
+        удалить локальные файлы;</p></dd><dt><span class="keysym">^</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-parent-directory</code>) — 
+        перейти в родительский каталог в буфере inventory;</p></dd><dt><span class="keysym">r</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-remove-files</code>) — 
+        удалить идентификаторы для текущего файла;</p></dd><dt><span class="keysym">a</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-add-files</code>) —  добавить
+        текущий файл;</p></dd><dt><span class="keysym">t</span> <span class="keysym">u</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-toggle-unrecognized</code>) — 
+        переключить режим показа не распознанных файлов;</p></dd><dt><span class="keysym">t</span> <span class="keysym">t</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-toggle-tree</code>) — 
+        переключить режим показа корневого дерева;</p></dd><dt><span class="keysym">t</span> <span class="keysym">b</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-toggle-backup</code>) — 
+        переключить режим показа резервных файлов;</p></dd><dt><span class="keysym">t</span> <span class="keysym">j</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-toggle-junk</code>) — 
+        переключить режим показа "мусорных" (junk)
+        файлов;</p></dd><dt><span class="keysym">t</span> <span class="keysym">p</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-toggle-precious</code>) — 
+        переключить режим показа precious файлов;</p></dd><dt><span class="keysym">t</span> <span class="keysym">s</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-toggle-source</code>) — 
+        переключить режим показа файлов исходных текстов;</p></dd><dt><span class="keysym">t</span> <span class="keysym">~</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-toggle-all-toggle-variables</code>) — 
+        переключить все переключаемые переменные;</p></dd><dt><span class="keysym">t</span> <span class="keysym">-</span></dt><dd><p> (команда
+        <code class="function">tla-inventory-reset-all-toggle-variables</code>) — 
+        сбросить значения всех переключаемых переменных; </p></dd><dt><span class="keysym">t</span> <span class="keysym">+</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-set-all-toggle-variables</code>) — 
+        установить все переключаемые переменные;</p></dd><dt><span class="keysym">#</span> <span class="keysym">u</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-add-to-unrecognized</code>) — 
+        пометить текущий или выбранные файлы как не
+        распознанные;</p></dd><dt><span class="keysym">#</span> <span class="keysym">p</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-add-to-precious</code>) — 
+        пометить текущий или выбранные файлы как precious;</p></dd><dt><span class="keysym">#</span> <span class="keysym">~</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-add-to-backup</code>) — 
+        пометить текущий или выбранные файлы как резервные;</p></dd><dt><span class="keysym">#</span> <span class="keysym">b</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-add-to-backup</code>) — 
+        пометить текущий или выбранные файлы как
+        резервные;</p></dd><dt><span class="keysym">#</span> <span class="keysym">j</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-add-to-junk</code>) — 
+        пометить текущий или выбранные файлы как
+        "мусорные";</p></dd><dt><span class="keysym">#</span> <span class="keysym">e</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-add-to-exclude</code>) — 
+        пометить текущий или выбранные файлы как исключения;</p></dd><dt><span class="keysym">#</span> <span class="keysym">x</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-add-to-exclude</code>) — 
+        пометить текущий или выбранные файлы как исключения;</p></dd><dt><span class="keysym">#</span> <span class="keysym">V</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-set-tree-version</code>) — 
+        задать версию для локального дерева;</p></dd><dt><span class="keysym">#</span> <span class="keysym">M</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-set-id-tagging-method</code>) — 
+        задать метод идентификации;</p></dd><dt><span class="keysym">#</span> <span class="keysym">.</span> </dt><dd><p> (команда
+        <code class="function">tla-edit-.arch-inventory-file</code>) — 
+        редактировать файл
+        <code class="filename">.arch-inventory</code>;</p></dd><dt><span class="keysym">#</span> <span class="keysym">=</span> </dt><dd><p> (команда
+        <code class="function">tla-edit-=tagging-method-file</code>) — 
+        редактировать файл
+        <code class="filename">=tagging-method</code>;</p></dd><dt><span class="keysym">*</span> <span class="keysym">!</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-unmark-all</code>) —  снять
+        пометку со всех файлов;</p></dd><dt><span class="keysym">*</span> <span class="keysym">u</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-unmark-file</code>) —  снять
+        пометку с файла;</p></dd><dt><span class="keysym">*</span> <span class="keysym">m</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-mark-file</code>) —  пометить
+        текущий файл;</p></dd><dt><span class="keysym">w</span> <span class="keysym">a</span> </dt><dd><p> (команда
+        <code class="function">tla-save-archive-to-kill-ring</code>) — 
+        сохранить имя архива текущего буфера в список
+        удалений;</p></dd><dt><span class="keysym">W</span> <span class="keysym">l</span> </dt><dd><p> (команда
+        <code class="function">tla-tree-lint</code>) —  проверить текущее
+        дерево;</p></dd><dt><span class="keysym">W</span> <span class="keysym">a</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-apply-changeset-from-tgz</code>) — 
+        применить набор изменений из файла
+        <code class="filename">.tgz</code>;</p></dd><dt><span class="keysym">W</span> <span class="keysym">A</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-apply-changeset</code>) — 
+        применить набор изменений;</p></dd><dt><span class="keysym">W</span> <span class="keysym">v</span> </dt><dd><p> (команда
+        <code class="function">tla-show-changeset-from-tgz</code>) — 
+        показать набор изменений из файла
+        <code class="filename">.tgz</code>;</p></dd><dt><span class="keysym">W</span> <span class="keysym">V</span> </dt><dd><p> (команда
+        <code class="function">tla-show-changeset</code>) —  показать набор
+        изменений;</p></dd><dt><span class="keysym">W</span> <span class="keysym">s</span> </dt><dd><p> (команда
+        <code class="function">tla-changes-save-as-tgz</code>) —  сохранить
+        изменения в виде файла <code class="filename">.tgz</code>;</p></dd><dt><span class="keysym">W</span> <span class="keysym">S</span> </dt><dd><p> (команда
+        <code class="function">tla-changes-save</code>) —  сохранить набор
+        изменений в каталоге; </p></dd><dt><span class="keysym">W</span> <span class="keysym">R</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-redo</code>) —  применить
+        изменения, отмененные последней операцией отмены;</p></dd><dt><span class="keysym">W</span> <span class="keysym">U</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-undo</code>) —  отменить
+        изменения для всего локального дерева;</p></dd><dt><span class="keysym">B</span> <span class="keysym">b</span> </dt><dd><p> (команда
+        <code class="function">tla-bookmarks</code>) —  отображает закладки
+        в отдельном буфере;</p></dd><dt><span class="keysym">B</span> <span class="keysym">L</span> </dt><dd><p> (команда
+        <code class="function">tla-open-internal-log-buffer</code>) — 
+        открыть внутренний буфер <span class="command"><strong>tla</strong></span>. В этом буфере
+        хранится список выполненных команд;</p></dd><dt><span class="keysym">B</span> <span class="keysym">p</span> </dt><dd><p> (команда
+        <code class="function">tla-show-process-buffer</code>) — 
+        отобразить результаты выполнения последней
+        команды;</p></dd><dt><span class="keysym">M</span> <span class="keysym">&lt;</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-apply-changeset</code>) — 
+        применить набор изменений;</p></dd><dt><span class="keysym">M</span> <span class="keysym">u</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-update</code>) —  обновить
+        текущее дерево из архива методом update;</p></dd><dt><span class="keysym">M</span> <span class="keysym">r</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-replay</code>) —  обновить
+        текущее дерево из архива методом replay;</p></dd><dt><span class="keysym">M</span> <span class="keysym">s</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-star-merge</code>) —  слить
+        вместе изменений из другого архива;</p></dd><dt><span class="keysym">d</span> <span class="keysym">&gt;</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-delta</code>) —  вычислить
+        список изменений для текущего дерева;</p></dd><dt><span class="keysym">d</span> <span class="keysym">e</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-file-ediff</code>) —  запустить
+        <span class="application">Ediff</span> для текущего файла;</p></dd><dt><span class="keysym">d</span> <span class="keysym">l</span> </dt><dd><p> (команда
+        <code class="function">tla-changes-last-revision</code>) — 
+        показать изменения относительно последнего релиза;</p></dd><dt><span class="keysym">d</span> <span class="keysym">=</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-changes</code>) —  показать
+        список изменений для текущего дерева;</p></dd><dt><span class="keysym">d</span> <span class="keysym">m</span> </dt><dd><p> (команда
+        <code class="function">tla-inventory-missing</code>) —  показать
+        список отсутствующих изменений.</p></dd></dl></div><p>
+  </p><p>Пользователь может управлять отображением объектов в буфере,
+  например, скрывая файлы резервных копий (backup), или файлы, заведомо
+  содержащие ненужные данные (junk).  Для этого используются команды
+  <code class="function">tla-inventory-toggle-...</code></p><p>Работа с изменениями ведется аналогично работе с изменениями в
+  пакете PCL-CVS.  Вы можете просмотреть список измененных файлов с помощью
+  команды <code class="function">tla-changes</code> (или используя сочетание клавиш
+  <span class="keysym">C</span>+<span class="keysym">x</span>
+  <span class="keysym">T</span> <span class="keysym">c</span>), которая покажет вам список
+  измененных файлов (он отображается в буфере
+  <code class="literal">*tla-changes*</code>), и сами изменения.  С помощью команды
+  <code class="function">tla-changes-edit-log</code> (клавиша c в буфере
+  <code class="literal">*tla-changes*</code> вы можете ввести сообщение, описывающее
+  изменения, и затем установить изменения в репозиторий, используя сочетание
+  клавиш <span class="keysym">C</span>+<span class="keysym">c</span>
+  <span class="keysym">C</span>+<span class="keysym">c</span>.  Можно также
+  вносить изменения только для отмеченных файлов, что помогает делать
+  изменения атомарными.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2580035"></a>Настройка</h3></div></div></div><p>Настройка данного пакета не проста, а очень проста —  выполните
+  команду <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span>
+  customize-group xtla</code> и задайте все необходимые опции. Диапазон настроек очень велик —  начиная от расположения команд, необходимых
+  для работы, и до задания параметров отображения данных.  Вы также можете
+  задать префиксное сочетание клавиш, отличное от используемого по
+  умолчанию.</p><p>Пакет позволяет пользователю задать хуки практически на каждую из реализованных им операций. Это позволит пользователю более тонко контролировать работу с данными в репозитории.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2580096"></a>Дополнительная информация</h3></div></div></div><p>Немного дополнительной информации вы можете найти на странице GNU
+  Arch WiKi, по адресу <a class="ulink" href="http://wiki.gnuarch.org/xtla" target="_top">http://wiki.gnuarch.org/xtla</a>.
+  И конечно весь сайт <a class="ulink" href="http://wiki.gnuarch.org" target="_top">GNU Arch WiKi</a>
+  будет вам великолепным подспорьем в работе с <span class="application">GNU Arch</span>.</p><p>Для получения полного списка команд, используйте сочетание клавиш
+  <span class="keysym">C</span>+<span class="keysym">x</span>
+  <span class="keysym">T</span>
+  <span class="keysym">C</span>+<span class="keysym">h</span>.  Вы также
+  можете получить справку по конкретной команде <span class="command"><strong>tla</strong></span>,
+  используя сочетание клавиш
+  <span class="keysym">C</span>+<span class="keysym">x</span>
+  <span class="keysym">T</span> <span class="keysym">h</span> <code class="literal">command</code>, что
+  приводит к запуску команды <span class="command"><strong>tla command -H</strong></span>.</p></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id2576347" href="#id2576347" class="para">3</a>] </sup>В настоящее время
+  ведется разработка пакета <span class="application">dvc</span>, который
+  является развитием идей заложенных в <span class="application">xtla</span> и в котором планируется
+  реализовать поддержку разных распределенных систме контроля версий,
+  в том числе и отличных от <span class="application">xtla</span>.  Более подробную информацию вы
+  можете найти на сайте xtla.</p></div></div></div><script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script type="text/javascript">
+      _uacct = "UA-78697-3";
+      urchinTracker();
+    </script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s04.html">Пред.</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s06.html">След.</a></td></tr><tr><td width="40%" align="left" valign="top">Пакет <span class="application">PCL-CVS</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Начало</a></td><td width="40%" align="right" valign="top"> Пакет <span class="application">PSVN</span></td></tr></table></div></body></html>

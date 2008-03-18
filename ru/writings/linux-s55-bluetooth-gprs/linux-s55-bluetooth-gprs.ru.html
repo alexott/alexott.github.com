@@ -1,0 +1,205 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=koi8-r"><title>Настройка доступа в Internet через GPRS на Linux используя
+    Siemens S55 и Bluetooth</title><meta name="generator" content="DocBook XSL Stylesheets V1.64.0"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article" lang="ru"><div class="titlepage"><div><div><h1 class="title"><a name="id2244064"></a>Настройка доступа в Internet через GPRS на Linux используя
+    Siemens S55 и Bluetooth</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Alex</span> <span class="surname">Ott</span></h3><div class="affiliation"><div class="address"><p><br>
+          <tt class="email">&lt;<a href="mailto:alexott@gmail.com">alexott@gmail.com</a>&gt;</tt><br>
+        </p></div></div></div></div></div><div></div><hr></div><p>Все началось с того, что дома у меня плохая телефонная линия,
+    которую не видит мой модем серии Eline на 57.6kbit (кроме модема ее не
+    видели еще несколько моделей телефонов).  Кабель в квартиру мне тоже не
+    светил, поэтому было решено попытать счастья со связью через мобильный
+    телефон.  В рамках планового апгрейда телефона, был закуплен Siemens
+    S55 &#8212; в качестве решающих факторов было наличие голубого зуба
+    (bluetooth), irda, j2me, ну и конечно поддержки GPRS.  Оператором
+    сотовой связи является Beeline.</p><p>Со стороны компьютера для общения с телефоном использовался
+    Bluetooth USB Adapter Tekram TM-300.  В качестве операционной системы
+    используется ALTLinux Master 2.2, который раз в неделю обновляется из
+    Sisyphus (поскольку я являюсь одним из разработчиков данного
+    дистрибутива).  Использовалось ядро Linux 2.4.22 (сборка
+    2.4.22-std-up-alt13). </p><p>Сначала я приступил к настройке bluetooth на Linux.  Для работы с
+    ним, в систему были установлены пакеты libbluez 2.4, bluez-sdp 1.5,
+    bluez-pan 1.1, bluez-hciemu 1.0, bluez-utils 2.3.  После изучения
+    доступной документации, началась настройка:
+
+    </p><div class="orderedlist"><ol type="1"><li><p>В файл <tt class="filename">/etc/modules.conf</tt> было
+      добавлены строки, которые подключают модули поддержки bluetooth и
+
+      </p><pre class="screen">
+alias net-pf-31 bluez
+alias tty-ldisc-15 hci_uart
+alias bt-proto-0 l2cap
+alias bt-proto-2 sco
+alias bt-proto-3 rfcomm
+alias bt-proto-5 bnep
+      </pre><p>
+      </p></li><li><p>Вносим изменения в
+      <tt class="filename">/etc/bluetooth/hcid.conf</tt>, чтобы общение по
+      bluetooth шифровалось, а также была указана программа, которая по
+      запросу выдавала pin-код телефону. Это была директива
+      <tt class="computeroutput">pin_helper</tt> в разделе
+      <tt class="computeroutput">options</tt> и она стала выглядеть
+      следующим образом:
+
+      </p><pre class="screen">
+pin_helper /etc/bluetooth/bluepin;
+      </pre></li><li><p>Создаем сам файл
+      <tt class="filename">/etc/bluetooth/bluepin</tt> следующего содержания:
+
+      </p><pre class="screen">
+#/bin/sh
+
+echo "PIN:00"
+      </pre></li><li><p>Тестируем работу USB Bluetooth адаптера. С помощью
+      утилиты <span><b class="command">hciconfig</b></span>, был получен список bluetooth
+      устройств (в моем случае это был
+      <tt class="filename">hci0</tt>).</p></li><li><p>Выполняем сканирование окружающей среды на
+      предмет наличия bluetooth устройств:
+
+      </p><pre class="screen">
+root@flash:/\&gt;hcitool scan
+Scanning ...
+        00:01:E3:70:E0:AF       OttAlex
+      </pre><p>
+      
+это и был мой телефон.
+      </p></li><li><p>Убеждаемся в том, что телефон поддерживает
+      dial-up networking, что было и сделано с помощью команды:
+
+      </p><pre class="screen">
+root@flash:/\&gt;sdptool search DUN
+Inquiring ...
+Searching for DUN on 00:01:E3:70:E0:AF ...
+Service Name: Dial-up networking
+Service RecHandle: 0x11103
+Service Class ID List:
+  "Dialup Networking" (0x1103)
+  "Generic Networking" (0x1201)
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 1
+Language Base Attr List:
+  code_ISO639: 0x656e
+  encoding:    0x6a
+  base_offset: 0x100
+Profile Descriptor List:
+  "Dialup Networking" (0x1103)
+    Version: 0x0100
+      </pre><p>
+      
+      Аналогичным образом можно получить информацию о том, какие
+      сервисы поддерживает телефон с помощью команды sdptool browse
+      </p></li><li><p>и протестируем подключение к телефону с помощью
+      l2ping:
+
+      </p><pre class="screen">
+root@flash:/\&gt;l2ping 00:01:E3:70:E0:AF
+Ping: 00:01:E3:70:E0:AF from 00:0A:94:00:03:EC (data size 20) ...
+0 bytes from 00:01:E3:70:E0:AF id 200 time 36.57ms
+0 bytes from 00:01:E3:70:E0:AF id 201 time 31.55ms
+.............
+5 sent, 5 received, 0% loss
+      </pre><p>
+      </p></li><li><p>Теперь можно подключиться к телефону. Это делается
+      через <span><b class="command">rfcomm</b></span>. Для этого используется команда вида:
+
+      </p><pre class="screen">
+root@flash:/\&gt;rfcomm bind 0 00:01:E3:70:E0:AF 1
+      </pre><p>
+      
+      которая заставляет подключить устройство 0 к bluetooth устройству
+      <tt class="computeroutput">00:01:E3:70:E0:AF</tt> к первому
+      каналу.</p><p>Можно проверить подключение с помощью команды <span><b class="command">rfcomm
+      show</b></span>.</p><p>В том случае, если у вас нет файлов устройств
+      <tt class="filename">/dev/rfcomm*</tt>, то вам необходимо их создать с
+      помощью команды вида:
+
+      </p><pre class="screen">
+mknod /dev/rfcomm0 c 216 0
+      </pre><p>
+      
+      у меня они уже были созданы при установке системы.</p></li><li><p> Проверяем работу подключения с помощью
+      minicom. Запускаем его, настраиваем на работу с
+      <tt class="filename">/dev/rfcomm0</tt> вместо /dev/modem и пробуем набрать
+      команду:
+
+      </p><pre class="screen">
+    ATDT+79031234567
+      </pre><p>
+      
+      вместо <tt class="computeroutput">1234567</tt> я указал свой номер, и
+      телефон начал звонить показывая, что я вызываю сам себя
+      :-)</p></li><li><p>Теперь приступаем к настройке <span><b class="command">pppd</b></span>.
+      Создаем файл <tt class="filename">/etc/ppp/peers/gprs</tt> следующего
+      содержания:
+
+      </p><pre class="screen">
+/dev/rfcomm0 57600
+connect '/usr/sbin/chat -v -f /etc/ppp/chat/gprs'
+noauth
+defaultroute
+lock 
+debug
+novjccomp 
+nopcomp 
+noaccomp 
+nodeflate 
+novj 
+nobsdcomp
+default-asyncmap
+ipcp-accept-local
+ipcp-accept-remote
+usepeerdns
+user beeline
+nodetach
+      </pre><p>
+      
+      При этом отключается всякое сжатие, как указано в рекомендациях
+      сервисной службы beeline, и не происходит отключение от управляющего
+      терминала, так что <span><b class="command">pppd</b></span> можно остановить с помощью
+      Ctrl-C</p><p>В файл <tt class="filename">/etc/ppp/chat/gprs</tt> записываем
+      команды программы <span><b class="command">chat</b></span>:
+
+      </p><pre class="screen">
+TIMEOUT 5
+ECHO    ON
+ABORT   '\nBUSY\r'
+ABORT   '\nERROR\r'
+ABORT   '\nNO ANSWER\r'
+ABORT   '\nNO CARRIER\r'
+ABORT   '\nNO DIALTONE\r'
+ABORT   '\nRINGING\r\n\r\nRINGING\r'
+''              \rAT
+TIMEOUT 12
+OK              ATH
+OK              ATE1
+OK              AT+CGDCONT=1,"IP","internet.beeline.ru"
+OK              ATD*99***1#
+CONNECT
+      </pre><p>
+      
+      И в файл <tt class="filename">/etc/ppp/pap-secrets</tt> добавляем строку:
+
+      </p><pre class="screen">
+beeline  ppp0  "beeline"
+      </pre><p>
+      
+      и все, можно пробовать подключиться к интернету с помощью команды
+
+      </p><pre class="screen">
+pppd call gprs 
+      </pre><p>
+      
+      запущенной из под пользователя
+      <span class="emphasis"><em>root</em></span>.</p></li><li><p>Дополнительная настройка может заключаться в том, что
+      в каталоги <tt class="filename">/etc/ppp/ip-up.d</tt> и
+      <tt class="filename">/etc/ppp/ip-down.d</tt> можно поместить скрипты,
+      которые будут запускаться при поднятии и закрытии соединения. У меня
+      это команды, которые запускают и останавливают
+      <span><b
+      class="command">fetchmail</b></span>.</p></li></ol></div></div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+	_uacct = "UA-78697-3";
+	urchinTracker();
+</script>
+</body></html>

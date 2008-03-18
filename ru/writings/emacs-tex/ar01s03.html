@@ -1,0 +1,286 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет RefTeX</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, TeX, LaTeX, BibTeX, RefTeX"><link rel="start" href="index.html" title="Использование Emacs для работы с TeX и LaTeX"><link rel="up" href="index.html" title="Использование Emacs для работы с TeX и LaTeX"><link rel="prev" href="ar01s02.html" title="Работа с TeXом с использованием пакета AUCTeX"><link rel="next" href="ar01s04.html" title="Пакет bibtex"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет RefTeX</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s02.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s04.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.tex.reftex"></a>Пакет RefTeX</h2></div></div></div><p>RefTeX это пакет для работы с метками, ссылками, ссылками на литературу и записями в индексе. Пакет поддерживает работу со всеми основными режимами для LaTeX'а, и имеет поддержку для работы с документами, состоящими из нескольких файлов. Пакет поставляется с достаточно большим руководством, которое подробно описывает каждый из моментов работы с пакетом.</p><p>RefTeX реализует следующие возможности:
+  </p><div class="itemizedlist"><ul type="disc"><li><p>Создание таблицы оглавления редактируемого документа, и быстро переходить в нужную часть, используя это оглавление;</p></li><li><p>Создание меток для различных объектов, и потом ссылаться на них, используя накопленные данные;</p></li><li><p>Возможности поиска по базам BibTeX, и использование результатов поиска для вставки ссылок на литературу;</p></li><li><p>Работа с индексами — создание записей в индексе, просмотр и изменение файлов индексов;</p></li><li><p>Работа с перекрестными ссылками;</p></li><li><p>Работа с документами, состоящими из нескольких файлов;</p></li><li><p>Взаимодействие с AUCTeX.</p></li></ul></div><p>
+
+  </p><p>RefTeX написан Carsten Dominik, и в настоящее время, им и
+  сопровождается.  Вы можете найти дистрибутив пакета и прочую информацию
+  относящуюся к нему на <a class="ulink" href="http://www.strw.leidenuniv.nl/~dominik/Tools/" target="_top">сайте автора</a>. </p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2574864"></a>Работа с пакетом</h3></div></div></div><p>В целом, работу с пакетом RefTeX можно разделить на несколько
+    больших частей:
+    </p><div class="itemizedlist"><ul type="disc"><li><p>работа с таблицами оглавлений;</p></li><li><p>работа с метками;</p></li><li><p>работа с базами данных BibTeX;</p></li><li><p>работа с индексами.</p></li></ul></div><p>Команды могут выполняться с помощью привязок клавиш, стандартных
+    средств выполнения команд, или используя меню <code class="literal">Ref</code>,
+    которое появляется при использовании пакета RefTeX.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="emacs.tex.reftex.common"></a>Общие команды и привязки клавиш</h4></div></div></div><p>Все буфера, в которых происходит работа, имеют привязки клавиш,
+      которые работают сходным образом:
+
+      </p><div class="glosslist"><dl><dt>
+              <span class="keysym">?</span>
+            </dt><dd><p> — получение справки о работе в буфере;</p></dd><dt>
+              <span class="keysym">n</span>
+            </dt><dd><p> — переход к следующему элементу</p></dd><dt>
+              <span class="keysym">p</span>
+            </dt><dd><p> — переход к предыдущему элементу;</p></dd><dt>
+              <span class="keysym">q</span>
+            </dt><dd><p> — выйти из буфера;</p></dd><dt>
+              <span class="keysym">k</span>
+            </dt><dd><p> — удалить буфер;</p></dd><dt>
+              <span class="keysym">g</span>
+            </dt><dd><p> — перестроить буфер;</p></dd><dt>
+              <span class="keysym">SPC</span>
+            </dt><dd><p> — переход к соответствующему элементу в другом окне (но окно не становится активным);</p></dd><dt>
+              <span class="keysym">TAB</span>
+            </dt><dd><p> — переход к соответствующему элементу в другом окне;</p></dd><dt><span class="keysym">RET</span> (или <span class="keysym">mouse-2</span>)</dt><dd><p> — перейти к выбранному элементу, и спрятать буфер;</p></dd><dt>
+              <span class="keysym">f</span>
+            </dt><dd><p> — переключает режим следования (при работе в этом режиме в другом окне отображается раздел соответствующий текущему элементу);</p></dd><dt><span class="keysym">r</span> и <span class="keysym">C-r</span></dt><dd><p> — заново разобрать часть или весь документ для формирования соответствующего буфера.</p></dd></dl></div><p>
+      </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575167"></a>Работа с таблицами оглавлений</h4></div></div></div><p>Получить таблицу оглавления можно получить с помощью сочетания
+      клавиш <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">=</span>. Таблица
+      отображается в отдельном буфере, который называется
+      <code class="literal">*toc*</code>. По умолчанию, в этом буфере отображается
+      только список разделов документа, однако, используя клавиши
+      <span class="keysym">l</span> и <span class="keysym">i</span>, вы легко можете получить
+      список всех меток и вхождения индексов в документе.  Перемещаясь по
+      буферу пользователь может быстро переходить к нужным разделам
+      документа.</p><p>Для работы с содержимым буфера используется набор клавиш. Кроме
+      стандартных клавиш, перечисленных в разделе <a class="xref" href="ar01s03.html#emacs.tex.reftex.common" title="Общие команды и привязки клавиш">Общие команды и привязки клавиш</a>,
+      пользователю доступны следующие команды:
+
+      </p><div class="glosslist"><dl><dt>
+              <span class="keysym">N</span>
+              <span class="keysym">z</span>
+            </dt><dd><p> — переход к разделу номер N;</p></dd><dt>
+              <span class="keysym">t</span>
+            </dt><dd><p> — задать глубину отображаемых разделов;</p></dd></dl></div><p>С действиями, которые выполняются с помощью других клавиш вы можете ознакомиться в руководстве по RefTeX.</p><p>На разбор документов, и отображение результатов разбора, влияет
+      некоторое количество переменных и функций, с которыми мы ознакомимся в
+      разделе <a class="xref" href="ar01s03.html#emacs.tex.reftex.customize" title="Установка и настройка">Установка и настройка</a>. </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575320"></a>Работа с метками</h4></div></div></div><p>Мы можем рассматривать работу с пометками с двух сторон — создание меток, и их использование.</p><p>Для создания метки использует сочетание клавиш
+      <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">(</span> (или команда
+      <code class="function">reftex-label</code>).  В зависимости от контекста,
+      RefTeX может адаптировать метку к текущему контексту. Обычно к имени
+      метки добавляется небольшой префикс, который позволяет отличать метки
+      для картинок, от меток для таблиц и т.п.  Способ создания меток может
+      изменяться в зависимости от значения переменной
+      <code class="varname">reftex-insert-label-flags</code>, который мы рассмотрим в
+      разделе <a class="xref" href="ar01s03.html#emacs.tex.reftex.customize" title="Установка и настройка">Установка и настройка</a>.</p><p>Для того, чтобы сослаться на метку, используется сочетание
+      клавиш <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">)</span> (или команда
+      <code class="function">reftex-reference</code>).  Также как и при вставке
+      метки, RefTeX пытается вычислить контекст в котором используется
+      ссылка, и вставить часть имени.  При вставке имени метки вы можете
+      использовать буфер со списком определенных в документе меток. Работа с
+      буфером аналогична работе с буфером, содержащим оглавление
+      документа. Однако, в отличии от оглавления документа, вы можете
+      ссылаться на несколько меток, помечая их с помощью клавиши
+      <span class="keysym">m</span>, и затем используя клавишу <span class="keysym">RET</span> при
+      окончании выбора.</p><p>RefTeX распознает большое количество окружений LaTeX, как
+      входящих в стандартный набор окружений, так и в разные, не совсем
+      стандартные окружения.  Полный их список имеется в руководстве к
+      пакету. Кроме этого, вы можете заставить RefTeX распознавать ваши
+      собственные окружения.  Об этом вы можете прочитать в разделе
+      "Defining Label Environments", руководства по RefTeX.  Также,
+      RefTeX умеет ссылаться на метки, определенные в других документах,
+      работая совместно со стилем LaTeX, который называется
+      <span class="application">xr</span>, и учитывать возможности,
+      предоставляемые пакетами <span class="application">varioref</span> и
+      <span class="application">fancyref</span>.</p><p>Результаты поиска меток отображаются в отдельном буфере, по
+      которому вы можете перемещаться с помощью команд, перечисленных в
+      разделе <a class="xref" href="ar01s03.html#emacs.tex.reftex.common" title="Общие команды и привязки клавиш">Общие команды и привязки клавиш</a>.  Однако, для работы с пометками, в
+      данном буфере определены дополнительные команды:
+
+      </p><div class="glosslist"><dl><dt>
+              <span class="keysym">m</span>
+            </dt><dd><p> — помечает текущую запись.  При использовании
+          клавиши <span class="keysym">RET</span>, все помеченные записи будут
+          вставлены как отдельные макросы <span class="command"><strong>\ref</strong></span>.  Для этой
+          команды существуют дополнительные модификаторы «<span class="quote">
+                  <code class="literal">- + ,</code>
+                </span>», которые определяют разделители между
+          вставляемыми записями.</p></dd><dt>
+              <span class="keysym">u</span>
+            </dt><dd><p> — снимает пометку с текущей записи;</p></dd><dt>
+              <span class="keysym">a</span>
+            </dt><dd><p> — помещает помеченные записи в виде списка
+          для одного макроса <span class="command"><strong>\ref</strong></span>;</p></dd><dt>
+              <span class="keysym">l</span>
+            </dt><dd><p> — использовать метку, на которую ссылались в последний раз;</p></dd><dt>
+              <span class="keysym">TAB</span>
+            </dt><dd><p> — вводит имя пометки, с возможностью дополнения имени. Тут вы можете ввести имя метки, которое еще не существует;</p></dd><dt>
+              <span class="keysym">v</span>
+            </dt><dd><p> — включает и отключает использование макроса
+          <span class="command"><strong>\vref</strong></span> вместо <span class="command"><strong>\ref</strong></span>.  Макрос
+          <span class="command"><strong>\vref</strong></span> определяется пакетом
+          <span class="application">varioref</span>;</p></dd><dt>
+              <span class="keysym">V</span>
+            </dt><dd><p> — циклически переключается между
+          использованием макросов <span class="command"><strong>\ref</strong></span>,
+          <span class="command"><strong>\fref</strong></span> и <span class="command"><strong>\Fref</strong></span>.  Последние
+          два макроса определены в пакете
+          <span class="application">fancyref</span>;</p></dd><dt>
+              <span class="keysym">s</span>
+            </dt><dd><p> — вызывает переключение на другую категорию меток;</p></dd><dt>
+              <span class="keysym">x</span>
+            </dt><dd><p> — вставляет ссылку на метку из внешнего
+          документа.  Это возможно за счет использования пакета
+          <span class="application">xr</span>.</p></dd></dl></div><p>Кроме вышеперечисленных команд, в буфере работы с метками
+      определены команды, которые контролируют отображаемую информацию
+      (значения по умолчанию для этих настроек хранятся в переменной
+      <code class="varname">reftex-label-menu-flags</code>):
+
+      </p><div class="glosslist"><dl><dt>
+              <span class="keysym">c</span>
+            </dt><dd><p> — переключает отображение одно-строчного контекста определения метки;</p></dd><dt>
+              <span class="keysym">F</span>
+            </dt><dd><p> — переключает отображение границ файлов в документе, состоящем из нескольких файлов;</p></dd><dt>
+              <span class="keysym">t</span>
+            </dt><dd><p> — переключает отображение таблицы оглавления в буфере;</p></dd><dt>
+              <span class="keysym">#</span>
+            </dt><dd><p> — переключает отображение счетчика меток;</p></dd><dt>
+              <span class="keysym">%</span>
+            </dt><dd><p> — переключает отображение меток, скрытых в комментариях.</p></dd></dl></div><p>
+      </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575940"></a>Работа с ссылками на литературу и базами данных BibTeX</h4></div></div></div><p>Ссылки на литературу создаются в LaTeX с помощью команды
+      <span class="command"><strong>\cite</strong></span> или ее аналогов.  Ссылки могут быть
+      определены в базах данных BibTeX, или указаны явно в
+      документе.</p><p>Создание ссылки на литературу производится с помощью команды
+      <code class="function">reftex-citation</code> (сочетание клавиш
+      <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">[</span>).  При
+      выполнении данной команды, она запросит у пользователя регулярное
+      выражение, которое будет использоваться при поиске по базам данных.
+      Поиск производится по файлам в текущем каталоге, а также по файлам,
+      находящимся в путях, перечисленных в переменной среды
+      <code class="varname">BIBINPUTS</code>.</p><p>После выполнения поиска, его результаты будут представлены в
+      виде буфера, аналогичного буферу результатов вставки ссылок на метки:
+
+      </p><div class="glosslist"><dl><dt>
+              <span class="keysym">m</span>
+            </dt><dd><p> — помечает текущую запись.  Затем все помеченные
+          записи будут использованы при использовании команд
+          <span class="keysym">a</span> или <span class="keysym">A</span>;</p></dd><dt>
+              <span class="keysym">u</span>
+            </dt><dd><p> — снимает пометку с текущей записи;</p></dd><dt>
+              <span class="keysym">a</span>
+            </dt><dd><p> — вставляет все помеченные записи в виде одного
+          макроса <span class="command"><strong>\cite</strong></span>;</p></dd><dt>
+              <span class="keysym">A</span>
+            </dt><dd><p> — вставляет все помеченные записи в виде макросов
+          <span class="command"><strong>\cite</strong></span> для каждой из записей.</p></dd></dl></div><p>RefTeX поддерживает использование разных стилей ссылок на
+      литературу.  Кроме стандартных механизмов LaTeX, пакет поддерживает
+      работу с дополнительными модулями расширения LaTeX, такими как
+      <span class="application">natbib</span>, <span class="application">harvard</span>
+      и т.п.  Текущий используемый стиль определяется переменной
+      <code class="function">reftex-cite-format</code>, которой вы можете присвоить
+      нужное вам значение.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2576157"></a>Работа с индексами</h4></div></div></div><p>LaTeX поддерживает создание автоматических разделов индексов. Кроме стандартных средств, существует некоторое число пакетов, которые расширяют возможности LaTeX в этой области.</p><p>До начала работы с индексами, вы должны сообщить RefTeX о том,
+      какой стиль индексов вы будете использовать.  При использовании
+      AUCTeX, такая настройка будет выполнена автоматически, однако вы
+      можете выполнить ее и вручную используя пункт <code class="literal">Index Style</code> меню <code class="literal">Ref</code> или настраивая переменную
+      <code class="varname">reftex-index-macros</code>.</p><p>Создание записи индекса для текущего слова или записи,
+      используется команда
+      <code class="function">reftex-index-selection-or-word</code> (сочетание
+      <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">/</span>).  По умолчанию,
+      для индекса используется макрос заданный переменной
+      <code class="varname">reftex-index-default-macro</code> (по умолчанию это
+      <span class="command"><strong>\index</strong></span>).  Используя префиксный аргумент вы можете
+      изменять содержимое индексной записи перед его вставкой (один
+      префиксный аргумент) или имя макроса индексации (два префиксных
+      аргумента).  Вставка общего макроса индексации производится с помощью
+      команды <code class="function">reftex-index</code> (сочетание клавиш
+      <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">&lt;</span>).  При
+      выполнении этой команды, у пользователя запросят имя макроса и его
+      аргументы.</p><p>Для облегчения работы пользователя, RefTeX ведет отдельный
+      файл, в котором собираются фразы для последующего индексирования.  Вы
+      можете попасть в (или создать его) этот файл с помощью команды
+      <code class="function">reftex-index-visit-phrases-buffer</code> (сочетание
+      <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">|</span>).  Файл имеет то
+      же имя, что и основной файл документа, но имеет расширение
+      <code class="filename">.rip</code>.  Фразы для индексирования могут быть
+      собраны во время работы, используя команду
+      <code class="function">reftex-index-phrase-selection-or-word</code>
+      (<span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">\</span>), которая
+      копирует выделение или текущее слово в буфер фраз.  При выполнении
+      этой команды, пользователь попадает в буфер фраз, так что он может
+      изменить скопированное значение, и покинуть этот буфер можно с помощью
+      сочетания клавиш <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">C</span>+<span class="keysym">c</span>, которое вызывает команду
+      <code class="function">reftex-index-phrases-save-and-return</code>.</p><p>Компиляция и отображение индекса производится с помощью команды
+      <code class="function">reftex-display-index</code>, которая привязана к
+      сочетанию <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">&gt;</span>. Принципы работы в отображенном буфере аналогичны тем, что применяются при работе с другими буферами —  меток, ссылок на литературу и
+      оглавления.  Однако, пользуясь данным буфером, пользователь может
+      изменять индексные записи с помощью следующих команд:
+
+      </p><div class="glosslist"><dl><dt>
+              <span class="keysym">e</span>
+            </dt><dd><p> — изменяет текущую индексную запись. Используя минибуфер, вы можете задать макрос, который будет использоваться при определении данной записи;</p></dd><dt>
+              <span class="keysym">C-k</span>
+            </dt><dd><p> — уничтожает данную запись;</p></dd><dt>
+              <span class="keysym">*</span>
+            </dt><dd><p> — изменяет ключевую часть для данной записи, которая определяет расположение записи в индексе;</p></dd><dt>
+              <span class="keysym">|</span>
+            </dt><dd><p> — изменяет атрибутивную часть записи, которая располагается после вертикальной черты;</p></dd><dt>
+              <span class="keysym">@</span>
+            </dt><dd><p> — изменяет видимую часть записи;</p></dd><dt>
+              <span class="keysym">(</span>
+            </dt><dd><p> — изменяет начало свойства диапазона страниц записи;</p></dd><dt>
+              <span class="keysym">)</span>
+            </dt><dd><p> — изменяет конец свойства диапазона страниц записи;</p></dd><dt>
+              <span class="keysym">_</span>
+            </dt><dd><p> — делает текущую запись частью другой записи;</p></dd><dt>
+              <span class="keysym">^</span>
+            </dt><dd><p> — удаляет самую верхнюю запись в иерархии.</p></dd></dl></div><p>Пользователь может управлять отображением информации в буфере с
+      помощью следующих команд:
+
+      </p><div class="glosslist"><dl><dt>
+              <span class="keysym">c</span>
+            </dt><dd><p> — переключает отображение контекста в буфере
+          <code class="literal">*Index*</code>.  Значение по умолчанию для данного
+          свойства определяется переменной
+          <code class="varname">reftex-index-include-context</code>;</p></dd><dt>
+              <span class="keysym">}</span>
+            </dt><dd><p> — сужает индекс до показа раздела одного документа.
+          Номер раздела будет отображаться в индикаторе
+          <code class="literal">R&lt;&gt;</code> строки состояния, а также в заголовке
+          буфера <code class="literal">*Index*</code>;</p></dd><dt>
+              <span class="keysym">{</span>
+            </dt><dd><p> — включает показ всех индексных записей документа;</p></dd><dt>
+              <span class="keysym">&lt;</span>
+            </dt><dd><p> — при использовании режима сужения индексов, переходит к предыдущему разделу;</p></dd><dt>
+              <span class="keysym">&gt;</span>
+            </dt><dd><p> — при использовании режима сужения индексов, переходит к следующему разделу;</p></dd></dl></div><p>При работе с буфером индексов, пакет определяет дополнительные
+      команды, которых нет в других буферах:
+
+      </p><div class="glosslist"><dl><dt>
+              <span class="keysym">!</span>
+              <code class="literal">A..Z</code>
+            </dt><dd><p> — выполняет переход на секцию индекса, начинающуюся с соответствующей буквы;</p></dd><dt>
+              <span class="keysym">s</span>
+            </dt><dd><p> — переключает на работу с другим индексом (если используется несколько индексов).</p></dd></dl></div><p>
+      </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2576850"></a>Прочие команды</h4></div></div></div><p>С помощью пакета RefTeX вы также можете получать информацию о
+      том, из каких частей документа ссылаются на данный объект.  Это
+      выполняется с помощью команды
+      <code class="function">reftex-view-crossref</code>, которая привязана к
+      сочетанию клавиш <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">&amp;</span>.
+      Пользователь также может использовать привязку
+      <span class="keysym">S</span>+<span class="keysym">mouse</span>+<span class="keysym">2</span> для аргумента макроса, и пакет выполнит
+      переход на объект, соответствующий текущему макросу.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="emacs.tex.reftex.customize"></a>Установка и настройка</h3></div></div></div><p>RefTeX поставляется в составе <span class="application">GNU Emacs</span> начиная с
+    версии 20.2 и в составе <span class="application">XEmacs</span> начиная с версии 19.16 и всех
+    <span class="application">XEmacs</span> версии 20.  Для <span class="application">XEmacs</span> версии 21 существует пакет,
+    который доступен с основного сайта <span class="application">XEmacs</span>.  Так что ручная установка
+    пакета не потребуется.</p><p>Настройка пакета достаточна проста —  вам как минимум надо
+    установить хуки для основных режимов работы с LaTeX, например, с
+    помощью такого кода:
+
+    </p><pre class="screen">(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'latex-mode-hook 'turn-on-reftex)    </pre><p>первая строка устанавливает хук для режима, предоставляемого пакетом
+    AUCTeX, а вторая для стандартного режима идущего в составе Emacs.
+    Настройка остальных параметров может быть осуществлена используя команду
+    <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span>customize-group reftex</code>.</p><p>Для интеграции с AUCTeX будет полезным установить переменную
+    <code class="varname">reftex-plug-into-AUCTeX</code> в истинное значение (с помощью
+    команды <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span> customize-variable</code>, или с помощью кода на Emacs Lisp).</p><p>Для работы с документами состоящими из нескольких файлов, желательно
+    установить в истинное значение несколько переменных, которые позволяют
+    выполнять кеширование информации, а также работы с неполными документами:
+
+    </p><pre class="screen">(setq reftex-enable-partial-scans t)
+(setq reftex-save-parse-info t)
+(setq reftex-use-multiple-selection-buffers t)    </pre><p>Вы можете настроить эти и другие переменные используя стандартные
+    средства настойки <span class="application">Emacs</span>.  Группа настройки называется
+    <code class="literal">reftex</code>.</p><p>Для более точной настройки пакета, в нем определяется два хука —  <code class="function">reftex-load-hook</code> и
+    <code class="function">reftex-mode-hook</code>. Команды первого хука выполняются при загрузке пакета, а команды второго —  при включении режима
+    <code class="function">reftex-mode</code>.</p><p>По умолчанию, RefTeX настроен для работы с английским языком. Для его использования с другими языками, пользователю надо знакомиться с содержимым раздела `Language Support' руководства по RefTeX.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2577147"></a>Возможные проблемы и их решение</h3></div></div></div><p>Несмотря на достаточно хорошую реализацию, иногда при работе с данным пакетом могут возникать различные проблемы, которые часто имеют решения, но требуют некоторых изменений в оформлении кода или подходу к работе с LaTeX.</p><p>Для своей нормальной работы пакет требует от пользователя, чтобы
+    он следовал некоторым правилам оформления документов.  Так, команды
+    <span class="command"><strong>\include</strong></span>, <span class="command"><strong>\bibliography</strong></span>,
+    <span class="command"><strong>\input</strong></span> и <span class="command"><strong>\section</strong></span> должны быть
+    первыми командами на строке, не считая пробельных символов. </p><p>В своей работе RefTeX анализирует весь текст, включая комментарии, поэтому если у вас есть закомментированные блоки с определением меток, то RefTeX может отказать вам в создании меток с существующими именами.</p><p>Иногда при работе с RefTeX могут возникать проблемы связанные с замедлением работы. Для предотвращения этого, существует несколько советов, которые полностью перечислены в руководстве по RefTeX.</p></div></div><script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script type="text/javascript">
+      _uacct = "UA-78697-3";
+      urchinTracker();
+    </script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s02.html">Пред.</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s04.html">След.</a></td></tr><tr><td width="40%" align="left" valign="top">Работа с TeXом с использованием пакета AUCTeX </td><td width="20%" align="center"><a accesskey="h" href="index.html">Начало</a></td><td width="40%" align="right" valign="top"> Пакет bibtex</td></tr></table></div></body></html>

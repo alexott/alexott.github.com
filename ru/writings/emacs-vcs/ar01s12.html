@@ -1,0 +1,68 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Интеграция с Microsoft Visual SourceSafe</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s11.html" title="Интеграция с Perforce"><link rel="next" href="ar01s13.html" title="Поддержка Monotone"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Интеграция с Microsoft <span class="application">Visual SourceSafe</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s11.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s13.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.vss"></a>Интеграция с Microsoft <span class="application">Visual SourceSafe</span></h2></div></div></div><p>Microsoft <span class="application">Visual SourceSafe</span> является часто используемой системой контролей
+  версий, в проектах по созданию программного обеспечения для операционных
+  систем фирмы Microsoft.  Кроме реализации этой системы для Microsoft
+  Windows, существуют и реализации для других операционных систем.
+  Подробнее об этой системе вы можете прочитать на странице на <a class="ulink" href="http://www.microsoft.com/ssafe/" target="_top">сайте Microsoft</a>.</p><p>Интеграция <span class="application">Emacs</span> с <span class="application">Visual SourceSafe</span> обеспечивается пакетом <span class="application">source-safe.el</span>.  Он
+  позволяет работать с данной системой контроля версий не покидая <span class="application">Emacs</span>.
+  В следующих разделах будет рассказано о установке, настройке и работе с
+  пакетом.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2587781"></a>Установка пакета <span class="application">source-safe.el</span></h3></div></div></div><p>Для установки пакета вам нужно скачать его со <a class="ulink" href="http://emacs.seanm.ca/cvs/lisp/source-safe.el" target="_top">страницы автора</a>.  Поместите скачанный файл туда, где его найдет <span class="application">Emacs</span> и
+    используйте команды
+
+    </p><pre class="screen">(setq ss-program "S:\\WinNT\\SS.exe"
+      ss-project-dirs '(("^D:\\\\OCI\\\\" . "$/PurifyW/")))
+(require 'source-safe)
+</pre><p>
+
+    для его загрузки.  Первые две строки задают расположение исполняемого
+    модуля <span class="application">Visual SourceSafe</span> и пути к каталогам проектов, а третья строка загружает
+    пакет.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2587838"></a>Работа с пакетом</h3></div></div></div><p>Получение данных из репозитория осуществляется с помощью
+    нескольких команд.  Команда <code class="function">ss-get</code> извлекает самую
+    последнюю версию текущего файла из репозитория.  В том случае, если она
+    запускается из буфера <span class="application">Dired</span>, то обновляется
+    весь текущий каталог и все его подкаталоги.  Для извлечения текущего
+    файла из репозитория также может использоваться команда
+    <code class="function">ss-checkout</code>.  Команда <code class="function">ss-lock</code>
+    позволяет извлечь текущий файл из репозитория, но при этом не заменяет
+    текущую копию данного файла.</p><p>Получить список внесенных изменений пользователь может с помощью
+    команды <code class="function">ss-diff</code>.  Сравнение производится с помощью
+    команды, заданной переменной <code class="varname">ss-diff-program</code>.  В том
+    случае, если задан параметр <code class="varname">non-interactive-p</code>, то
+    результат выполнения команды отображается в новом буфере, иначе для
+    работы с изменениями, используется <span class="application">Ediff</span>.  Подтверждение изменений в
+    репозиторий производится с помощью команды
+    <code class="function">ss-checkin</code>.</p><p>Пользователь может создать собственную ветку разработки с помощью
+    команды <code class="function">ss-branch</code>.  По завершении работы с
+    ответвленным файлом, можно слить изменения, используя функцию
+    <code class="function">ss-merge</code>, которая обеспечивает трех-стороннее
+    слияние изменений в базовую ветвь.  Удалить неиспользуемую ветвь можно с
+    помощью команды <code class="function">ss-unbranch</code>, при этом удаляются все
+    внесенные в нее изменения.</p><p>Для получения информации, пользователь может использовать несколько команд —  команда <code class="function">ss-history</code>
+    отображает историю изменений для текущего файла, команда
+    <code class="function">ss-status</code> показывает статус текущего файла в
+    репозитории <span class="application">Visual SourceSafe</span>, а команда <code class="function">ss-locate</code> позволяет
+    найти расположение текущего файла в репозитории <span class="application">Visual SourceSafe</span>.</p><p>К остальным командам пакета относятся команды
+    <code class="function">ss-help</code>, которая показывает краткое описание
+    основных команд и переменных пакета, и
+    <code class="function">ss-submit-bug-report</code>, которая позволяет отправить
+    разработчикам пакета сообщение о найденной ошибке.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2588062"></a>Настройка</h3></div></div></div><p>Настройка пакета производится с помощью переопределения
+    соответствующих переменных.  Основными переменными настройки являются
+    переменная <code class="varname">ss-program</code>, которая задает путь к
+    исполняемому модулю <span class="application">Visual SourceSafe</span> и переменная
+    <code class="varname">ss-project-dirs</code>, которая задает связи между
+    каталогами на диске и именами проектов.</p><p>Пользователь также может настроить поведение пакета с помощью
+    других переменных:
+        </p><div class="glosslist"><dl><dt><code class="varname">ss-username</code></dt><dd><p> — задает имя пользователя, если значение не задано, то будет использоваться имя текущего пользователя;</p></dd><dt><code class="varname">ss-password</code></dt><dd><p> — задает пароль пользователя, если значение не задано, то пароль будет запрошен при первом доступе к репозиторию;</p></dd><dt><code class="varname">ss-database-alist</code></dt><dd><p> —  список, связывающий именя файлов с
+            базами данных <span class="application">Visual SourceSafe</span>.  Эта переменная используется в том случае,
+            если вы одновременно используете несколько баз
+            <span class="application">Visual SourceSafe</span>;</p></dd><dt><code class="varname">ss-update-email-to</code>,
+            <code class="varname">ss-update-email-subject</code> и
+            <code class="varname">ss-update-email-body</code></dt><dd><p> — определяют адрес куда будут отраправляться сообщения о подтверждении данных в репозиторий, а также заголовок сообщения и его тело;</p></dd><dt><code class="varname">ss-multiple-checkouts-enabled</code></dt><dd><p> — определяет, можно ли использовать множественное получение данных из репозитория;</p></dd><dt><code class="varname">ss-confirm-updates</code></dt><dd><p> —  определяет, нужно ли требовать
+            подтверждения при выполенении команды <span class="command"><strong>UPDATE</strong></span>
+            или нет.</p></dd></dl></div><p>
+    </p><p>Пакет также определяет два хука — 
+    <code class="function">ss-before-update-hooks</code> и
+    <code class="function">ss-after-update-hooks</code>, которые вызываются до и
+    после выполнения команды <span class="command"><strong>UPDATE</strong></span> систему <span class="application">Visual SourceSafe</span>.</p></div></div><script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script type="text/javascript">
+      _uacct = "UA-78697-3";
+      urchinTracker();
+    </script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s11.html">Пред.</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s13.html">След.</a></td></tr><tr><td width="40%" align="left" valign="top">Интеграция с <span class="application">Perforce</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Начало</a></td><td width="40%" align="right" valign="top"> Поддержка  <span class="application">Monotone</span></td></tr></table></div></body></html>

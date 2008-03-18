@@ -1,0 +1,104 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>AOL Instant Messaging (AIM)</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="index.html" title="Emacs и средства интерактивного общения"><link rel="up" href="index.html" title="Emacs и средства интерактивного общения"><link rel="prev" href="ar01s05.html" title="Yahoo! Chat Messenger"><link rel="next" href="ar01s07.html" title="MSN"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">AOL Instant Messaging (AIM)</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s05.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s07.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.net.tnt"></a>AOL Instant Messaging (AIM)</h2></div></div></div><p>Поддержка AIM в Emacs осуществляется пакетом <span class="application">TNT</span>.  Он позволяет обмениваться
+  сообщениями, и участвовать в групповых чатах.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2574930"></a>Установка пакета</h3></div></div></div><p>Получить данный пакет можно с его домашней страницы, расположенной по адресу
+    <a class="ulink" href="http://tnt.sourceforge.net/" target="_top">http://tnt.sourceforge.net/</a>. Установка пакета достаточно проста —  надо раскрыть архив, и настроить Emacs для
+    его использования.  Это выполняется с помощью следующих команд:
+
+    </p><pre class="screen">(add-to-list 'load-path "path_to_tnt_dir") 
+(require 'tnt) 
+</pre><p>
+
+    Вот и все.
+    </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2574968"></a>Работа с пакетом</h3></div></div></div><p>Для работы с AIM вам нужно иметь уже зарегистрированное имя.  Если у вас его
+    нет, то вы можете зарегистрировать новое имя по адресу <a class="ulink" href="http://www.aol.com/aim" target="_top">http://www.aol.com/aim</a>.</p><p>Основная работа с пакетом осуществляется с помощью сочетаний клавиш, что позволяет удобно работать с пакетом. Все команды можно разделить на несколько частей, которые представлены в виде соответствующих разделов.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575004"></a>Подключение, отключение и статус</h4></div></div></div><p>Подключение к сервису AIM выполняется с помощью команды
+      <code class="function">tnt-open</code>
+      (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">o</span>).  При подключении вам необходимо указать ваше имя и пароль, и
+      если все пройдет нормально, то пакет сообщит о том, что вы подключились к системе.
+      Чтобы каждый раз не вводить имя и пароль, вы можете задать их с помощью переменных
+      <code class="varname">tnt-default-username</code> и <code class="varname">tnt-default-password</code>.
+      Вы также можете использовать несколько разных имен для входа в систему. Более
+      подробную информацию вы можете найти в разделе <a class="xref" href="ar01s06.html#emacs.net.tnt.customize" title="Настройка">Настройка</a>.</p><p>После подключения, вы можете выполнять стандартные задачи — ведение переговоров, общение в чатах и т.п.</p><p>Изменение статуса с "доступен" в "занят" производится с помощью команды
+      <code class="function">tnt-away-toggle</code> (или
+      <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">A</span>).  Вы можете задать сообщение, которое будет отображаться для
+      пользователей, которые будут пытаться соединиться с вами, когда вы находитесь в
+      данном режиме.</p><p>Прекращение работы с AIM выполняется с помощью команды
+      <code class="function">tnt-kill</code>
+      (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">q</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575148"></a>Обмен информацией</h4></div></div></div><p><span class="application">TNT</span> поддерживает два типа обмена информацией —  прямые беседы между
+      двумя пользователями, и общение к чатах.</p><p>Для прямого общения используется команда <code class="function">tnt-im</code> (или
+      сочетание клавиш <span class="keysym">C</span>+<span class="keysym">x</span>
+      <span class="keysym">t</span> <span class="keysym">i</span>). При этом у вас запросят имя пользователя с
+      которым вы хотите пообщаться, и после установления связи, будет открыт буфер, в
+      котором вы сможете печатать свои сообщения и видеть ответы. Если пользователь есть
+      в вашем списке пользователей, то вы можете использовать механизм дополнения для
+      ввода имени.</p><p>Для начала общения в чатах используется команда
+      <code class="function">tnt-join-chat</code> (или сочетание
+      <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">j</span>).  Вы можете ввести имя существующего чата, или ввести новое, и
+      тогда чат будет создан. Как и в предыдущем случае, создается новый буфер, в
+      котором и ведутся все переговоры.  Для выхода из чата вы можете использовать
+      <code class="function">tnt-leave-chat</code> (или
+      <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">l</span>).</p><p>В том случае, если кто-то другой присылает вам приглашение в чат, или
+      сообщение, то вы можете принять его с помощью <code class="function">tnt-accept</code>
+      (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">a</span>) или отклонить с помощью <code class="function">tnt-reject</code>
+      (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">r</span>) —  это может быть полезным, если вы заняты, или не хотите
+      беседовать с данным пользователем. В том случае, если вы получаете несколько
+      сообщений, или приглашений в чат, то они накапливаются в очереди, в которой их
+      можно просматривать с помощью команд <code class="function">tnt-next-event</code>
+      (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">n</span>) —  для получения следующего сообщения, и
+      <code class="function">tnt-prev-event</code>
+      (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">p</span>) —  для получения предыдущего сообщения.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575378"></a>Прочие команды</h4></div></div></div><p>Вы можете формировать списки друзей, для того, чтобы быстро набирать их
+      имена.  Для просмотра существующего списка используется команда
+      <code class="function">tnt-show-buddies</code>
+      (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">b</span>), а для редактирования —  команда
+      <code class="function">tnt-edit-buddies</code>
+      (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">B</span>).  Имена заданные в этом списке будут использованы для
+      реализации механизма дополнений в строках ввода, там, где необходим ввод имен
+      пользователей.</p><p><span class="application">TNT</span> может также работать как мост между AIM и электронной почтой.  Это
+      очень удобно, если вы хотите получать сообщения из AIM на ваш почтовый адрес.  Это
+      выполняется с помощью команды <code class="function">tnt-toggle-email</code>
+      (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">t</span>
+      <span class="keysym">M</span>). И для ее работы нужно задать две переменные
+      <code class="varname">tnt-email-to-pipe-to</code> и
+      <code class="varname">tnt-email-binary</code>.</p><p>В том случае, если у вас несколько зарегистрированных
+      имен, то вы можете использовать команду
+      <code class="function">tnt-switch-user</code>
+      (<span class="keysym">C</span>+<span class="keysym">x</span>
+      <span class="keysym">t</span> <span class="keysym">s</span>) для переключения
+      между разными именами.</p><p>Команда <code class="function">tnt-mute</code>
+      (<span class="keysym">C</span>+<span class="keysym">x</span>
+      <span class="keysym">t</span> <span class="keysym">m</span>) может использоваться
+      для включения и отключения звуковых сигналов, используемых
+      TNT для оповещения пользователя. </p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="emacs.net.tnt.customize"></a>Настройка</h3></div></div></div><p>Настройку <span class="application">TNT</span> можно осуществлять как с помощью стандартных механизмов
+    настройки Emacs, так и с помощью кода на Emacs Lisp. Для вызова настройки можно
+    использовать команду
+    <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span>
+    tnt-customize</code>, или
+    <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span>
+    customize-group</code> <code class="computeroutput">tnt</code>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575626"></a>Настройка входа в систему</h4></div></div></div><p><span class="application">TNT</span> позволяет пользователю использовать несколько учетных записей для
+      использования.  Для задания имени и пароля для входа, сразу после запуска <span class="application">TNT</span>,
+      используются переменные <code class="varname">tnt-default-username</code> и
+      <code class="varname">tnt-default-password</code>.  А для задания связей между именами и
+      паролями в учетных записях, используется ассоциативный список
+      <code class="varname">tnt-username-alist</code>. Но будьте осторожны с этими переменными —  помните, что они хранятся в вашем файле настройки как обычный
+      текст, и в случае установки неправильных прав на файл, могут быть прочитаны
+      другими пользователями.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575691"></a>Настройка звука</h4></div></div></div><p><span class="application">TNT</span> позволяет настроить проигрывание разных сигналов в зависимости от
+      разных событий. Настройка сигналов управляется с помощью переменных
+      <code class="varname">tnt-beep-on-...</code>, например
+      <code class="varname">tnt-beep-on-incoming-message</code>.  Кроме этого, вы можете настроить
+      то, с помощью какой программы будут проигрываться звуковые сигналы. Эти настройки
+      определяются переменными <code class="varname">tnt-sound-exec</code> и
+      <code class="varname">tnt-sound-exec-args</code>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575739"></a>Прочие настройки</h4></div></div></div><p>Пользователь имеет возможность настроить множество других параметров, полное
+      описание которых доступно в файле <code class="filename">README</code> из поставки <span class="application">TNT</span>, и
+      которые можно настроить используя буфер настройки Emacs.</p></div></div></div><script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script type="text/javascript">
+      _uacct = "UA-78697-3";
+      urchinTracker();
+    </script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s05.html">Пред.</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s07.html">След.</a></td></tr><tr><td width="40%" align="left" valign="top">Yahoo! Chat Messenger </td><td width="20%" align="center"><a accesskey="h" href="index.html">Начало</a></td><td width="40%" align="right" valign="top"> MSN</td></tr></table></div></body></html>

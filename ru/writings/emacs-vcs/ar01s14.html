@@ -1,0 +1,118 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Работа с Git</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s13.html" title="Поддержка Monotone"><link rel="next" href="ar01s15.html" title="Поддержка Mercurial"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Работа с  <span class="application">Git</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s13.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s15.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.git"></a>Работа с  <span class="application">Git</span></h2></div></div></div><p>Появление и популярность системы контроля версий <span class="application">Git</span> связана
+  с разработкой операционной системы <span class="application">Linux</span>.
+  Первоначально данная система разрабатывалась для обеспечения работы
+  над ядром операционной системы, но затем она стала применяться и в
+  других проектах с открытым исходным кодом. Поскольку над такими
+  проектами работают люди из разных точек земного шара, то и сама
+  система контроля версий имеет идеологию, позволяющую работу в
+  децентрализованной среде<sup>[<a name="id2589157" href="#ftn.id2589157" class="footnote">5</a>]</sup>.</p><p>Поддержка <span class="application">Git</span> может осуществляться двумя способами  —  используя модуль
+  <span class="application">vc-git.el</span> для пакета <span class="application">VC</span>, и используя
+  пакет <span class="application">git.el</span>.  Первый пакет обеспечивает работу через стандартные
+  интерфейсы пакета <span class="application">VC</span>, в то время как пакет <span class="application">git.el</span> реализует
+  интерфейс, подобный интерфейсу <span class="application">PCL-CVS</span>, позволяя использовать все
+  возможности <span class="application">Git</span>.  Далее в статье речь пойдет о пакете
+  <span class="application">git.el</span>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2589238"></a>Установка пакета</h3></div></div></div><p>Установка обоих пакетов очень проста  —  они оба
+    идут в составе дистрибутива <span class="application">Git</span> и находятся в подкаталоге
+    <code class="filename">contrib/emacs/</code>.  Для компиляции пакета
+    достаточно выполнить команду <span class="application">make</span>,
+    которая также может использоваться для установки пакетов (по
+    умолчанию, пакеты ставятся в каталог
+    <code class="filename">$HOME/share/emacs/site-lisp</code>, но вы можете
+    изменить это значение передав параметр
+    <code class="varname">emacslispdir</code> команде
+    <span class="application">make</span> или просто скопировать нужные
+    файлы в каталог, где <span class="application">Emacs</span> сможет найти их.</p><p>Для использования пакета <span class="application">git.el</span>, вам нужно поместить в ваш
+    файл инициализации следующую команду:
+
+    </p><pre class="screen">(require 'git)</pre><p>
+
+    после выполнения которой вам станут доступны все команды
+    пакета.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2589334"></a>Использование пакета <span class="application">git.el</span></h3></div></div></div><p>Использование пакета всегда начинается с выполнения команды
+    <span class="command"><strong>git-status</strong></span>, которая запросит у вас имя каталога
+    в котором необходимо искать дерево <span class="application">Git</span>, и выполнит анализ
+    состояния этого дерева.  После анализа, будет открыт буфер с
+    именем <code class="varname">*git-status*</code>, в котором можно будет
+    выполнять действия с файлами проекта.  Пример вывода в буфера вы
+    можете видеть на рисунке <a class="xref" href="ar01s07.html#emacs.vcs.darcs.window" title="Рисунок 4. Буфер Darcsum">Буфер Darcsum</a> (в нижней части вы можете
+    видеть вывод команды <span class="command"><strong>diff</strong></span>. Для данного буфера определен специальный режим  — 
+    <span class="command"><strong>git-status-mode</strong></span>, для которого определенно
+    некоторое количество команд (и соответствующих им комбинаций
+    клавиш, многие из которых совпадают с аналогичными клавишами
+    режима <span class="application">PCL-CVS</span>, что облегчает переход на использование <span class="application">Git</span>).
+    Все команды работают только в данном буфере и не могут
+    использоваться вне его.</p><p>
+      </p><div class="figure-float" style="float: left;"><div class="figure"><a name="emacs.vcs.git.window"></a><p class="title"><b>Рисунок 5. Буфер *git-status*</b></p><div class="figure-contents"><div class="screenshot"><div class="mediaobject"><img src="git-status.png" alt="Буфер *git-status*"></div></div></div></div><br class="figure-break"></div><p>
+    </p><p>Навигация по списку файлов, отображаемому после выполнения
+    команды <span class="command"><strong>git-status</strong></span> может осуществляться как с
+    помощью клавиш курсора, так и с помощью команд
+    <span class="command"><strong>git-next-file</strong></span> (клавиши <span class="keysym">n</span> и
+    <span class="keysym">SPC</span>) и <span class="command"><strong>git-prev-file</strong></span> (клавиша
+    <span class="keysym">p</span>).  Для большинства команд можно задать числовой
+    аргумент, который позволит изменить поведение команды.  Числовой
+    аргумент вводится путем набора цифр, а затем вызова нужной
+    команды.  Вы также можете использовать отрицательные аргументы,
+    добавив знак минус перед набираемыми цифрами.</p><p>По умолчанию, все команды выполняются над файлом, на котором
+    стоит курсор, но также существуют команды для отметки нескольких
+    файлов, над которыми могут выполняться операции.  Сюда можно
+    отнести следущие команды и комбинации клавиш: клавиша
+    <span class="keysym">m</span> (команда <span class="command"><strong>git-mark-file</strong></span>)
+    отмечает один файл и перемещает курсор вниз, а с помощью клавиши
+    <span class="keysym">M</span> (команда <span class="command"><strong>git-mark-all</strong></span>) вы
+    можете отметить все файлы.  Для снятия пометки с одного файла вы
+    можете использовать клавиши <span class="keysym">u</span>
+    (<span class="command"><strong>git-unmark-file</strong></span>) или <span class="keysym">DEL</span>
+    (<span class="command"><strong>git-unmark-file-up</strong></span>), только стоит отметить, что первая команда перемещает курсор вниз, а вторая  — 
+    вверх.  Для снятия пометок со всех файлов вы можете использовать
+    команду <span class="command"><strong>git-unmark-all</strong></span> (сочетание клавиш
+    <span class="keysym">M</span>+<span class="keysym">DEL</span>).
+    Для инверсии пометок можно использовать команду
+    <span class="command"><strong>git-toggle-all-marks</strong></span> (клавиша
+    <span class="keysym">T</span>).</p><p>Практически также как и в <span class="application">PCL-CVS</span>, открыть текущий файл
+    можно с помощью команды <span class="command"><strong>git-find-file</strong></span> (клавиша
+    <span class="keysym">RET</span> или <span class="keysym">f</span>).  Открыть файл для
+    просмотра можно с помощью клавиши <span class="keysym">v</span> (команда
+    <span class="command"><strong>git-view-file</strong></span>). В том случае, если при слиянии версий в файле возникли конфликты, то вы можете вызвать команду разрешения конфликтов  — 
+    <span class="command"><strong>git-resolve-file</strong></span> (клавиша
+    <span class="keysym">R</span>).</p><p>Добавление новых файлов в проект осуществляется с помощью
+    команды <span class="command"><strong>git-add-file</strong></span> (клавиша
+    <span class="keysym">a</span>), а удаление  —  командой
+    <span class="command"><strong>git-remove-file</strong></span> (клавиша <span class="keysym">r</span>).
+    Для того, чтобы избавиться от ненужных файлов, вы можете поместить
+    их в список игнорируемых файлов с помощью команды
+    <span class="command"><strong>git-ignore-file</strong></span> (<span class="keysym">i</span>).
+    Подтверждение изменений осуществляется с помощью команды
+    <span class="command"><strong>git-commit-file</strong></span> (клавиша <span class="keysym">c</span>), а отмена изменений в отмеченных файлах  —  с помощью
+    команды <span class="command"><strong>git-revert-file</strong></span> (<span class="keysym">U</span>).
+    Сообщения, которые вводятся при подтверждении изменений, можно
+    просмотреть с помощью команды <span class="command"><strong>git-log-file</strong></span>
+    (клавиша <span class="keysym">l</span>).</p><p>Клавиша <span class="keysym">d</span> является префиксом для команд,
+    связанных с отображением изменений.  Самой важной командой
+    является команда <span class="command"><strong>git-diff-file</strong></span>, которую можно
+    вызвать нажав <span class="keysym">=</span> или
+    <span class="keysym">d</span> <span class="keysym">=</span>.  Команда
+    <span class="command"><strong>git-diff-file-base</strong></span>
+    (<span class="keysym">d</span> <span class="keysym">b</span>) позволяет выполнить
+    поиск изменений относительно базового файла.  Команда
+    <span class="command"><strong>git-diff-file-idiff</strong></span>
+    (<span class="keysym">d</span> <span class="keysym">e</span>) позволяет выполнить
+    интерактивный просмотр изменений в текущем файле. А команда
+    <span class="command"><strong>git-find-file-imerge</strong></span>
+    (<span class="keysym">d</span> <span class="keysym">E</span>), позволяет открыть текущий файл в режиме интерактивного применения изменений. Остальные команды позволяют выполнить просмотр изменений относительно основной ветки  — 
+    <span class="command"><strong>git-diff-file-merge-head</strong></span>
+    (<span class="keysym">d</span> <span class="keysym">h</span>), относительно версий файлов пользователя до слияния веток  — 
+    <span class="command"><strong>git-diff-file-mine</strong></span>
+    (<span class="keysym">d</span> <span class="keysym">m</span>), и т.п.  Полный
+    список команд вы можете получить из справки.</p><p>К прочим командам можно отнести команды обновления статуса
+    буфера <span class="command"><strong>git-refresh-status</strong></span> (клавиша
+    <span class="keysym">g</span>), выхода из данного буфера используется команда
+    <span class="command"><strong>git-status-quit</strong></span> (клавиша <span class="keysym">q</span>),
+    удаления из списка обработанных файлов
+    <span class="command"><strong>git-remove-handled</strong></span> (клавиша <span class="keysym">x</span>) и получения справки о работе в данном буфере  — 
+    <span class="command"><strong>git-help</strong></span> (клавиши <span class="keysym">h</span> или
+    <span class="keysym">?</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2589966"></a>Настройка пакета</h3></div></div></div><p>Настройка пакета осуществляется с помощью стандартных
+    средств настройки <span class="application">Emacs</span>.  Группа настройки имеет название
+    <code class="varname">git</code> и позволяет задать и параметры <span class="application">Git</span> и
+    настройки начертаний, используемых при отображении данных.</p></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id2589157" href="#id2589157" class="para">5</a>] </sup>Хотя существует возможность использования данной системы и в централизованной среде</p></div></div></div><script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script type="text/javascript">
+      _uacct = "UA-78697-3";
+      urchinTracker();
+    </script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s13.html">Пред.</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s15.html">След.</a></td></tr><tr><td width="40%" align="left" valign="top">Поддержка  <span class="application">Monotone</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Начало</a></td><td width="40%" align="right" valign="top"> Поддержка <span class="application">Mercurial</span></td></tr></table></div></body></html>

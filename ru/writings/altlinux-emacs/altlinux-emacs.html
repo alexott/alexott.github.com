@@ -1,0 +1,468 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=koi8-r"><title>Emacs для начинающих</title><meta name="generator" content="DocBook XSL Stylesheets V1.67.2"><meta name="keywords" content="GNU Emacs"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article" lang="ru"><div class="titlepage"><div><div><h1 class="title"><a name="user.editors.emacs"></a><span class="application">Emacs</span> для начинающих</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Alex</span> <span class="surname">Ott</span></h3><div class="affiliation"><div class="address"><p><br>
+          <code class="email">&lt;<a href="mailto:alexott@gmail.com">alexott@gmail.com</a>&gt;</code><br>
+        </p></div></div></div></div></div><hr></div><div class="toc"><p><b>Содержание</b></p><dl><dt><span class="section"><a href="#user.editors.emacs.intro">Введение</a></span></dt><dd><dl><dt><span class="section"><a href="#user.editors.emacs.about">Что такое <span class="application">Emacs</span>?</a></span></dt><dt><span class="section"><a href="#user.editors.emacs.species">Разновидности <span class="application">Emacs</span></a></span></dt></dl></dd><dt><span class="section"><a href="#user.editors.emacs.starting">Основы работы с <span class="application">Emacs</span></a></span></dt><dd><dl><dt><span class="section"><a href="#user.editors.emacs.terminology">Используемая терминология</a></span></dt><dt><span class="section"><a href="#user.editors.emacs.run">Запуск <span class="application">Emacs</span></a></span></dt><dt><span class="section"><a href="#user.editors.emacs.exit">Выход из <span class="application">Emacs</span></a></span></dt><dt><span class="section"><a href="#user.editors.emacs.help">Получение помощи</a></span></dt><dt><span class="section"><a href="#user.editors.emacs.keyboard">Основы работы с клавиатурой</a></span></dt></dl></dd><dt><span class="section"><a href="#user.editors.emacs.modes">Расширения <span class="application">Emacs</span></a></span></dt><dd><dl><dt><span class="section"><a href="#user.editors.emacs.modes.programm">Работа с исходными текстами программ</a></span></dt><dt><span class="section"><a href="#user.editors.emacs.modes.text">Работа с текстами</a></span></dt><dt><span class="section"><a href="#user.editors.emacs.modes.misc">Другие режимы и пакеты</a></span></dt></dl></dd><dt><span class="section"><a href="#user.editors.emacs.custom">Настройка <span class="application">Emacs</span></a></span></dt><dd><dl><dt><span class="section"><a href="#id2458333">Настройка русского языка в <span class="application">GNU Emacs</span></a></span></dt><dt><span class="section"><a href="#id2458492">Настройка вида Emacs</a></span></dt></dl></dd><dt><span class="section"><a href="#user.editors.emacs.resources">Полезные ресурсы</a></span></dt><dt><span class="section"><a href="#user.editors.emacs.credits">Благодарности</a></span></dt></dl></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="user.editors.emacs.intro"></a>Введение</h2></div></div></div><p>Этот документ предназначен для тех пользователей <code class="systemitem">Linux</code>, которые
+    хотят узнать о <span class="application">Emacs</span> и научиться работать с ним.</p><p>Этот документ не является специфичным только для ALTLinux. Его
+    можно использовать для работы с <span class="application">Emacs</span> из других дистрибутивов <code class="systemitem">Linux</code>,
+    в других вариантах операционной системы <code class="systemitem">UNIX</code>, а также с <span class="application">Emacs</span> для
+    <code class="systemitem">Windows</code>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="user.editors.emacs.about"></a>Что такое <span class="application">Emacs</span>?</h3></div></div></div><p><span class="application">Emacs</span> &#8212;  один из наиболее мощных и широко
+      распространённых редакторов, используемых в мире <code class="systemitem">UNIX</code>. По
+      популярности он соперничает с редактором <span class="application">vi</span>
+      и его клонами.</p><p>В зависимости от ситуации, <span class="application">Emacs</span> может быть:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>текстовым редактором;</p></li><li><p>программой для чтения почты и новостей Usenet;</p></li><li><p>интегрированной средой разработки (IDE);</p></li><li><p>операционной системой;</p></li><li><p>всем, чем угодно.</p></li></ul></div><p>
+      </p><p>Всё это разнообразие достигается благодаря архитектуре <span class="application">Emacs</span>,
+      которая позволяет расширять возможности редактора при помощи языка
+      Emacs Lisp. На языке C написаны лишь самые базовые и низкоуровневые
+      части <span class="application">Emacs</span>, включая полнофункциональный интерпретатор языка
+      Lisp. Таким образом, <span class="application">Emacs</span> имеет встроенный язык программирования,
+      который может использоваться для настройки, расширения и изменения
+      поведения редактора.  В действительности, большая часть того
+      редактора, с которым пользователи <span class="application">Emacs</span> работают в наши дни,
+      написана на языке Lisp.</p><p>Первая версия редактора <span class="application">Emacs</span> была написана в 70-х годах 20-го
+      столетия <span class="emphasis"><em>Richard Stallman (Ричардом Столманом)</em></span>
+      как набор макросов для редактора <span class="emphasis"><em>TECO</em></span>.  В
+      дальнейшем, уже будучи основателем Фонда Свободного программного
+      обеспечения <a href="http://www.fsf.org/" target="_top">Free Software Foundation</a> и <a href="http://www.gnu.org/" target="_top">проекта GNU</a>, <span class="emphasis"><em>Столман</em></span> разработал <span class="application">GNU Emacs</span> в
+      развитие оригинального <span class="application">Emacs</span> и до сих пор сопровождает эту
+      программу. Вы можете подробнее ознакомиться с историей редактора,
+      прочитав статью, располагающуюся по адресу
+      <a href="http://www.wikipedia.org/wiki/Emacs" target="_top">http://www.wikipedia.org/wiki/Emacs</a>.</p><p><span class="application">Emacs</span> является одним из старейших редакторов. Он использовался
+      тысячами программистов на протяжении последних 20 с лишним лет, для
+      него создано много дополнительных пакетов расширений. Эти дополнения
+      позволяют делать с помощью <span class="application">Emacs</span> такие вещи, которые
+      <span class="emphasis"><em>Столман</em></span>, вероятно, даже не считал возможными в
+      начале своей работы над редактором. Более подробно я расскажу о них в
+      следующих разделах.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="user.editors.emacs.species"></a>Разновидности <span class="application">Emacs</span></h3></div></div></div><p>Существует две основных разновидности <span class="application">Emacs</span> &#8212;  <span class="application">GNU Emacs</span>
+      и <span class="application">XEmacs</span>.  <span class="application">GNU Emacs</span> &#8212;  это развитие оригинальной версии
+      <span class="application">Emacs</span>, написанной Столлманом, а <span class="application">XEmacs</span> &#8212;  это версия с
+      некоторыми добавлениями к интерфейсу и языку Emacs Lisp. О причинах,
+      по которым образовалось две версии, можно прочесть по этому <a href="http://www.jwz.org/doc/lemacs.html" target="_top">адресу</a>. В большинстве
+      случаев их поведение похоже друг на друга, но есть и некоторые
+      отличия. Поэтому некоторые пакеты расширений могут работать только с
+      конкретной версией <span class="application">Emacs</span>.</p><p>Кроме двух основных версий существует и множество других
+      редакторов, считающихся вариантами <span class="application">Emacs</span>. Полный их список можно
+      найти на странице <a href="http://www.finseth.com/~fin/emacs.html" target="_top">Emacs Implementations and Literature</a>.</p><p>В данном документе я буду рассказывать, прежде всего, о
+      <span class="application">GNU Emacs</span>, входящем в поставку дистрибутивов ALTLinux. Однако
+      большая часть сказанного применима и для <span class="application">XEmacs</span>, а также для версий
+      <span class="application">Emacs</span> в других дистрибутивах <code class="systemitem">Linux</code>.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="user.editors.emacs.starting"></a>Основы работы с <span class="application">Emacs</span></h2></div></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="user.editors.emacs.terminology"></a>Используемая терминология</h3></div></div></div><p>В этом разделе описываются термины <span class="application">Emacs</span>, с которыми вы
+      встретитесь при использовании редактора.</p><p>
+        </p><div class="glosslist"><dl><dt>Буфера и файлы</dt><dd><p>Буфер &#8212; это основная единица редактирования; один буфер соответствует одному куску редактируемого текста. Вы можете иметь несколько буферов, но в каждый конкретный момент вы редактируете только один выбранный буфер. При этом, разумеется, если вы используете несколько окон, то видимыми могут быть несколько буферов. Чаще всего буферы обращаются к какому-либо файлу, считывая данные из файла в буфер, или записывая данные из буфера в файл.</p><p>Вы встретите термин &#171;<span class="quote">буфер</span>&#187; в документации по
+              <span class="application">Emacs</span>, сообщениях программы, описаниях режимов и пакетов.
+              Просто имейте в виду, что при работе с файлами буфер
+              означает &#171;<span class="quote">копию файла, которая находится в памяти в данный момент</span>&#187;. Однако необходимо отметить, что буфер
+              не всегда соответствует какому-либо файлу на диске. Очень
+              часто <span class="application">Emacs</span> создаёт буферы в результате выполнения ваших
+              команд. Такие буферы могут содержать вывод команды, список
+              для выбора вариантов и другую информацию.</p></dd><dt>Точка, область и метка</dt><dd><p>Точка вставки (point) &#8212;  это место в буфере,
+              в котором происходит вставка или удаление
+              данных. Считается, что точка вставки находится между
+              двумя знаками, а не на каком-то одном из них. Например,
+              если курсор находится на букве &#171;<span class="quote">h</span>&#187; в слове
+              &#171;<span class="quote">the</span>&#187;, то точка вставки находится между
+              &#171;<span class="quote">t</span>&#187; и &#171;<span class="quote">h</span>&#187;. Курсор терминала
+              показывает положение точки вставки.</p><p>Как и другие современные редакторы, <span class="application">Emacs</span> позволяет выполнять разные действия над фрагментами текущего буфера &#8212;  изменение отступа, проверку
+              орфографии, переформатирование, вырезание, копирование,
+              вставку и т.д.  Вы можете подсветить (или
+              &#171;<span class="quote">пометить</span>&#187;) блок текста, используя
+              клавиатуру или мышь, а затем выполнить операцию только
+              над выделенным блоком.  В <span class="application">Emacs</span> такой блок текста
+              называется <span class="emphasis"><em>область (region)</em></span>. Область &#8212;  это текст между
+              точкой и меткой.</p><p>Метка указывает на позицию в тексте. Она определяет один конец области, в то время как точка вставки находится на другом конце области. Многие команды работают с текстом целиком от точки вставки до метки. Каждый буфер имеет свою метку.</p></dd><dt>Окна и фреймы</dt><dd><p><span class="emphasis"><em>Окно</em></span> в <span class="application">Emacs</span> &#8212;  это область
+              экрана, в которой отображается буфер. Когда <span class="application">Emacs</span>
+              запускается, у вас на экране отображается одно окно. При
+              обращении к некоторым функциям <span class="application">Emacs</span> (таким, как оперативная
+              справка и интерактивная документация) часто (временно)
+              открываются дополнительные окна на экране <span class="application">Emacs</span>.</p><p>Окна <span class="application">Emacs</span> не имеют ничего общего с окнами графической
+              среды X Window. Одно окно X Window может быть разбито на
+              несколько окон в смысле <span class="application">Emacs</span>, в каждом из которых
+              отображается отдельный буфер. Однако вы можете открывать для
+              отображения буферов <span class="application">Emacs</span> и дополнительные окна X, например,
+              при сравнении двух файлов. Эти новые окна X в жаргоне <span class="application">Emacs</span>
+              называются <span class="emphasis"><em>фреймами</em></span>.</p><p><span class="emphasis"><em>Фрейм</em></span> (<span class="emphasis"><em>frame</em></span>) &#8212;  это отдельное окно используемой оконной системы, в 
+              котором отображаются одно или несколько окон <span class="application">Emacs</span>. При этом 
+              несколько фреймов, открытых одновременно, являются частью одного 
+              сеанса <span class="application">Emacs</span>.</p></dd></dl></div><p>
+      </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="user.editors.emacs.run"></a>Запуск <span class="application">Emacs</span></h3></div></div></div><p>Чтобы запустить <span class="application">Emacs</span>, просто наберите в командной строке
+      команду <span><strong class="command">emacs</strong></span> (или <span><strong class="command">xemacs</strong></span>,
+      если вы хотите посмотреть на этот вариант <span class="application">Emacs</span>). После запуска
+      появится окно (фрейм в терминах <span class="application">Emacs</span>, смотрите раздел <a href="#user.editors.emacs.terminology" title="Используемая терминология">&#171;Используемая терминология&#187;</a>) изображённое на рисунке <a href="#user.editors.emacs.main.window" title="Рисунок 1. Вид основного окна GNU Emacs">Рисунок 1, &#171;Вид основного окна <span class="application">GNU Emacs</span>&#187;</a>.
+
+      </p><div class="figure-float"><div class="figure"><a name="user.editors.emacs.main.window"></a><p class="title"><b>Рисунок 1. Вид основного окна <span class="application">GNU Emacs</span></b></p><div class="screenshot"><div class="mediaobject"><img src="user-editors-emacs-main-window.png" alt="Вид основного окна GNU Emacs"></div></div></div></div><p>
+      </p><p>Как видно на рисунке, этот фрейм состоит из следующих частей:
+      </p><div class="itemizedlist"><ul type="disc"><li><p>полосы меню, предоставляющей быстрый доступ к основным
+          командам <span class="application">Emacs</span>, а также к справочной информации;</p></li><li><p>основного окна, в котором производится редактирование текста. Это окно можно разделить на несколько окон. Помимо редактирования текста, основное окно используется для отображения данных теми пакетами, которые не связаны с редактированием, например пакетом gnus для чтения новостей usenet;</p></li><li><p>строки состояния, которая используется для отображения такой информации, как состояние буфера (изменён/не изменён), название буфера, текущее время, используемые режимы, а также позиция точки в буфере;</p></li><li><p>мини-буфера, который используется для ввода различных команд и их параметров, а также для отображения информации о производимых действиях.</p></li></ul></div><p>
+      </p><p>После запуска <span class="application">Emacs</span> без каких-либо параметров в основном окне
+      отображается буфер <code class="literal">*scratch*</code>, который используется 
+      для оценки выражений Emacs Lisp, а также для заметок, которые вы не 
+      хотите сохранять. <span class="emphasis"><em>Этот буфер не сохраняется автоматически, так что будьте осторожны!</em></span></p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="user.editors.emacs.exit"></a>Выход из <span class="application">Emacs</span></h3></div></div></div><p>Чтобы выйти из <span class="application">Emacs</span>, просто наберите сочетание клавиш
+      <span class="keysym">C</span>-<span class="keysym">x</span>
+      <span class="keysym">C</span>-<span class="keysym">c</span>
+      (<span class="keysym">C</span>-<span class="keysym">x</span> означает,
+      что надо нажать клавишу <span><strong class="keycap">x</strong></span>, удерживая при этом
+      клавишу <span><strong class="keycap">Control</strong></span>, это справедливо и для
+      <span class="keysym">C</span>-<span class="keysym">c</span>).</p><p>Кроме того, вы можете для выхода выбрать пункт <span class="guimenuitem">Exit Emacs</span> из меню <span class="guimenu">File</span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="user.editors.emacs.help"></a>Получение помощи</h3></div></div></div><p>В поставку <span class="application">GNU Emacs</span> включена обширная справка (для описания
+      функций и клавиш вызова справки смотрите таблицу <a href="#user.editors.emacs.table.help.commands" title="Таблица 6. Команды работы со справочной системой">Таблица 6, &#171;Команды работы со справочной системой&#187;</a>). Кроме полного руководства
+      по <span class="application">GNU Emacs</span>, в неё входит учебник для начинающих пользователей. В
+      состав дистрибутивов ALTLinux также включён русский перевод
+      учебника. Для его вызова нажмите сочетание клавиш
+      <span class="keysym">C</span>-<span class="keysym">h</span>
+      <span class="keysym">t</span>, и далее следуйте инструкциям, приведённым в
+      появившемся тексте.</p><p><span class="application">Emacs</span> поставляется со встроенной программой чтения справки в
+      формате Texinfo. В данном формате поставляется руководство по <span class="application">Emacs</span>,
+      руководства по пакетам расширения, а также документация по
+      большинству программ проекта GNU. Для запуска системы Info нажмите
+      сочетание клавиш <span class="keysym">C</span>-<span class="keysym">h</span> <span class="keysym">i</span>. При работе со
+      справочной системой Info, вы в любой момент можете нажать клавишу
+      <span><strong class="keycap">h</strong></span> и получить справку о том, как пользоваться
+      справочной системой.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="user.editors.emacs.keyboard"></a>Основы работы с клавиатурой</h3></div></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2452540"></a>Командные клавиши</h4></div></div></div><p>Для выполнения команд в <span class="application">Emacs</span> широко используются
+        клавиатурные сокращения. Особенно часто используются сочетания
+        различных клавиш с клавишами <span><strong class="keycap">Control</strong></span>
+        (обозначается как <span><strong class="keycap">C-</strong></span>), <span><strong class="keycap">Meta</strong></span>
+        (обозначается как <span><strong class="keycap">M-</strong></span>, на клавиатурах персональных
+        компьютеров её роль часто играет клавиша <span><strong class="keycap">Alt</strong></span>), и
+        <span><strong class="keycap">Shift</strong></span> (обозначается как <span><strong class="keycap">S-</strong></span>). Эти
+        клавиши также называются
+        <span class="emphasis"><em>префиксными</em></span>. Например, запись
+        <span class="keysym">M</span>-<span class="keysym">x</span>
+        означает, что надо нажать на клавишу <span><strong class="keycap">x</strong></span>, при этом
+        удерживая клавишу <span><strong class="keycap">Meta</strong></span> (или <span><strong class="keycap">Alt</strong></span>
+        на клавиатурах персональных компьютеров).</p><p>Кроме отдельных префиксных клавиш, в <span class="application">Emacs</span> используются
+        сочетания клавиш, которые рассматриваются как префиксные. В
+        отличии от префиксных клавиш <span><strong class="keycap">Control</strong></span>,
+        <span><strong class="keycap">Shift</strong></span> и других, такие сочетания клавиш не надо
+        удерживать когда вы нажимаете следующую клавишу. Например,
+        сочетание <span class="keysym">C</span>-<span class="keysym">x</span> <span class="keysym">C</span>-<span class="keysym">f</span> (команда открытия файла), означает,
+        что надо нажать на клавишу <span><strong class="keycap">x</strong></span>, удерживая клавишу
+        <span><strong class="keycap">Control</strong></span>, отпустить обе клавиши, а потом нажать на
+        клавишу <span><strong class="keycap">f</strong></span>, удерживая клавишу
+        <span><strong class="keycap">Control</strong></span>.</p><p>Префиксные сочетания клавиш различаются по назначению.
+        Например, сочетание клавиш
+        <span class="keysym">C</span>-<span class="keysym">x</span> является префиксом для основных команд редактора &#8212;  открытия и
+        сохранения файлов, а также многих других важных действий. Функции,
+        привязанные к этим клавишам, не зависят от используемого
+        режима. Кроме этого, сочетание клавиш
+        <span class="keysym">C</span>-<span class="keysym">h</span>
+        используется для доступа к разным разделам справочной
+        системы.</p><p>В отличие от сочетания клавиш
+        <span class="keysym">C</span>-<span class="keysym">x</span>,
+        комбинация
+        <span class="keysym">C</span>-<span class="keysym">c</span> играет
+        роль префикса для вызова функций, зависящих от используемого
+        режима. Например, сочетание клавиш
+        <span class="keysym">C</span>-<span class="keysym">c</span>
+        <span class="keysym">C</span>-<span class="keysym">c</span> при
+        редактировании исходного текста на языке С приведёт к
+        комментированию выделенного текста с помощью функции
+        <code class="function">comment-region</code>, а при редактировании файла в
+        формате SGML приведёт к вызову функции
+        <code class="function">sgml-show-context</code>, которая отображает текущее
+        положение точки в иерархии документа.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="user.editors.emacs.moving"></a>Перемещение в буфере</h4></div></div></div><p><span class="application">Emacs</span> был спроектирован таким образом, чтобы быть
+        максимально переносимым и работать на любых терминалах. Поэтому у
+        него имеются собственные привязки к клавишам для команд
+        перемещения курсора (точки) в буфере. В таблице <a href="#user.editors.emacs.table.motion" title="Таблица 1. Клавиши для перемещения в буфере">Таблица 1, &#171;Клавиши для перемещения в буфере&#187;</a> перечислены основные команды
+        перемещения курсора в буфере <span class="application">Emacs</span>.
+
+        </p><div class="table"><a name="user.editors.emacs.table.motion"></a><p class="title"><b>Таблица 1. Клавиши для перемещения в буфере</b></p><table summary="Клавиши для перемещения в буфере" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Сочетание клавиш</th><th>Команда</th><th>Действие</th></tr></thead><tbody><tr><td><span class="keysym">C</span>-<span class="keysym">p</span></td><td><code class="function">previous-line</code></td><td>Вверх на одну строку</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">n</span></td><td><code class="function">next-line</code></td><td>Вниз на строку</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">f</span></td><td><code class="function">forward-char</code></td><td>Вперёд на один символ</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">b</span></td><td><code class="function">backward-char</code></td><td>Назад на один символ</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">a</span></td><td><code class="function">beggining-of-line</code></td><td>Начало строки</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">e</span></td><td><code class="function">end-of-line</code></td><td>Конец строки</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">v</span></td><td><code class="function">scroll-up</code></td><td>Вниз на одну страницу</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">v</span></td><td><code class="function">previous-page</code></td><td>Вверх на одну страницу</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">f</span></td><td><code class="function">next-word</code></td><td>Вперёд на одно слово</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">b</span></td><td><code class="function">previous-word</code></td><td>Назад на одно слово</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">&lt;</span></td><td><code class="function">beginning-of-buffer</code></td><td>В начало буфера</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">&gt;</span></td><td><code class="function">end-of-buffer</code></td><td>В конец буфера</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">g</span></td><td><code class="function">keyboard-quit</code></td><td>Закончить (прервать) текущую операцию</td></tr><tr><td> </td><td><code class="function">goto-line</code></td><td>Переход на заданную строку</td></tr></tbody></table></div><p>
+      </p><p>Как правило, при работе в системе X Window, кроме перечисленных клавиш, также работают и привычные для пользователей персональных компьютеров клавиши управления курсором (например, стрелки).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="user.editors.emacs.basic.commands"></a>Основные команды</h4></div></div></div><p>В таблицах <a href="#user.editors.emacs.table.text.commands" title="Таблица 2. Команды работы с текстом">Таблица 2, &#171;Команды работы с текстом&#187;</a> &#8212;  <a href="#user.editors.emacs.table.misc.commands" title="Таблица 7. Прочие основные команды Emacs">Таблица 7, &#171;Прочие основные команды <span class="application">Emacs</span>&#187;</a> перечислены наиболее
+      часто используемые команды, их действие, а также сочетания
+      клавиш, которые используются для их быстрого вызова. Полная
+      форма команды, приведённая в столбце &#171;<span class="quote">Команда</span>&#187;, 
+      используется для запуска с помощью префиксного сочетания
+      <span class="keysym">M</span>-<span class="keysym">x</span>,
+      например
+      <span class="keysym">M</span>-<span class="keysym">x</span>
+      <code class="function">save-buffer</code>.</p><p>
+        </p><div class="table"><a name="user.editors.emacs.table.text.commands"></a><p class="title"><b>Таблица 2. Команды работы с текстом</b></p><table summary="Команды работы с текстом" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Сочетание клавиш</th><th>Команда</th><th>Действие</th></tr></thead><tbody><tr><td><span class="keysym">C</span>-<span class="keysym">d</span></td><td><code class="function">delete-char</code></td><td>Удаление символа перед точкой</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">d</span></td><td><code class="function">kill-word</code></td><td>Удалить следующее слово</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">k</span></td><td><code class="function">kill-line</code></td><td>Удалить текст до конца строки</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">k</span></td><td><code class="function">kill-sentence</code></td><td>Удалить текст до конца предложения</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">\</span></td><td><code class="function">delete-horizontal-space</code></td><td>Удалить все пробелы и знаки табуляции вокруг точки</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">q</span></td><td><code class="function">quoted-insert</code></td><td>Вставка символа, соответствующего нажатой клавише или сочетанию, даже если это управляющая последовательность</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">q</span></td><td><code class="function">fill-paragraph</code></td><td>Выравнивает текст в текущем параграфе</td></tr></tbody></table></div><p>
+      </p><p>
+        </p><div class="table"><a name="user.editors.emacs.table.selection.commands"></a><p class="title"><b>Таблица 3. Команды работы с пометками</b></p><table summary="Команды работы с пометками" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Сочетание клавиш</th><th>Команда</th><th>Действие</th></tr></thead><tbody><tr><td><span class="keysym">C</span>-<span class="keysym">space</span></td><td><code class="function">set-mark-command</code></td><td>Установить пометку в точке</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">@</span></td><td><code class="function">set-mark-command</code></td><td>Установить пометку в точке</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span>
+                <span class="keysym">C</span>-<span class="keysym">x</span></td><td><code class="function">exchange-point-and-mark</code></td><td>Поменять местами точку и начало пометки</td></tr><tr><td> </td><td><code class="function">mark-whole-buffer</code></td><td>Пометить весь буфер</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">w</span></td><td><code class="function">kill-region</code></td><td>Удаление выделенной области в список удалений</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">w</span></td><td><code class="function">kill-ring-save</code></td><td>Копирование выделенной области в список удалений</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">y</span></td><td><code class="function">yank</code></td><td>Вставка текста из списка удалений в текущую позицию</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">y</span></td><td><code class="function">yank-pop</code></td><td>Последовательная вставка текста из списка удалений</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span>
+                <span class="keysym">x</span><span class="keysym">N</span></td><td><code class="function">copy-to-register</code></td><td>Копировать отмеченный текст в регистр
+                (<span class="keysym">N</span> может быть буквой или цифрой,
+                позволяя использовать множество регистров)</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span>
+                <span class="keysym">g</span><span class="keysym">N</span></td><td><code class="function">insert-register</code></td><td>Вставляет в точку содержимое регистра
+                <span class="keysym">N</span></td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">C</span>-<span class="keysym">\</span></td><td><code class="function">indent-region</code></td><td>Выравнивание строк выделенного фрагмента</td></tr></tbody></table></div><p>
+      </p><p>
+        </p><div class="table"><a name="user.editors.emacs.table.search.commands"></a><p class="title"><b>Таблица 4. Команды поиска и замены</b></p><table summary="Команды поиска и замены" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Сочетание клавиш</th><th>Команда</th><th>Действие</th></tr></thead><tbody><tr><td><span class="keysym">C</span>-<span class="keysym">s</span></td><td><code class="function">isearch-forward</code></td><td>Поиск строки вперёд</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">r</span></td><td><code class="function">isearch-backward</code></td><td>Поиск строки в обратном направлении</td></tr><tr><td><span><strong class="keycap"></strong></span></td><td><code class="function">replace-string</code></td><td>Поиск и замена строки</td></tr><tr><td><span><strong class="keycap"></strong></span></td><td><code class="function">replace-regexp</code></td><td>Поиск и замена с использованием регулярного выражения</td></tr><tr><td><span class="keysym">M</span>-<span class="keysym">%</span></td><td><code class="function">query-replace</code></td><td>Поиск и замена с запросом</td></tr></tbody></table></div><p>
+      </p><p>
+        </p><div class="table"><a name="user.editors.emacs.table.file.commands"></a><p class="title"><b>Таблица 5. Команды работы с файлами буферами и окнами</b></p><table summary="Команды работы с файлами буферами и окнами" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Сочетание клавиш</th><th>Команда</th><th>Действие</th></tr></thead><tbody><tr><td><span class="keysym">C</span>-<span class="keysym">x</span> 
+                <span class="keysym">C</span>-<span class="keysym">f</span></td><td><code class="function">find-file</code></td><td>Открыть файл на диске</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span>
+                <span class="keysym">C</span>-<span class="keysym">s</span></td><td><code class="function">save-buffer</code></td><td>Сохранить буфер на диске</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span> 
+                <span class="keysym">C</span>-<span class="keysym">w</span></td><td>write-file</td><td>Сохранить буфер в файле с новым именем</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span> 
+                <span class="keysym">C</span>-<span class="keysym">b</span></td><td><code class="function">list-buffers</code></td><td>Отобразить список открытых буферов в новом окне</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span> 
+                <span class="keysym">b</span></td><td><code class="function">switch-to-buffer</code></td><td>Переключиться в другой буфер в текущем окне</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span> 
+                <span class="keysym">C</span>-<span class="keysym">c</span></td><td><code class="function">save-buffers-kill-emacs</code></td><td>Перед выходом из редактора запросить о необходимости сохранения изменённых файлов</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span> 
+                <span class="keysym">i</span></td><td><code class="function">insert-file</code></td><td>Вставить содержимое файла в буфер в текущую позицию</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span> 
+                <span class="keysym">0</span></td><td><code class="function">delete-window</code></td><td>Закрыть текущее окно (при этом буфер не удаляется)</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span> 
+                <span class="keysym">1</span></td><td><code class="function">delete-other-windows</code></td><td>Закрыть все окна кроме текущего</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span> 
+                <span class="keysym">2</span></td><td><code class="function">split-window-vertically</code></td><td>Разделить окно по горизонтали</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span> 
+                <span class="keysym">o</span></td><td><code class="function">other-window</code></td><td>Переход в другое окно</td></tr></tbody></table></div><p>
+      </p><p>
+        </p><div class="table"><a name="user.editors.emacs.table.help.commands"></a><p class="title"><b>Таблица 6. Команды работы со справочной системой</b></p><table summary="Команды работы со справочной системой" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Сочетание клавиш</th><th>Команда</th><th>Действие</th></tr></thead><tbody><tr><td><span class="keysym">C</span>-<span class="keysym">h</span>
+                <span class="keysym">?</span></td><td><code class="function">help-for-help</code></td><td>Информация об использовании справочной системы</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">h</span>
+                <span class="keysym">t</span></td><td><code class="function">help-with-tutorial</code></td><td>Использовать интерактивный учебник</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">h</span>
+                <span class="keysym">f</span></td><td><code class="function">describe-function</code></td><td>Показать справку по функции</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">h</span>
+                <span class="keysym">v</span></td><td><code class="function">describe-variable</code></td><td>Показать справку по переменной</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">h</span>
+                <span class="keysym">k</span></td><td><code class="function">describe-key</code></td><td>Показать данные, о том, что делает последовательность клавиш</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">h</span>
+                <span class="keysym">a</span></td><td><code class="function">apropos</code></td><td>Поиск в справке по строке/регулярному выражению</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">h</span>
+                <span class="keysym">F</span></td><td><code class="function">view-emacs-FAQ</code></td><td>Показать <span class="application">Emacs</span> FAQ</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">h</span>
+                <span class="keysym">i</span></td><td><code class="function">info</code></td><td>Показать документацию по <span class="application">Emacs</span> (Info)</td></tr></tbody></table></div><p>
+      </p><p>
+        </p><div class="table"><a name="user.editors.emacs.table.misc.commands"></a><p class="title"><b>Таблица 7. Прочие основные команды <span class="application">Emacs</span></b></p><table summary="Прочие основные команды Emacs" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Сочетание клавиш</th><th>Команда</th><th>Действие</th></tr></thead><tbody><tr><td><span class="keysym">M</span>-<span class="keysym">x</span>
+                <code class="function">command</code></td><td> </td><td>Выполнить команду <span class="application">Emacs</span> с именем
+                <code class="function">command</code></td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span>
+                <span class="keysym">u</span></td><td><code class="function">undo</code></td><td>Отменить последнюю операцию</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span>
+                <span class="keysym">r</span><span class="keysym">m</span></td><td><code class="function">bookmark-set</code></td><td>Установить закладку. Полезно при поиске</td></tr><tr><td><span class="keysym">C</span>-<span class="keysym">x</span>
+                <span class="keysym">r</span><span class="keysym">b</span></td><td><code class="function">bookmark-jump</code></td><td>Перейти к закладке</td></tr></tbody></table></div><p>
+      </p></div></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="user.editors.emacs.modes"></a>Расширения <span class="application">Emacs</span></h2></div></div></div><p>Для расширения возможностей <span class="application">Emacs</span> используются так называемые режимы &#8212;  пакеты расширений, которые изменяют поведение буферов
+  <span class="application">Emacs</span> при редактировании и просмотре текста. Режимы делятся на
+  основные и вспомогательные.</p><p>Основные режимы определяют общее поведение редактора. Как правило, основные режимы предоставляют команды и функции для редактирования определённых типов текста. Например, существуют режимы для редактирования исходного текста программ на языках С или Perl. Обычно для конкретного буфера может одновременно использоваться только один основной режим.</p><p>Вспомогательные режимы расширяют возможности <span class="application">Emacs</span>. При этом
+  отдельный вспомогательный режим может быть использован в сочетании с
+  разными основными режимами. В одном буфере может быть использовано
+  несколько вспомогательных режимов. Основной и вспомогательные режимы,
+  действующие для данного буфера, отображаются в строке статуса.</p><p>Пакеты, входящие в состав дистрибутивов ALTLinux, обычно
+  поставляются со сценариями, которые подключают режимы с определёнными
+  параметрами по умолчанию. Вы можете настроить конкретные параметры для
+  нужного вам режима, используя доступные для него команды настройки
+  (смотрите раздел <a href="#user.editors.emacs.custom" title="Настройка Emacs">&#171;Настройка <span class="application">Emacs</span>&#187;</a>).</p><p>Многие основные режимы автоматически загружаются (включаются) при
+  открытии файла с соответствующим расширением. Вы также можете включить
+  или отключить нужный режим вручную с помощью команды
+  <span><strong class="command"><span class="keysym">M</span>-<span class="keysym">x</span>
+  name-mode</strong></span>, где <span><strong class="command">name</strong></span> &#8212;  имя
+  режима. Например, команда <span><strong class="command"><span class="keysym">M</span>-<span class="keysym">x</span> auto-fill-mode</strong></span> включает режим
+  автоматического заполнения строк или отключает его, если этот режим
+  ранее был включён.</p><p>Кроме того, включение или отключение режима можно производить
+  путём установки истинного или ложного значения переменной с именем
+  <span><strong class="command">name-mode</strong></span>. Для установки переменной можно
+  использовать команду <span><strong class="command"><span class="keysym">M</span>-<span class="keysym">x</span> set-variable</strong></span>, которая запросит
+  у вас имя переменной и значение для неё. Для истинного значения
+  обычно используется значение <span><strong class="command">t</strong></span>, а для ложного &#8212;  <span><strong class="command">nil</strong></span>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="user.editors.emacs.modes.programm"></a>Работа с исходными текстами программ</h3></div></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457087"></a>CC Mode</h4></div></div></div><p>Этот основной режим используется при редактировании исходных текстов программ на языках C, C++, Java и Objective C. Режим предоставляет несколько стилей оформления текстов программ, каждый из которых определяет отступы, расположение открывающих и закрывающих скобок, а также многие другие параметры. Кроме того, данный режим обеспечивает правильную работу с выражениями соответствующего языка, а также подсветку ключевых слов и других элементов текста программы.</p><p>Режим также обеспечивает возможность компиляции программ прямо
+      из <span class="application">Emacs</span>, а также интерфейс к отладчику.</p><p>Данный режим поставляется вместе с <span class="application">GNU Emacs</span>. Как правило, он
+      подключён (сделан доступным для <span class="application">Emacs</span>) по умолчанию, так что вы можете смело открывать исходный текст на соответствующем языке &#8212;  режим будет загружен автоматически.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457148"></a>Perl</h4></div></div></div><p>Для редактирования программ на языке Perl самым
+      распространённым является режим <span><strong class="command">cperl-mode</strong></span>.  Он
+      обеспечивает подсветку синтаксиса языка, а также много полезных
+      дополнений: например, вывод подсказки о синтаксисе операторов
+      языка или развёртывание сокращений в полные конструкции
+      языка. Режим поставляется вместе с <span class="application">GNU Emacs</span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457178"></a>Другие режимы для языков программирования</h4></div></div></div><p>Кроме перечисленных выше режимов, в поставку <span class="application">GNU Emacs</span>
+      входит много режимов для работы с исходными текстами программ на
+      различных языках программирования, таких как SQL, Python, Tcl,
+      Fortran, Pascal, язык файлов make, языки разных командных
+      процессоров, и многие другие...</p><p>Подробный список таких режимов можно найти в Emacs Elisp
+      Archive (смотрите раздел <a href="#user.editors.emacs.resources" title="Полезные ресурсы">&#171;Полезные ресурсы&#187;</a>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457212"></a>Пакет JDEE</h4></div></div></div><p>JDEE &#8212; это среда разработки Java для <span class="application">Emacs</span>. Этот пакет
+      обеспечивает эффективную работу с исходными текстами программ на
+      языке Java.</p><p>JDEE позволяет компилировать, запускать и отлаживать как автономные программы, так и апплеты, написанные на языке Java. Кроме этого, пакет обеспечивает богатые возможности по автоматической вставке текста для различных конструкций Java, дополнение имён функций и переменных &#8212; членов классов, навигацию по исходным текстам и многое другое.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457258"></a>Пакет Emacs Code Browser</h4></div></div></div><p>Emacs Code Browser (ECB) представляет собой интегрированную
+      среду разработки, реализованную на основе <span class="application">Emacs</span>. В настоящее время
+      эта среда может быть использована для работы с исходными текстами
+      программ на языках C, C++, Java, Emacs Lisp. Работа с исходными
+      текстами программ на языке Java особенно эффективна при
+      использовании пакета JDEE, упомянутого ранее.
+      
+      </p><div class="figure-float"><div class="figure"><a name="user.editors.emacs.ecb.window"></a><p class="title"><b>Рисунок 2. Окно <span class="application">Emacs</span> при запущенном Emacs Code Browser</b></p><div class="screenshot"><div class="mediaobject"><img src="user-editors-emacs-ecb-window.png" alt="Окно Emacs при запущенном Emacs Code Browser"></div></div></div></div><p>
+      </p><p>Как видно на рисунке <a href="#user.editors.emacs.ecb.window" title="Рисунок 2. Окно Emacs при запущенном Emacs Code Browser">Рисунок 2, &#171;Окно <span class="application">Emacs</span> при запущенном Emacs Code Browser&#187;</a>,
+      слева расположены четыре окна, в которых отображаются список
+      рабочих каталогов, список файлов в выбранном рабочем каталоге,
+      список функций/методов в текущем файле, а также список
+      буферов. Справа располагается окно редактирования исходного
+      текста программы. При смене текущего буфера изменяются и данные,
+      отображаемые слева.</p><p>Для активации пакета необходимо выполнить команду
+      <span><strong class="command"><span class="keysym">M</span>-<span class="keysym">x</span> ecb-activate</strong></span>. После
+      выполнения этой команды появится окно, изображённое на
+      рисунке. Для прекращения работы необходимо выполнить команду
+      <span><strong class="command">ecb-deactivate</strong></span>.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="user.editors.emacs.modes.text"></a>Работа с текстами</h3></div></div></div><p>Для <span class="application">Emacs</span> доступны не только режимы, рассчитанные на работу с
+    исходными текстами программ. <span class="application">Emacs</span> позволяет комфортно создавать и
+    редактировать тексты любого типа.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457414"></a>Работа с SGML/XML/HTML</h4></div></div></div><p>Для работы с текстами, для которых используются языки разметки
+      XML/SGML/HTML, существует режим <code class="literal">psgml</code>. Данный 
+      режим существенно облегчает разметку текстов, позволяя вставлять 
+      теги и добавлять атрибуты для них. При этом psgml делает разбор 
+      документа и анализирует его <span class="acronym">DTD</span> (определение 
+      типа документа), что позволяет использовать дополнение при вводе 
+      имён тегов, а также корректно редактировать атрибуты тегов. Вставка 
+      тегов также допускается только в тех местах, где это разрешено 
+      определением типа документа. Это позволяет уменьшить количество 
+      ошибок при разметке документов.</p><p>Кроме того, режим предоставляет множество команд, полезных для работы с документом, таких как перемещение по дереву тегов, свёртывание отдельных частей документа, проверка правильности документа и многие другие.</p><p>Кроме режима <code class="literal">psgml</code>, недавно появился
+      режим <code class="literal">nxml</code>, который работает быстрее чем
+      режим <code class="literal">psgml</code>, и больше ориентирован на
+      работу с <span class="acronym">XML</span> документами. При этом он
+      предоставляет возможности сходные с возможностями режима
+      <code class="literal">psgml</code>, в том числе проверку разметки
+      документа на лету, во время набора.</p><p>На сайте Бориса Тоботраса выложен <a href="http://xtalk.msk.su/SGML/em.html" target="_top">перевод</a> главы из
+      книги &#171;<span class="quote">SGML CD: Free SGML Software and How to Use It</span>&#187;,
+      которая посвящена использованию <span class="application">Emacs</span> для редактирования файлов в
+      формате SGML.</p><p>Для работы с XSL-файлами могут использоваться пакеты <a href="http://www.menteith.com/xslide/" target="_top">xslide</a>, <a href="http://xslt-process.sourceforge.net/" target="_top">xslt-process</a>,
+      <a href="http://xae.sunsite.dk/" target="_top">xae</a>. Некоторые из этих
+      пакетов входят в состав дистрибутивов ALTLinux.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457566"></a>Работа с TeX/LaTeX</h4></div></div></div><p>Для работы с файлами TeX/LaTeX основным режимом является
+      режим <a href="http://www.gnu.org/software/auctex/" target="_top">auctex</a>. Этот
+      режим облегчает ввод команд разметки TeX/LaTeX. Кроме того,
+      данный режим обеспечивает компиляцию файлов, просмотр
+      результатов и обработку ошибок.</p><p>Для режима <code class="literal">auctex</code> существует несколько дополнений, которые
+      позволяют просматривать результат обработки текста прямо в том
+      буфере, где происходит его редактирование. Это пакеты <a href="http://preview-latex.sourceforge.net" target="_top">preview-latex</a> и
+      <a href="http://x-symbol.sourceforge.net/" target="_top">x-symbol</a>. Как
+      выглядит окно <span class="application">Emacs</span> при редактировании текста с использованием
+      пакета <span class="emphasis"><em>preview-latex</em></span> изображено на рисунке
+      <a href="#user.editors.emacs.preview.latex.window" title="Рисунок 3. Окно Emacs при использовании пакета
+        preview-latex">Рисунок 3, &#171;Окно <span class="application">Emacs</span> при использовании пакета
+        <span class="emphasis"><em>preview-latex</em></span>&#187;</a>.
+      
+      </p><div class="figure-float"><div class="figure"><a name="user.editors.emacs.preview.latex.window"></a><p class="title"><b>Рисунок 3. Окно <span class="application">Emacs</span> при использовании пакета
+        <span class="emphasis"><em>preview-latex</em></span></b></p><div class="screenshot"><div class="mediaobject"><img src="user-editors-emacs-preview-latex-window.png" alt="Окно Emacs при использовании пакета preview-latex"></div></div></div></div><p>
+      </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457681"></a>Проверка правописания</h4></div></div></div><p><span class="application">Emacs</span> умеет проверять правописание текстов с помощью
+      программы <span class="application">ispell</span>. Поддержка этой программы входит в поставку
+      <span class="application">GNU Emacs</span>. Команды, которые производят проверку текста,
+      начинаются со слова <span><strong class="command">ispell-</strong></span>. Для разных буферов
+      могут использоваться различные словари.</p><p>Помимо проверки текста по требованию, доступен вспомогательный
+      режим, который называется <span><strong class="command">flyspell-mode</strong></span>. Он
+      проверяет слова по мере их ввода. Этот режим также входит в
+      поставку <span class="application">GNU Emacs</span>.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="user.editors.emacs.modes.misc"></a>Другие режимы и пакеты</h3></div></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457753"></a>Режим MMM</h4></div></div></div><p>Данный режим позволяет использовать несколько основных режимов в
+      одном буфере (отсюда и пошло его название). Это особенно полезно для
+      редактирования файлов, в которых в текст на одном языке внедрены
+      фрагменты на другом языке. Например, этот режим может использоваться
+      при редактировании файлов <code class="filename">JSP</code>,
+      <code class="filename">PHP</code>, <code class="filename">HTML::Mason</code>. Данный
+      пакет собран для дистрибутивов ALTLinux под именем
+      <span class="emphasis"><em>emacs-mmm-mode</em></span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457802"></a>Пакет Speedbar</h4></div></div></div><p>Пакет <code class="filename">speedbar</code> предоставляет возможность 
+      отображения иерархических данных. Это удобно для отображения файловой 
+      системы в виде дерева или отображения списка функций в файле с исходным 
+      текстом.</p><p>Для запуска пакета наберите
+      <span><strong class="command"><span class="keysym">M</span>-<span class="keysym">x</span>
+      speedbar</strong></span>. При этом будет создан отдельный фрейм,
+      содержащий отображаемое дерево. Пакет имеет множество настроек, так
+      что вы можете легко настроить его под себя. Для получения
+      дополнительной информации смотрите info-файл для Speedbar.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457851"></a>Пакет Tiny-tools</h4></div></div></div><p>В этот пакет входит много самых разных полезных дополнений для
+      различных режимов. Например, пакет <code class="filename">tiny-perl</code>, входящий в состав
+      этого пакета, предоставляет команды для просмотра документации по
+      модулям Perl, команды для редактирования документации и многое
+      другое. Пакет tiny-tools можно скачать по адресу <a href="http://tiny-tools.sourceforge.net" target="_top">http://tiny-tools.sourceforge.net</a>.
+      Данный пакет также входит в состав дистрибутивов ALTLinux.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457886"></a>Пакет Tramp</h4></div></div></div><p>Этот пакет представляет возможности доступа к файлам на
+      других компьютерах. Этот пакет аналогичен по свойствам пакету
+      <code class="filename">Ange-FTP</code>, однако <code class="filename">Ange-FTP</code> 
+      использует для перемещения файлов между машинами протокол ftp, тогда 
+      как Tramp использует команды <span><strong class="command">rsh</strong></span>/<span><strong class="command">rcp</strong></span>, или их более безопасные аналоги &#8212;  
+      <span><strong class="command">ssh</strong></span>/<span><strong class="command">scp</strong></span>. Данный пакет входит в состав 
+      дистрибутивов ALTLinux.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2457942"></a>Контроль версий</h4></div></div></div><p><span class="application">Emacs</span> поддерживает различные системы контроля версий. В мире
+      GNU чаще всего используется CVS, поэтому <span class="application">Emacs</span> обеспечивает очень
+      хорошую поддержку этой системы контроля версий. Команды,
+      относящиеся к работе с CVS, имеют префикс
+      <span><strong class="command">cvs-</strong></span>. Пакет поддержки CVS входит в поставку
+      <span class="application">GNU Emacs</span>.</p><p>Кроме CVS, <span class="application">Emacs</span> поддерживает работу с системой
+      <span class="application">Subversion</span>. Поддержка этой системы
+      идет вместе с пакетом
+      <span class="application">subversion</span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2458012"></a>Командный процессор</h4></div></div></div><p>Вы можете выполнять команды командного процессора прямо из
+      <span class="application">GNU Emacs</span>. Для выполнения одной команды вы можете использовать
+      последовательность клавиш <span class="keysym">M</span>-<span class="keysym">!</span>, при этом результат выполнения
+      отображается в мини-буфере. Но если вы хотите выполнить несколько
+      команд с удобным просмотром результатов выполнения, то лучше
+      использовать команду <span><strong class="command"><span class="keysym">M</span>-<span class="keysym">x</span> shell</strong></span>, которая запускает
+      командный процессор и предоставляет различные возможности по
+      работе с историей команд.</p><p>Кроме возможности запуска внешнего командного процессора, для
+      <span class="application">Emacs</span> существует пакет <span class="emphasis"><em>eshell</em></span> (он поставляется
+      вместе с <span class="application">GNU Emacs</span>), который полностью написан на Emacs Lisp. При
+      этом не запускается никаких внешних процессов, кроме тех, которые
+      совсем уж необходимы для работы. Этот пакет разрабатывался как
+      функциональная замена bash, zsh, 4doc и rc. Для его запуска вам
+      нужно просто набрать <span><strong class="command"><span class="keysym">M</span>-<span class="keysym">x</span> eshell</strong></span>, и перед вами
+      возникнет привычная командная строка, только с дополнительными
+      возможностями, которые вы можете расширять собственными
+      силами.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2458129"></a>Справочные страницы</h4></div></div></div><p>Для чтения справочных страниц (man pages) <span class="application">GNU Emacs</span> представляет два независимых интерфейса &#8212;  man и woman (от сочетания without man &#8212;  без использования команды
+      man). Просто наберите команду
+      <span><strong class="command"><span class="keysym">M</span>-<span class="keysym">x</span>
+      man</strong></span> или
+      <span><strong class="command"><span class="keysym">M</span>-<span class="keysym">x</span>
+      woman</strong></span> и введите название нужной вам страницы, и она
+      будет отображена в буфере <span class="application">Emacs</span>.</p><p>В отличие от команды <span><strong class="command">man</strong></span>, команда
+      <span><strong class="command">woman</strong></span> позволяет использовать завершение для
+      имён справочных страниц, однако работает медленнее. Кроме того,
+      команда <span><strong class="command">woman</strong></span> не использует никаких внешних
+      программ для отображения справочных страниц (отсюда происходит её
+      название).</p></div></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="user.editors.emacs.custom"></a>Настройка <span class="application">Emacs</span></h2></div></div></div><p>Для настройки <span class="application">Emacs</span> используется специальный файл, который
+  обычно находится в каталоге пользователя и называется
+  <code class="filename">.emacs</code>. В этом файле содержатся выражения на
+  Emacs Lisp, которые устанавливают значения переменных, загружают
+  нужные пакеты и выполняют другие действия. В этот же файл записываются
+  функции, определённые пользователем, которые затем могут вызываться им
+  при работе с <span class="application">Emacs</span>.  Кроме того, имеется общесистемный файл
+  инициализации, с помощью которого администратор может обеспечить
+  загрузку пакетов, необходимых для всех пользователей данного
+  компьютера.</p><p>Первое время вы можете даже не заглядывать в файл настройки, а
+  настраивать <span class="application">Emacs</span> через пункт меню <span class="guimenuitem">Customize Emacs</span> из меню <span class="guimenu">Options</span>, или с помощью
+  команды <span><strong class="command"><span class="keysym">M</span>-<span class="keysym">x</span> customize</strong></span>. Для того, чтобы
+  ваши настройки автоматически восстанавливались при каждом запуске, их
+  необходимо сохранить, нажав на кнопку Save в буфере настройки. При
+  этом в ваш файл настройки записываются выражения Emacs Lisp,
+  устанавливающие необходимые параметры.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2458333"></a>Настройка русского языка в <span class="application">GNU Emacs</span></h3></div></div></div><p><span class="application">GNU Emacs</span> для работы с разными языками использует 
+    <span class="emphasis"><em>MULE</em></span> (Многоязыковые расширения для <span class="application">GNU Emacs</span>). 
+    Это позволяет эффективно работать как с европейскими, так и с 
+    азиатскими языками.</p><p>Для работы с конкретным языком необходимо определить так
+    называемое языковое окружение. Для ввода не-ASCII символов надо
+    определить метод ввода. Для переключения между языками используется
+    специальное сочетание клавиш
+    <span class="keysym">C</span>-<span class="keysym">\</span>.</p><p>Чтобы настроить <span class="application">GNU Emacs</span> для работы с русским языком
+    (предполагается использование кодировки koi8-r), надо
+    поместить в ваш файл настройки (<code class="filename">~/.emacs</code>)
+    следующие строки:
+    </p><pre class="programlisting">      (set-language-environment 'Cyrillic-KOI8)
+      (set-terminal-coding-system 'koi8-r)
+      (set-keyboard-coding-system 'koi8-r)
+      (setq default-buffer-file-coding-system 'koi8-r)
+      (prefer-coding-system 'koi8-r)
+      (define-coding-system-alias 'koi8-u 'koi8-r)
+      (put-charset-property 'cyrillic-iso8859-5 'preferred-coding-system 'koi8-r)
+      (codepage-setup 1251)
+      (define-coding-system-alias 'windows-1251 'cp1251)
+      (set-input-mode nil nil 'We-will-use-eighth-bit-of-input-byte)
+      (setq-default coding-system-for-read 'koi8-r)
+      (set-selection-coding-system 'koi8-r)
+</pre><p> Этот код устанавливает кодировку KOI8-R в качестве основной кодировки для чтения, записи и общения с внешними программами. Кроме этого, определяется псевдоним для русской кодировки Windows &#8212;  cp1251.
+    </p><p>Для правильного отображения текстов необходимо установить для
+    начертания <span><strong class="command">default</strong></span> (это можно сделать с помощью
+    команды <span><strong class="command"><span class="keysym">M</span>-<span class="keysym">x</span> customize-face</strong></span>) шрифт,
+    который содержит большой набор кодировок, включая кодировку для
+    отображения UTF-8 (например, <span class="emphasis"><em>misc-fixed</em></span>). Такая
+    настройка позволит, например, нормально работать с русскими и
+    немецкими словарями в одном буфере <span class="application">Emacs</span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2458492"></a>Настройка вида Emacs</h3></div></div></div><p>В пакете <span class="application">emacs-misc-modes</span>,
+    который входит в дистрибутивы ALTLinux, имеется библиотека
+    <code class="filename">color-theme</code>. Она представляет пользователю набор 
+    готовых тем, которые он может загружать для изменения внешнего вида
+    <span class="application">Emacs</span>. Для загрузки нужной цветовой схемы используются следующие
+    команды: 
+    </p><pre class="screen">      (require 'color-theme)
+      (color-theme-gnome2)
+</pre><p>
+    Вместо </p><pre class="screen">(color-theme-gnome2)</pre><p> необходимо вписать
+    название понравившейся вам цветовой схемы.
+    </p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="user.editors.emacs.resources"></a>Полезные ресурсы</h2></div></div></div><p>
+    </p><div class="glosslist"><dl><dt>Emacs Elisp Archive</dt><dd><p>На этом <a href="http://www.anc.ed.ac.uk/~stephen/emacs/ell.html" target="_top">сервере</a>
+          перечислены практически все режимы и расширения для основных
+          разновидностей редактора <span class="application">Emacs</span>.</p></dd><dt>Перевод  руководства по <span class="application">GNU Emacs</span></dt><dd><p>На сервере <a href="http://www.gnu.org.ru" target="_top">Русской команды перевода GNU</a> опубликован перевод руководства
+          по <span class="application">GNU Emacs</span>. Возможно, этот перевод несколько устарел, но
+          в любом случае он будет полезен для русскоязычных пользователей 
+          <span class="application">Emacs</span>.</p><p>Кроме того, в состав <span class="application">GNU Emacs</span> и <span class="application">XEmacs</span> входит учебное
+          руководство, для которого есть русский перевод. Как правило, этот
+          файл называется <code class="filename">TUTORIAL.ru</code></p></dd><dt>Группы новостей</dt><dd><p>В сети usenet существует несколько групп, посвящённых
+          работе с <span class="application">Emacs</span>. Названия этих групп начинаются с
+          <code class="function">comp.emacs</code> или с
+          <code class="function">gnu.emacs</code>. В этих группах часто можно
+          получить полезную информацию и ответы на свои вопросы (но
+          сначала загляните в имеющуюся документацию, возможно, там есть
+          ответ на ваш вопрос).</p></dd><dt>Главная страница <span class="application">GNU Emacs</span></dt><dd><p><a href="http://www.gnu.org/software/emacs/emacs.html" target="_top">Главная
+          страница <span class="application">GNU Emacs</span></a> на сервере проекта GNU содержит
+          основную информацию по GNU версии данного редактора.</p></dd><dt>EmacsWiki</dt><dd><p>Сайт <a href="http://emacswiki.org" target="_top">EmacsWiki</a>
+          содержит много информации о <span class="application">Emacs</span> &#8212;  пакетах, настройке и
+          многом другом. </p></dd></dl></div><p>
+  </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="user.editors.emacs.credits"></a>Благодарности</h2></div></div></div><p>
+    </p><div class="itemizedlist"><ul type="disc"><li><p>Jeremy D. Zawodny, за <span class="application">Emacs</span> Beginner HOWTO, который
+      подвигнул меня на написание этого документа. <a href="http://jeremy.zawodny.com/emacs/" target="_top">Страница Jeremy</a>
+      содержит оригинал HOWTO, а также много ссылок на полезные
+      ресурсы. Спасибо тебе, Jeremy!</p></li><li><p>Борису Тоботрасу, за консультации по <span class="application">Emacs</span>. Его
+      <a href="http://xtalk.msk.su/" target="_top">сайт</a> содержит много
+      интересной информации о SGML, <code class="systemitem">Linux</code>, <span class="application">Emacs</span> и многом
+      другом.</p></li><li><p>И, конечно, огромная благодарность всем людям, которые
+      принимали участие в разработке разных версий <span class="application">Emacs</span> и пакетов
+      расширений для них.</p></li></ul></div><p>
+  </p></div></div>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+	_uacct = "UA-78697-3";
+	urchinTracker();
+</script>
+</body></html>
