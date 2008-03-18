@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title>Поиск утечек памяти, и прочих ошибок в программах</title>
+    <meta name="generator" content="muse.el">
+    <meta name="author" content="Alex Ott">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="valgrind, bugs finding, google performance tools, dmalloc, efence, Alex Ott, article, поиск ошибок, memory leaks, profiling, утечки памяти">
+    
+    <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="web.css">
+    <link rel="stylesheet" type="text/css" href="print.css" media="print">
+  </head>
+  <body>
+    <div id="wrap">
+    <h1>Поиск утечек памяти, и прочих ошибок в программах</h1>
+    <!-- Page published by Emacs Muse begins here -->
+<p>Данный рассказ в первую очередь ориентирован на программистов, работающих с Unix-подобными
+операционными системами.  Некоторые из представленных утилит и библиотек могут работать на
+разных Unix-подобных системах и разных процессорах, а некоторые, работают только на
+конкретной операционной системе.</p>
+
+<p>Описанные в данной статье средства используются для анализа существующих программ, и их
+работа основывается на анализе выполнения кода.  Стоит отметить, что существуют и средства
+статического анализа, которые позволяют находить ошибки в процессе проведения анализа
+исходного кода программ, но это тема для отдельной статьи.</p>
+
+<p>В данной статье рассматриваются следующие средства:</p>
+
+<dl>
+<dt><strong><a href="Valgrind.html">Valgrind</a></strong></dt>
+<dd>мощная утилита, позволяющая не только обнаруживать утечки памяти, но и ошибки
+синхронизации в многотредовых программах, а также анализировать производительность
+программ.</dd>
+
+<dt><strong><a href="GooglePT.html">Google Performance Tools</a></strong></dt>
+<dd>набор утилит, которые позволяют проводить профилирование
+программ, а также анализировать выделение памяти программами и производить поиск утечек
+памяти.</dd>
+
+<dt><strong><a href="Exmap.html">Exmap</a></strong></dt>
+<dd>специальная утилита работающая под управлением Linux, которая позволяет собрать
+сведения о реальном использовании памяти программи.</dd>
+
+<dt><strong><a href="DMalloc.html">dmalloc</a></strong></dt>
+<dd>библиотека для поиска утечек ошибок работы с памятью</dd>
+</dl>
+
+
+
+
+
+<dl>
+<dt><strong><a href="ElectricFence.html">Electric Fence</a></strong></dt>
+<dd>библиотека для поиска ошибок работы с памятью</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>продолжение следует...</p>
+
+<!-- Page published by Emacs Muse ends here -->
+  </div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+	_uacct = "UA-78697-3";
+	urchinTracker();
+</script>
+  </body>
+</html>

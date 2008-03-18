@@ -1,1 +1,37 @@
+syntax: glob
+*.orig
+*.rej
+*~
+
+syntax: regexp
+.*\#.*\#$
 ^ru/index\.html$
+^ru/writings/index\.html$
+^ru/tex/index\.html$
+^ru/scheme/index\.html$
+^ru/lisp/index\.html$
+^ru/linux/index\.html$
+^ru/emacs/index\.html$
+^ru/cpp/index\.html$
+^ru/cf/index\.html$
+^ru/alexott-cv\.html$
+^en/writings/index\.html$
+^en/tex/index\.html$
+^en/scheme/index\.html$
+^en/lisp/index\.html$
+^en/linux/index\.html$
+^en/index\.html$
+^en/emacs/index\.html$
+^en/cpp/index\.html$
+^en/cf/index\.html$
+^en/alexott-cv\.html$
+^de/writings/index\.html$
+^de/tex/index\.html$
+^de/scheme/index\.html$
+^de/lisp/index\.html$
+^de/linux/index\.html$
+^de/index\.html$
+^de/emacs/index\.html$
+^de/cpp/index\.html$
+^de/cf/index\.html$
+^ru/fp/index\.html$

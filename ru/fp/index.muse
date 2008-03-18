@@ -1,0 +1,5 @@
+#title Функциональное программирование
+#keywords functional programming, fp, функциональное программирование, ФП, lisp, ocaml, haskell, scheme, F#
+
+* Полезные ссылки по ФП
+

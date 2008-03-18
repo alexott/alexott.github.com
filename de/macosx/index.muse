@@ -1,0 +1,4 @@
+#title mac
+#keywords mac, imac
+
+* mac
