@@ -1,0 +1,194 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Web-traffic filtering</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Content filtering, Data information leakage, trends, Web filtering, VoIP filtering, Mail filtering, IM filtering, Instant Messaging filtering, UTM"><link rel="start" href="index.html" title="Modern trends at the content filtering"><link rel="up" href="index.html" title="Modern trends at the content filtering"><link rel="prev" href="ar01s03.html" title="Modern threats"><link rel="next" href="ar01s05.html" title="E-Mail filtering"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Web-traffic filtering</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s03.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s05.html">Next</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2523701"></a>Web-traffic filtering</h2></div></div></div><p>Last years, in web-filtering branch, occur different changes, that influenced by
+    creation of new filtering technologies, and changing in technologies, that are used
+    for creating of web-sites.</p><p>One of the most important trends in the development of web-filtering products is
+    transition from using of predefined URL databases, to categorisation of sites, based
+    on their content.  This is very actual for different portals, that can contain
+    information from different categories, changing in time, and/or adopted to the client
+    settings.</p><p>Expansion of popular technologies and tools for site building, such as Ajax,
+    Macromedia Flash and others, require to add changes in the web-filtering
+    technologies.</p><p>Usage of encrypted channels for access to Internet sites provide an additional
+    shield of the transmitted data, but in the same time, they could be used as a channels
+    for information leakage, or malware propagation.</p><p>Also actual problem of integrating security products with parts of
+    IT-infrastructure, such as, proxy, web, mail and directory servers.  Different
+    companies and non-commercial organisations develop protocols for providing
+    interoperability between different systems, listed above.</p><p>Description of current state of these questions is given below.</p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2523748"></a>Approaches to web-sites &amp; data categorisation</h3></div></div></div><p>Web-sites categorisation could be performed by different ways.  Currently we
+      could distinguish following approaches to the categorisation:</p><div class="orderedlist"><ol type="1"><li><p>by using predefined site's databases with regular updates of site's lists
+          and categories;</p></li><li><p>by using on-line categorisation of site's content (we could use different
+          methods for this task);</p></li><li><p>by using categorisation information, provided by site.</p></li></ol></div><p>Each of these methods has their own advantages and drawbacks.</p><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2523797"></a>Predefined URL databases</h4></div></div></div><p>Usage of predefined URL databases, and all related things— well-known
+        and used for a long time method.  Now, such databases is provided by several
+        companies, such as Websense, SurfControl, ISS/Cobion, Secure Computing, Astaro AG,
+        NetStar and other.  Some of these companies use this databases only in their own
+        products, but several, allow to use them in third party products.  Databases from
+        Websense, Secure Computing, SurfControl and ISS/Cobion covers millions of sites in
+        different languages, located in different countries, that is very actual in our
+        time.</p><p>Sites categorisation and updating of databases, usually made in
+        half-automatic mode— at first stage special utility perform analysis of
+        content and detection of site's category.  At second stage, collected information
+        often checked manually, that make final decision about site's category. Many
+        companies also collects data about uncategorised sited from the customers.</p><p>Currently used two methods of integration with URL databases:</p><div class="orderedlist"><ol type="1"><li><p>usage of local URL database, with regular updates.  This method
+          is very useful for big companies, that has dedicated filtering servers, that
+          handle big amount of requests;</p></li><li><p>usage of remote URL database.  This method often used in
+          different hardware-centric solutions— small firewalls, ADSL-modems, etc.
+          Usage of remote database slightly increase network load, but guarantee usage of
+          actual URL database.</p></li></ol></div><p>Main advantage of using URL databases is, that access rights checked when
+        client send request, and this allow to decrease load of network.  But there is
+        also disadvantage— delays in updates of URL databases, as analysis require
+        some time.  Some sites also often change their content, and information in URL
+        database become invalid.  Some sites also provide different content, based on
+        different parameters— user name, geographic region, time of day, etc.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2523911"></a>Online data categorisation</h4></div></div></div><p>Online site's categorisation also could be performed different ways.  Very
+        often used methods, based on statistical approach, but there are also other
+        methods.</p><p>One of the simplest approach for data categorisation— usage of Bayes
+        algorithms, that give good account of oneself in fighting with SPAM.  But this
+        approach also has some drawbacks— it require periodical re-training and
+        correcting of dictionaries for a new data.  Therefore, some companies use more
+        complex methods for detecting site's category during data transfer.  For example,
+        the ContentWatch company offer special library, that perform analysis of data,
+        with usage of linguistic information, and can deduce data category, using this
+        information.</p><p>Online data categorisation allow to provide a quick response for a new
+        sites, as information about site's category is not dependent on it address, but
+        only content.  But this approach has also drawbacks— we need to perform
+        analysis of all transferred data, that could lead to performance degradation.
+        Second disadvantage— need to keep content databases up to date for different
+        languages.  Nevertheless, some products use this approach, together with usage of
+        traditional URL databases, for example, Virtual Control Agent in products of
+        SurfControl, and site categorisation methods in SKVT "Dozor-Jet".</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2524103"></a>Site's category information, provided by sites</h4></div></div></div><p>Besides usage of URL databases and online data categorisation methods, there
+        is also another approach— site can provide category information.  First of
+        all this method intended for home and school users, when parents or teachers could
+        restrict access and/or keep track of sites, that are visited by child.  Exists
+        several implementations of this resource categorisation method:</p><div class="orderedlist"><ol type="1"><li><p>PICS (Platform for Internet Content Selection)— specification,
+            developed by W3 consortium ten years ago, also having different extensions,
+            aimed to improve reliability of the rating system.  For control of the ratings
+            could be used special software, that available from the project's site.  More
+            detailed information about PICS you can find at the <a class="ulink" href="http://www.w3.org/PICS/" target="_top">site of the W3 Consortium</a>.</p></li><li><p>ICRA (Internet Content Rating Association)— new initiative,
+            developed by independent non-commercial organisation with the same name.  Main
+            goal of this initiative— provide protection for childes against access
+            to prohibited content.  This organisation has agreements with many large
+            companies (big telecommunication and software companies) to make protection
+            more strong. </p><p>ICRA provide special software, that allow to check special label, that
+            returned by site, and make decision about providing access to the data on
+            site.  This software works only under Microsoft Windows, but, as specification
+            is open, than exists ability to write filtering software also for other
+            platforms.  Description of goals and tasks of this organisation you can find
+            on <a class="ulink" href="http://www.icra.org/" target="_top">ICRA's site</a>.</p></li></ol></div><p>Main advantage of this approach— you need only have special software
+        and doesn't need to update URL and/or content databases, as all category
+        information provided by site.  But the main drawback is that site could provide
+        false category, and this could lead to restricting access to right site, or
+        providing access to false site.  This problem may be resolved (this currently in
+        progress) by using special methods of data integrity checking, such as digital
+        signatures and so on.</p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2524222"></a>Web filtering in world of Web 2.0</h3></div></div></div><p>Massive introduction of so-called Web 2.0 technologies, made many problems for
+      content filtering.  As in many cases, data transferred separately from decoration,
+      exists possibility to skip forbidden data to or from user.  When working with such
+      sites, we need to do complex analysis of all transferred data, detecting
+      transmission of additional data, and taking into account the data, collecting in
+      previous transactions.</p><p>Currently no companies provide support for complex content filtering for the
+      Web 2.0 sites.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2524244"></a>Integration with external systems</h3></div></div></div><p>In many cases exists need in integration of content filtering systems with
+      some other systems— proxy servers, anti-viruses, etc.  In these cases, content
+      filtering systems could act as clients, servers, or both client and servers.  For
+      this purpose was developed several standard protocols— Internet Content
+      Adaptation Protocol (ICAP) and Open Pluggable Edge Services (OPES).  Besides this,
+      several manufacturers had created their own protocols for providing interoperation
+      with third party software.  This is Cisco Web Cache Coordination Protocol (WCCP),
+      Check Point Content Vectoring Protocol (CVP) and some others. </p><p>Some protocols— ICAP and OPES, developed with knowledge in mind, that
+      their could be used not only for content filtering, but also for other
+      services— translation services, advertising placement, content adaptation and
+      propagation, based on different policies/rules, and so on.</p><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2524276"></a>ICAP</h4></div></div></div><p>Currently, ICAP is very popular for  tasks of integration of content
+        filtering and checking software— anti-viruses and malware detectors, proxy
+        servers, etc.  But i should to mention, that ICAP was developed only for work with
+        HTTP, that lead to many restrictions, when we try to adapt it to work with other
+        protocols— SMTP, IM, etc.</p><p>ICAP accepted Internet Engineering Task Force (IETF) group as a standard.
+        ICAP described in the RFC 3507 document, with some additions, described in "ICAP
+        Extensions draft" document.  These documents available from the <a class="ulink" href="http://www.i-cap.org" target="_top">site of the project</a>.</p><p>
+          </p><div class="figure-float" style="float: left;"><div class="figure"><a name="cf.trends.fig1"></a><p class="title"><b>Figure 1. Scheme of interoperation between ICAP client
+            and servers</b></p><div class="figure-contents"><div class="screenshot"><div class="mediaobject"><img src="image001-en.png" alt="Scheme of interoperation between ICAP client and servers"></div></div></div></div><br class="figure-break"></div><p>
+        </p><p>Architecture of the system, that use ICAP you can see on picture  <a class="xref" href="ar01s04.html#cf.trends.fig1" title="Figure 1. Scheme of interoperation between ICAP client and servers">Scheme of interoperation between ICAP client
+            and servers</a>.  <span class="emphasis"><em>ICAP
+        Client</em></span>— is the system, that transfer data.  System, that make
+        analysis and processing of data, called <span class="emphasis"><em>ICAP server</em></span>.  ICAP
+        servers could act as ICAP clients for other servers— this allow chaining of
+        the different systems for processing one data flow.</p><p>For interoperation between client and server used protocol, that looks like
+        HTTP version 1.1, and use the same methods of information coding.  According
+        standard, ICAP can process both outgoing (REQMOD— Request Modification
+        mode), and incoming (RESPMOD— Response Modification mode) data. </p><p>Decision about which data will processed is made by ICAP client, and in some
+        cases this is doesn't allow to make full data processing.  Client settings, vary
+        in different implementations, and in some cases, we can't change them to allow
+        processing of all transferred data.</p><p>After receiving data from client, ICAP server perform their processing, and,
+        if necessary, then modify them.  After processing, data returned to the ICAP
+        client, and transferred to the client or server, depending of data transfer
+        direction.</p><p>ICAP widely used by manufacturers of malware detection software, as it allow
+        to interoperate with different products uniform way, and not depend on platform,
+        on which run concrete ICAP client.</p><p>Main drawbacks of the ICAP usage are:</p><div class="orderedlist"><ol type="1"><li><p>additional network operations between clients and servers, add latency
+            during data transfer between external systems and data consumers;</p></li><li><p>exists some checks, that we need to run on the client side, not on
+            server side— content type detection and so on.  This is very actual, as
+            in many cases, ICAP client use file extension or data type provided in
+            headers, to decide should it pass data to ICAP server or not.  Using of wrong
+            extension, for example, may lead to skipping check and violation of security
+            policy;</p></li><li><p>very hard integration with system, that process not only HTTP
+            protocol.</p></li></ol></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2571126"></a>OPES</h4></div></div></div><p>In difference from ICAP, OPES was designed with application for other
+        protocols in mind.  It also take into account details of concrete protocols.
+        Besides this, designers of OPES take into account drawbacks of ICAP, such as,
+        absence of authentication between client and server, identity confirmation, and so
+        on.</p><p>OPES also accepted as standard by Internet Engineering Task Force.  All
+        information about structure of service interoperation, requirements for services,
+        and security solutions described in documents RFC 3752, 3835, 3836, 3837 and some
+        others.  This list is regularly updated by new documents, that describe
+        application of OPES not only for HTTP-traffic, but also for SMTP, and some other
+        protocols.</p><p>
+          </p><div class="figure-float" style="float: left;"><div class="figure"><a name="cf.trends.fig2"></a><p class="title"><b>Figure 2. Scheme of interoperation between OPES clients
+            and servers</b></p><div class="figure-contents"><div class="screenshot"><div class="mediaobject"><img src="image002-en.png" alt="Scheme of interoperation between OPES clients and servers"></div></div></div></div><br class="figure-break"></div><p>
+        </p><p>Interoperation between servers and clients of OPES you can see on picture
+        <a class="xref" href="ar01s04.html#cf.trends.fig2" title="Figure 2. Scheme of interoperation between OPES clients and servers">Scheme of interoperation between OPES clients
+            and servers</a>.  In common
+        details, it looks like scheme for ICAP, but exists some important
+        differences:</p><div class="orderedlist"><ol type="1"><li><p>exists some requirements to OPES clients, that make working with
+          them more comfortable— setting filtering policies, access rights, and so
+          on;</p></li><li><p>Data consumer (user's information system) can influence on the
+          data processing.  For example, if automated translators is used, then
+          transferred data could automatically translated to the user's
+          language;</p></li><li><p>Data producers, also can influence on data
+          processing;</p></li><li><p>data processing servers during analysis could use
+          protocol-specific data, that their used for data transfer;</p></li><li><p>some data processing servers, could get more important data if
+          they stay in friendship with OPES client, data consumers and/or data
+          producers.</p></li></ol></div><p>All features, listed above, depends only on configuration, that was used
+        during system installation.  This makes OPES usage more comfortable and
+        perspective, than usage of ICAP.</p><p>In near future is awaiting products, that will support OPES, together with
+        ICAP.  Pioneer in this branch is Secure Computing Corp. with their product line
+        called Webwasher.</p><p>As currently no complete implementations of OPES, than we couldn't make
+        conclusions about drawbacks or advantages of this approach, but theoretically
+        exists only one drawback— increasing of latency due interoperation between
+        OPES clients and servers, same as in ICAP.</p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2571273"></a>HTTPS and other kinds of encrypted traffic</h3></div></div></div><p>Some experts give information, that up to 50% of Internet traffic transferred
+      in encrypted form.  Controlling of such traffic is very actual for many
+      organizations, as some users may use encryption for creating a data leakage
+      channels.  Besides this, encrypted channels also could be used by malicious
+      code.</p><p>Exists several tasks associated with processing of encrypted traffic:</p><div class="orderedlist"><ol type="1"><li><p>analysis of data, transferred via encrypted channels;</p></li><li><p>checking of certificates, that used by servers for creation of encrypted channels.</p></li></ol></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2571316"></a>Control of encrypted data transfer</h4></div></div></div><p>Control of data, that transferred over encrypted channels, is most important
+        task for companies, which employers has access to Internet.  For implementation of
+        such control, used approach called "Man-in-the-Middle" (in some sources it also
+        called "Main-in-the Middle"), that also could be used by crackers for data
+        interception.  Scheme of encrypted data processing you can see on picture <a class="xref" href="ar01s04.html#cf.trends.fig3" title="Figure 3. Process of encrypted data handling">Process of encrypted data handling</a>.</p><p>
+          </p><div class="figure-float" style="float: left;"><div class="figure"><a name="cf.trends.fig3"></a><p class="title"><b>Figure 3. Process of encrypted data handling</b></p><div class="figure-contents"><div class="screenshot"><div class="mediaobject"><img src="image003-en.png" alt="Process of encrypted data handling"></div></div></div></div><br class="figure-break"></div><p>
+        </p><p>Processing of encrypted data include following steps:</p><div class="orderedlist"><ol type="1"><li><p>In the user's Internet browser installed special certificate,
+          that will used by proxy-server for signing generated certificates (without
+          installing this certificate, browser will complain about using certificate from
+          non-trusted authority);</p></li><li><p>during handshake with proxy server, client got dynamically
+          generated certificate, filled with details of destination server, but signed
+          with our own key— this allow proxy-server to decrypt transferred
+          data;</p></li><li><p>decrypted data analyzed like a normal
+          HTTP-traffic;</p></li><li><p>proxy-server set up connection to destination server, and use
+          server's certificate for data encryption;</p></li><li><p>data, that proxy get from the destination server, decrypted,
+          analyzed and encrypted with generated certificate before sending them to
+          client.</p></li></ol></div><p>When this scheme of encrypted data processing is used, there is some
+        problems, related to confirmation of user's identity. Also, we need to do some
+        jobs for installing generated certificates into the user's browsers.</p><p>Now there are several products implement processing of encrypted data:
+        Webwasher SSL Scanner by Secure Computing, Breach View SSL, WebCleaner.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="id2571443"></a>Certificates checking</h4></div></div></div><p>Second task, related to the usage of encrypted channels— checking
+        validity of certificates, used by servers.</p><p>Some peoples could make attacks against IT-infrastructure by creating a fake
+        record in DNS, that will point to the fake site, instead of original.  By using
+        such sites, could steal important user's data, such as credit card's numbers,
+        passwords, and so on.  Also such sites, could provide a malicious code, masked for
+        critical updates, etc.</p><p>To preventing such attacks, exists special software, that check validity of
+        certificates, used by servers for creation of encrypted channels.  When provided
+        data not match the server's data, or certificate doesn't signed by trusted
+        authority, then system could block access to these sites, or ask user before
+        providing access to them.  Scheme of data processing is almost same, as in first
+        task, but analyzed only data from server's certificate.</p></div></div></div><script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script type="text/javascript">
+      _uacct = "UA-78697-3";
+      urchinTracker();
+    </script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s03.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Modern threats </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> E-Mail filtering</td></tr></table></div></body></html>
