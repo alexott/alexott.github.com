@@ -35,3 +35,10 @@ syntax: regexp
 ^de/cpp/index\.html$
 ^de/cf/index\.html$
 ^ru/fp/index\.html$
+^ru/macosx/index\.html$
+^index\.html$
+^en/macosx/index\.html$
+^de/macosx/index\.html$
+^ru/oss/index\.html$
+^en/oss/index\.html$
+^de/oss/index\.html$

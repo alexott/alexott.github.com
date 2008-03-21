@@ -1,0 +1,17 @@
+#title Проекты с открытым исходным кодом
+#keywords oss
+
+Я уже более 10 лет принимаю участие в различных проектах, в том числе и по разработке
+программ с открытам исходным кодом.  Среди них мне хотелось бы отметить:
+
+ - [[http://wagner.pp.ru/~vitus/software/catdoc/][catdoc]] -- набор конвертеров для форматов MS Office
+ - [[http://sourceforge.net/projects/wfilter][w-filter]] -- проект по созданию свободной системы контентной фильтрации траффика,
+   предназначенной для управления доступом в Internet в школах, дома и т.п.
+ - dgav -- 
+
+Кроме разработки программ, было еще несколько проектов, целью которых был перевод
+различных книг и статей. Здесь можно отметить:
+
+ - [[http://pcl.catap.ru][Русский перевод]] книги [[http://www.gigamonkeys.com/book/][Practical Common Lisp]]
+ - [[http://code.google.com/p/funprog-ru/][Русский перевод]] курса лекций [[http://www.cl.cam.ac.uk/Teaching/Lectures/funprog-jrh-1996/index.html][Introduction to Functional Programming]]
+

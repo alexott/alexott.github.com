@@ -1,5 +1,35 @@
 #title Функциональное программирование
 #keywords functional programming, fp, функциональное программирование, ФП, lisp, ocaml, haskell, scheme, F#
 
-* Полезные ссылки по ФП
+* Введение
 
+Я давно работаю с языками программирования, которые позволяют использовать функциональный
+подход для решения задач.  Данный подход позволяет упростить разработку программ для
+некоторых классов задач, повысить производительность труда разработчиков и снизить
+количество ошибок в программах.  В качестве хорошего вводного документа про функциональное
+программирование я хочу порекомендовать [[http://code.google.com/p/funprog-ru/][курс лекций]] Джона Харрисона.
+
+Я в своих проектах в основном использую языки [[../lisp/][Common Lisp]] и [[../scheme/][Scheme]], но кроме того, веду
+разработку личных проектов на OCaml/F#, Haskell & Erlang.
+
+* Рекомендуемая литература
+
+ - [[http://mitpress.mit.edu/sicp/][Structure & Interpretation of Computer Programs]] -- классический учебник по
+   программированию, который рекомендуется программистам на любых языках.  Существует
+   русский перевод данного учебника с названием "Структура и интерпретация компьютерных
+   программ".
+ - [[http://www.cl.cam.ac.uk/Teaching/Lectures/funprog-jrh-1996/index.html][Введение в функциональное программирование]], написанное John Harrison. Существует и
+   [[http://code.google.com/p/funprog-ru/][русский перевод]] данного курса.
+ - [[http://www.cl.cam.ac.uk/users/mjcg/Teaching/FuncProg/FuncProg.html][Введение в функциональное программирование]], написанное Mike Gordon.
+ - [[http://www.cs.chalmers.se/~rjmh/tutorials.html][Учебные статьи по функциональному программированию]]
+ - [[http://www.math.chalmers.se/~rjmh/Papers/whyfp.html][Why Functional Programming Matters]]
+
+ - [[http://www.cs.trinity.edu/~jhowland/ccsc98/ccsc98/ccsc98.html][Recursion, Iteration and Functional Languages]]
+ - [[http://www.cs.hmc.edu/~keller/cs60book/][Книга Computer Science: Abstraction to Implementation]], написанная Robert M. Keller и Harvey Mudd College.
+
+; - [[http://plaslab.cis.nctu.edu.tw/eriol/TR/criticSML.364.ps.Z][Andrew W. Appel: A Critique of Standard ML]]
+
+* Полезные ссылки
+
+ - [[http://www.luca.demon.co.uk][Персональная страница Luca Cardelli]], на которой можно найти статьи по функциональным
+   языкам и системам типов.
