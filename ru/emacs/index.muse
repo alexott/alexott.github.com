@@ -1,4 +1,34 @@
 #title emacs
-#keywords alex ott, emacs
+#keywords alex ott, emacs, gnus, gnu emacs, xemacs
 
-* emacs
+* Введение
+
+Я использую Emacs уже более 10 лет (в последние 7 лет я пользуюсь GNU Emacs, но до этого
+использовал и XEmacs).  Emacs для меня служит чем-то вроде швейцарского перочинного ножа
+-- я выполняю с его помощью практически все операции -- программирую, пишу статьи, читаю
+почту и usenet news, общаюсь в irc & jabber, а также делаю еще кучу дел (и мой сайт сделан
+с помощью [[http://mwolson.org/projects/EmacsMuse.html][Muse]] -- пакета для Emacs).
+
+* Статьи про Emacs
+
+Я написал (и продолжаю писать) серию статей посвященную использованию редактора Emacs для
+выполнения различных задач.
+
+ - [[../writings/emacs-22/emacs-22-1-whats-new.ru.html][Статья с обзором новых возможностей GNU Emacs 22]] ([[../writings/emacs-22/emacs-22-1-whats-new.ru.pdf][PDF]])
+
+ - [[../writings/altlinux-emacs/altlinux-emacs.html][Статья]] для руководства пользователя дистрибутивов [[http://www.altlinux.ru][ALTLinux]] ([[../writings/altlinux-emacs/altlinux-emacs.pdf][PDF]])
+
+ - [[../writings/altlinux-gnus/altlinux-gnus.html][Статья]] про использование Emacs для работы с почтой и новостями, также для руководства
+   пользователя дистрибутивов ALTLinux ([[../writings/altlinux-gnus/altlinux-gnus.pdf][PDF]])
+
+ - [[../writings/gnus-spam/gnus-spam.ru.html][Рассказ отлов спама с помощью Gnus'а]] ([[../writings/gnus-spam/gnus-spam.ru.pdf][PDF]])
+
+ - [[../writings/emacs-im/][Рассказ про использование средств обмена сообщениями (ICQ, Jabber, IRC, ...) в Emacs]]
+   ([[../writings/emacs-im/emacs-im.ru.pdf][PDF]])
+
+ - [[../writings/emacs-vcs/][Рассказ про использование Emacs с системами контроля версий]] ([[../writings/emacs-vcs/emacs-vcs.ru.pdf][PDF]])
+
+Вы также можете ознакомиться и с [[../writings/][другими моими статьями]].
+
+* Переводы документации
+

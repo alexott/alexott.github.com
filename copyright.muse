@@ -1,0 +1,13 @@
+#title Copyright note
+#keywords alex ott, copyright
+
+* Russian
+
+Все данные этого сайта (включая тексты, фотографии и другие работы) лицензированы в
+терминах [[http://creativecommons.org/licenses/by-nc-sa/2.0/][Creative Commons License]], если это явно не указано в конкретной работе.
+
+* English
+
+All works on this site (articles, photos, and others) licensed under terms of
+[[http://creativecommons.org/licenses/by-nc-sa/2.0/][Creative Commons License]], if it not explicitly stated in concrete work.
+
