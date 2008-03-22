@@ -3,13 +3,153 @@
 
 * Personal Info
 
+ - **Name**: Alexey (Alex) Ott
+ - **Address**: Im Schlinge 59, 33106 Paderborn, Germany
+ - **Phone**: +4917650439409 (mobile), +4952549210056 (home)
+ - **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]]
+ - **Citizenship**: German, Russian
+ - **Date of Birth**: 04 Jun 1974
+
+* Work Experience
+
+ - Senior Developer at *Securec Computing Corp.*
+  - **Dates (from-to)**: 01.2007-now
+  - **Name and address of employer**: [[http://www.securecomputing.com][Secure Computing Corp]]. 33100 Paderborn, Germany
+  - **Positions held**: Senior Developer
+  - **Type of business**: Software Development
+  - **Main activities and responsibilities**: 
+    - Development of content-filtering software
+    - Architect of new versions of software<br><br>
+
+ - Head of Software development group at *Jet Infosystems*
+  - **Dates (from-to)**: 10.2001-11.2006
+  - **Name and address of employer**: [[http://www.jetinfo.com][Jet Infosystems]]. B. Novodmitrovskaya, 14/1, 127015 Moscow, Russia
+  - **Positions held**: Head of Software development group, Chief System Architect
+  - **Type of business**: System Integration
+  - **Main activities and responsibilities**: 
+    - Leader of development group (9 people);
+    - Lead of development projects;
+    - Architect and development of custom and off-the-shelf software (C/C++, Scheme, Lisp, Java);
+    - Negotiation with customers
+    - Present solutions for customers;
+    - Participation in marketing activity;
+    - Infrastructure architect (data & process integration projects, network projects, mail projects).
+    - *Executed Projects*:
+     - MailBoss – mail filtering and archiving software (architect and develop software,
+       lead the development process); http://www.jetinfosecurity.com; 
+     - WebBoss – web filtering software (architect and develop software, lead the
+       development process); http://www.jetinfosecurity.com; 
+     - BeepayXP – payment processing software for the Vimpelkom – large Russian Mobile
+       Company (Data architect, server infrastructure architect, project coordinator); 
+     - File-NG – data type detection library;
+     - KCIAS - lead architect in data and process integration pilot project (on the base
+       of SeeBeyond) for a Russian Central bank. Business process analysis, Project
+       architecture design, product selection. 
+     - Content-type detection add-on for the Cerberus software (Mail filtering software for Lotus Notes);
+     - Custom Web Portals for the government departments (architect solutions, project coordinator);
+     - Mail projects for different clients (Infrastructure architect, project coordinator);
+     - Custom software solutions (Development in C/C++, Java, Scheme).<br><br>
+
+ - Teacher at *Tomsk Polytechnic University*
+  - **Dates (from-to)**: 09.1998-08.2001
+  - **Name and address of employer**: Tomsk Polytechnic University, Lenina Str, 30, Tomsk, Russia
+  - **Positions held**: Assistant of Chair of Technical Physic (Teacher)
+  - **Type of business**: Education
+  - **Main activities and responsibilities**: 
+    - Provide trainings for students in branch of thermodynamic, molecular physic,
+      computer modeling of physical processes;
+    - Administration of faculty network (mix of Unix and Windows servers) – 1500 users;
+    - Development of Intranet applications.<br><br>
+ 
+ - Developer  *E-Compare Corp.*
+  - **Dates (from-to)**: 10.2000 – 4.2001
+  - **Name and address of employer**: E-Compare Corp, USA
+  - **Positions held**: Developer (remote work)
+  - **Type of business**: Software Development
+  - **Main activities and responsibilities**: 
+    - Writing modules for search engine (Perl, Oracle);
+    - Web programming (HTML, JavaScript).
 
 
-* Employment history
+* Education and trainings
+
+ - **Engineer** at *Tomsk Polytechnic University*, Russia
+  - **Dates (from-to)**: 1991-1997
+  - **Title of qualification awarded**: Physic (Engineer)
+  - **Name and type of organisation**: Physical-technical department of Tomsk Polytechnic University
+  - **Principal subjects**: Physic and Chemistry of Plasma, Mathematics
+  - **Level in national classification**: Higher education diploma<br><br>
+
+ - **MBA** at *Magdeburg University*, Germany
+  - **Dates (from-to)**: 2003-2005
+  - **Title of qualification awarded**: Master of Business Administration
+  - **Name and type of organisation**:  Deutsches MBA Program, Magdeburg University, Germany
+  - **Principal subjects**: General management, Finance, Marketing
 
 
-* Education
+* Personal skills and competences
 
+** Technical skills and competences
+
+I work with computers since 1989 using different types of hardware and operating systems.
+
+*** Programming languages and software development skills
+
+ - C and C++ – more than 10 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
+ - Scheme and Common Lisp – 8 years
+ - Java (including J2EE) – 5 years (currently inactive)
+ - Perl – 5 years (currently inactive)
+ - OCaml and F# – 3 year (currently inactive)
+ - Prolog - 2 years (currently inactive)
+ - SQL – 7 years (Oracle and PostgreSQL)
+ - UML modeling in complex projects
+ - x86 Assembler – 5 years (currently inactive)
+
+*** Other computer-related skills
+
+ - Administration of UNIX-like OS – Linux (since 1996), Sun Solaris (since 2000), HP-UX
+   (since 2001), FreeBSD (since 2000) 
+ - Administration of Windows OSes – NT4, 2000, XP
+ - Administration of relational databases (Oracle and PostgreSQL) 
+
+*** Open Source projects
+
+ - Catdoc - Open-source converter for MS Office files, development of PPT & XLS converters
+ - ALTLinux - Linux distribution, package maintainer (2001-2004)
+ - Dansguardian – web-filtering software (currently inactive)
+ - Russian documentation for Linux – author of different articles about Linux
+
+*** Certification
+
+ - Authorised ALTLinux specialist", certificate number 0x000C;
+ - Brainbench certification ([[http://www.brainbench.com/xml/bb/transcript/public/viewtranscript.xml?pid=5075245][Brainbench ID 5075245]]):
+  - Master C++
+  - Master C++ Fundamentals
+  - Master Unix Programming
+  - Master Linux Programming
+  - Master Network Authentication
+  - Master Unix Administration (General)
+  - Master Linux Administration (General)
+  - Master Linux Administration (Redhat)
+  - C Programmer
+
+** Languages
+
+ - **Russian**: Mother tongue
+ - **English**: Good reading, writing & verbal skills
+ - **German**: Good reading, basic writing and verbal skills
+
+** Social and organizational skills and competences
+
+ - Ability to working in multinational commands, working with foreign customers
+ - Ability to lead and working in teams (and alone)
+ - Experience in managing of software development teams, coordinating different
+   departments to make projects.
+ - Participation in Open Source projects
 
 * Other personal info
+
+ - **Driving license**: present
+ - **Artistic skills and competences**: Author of different articles, in physic and
+   computer-related branches. Co-author of Russian translation of "GNU Emacs manual".
 

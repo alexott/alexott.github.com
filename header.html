@@ -25,9 +25,33 @@
   </head>
   <body>
     <div id="wrap">
-<!--    <h1><lisp>
-  (concat (muse-publishing-directive "title")
-          (let ((author (muse-publishing-directive "author")))
-            (if (not (string= author (user-full-name)))
-                (concat " (by " author ")"))))</lisp></h1> -->
-    <!-- Page published by Emacs Muse begins here -->
+
+      <div id="header">
+        <h1><!-- <a href="index.html">Alex Ott's home page</a> --> </h1>
+        <p><a href="<lisp>(muse-gen-relative-name "ru/index.html")</lisp>">Russian</a> &middot; <a href="<lisp>(muse-gen-relative-name "de/index.html")</lisp>">German</a>
+          &middot; <a href="<lisp>(muse-gen-relative-name "en/index.html")</lisp>">English</a></p> 
+      </div>
+
+      <div id="leftside">
+        <h2 class="hide">Меню:</h2>
+
+<!--        <ul class="avmenu">
+          <li><a class="current" href="index.html">Главная</a></li>
+          <li><a href="emacs/index.html">Emacs</a></li>
+          <li><a href="cf/index.html">Информационная безопасность</a></li>
+          <li><a href="funcprog/index.html">Функциональное программирование</a></li>
+          <li><a href="c-cpp/index.html">C &amp; C++</a></li>
+          <li><a href="tex/index.html">TeX/LaTeX</a></li>
+          <li><a href="linux/index.html">Linux</a></li>
+          <li><a href="writings/index.html">Статьи</a></li>
+        </ul> -->
+
+<!--        <div class="announce">
+          <h2>Новости</h2>
+          <p><strong>Jan 11, 2007:</strong><br />
+            Improved: v2.5!</p>
+          <p class="textright"><a href="news.html">далее ...</a></p>
+        </div> -->
+      </div>
+
+      <div id="contentwide">
