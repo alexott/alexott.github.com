@@ -43,3 +43,4 @@ syntax: regexp
 ^en/oss/index\.html$
 ^de/oss/index\.html$
 ^copyright\.html$
+^en/fp/index\.html$
