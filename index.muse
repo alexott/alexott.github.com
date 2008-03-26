@@ -2,5 +2,7 @@
 #keywords alex ott, alexey ott, personal page, home page
 #refresh 2;url=ru/index.html
 
-* Please select appropriate language (default -> russian)
+      *Please select appropriate language!* (default -> russian)
+
+      ***[[ru/index][Russian]]***  ***[[en/index][English]]***
 
