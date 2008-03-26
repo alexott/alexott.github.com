@@ -33,21 +33,26 @@
     - Negotiation with customers
     - Present solutions for customers;
     - Participation in marketing activity;
-    - Infrastructure architect (data & process integration projects, network projects, mail projects).
-    - *Executed Projects*:
-     - MailBoss – mail filtering and archiving software (architect and develop software,
-       lead the development process); http://www.jetinfosecurity.com; 
-     - WebBoss – web filtering software (architect and develop software, lead the
-       development process); http://www.jetinfosecurity.com; 
-     - BeepayXP – payment processing software for the Vimpelkom – large Russian Mobile
+    - Infrastructure architect (data & process integration projects, network projects,
+      mail projects).
+    - *Performed Projects*:
+     - **Mailboss** (aka SMAP "Dozor-Jet") – mail filtering and archiving software (architect
+       and develop software, lead the development process);
+       http://www.jetinfosecurity.com;
+     - **Webboss** (aka SKVT "Dozor-Jet") – web filtering software (architect and develop
+       software, lead the development process); http://www.jetinfosecurity.com;
+     - **BeepayXP** – payment processing software for the Vimpelkom – large Russian Mobile
        Company (Data architect, server infrastructure architect, project coordinator); 
-     - File-NG – data type detection library;
-     - KCIAS - lead architect in data and process integration pilot project (on the base
-       of SeeBeyond) for a Russian Central bank. Business process analysis, Project
-       architecture design, product selection. 
-     - Content-type detection add-on for the Cerberus software (Mail filtering software for Lotus Notes);
-     - Custom Web Portals for the government departments (architect solutions, project coordinator);
-     - Mail projects for different clients (Infrastructure architect, project coordinator);
+     - **File-NG** – data type detection library;
+     - KC IAS - lead architect in data and process integration pilot project (on the base
+       of Sun Java CAPS) for a Russian Central bank. Business process analysis, Project
+       architecture design, product selection.
+     - Content-type detection add-on for the Cerberus software (Mail filtering software
+       for Lotus Notes);
+     - Custom Web Portals for the government departments (architect solutions, project
+       coordinator);
+     - Mail projects for different clients (Infrastructure architect, project
+       coordinator);
      - Custom software solutions (Development in C/C++, Java, Scheme).<br><br>
 
  - Teacher at *Tomsk Polytechnic University*
@@ -153,3 +158,5 @@ I work with computers since 1989 using different types of hardware and operating
  - **Artistic skills and competences**: Author of different articles, in physic and
    computer-related branches. Co-author of Russian translation of "GNU Emacs manual".
 
+
+;  LocalWords:  Mailboss SMAP Dozor Webboss SKVT IAS BeepayXP NG
