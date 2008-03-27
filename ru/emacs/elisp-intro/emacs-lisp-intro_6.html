@@ -1,0 +1,1141 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 4  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Первые трудности</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Первые трудности">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Первые трудности">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC72"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_5.html#SEC71"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC73"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_5.html#SEC61"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 5. Первые трудности </H1>
+<!--docid::SEC72::-->
+<P>
+
+В этой главе, мы закрепим знания, полученные в предыдущих главах,
+изучив несколько более сложных функций. Функция <CODE>copy-to-buffer</CODE>
+иллюстрирует использование в одном определении двух выражений
+<CODE>save-excursion</CODE>, а функция <CODE>insert-buffer</CODE> показывает
+использование <KBD>*</KBD> в выражении <CODE>interactive</CODE>, использование
+<CODE>or</CODE> и важную разницу между именем и объектом, к которому имя
+относится.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC73">5.1 Определение <CODE>copy-to-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">С <CODE>set-buffer</CODE>, <CODE>get-buffer-create</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC74">5.2 Определение <CODE>insert-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Только-чтение, и <CODE>or</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC82">5.3 Полное определение <CODE>beginning-of-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Использует <CODE>goto-char</CODE>,</TD></TR>
+</TABLE>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<CODE>point-min</CODE>,&nbsp;и&nbsp;<CODE>push-mark</CODE>.
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC88">5.4 Обзор</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC89">5.5 Упражнения с <CODE>&#38;optional</CODE> аргументом</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="copy-to-buffer"></A>
+<HR SIZE="6">
+<A NAME="SEC73"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC72"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC72"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.1 Определение <CODE>copy-to-buffer</CODE> </H2>
+<!--docid::SEC73::-->
+<P>
+
+После изучения принципа работы <CODE>append-to-buffer</CODE>, легко понять и
+<CODE>copy-to-buffer</CODE>. Эта функция копирует текст в буфер, но вместо
+того чтобы добавить его во второй буфер, она заменяет предыдущий текст
+в том буфере. Код для функции <CODE>copy-to-buffer</CODE> почти такой же,
+как и код для <CODE>append-to-buffer</CODE>, отличаясь только использованием
+<CODE>erase-buffer</CODE> и второй формы <CODE>save-excursion</CODE>.
+(See section <A HREF="emacs-lisp-intro_5.html#SEC66">The Definition of <CODE>append-to-buffer</CODE></A>,
+для описания <CODE>append-to-buffer</CODE>.)
+</P><P>
+
+Тело <CODE>copy-to-buffer</CODE> выглядит следующим образом
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre><small>...</small>
+(interactive "BCopy to buffer: \nr")
+  (let ((oldbuf (current-buffer)))
+    (save-excursion
+      (set-buffer (get-buffer-create buffer))
+      (erase-buffer)
+      (save-excursion
+        (insert-buffer-substring oldbuf start end)))))
+</pre></td></tr></table></P><P>
+
+Все это очень похоже на то, что мы видели в <CODE>append-to-buffer</CODE>,
+только после того, как мы переключились в новый буфер куда и
+собираемся копировать текст, исходные тексты этих двух функции
+расходятся --- в функции <CODE>copy-to-buffer</CODE> уничтожается
+первоначальное содержание буфера. (Обычно это называют замещением
+--- чтобы заместить текст, Emacs стирает предыдущий текст и затем
+вставляет новый). После того, как стерто прежнее содержание буфера,
+второй раз используется <CODE>save-excursion</CODE> и вставляется новый
+текст.
+</P><P>
+
+Почему же <CODE>save-excursion</CODE> используется дважды? Давайте
+внимательно посмотрим что же делает эта функция.
+</P><P>
+
+Схематично, тело <CODE>copy-to-buffer</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let (<VAR>связать-</VAR><CODE>oldbuf</CODE><VAR>-со-значением-</VAR><CODE>current-buffer</CODE>)
+  (save-excursion         ; Первое использование <CODE>save-excursion</CODE>.
+    <VAR>изменить-буфер</VAR>
+      (erase-buffer)
+      (save-excursion     ; Второе использование <CODE>save-excursion</CODE>.
+        <VAR>вставить-блок-текста-из-</VAR><CODE>oldbuf</CODE><VAR>-в-буфер</VAR>)))
+</pre></td></tr></table></P><P>
+
+Первое использование <CODE>save-excursion</CODE> вернет Emacs в буфер из
+которого мы копируем текст. Это ясно, и точно такой же код
+использовался в <CODE>append-to-buffer</CODE>. Зачем же использовать эту
+функцию второй раз? Причина этого заключается в том, что
+<CODE>insert-buffer-substring</CODE> всегда оставляет точку в <EM>конце</EM>
+вставленного региона текста. Второе использование
+<CODE>save-excursion</CODE> заставляет Emacs оставить точку в начале
+вставленного текста. В большинстве случаев, пользователи предпочитают
+обнаружить точку в начале вставленного текста. (Конечно, функция
+<CODE>copy-to-buffer</CODE> вернет пользователя в первоначальный буфер когда
+завершит свою работу --- но если пользователь <EM>потом</EM>
+переключится в тот буфер, то точка будет в начале текста. То есть
+второе использование <CODE>save-excursion</CODE> применяется для удобства).
+</P><P>
+
+<A NAME="insert-buffer"></A>
+<HR SIZE="6">
+<A NAME="SEC74"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC73"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC75"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC72"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.2 Определение <CODE>insert-buffer</CODE> </H2>
+<!--docid::SEC74::-->
+<P>
+
+<CODE>insert-buffer</CODE> --- еще одна функция связанная с буферами.
+Эта команда копирует другой буфер <EM>в</EM> текущий буфер. Это обратное
+действие, если сравнивать с <CODE>append-to-buffer</CODE> и
+<CODE>copy-to-buffer</CODE>, поскольку они копируют регион текста <EM>из</EM>
+текущего буфера в другой буфер.
+</P><P>
+
+Кроме того, код этой функции иллюстрирует использование
+<CODE>interactive</CODE> с буфером который может быть
+<EM>только-для-чтения</EM> и важную разницу между именем объекта и самим
+объектом. Вот и исходный текст этой функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun insert-buffer (buffer)
+  "Вставить после точки содержимое BUFFER.
+Поставить метку после вставленного текста.
+BUFFER может быть буфером или именем буфера."
+  (interactive "*bInsert buffer: ")
+  (or (bufferp buffer)
+      (setq buffer (get-buffer buffer)))
+  (let (start end newmark)
+    (save-excursion
+      (save-excursion
+        (set-buffer buffer)
+        (setq start (point-min) end (point-max)))
+      (insert-buffer-substring buffer start end)
+      (setq newmark (point)))
+    (push-mark newmark)))
+</pre></td></tr></table></P><P>
+
+Как из другими определениями функции, вы можете использовать шаблон,
+для того, чтобы посмотреть на костяк этой функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun insert-buffer (buffer)
+  "<VAR>документация</VAR><small>...</small>"
+  (interactive "*bInsert buffer: ")
+  <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC75">5.2.1 Интерактивное выражение в <CODE>insert-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Когда буфер только-для-чтения.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC78">5.2.2 Тело функции <CODE>insert-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">В теле есть <CODE>or</CODE> и <CODE> let</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC79">5.2.3 <CODE>insert-buffer</CODE> с <CODE>if</CODE> вместо <CODE>or</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Используем <CODE>if</CODE> вместо <CODE>or</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC80">5.2.4 <CODE>or</CODE> в теле функции</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC81">5.2.5 Выражение <CODE>let</CODE> в <CODE>insert-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Два выражения <CODE>save-excursion</CODE>.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="insert интерактивное выражение"></A>
+<HR SIZE="6">
+<A NAME="SEC75"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC76"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC73"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC78"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.2.1 Интерактивное выражение в <CODE>insert-buffer</CODE> </H3>
+<!--docid::SEC75::-->
+<P>
+
+В <CODE>insert-buffer</CODE>, аргумент к объявлению <CODE>interactive</CODE>
+состоит из двух частей, звездочки <SAMP>`*'</SAMP>, и строки <SAMP>`bInsert
+buffer: '</SAMP>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC76">Буфер только-для-чтения</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC77"><SAMP>`b'</SAMP> в интерактивном выражении</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="буфер только-чтение"></A>
+<HR SIZE="6">
+<A NAME="SEC76"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC75"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC77"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC75"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC78"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Буфер только-для-чтения </H4>
+<!--docid::SEC76::-->
+<P>
+
+Звездочка используется в тех ситуациях, когда буфер открыт в режиме
+<EM>только-для-чтения</EM> --- то есть, это буфер, который нельзя
+изменять. Если <CODE>insert-buffer</CODE> вызвали из буфера только для
+чтения, то в эхо-области появится сообщение об ошибке и терминал
+издаст звуковой сигнал или мигнет --- вам не разрешено изменять
+текущий буфер. За звездочкой не должен следовать символ новой строки,
+отделяющий ее от аргумента.
+</P><P>
+
+<A NAME="b в <CODE>interactive</CODE>"></A>
+<HR SIZE="6">
+<A NAME="SEC77"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC76"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC78"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC75"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC78"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> <SAMP>`b'</SAMP> в интерактивном выражении </H4>
+<!--docid::SEC77::-->
+<P>
+
+Следующий аргумент в интерактивном объявлении начинается с буквы
+<SAMP>`b'</SAMP> в нижнем регистре. (Здесь есть отличие от текста функции
+<CODE>append-to-buffer</CODE>, в котором используется <SAMP>`B'</SAMP> в верхнем
+регистре. See section <A HREF="emacs-lisp-intro_5.html#SEC66">The Definition of <CODE>append-to-buffer</CODE></A>.) Строчная буква <SAMP>`b'</SAMP> сообщает
+интерпретатору Лиспа, что аргументом для этой функции должен быть
+существующий буфер или его имя. (Прописная буква <SAMP>`B'</SAMP> разрешает
+отсутствие буфера). Emacs запросит у вас имя буфера, предложив вам
+буфер по умолчанию, с возможностью дополнения. Если буфер не
+существует, то вы получите сообщение, которое гласит "No match" (Нет
+соответствия); и ваш терминал может издать звуковой сигнал.
+</P><P>
+
+<A NAME="тело insert-buffer"></A>
+<HR SIZE="6">
+<A NAME="SEC78"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC77"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC79"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC75"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.2.2 Тело функции <CODE>insert-buffer</CODE> </H3>
+<!--docid::SEC78::-->
+<P>
+
+Тело <CODE>insert-buffer</CODE> содержит две основные части ---
+выражение <CODE>or</CODE> и выражение <CODE>let</CODE>. Задача выражения <CODE>or</CODE>
+убедится в том, что аргумент <CODE>buffer</CODE> связан с существующим
+буфером, а не является только именем буфера. Тело выражения <CODE>let</CODE>
+содержит код, который копирует другой буфер в текущий буфер.
+</P><P>
+
+Схематично, что эти два выражения входят в состав функции
+<CODE>insert-buffer</CODE> следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun insert-buffer (buffer)
+  "<VAR>документация</VAR><small>...</small>"
+  (interactive "*bInsert buffer: ")
+  (or <small>...</small>
+      <small>...</small>
+  (let (<VAR>список-переменных</VAR>)
+      <VAR>тело-</VAR><CODE>let</CODE><small>...</small> )
+</pre></td></tr></table></P><P>
+
+Чтобы понять как выражение <CODE>or</CODE> проверяет что аргумент
+<CODE>buffer</CODE> связан с буфером, а не просто является именем буфера,
+нам вначале необходимо изучить функцию <CODE>or</CODE>.
+</P><P>
+
+До этого давайте, перепишем эту часть функции используя выражение
+<CODE>if</CODE> таким образом, чтобы вы могли увидеть что происходит в
+известном вам изложении.
+</P><P>
+
+<A NAME="if &#38; or"></A>
+<HR SIZE="6">
+<A NAME="SEC79"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC78"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC80"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC73"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.2.3 <CODE>insert-buffer</CODE> с <CODE>if</CODE> вместо <CODE>or</CODE> </H3>
+<!--docid::SEC79::-->
+<P>
+
+Необходимо убедиться, что значение <CODE>buffer</CODE> --- это
+существующий буфер а не просто имя буфера. Если это просто имя, то
+тогда надо получить связанный с ним буфер.
+</P><P>
+
+Представьте что вы находитесь на конференции, где один из швейцаров
+ходит держа табличку с вашим именем и ищет вас; таким образом швейцар
+"связан" с вашим именем, а не с вами; но когда он найдет вас и
+возьмет за руку, то он станет связан уже с вами.
+</P><P>
+
+На Лиспе, вы можете описать эту ситуацию следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (not (не-нашел-гостя))
+    (найти-и-взять-его-за-руку))
+</pre></td></tr></table></P><P>
+
+Иногда вы хотите проделать аналогичную штуку с буфером --- если у
+нас нет самого буфер, то мы хотим получить его.
+</P><P>
+
+Используя предикат <CODE>bufferp</CODE>, который проверяет является ли
+буфером ли его аргумент или он является только его именем, мы можем
+записать следующее:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (not (bufferp buffer))              ; if-часть
+    (setq buffer (get-buffer buffer)))  ; then-часть
+</pre></td></tr></table></P><P>
+
+Здесь, проверка-истина-ложь в выражении <CODE>if</CODE> --- это
+<CODE>(not (bufferp buffer))</CODE>; а then-часть --- выражение
+<CODE>(setq buffer (get-buffer buffer))</CODE>.
+</P><P>
+
+В проверке, функция <CODE>bufferp</CODE> возвращает истину если его
+аргумент --- буфер, и ложь, если его аргумент --- это имя
+буфера. (Последний символ в имени функции <CODE>bufferp</CODE> --- это
+символ <SAMP>`p'</SAMP>; как мы видели ранее, такое использование <SAMP>`p'</SAMP>
+подчеркивает, что эта функция является предикатом, что означает, что
+она проверяет, обладает ли ее аргумент каким-либо
+свойством. See section <A HREF="emacs-lisp-intro_2.html#SEC25">Using the Wrong Type Object as an Argument</A>.)
+</P><P>
+
+Перед выражением <CODE>(bufferp buffer</CODE>, расположена функция
+<CODE>not</CODE>, так что проверка-истина-ложь выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(not (bufferp buffer))
+</pre></td></tr></table></P><P>
+
+Функция <CODE>not</CODE> возвращает истину, если ее аргумент имеет значение
+ложь, и ложь, если ее аргумент истина. Так, что если <CODE>(bufferp
+buffer)</CODE> возвращает истину, то выражение <CODE>not</CODE> вернет ложь и
+наоборот --- то, что "не истина" это ложь, а то, что "не ложь"
+это истина.
+</P><P>
+
+С помощью этого теста выражение <CODE>if</CODE>, работает следующим
+образом --- если значение переменной <CODE>buffer</CODE> на самом деле
+буфер, а не только его имя, то тогда проверка-истина-ложь возвращает
+ложь и then-часть выражения <CODE>if</CODE> не вычисляется. Это правильно,
+поскольку нам и не надо ничего делать, если переменная <CODE>buffer</CODE>
+на самом деле связана с буфером.
+</P><P>
+
+С другой стороны, когда значение <CODE>buffer</CODE> --- это не сам
+буфер, а только его имя, то проверка-истина-ложь возвращает истину, и
+тогда вычисляется then-часть всего выражения <CODE>if</CODE>. В этом случае
+then-часть --- это <CODE>(setq buffer (get-buffer buffer))</CODE>. Это
+выражения с помощью функции <CODE>get-buffer</CODE> возвращает фактический
+буфер, который задан именем. Затем <CODE>setq</CODE> связывает переменную
+<CODE>buffer</CODE> со значением самого буфера, замещая таким образом
+предыдущее значение (которое было именем буфера).
+</P><P>
+
+<A NAME="insert or"></A>
+<HR SIZE="6">
+<A NAME="SEC80"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC79"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC81"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC73"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.2.4 <CODE>or</CODE> в теле функции </H3>
+<!--docid::SEC80::-->
+<P>
+
+Цель выражения <CODE>or</CODE> в <CODE>insert-buffer</CODE>, убедиться, что аргумент
+<CODE>buffer</CODE> связан с буфером, а не с именем оного.  В предыдущем
+разделе мы рассмотрели, как это задачу можно выполнить с помощью
+выражения <CODE>if</CODE>.  Однако в <CODE>insert-buffer</CODE>, на самом деле
+используется <CODE>or</CODE>.  Для этого нам необходимо познакомиться с этой
+функцией.
+</P><P>
+
+<A NAME="IDX50"></A>
+У функции <CODE>or</CODE> может быть любое количество аргументов.  Она
+вычисляет каждый аргумент по очереди и возвращает значение первого из
+них который вернул не <CODE>nil</CODE>.  Также и это главная характеристика
+функции <CODE>or</CODE>, после этого она не вычисляет другие аргументы, если
+какой-то вернул значение не-<CODE>nil</CODE>.
+</P><P>
+
+Выражение <CODE>or</CODE> в функции <CODE>insert-buffer</CODE> выглядит следующим
+образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(or (bufferp buffer)
+    (setq buffer (get-buffer buffer)))
+</pre></td></tr></table></P><P>
+
+Первый аргумент в <CODE>or</CODE> это выражение <CODE>(bufferp buffer)</CODE>.  Это
+выражение возвращает истину (то есть не-<CODE>nil</CODE>) если переменная
+<CODE>buffer</CODE> на самом деле связана с буфером, а не с именем буфера.  В
+общем выражении <CODE>or</CODE> в таком случае все выражение <CODE>or</CODE>
+возвращает истину и не вычисляет свое следующее выражение---так и надо,
+ведь нам уже не надо ничего делать если значение <CODE>buffer</CODE> сам буфер.
+</P><P>
+
+С другой стороны, если значения <CODE>(bufferp buffer)</CODE> это
+<CODE>nil</CODE>, то есть если значением переменной <CODE>buffer</CODE> было имя
+буфера, то интерпретатор Лиспа вычислит следующий элемент в выражении
+<CODE>or</CODE>. Это выражение <CODE>(setq buffer (get-buffer buffer))</CODE>.
+Это выражение вернет значение не-<CODE>nil</CODE>, а значение к которому
+сейчас связана переменная <CODE>buffer</CODE>, то есть сам буфер, а не его
+имя.
+</P><P>
+
+В результате всего этого символ <CODE>buffer</CODE> всегда будет связан с
+буфером, даже если до этого он был связан с его именем. Все это
+необходимо, поскольку функция <CODE>set-buffer</CODE>, которая используется
+на следующей строке, работает только с буфером, а не с его именем.
+</P><P>
+
+Кстати, с помощью <CODE>or</CODE>, ситуацию со швейцаром можно записать
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(or (не-нашел-гостя) (найти-и-взять-его-за-руку))
+</pre></td></tr></table></P><P>
+
+<A NAME="insert let"></A>
+<HR SIZE="6">
+<A NAME="SEC81"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC80"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC82"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC73"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.2.5 Выражение <CODE>let</CODE> в <CODE>insert-buffer</CODE> </H3>
+<!--docid::SEC81::-->
+<P>
+
+После того, как мы убедились, что переменная <CODE>buffer</CODE> связана с
+буфером, а не с его именем, в <CODE>insert-buffer</CODE> вычисляется
+выражение <CODE>let</CODE>. В нем задаются три локальные переменные:
+<CODE>start</CODE>, <CODE>end</CODE> и <CODE>newmark</CODE> и им присваивается
+первоначальное значение <CODE>nil</CODE>. Эти переменные используются в теле
+выражения <CODE>let</CODE> и временно маскируют переменные с такими же
+именами, но определенные вне этой функции.
+</P><P>
+
+Тело <CODE>let</CODE> содержит два выражения <CODE>save-excursion</CODE>.
+Вначале, мы рассмотрим в деталях внутренней выражение
+<CODE>save-excursion</CODE>. Оно выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(save-excursion
+  (set-buffer buffer)
+  (setq start (point-min) end (point-max)))
+</pre></td></tr></table></P><P>
+
+Выражение <CODE>(set-buffer buffer)</CODE> переключает внимание Emacs от
+текущего буфера к тому из которого будет копироваться текст. В этом
+буфере, переменные <CODE>start</CODE> и <CODE>end</CODE> связываются с началом и
+концом этого буфера с помощью команд <CODE>point-min</CODE> и
+<CODE>point-max</CODE>. Отметим использование функции <CODE>setq</CODE>, которая
+назначает значение сразу двум переменным. Первому аргументу
+<CODE>setq</CODE> присваивается значение второго аргумента, а третьему
+аргументу --- значение четвертого.
+</P><P>
+
+После вычисление тела внутреннего выражения <CODE>save-excursion</CODE>,
+Emacs восстанавливает первоначальный буфер, но при этом значения
+<CODE>start</CODE> и <CODE>end</CODE> остаются теми же, то есть они содержат точки
+начала и конца буфера.
+</P><P>
+
+Внешнее выражение <CODE>save-excursion</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(save-excursion
+  (<VAR>внутреннее-</VAR><VAR>expression-</VAR><CODE>save-excursion</CODE>
+     (<VAR>идем-в-новый-буфер-и-устанавливаем-</VAR><CODE>start</CODE><VAR>-и-</VAR><CODE>end</CODE>)
+  (insert-buffer-substring buffer start end)
+  (setq newmark (point)))
+</pre></td></tr></table></P><P>
+
+Функция <CODE>insert-buffer-substring</CODE> копирует текст <EM>в</EM> текущий
+буфер <EM>из</EM> области ограниченной точками <CODE>start</CODE> и <CODE>end</CODE>
+буфера <CODE>buffer</CODE>. Поскольку между точками <CODE>start</CODE> и
+<CODE>end</CODE> находиться весь второй буфер, то он и будет скопирован в
+ваш текущий буфер. Затем значение точки, которая будет в конце
+вставленного текста записывается в переменную <CODE>newmark</CODE>.
+</P><P>
+
+После вычисления тела внутреннего <CODE>save-excursion</CODE>, точка и метка
+восстанавливаются к их первоначальным значениям.
+</P><P>
+
+Однако это довольно удобно расположить метку в конце вставленного
+недавно текста, а точку в начале. В переменной <CODE>newmark</CODE> записан
+конец вставленного текста. В последней строке выражения <CODE>let</CODE>, с
+помощью выражения <CODE>(push-mark newmark)</CODE> метка устанавливается на
+это место. (Предыдущая метка все еще доступна --- она занесена в
+кольцо меток и вы можете вернуться к ней с помощью сочетания клавиш
+<KBD>C-u C-<KBD>SPC</KBD></KBD>). В тоже время, точка расположена в начале
+вставленного текста, располагаясь там же, где она была до вызова
+функции <CODE>insert-buffer</CODE>.
+</P><P>
+
+Все выражение <CODE>let</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let (start end newmark)
+  (save-excursion
+    (save-excursion
+      (set-buffer buffer)
+      (setq start (point-min) end (point-max)))
+    (insert-buffer-substring buffer start end)
+    (setq newmark (point)))
+  (push-mark newmark))
+</pre></td></tr></table></P><P>
+
+Как и в функции <CODE>append-to-buffer</CODE>, в функции
+<CODE>insert-buffer</CODE>, используются <CODE>let</CODE>, <CODE>save-excursion</CODE>,
+и <CODE>set-buffer</CODE>. Кроме этого, в этой функции проиллюстрирован еще
+один способ использования функции <CODE>or</CODE>. Все эти функции являются
+строительными блоками, которые мы будем использовать снова и снова.
+</P><P>
+
+<A NAME="beginning-of-buffer"></A>
+<HR SIZE="6">
+<A NAME="SEC82"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC81"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC83"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC72"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC88"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.3 Полное определение <CODE>beginning-of-buffer</CODE> </H2>
+<!--docid::SEC82::-->
+<P>
+
+Мы уже рассмотрели основную идею функции <CODE>beginning-of-buffer</CODE>.
+(See section <A HREF="emacs-lisp-intro_5.html#SEC63">A Simplified <CODE>beginning-of-buffer</CODE> Definition</A>.) Сейчас давайте опишем ее
+полностью.
+</P><P>
+
+Мы уже упоминали, что когда функция <CODE>beginning-of-buffer</CODE>
+запускается с одним аргументом, то она перемещает курсор в начало
+буфера, оставляя метку на предыдущем положении курсора. Однако, если
+эту команду запустить с числовым аргументом от одного до десяти, то
+тогда эта функция будет рассматривать это число, как долю к общей
+длине буфера, измеренной в десятых долях, и переместит курсор в ту
+часть буфера, которая соответствует заданному значению. То есть вы
+можете или вызвать функцию с помощью <KBD>M-&#60;</KBD>, что переместит курсор
+к началу буфера, или с помощью <KBD>C-u 7 M-&#60;</KBD>, что переместит курсор
+к точке находящейся в 70% процентов от начала буфера. Если число
+больше чем десять, тогда курсор будет перемещен в конец буфера.
+</P><P>
+
+Функцию <CODE>beginning-of-buffer</CODE> можно вызывать с аргументом или без
+него. То есть аргумент является необязательным.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC83">5.3.1 Необязательные аргументы</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC84">5.3.2 <CODE>beginning-of-buffer</CODE> с аргументом</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Пример с необязательным аргументом.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC87">5.3.3 Полный текст <CODE>beginning-of-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Необязательные Аргументы"></A>
+<HR SIZE="6">
+<A NAME="SEC83"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC82"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC84"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC82"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC88"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.3.1 Необязательные аргументы </H3>
+<!--docid::SEC83::-->
+<P>
+
+Если не сказать заранее, то интерпретатор будет ожидать, что функцию в
+определении которой был задан аргумент, будут вызывать с аргументом.
+Если ее вызвать без аргументов, тогда вы получите сообщение об ошибке
+которое гласит <SAMP>`Wrong number of arguments'</SAMP>.
+</P><P>
+
+<A NAME="IDX51"></A>
+<A NAME="IDX52"></A>
+<A NAME="IDX53"></A>
+</P><P>
+
+Однако в Лиспе существует возможность задать необязательные
+аргументы --- для этого используется <EM>ключевое слово</EM>
+<CODE>&#38;optional</CODE>. (<SAMP>`&#38;'</SAMP> перед <SAMP>`optional'</SAMP> --- это часть
+ключевого слова).  В определении функции, если за словом
+<CODE>&#38;optional</CODE>, следует аргумент, то тогда при вызове функции ей
+необязательно передавать какие-либо аргументы.
+</P><P>
+
+Следовательно первая строка в определении функции
+<CODE>beginnig-of-buffer</CODE>, выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun beginning-of-buffer (&#38;optional arg)
+</pre></td></tr></table></P><P>
+
+Схематично, вся функция выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun beginning-of-buffer (&#38;optional arg)
+  "<VAR>документация</VAR><small>...</small>"
+  (interactive "P")
+  (push-mark)
+  (goto-char 
+    (<VAR>если-есть-аргумент</VAR>
+        <VAR>рассчитать-куда-переместить-курсор</VAR>
+      <VAR>иначе-переместить-курсор-в</VAR>
+      (point-min))))
+</pre></td></tr></table></P><P>
+
+Эта функция похожа на <CODE>simplified-beginning-of-buffer</CODE>, за
+исключением того, что выражение <CODE>interactive</CODE> идет с аргументом
+<CODE>"P"</CODE> и за выражением if-then-else, где вычисляется куда
+переместить курсор, если задан аргумент, идет функция
+<CODE>goto-char</CODE>.
+</P><P>
+
+<CODE>"P"</CODE> в выражении <CODE>interactive</CODE> заставляет Emacs передать в
+функцию префикс-аргумент, если он был задан. Префикс-аргумент можно
+задать или с помощью клавиши <KBD>META</KBD>, за которой будет следовать
+число, или нажав <KBD>C-u</KBD>, и затем набрав какое-нибудь число (если вы
+не задали число, то по умолчанию, <KBD>C-u</KBD> назначает ему 4).
+</P><P>
+
+Проверка-истина-ложь в выражение <CODE>if</CODE> очень проста --- это
+просто аргумент <CODE>arg</CODE>. Если с <CODE>arg</CODE> связано значение
+не-<CODE>nil</CODE>, то есть функцию <CODE>beginning-of-buffer</CODE> вызвали с
+аргументом, то тогда проверка-истина-ложь возвращает истину и
+вычисляется then-часть выражения <CODE>if</CODE>. С другой стороны, если
+функцию <CODE>beginning-of-buffer</CODE> вызвали без аргумента, то тогда
+значением <CODE>arg</CODE> будет <CODE>nil</CODE>, и будет вычислена else-часть
+выражения <CODE>if</CODE>. Else-часть это просто <CODE>point-min</CODE>, в этом
+случае полностью выражение для <CODE>goto-char</CODE> будет выглядеть
+следующим образом <CODE>(goto-char (point-min))</CODE>, что мы и видели в
+упрощенной версии <CODE>beginning-of-buffer</CODE>.
+</P><P>
+
+<A NAME="beginning-of-buffer необ. арг."></A>
+<HR SIZE="6">
+<A NAME="SEC84"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC83"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC85"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC74"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC82"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC87"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.3.2 <CODE>beginning-of-buffer</CODE> с аргументом </H3>
+<!--docid::SEC84::-->
+<P>
+
+Если <CODE>beginning-of-buffer</CODE> вызван с аргументом, то тогда
+вычисляется выражение, в котором рассчитывается значение, которое
+будет передано функции <CODE>goto-char</CODE>. На первый взгляд это
+выражение кажется довольно сложным. Там много арифметики и есть
+вложенное <CODE>if</CODE>. Выглядит оно следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (&#62; (buffer-size) 10000)
+    ;; Чтобы избежать переполнения в буферах больших размеров!
+    (* (prefix-numeric-value arg) (/ (buffer-size) 10))
+  (/
+   (+ 10
+      (*
+       (buffer-size) (prefix-numeric-value arg))) 10))
+</pre></td></tr></table></P><P>
+
+Как и другие сложные выражение, это выражение можно понять, если
+представить логику работы в виде шаблона; в нашем случае шаблона для
+выражения if-then-else. В схематичной форме, выражение выглядит
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (<VAR>буфер-большой</VAR>
+    <VAR>разделить-размер-буфера-на-10-и-умножить-на-arg</VAR>
+  <VAR>иначе-посчитать-по-другому</VAR>
+</pre></td></tr></table></P><P>
+
+Проверка-истина-ложь в выражении <CODE>if</CODE>, проверяет размер буфера.
+Это вызвано тем, что в 18 версии Emacs Лисп в вычислениях используются
+числа не больше, чем восемь миллионов или около того (больше вроде и
+не надо), и может получиться большее число, если буфер очень
+большой. Для этого существует термин `переполнение', если число
+больше, чем самое большое.
+</P><P>
+
+То есть перед нами два случая: если буфер большой и если не очень.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC85">Что происходит в больших буферах</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_6.html#SEC86">Что происходит в маленьких буферах</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="большой буфер"></A>
+<HR SIZE="6">
+<A NAME="SEC85"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC84"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC86"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC83"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC84"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC87"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Что происходит в больших буферах </H4>
+<!--docid::SEC85::-->
+<P>
+
+В функции <CODE>beginning-of-buffer</CODE>, внутреннее выражение <CODE>if</CODE>,
+проверяет больше ли размер буфера, чем 10,000 символов. Для этого
+используются функции <CODE>&#62;</CODE> и <CODE>buffer-size</CODE>. Эта строка
+выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (&#62; (buffer-size) 10000)
+</pre></td></tr></table></P><P>
+
+Если буфер больше, то тогда выполняется then-часть всего выражения
+<CODE>if</CODE>. Она выглядит следующим образом (после надлежащего
+форматирования):
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(* 
+  (prefix-numeric-value arg) 
+  (/ (buffer-size) 10))
+</pre></td></tr></table></P><P>
+
+Это просто операция умножения с двумя аргументами.
+</P><P>
+
+Первый аргумент --- это <CODE>(prefix-numeric-value arg)</CODE>. Когда
+<CODE>interactive</CODE> задан аргумент <CODE>"P"</CODE>, то в функцию передается
+так называемый "сырой префикс-аргумент", а не число. (Это число в
+списке).  Для функции <CODE>*</CODE> требуется числовое значение и
+<CODE>prefih-numeric-value</CODE> переводит "сырой префикс-аргумент" в
+число.
+</P><P>
+
+<A NAME="IDX54"></A>
+<A NAME="IDX55"></A>
+Второй аргумент --- это <CODE>(/ (buffer-size) 10)</CODE>. Это выражение
+делит численное значение длины буфер на десять. В результате мы
+получаем число, которое говорит нам сколько символов содержится в
+одной десятой нашего буфера. (В Лиспе, <CODE>/</CODE> используют для
+деления, а <CODE>*</CODE> для умножения).
+</P><P>
+
+Схематично все выражение для умножения можно представить следующим
+образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(* <VAR>численное-значение-префикс-аргумента</VAR>
+   <VAR>число-символов-в-одной-десятой-буфера</VAR>)
+</pre></td></tr></table></P><P>
+
+Например, если префикс-аргумент равен <SAMP>`7'</SAMP>, то после умножения
+числа символов в одной десятой на 7 мы получим число которому
+соответствует точка на расстоянии в 70% от начала буфера.
+</P><P>
+
+Таким образом, если буфер большой, то все выражение для
+<CODE>goto-char</CODE> будет выглядеть следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(goto-char (* (prefix-numeric-value arg)
+              (/ (buffer-size) 10)))
+</pre></td></tr></table></P><P>
+
+Это переместит курсор куда мы хотим.
+</P><P>
+
+<A NAME="маленький буфер"></A>
+<HR SIZE="6">
+<A NAME="SEC86"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC85"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC87"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC83"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC84"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC87"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Что происходит в маленьких буферах </H4>
+<!--docid::SEC86::-->
+<P>
+
+Если буфер содержит меньше чем 10,000 символов, то вычисление будет
+немножко другим. Вам может показаться, что это излишнее усложнение,
+поскольку и первый способ вполне себе хорош. Однако в небольших
+буферах первый способ не совсем точно перемещает курсор --- второй
+метод делает лучше.
+</P><P>
+
+Код выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(/ (+ 10 (* (buffer-size) (prefix-numeric-value arg))) 10))
+</pre></td></tr></table></P><P>
+
+Это выражение легче понять, если мы будем видеть каким образом функции
+вложены друг в друга. Для этого лучше отформатировать это выражение
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  (/
+   (+ 10
+      (*
+       (buffer-size)
+       (prefix-numeric-value arg)))
+   10))
+</pre></td></tr></table></P><P>
+
+Сейчас хорошо видно, что самое внутреннее выражение это
+<CODE>(prefix-numeric-value arg)</CODE>, где необработанный префикс-аргумент
+переводиться в численную форму. В следующем выражении полученое число
+умножается на размер буфера:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(* (buffer-size) (prefix-numeric-value arg)
+</pre></td></tr></table></P><P>
+
+В результате получится число, которое может быть меньше чем размер
+буфера --- в семь раз если аргумент был 7. Затем к результату
+будет добавлено десять и в конце это большое число поделят на
+десять --- так мы и получим значение которое на один символ больше
+чем процентная позиция в буфере.
+</P><P>
+
+Конечное число будет передано в функцию <CODE>goto-char</CODE> и в
+результате курсор будет перемещен в нужное место.
+</P><P>
+
+<A NAME="beginning-of-buffer полностью"></A>
+<HR SIZE="6">
+<A NAME="SEC87"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC86"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC88"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC84"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC82"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC88"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 5.3.3 Полный текст <CODE>beginning-of-buffer</CODE> </H3>
+<!--docid::SEC87::-->
+<P>
+
+А вот и полный текст функции <CODE>beginning-of-buffer</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun beginning-of-buffer (&#38;optional arg)
+  "Переместить точку в начало буфера;
+оставив метку в предыдущей позиции курсора.
+С арг N, переместить точку в N/10 от начала
+буфера.
+Не используете эту функцию в своих программах!
+\(goto-char (point-min)) быстрее и не устанавливает
+метку."
+  (interactive "P")
+  (push-mark)
+  (goto-char 
+   (if arg
+       (if (&#62; (buffer-size) 10000)
+           ;; Avoid overflow for large buffer sizes!
+           (* (prefix-numeric-value arg)
+              (/ (buffer-size) 10))
+         (/ (+ 10 (* (buffer-size) 
+                     (prefix-numeric-value arg))) 
+            10))
+     (point-min)))
+  (if arg (forward-line 1)))
+</pre></td></tr></table></P><P>
+
+Кроме двух нюансов мы уже все обсудили. Во первых надо обсудить строку
+документации, и во вторых надо рассмотреть последнюю строку функции.
+</P><P>
+
+В строке документации, есть ссылка на выражение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>\(goto-char (point-min))  
+</pre></td></tr></table></P><P>
+
+Перед открывающей скобкой этого выражения стоит <SAMP>`\'</SAMP>. Это сообщает
+интерпретатору Лиспа, что выражение так и должно присутствовать в
+документации, и вычислять его не надо.
+</P><P>
+
+В последней строке функции <CODE>beginning-of-buffer</CODE> производиться
+перемещение курсора в начало строки, если команда была запущена с
+аргументом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if arg (forward-line 1)))
+</pre></td></tr></table></P><P>
+
+Этот код переместит курсор в начало строки, которая находиться на
+соответствующем расстоянии от начала буфера. Это неплохо, поскольку
+это значит, что курсор всегда будет расположен <EM>по крайней мере</EM>
+в указанной части пути через буфер, что является утонченностью, но не
+необходимостью, но которая вызовет возмущение, в случае отсутствия.
+</P><P>
+
+<A NAME="Second Buffer Related Review"></A>
+<HR SIZE="6">
+<A NAME="SEC88"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC87"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC89"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC82"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC72"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.4 Обзор </H2>
+<!--docid::SEC88::-->
+<P>
+
+Кратко повторим темы, которые мы изучили в этой главе.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>or</CODE>
+<DD>Последовательно вычисляет свои аргументы, и возвращает значение
+первого из них, равного не-<CODE>nil</CODE>; если же все вернули <CODE>nil</CODE>,
+то результат всего выражения также будет <CODE>nil</CODE>. Короче говоря,
+эта функция возвращает первое истинное значение своих аргументов; она
+возвращает истину если один, <EM>или</EM> любой другой аргумент истинен.
+<P>
+
+<DT><CODE>and</CODE>
+<DD>Последовательно вычисляет свои аргументы, и если какой-либо из них
+вернет <CODE>nil</CODE>, то возвращает <CODE>nil</CODE>; если нет, то возвращает
+значение своего последнего аргумента. Короче говоря, возвращает
+истину, только если все аргументы истинны.
+<P>
+
+<DT><CODE>&#38;optional</CODE>
+<DD>Это ключевое слово обозначает, что аргумент функции необязателен
+--- это значит, что функцию можно вызывать или с аргументом или без
+него.
+<P>
+
+<DT><CODE>prefix-numeric-value</CODE>
+<DD>Преобразует 'сырой префикс-аргумент' который возвращает
+<CODE>(interactive "P")</CODE> в численное значение.
+<P>
+
+<DT><CODE>forward-line</CODE>
+<DD>Перемещает курсор в начало следующей строки, или если задан аргумент,
+то на заданное число строк. Если буфер заканчивается раньше, то
+перемещает курсор в конец буфера, и возвращает количество строк на
+которые функция <CODE>forward-line</CODE> не смогла продвинуться.
+<P>
+
+<DT><CODE>erase-buffer</CODE>
+<DD>Удаляет все содержимое текущего буфера.
+<P>
+
+<DT><CODE>bufferp</CODE>
+<DD>Возвращает <CODE>t</CODE> если аргумент является буфером; в противном случае
+возвращает <CODE>nil</CODE>.
+</DL>
+<P>
+
+<A NAME="Упражнения для закрепления"></A>
+<HR SIZE="6">
+<A NAME="SEC89"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC88"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC72"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 5.5 Упражнения с <CODE>&#38;optional</CODE> аргументом </H2>
+<!--docid::SEC89::-->
+<P>
+
+Напишите интерактивную функцию с необязательным аргументом, которая
+проверяет является ли ее аргумент числом, меньше оно или больше оно чем
+значение переменно <CODE>fill-column</CODE>, и сообщает результат в виде
+сообщения в мини-буфере. Однако, если аргумент не передан, то в
+качестве значения по умолчанию должно использоваться число 56.
+</P><P>
+
+<A NAME="Сужение &#38; Расширение"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>December, 4  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

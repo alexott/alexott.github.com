@@ -1,0 +1,144 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Условные операторы</TITLE>
+
+<META NAME="description" CONTENT="automake: Условные операторы">
+<META NAME="keywords" CONTENT="automake: Условные операторы">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC60"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_17.html#SEC59"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_19.html#SEC61"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_17.html#SEC59"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_19.html#SEC61"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 18. Условные операторы </H1>
+<!--docid::SEC60::-->
+<P>
+
+<A NAME="IDX476"></A>
+</P><P>
+
+Automake поддерживает простой тип условных операторов.
+</P><P>
+
+<A NAME="IDX477"></A>
+До использования условного оператора, вы должны определить его в файле
+<CODE>configure.in</CODE> используя макрос <CODE>AM_CONDITIONAL</CODE>
+(see section <A HREF="automake-ru_5.html#SEC17">5.4 Макросы Autoconf, поставляемые с Automake</A>).  Макросу <CODE>AM_CONDITIONAL</CODE> передается два
+аргумента.
+</P><P>
+
+Первым аргументом для <CODE>AM_CONDITIONAL</CODE> является имя условного
+оператора. Им должны быть простая строка, начинающаяся с буквы и
+содержащая только буквы, цифры и знаки подчеркивания.
+</P><P>
+
+Вторым аргументом <CODE>AM_CONDITIONAL</CODE> является условие для командного
+процессора, которое можно использовать в операторе <CODE>if</CODE>. Условие
+оценивается при запуске <CODE>configure</CODE>.
+</P><P>
+
+<A NAME="IDX478"></A>
+<A NAME="IDX479"></A>
+<A NAME="IDX480"></A>
+</P><P>
+
+Условные операторы обычно зависят от ключей, которые использует
+пользователь при запуске скрипта <CODE>configure</CODE>. Вот пример того, как
+написать условный оператор, который возвращает истинное выражение, если
+пользователь использовал ключ <SAMP>`--enable-debug'</SAMP>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>AC_ARG_ENABLE(debug,
+[  --enable-debug    Turn on debugging],
+[case "${enableval}" in
+  yes) debug=true ;;
+  no)  debug=false ;;
+  *) AC_MSG_ERROR(bad value ${enableval} for --enable-debug) ;;
+esac],[debug=false])
+AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
+</pre></td></tr></table></P><P>
+
+Вот пример использования этого условного оператора в файле
+<TT>`Makefile.am'</TT>:
+</P><P>
+
+<A NAME="IDX481"></A>
+<A NAME="IDX482"></A>
+<A NAME="IDX483"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>if DEBUG
+DBG = debug
+else
+DBG =
+endif
+noinst_PROGRAMS = $(DBG)
+</pre></td></tr></table></P><P>
+
+Этот тривиальный пример также мог быть создан используя макрос
+EXTRA_PROGRAMS (see section <A HREF="automake-ru_7.html#SEC21">7.1 Построение программ</A>).
+</P><P>
+
+В операторе <CODE>if</CODE> вы можете тестировать только одну
+переменную. Оператор <CODE>else</CODE> может не использоваться. Условные
+операторы могут быть вложены на любую глубину.
+</P><P>
+
+Заметьте, что условные операторы в Automake не похожи на условные
+операторы в GNU Make. Условные операторы Automake проверяются во время
+конфигурации, при выполнении скрипта <TT>`configure'</TT>, и воздействуют на
+преобразование файла <TT>`Makefile.in'</TT> в файл <TT>`Makefile'</TT>. Они
+основываются на ключах, передаваемых скрипту <TT>`configure'</TT> и на
+результатах, определяемых во время выполнения <TT>`configure'</TT>. Условные
+операторы GNU Make проверяются при выполнении <CODE>make</CODE> и основываются
+на переменных, передаваемых программе make, или определенных в
+<TT>`Makefile'</TT>.
+</P><P>
+
+Условные операторы Automake будут работать с любой программой make.
+</P><P>
+
+<A NAME="Gnits"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_17.html#SEC59"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_19.html#SEC61"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

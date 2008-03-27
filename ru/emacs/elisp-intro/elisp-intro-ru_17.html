@@ -1,0 +1,755 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on March, 10  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Изготовляем график</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Изготовляем график">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Изготовляем график">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC185"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC184"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC187"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_18.html#SEC191"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 15. Изготовляем график </H1>
+<!--docid::SEC185::-->
+<P>
+
+Наша задача --- нарисовать график, наглядно показывающий число
+определений функций различной длины в исходных текстах на Emacs Lisp.
+</P><P>
+
+Обычно на практике, если вам надо создать график, то вы вероятно
+воспользуетесь для этого какой-нибудь специализированной программой
+например, <CODE>gnuplot</CODE>.  (В Emacs имеется неплохой интерфейс к
+<CODE>gnuplot</CODE>).  Однако в нашем случае, мы создадим такую программу с
+нуля, а в процессе работы, мы воспользуемся всеми нашими знаниями и
+изучим еще кое-что новенькое.
+</P><P>
+
+В этой главе мы сначала создадим простую функцию рисующую график.  Это
+первая попытка будет <EM>прототипом</EM>, то есть, быстро написанной
+функцией, которая позволит нам вторгнуться на незнакомую територрию
+создания графиков.  Мы можем обнаружить скрытые мели и рифы или наоборот
+выяснить, что все намного проще.  После предварительной разведки, мы
+будем чувствовать себя уверенней и расширим нашу функцию для
+автоматического отображения меток и осей.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_17.html#SEC186">Отображение колонок графика</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_17.html#SEC187">15.1 Функция <CODE>graph-body-print</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to print the body of a graph.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_17.html#SEC188">15.2 Функция <CODE>recursive-graph-body-print</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_17.html#SEC189">15.3 Need for Printed Axes</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_17.html#SEC190">15.4 Упражнения</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Колонки графика"></A>
+<A NAME="SEC186"></A>
+<H2> Отображение колонок графика </H2>
+<!--docid::SEC186::-->
+<P>
+
+Поскольку при создании Emacs разрабатывался гибким и настраиваемым, то
+он должен работать со всеми терминалами, включая и чисто текстовые,
+поэтому график надо будет рисовать с помощью каких-нибудь `печатных'
+символов.  Звездочка <CODE>*</CODE> --- это то что надо; когда мы будем
+улучшать функцию печатающую график, то мы можем сделать выбор символа
+настраиваемой опцией.
+</P><P>
+
+Можно назвать эту функцию <CODE>graph-body-print</CODE>; она будет принимать
+единственный аргумент --- <CODE>numbers-list</CODE> (список чисел).  На
+этом этапе мы не будем рисовать координатные оси, мы отобразим только
+тело графика.
+</P><P>
+
+Функция <CODE>graph-body-print</CODE> будет вставлять вертикальную колонку
+составленную из звездочек для каждого элемента из <CODE>numbers-list</CODE>.
+Высота каждой колонки будет определятся значением этого элемента из
+<CODE>numbers-list</CODE>.
+</P><P>
+
+Вставка колонок --- это итеративный процесс; это значит, что такая
+функция может быть написана с помощью цикла <CODE>while</CODE> или рекурсии.
+</P><P>
+
+Наша первоочередная задача --- выяснить, как печатать колонку
+звездочек.  Обычно в Emacs мы печатаем символы на экране горизонтально,
+строка за строкой.  Сейчас мы можем пойти двумя путями: создать
+собственную функцию для вставки колонок или найти какую-нибудь подобную
+функцию, уже существующую в Emacs.
+</P><P>
+
+Для поиска существующей функции мы можем воспользовать командой <KBD>M-x
+apropos</KBD>.  Эта команда действует подобно команде <KBD>C-h a</KBD>
+(apropos-command), но <CODE>apropos-command</CODE> производит поиск только
+среди интерактивных функций.  А функция <KBD>M-x apropos</KBD> перечисляет
+все символы, которые совпадают с заданным регулярным выражением, включая
+и неинтерактивные функции.
+<A NAME="IDX78"></A>
+</P><P>
+
+Итак мы хотим найти какую-нибудь команду, которая печатает или вставляет
+колонки.  Весьма вероятно, что в названии функции будет использоваться
+или слово `print', или слово `insert' или слово `column'.  Следовательно
+мы можем просто набрать <KBD>M-x apropos RET print\|insert\|column RET</KBD>
+и изучить результат.  На моем компьютере выполнение это команды заняло
+некоторое время, после чего был выдан список из 79 функций и переменных.
+Внимательно изучив список (на что ушло гораздо больше времени) я
+обнаружил, что единственная функция, которая мне подходит --- это
+<CODE>insert-rectangle</CODE>.  И в самом деле документация на нее гласит:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>insert-rectangle:
+
+Вставить текст из RECTANGLE (прямоугольник) с верхним левым углом у
+точки.  Первая строка RECTANGLE вставляется у точки, вторая строка
+вставляется вертикально вниз под точкой и т.д.  RECTANGLE должен быть
+списком строк.  После выполнения этой команды метка расположена в
+верхнем левом углу а точка в правом нижнем углу RECTANGLE.
+</FONT></pre></td></tr></table></P><P>
+
+Можно запустить быстрый тест, чтобы убедиться, что это нужная нам
+функция.
+</P><P>
+
+Ниже результат вычисления представленного выражения в буфере
+<TT>`*scratch*'</TT>, скопируйте туда выражение с <CODE>insert-rectangle</CODE> и
+наберите <KBD>C-u C-x C-e</KBD> (<CODE>eval-last-sexp</CODE>).  Функция вставит
+строки <SAMP>`"first"'</SAMP>, <SAMP>`"second"'</SAMP>, и <SAMP>`"third"'</SAMP> ниже точки.
+Также она вернет значение <CODE>nil</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(insert-rectangle '("first" "second" "third"))first
+                                              second
+                                              third
+
+</pre></td></tr></table></P><P>
+
+Конечно мы сами не будем вставлять текст выражения
+<CODE>insert-rectangle</CODE> в буфер, в котором мы будем печатать график,
+вместо этого мы вызовем эту функцию из нашей программы.  Однако давайте
+убедимся, что точка в буфере располагается как раз на том месте, куда
+функция <CODE>insert-rectangle</CODE> вставит колонку строк.
+</P><P>
+
+Если вы читаете это в системе Info, то вы легко можете проверить, как
+это работает, переключившись в другой буфер, например, в буфер
+<TT>`*scratch*'</TT>, расположив точку где-нибудь в этом буфере и нажав
+<KBD>ESC :</KBD>, после этого ввести в минибуфере выражение
+<CODE>(insert-rectangle '("first" "second" "third"))</CODE> и нажать
+<KBD>RET</KBD>.  Это заставит Emacs вычислить выражение из минибуфера, но
+использовать значение точки из буфера <TT>`*scratch*'</TT>.  (<KBD>ESC :</KBD>
+--- связана с командой <CODE>eval-expression</CODE>).
+</P><P>
+
+После выполнения этого теста мы обнаружим, что точка перемещается в
+конец последней вставленной строки --- то есть, эта функция в
+качестве побочного эффекта перемещает точку.  Если мы повторим эту
+команду, то следующая вставка переместит точку ниже и правее предыдущего
+вставленного текста.  Но нам этого не надо!  Если мы собираемся
+отображать график, то колонки должны быть рядом друг с другом.
+</P><P>
+
+Таким образом мы выяснили, что каждый цикл <CODE>while</CODE> вставляющий
+колонку должен позиционировать точку в нужное место, и это место должно
+быть вверху, а не внизу колонки.  Более того, мы же еще помним, что нам
+надо печатать график, и мы не хотим, чтобы все колонки были одинаковой
+длины.  Это значит, что вершины различных колонок могут быть разной
+высоты.  Мы не можем просто переместить точку в ту же самую строку
+каждый раз, а должны переместится в право и вниз --- или все-таки
+можем<small>...</small>.
+</P><P>
+
+Мы планируем создавать колонки нашего графика из символов `*'
+(звездочка).  Число звездочек к колонке соответствует текущему элементу
+в <CODE>numbers-list</CODE>.  Нам нужно создать список из звездочек для
+каждого вызова <CODE>insert-rectangle</CODE>.  Если этот список состоит только
+из звездочек, то нам необходимо будет указать нужное число строк выше
+базовой линии графика, чтобы правильно отобразить его.  Это может быть
+не так просто.
+</P><P>
+
+А вот если мы придумаем какой-нибудь способ передачи функции
+<CODE>insert-rectangle</CODE> списка одинаковой длины при каждом из вызовов,
+то мы можем помещать точку на ту же самую строку при каждом вызове, но
+перемещаться на одну колонку вправо.  Если мы сделаем это, то некоторые
+части списка надо будет заполнять пробелами, а не звездочками.
+Например, если максимальная высота графика равна 5, а высота текущей
+колонки равна 3, то для функции <CODE>insert-rectangle</CODE> аргумент будет
+выглядеть следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(" " " " "*" "*" "*")
+</pre></td></tr></table></P><P>
+
+Это последнее ограничение не будет таким серьезным, поскольку мы можем
+определить высоту колонки.  Для нас существует два способа указания
+высоты колонки: мы можем выбрать ее произвольно, что будет работать
+хорошо для графиков с такой высотой; или же мы можем произвести поиск
+максимального числа в списке и использовать его как максимальную высоту
+графика.  Последняя операция оказывается совсем не сложной, так как в
+Emacs существует встроенная функция определения максимального значения
+аргументов.  Мы вполне можем воспользоваться этой функцией.  Функция
+называется <CODE>max</CODE> и возвращает наибольшее значение среди заданных
+аргументов, которые должны быть числами.  Например,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(max  3 4 6 5 7 3)
+</pre></td></tr></table></P><P>
+
+возвратит 7.  (Соответствующая функция с именем <CODE>min</CODE> возвращает
+наименьшее значение среди заданных аргументов).
+<A NAME="IDX79"></A>
+<A NAME="IDX80"></A>
+</P><P>
+
+Однако мы не можем просто вызвать функцию <CODE>max</CODE> для
+<CODE>numbers-list</CODE>; функция <CODE>max</CODE> ожидает, что ее аргументами
+будут числа, а не список чисел.  Так что следующее выражение,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(max  '(3 4 6 5 7 3))
+</pre></td></tr></table></P><P>
+
+приведет к выдаче сообщения об ошибке:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Wrong type of argument:  integer-or-marker-p, (3 4 6 5 7 3)
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX81"></A>
+Нам нужна функция, которая способна передать в другую функцию список
+аргументов.  В Emacs есть такая функция и она называется <CODE>apply</CODE>.
+Эта функция `применяет' (apply, применить) свой первый аргумент
+(функцию) ко всем оставшимся аргументам, последний из которых может быть
+списком.
+</P><P>
+
+Например,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(apply 'max 3 4 7 3 '(4 8 5))
+</pre></td></tr></table></P><P>
+
+возвратит 8.  
+</P><P>
+
+(Кстати, я не знаю как вы могли бы изучить эту функцию без книги, такой
+как эта.  Можно узнать функции, такие как <CODE>search-forward</CODE> или
+<CODE>insert-rectangle</CODE>, путем угадания частей их имен в сочетании с
+использованием команды <CODE>apropos</CODE>.  Даже, хотя основа ясна ---
+`apply' применяет свой первый аргумент к оставшимся --- я все равно
+сомневаюсь, что новичок догадается использовать такое слово, даже
+используя команду <CODE>apropos</CODE> или другую помощь.  Конечно, я могу
+быть неправ; как никак, функция была названа тем человеком, который ее
+придумал).
+</P><P>
+
+Второй и последующие аргументы функции <CODE>apply</CODE> являются
+необязательными, так что мы можем использовать <CODE>apply</CODE> для вызова
+функции и передачи ей элементов списка, как в следующем примере, который
+после вычисления возвращает 8:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(apply 'max '(4 8 5))
+</pre></td></tr></table></P><P>
+
+Вот как мы будем использовать <CODE>apply</CODE>.  Функция
+<CODE>recursive-lengths-list-many-files</CODE> возвращает список чисел, к
+которому мы будем применять функцию <CODE>max</CODE> (мы также можем применить
+<CODE>max</CODE> к отсортированному списку чисел; для функции <CODE>max</CODE> нет
+никакой разницы между отсортированным и несортированным списоком).
+</P><P>
+
+Таким образом, операция по нахождению максимальной высоты графика будет
+выглядеть следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq max-graph-height (apply 'max numbers-list))
+</pre></td></tr></table></P><P>
+
+Теперь мы можем вернуться к вопросу о том, как создать список строк для
+одной колонки графика.  По заданной высоте графика и количеству
+звездочек, которые должны появиться в колонке, функция должна возвратить
+список строк для вставки командой <CODE>insert-rectangle</CODE>.
+</P><P>
+
+Каждая колонка создается из звездочек и пробелов.  Поскольку функции
+передается высота графика и число звездочек в колонке, то число пробелов
+может быть найдено вычитанием количества звездочек из высоты графика.
+Полученное число пробелов и число звездочек может быть использовано для
+создания списка:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>;;; Первая версия.
+(defun column-of-graph (max-graph-height actual-height) 
+  "Возвращает список строк, задающий одну колонку графика."
+  (let ((insert-list nil)
+        (number-of-top-blanks
+         (- max-graph-height actual-height)))
+
+    ;; Заполняем звездочками.
+    (while (&#62; actual-height 0)                
+      (setq insert-list (cons "*" insert-list))
+      (setq actual-height (1- actual-height)))
+
+    ;; Заполняем пробелами.
+    (while (&#62; number-of-top-blanks 0) 
+      (setq insert-list (cons " " insert-list))
+      (setq number-of-top-blanks
+            (1- number-of-top-blanks)))
+
+    ;; Возвращаем полный список.
+    insert-list))
+</pre></td></tr></table></P><P>
+
+Если вы установите эту функцию, а затем вычислите следующее выражение,
+то вы увидите, что возвратится требуемый список:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(column-of-graph 5 3)
+</pre></td></tr></table></P><P>
+
+возвратит
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(" " " " "*" "*" "*")
+</pre></td></tr></table></P><P>
+
+Как видно, <CODE>column-of-graph</CODE> содержит большой недостаток ---
+символы для пустых и помеченных ячеек жестко закреплены за пробелом и
+звездочкой.  Это подходит для прототипа, но другой пользователь вполне
+может захотеть использовать другие символы.  Например, при тестировании
+функции построения графика, вы можете захотеть использовать точку,
+вместо пробела, для того, чтобы убедиться, что точка позиционируется
+правильно при вызове функции <CODE>insert-rectangle</CODE>; или вы можете
+использовать знак <SAMP>`+'</SAMP> или другой символ вместо знака звездочка.  Вы
+даже можете захотеть сделать колонку графика шире чем один символ.
+Конечно намного лучше, если наша программа будет более гибкая.  Для
+того, чтобы сделать это, нам нужно заменить знаки пробела и звездочки на
+две переменные, которые мы будем называть <CODE>graph-blank</CODE> и
+<CODE>graph-symbol</CODE>, и определим эти две переменных раздельно.
+</P><P>
+
+Документацию к функции так же можно было бы написать и получше.  Эти
+соображения приводят нас ко второй версии функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defvar graph-symbol "*"
+  "Строка, используемая в качестве символа в графике, обычно -- звездочка.")
+
+(defvar graph-blank " "
+  "Строка, используемая в качестве пробела в графике, обычно -- пробел.
+graph-blank должны быть той же длины, что и graph-symbol.")
+</pre></td></tr></table></P><P>
+
+(Для разъяснения по поводу <CODE>defvar</CODE>, смотрите раздел <A HREF="elisp-intro-ru_10.html#SEC117">Инициализации переменных с помощью <CODE>defvar</CODE></A>.)
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>;;; Вторая версия.
+(defun column-of-graph (max-graph-height actual-height) 
+  "Возвращает список MAX-GRAPH-HEIGHT строк; 
+ACTUAL-HEIGHT определяет количество graph-symbol.
+graph-symbol являются смежными записями в конце списка.
+Список будет вставлен как одна колонка графика.  
+Строками являются либо graph-blank либо graph-symbol."
+
+  (let ((insert-list nil)
+        (number-of-top-blanks
+         (- max-graph-height actual-height)))
+
+    ;; Заполняем <CODE>graph-symbols</CODE>.
+    (while (&#62; actual-height 0)                
+      (setq insert-list (cons graph-symbol insert-list))
+      (setq actual-height (1- actual-height)))
+
+    ;; Заполняем <CODE>graph-blanks</CODE>.
+    (while (&#62; number-of-top-blanks 0) 
+      (setq insert-list (cons graph-blank insert-list))
+      (setq number-of-top-blanks
+            (1- number-of-top-blanks)))
+
+    ;; Возвращаем полный список.
+    insert-list))
+</pre></td></tr></table></P><P>
+
+Вполне, возможно переписать функцию <CODE>column-of-graph</CODE> в третий раз,
+для того, чтобы можно было создавать строчные графики, вместе с
+колоночными.  Это не так тяжело сделать.  Можно рассматривать линейный
+график как столбчатый график в котором часть каждого столбца,
+расположенная ниже верхней части, состоит из пробелов.  Для создания
+колонки для линейного графика функция сначал должна создать список из
+пробелов, который на единицу меньше чем значение, затем использовать
+функцию <CODE>cons</CODE> для присоединения символа графика, а затем снова
+использовать <CODE>cons</CODE> для присоединения верхних пробельных символов к
+списку.
+</P><P>
+
+Легко увидеть как можно написать такую функцию, но поскольку мы не
+нуждаемся в ней, то мы не будем ее писать.  Но работа могла быть
+сделана, и если она была сделана, то она могла быть сделана с помощью
+функции <CODE>column-of-graph</CODE>.  Даже более важно, что ее ценой является
+лишь несколько изменений, которые должны быть сделаны в другом месте.
+Такие расширения, если мы даже захотим их сделать, очень просты.
+</P><P>
+
+Наконец, мы вплотную подошли к созданию первой настоящей функции выдачи
+графика.  Она будет печатать тело графика, но без меток для вертикальных
+и горизонтальных осей, так что мы можем назвать ее
+<CODE>graph-body-print</CODE>.
+</P><P>
+
+<A NAME="graph-body-print"></A>
+<HR SIZE="6">
+<A NAME="SEC187"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC188"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC186"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_18.html#SEC191"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 15.1 Функция <CODE>graph-body-print</CODE> </H2>
+<!--docid::SEC187::-->
+<P>
+
+После всех наших приготовлений в предыдущем разделе, реализация функции
+<CODE>graph-body-print</CODE> оказывается очень простой.  Она будет печатать
+колонку за колонкой, которые состоят из звездочек и пробелов, используя
+элементы списка чисел для указания числа звездочек в каждой из колонок.
+Это повторяющиеся действия, которые мы вполне можем реализовать,
+использую цикл <CODE>while</CODE> или рекурсию.  В этом разделе мы создадим
+нашу функцию с помощью цикла <CODE>while</CODE>.
+</P><P>
+
+Функция <CODE>column-of-graph</CODE> требует в качестве аргумента высоту
+графика, так что мы должны определить и сохранить ее в качестве
+локальной переменной. 
+</P><P>
+
+Все эти соображения подводят нас к следующему шаблону для функции,
+использующую цикл <CODE>while</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun graph-body-print (numbers-list)
+  "<VAR>documentation</VAR><small>...</small>"
+  (let ((height  <small>...</small>
+         <small>...</small>))
+
+    (while numbers-list
+      <VAR>insert-columns-and-reposition-point</VAR>
+      (setq numbers-list (cdr numbers-list)))))
+</pre></td></tr></table></P><P>
+
+Нам нужно всего лишь заполнить части шаблона.
+</P><P>
+
+Несомненно, мы можем использовать выражение <CODE>(apply 'max
+numbers-list)</CODE> для определения высоты графика.
+</P><P>
+
+Цикл <CODE>while</CODE> будет проходить по элементам списка
+<CODE>numbers-list</CODE>.  По мере того, как он будет сокращаться с помощью
+выражения <CODE>(setq numbers-list (cdr numbers-list))</CODE>, поле CAR
+каждого из вариантов списка будет значением аргумента для функции
+<CODE>column-of-graph</CODE>.
+</P><P>
+
+На каждой итерации цикла <CODE>while</CODE>, функция <CODE>insert-rectangle</CODE>
+вставляет список возвращенный функцией <CODE>column-of-graph</CODE>.
+Поскольку функция <CODE>insert-rectangle</CODE> перемещает точку в нижний
+правый угол вставленного прямоугольника, то нам нужно сохранить
+расположение точки перед вставкой прямоугольника, затем после вставки
+прямоугольника переместить точку в сохраненную позицию и горизонтально
+переместиться в следующую позицию, из которой в следующий раз будет
+вызвана функция <CODE>insert-rectangle</CODE>.
+</P><P>
+
+Если бы вставляемые колонки были бы шириной в один символ, когда мы
+использовали символы пробела и звездочки, то команда перемещения могла
+бы быть просто равна <CODE>(forward-char 1)</CODE>; однако, ширина колонки
+может быть более одного символа.  Это означает что, команду перемещения
+надо записывать как <CODE>(forward-char symbol-width)</CODE>.  Само значение
+<CODE>symbol-width</CODE> будет равно длине <CODE>graph-blank</CODE> и может быть
+найдено с помощью <CODE>(length graph-blank)</CODE>.  Лучшим местом для
+связывания переменной <CODE>symbol-width</CODE> со значением ширины колонки,
+является список переменных в выражении <CODE>let</CODE>.
+</P><P>
+
+Все это приводит нас к следующему определению функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun graph-body-print (numbers-list)
+  "Выдает столбцовый график на основе NUMBERS-LIST.
+Список чисел состоит из значений по оси Y."
+
+  (let ((height (apply 'max numbers-list))
+        (symbol-width (length graph-blank))
+        from-position)
+
+    (while numbers-list
+      (setq from-position (point))
+      (insert-rectangle
+       (column-of-graph height (car numbers-list)))
+      (goto-char from-position)
+      (forward-char symbol-width)
+      ;; Отображение колонки за колонкой.
+      (sit-for 0)               
+      (setq numbers-list (cdr numbers-list)))
+    ;; Поместить точки для меток по оси X.
+    (forward-line height)
+    (insert "\n")
+))
+</pre></td></tr></table></P><P>
+
+Одним из новых для нас выражений является выражение <CODE>(sit-for
+0)</CODE> в цикле <CODE>while</CODE>.  Это выражение делает операцию выврла графика
+более интересной, чем она могла бы быть.  Оно заставляет Emacs ничего не
+делать нулевой отрезок времени, а затем перерисовать экран.  Поскольку
+это выражение помещено в теле цикла <CODE>while</CODE>, то оно заставляет
+Emacs перерисовать экран колонка за колонкой.  Без этого кода, Emacs не
+перерисует экран до тех пор, пока мы не выйдем из функции.
+</P><P>
+
+Давайте протестируем работу <CODE>graph-body-print</CODE> с коротким списком
+чисел.
+</P><P>
+
+<OL>
+<LI>
+Установите <CODE>graph-symbol</CODE>, <CODE>graph-blank</CODE>,
+<CODE>column-of-graph</CODE> и <CODE>graph-body-print</CODE>.
+<P>
+
+<LI>
+Скопируйте следующее выражение:
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(graph-body-print '(1 2 3 4 6 4 3 5 7 6 5 2 3))
+</pre></td></tr></table></P><P>
+
+<LI>
+Переключитесь в буфер <TT>`*scratch*'</TT> и поместите курсор туда, откуда
+вы хотите начать печать графика.
+<P>
+
+<LI>
+Наберите <KBD>M-:</KBD> (<CODE>eval-expression</CODE>).
+<P>
+
+<LI>
+Вставьте выражение <CODE>(graph-body-print '(1 2 3 4 6 4 3 5 7 6 5 2
+3))</CODE> в минибуфер с помощью команды <KBD>C-y</KBD> (<CODE>yank)</CODE>.
+<P>
+
+<LI>
+Нажмите клавишу <KBD>RET</KBD> для оценки выражения
+<CODE>graph-body-print</CODE>.
+</OL>
+<P>
+
+Emacs выдаст график, подобный следующему:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>                    *    
+                *   **   
+                *  ****  
+               *** ****  
+              ********* *
+             ************
+            *************
+</pre></td></tr></table></P><P>
+
+<A NAME="recursive-graph-body-print"></A>
+<HR SIZE="6">
+<A NAME="SEC188"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC187"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC189"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_18.html#SEC191"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 15.2 Функция <CODE>recursive-graph-body-print</CODE> </H2>
+<!--docid::SEC188::-->
+<P>
+
+Функцию <CODE>graph-body-print</CODE> возможно переписать с помощью рекурсии.
+В этом случае, ее лучше разделить на две части: внешнюю функцию-обертку,
+использующую выражение <CODE>let</CODE> для определения значения нескольких
+переменных, которые нужно вычистить лишь раз, таких как максимальная
+высота графика, и внутреннюю функцию, которая вызывается рекурсивно для
+выдачи графика.
+</P><P>
+
+Функция-обертка получается совсем не сложной:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun recursive-graph-body-print (numbers-list)
+  "Выдает график из списка чисел NUMBERS-LIST.
+Список чисел состоит из значений по оси Y."
+  (let ((height (apply 'max numbers-list))
+        (symbol-width (length graph-blank))
+        from-position)
+    (recursive-graph-body-print-internal
+     numbers-list
+     height
+     symbol-width)))
+</pre></td></tr></table></P><P>
+
+Рекурсивная функция немного сложней.  Она состоит из четырех частей:
+`рекурсивную-проверку', код печатающий колонки графика, рекурсивный
+вызов функции и `выражение-следующего-вызова'.  Часть `рекурсивная
+проверка' является выражением <CODE>if</CODE>, которое определяет есть ли еще
+элементы в списке <CODE>numbers-list</CODE>; Если тест выполняется, то функция
+печатает одну колонку графика и заново вызывает себя.  Функция вызовет
+себя снова в соответствии со значением выданным
+`выражением-следующего-вызова', который заставляет функцию работать с
+укороченной версией списка <CODE>numbers-list</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun recursive-graph-body-print-internal
+  (numbers-list height symbol-width)
+  "Печатает график.
+Используется внутри функции recursive-graph-body-print."
+
+  (if numbers-list
+      (progn
+        (setq from-position (point))
+        (insert-rectangle
+         (column-of-graph height (car numbers-list)))
+        (goto-char from-position)
+        (forward-char symbol-width)
+        (sit-for 0)     ; Отображает график колонка за колонкой.
+        (recursive-graph-body-print-internal
+         (cdr numbers-list) height symbol-width))))
+</pre></td></tr></table></P><P>
+
+После установки, мы можем протестировать это выражение; вот пример:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(recursive-graph-body-print '(3 2 5 6 7 5 3 4 6 4 3 2 1))
+</pre></td></tr></table></P><P>
+
+Вот что выдаст <CODE>recursive-graph-body-print</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>                *        
+               **   *    
+              ****  *    
+              **** ***   
+            * *********  
+            ************ 
+            *************
+</pre></td></tr></table></P><P>
+
+Любая из двух функций, <CODE>graph-body-print</CODE> или
+<CODE>recursive-graph-body-print</CODE>, правильно печатает тело графика.
+</P><P>
+
+<A NAME="Печать осей"></A>
+<HR SIZE="6">
+<A NAME="SEC189"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC188"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC190"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_18.html#SEC191"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 15.3 Need for Printed Axes </H2>
+<!--docid::SEC189::-->
+<P>
+
+Для лучшего восприятия графика необходимы координатные оси.  Для
+одноразового проекта вы можете нарисовать оси вручную, используя режим
+Picture в составе Emacs; но функция создания графика может быть
+использована более одного раза.
+</P><P>
+
+По этой причине, я написал расширения для базовой функции
+<CODE>print-graph-body</CODE>, которые автоматически печатают метки для
+горизонтальной и вертикальной осей.  Поскольку функции выдачи меток не
+содержат нового материала, то я поместил их описание в приложение.
+See section <A HREF="elisp-intro-ru_23.html#SEC226">График с подписанными осями</A>.
+</P><P>
+
+<A NAME="Упражнения с линейными графиками"></A>
+<HR SIZE="6">
+<A NAME="SEC190"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC189"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_18.html#SEC191"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_18.html#SEC191"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 15.4 Упражнения </H2>
+<!--docid::SEC190::-->
+<P>
+
+Создайте строчную версию печати тела графика.
+</P><P>
+
+<A NAME="Инициализация Emacs"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_18.html#SEC191"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>March, 10  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

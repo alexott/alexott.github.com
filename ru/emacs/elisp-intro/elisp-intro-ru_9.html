@@ -1,0 +1,685 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on March, 10  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: car cdr &#38; cons</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: car cdr &#38; cons">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: car cdr &#38; cons">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC96"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_8.html#SEC95"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC98"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_8.html#SEC91"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_10.html#SEC105"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 7. <CODE>car</CODE>, <CODE>cdr</CODE>, <CODE>cons</CODE>: основные функции </H1>
+<!--docid::SEC96::-->
+<P>
+
+В Лиспе самыми основными функциями являются <CODE>car</CODE>, <CODE>cdr</CODE> и
+<CODE>cons</CODE>. Функция <CODE>cons</CODE> используется чтобы создать список, а
+функции <CODE>car</CODE> и <CODE>cdr</CODE>, используются для того, чтобы список
+разделить.
+</P><P>
+
+Изучая функцию <CODE>copy-region-as-kill</CODE>, мы увидели <CODE>cons</CODE>,
+также как и два варианта <CODE>cdr</CODE>, точнее <CODE>setcdr</CODE> и
+<CODE>nthcdr</CODE>.  (See section <A HREF="elisp-intro-ru_10.html#SEC118">8.5 <CODE>copy-region-as-kill</CODE></A>.)
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_9.html#SEC97">Необычные имена</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_9.html#SEC98">7.1 <CODE>car</CODE> и <CODE>cdr</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Функции для извлечения частей списка.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_9.html#SEC99">7.2 <CODE>cons</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Создание списка.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_9.html#SEC101">7.3 <CODE>nthcdr</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Повторный вызов <CODE>cdr</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_9.html#SEC102">7.4 <CODE>setcar</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Изменяем первый элемент списка.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_9.html#SEC103">7.5 <CODE>setcdr</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Изменяем остаток списка.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_9.html#SEC104">7.6 Упражнения</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Необычные имена"></A>
+<A NAME="SEC97"></A>
+<H2> Необычные имена </H2>
+<!--docid::SEC97::-->
+<P>
+
+Имя функции <CODE>cons</CODE> довольно разумно --- оно произошло от
+сокращения слова `construct' (конструировать). С другой стороны
+происхождение названий функций <CODE>car</CODE> и <CODE>cdr</CODE> довольно
+интересно --- <CODE>car</CODE> это сокращение от фразы `Contents of the
+Address part of the Register' (Содержание Адресной части Регистра); а
+<CODE>cdr</CODE> (произносится как 'куд-ер) --- это сокращение от фразы
+`Contents of the Decrement part of the Register' (Содержание
+Декрементной части Регистра). Эти фразы относятся к специфическим
+частям аппаратного обеспечения на очень древних компьютерах, на
+которых был впервые реализован Лисп. Кроме того, что они давно
+устарели, эти фразы совсем не уместны вот уже более 30 лет для всех
+изучающих Лисп. Тем не менее, хотя некоторые храбрые ученые начали
+использовать более подходящие имена для этих функций, но все равно
+старые термины еще используются. В особенности, поскольку эти термины
+используются в исходных текстах Emacs Лиспа, то мы тоже будем
+использовать их в этом введении.
+</P><P>
+
+<A NAME="car &#38; cdr"></A>
+<HR SIZE="6">
+<A NAME="SEC98"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC99"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC97"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_10.html#SEC105"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.1 <CODE>car</CODE> и <CODE>cdr</CODE> </H2>
+<!--docid::SEC98::-->
+<P>
+
+<CODE>car</CODE> от списка --- это первый элемент в списке. То есть
+<CODE>car</CODE> от списка <CODE>(роза фиалка маргаритка лютик)</CODE> равен
+<CODE>роза</CODE>.
+</P><P>
+
+Если вы читаете это в Emacs, то вы можете проверить это сами вычислив
+следующее:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(car '(роза фиалка маргаритка лютик))
+</pre></td></tr></table></P><P>
+
+После вычисление выражения в эхо-области появится <CODE>роза</CODE>. (Не
+сама конечно;))
+</P><P>
+
+Ясно, что более подходящим именем для функции <CODE>car</CODE> было бы
+<CODE>first</CODE>, и многие это часто предлагают.
+</P><P>
+
+<CODE>car</CODE> не удаляет первый элемент из списка --- он только
+возвращает нам его. После того, как к списку применили функцию
+<CODE>car</CODE>, этот список все еще точно такой же как и был. На жаргоне,
+функция <CODE>car</CODE> `non-destructive'(не разрушающая). Эта
+характеристика оказывается очень важной.
+</P><P>
+
+<CODE>cdr</CODE> от списка --- это оставшаяся часть списка, то есть,
+функция <CODE>cdr</CODE> возвращает часть списка, которая следует за первым
+элементом. В то время как <CODE>car</CODE> списка <CODE>(роза фиалка
+маргаритка лютик)</CODE> --- это <CODE>роза</CODE>, то <CODE>cdr</CODE> возвращает
+оставшуюся часть списка, то есть <CODE>(фиалка маргаритка лютик)</CODE>.
+</P><P>
+
+Вы можете проверить это вычислив следующую форму как обычно:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(cdr '(роза фиалка маргаритка лютик))
+</pre></td></tr></table></P><P>
+
+Когда вы сделаете это, то в эхо-области появится список <CODE>(фиалка
+маргаритка лютик)</CODE>.
+</P><P>
+
+Как и <CODE>car</CODE>, функция <CODE>cdr</CODE> не удаляет никаких элементов из
+списка --- она только сообщает какой второй и последующие
+элементы.
+</P><P>
+
+Кстати в этом примере список цветов цитирован. Если бы это было не
+так, то интерпретатор Лиспа попробовал бы вычислить список вызвав
+<CODE>розу</CODE> как функцию. А в этом примере мы совсем бы этого не
+хотели.
+</P><P>
+
+Конечно более подходящим именем для <CODE>cdr</CODE> было бы название
+<CODE>rest</CODE> (остальные).
+</P><P>
+
+(Вот вам и урок --- когда вы выбираете названия для новой функции,
+то очень внимательно относитесь к этому, поскольку вы можете
+запутаться в именах, которые длинее, чем вы ожидаете. Причиной того,
+что в данном документе сохраняются такие имена, является то, что их
+используют исходные коды Emacs Lisp , и если бы я не использовал их,
+то вам было бы тяжело читать исходный код; но не пытайтесь избежать
+использования этих выражений. Люди придут после вас будут вам очень
+благодарны).
+</P><P>
+
+Когда функции <CODE>car</CODE> и <CODE>cdr</CODE> применяются к списку символов,
+например к списку <CODE>(сосна ель дуб клен)</CODE>, то функция <CODE>car</CODE>
+вернет символ <CODE>сосна</CODE> без скобок вокруг него. <CODE>сосна</CODE>
+--- первый элемент в списке. Однако <CODE>cdr</CODE> от списка --- это
+список <CODE>(ель дуб клен)</CODE>, что вы можете проверить вычислив
+следующее выражение обычным образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(car '(сосна ель дуб клен))
+
+(cdr '(сосна ель дуб клен))
+</pre></td></tr></table></P><P>
+
+С другой стороны, в списке составленном из списков, первый элемент
+--- это список. <CODE>car</CODE> возвратит этот первый элемент списка.
+Например, следующий список содержит три вложенных списка ---
+список плотоядных, список травоядных, и список морских
+млекопитающихся:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(car '((лев тигр гепард)
+       (газель антилопа зебра)
+       (кит дельфин морж)))
+</pre></td></tr></table></P><P>
+
+В этом случае первым элементом, или <CODE>car</CODE> списка является список
+плотоядных <CODE>(лев тигр гепард)</CODE>, а <CODE>cdr</CODE> списка является
+список <CODE>((газель антилопа зебра) (кит дельфин морж))</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(cdr '((лев тигр гепард)
+       (газель антилопа зебра)
+       (кит дельфин морж)))
+</pre></td></tr></table></P><P>
+
+Еще раз стоит повторить, что <CODE>car</CODE> и <CODE>cdr</CODE> не
+деструктивные --- то есть они не изменяют список к которому их
+применяют. Это очень важно для их применения.
+</P><P>
+
+Также в первой главе, обсуждая атомы, я сказал, что в Лиспе
+"определенного рода атомы, такие как массивы, можно разделить на
+составные части; но механизм этого отличен от того, как разделяются
+списки. Когда дело касается Лиспа, то атомы списка неразделимы."
+(See section <A HREF="elisp-intro-ru_3.html#SEC10">1.1.1 Атомы Лиспа</A>.) Функции <CODE>car</CODE> и <CODE>cdr</CODE> используются для
+разделения списков и считаются основными в Лиспе. Так с их помощью
+нельзя разделить или добраться до части массива, массив считается
+атомом. Обратной им функцией является другая основная функция ---
+<CODE>cons</CODE>, которая может создать список, но не массив. (Доступ к
+массивам осуществляется с помощью специфических для массивов функций.
+See section `Arrays' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.)
+</P><P>
+
+<A NAME="cons"></A>
+<HR SIZE="6">
+<A NAME="SEC99"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC98"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC100"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC101"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.2 <CODE>cons</CODE> </H2>
+<!--docid::SEC99::-->
+<P>
+
+Функция <CODE>cons</CODE> создает, или конструирует списки; действуя обратно
+<CODE>car</CODE> и <CODE>cdr</CODE>. Например, <CODE>cons</CODE> может создать
+четырех-элементный список из трех-элементного списка <CODE>(ель дуб
+клен)</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(cons 'сосна '(ель дуб клен))
+</pre></td></tr></table></P><P>
+
+Вычислив это выражение, вы увидите  в эхо-области
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(сосна ель дуб клен)
+</pre></td></tr></table></P><P>
+
+<CODE>cons</CODE> помещает новый элемент в начало списка; то есть добавляет,
+или заталкивает элементы в список.
+</P><P>
+
+<CODE>cons</CODE> должна иметь список к которому будет прикреплять
+значения.<A NAME="DOCF5" HREF="elisp-intro-ru_fot.html#FOOT5">(5)</A>
+Вы не может начать с нуля. Если вы строите список, то вы должны
+сначала обеспечить хотя бы пустой список. Ниже приведен ряд применения
+функции <CODE>cons</CODE>, с помощью которых создается список из
+цветов. Если вы читаете это в Info в Emacs, то вы может вычислить
+каждое из выражений как обычно --- возвращенное значение
+печатается в тексте после <SAMP>`=>'</SAMP>, что означает `вычислилось
+к'.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(cons 'лютик ())
+     => (лютик)
+
+(cons 'маргаритка '(лютик))
+     => (маргаритка лютик)
+
+(cons 'фиалка '(маргаритка лютик))
+     => (фиалка маргаритка лютик)
+
+(cons 'роза '(фиалка маргаритка лютик))
+     => (роза фиалка маргаритка лютик)
+</pre></td></tr></table></P><P>
+
+В первом примере, пустой список показан как <CODE>()</CODE>, при этом
+создается список из одного элемента <CODE>лютик</CODE>. Как вы можете
+видеть, в созданом списке нет пустого списка. Результатом является
+список <CODE>(лютик)</CODE>. Пустой список не считается элементом списка,
+потому что в пустом списке ничего нет. В общем говоря, пустой список
+невидим.
+</P><P>
+
+Второй пример, <CODE>(cons 'маргаритка '(лютик))</CODE> создает новый
+двух-элементный список, помещая <CODE>маргаритку</CODE> перед
+<CODE>лютиком</CODE>; а третий пример создает трех-элементный список,
+помещая <CODE>фиалку</CODE> перед <CODE>маргариткой</CODE> и <CODE>лютиком</CODE>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_9.html#SEC100">7.2.1 Найти длину списка: <CODE>length</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Как найти длину списка.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="length"></A>
+<HR SIZE="6">
+<A NAME="SEC100"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC99"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC101"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC98"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC99"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC101"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 7.2.1 Найти длину списка: <CODE>length</CODE> </H3>
+<!--docid::SEC100::-->
+<P>
+
+Вы можете выяснить сколько в элементов списке с помощью функции
+<CODE>length</CODE>, как это показано в следующих примерах:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(length '(лютик))
+     => 1
+
+(length '(маргаритка лютик))
+     => 2
+
+(length (cons 'фиалка '(маргаритка лютик)))
+     => 3
+</pre></td></tr></table></P><P>
+
+В третьем примере, чтобы построить трехэлементный список
+использовалась функция <CODE>cons</CODE>, и созданный список затем
+передается, в качестве аргумента, в функцию <CODE>length</CODE>.
+</P><P>
+
+Можно с помощью функции <CODE>length</CODE> сосчитать число элементов в
+пустом списке:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(length ())
+     => 0
+</pre></td></tr></table></P><P>
+
+Как мы и ожидали, число элементов в пустом списке равно нулю.
+</P><P>
+
+Давайте проведем интересный эксперимент --- выясним, что
+произойдет, если вы попробуете найти длину там, где совсем нет
+списков; то есть попробуйте вызвать <CODE>length</CODE> без всяких
+аргументов, даже не передав пустого списка:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(length )
+</pre></td></tr></table></P><P>
+
+Как вы увидите, если вы вычислите это, то в эхо-области появится
+сообщение об ошибке:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Wrong number of arguments: #&#60;subr length&#62;, 0
+</pre></td></tr></table></P><P>
+
+Это значит, что в функция получила неправильное число параметров
+--- ноль, когда она ожидала несколько аргументов. В нашем случае,
+ожидался один аргумент --- список, чью длину функция и будет
+измерять. (Заметим, что <EM>один</EM> --- это <EM>один</EM> аргумент,
+даже если внутри списка много элементов).
+</P><P>
+
+Та часть сообщения об ошибке, которая гласит <SAMP>`#&#60;subr length&#62;'</SAMP>
+--- это имя функции. Она записана с помощью специальной записи:
+<SAMP>`#&#60;subr'</SAMP>, что означает, что эта функция написана на C, а не на
+Emacs Lisp.  (<SAMP>`subr'</SAMP> это сокращение от `subroutine'
+(подпрограмма)). See section `What Is a Function?' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>, для получения
+дополнительной информации о подпрограммах.
+</P><P>
+
+<A NAME="nthcdr"></A>
+<HR SIZE="6">
+<A NAME="SEC101"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC100"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC102"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC99"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_10.html#SEC105"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.3 <CODE>nthcdr</CODE> </H2>
+<!--docid::SEC101::-->
+<P>
+
+Функция <CODE>nthcdr</CODE> связана с функцией <CODE>cdr</CODE>. Она выполняет
+функцию <CODE>cdr</CODE> над списком несколько раз.
+</P><P>
+
+Если вы возьмете <CODE>cdr</CODE> от списка <CODE>(сосна ель дуб клен)</CODE>, то
+вам вернут <CODE>(ель дуб клен)</CODE>. Если вы повторите <CODE>cdr</CODE>, уже
+над этим укороченным списком, то вы получите <CODE>(дуб клен)</CODE>.
+(Конечно, повторив <CODE>cdr</CODE> на первоначальном списке, вы снова
+получите <CODE>(ель дуб клен)</CODE>, поскольку <CODE>cdr</CODE> не изменяет свой
+аргумент. Вам необходимо вычислить <CODE>cdr</CODE> от <CODE>cdr</CODE> и т.д.).
+Если вы будете продолжать выполнять это, то постепенно вам вернут
+пустой список, который на этот раз будет обозначен как <CODE>nil</CODE>, а
+не как <CODE>()</CODE>.
+</P><P>
+
+Повторим эти действия --- ниже приведена серия повторяющихся
+вызовов функции <CODE>cdr</CODE>, текст после <SAMP>`=>'</SAMP> показывает
+что возвращалось в результате.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(cdr '(сосна ель дуб клен))
+     =>(ель дуб клен)
+
+(cdr '(ель дуб клен))
+     => (дуб клен)
+
+(cdr '(дуб клен))
+     =>(клен)
+
+(cdr '(клен))
+     => nil
+
+(cdr 'nil)
+     => nil
+
+(cdr ())
+     => nil
+</pre></td></tr></table></P><P>
+
+Вы можете взять несколько <CODE>cdr</CODE>, не печатая промежуточные
+значения, например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(cdr (cdr '(сосна ель дуб клен)))
+     => (дуб клен)
+</pre></td></tr></table></P><P>
+
+В этом случае, интерпретатор Лиспа вначале вычисляет самый внутренний
+список. Он цитирован, так что интерпретатор передает список как есть,
+во внутренний вызов <CODE>cdr</CODE>. Эта <CODE>cdr</CODE> передает список,
+составленный из второго и последующих элементов во внешний <CODE>cdr</CODE>,
+который и возвращает конечный результат, то есть список составленный
+из третьего и последующих элементов первоначального списка. В этом
+примере, функция <CODE>cdr</CODE> была повторена дважды и вернула
+первоначальный список без двух первых элементов.
+</P><P>
+
+Функция <CODE>nthcdr</CODE> делает именно это, то есть производит повторные
+вызовы <CODE>cdr</CODE>. В следующем примере, в функцию <CODE>nthcdr</CODE>
+передается два аргумента --- число 2 и список, а возвращается
+список без двух первых элементов, то есть точно тот же результат, что
+и двойной вызов <CODE>cdr</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(nthcdr 2 '(сосна ель дуб клен))
+     => (дуб клен)
+</pre></td></tr></table></P><P>
+
+Используя первоначальный четырехэлементный список, мы рассмотрим, что
+произойдет, когда в функцию <CODE>nthcdr</CODE> будут передаваться разные
+числовые аргументы, включая 0, 1, и 5:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>;; Оставим все как было.
+(nthcdr 0 '(сосна ель дуб клен))
+     => (сосна ель дуб клен)
+
+;; Вернем копию без первого элемента.
+(nthcdr 1 '(сосна ель дуб клен))
+     => (ель дуб клен)
+
+;; Вернем копию списка без трех элементов.
+(nthcdr 3 '(сосна ель дуб клен))
+     => (клен)                
+
+;; Вернем копию без всех четырех элементов. 
+(nthcdr 4 '(сосна ель дуб клен))    
+     => nil             
+
+;; Тоже самое. 
+(nthcdr 5 '(сосна ель дуб клен))
+     => nil                   
+</pre></td></tr></table></P><P>
+
+Следует упомянуть, что <CODE>nthcdr</CODE>, как и <CODE>cdr</CODE>, не изменяет
+первоначальный список --- функция не является деструктивной. Этим
+она сильно отличается от функций <CODE>setcar</CODE> и <CODE>setcdr</CODE>.
+</P><P>
+
+<A NAME="setcar"></A>
+<HR SIZE="6">
+<A NAME="SEC102"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC101"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC103"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_10.html#SEC105"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.4 <CODE>setcar</CODE> </H2>
+<!--docid::SEC102::-->
+<P>
+
+Как вы могли уже догадаться из названий, функции <CODE>setcar</CODE> и
+<CODE>setcdr</CODE> устанавливают поля <CODE>car</CODE> и <CODE>cdr</CODE> списка в
+новые значения. Они на самом деле изменяют первоначальный список, в
+отличии от <CODE>car</CODE> и <CODE>cdr</CODE>, которые оставляют первоначальный
+список не измененным. Выясним, что же они делают, с помощью
+эксперимента.Начнем с функции <CODE>setcar</CODE>.
+</P><P>
+
+Вначале создадим переменную, которой в качестве значения присвоим
+некоторый список. Например, список животных:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq животные '(жираф антилопа тигр лев))
+</pre></td></tr></table></P><P>
+
+Если вы читаете это в Emacs, то вы может вычислить это выражение как
+обычно, расположив курсор за ним и нажав сочетание клавиш <KBD>C-x
+C-e</KBD>. (Я именно так и делаю, когда пишу все это. Это одно из
+преимуществ интерпретатора, встроенного в среду редактирования).
+</P><P>
+
+Когда мы вычислим переменную <CODE>животные</CODE>, то мы увидим, что она
+связана со списком <CODE>(жираф антилопа тигр лев)</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>животные
+     => (жираф антилопа тигр лев)
+</pre></td></tr></table></P><P>
+
+Или по другому, переменная <CODE>животные</CODE> указывает на список
+<CODE>(жираф антилопа тигр лев)</CODE>.
+</P><P>
+
+Теперь, мы вычислим функцию <CODE>setcar</CODE> передав ей два аргумента
+--- переменную <CODE>животные</CODE> и цитированный символ <CODE>бегемот</CODE>,
+то есть мы напишем следующий трехэлементный список <CODE>(setcar животные
+'бегемот)</CODE> и затем вычислим его как обычно:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setcar животные 'бегемот)
+</pre></td></tr></table></P><P>
+
+После вычисления этого выражения, мы снова вычислим переменную
+<CODE>животные</CODE>. Вы увидите, что список животных изменился:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>животные
+     => (бегемот антилопа тигр лев)
+</pre></td></tr></table></P><P>
+
+Первый элемент прошлого списка --- <CODE>жираф</CODE>, заменен на
+<CODE>бегемот</CODE>.
+</P><P>
+
+То есть мы увидели, что <CODE>setcar</CODE> не добавляет новый элемент к
+списку, как это делает <CODE>cons</CODE>; а заменил <CODE>жирафа</CODE> на
+<CODE>бегемота</CODE> --- фактически <EM>изменил</EM> список.
+</P><P>
+
+<A NAME="setcdr"></A>
+<HR SIZE="6">
+<A NAME="SEC103"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC102"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC104"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_10.html#SEC105"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.5 <CODE>setcdr</CODE> </H2>
+<!--docid::SEC103::-->
+<P>
+
+Функция <CODE>setcdr</CODE> похожа на функцию <CODE>setcar</CODE>. Только эта
+функция заменяет второй и последующие элементы списка, а не первый
+элемент.
+</P><P>
+
+Чтобы увидеть, как она работает, введем переменную домашние-животные и
+присвоим ей следующее значение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq домашние-животные '(лошадь корова коза овца))
+</pre></td></tr></table></P><P>
+
+Если вы сейчас вычислите этот список, то в эхо-области отобразится
+<CODE>(лошадь корова коза овца)</CODE>;
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>домашние-животные
+     => (лошадь корова коза овца)
+</pre></td></tr></table></P><P>
+
+После этого давайте вычислим <CODE>setcdr</CODE> с двумя аргументами:
+первый --- это имя изменяемой переменной, а второй --- список
+который станет новым значением поля <CODE>cdr</CODE> для этой переменной:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setcdr домашние-животные '(собака кошка))
+</pre></td></tr></table></P><P>
+
+Если вы вычислите это выражение, то в эхо-области появится список
+<CODE>(собака кошка)</CODE>. Это значение, которое вернула функция.
+Результат, который нас интересует --- это "побочный эффект",
+который мы можем увидеть, вычислив переменную
+<CODE>домашние-животные</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>домашние-животные
+     => (лошадь собака кошка)
+</pre></td></tr></table></P><P>
+
+И в самом деле --- список изменился с <CODE>(лошадь корова коза
+овца)</CODE> на <CODE>(лошадь собака кошка)</CODE>. То есть, изменился <CODE>cdr</CODE>
+списка с <CODE>(корова коза овца)</CODE> на <CODE>(собака кошка)</CODE>.
+</P><P>
+
+<A NAME="упражнения с cons"></A>
+<HR SIZE="6">
+<A NAME="SEC104"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC103"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_10.html#SEC105"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_10.html#SEC105"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.6 Упражнения </H2>
+<!--docid::SEC104::-->
+<P>
+
+Создайте список из четырех птиц, вычислив несколько выражений
+<CODE>cons</CODE>. Выясните что произойдет, когда вы <CODE>cons</CODE> список сам
+в себя. Замените первый элемент списка из четырех птиц на какую-нибудь
+рыбку. Замените оставшуюся часть списка, списком из других рыб.
+</P><P>
+
+<A NAME="Вырезание &#38; Сохранение текста"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_9.html#SEC96"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_10.html#SEC105"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>March, 10  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

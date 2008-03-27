@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /linux
+Disallow: /emacs
+Disallow: /sgml
+Disallow: /gnu
+Disallow: /tex
+Disallow: /perl
+Disallow: /files
+Disallow: /misc

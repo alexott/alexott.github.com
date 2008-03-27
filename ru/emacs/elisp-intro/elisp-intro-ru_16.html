@@ -1,0 +1,1507 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on March, 10  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Слова в defun</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Слова в defun">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Слова в defun">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC171"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_15.html#SEC170"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC173"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_15.html#SEC165"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 14. Считаем слова в <CODE>defun</CODE> </H1>
+<!--docid::SEC171::-->
+<P>
+
+Наш следующий проект --- сосчитать количество слов в определении
+функции.  Конечно это можно сделать и с помощью какого-нибудь варианта
+<CODE>count-word-region</CODE>.  See section <A HREF="elisp-intro-ru_15.html#SEC165">Считаем слова: повторения и регулярные выражения</A>.  Если нам надо только лишь узнать
+сколько слов содержится в определении функции, то мы можем пометить
+определение функции, нажав <KBD>C-M-h</KBD> (<CODE>mark-defun</CODE>), и после
+этого вызвать <CODE>count-word-region</CODE>.
+  
+Однако, давайте будем более амбициозны: попробуем сосчитать число слов и
+символов в каждом определении функции во всех файлах входящих в
+дистрибутив Emacs и затем нарисуем график, который покажет сколько
+функций какой длины: сколько функций содержат от 40 до 49 слов, сколько
+от 50 до 59, и так далее.  Мне всегда было любопытно узнать какова
+средняя длина обычной функции, и скоро мы об этом узнаем.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC172">Разделяй и властвуй</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC173">14.1 Что считать?</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC174">14.2 Что входит в состав слов или символов?</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC175">14.3 Функция <CODE>count-words-in-defun</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Очень похожа на <CODE>count-words</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC176">14.4 Обработка нескольких функций в одном файле</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC177">14.5 Открытие файла</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC178">14.6 Подробности о <CODE>lengths-list-file</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Список длин многих функций.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC179">14.7 Считаем слова в функциях из нескольких файлов</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC181">14.8 Рекурсивная обработка нескольких файлов</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC182">14.9 Подготовка данных для вывода в виде графика</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Разделяй и властвуй"></A>
+<A NAME="SEC172"></A>
+<H2> Разделяй и властвуй </H2>
+<!--docid::SEC172::-->
+<P>
+
+Изложенный в одном предложении наш проект, где надо будет создать
+график-гистограмму выглядит довольно устрашающе; но если разбить его на
+несколько отдельных задач, каждую из которых можно сделать отдельно, то
+проект становиться совсем не сложным.  Попробуем представить какими
+должны быть эти шаги:
+</P><P>
+
+<UL>
+<LI>
+Первый --- написать функцию, которая определяет число слов в одном
+определении функции.  Здесь нам придется справиться с проблемой
+правильной обработки не только слов, но и символов.
+<P>
+
+<LI>
+Второй --- написать функцию подсчитывающую количество слов в каждом
+определении функции в отдельном файле, это может быть список.  Эта
+функция будет использовать функцию <CODE>count-words-in-defun</CODE>.
+<P>
+
+<LI>
+Третий --- написать функцию подсчитывающую количество слов в каждом
+определении функции в нескольких файлах, это тоже будет список.  Здесь
+мы будем открывать различные файлы, переключаться в них и считать слова
+в определениях функций входящих в файл.
+<P>
+
+<LI>
+Четвертый --- написать функцию, которая переводит список чисел,
+созданный на этапе три в форму, которая будет более удобна для создания
+графика.
+<P>
+
+<LI>
+Пятый --- написать функцию, выводящую результаты в виде графика.
+</UL>
+<P>
+
+Получился весьма значительный проект!  Но если мы не спеша выполним
+каждый этап, то и весь проект окажется довольно простым.
+</P><P>
+
+<A NAME="Слова и символы"></A>
+<HR SIZE="6">
+<A NAME="SEC173"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC174"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC172"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 14.1 Что считать? </H2>
+<!--docid::SEC173::-->
+<P>
+
+Если мы начнем раздумывать о том, как сосчитать слова в определении
+функции, то первый вопрос (он обязательно должен появиться) --- что
+мы собираемся считать?  Когда мы говорим `слова' по отношению к
+определению функции на Лиспе, то на самом деле, мы в большинстве случаев
+подразумеваем `символы'.  Например, следующая функция
+<CODE>умножить-на-семь</CODE> содержит пять символов <CODE>defun</CODE>,
+<CODE>умножить-на-семь</CODE>, <CODE>number</CODE>, <CODE>*</CODE>, и <CODE>7</CODE>.  Кроме
+этого, в строке документации содержится еще четыре слова:
+<SAMP>`Multiply'</SAMP>, <SAMP>`NUMBER'</SAMP>, <SAMP>`by'</SAMP>, и <SAMP>`seven'</SAMP>.  Символ
+<SAMP>`number'</SAMP> повторяется, поэтому все определение содержит всего десять
+слов и символов.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun умножить-на-семь (number)
+  "Multiply NUMBER by seven."
+  (* 7 number))
+</pre></td></tr></table></P><P>
+
+Однако, если мы пометим определение функции <CODE>умножить-на-семь</CODE>
+нажав <KBD>C-M-h</KBD> (<CODE>mark-defun</CODE>), и затем вызовем функцию
+<CODE>count-words-region</CODE> для выделенной области, то функция
+<CODE>count-words-region</CODE> сообщит нам, что в области содержится 11
+слов!  Что-то неправильно!
+</P><P>
+
+Произошло следующее: функция <CODE>count-words-region</CODE> не посчитала
+<SAMP>`*'</SAMP> как слово, и сосчитала один символ <CODE>умножить-на-семь</CODE>,
+как три слова.  Дефисы были обработаны таким образом, как будто они были
+разделителями слов, а не соединителями: функция <SAMP>`умножить-на-семь'</SAMP>
+посчитала так, как будто было написано <SAMP>`multiply by seven'</SAMP>.
+</P><P>
+
+Причина такой путаницы кроится в функции поиска по регулярному
+выражению, в определении <CODE>count-words-region</CODE>, которое перемещает
+курсор вперед слово за словом.  В первоначальной версии
+<CODE>count-words-region</CODE>, регулярное выражение было следующим:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>"\\w+\\W*"
+</pre></td></tr></table></P><P>
+
+Это регулярное выражение --- шаблон определяющий один или более
+символов входящих в состав слова, за которыми могут следовать один или
+более символов не входящих в состав слова.  Обьяснение того, что
+означает `символ входящий в состав слова' подводит нас к теме
+синтаксиса, которая заслуживает отдельного обсуждения.
+</P><P>
+
+<A NAME="Синтаксис"></A>
+<HR SIZE="6">
+<A NAME="SEC174"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC173"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC175"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 14.2 Что входит в состав слов или символов? </H2>
+<!--docid::SEC174::-->
+<P>
+
+Emacs обрабатывает разные символы, как принадлежащие к разным
+<EM>синтаксическим категориям</EM>.  Например, регулярное выражение
+<SAMP>`\\w+'</SAMP> --- это образец описывающий один или более символов
+<EM>составляющих слово</EM>.  Символы составляющие слово являются членами
+одной синтаксической категории.  Другие синтаксические категории
+включают класс символов пунктуации, таких как запятая и точка, и класс
+пробельных символов, таких как пробел и табуляция. (Для получения
+дополнительной информации смотрите разделы section `The Syntax Table' in <CITE>The GNU Emacs Manual</CITE> и section `Syntax Tables' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.)
+</P><P>
+
+Таблицы синтаксиса описывают то, какие символы принадлежат к каким
+категориям.  Обычно дефис не считается `символом входящим в состав
+слова'.  Вместо этого он принадлежит к `классу символов входящих в
+состав имен символов, но не слов'.  Это означает, что функция
+<CODE>count-words-region</CODE> обрабатывает его таким же образом как и
+разделяющие слово пробелы. Вот почему <CODE>count-words-region</CODE>
+сосчитала <SAMP>`умножить-на-семь'</SAMP> как три слова.
+</P><P>
+
+Существуют два способа заставить Emacs воспринимать
+<SAMP>`умножить-на-семь'</SAMP>, как один символ --- изменить
+синтаксическую таблицу или изменить регулярное выражение.
+</P><P>
+
+Мы можем переопределить дефис, как символ входящий в состав слова,
+изменив таблицу синтаксиса, которую Emacs создает для каждого буфера.  В
+принципе именно этого мы и добиваемся, но оказывается, что дефис далеко
+не единственный символ, который считается не входящим в состав слова, но
+входит в состав имен символов; есть и другие, например <SAMP>`*'</SAMP>.
+</P><P>
+
+Пойдя другим путем, мы можем создать другое регулярное выражение,
+которое будет использоваться в определении <CODE>count-words</CODE> для
+подсчета символов.  Правда оказывается что это не такая уж простая
+задача.
+</P><P>
+
+Первая часть регулярного выражения достаточна проста: шаблон должен
+совпадать "по крайней мере с одним символом который входит в состав
+слова или символа Лиспа".  То есть:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>\\(\\w\\|\\s_\\)+
+</pre></td></tr></table></P><P>
+
+<SAMP>`\\('</SAMP> --- это первая часть группирующей конструкции, которая
+включает альтернативу <SAMP>`\\w'</SAMP> и <SAMP>`\\s_'</SAMP>, разделяемые строкой
+<SAMP>`\\|'</SAMP>.  <SAMP>`\\w'</SAMP> совпадает с любым символом входящем в состав
+слова, а <SAMP>`\\s_'</SAMP> совпадает с любым символом входящем в состав
+символа Лиспа, но не входящим в состав слова.  Знак <SAMP>`+'</SAMP>, следующий
+за всей конструкцией означает, что символ входящий в состав слова или
+символа Лиспа должен совпасть по крайней мере один раз.
+</P><P>
+
+Однако сконструировать вторую часть регулярного выражения значительно
+сложнее.  Мы хотим, чтобы за первой частью следовала "необязательная
+часть состоящая из одного или нескольких символов не входящих в состав
+слова или символа Лиспа".  Вначале мне казалось, что это можно сделать
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>\\(\\W\\|\\S_\\)*"
+</pre></td></tr></table></P><P>
+
+Знаки в верхнем регистре <SAMP>`W'</SAMP> и <SAMP>`S'</SAMP> совпадают с символами,
+которые <EM>не</EM> входят в состав слова или символа Лиспа.  К несчастью
+выяснилось, что это выражение совпадает с любым символом, который не
+входит в состав слова или не входит в состав символа.  Это совпадает с
+любым символом!
+</P><P>
+
+Потом я обратил внимание, что за каждым словом или символом в моей
+области следовал пробельный символ (пробел, табуляция, или символ новой
+строки).  Поэтому я попробовал шаблон совпадающий с одним или более
+пробелом, которые следуют за одним или более символом составляющих слово
+или символ Лиспа.  Это тоже было неудачной попыткой.  Слова и символы
+Лиспа часто разделяются пробелами, но в реальном коде за символами Лиспа
+могут следовать круглые скобки, а за словами могут следовать знаки
+пунктуации.  В конце концов я пришел, к образцу, в котором за одним или
+более символом входящем в состав слова или символа Лиспа необязательно
+следуют не пробельные символы за которыми следуют необязательные
+пробелы.
+</P><P>
+
+Ниже получившееся регулярное выражение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>"\\(\\w\\|\\s_\\)+[^ \t\n]*[ \t\n]*"
+</pre></td></tr></table></P><P>
+
+<A NAME="count-words-in-defun"></A>
+<HR SIZE="6">
+<A NAME="SEC175"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC174"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC176"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 14.3 Функция <CODE>count-words-in-defun</CODE> </H2>
+<!--docid::SEC175::-->
+<P>
+
+Мы уже видели несколько способов создания функции
+<CODE>count-word-region</CODE>.  Чтобы написать функцию
+<CODE>count-words-in-defun</CODE> нам надо только немного изменить одну из
+этих версий.
+</P><P>
+
+Та версия, в которой используется цикл <CODE>while</CODE> является наиболее
+простой, поэтому я предлагаю использовать именно ее.  Поскольку
+<CODE>count-words-in-defun</CODE> будет вызываться из более сложной программы,
+то ее не обязательно делать интерактивной и она не должна отображать
+сообщение в эхо-области; достаточно только лишь вернуть результат.  Все
+это немного упрощает определение функции.
+</P><P>
+
+С другой стороны, функция <CODE>count-words-in-defun</CODE> будет
+использоваться в буфере, который содержит несколько определений функций.
+Соответственно появляется вопрос: как функция будет работать, как она
+будет определять, что точка находится в пределах функции и возвращать
+число символов и слов для этого определения функции.  Все это конечно
+добавляет сложностей в опредление функции, но впоследствии нам не надо
+будет передавать в эту функцию аргументы.
+</P><P>
+
+Все вышеизложенное ведет к следующему шаблону будущей функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun count-words-in-defun ()
+  "<VAR>документация</VAR><small>...</small>"
+  (<VAR>установки</VAR><small>...</small>
+     (<VAR>цикл while</VAR><small>...</small>)
+   <VAR>возвращаем count</VAR>)
+</pre></td></tr></table></P><P>
+
+Как обычно наша работа только лишь заполнить части этого шаблона.
+</P><P>
+
+В начале рассмотрим подготовительные установки.
+</P><P>
+
+Мы предполагаем, что эта функция будет вызвана из буфера содержащего
+несколько определений функций.  Курсор будет находиться или внутри
+определения функции или вне определения.  Для того, чтобы
+<CODE>count-words-in-defun</CODE> начала работать надо переместить точку в
+начало определения, счетчик слов установить в ноль и цикл, в котором
+будет происходить счет, должен остановиться, когда точка достигнет конца
+определения функции.
+</P><P>
+
+Функция <CODE>beginning-of-defun</CODE> производит поиск в обратном
+направлении открывающей скобки, такой как <SAMP>`('</SAMP>, находящейся в начале
+строки и перемещает точку на эту позицию или к границе поиска.  На
+практике это означает, что <CODE>beginning-of-defun</CODE> перемещает точку к
+началу ближайшего определения функции или к началу буфера.  Мы можем
+использовать <CODE>beginning-of-defun</CODE> для того чтобы переместить точку
+туда, откуда мы начнем отсчет.
+</P><P>
+
+В цикле <CODE>while</CODE> нам также потребуется счетчик для того, чтобы
+хранить число уже посчитанных слов и символов.  Для создания и
+инициализации нулем соответствующей переменной, которая может быть
+локальной, мы будем использовать выражение <CODE>let</CODE>.
+</P><P>
+
+Функция <CODE>end-of-defun</CODE> работает аналогично функции
+<CODE>beginning-of-defun</CODE>, кроме того, что она перемещает точку в конец
+определения функции.  Функцию <CODE>end-of-defun</CODE> можно использовать как
+часть выражения, которое находит положение конца определения
+анализируемой функции.
+</P><P>
+
+Инициализация и начальные установки для <CODE>count-words-in-defun</CODE>
+быстро принимают форму: сначала мы перемещаем точку в начало
+определения, затем мы создаем локальную переменную для хранения
+результатов подсчета, и, наконец, мы находим позицию конца определения,
+так чтобы цикл <CODE>while</CODE> знал когда нужно прекращать поиск.
+</P><P>
+
+Эта часть функции выглядит следующим образом: 
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(beginning-of-defun)
+(let ((count 0)
+      (end (save-excursion (end-of-defun) (point))))
+</pre></td></tr></table></P><P>
+
+Все довольно просто.  Единственная сложность касается установки
+локальной переменной <CODE>end</CODE>: она инициализируется значением, которое
+возвращает выражение <CODE>save-excursion</CODE>, когда курсор временно
+перемещается к конец определения и с помощью функции <CODE>point</CODE>,
+возвращает значение точки. После этого курсор возвращается в начало
+определения функции.
+</P><P>
+
+Вторая часть функции <CODE>count-words-in-defun</CODE> --- это цикл
+<CODE>while</CODE>.
+</P><P>
+
+Этот цикл должен содержать выражение, которое будет перемещать курсор
+вперед через слово или символ Лиспа, и выражение, которое будет
+подсчитывать число перемещений.  Проверка-истина-ложь цикла <CODE>while</CODE>
+должна возвращать истинное значение до тех пор, пока курсор находится
+внутри определения функции и ложное значение, если он достиг конца
+определения.  Мы уже создали подходящее регулярное выражение для этого
+поиска (see section <A HREF="elisp-intro-ru_16.html#SEC174">14.2 Что входит в состав слов или символов?</A>), поэтому структура цикла ясна:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while (and (&#60; (point) end)
+            (re-search-forward 
+             "\\(\\w\\|\\s_\\)+[^ \t\n]*[ \t\n]*" end t)
+  (setq count (1+ count)))
+</pre></td></tr></table></P><P>
+
+В третей части функции нужно всего лишь вернуть количество подсчитанных
+слов и символов Лиспа.  Эта часть является последним выражением в теле
+верхнего выражения <CODE>let</CODE>, и может быть просто локальной переменной
+<CODE>count</CODE>, которое после вычисления возвратит результаты подсчетов.
+</P><P>
+
+Если сложить все вышеизложенные части вместе, то получится следующее
+определение функции <CODE>count-words-in-defun</CODE>:
+</P><P>
+
+<A NAME="IDX70"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun count-words-in-defun ()
+  "Возвращает число слов и символов Лиспа в функции."
+  (beginning-of-defun)
+  (let ((count 0)
+        (end (save-excursion (end-of-defun) (point))))
+    (while
+        (and (&#60; (point) end)
+             (re-search-forward 
+              "\\(\\w\\|\\s_\\)+[^ \t\n]*[ \t\n]*"
+              end t))
+      (setq count (1+ count)))
+    count))
+</pre></td></tr></table></P><P>
+
+Как нам проверить эту функцию?  Хотя сама функция не интерактивна, но
+можно легко создать функцию-обертку (wrapper), которая будет
+интерактивной и вызовет эту функцию; мы можем использовать почти тот же
+самый код, что и в рекурсивной версии <CODE>count-words-region</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>;;; Интерактивная версия.
+(defun count-words-defun ()     
+  "Число слов и символов Лиспа в определении функции."
+  (interactive)
+  (message
+   "Считаем слова и символы Лиспа в определении функции...")
+  (let ((count (count-words-in-defun)))
+    (cond
+    ((zerop count)
+       (message
+	"Область НЕ содержит слов."))
+    ((= 1 count)
+       (message
+	"Область содержит 1 слово."))
+    ((or (&#60; 1 count) (&#62; 5 count))
+       (message
+	"В области содержиться %d словa." count))
+      (t
+       (message
+	"Область содержит %d слов." count)))))
+</pre></td></tr></table></P><P>
+
+Для удобства давайте свяжем эту функцию с <KBD>C-c =</KBD>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(global-set-key "\C-c=" 'count-words-defun)
+</pre></td></tr></table></P><P>
+
+Сейчас мы можем проверить <CODE>count-words-defun</CODE>: установите обе
+функции <CODE>count-words-in-defun</CODE> и <CODE>count-words-defun</CODE>,
+вычислите выражение <CODE>global-set-key</CODE>, скопируйте определение
+функции <CODE>умножить-на-семь</CODE> в буфер <TT>`*scratch*'</TT> так чтобы
+открывающая определение скобка находилась в начале строки и поместив
+курсор в тело определения функции нажмите <KBD>C-c=</KBD>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun умножить-на-семь (number)
+  "Multiply NUMBER by seven."
+  (* 7 number))
+     => 10
+</pre></td></tr></table></P><P>
+
+Получилось! Определение содержит 10 слов и символов Лиспа.
+</P><P>
+
+Следующая задача --- подсчитать количество слов и символов Лиспа в
+нескольких определениях функций в одном файле.
+</P><P>
+
+<A NAME="Несколько функций"></A>
+<HR SIZE="6">
+<A NAME="SEC176"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC175"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC177"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 14.4 Обработка нескольких функций в одном файле </H2>
+<!--docid::SEC176::-->
+<P>
+
+В таком файле как <TT>`simple.el'</TT> может находиться более 80 определений
+различных функций.  Конечная цель нашего проекта --- статистическая
+обработка определений функций во многих файлах, но, как первых шаг на
+пути к этой цели, давайте проанализируем только один файл.
+</P><P>
+
+Информация будет представлена в виде серии чисел, где каждое число
+--- количество слов и символов Лиспа в определении функции.  Мы можем
+хранить эти числа в списке.
+</P><P>
+
+Мы знаем, что впоследствии нам понадобится связать информацию касающуюся
+одного файла, с информацией из многих других файлов --- это
+означает, что для функции подсчитывающей длину определений функций в
+одном файле достаточно вернуть список длин.  Она также не должна
+отображать никаких сообщений.
+</P><P>
+
+Команды для посчета слов содержат одно выражение, которое перемещает
+курсор вперед через слово, а также выражение подсчитывающее число
+перемещений.  Определение функции для посчета длин может быть создано
+подобным же образом, где одно выражение будет перемещать курсор вперед
+через определение, а второе выражение будет составлять список длин.
+</P><P>
+
+Подобная аналогия делает создание такой функции почти элементарным.
+Ясно, что мы должны начать отсчет с начала файла, поэтому первой
+командой будет <CODE>(goto-char (point-min))</CODE>.  Затем мы запустим цикл
+<CODE>while</CODE>; где проверка-истина-ложь для этого цикла может быть
+регулярным выражением для поиска следующего определения функции ---
+пока поиск успешен, точка перемещается вперед и вычисляется тело цикла.
+В теле цикла нам понадобится выражение, которое будет конструировать
+список длин.  Для этого вполне подойдет основная команда для создания
+списков --- <CODE>cons</CODE>.  В принципе это почти все.
+</P><P>
+
+Ниже фрагмент получившейся функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(goto-char (point-min))
+(while (re-search-forward "^(defun" nil t)
+  (setq lengths-list
+        (cons (count-words-in-defun) lengths-list)))
+</pre></td></tr></table></P><P>
+
+Что мы пока пропустили --- так это механизм, для открытия файла, в
+котором содержатся определения функций.
+</P><P>
+
+В предыдущих примерах, мы использовали или систему Info или
+переключались на время в другой буфер; в основном в буфер
+<TT>`*scratch*'</TT>.
+</P><P>
+
+Открытие (finding) файла --- эта новая и еще не обсуждавшаяся нами
+тема.
+</P><P>
+
+<A NAME="Открытие файла"></A>
+<HR SIZE="6">
+<A NAME="SEC177"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC176"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC178"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 14.5 Открытие файла </H2>
+<!--docid::SEC177::-->
+<P>
+
+Для того чтобы открыть файл в Emacs вы обычно используете команду
+<KBD>C-x C-f</KBD> (<CODE>find-file</CODE>).  Эта команда делает то, что надо, но
+все же она не совсем подходит для нашей задачи определения длин функций.
+</P><P>
+
+Давайте взглянем на исходный код <CODE>find-file</CODE> (для этого вы можете
+использовать команду <CODE>find-tag</CODE><A NAME="DOCF11" HREF="elisp-intro-ru_fot.html#FOOT11">(11)</A>).
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun find-file (filename)
+  "Edit file FILENAME.
+Switch to a buffer visiting file FILENAME,
+creating one if none already exists."
+  (interactive "FFind file: ")
+  (switch-to-buffer (find-file-noselect filename)))
+</pre></td></tr></table></P><P>
+
+В это определение входит короткая, но полная документация и спецификация
+для интерактивного использования функции, откуда видно, что Emacs
+запросит у вас имя файла, если вы будете использовать эту функцию
+интерактивно.  В теле определения используется всего лишь две функции
+<CODE>find-file-noselect</CODE> и <CODE>switch-to-buffer</CODE>.
+</P><P>
+
+Если с помощью <KBD>C-h f</KBD> (команда <CODE>describe-function</CODE>) вызвать
+документацию для функции <CODE>find-file-noselect</CODE>, то выяснится, что
+эта функция считывает заданный файл в буфер и возвращает буфер.  Однако
+этот буфер не становится выбранным.  То есть внимание Emacs на него не
+переключается (значит и ваше тоже).  Для переключения в буфер
+используется функция <CODE>switch-to-buffer</CODE>, и она отображает его
+содержимое в текущем окне.  Мы уже обсуждали тему переключения буферов.
+(See section <A HREF="elisp-intro-ru_4.html#SEC38">2.3 Смена буфера</A>.)
+</P><P>
+
+В нашем проекте создания гистограммы нам не нужно отображать каждый файл
+на экране, в то время, когда программа находит длины функций в этом
+файле.  Вместо использования <CODE>switch-to-buffer</CODE> мы вполне можем
+использовать функцию <CODE>set-buffer</CODE> --- эта функция производит
+переключение в другие буфера, но не отображает их на экране.  Поэтому,
+вместо того, чтобы пользоваться функцией <CODE>find-file</CODE>, для открытия
+файла, нам придется создать свое собственное выражение.  Но мы к этому
+вполне готовы, можно просто воспользоваться функциями
+<CODE>find-file-noselect</CODE> и <CODE>set-buffer</CODE>.
+</P><P>
+
+<A NAME="lengths-list-file"></A>
+<HR SIZE="6">
+<A NAME="SEC178"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC177"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC179"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 14.6 Подробности о <CODE>lengths-list-file</CODE> </H2>
+<!--docid::SEC178::-->
+<P>
+
+Ядро функции <CODE>lengths-list-file</CODE> --- это цикл <CODE>while</CODE>, в
+котором содержится код перемещения курсора вперед, в поисках регулярного
+выражения "^defun" и функция, которая будет подсчитывать число слов и
+символов Лиспа в каждом из определений.  Это ядро должно быть окружено
+функциями, которые выполняют различные вспомогательные задачи: открывают
+файл, перемещают точку к началу файла.  Получившиеся определение функции
+выглядит следующим образом:
+<A NAME="IDX71"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun lengths-list-file (filename)
+  "Возвращает список длин функций содержащихся в ФАЙЛЕ.
+Возвращаемый список --- это список чисел.
+Каждое число --- количество слов или символов Лиспа
+в одном определении функции."
+  (message "Анализируем `%s' ... " filename)
+  (save-excursion
+    (let ((buffer (find-file-noselect filename))
+          (lengths-list))
+      (set-buffer buffer)
+      (setq buffer-read-only t)
+      (widen)   
+      (goto-char (point-min))
+      (while (re-search-forward "^.defun" nil t)
+        (setq lengths-list
+              (cons (count-words-in-defun) lengths-list)))
+      (kill-buffer buffer)
+      lengths-list)))
+</pre></td></tr></table></P><P>
+
+Функция принимает один аргумент --- имя файла, с которым она и будет
+работать.  Затем идут четыре строки описывающие работу функции, но
+выражение <CODE>interactive</CODE> отсутствует.  Поскольку обычно люди думают
+что компьютер сломался, если они не видят результатов происходящей
+работы, то в первой строке тела функции мы отображаем информационное
+сообщение.
+</P><P>
+
+Следующая строка --- это выражение <CODE>save-excursion</CODE>, которое
+возвращает внимание Emacs к текущему буферу, когда функция завершит свою
+работу.  Это полезно в том случаe, если вы будете использовать эту
+функцию из другой, которая полагает, что курсор остается в текущем
+буфере.
+</P><P>
+
+В списке переменных выражения <CODE>let</CODE> Emacs открывает файл и
+связывает локальную переменную <CODE>buffer</CODE> с буфером, в котором
+содержится открытый файл.  Помимо этого Emacs также создает еще одну
+локальную переменную --- <CODE>lengths-list</CODE>.
+</P><P>
+
+После этого Emacs переключается в новый буфер.
+</P><P>
+
+Затем Emacs защищает буфер от случайного изменения, устанавливая для
+него режим только для чтения.  Вообще-то это совершенно не обязательно.
+Ни одна из функций для подсчета слов и символов Лиспа в определении
+функции не будет изменять содержимое буфера.  Кроме этого буфер никто не
+собирается сохранять, даже если он будет изменен.  Эта строка лишь
+привычка следовать пословице "Береженого бог бережет".  Причина такой
+излишней осторожности кроется в том, что эта функция, и те которые будут
+ее использовать работают с исходными текстами самого Emacs и будет очень
+неудобно, если мы случайно изменим какой-то из файлов.  Ладно признаюсь,
+сначала я и сам думал, что эта строка не нужна, до тех пор пока мои
+экспериментальные функции не начали изменять исходные тексты Emacs
+<small>...</small>.
+</P><P>
+
+После этого мы вызываем функцию <CODE>widen</CODE>, на тот случай, если в
+буфер включено сужение.  Обычно это также не требуется --- Emacs
+создает новый буфер, если его еще не существовало; но если этот файл уже
+был открыт, то Emacs возвращает уже существующий буфер.  В таком случае
+в нем теоретически может быть включено сужение, и для начала работы его
+необходимо выключить.  Если бы мы хотели быть совсем `дружелюбными к
+пользователю', то мы бы окружили бы это все выражением
+<CODE>save-restriction</CODE>, для того чтобы востановить сужение и
+местоположение точки, но мы не хотим этого делать.
+</P><P>
+
+Следующее выражение, <CODE>(goto-char (point-min))</CODE>, перемещает курсор в
+начало буфера.
+</P><P>
+
+Затем идет цикл <CODE>while</CODE>, в котором и выполняется `основная работа'
+функции.  В цикле Emacs определяет длину каждой функции и создает
+список, в котором и сохраняет результаты работы.
+</P><P>
+
+После того, как содержимое файла будет проанализировано, Emacs
+уничтожает буфер.  Это сделано для экономичного использования
+оперативной памяти.  В моей версии Emacs 19 содержится более 300
+различных файлов.  Другая функция будет использовать
+<CODE>lengths-list-file</CODE> на каждом из них.  Если Emacs откроет все эти
+файлы, и не будет их закрывать, то на моем компьютере может не хватить
+виртуальной памяти.
+</P><P>
+
+Последнее выражение в теле функции и одновременно в выражении
+<CODE>let</CODE> --- это переменная <CODE>lengths-list</CODE>; ее значение будет
+возвращено, как значение всей функции.
+</P><P>
+
+Мы можем испробовать эту функцию установив ее как обычно.  Теперь
+расположите курсор за следующим выражением и нажмите <KBD>C-x C-e</KBD>
+(<CODE>eval-last-sexp</CODE>).
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(lengths-list-file "../lisp/debug.el")
+</pre></td></tr></table></P><P>
+
+(Может быть вам понадобиться изменить путевое имя файла; в приведенном
+примере предполагается, что файлы Info и исходные тексты Emacs
+расположены по соседству, например, в <CODE>/usr/local/emacs/info</CODE> и
+<CODE>/usr/local/emacs/lisp</CODE>.) Вы можете изменить это выражение
+скопировав его в буфер <TT>`*scratch*'</TT> и вычислив его там.
+</P><P>
+
+Моей версии Emacs потребовалось несколько секунд, чтобы выдать список
+длин функций для файла <TT>`debug.el'</TT>.  Он получился следующим:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(75 41 80 62 20 45 44 68 45 12 34 235)
+</pre></td></tr></table></P><P>
+
+Обратите внимание, что длина последней функции в этом файле, в списке
+расположена первой.
+</P><P>
+
+<A NAME="Несколько файлов"></A>
+<HR SIZE="6">
+<A NAME="SEC179"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC178"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC180"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC181"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 14.7 Считаем слова в функциях из нескольких файлов </H2>
+<!--docid::SEC179::-->
+<P>
+
+В предыдущем разделе мы создали функцию, которая возвращает список длин
+каждого из определений функций в файле.  Сейчас нам надо будет
+сконструировать функцию, которая возвращает большой список длин функций
+находящихся во многих файлах, эта функция будет работать со списком
+файлов.
+</P><P>
+
+Работа на каждом файле из списка --- это повторяющийся процесс,
+поэтому мы можем использовать либо цикл <CODE>while</CODE>, либо рекурсию.
+</P><P>
+
+Создать цикл <CODE>while</CODE> --- для нас уже совсем не сложно.
+Аргумент передаваемый в функцию --- это список файлов.  Как мы уже
+видели раньше (see section <A HREF="elisp-intro-ru_13.html#SEC130">11. Циклы и рекурсия</A>), вы можете написать такой цикл
+<CODE>while</CODE> тело которого будет вычисляться до тех пор, пока в списке
+еще содержатся какие-нибудь элементы, но как только список станет пуст,
+то выполнение цикла прекращается.  Для того, чтобы эта конструкция
+работала правильно в теле цикла должно содержаться выражение, которое
+укорачивает список, каждый раз когда вычисляется тело цикла, так что
+постепенно список опустошается.  Обычно для этой цели используют функцию
+<CODE>cdr</CODE>, и с ее помощью при каждой итерации цикла связывают значение
+списка с CDR этого же списка.
+</P><P>
+
+Соответствующий шаблон выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while <VAR>проверить-пуст-ли-список</VAR>
+  <VAR>тело</VAR><small>...</small>
+  <VAR>присвоить-списку-cdr-списка</VAR>)
+</pre></td></tr></table></P><P>
+
+Также мы помним, что цикл <CODE>while</CODE> всегда возвращает <CODE>nil</CODE>
+после вычисления (результат вычисления проверки-истина-ложь), а не
+результат какого-нибудь выражения вычисляемого в теле цикла.  (Все
+вычисления в теле цикла выполняются только ради их побочного эффекта).
+Однако, нам хотелось бы вернуть результат вычисления выражения, в
+котором создается список длин.  Для того чтобы выполнить это мы должны
+вложить цикл <CODE>while</CODE> в выражение <CODE>let</CODE>, и сделать так, чтобы
+последним элементом выражения <CODE>let</CODE> была переменная в которой
+содержится список длин.  (See section <A HREF="elisp-intro-ru_13.html#SEC130">Циклы и рекурсия</A>.)
+</P><P>
+
+<A NAME="IDX72"></A>
+Все это ведет нас к следующему определению функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>;;; Используя цикл <CODE>while</CODE>.
+(defun lengths-list-many-files (list-of-files) 
+  "Возвращает список длин функций в LIST-OF-FILES."
+  (let (lengths-list)
+
+;;; проверка-истина-ложь
+    (while list-of-files        
+      (setq lengths-list
+            (append
+             lengths-list
+
+;;; Генерируем список длин функций.
+             (lengths-list-file
+              (expand-file-name (car list-of-files)))))
+
+;;; Укорачиваем список анализируемых файлов.
+      (setq list-of-files (cdr list-of-files))) 
+
+;;; Возвращает результат: значение списка длин функций.
+    lengths-list))              
+</pre></td></tr></table></P><P>
+
+<CODE>expand-file-name</CODE> --- это встроенная функция, которая
+преобразует относительное имя файла в его абсолютную, полную форму.  То
+есть,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>debug.el
+</pre></td></tr></table></P><P>
+
+становится
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>/usr/local/emacs/lisp/debug.el
+</pre></td></tr></table></P><P>
+
+Еще один новый для нас элемент в этом определении функции --- это
+незнакомая нам пока функция <CODE>append</CODE>, которая заслуживает краткого
+рассмотрения.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC180">14.7.1 Функция <CODE>append</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Добавление одного списка к другому.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="append"></A>
+<HR SIZE="6">
+<A NAME="SEC180"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC179"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC181"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC178"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC179"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC181"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 14.7.1 Функция <CODE>append</CODE> </H3>
+<!--docid::SEC180::-->
+<P>
+
+Функция <CODE>append</CODE> присоединяет один список к другому.  Так,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(append '(1 2 3 4) '(5 6 7 8))
+</pre></td></tr></table></P><P>
+
+вернет после вычисления
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(1 2 3 4 5 6 7 8)
+</pre></td></tr></table></P><P>
+
+Именно так мы и хотим соединять друг с другом списки длин, которые
+возвращает функция <CODE>lengths-list-file</CODE> в теле цикла <CODE>while</CODE>.
+Принцип работы <CODE>append</CODE> отличен от принципа работы <CODE>cons</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(cons '(1 2 3 4) '(5 6 7 8))
+</pre></td></tr></table></P><P>
+
+сконструирует новый список, в котором первый аргумент функции
+<CODE>cons</CODE> станет первый элементом результирующего списка:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>((1 2 3 4) 5 6 7 8)
+</pre></td></tr></table></P><P>
+
+<A NAME="Несколько файлов рекурсивно"></A>
+<HR SIZE="6">
+<A NAME="SEC181"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC180"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC182"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC179"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 14.8 Рекурсивная обработка нескольких файлов </H2>
+<!--docid::SEC181::-->
+<P>
+
+Кроме использования цикла <CODE>while</CODE> мы можем обработать список
+файлов с помощью рекурсии.  Рекурсивная версия функции
+<CODE>lengths-list-many-files</CODE> получится короче и проще.
+</P><P>
+
+Рекурсивная функция содержит обычные части: `рекурсивную-проверку',
+`выражение-следующего-вызова', и сам рекурсивный вызов.
+`Рекурсивная-проверка' определяет нужно ли снова выполнять рекурсивный
+вызов, что необходимо в том случае, если <CODE>list-of-files</CODE> содержит
+еще какие-то элементы; `выражение-следующего-вызова' укорачивает
+<CODE>list-of-files</CODE> устанавливая его в CDR самого себя, поэтому
+постепенно список опустошается.  Вообще то сама функция получилась
+короче чем это абзац!
+<A NAME="IDX73"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun recursive-lengths-list-many-files (list-of-files) 
+  "Возвращает список длин функций из LIST-OF-FILES."
+  (if list-of-files                     ; рекурсивная-проверка
+      (append
+       (lengths-list-file
+        (expand-file-name (car list-of-files)))
+       (recursive-lengths-list-many-files
+        (cdr list-of-files)))))
+</pre></td></tr></table></P><P>
+
+В одном предложении, функция возвращает список длин для первого файла
+из <CODE>list-of-files</CODE> к которому добавляется результат рекурсивного
+вызова этой же функции, когда аргумент будет остаток
+<CODE>list-of-files</CODE>, то есть <CODE>cdr</CODE> списка.
+</P><P>
+
+Ниже представлены результаты проверки функции
+<CODE>recursive-lengths-list-many-files</CODE> вместе с результатами запуска
+функции <CODE>lengths-list-file</CODE> на каждом из файлов по отдельности.
+</P><P>
+
+Установите обе эти функции, и <CODE>recursive-lengths-list-many-files</CODE>,
+и <CODE>lengths-list-file</CODE>, а затем вычислите следующие выражения.
+Возможно вам понадобится изменить путевые имена файлов; те которые
+представлены здесь работают, если файлы Info и исходные тексты Emacs
+расположены рядом.  Если вам понадобится изменить эти выражения, то вы
+можете сначала скопировать их в буфер <TT>`*scratch*'</TT> и внеся
+необходимые изменения вычислить их.
+</P><P>
+
+Результаты показаны после <SAMP>`=>'</SAMP> (Эти результаты для файлов
+входящих в Emacs версии 18.57; если вы работает с другой версией
+Emacs, то результаты могут отличаться.)
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(lengths-list-file 
+ "../lisp/macros.el")
+     => (176 154 86)
+
+(lengths-list-file
+ "../lisp/mailalias.el")
+     => (116 122 265)
+
+(lengths-list-file
+ "../lisp/makesum.el")
+     => (85 179)
+
+(recursive-lengths-list-many-files
+ '("../lisp/macros.el"
+   "../lisp/mailalias.el"
+   "../lisp/makesum.el"))
+       => (176 154 86 116 122 265 85 179)
+</pre></td></tr></table></P><P>
+
+Функция <CODE>recursive-lengths-list-many-files</CODE> возвращает результат,
+который мы и ожидали.
+</P><P>
+
+Следующий шаг --- обработать данные таким образом, чтобы их легче
+было отобразить в виде графика.
+</P><P>
+
+<A NAME="Обработка данных"></A>
+<HR SIZE="6">
+<A NAME="SEC182"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC181"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC183"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC171"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 14.9 Подготовка данных для вывода в виде графика </H2>
+<!--docid::SEC182::-->
+<P>
+
+Функция <CODE>recursive-lengths-list-many-files</CODE> возвращает список
+чисел.  Каждое число означает длину определения функции в словах и
+символах Лиспа.  Сейчас нам надо будет преобразовать эти данные в список
+чисел, который будет удобнее отобразить в виде графика.  Из нового
+списка должно быть ясно, сколько определений функций содержат меньше 10
+слов, сколько содержат от 10 до 19 слов, сколько содержат от 20 до 29
+слов и так далее.
+</P><P>
+
+Короче говоря, нам надо будет обработать список длин, который возвращает
+функция <CODE>recursive-lengths-list-many-files</CODE>, сосчитать число
+функций попадающих в определенные диапазоны длин, и составить список
+этих чисел.
+</P><P>
+
+Исходя из того, что мы уже научились делать, мы вполне можем
+предсказать, что не должно быть слишком трудным написать функцию,
+которая будет укорачивать (с помощью <CODE>cdr</CODE>) список длин,
+анализировать каждый элемент списка, определять к какому диапазону он
+принадлежит и увеличивать счетчик для этого диапазона.
+</P><P>
+
+Однако до того, как создавать такую функцию, давайте рассмотрим
+преимущества предварительной сортировки списка длин, так чтобы числа
+были упорядочены от наименьшего к наибольшему.  Во-первых, сортировка
+облегчит подсчет чисел попадающий в каждый диапазон, поскольку два
+соседних числа скорее всего будут принадлежать или одному диапазону, или
+соседним диапазонам чисел.  Во-вторых, проанализировав отсортированный
+список, мы легко можем найти наибольшее и наименьшее число, и тем самым
+определить наибольший и наименьший диапазон длин, который нам
+понадобится.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC183">14.9.1 Сортировка списков</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_16.html#SEC184">14.9.2 Создание списка файлов</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Сортировка"></A>
+<HR SIZE="6">
+<A NAME="SEC183"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC182"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC184"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC181"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC182"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 14.9.1 Сортировка списков </H3>
+<!--docid::SEC183::-->
+<P>
+
+В Emacs имеется функция для сортировки списков, которая называется (как
+вы уже наверное догадались) <CODE>sort</CODE>.  Функция <CODE>sort</CODE> принимает
+два аргумента --- список, который нужно отсортировать и предикат,
+который определяет какой из двух элементов списка "меньше".
+</P><P>
+
+Как мы уже говорили раньше (see section <A HREF="elisp-intro-ru_3.html#SEC26">Использование объекта неправильного типа в качестве аргумента</A>),
+предикат --- это функция, которая определяет истинно ли некоторое
+свойство или нет.  Функция <CODE>sort</CODE> будет изменять список согласно
+свойству, которое анализирует наш предикат; это значит, что <CODE>sort</CODE>
+можно использовать для сортировки не только списков, состоящих из чисел,
+но и любых других, если использовать предикат для нечислового
+критерия --- например, это может быть алфавитный критерий.
+</P><P>
+
+Предикатом подходящим для сортировки чисел может быть функция
+<CODE>&#60;</CODE>.  Например,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(sort '(4 8 21 17 33 7 21 7) '&#60;)
+</pre></td></tr></table></P><P>
+
+produces this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(4 7 7 8 17 21 21 33)
+</pre></td></tr></table></P><P>
+
+(Обратите внимание, что в этом примере оба аргумента маскированы с
+помощью апострофа, чтобы интерпретатор Лиспа не вычислил их до того, как
+передать функции <CODE>sort</CODE> в виде аргументов).
+</P><P>
+
+Отсортировать список возвращаемый функцией
+<CODE>recursive-lengths-list-many-files</CODE> очень просто:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(sort
+ (recursive-lengths-list-many-files
+  '("../lisp/macros.el"
+    "../lisp/mailalias.el"
+    "../lisp/makesum.el"))
+ '&#60;)
+</pre></td></tr></table></P><P>
+
+в моем случае вывод был следующим:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(85 86 116 122 154 176 179 265)
+</pre></td></tr></table></P><P>
+
+(Обратите внимания, что в этом примере первый аргумент не маскирован,
+поэтому это выражение будет вычислено, а результирующий список будет
+передан в функцию <CODE>sort</CODE>).
+</P><P>
+
+<A NAME="Список файлов"></A>
+<HR SIZE="6">
+<A NAME="SEC184"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC183"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC181"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC182"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 14.9.2 Создание списка файлов </H3>
+<!--docid::SEC184::-->
+<P>
+
+Функции <CODE>recursive-lengths-list-many-files</CODE> в качестве аргумента
+требуется список файлов.  Для наших тестовых примеров мы составляли
+такой список вручную; но в дистрибутив Emacs входит очень много файлов с
+библиотеками Emacs Lisp.  Поэтому, для того, чтобы создать список файлов
+с библиотеками Emacs Lisp входящих в дистрибутив Emacs мы воспользуемся
+функцией <CODE>directory-files</CODE>.
+<A NAME="IDX74"></A>
+</P><P>
+
+Функции <CODE>directory-files</CODE> требуется три аргумента: первый
+аргумент --- имя каталога, строка; если второй аргумент не равен
+<CODE>nil</CODE>, то функция возвратит список абсолютных имен файлов; третий
+аргумент задает шаблон поиска.  Если третим аргументом задано регулярное
+выражение, то будут выбраны только имена файлов, которые соответствуют
+этому регулярному выражению.
+</P><P>
+
+Например, на моем компьютере,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(length
+ (directory-files "../lisp" t "\\.el$"))
+</pre></td></tr></table></P><P>
+
+сообщила мне что моя версия 19.25 Emacs содержит 307 файлов с
+исходными текстами на Emacs Lisp.
+</P><P>
+
+Выражение, которое будет сортировать список возвращаемый функцией
+<CODE>recursive-lengths-list-many-files</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(sort
+ (recursive-lengths-list-many-files
+  (directory-files "../lisp" t "\\.el$"))
+ '&#60;)
+</pre></td></tr></table></P><P>
+
+Наша следующая задача --- создать список, который скажет нам сколько
+определений функций содержат менее 10 слов, сколько содержат от 10 до 19
+слов, сколько содержат от 20 до 29 слов, и так далее.  С отсортированным
+списком чисел эта задача становится намного проще: сосчитать сколько
+элементов списка меньше 10, после этого отбросив только что сосчитанные
+числа посчитать сколько меньше 20, теперь сосчитать сколько элементов
+списка меньше 30 и так далее.  Каждое из этих чисел 10, 20, 30, 40, и им
+подобные на единицу больше чем самое большое число диапазона.  Мы можем
+назвать список таких чисел <CODE>top-of-ranges</CODE>.
+</P><P>
+
+Если бы мы захотели мы могли бы произвести этот список автоматически, но
+проще создать его вручную.  Ниже требуемый список:
+<A NAME="IDX75"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defvar top-of-ranges
+ '(10  20  30  40  50
+   60  70  80  90 100
+  110 120 130 140 150
+  160 170 180 190 200
+  210 220 230 240 250
+  260 270 280 290 300)
+ "Список задающий диапазоны для `defuns-per-range'.")
+</pre></td></tr></table></P><P>
+
+Для того, чтобы изменить диапазоны мы должны будем изменить этот список.
+</P><P>
+
+Теперь нам надо написать функцию, создающую список, в котором каждое
+число --- количество определений функций, чья длина попадает в
+соответствующий диапазон.  Ясно, что аргументами этой функции должны
+быть списки <CODE>sorted-lengths</CODE> и <CODE>top-of-ranges</CODE>.
+</P><P>
+
+Функция <CODE>defuns-per-range</CODE> должна выполнять две задачи снова и
+снова: она должна подсчитывать количество определений функций чья длина
+попадает в диапазон, заданый текущим верхним значением; и она должна
+сдвигаться к следующему значению в списке <CODE>top-of-ranges</CODE> после
+подсчета количества определений в текущем диапазоне.  Поскольку каждое
+из этих действий является повторяющимся, то мы можем использовать циклы
+<CODE>while</CODE>.  Один из циклов будет подсчитывать число определений в
+диапазоне, определенном текущим значением <CODE>top-of-range</CODE>, а другой
+цикл будет последовательно выбирать значения <CODE>top-of-range</CODE>.
+</P><P>
+
+Для каждого диапазона могут подходить несколько элементов
+<CODE>sorted-lengths</CODE>; это означает, что цикл обрабатывающий список
+<CODE>sorted-lengths</CODE> должен быть вложен в цикл работающий со списком
+<CODE>top-of-ranges</CODE>, как маленькая матрешка спрятана в большую.
+</P><P>
+
+Внутренний цикл будет подсчитывать число определений функции входящих в
+соответствующий диапазон.  Это простой цикл, с которым мы уже хорошо
+знакомы (See section <A HREF="elisp-intro-ru_13.html#SEC130">Цикл с увеличивающимся счетчиком</A>.
+Проверка-истина-ложь для этого цикла должна проверять меньше ли значение
+из списка <CODE>sorted-lengths</CODE>, чем текущее значение верхней границы
+диапазона.  Если да, то функция должна увеличивать счетчик и переходить
+к обработке следующего значения из списка <CODE>sorted-lengths</CODE>.
+</P><P>
+
+Внутренний цикл выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while <VAR>длина-элемента-меньше-чем-граница-диапазона</VAR>
+  (setq number-within-range (1+ number-within-range))     
+  (setq sorted-lengths (cdr sorted-lengths)))
+</pre></td></tr></table></P><P>
+
+Внешний цикл должнен начать работу с наименьшего значения из списка
+<CODE>top-of-ranges</CODE>, и после этого последовательно перебирать заданные
+значения.  Это можно сделать следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while top-of-ranges
+  <VAR>тело-цикла</VAR><small>...</small>
+  (setq top-of-ranges (cdr top-of-ranges)))
+</pre></td></tr></table></P><P>
+
+Если эти два цикла обьединить, то получится следующее:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while top-of-ranges
+
+  ;; Сосчитать число элементов входящих в текущий диапазон.
+  (while <VAR>длина-элемента-меньше-чем-граница-диапазона</VAR>
+    (setq number-within-range (1+ number-within-range))     
+    (setq sorted-lengths (cdr sorted-lengths)))
+
+  ;; Перейти в следующий диапазон.
+  (setq top-of-ranges (cdr top-of-ranges)))
+</pre></td></tr></table></P><P>
+
+Кроме этого, при каждой итерации цикла, надо записывать количество
+функций, чья длина входит в этот диапазон (значение
+<CODE>number-within-range</CODE>) в список.  Для этой цели мы можем
+использовать функцию <CODE>cons</CODE>.  (See section <A HREF="elisp-intro-ru_9.html#SEC99"><CODE>cons</CODE></A>.)
+</P><P>
+
+Функция <CODE>cons</CODE> выполнит работу как надо, разве что список, который
+она составит, будет содержать число самых длиных функций в начале
+списка, а число самых коротких функций в конце.  Это происходит из-за
+того, что функция <CODE>cons</CODE> присоединяет новый элемент в начало
+списка, а поскольку мы будем обрабатывать список длин функций от
+коротких к длинным, то функция <CODE>defuns-per-range-list</CODE> закончит
+работу с самыми длиными функциями.  Но на графике нам хотелось бы
+отобразить сначала наименьшие значения, а потом наибольшие.  Для этого
+надо будет "перернуть" список <CODE>defuns-per-range-list</CODE>.  Это можно
+выполнить с помощью функции <CODE>nreverse</CODE>, которая изменяет порядок
+элементов списка.
+<A NAME="IDX76"></A>
+</P><P>
+
+Например,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(nreverse '(1 2 3 4))
+</pre></td></tr></table></P><P>
+
+выдаст:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(4 3 2 1)
+</pre></td></tr></table></P><P>
+
+Следует отметить, что функция <CODE>nreverse</CODE> --- "деструктивная",
+то есть она изменяет список, который передан ей как аргумент; этим она
+отличается от функций <CODE>car</CODE> и <CODE>cdr</CODE>, которые не являются
+деструктивными.  В нашем случае первоначальный список
+<CODE>defuns-per-range-list</CODE> нам не нужен, поэтому мы не возражаем
+против изменения этого списка.  (Функция <CODE>reverse</CODE> наоборот
+возвращает перевернутую копию списка, оставляя первоначальный список без
+изменений).
+<A NAME="IDX77"></A>
+</P><P>
+
+Если сложить эти части вместе, то функция <CODE>defuns-per-range</CODE>
+будет выглядеть следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun defuns-per-range (sorted-lengths top-of-ranges)
+  "Число функций в SORTED-LENGTHS в каждом диапазоне TOP-OF-RANGES."
+  (let ((top-of-range (car top-of-ranges))
+        (number-within-range 0)
+        defuns-per-range-list)
+
+    ;; Внешний цикл.
+    (while top-of-ranges
+
+      ;; Внутренний цикл.
+      (while (and 
+              ;; Для проверки необходимо числовое значение.
+              (car sorted-lengths) 
+              (&#60; (car sorted-lengths) top-of-range))
+
+        ;; Найти число функций чья длина попадает в текущий диапазон.
+        (setq number-within-range (1+ number-within-range))
+        (setq sorted-lengths (cdr sorted-lengths)))
+
+      ;; Выход из внутреннего цикла, но остаемся во внешнем.
+
+      (setq defuns-per-range-list
+            (cons number-within-range defuns-per-range-list))
+      (setq number-within-range 0)      ; Сбросить счетчик в ноль.
+
+      ;; Переходим в следующий диапазон.
+      (setq top-of-ranges (cdr top-of-ranges))
+      ;; Задать следующую верхнюю границу диапазона.
+      (setq top-of-range (car top-of-ranges)))
+
+    ;; Выход из внешнего цикла и сосчитать число функций чья длинна больше
+    ;;   границе наибольшего диапазона из top-of-range.
+    (setq defuns-per-range-list
+          (cons
+           (length sorted-lengths)
+           defuns-per-range-list))
+
+    ;; Вернуть список, где каждое число это количество функций, чья длина
+    ;;  входит в диапазон от наименьшего к наибольшему.
+    (nreverse defuns-per-range-list)))
+</pre></td></tr></table></P><P>
+
+Функция достаточно понятна, надо только обьяснить одну тонкость.
+Проверка-истина-ложь внутреннего цикла выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(and (car sorted-lengths) 
+     (&#60; (car sorted-lengths) top-of-range))
+</pre></td></tr></table></P><P>
+
+хотя ожидалось следующее:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(&#60; (car sorted-lengths) top-of-range)
+</pre></td></tr></table></P><P>
+
+Цель проверки --- определить меньше ли первый элемент списка
+<CODE>sorted-lengths</CODE>, чем значение для верхней границы диапазона.
+</P><P>
+
+Простая версия проверки работает превосходно, до тех пор, пока значение
+списка <CODE>sorted-lengths</CODE> не станет равным <CODE>nil</CODE>.  В этом случае
+выражение <CODE>(car sorted-lengths)</CODE> возвращает значение <CODE>nil</CODE>.
+Функция <CODE>&#60;</CODE> не может сравнить число и пустой список <CODE>nil</CODE>,
+поэтому Emacs сообщит об ошибке и остановит выполнение функции.
+</P><P>
+
+Список <CODE>sorted-lengths</CODE> всегда становится пустым, когда счетчик
+достигает конца списка.  Это значит, что любая попытка использования
+функции <CODE>defuns-per-range</CODE> с простой проверкой-истина-ложь обречена
+на провал.
+</P><P>
+
+Мы решили эту проблему, используя выражение <CODE>(car sorted-lengths)</CODE>
+вместе с выражением <CODE>and</CODE>.  Выражение <CODE>(car sorted-lengths)</CODE>
+возвращает значение не равное <CODE>nil</CODE> до тех пор, пока список
+содержит по крайней мере один элемент, если список пуст, то будет
+возвращено значение <CODE>nil</CODE>.  Выражение <CODE>and</CODE> сначала вычисляет
+выражение <CODE>(car sorted-lengths)</CODE>, и если в результате вычислений
+возвращается <CODE>nil</CODE>, то все выражение <CODE>and</CODE> возвращает ложь,
+<EM>не</EM> вычисляя выражения <CODE>&#60;</CODE>.  Но если выражение <CODE>(car
+sorted-lengths)</CODE> возвращает значение не равное <CODE>nil</CODE>, то выражение
+<CODE>and</CODE> вычисляется выражение <CODE>&#60;</CODE>, и результат вычисления этого
+выражения будет результатом всего выражения <CODE>and</CODE>.
+</P><P>
+
+Таким путем мы исправляем возможную ошибку.  
+See section <A HREF="elisp-intro-ru_14.html#SEC154">12.4 <CODE>forward-paragraph</CODE>: сокровищница функций</A>, для получения дополнительной информации о
+функции <CODE>and</CODE>.
+</P><P>
+
+Давайте сразу проверим функцию <CODE>defuns-per-range</CODE>.  Сначала
+вычислите выражения, которые связывают (короткий) список
+<CODE>top-of-ranges</CODE> со списком проверяемых значений, и инициализируют
+список <CODE>sorted-lengths</CODE>, после этого вычислите функцию
+<CODE>defuns-per-range</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>;; (В дальнейшем мы будем работать с большими списками.)
+(setq top-of-ranges        
+ '(110 120 130 140 150
+   160 170 180 190 200))
+
+(setq sorted-lengths
+      '(85 86 110 116 122 129 154 176 179 200 265 300 300))
+
+(defuns-per-range sorted-lengths top-of-ranges)
+</pre></td></tr></table></P><P>
+
+После вычисления вернется следующий список:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(2 2 2 0 0 1 0 2 0 0 4)
+</pre></td></tr></table></P><P>
+
+И в самом деле --- два элемента списка <CODE>sorted-lengths</CODE> меньше
+110, два элемента принадлежат диапазону от 110 до 119, два элемента
+попадают в диапазон от 120 до 129, и так далее.  Четыре элемента имеет
+значение большее 200.
+</P><P>
+
+Наша следующая задача превратить список этих чисел в график.
+<A NAME="Изготовляем график"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_16.html#SEC181"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_17.html#SEC185"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>March, 10  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

@@ -1,0 +1,171 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Разное</TITLE>
+
+<META NAME="description" CONTENT="automake: Разное">
+<META NAME="keywords" CONTENT="automake: Разное">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC56"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_15.html#SEC55"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC57"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_15.html#SEC55"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_17.html#SEC59"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 16. Различные правила </H1>
+<!--docid::SEC56::-->
+<P>
+
+Существует несколько правил, которые нельзя отнести к вышеперечисленным
+пунктам.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_16.html#SEC57">16.1 Взаимодействие с <CODE>etags</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Взаимодействие с etags и mkid</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_16.html#SEC58">16.2 Обработка новых расширений файлов</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Tags"></A>
+<HR SIZE="6">
+<A NAME="SEC57"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC56"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC58"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC56"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC56"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_17.html#SEC59"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 16.1 Взаимодействие с <CODE>etags</CODE> </H2>
+<!--docid::SEC57::-->
+<P>
+
+<A NAME="IDX467"></A>
+</P><P>
+
+Automake при некоторых обстоятельствах будет генерировать правила для
+генерации файлов <TT>`TAGS'</TT>, которые используются с GNU Emacs.
+</P><P>
+
+Если присутствует любой исходный код на C, C++ или Fortran 77, то для
+каталога будут созданы цели <CODE>tags</CODE> и <CODE>TAGS</CODE>.
+<A NAME="IDX468"></A>
+</P><P>
+
+В каталоге верхнего уровня пакета, состоящего из нескольких каталогов
+цель <CODE>tags</CODE> создаст файл, при выполнении которой будет создавать
+файл <TT>`TAGS'</TT>, включающий все файлы <TT>`TAGS'</TT> из подкаталогов.
+</P><P>
+
+Также, если определена переменная <CODE>ETAGS_ARGS</CODE>, то будет
+сгенерирована цель <CODE>tags</CODE>. Эта переменная предназначена для
+каталогов, которые содержат исходные файлы, тип которых не понимает
+<CODE>etags</CODE>, но которые можно обработать.
+<A NAME="IDX469"></A>
+</P><P>
+
+Вот как Automake создает тэги для своих исходных файлов, а также для
+узлов файла Texinfo:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>ETAGS_ARGS = automake.in --lang=none \
+ --regex='/^@node[ \t]+\([^,]+\)/\1/' automake.texi
+</pre></td></tr></table></P><P>
+
+Если вы добавили имена файлов к переменной <SAMP>`ETAGS_ARGS'</SAMP>, то вы
+вероятно захотите установить переменную
+<SAMP>`TAGS_DEPENDENCIES'</SAMP>. Содержимое этой переменной будет полностью
+добавлено к зависимости для цели <CODE>tags</CODE>.
+<A NAME="IDX470"></A>
+</P><P>
+
+Automake также сгенерирует цель <CODE>ID</CODE>, которая будет запускать
+программу <CODE>mkid</CODE> на исходных файлах. Это поддерживается при
+использовании покаталожной основы.
+<A NAME="IDX471"></A>
+</P><P>
+
+<A NAME="Суффиксы"></A>
+<HR SIZE="6">
+<A NAME="SEC58"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC57"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_17.html#SEC59"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC56"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC56"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_17.html#SEC59"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 16.2 Обработка новых расширений файлов </H2>
+<!--docid::SEC58::-->
+<P>
+
+<A NAME="IDX472"></A>
+<A NAME="IDX473"></A>
+</P><P>
+
+Иногда полезно ввести новое неявное правило для обработки новых типов
+файлов, о которых Automake ничего не знает. Если вы сделали это, то вы
+должны уведомить GNU Make о новых суффиксах. Это может быть сделано
+помещением списка новых суффиксов в переменную <CODE>SUFFIXES</CODE>.
+<A NAME="IDX474"></A>
+</P><P>
+
+Например, в настоящее время Automake не обеспечивает никакой поддержки
+Java. Если вы напишите макрос для генерации файлов <SAMP>`.class'</SAMP> из
+файлов с исходными текстами <SAMP>`.java'</SAMP>, то вы также должны добавить
+эти суффиксы в список.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>SUFFIXES = .java .class
+</pre></td></tr></table></P><P>
+
+<A NAME="Include"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC56"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_17.html#SEC59"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

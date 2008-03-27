@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.27 in css mode. -->
+<html>
+  <head>
+    <title>test-otpc-conn.cpp</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #cccccc;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #00008b;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .preprocessor {
+        /* font-lock-preprocessor-face */
+        color: #006400;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #0000ff;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #8b0000;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">/**</span><span class="comment">
+ * </span><span class="comment"><span class="keyword">@file</span></span><span class="comment">   test-otpc-conn.cpp
+ * </span><span class="comment"><span class="keyword">@author</span></span><span class="comment"> Alex Ott &lt;<a href="mailto:alexott&#64;gmail.com">alexott&#64;gmail.com</a>&gt;
+ * 
+ * </span><span class="comment"><span class="keyword">@brief</span></span><span class="comment">  Implementation of sync connection class
+ * 
+ * 
+ */</span>
+
+<span class="preprocessor">#include</span> <span class="string">"test-otpc-conn.hpp"</span>
+
+<span class="comment-delimiter">/**</span><span class="comment">
+ * What we'll return to browser/test utility
+ * 
+ */</span>
+<span class="constant">std</span>::<span class="type">string</span> <span class="constant">connection</span>::<span class="variable-name">message_</span>=<span class="string">"HTTP/1.0 200 OK\r\nContent-Type: text/html\r\n\r\n"</span>
+    <span class="string">"&lt;html&gt;&lt;head&gt;&lt;title&gt;test&lt;/title&gt;"</span>
+    <span class="string">"&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Test&lt;/h1&gt;&lt;p&gt;This is a test!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"</span>;
+
+
+<span class="comment-delimiter">/** </span><span class="comment">
+ * Constructor for class, initilize socket for this connection
+ * 
+ * </span><span class="comment"><span class="keyword">@param</span></span><span class="comment"> </span><span class="comment"><span class="variable-name">io_service</span></span><span class="comment"> reference to io_service
+ * 
+ * </span><span class="comment"><span class="keyword">@return</span></span><span class="comment"> nothing
+ */</span>
+<span class="constant">connection</span>::<span class="function-name">connection</span>(<span class="constant">ba</span>::<span class="type">io_service</span>&amp; <span class="variable-name">io_service</span>) :
+    io_service_(io_service), socket_(io_service) {
+}
+    
+
+<span class="comment-delimiter">/** </span><span class="comment">
+ * Perform all input/output operations in sync mode
+ * 
+ */</span>
+<span class="type">void</span> <span class="constant">connection</span>::<span class="function-name">run</span>() {
+    <span class="keyword">try</span> {
+        <span class="comment-delimiter">// </span><span class="comment">read data from socket until empty line
+</span>        <span class="constant">ba</span>::read_until(socket_, buf, <span class="constant">boost</span>::regex(<span class="string">"\r\n\r\n"</span>));
+        <span class="comment-delimiter">// </span><span class="comment">write answer to socket
+</span>        <span class="constant">ba</span>::write(socket_,<span class="constant">ba</span>::buffer(message_),<span class="constant">ba</span>::transfer_all());
+        <span class="comment-delimiter">// </span><span class="comment">close socket
+</span>        socket_.close();
+        <span class="comment-delimiter">// </span><span class="comment">reset pointer to themself, destroying current object
+</span>        shared_from_this().reset();
+    } <span class="keyword">catch</span>(<span class="constant">std</span>::exception&amp; x) {
+<span class="comment-delimiter">//      </span><span class="comment">std::cerr &lt;&lt; "Exception: " &lt;&lt; x.what() &lt;&lt; std::endl;
+</span>    }
+}
+    
+</pre>
+  </body>
+</html>

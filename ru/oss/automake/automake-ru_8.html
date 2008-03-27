@@ -1,0 +1,281 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Другие объекты</TITLE>
+
+<META NAME="description" CONTENT="automake: Другие объекты">
+<META NAME="keywords" CONTENT="automake: Другие объекты">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC37"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC36"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC38"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_9.html#SEC42"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 8. Другие порожденные объекты </H1>
+<!--docid::SEC37::-->
+<P>
+
+Automake может обрабатывать порожденные объекты, которые не являются
+программами на C.  Иногда поддержка построения таких объектов должна
+быть предоставлена явно, но Automake все равно будет автоматически
+отрабатывать процесс установки и создания дистрибутива.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_8.html#SEC38">8.1 Исполняемые скрипты</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_8.html#SEC39">8.2 Заголовочные файлы</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_8.html#SEC40">8.3 Файлы данных, не зависимые от архитектуры машины</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_8.html#SEC41">8.4 Построение исходных текстов</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Скрипты"></A>
+<HR SIZE="6">
+<A NAME="SEC38"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC39"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_9.html#SEC42"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.1 Исполняемые скрипты </H2>
+<!--docid::SEC38::-->
+<P>
+
+<A NAME="IDX326"></A>
+<A NAME="IDX327"></A>
+<A NAME="IDX328"></A>
+</P><P>
+
+Существует также возможность определить и установить программы, которые
+являются скриптами.  Эти программы перечисляются с использованием основной 
+переменной <SAMP>`SCRIPTS'</SAMP>.  Automake не определяет зависимости для скриптов;
+файл <TT>`Makefile.am'</TT> должен явно включать в себя соответствующие
+правила.
+<A NAME="IDX329"></A>
+</P><P>
+
+Automake не считает, что скрипты являются унаследованными объектами;
+такие скрипты должны удаляться вручную (see section <A HREF="automake-ru_12.html#SEC52">12. Что будет удалено</A>).
+</P><P>
+
+Сама программа <CODE>automake</CODE> является скриптом на Perl, так что она
+генерируется на этапе конфигурации из <TT>`automake.in'</TT>. Вот как это
+обрабатывается:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>bin_SCRIPTS = automake
+</pre></td></tr></table></P><P>
+
+Поскольку <CODE>automake</CODE> появляется в макросе <CODE>AC_OUTPUT</CODE>, то для
+нее цель создается автоматически.
+</P><P>
+
+<A NAME="IDX330"></A>
+<A NAME="IDX331"></A>
+<A NAME="IDX332"></A>
+</P><P>
+
+<A NAME="IDX333"></A>
+<A NAME="IDX334"></A>
+<A NAME="IDX335"></A>
+<A NAME="IDX336"></A>
+<A NAME="IDX337"></A>
+</P><P>
+
+Скрипты могут быть установлены в каталоги <CODE>bindir</CODE>, <CODE>sbindir</CODE>,
+<CODE>libexecdir</CODE> или <CODE>pkgdatadir</CODE>.
+</P><P>
+
+<A NAME="Заголовочные файлы"></A>
+<HR SIZE="6">
+<A NAME="SEC39"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC38"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC40"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_9.html#SEC42"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.2 Заголовочные файлы </H2>
+<!--docid::SEC39::-->
+<P>
+
+<A NAME="IDX338"></A>
+<A NAME="IDX339"></A>
+<A NAME="IDX340"></A>
+</P><P>
+
+<A NAME="IDX341"></A>
+</P><P>
+
+Заголовочные файлы определяются семейством переменных <SAMP>`HEADERS'</SAMP>. 
+Обычно заголовочные файлы не устанавливаются, так что в большинстве
+случаев будет определена переменная <CODE>noinst_HEADERS</CODE>.
+<A NAME="IDX342"></A>
+</P><P>
+
+Все заголовочные файлы должны быть перечислены; отсутствующие файлы не
+будут включены в дистрибутив. Часто лучше всего перечислить
+неустанавливаемые заголовочные файлы вместе с другими исходными текстами
+программы.  See section <A HREF="automake-ru_7.html#SEC20">7. Построение программ и библиотек</A>.  Заголовочные файлы, перечисленные в
+переменных <SAMP>`_SOURCES'</SAMP>, не надо указывать ни в одной из переменных
+<SAMP>`_HEADERS'</SAMP>.
+</P><P>
+
+<A NAME="IDX343"></A>
+<A NAME="IDX344"></A>
+<A NAME="IDX345"></A>
+</P><P>
+
+<A NAME="IDX346"></A>
+<A NAME="IDX347"></A>
+<A NAME="IDX348"></A>
+</P><P>
+
+Заголовочные файлы могут быть установлены в каталоги <CODE>includedir</CODE>,
+<CODE>oldincludedir</CODE> или <CODE>pkgincludedir</CODE>.
+</P><P>
+
+<A NAME="Данные"></A>
+<HR SIZE="6">
+<A NAME="SEC40"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC39"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC41"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_9.html#SEC42"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.3 Файлы данных, не зависимые от архитектуры машины </H2>
+<!--docid::SEC40::-->
+<P>
+
+<A NAME="IDX349"></A>
+<A NAME="IDX350"></A>
+<A NAME="IDX351"></A>
+</P><P>
+
+Automake поддерживает установку различных файлов данных, используя
+семейство переменных <SAMP>`DATA'</SAMP>.
+<A NAME="IDX352"></A>
+</P><P>
+
+<A NAME="IDX353"></A>
+<A NAME="IDX354"></A>
+<A NAME="IDX355"></A>
+<A NAME="IDX356"></A>
+<A NAME="IDX357"></A>
+</P><P>
+
+Такие данные могут быть установлены в каталоги <CODE>datadir</CODE>,
+<CODE>sysconfdir</CODE>, <CODE>sharedstatedir</CODE>, <CODE>localstatedir</CODE> или
+<CODE>pkgdatadir</CODE>.
+</P><P>
+
+По умолчанию файлы данных <EM>не</EM> включаются в дистрибутив.
+</P><P>
+
+Вот как Automake устанавливает свои вспомогательные файлы данных:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>pkgdata_DATA = clean-kr.am clean.am <small>...</small>
+</pre></td></tr></table></P><P>
+
+<A NAME="Исходные тексты"></A>
+<HR SIZE="6">
+<A NAME="SEC41"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC40"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_9.html#SEC42"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_9.html#SEC42"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.4 Построение исходных текстов </H2>
+<!--docid::SEC41::-->
+<P>
+
+<A NAME="IDX358"></A>
+</P><P>
+
+Время от времени файлы, которые могли бы быть названы <EM>исходными</EM>
+(например, файлы <SAMP>`.h'</SAMP> в C), в действительности порождаются из
+других файлов.  Такие файлы должны быть перечислены в
+переменной  <CODE>BUILT_SOURCES</CODE>.
+<A NAME="IDX359"></A>
+</P><P>
+
+Построенные исходные тексты по умолчанию не компилируются. Для
+компиляции исходных текстов вы должны явно указать их в других
+переменных <SAMP>`_SOURCES'</SAMP>.
+</P><P>
+
+Заметьте, что в некоторые случаях, <CODE>BUILT_SOURCES</CODE> будет работать
+достаточно странным образом.  Для того, чтобы построение исходных текстов
+работало с автоматическим отслеживанием зависимостей, файл
+<TT>`Makefile'</TT> должен зависеть от <CODE>$(BUILT_SOURCES)</CODE>.  При этом
+такие исходные тексты могут начать пересобираться в самый неудобный
+момент.
+</P><P>
+
+<A NAME="Другие утилиты GNU"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_9.html#SEC42"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>Unix Review Column 35</TITLE>
+
+
+</HEAD>
+<BODY>
+Next
+Previous
+Contents
+<HR>
+<H1>Unix Review Column 35</H1>
+
+<H2>Randal Schwartz</H2>Декабрь 2000<P>[предполагаемый заголовок: В чем отличие?]
+<P>Часть общих задач программирования связана с изменяющимися вещами. И
+вещи на самом деле изменяются, и нам нужно знать как они изменяются.
+<P>Hапример, если у нас есть список данных:
+<P>
+<HR>
+<PRE>
+  @one = qw(a b c d e f g);
+</PRE>
+<HR>
+<P>и позднее, мы глянем на него снова, мы увидим отличный набор данных:
+<P>
+<HR>
+<PRE>
+  @two = qw(b c e h i j);
+</PRE>
+<HR>
+<P>Как мы можем определить что здесь новое, что старое и что удалено?
+<P>Мы могли бы сделать это применяя грубую силу:
+<P>
+<HR>
+<PRE>
+  @one = qw(a b c d e f g);
+  @two = qw(b c e h i j);
+  foreach $one (@one) {
+    if (grep $one eq $_, @two) {
+      print &quot;$one находится в обоих списках\n&quot;;
+    } else {
+      print &quot;$one был удален\n&quot;;
+    }
+  }
+  foreach $two (@two) {
+    unless (grep $two eq $_, @one) {
+       print &quot;$two был добавлен\n&quot;;
+    }
+  }
+</PRE>
+<HR>
+<P>И это действительно дает нам соответствующий ответ:
+<P>
+<HR>
+<PRE>
+  a был удален
+  b находится в обоих списках
+  c находится в обоих списках
+  d был удален
+  e находится в обоих списках
+  f был удален
+  g был удален
+  h был добавлен
+  i был добавлен
+  j был добавлен
+</PRE>
+<HR>
+<P>Hо это невероятно неэффективно. Время вычисления будет расти в пропорции
+произведению размеров обоих списков. Это происходит поскольку каждый элемент
+первого списка сравнивается с каждым из элементов другого списка (в
+действительности это происходит дважды). Оператор <CODE>grep</CODE> проходит по каждому из
+элементов, так что мы получаем эффективные вложенные циклы и это почти
+всегда должно быть знаком опасности.
+<P>Справочная страница  <CODE>perlfaq4</CODE> предлагает подход к данной
+задаче, давая примерно следующее решение:
+<P>
+<HR>
+<PRE>
+  @union = @intersection = @difference = ();
+  %count = ();
+  foreach $element (@one, @two) { $count{$element}++ }
+  foreach $element (keys %count) {
+      push @union, $element;
+      push @{ $count{$element} &gt; 1 ? \@intersection : \@difference }, $element;
+  }
+</PRE>
+<HR>
+<P>с предупреждением, что мы предполагаем что каждый из элементов списка
+встречается только один раз внутри каждого из списков. Хотя это работает с
+нашими данными, но мы встретимся с проблемами при работе с более общими
+данными. Однако, немного изменив программу мы сможем обрабатывать даже
+дублирующиеся элементы в каждом из списков:
+<P>
+<HR>
+<PRE>
+  @one = qw(a a a a b c d e f g);
+  @two = qw(b c e h i i i i j);
+  my %tracker = ();
+  $tracker{$_} .= 1 for @one;
+  $tracker{$_} .= 2 for @two;
+  for (sort keys %tracker) {
+    if ($tracker{$_} !~ /1/) {
+      print &quot;$_ has been added\n&quot;;
+    } elsif ($tracker{$_} !~ /2/) {
+      print &quot;$_ has been deleted\n&quot;;
+    } else {
+      print &quot;$_ is in both old and new\n&quot;;
+    }
+  }
+</PRE>
+<HR>
+<P>Удача. Правильный вывод и достаточно эффективно. Если вы выполняете
+много подобных действий, то посмотрите на  CPAN модули, чьи имена
+начинаются с <CODE>Set::</CODE>.
+<P>И мы приходим к проблеме о разнице между двумя последовательностями, в
+которых важен порядок следования. Великолепный модуль
+<CODE>Algorithm::Diff</CODE> имеющийся на CPAN вычисляет разумно короткий
+список отличий, аналогично команде <EM>diff</EM> из поставки Unix, которые
+описывает как преобразовать один список в другой. Существует несколько
+интерфейсов. Hаиболее интересным я нашел <CODE>traverse_sequences</CODE>,
+который последовательно дает мне все элементы обоих списков, но помечает их
+так, что я могу сказать к какому из списков (или к обоим) относится этот
+элемент.
+<P>Давайте взглянем на простой пример:
+<P>
+<HR>
+<PRE>
+  use Algorithm::Diff qw(traverse_sequences);
+  @one = qw(M N a b P Q c d e f V W g h);
+  @two = qw(a b R S c d T U e f g h X Y);
+  traverse_sequences(\@one, \@two, {
+    MATCH =&gt; sub { show($one[$_[0]], $two[$_[1]]) },
+    DISCARD_A =&gt; sub { show($one[$_[0]], &quot;---&quot;) },
+    DISCARD_B =&gt; sub { show(&quot;---&quot;, $two[$_[1]]) },
+  });
+  sub show {
+    printf &quot;%10s %10s\n&quot;, @_;
+  }
+</PRE>
+<HR>
+<P>Здесь имеется две заданные последовательности, хранящиеся в списках
+<CODE>@one</CODE> и <CODE>@two</CODE>. Используя функцию
+<CODE>traverse_sequences</CODE>, мы будем выдавать общие элементы
+последовательностей (используя правило <CODE>MATCH</CODE>), удаленные элементы
+(используя правило <CODE>DISCARD_A</CODE>), и новые элементы (используя
+правило <CODE>DISCARD_B</CODE>). Измененные данные отображаются как серии
+удалений, за которыми следуют серии вставок.
+<P>Правила (callbacks) определяются как ссылки на анонимный процедуры,
+более известные как ``coderefs''. Каждому из правил передается два
+параметра&nbsp;-- текущие индексы внутри массивов  <CODE>@one</CODE> и
+<CODE>@two</CODE>. Поскольку это не значения, я должен взять индексы и
+заглянуть в соответствующий массив.
+<P>Результат выполнения выглядит следующим образом:
+<P>
+<HR>
+<PRE>
+         M        ---
+         N        ---
+         a          a
+         b          b
+         P        ---
+         Q        ---
+       ---          R
+       ---          S
+         c          c
+         d          d
+       ---          T
+       ---          U
+         e          e
+         f          f
+         V        ---
+         W        ---
+         g          g
+         h          h
+       ---          X
+       ---          Y
+</PRE>
+<HR>
+<P>Заметьте общие последовательности элементов. Оператор <CODE>printf</CODE>
+красиво форматирует колонки.
+<P>Текстовый поколоночный вывод  это хорошо, но мы можем получить более
+красивое оформление, если мы будем делать вывод в формате  HTML. Давайте
+раскрасим все удаления красным, а все вставки зеленым.
+<P>Hа первый взгляд, этот алгоритм генерирует слишком много тагов
+<CODE>font</CODE>:
+<P>
+<HR>
+<PRE>
+  use Algorithm::Diff qw(traverse_sequences);
+  @one = qw(M N a b P Q c d e f V W g h);
+  @two = qw(a b R S c d T U e f g h X Y);
+  traverse_sequences(\@one, \@two, {
+    MATCH =&gt; sub { colorshow(&quot;&quot;, $one[$_[0]]) },
+    DISCARD_A =&gt; sub { colorshow(&quot;red&quot;, $one[$_[0]]) },
+    DISCARD_B =&gt; sub { colorshow(&quot;green&quot;, $two[$_[1]]) },
+  });
+  sub colorshow {
+    my $color = shift;
+    my $string = shift;
+    if (length $color) {
+      print &quot;&lt;font color=$color&gt;$string&lt;/font&gt;\n&quot;;
+    } else {
+      print &quot;$string\n&quot;;
+    }
+  }
+</PRE>
+<HR>
+<P>Этот код генерирует корректный результат, но при этом вывод становится
+чрезвычайно избыточным: &lt;font color=red&gt;M&lt;/font&gt; &lt;font
+color=red&gt;N&lt;/font&gt; a b &lt;font color=red&gt;P&lt;/font&gt;
+&lt;font color=red&gt;Q&lt;/font&gt; &lt;font color=green&gt;R&lt;/font&gt;
+&lt;font color=green&gt;/font c d &lt;font color=green&gt;T&lt;/font&gt;
+&lt;font color=green&gt;U&lt;/font&gt; e f &lt;font
+color=red&gt;V&lt;/font&gt; &lt;font color=red&gt;W&lt;/font&gt; g h
+&lt;font color=green&gt;X&lt;/font&gt; &lt;font
+color=green&gt;Y&lt;/font&gt;
+<P>Все что нам надо&nbsp;-- это отслеживание информации о состоянии для
+отслеживания того, в режиме какого цвета мы находимся:
+<P>
+<HR>
+<PRE>
+  use Algorithm::Diff qw(traverse_sequences);
+  @one = qw(M N a b P Q c d e f V W g h);
+  @two = qw(a b R S c d T U e f g h X Y);
+  traverse_sequences(\@one, \@two, {
+    MATCH =&gt; sub { colorshow(&quot;&quot;, $one[$_[0]]) },
+    DISCARD_A =&gt; sub { colorshow(&quot;red&quot;, $one[$_[0]]) },
+    DISCARD_B =&gt; sub { colorshow(&quot;green&quot;, $two[$_[1]]) },
+  });
+  colorshow(&quot;&quot;); # reset back to 
+  BEGIN {
+    my $currentcolor = &quot;&quot;;
+
+    sub colorshow {
+      my $color = shift;
+      my $string = shift;
+      if ($color ne $currentcolor) {
+        print &quot;&lt;/font&gt;\n&quot; if length $currentcolor;
+        print &quot;&lt;font color=$color&gt;\n&quot; if length $color;
+        $currentcolor = $color;
+      }
+      if (defined $string and length $string) {
+        print &quot;$string\n&quot;;
+      }
+    }
+  }
+</PRE>
+<HR>
+<P>Здеся я отслеживаю состояние текущего цвета HTML с помощью статической
+переменной <CODE>$currentcolor</CODE>. При ее изменении я посылаю
+соответствующие таги окончания и начала тага <CODE>font</CODE>.  Единственным
+неудобством является то, что нам необходимо выполнить заключительный вызов
+<CODE>colorshow</CODE> с бесцветным тагом для закрытия существующего начального
+тага. Этот вызов является безвредным если мы находимся снаружи
+раскрашенного региона.
+<P>И это намного лучше, давая следующий результат:
+<P>
+<HR>
+<PRE>
+    &lt;font color=red&gt;
+    M
+    N
+    &lt;/font&gt;
+    a
+    b
+    &lt;font color=red&gt;
+    P
+    Q
+    &lt;/font&gt;
+    &lt;font color=green&gt;
+    R
+    S
+    &lt;/font&gt;
+    c
+    d
+    &lt;font color=green&gt;
+    T
+    U
+    &lt;/font&gt;
+    e
+    f
+    &lt;font color=red&gt;
+    V
+    W
+    &lt;/font&gt;
+    g
+    h
+    &lt;font color=green&gt;
+    X
+    Y
+    &lt;/font&gt;
+</PRE>
+<HR>
+<P>Хотя мои друзья-знатоки web могут предпочитать видеть это в таком
+виде:
+<P>
+<HR>
+<PRE>
+    &lt;span style=&quot;background: red; color: black&quot;&gt;
+    M
+    N
+    &lt;/span&gt;
+    a
+    b
+    &lt;span style=&quot;background: red; color: black&quot;&gt;
+    P
+    Q
+    &lt;/span&gt;
+    &lt;span style=&quot;background: green; color: black&quot;&gt;
+    R
+    S
+    &lt;/span&gt;
+    c
+    d
+    &lt;span style=&quot;background: green; color: black&quot;&gt;
+    T
+    U
+    &lt;/span&gt;
+    e
+    f
+    &lt;span style=&quot;background: red; color: black&quot;&gt;
+    V
+    W
+    &lt;/span&gt;
+    g
+    h
+    &lt;span style=&quot;background: green; color: black&quot;&gt;
+    X
+    Y
+    &lt;/span&gt;
+</PRE>
+<HR>
+<P>Это совсем маленькое изменение, но я оставляю его для вам. Hемного
+маловато пробельных символов, до того стиля, который я люблю, но по крайней
+мере работа выполняется с небольшими трудозатратами.
+<P>Так, что теперь, когда кто-нибудь спросит вас  ``в чем отличие?'', вы
+можете продемонстрировать различные способы ответа на этот вопрос. До
+следующей встречи, наслаждайтесь!
+<HR>
+Next
+Previous
+Contents
+</BODY>
+</HTML>

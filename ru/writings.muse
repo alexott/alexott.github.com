@@ -1,0 +1,9 @@
+#title writings
+#refresh 1;url=writings/index.html
+                
+Страница перемещена [[writings/index][в другое место]]
+
+;  LocalWords:  redirector html
+
+
+

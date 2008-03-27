@@ -1,0 +1,110 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Введение</TITLE>
+
+<META NAME="description" CONTENT="automake: Введение">
+<META NAME="keywords" CONTENT="automake: Введение">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC1"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<A NAME="Введение"></A>
+<H1> 1. Введение </H1>
+<!--docid::SEC1::-->
+<P>
+
+Automake --- это утилита для автоматического создания файлов
+<TT>`Makefile.in'</TT> из файлов <TT>`Makefile.am'</TT>. Каждый файл
+<TT>`Makefile.am'</TT> фактически является набором макросов для программы
+<CODE>make</CODE> (иногда с несколькими правилами). Полученные таким образом
+файлы <TT>`Makefile.in'</TT> соответствуют стандартам GNU Makefile.
+</P><P>
+
+<A NAME="IDX1"></A>
+</P><P>
+
+Стандарт GNU Makefile (see section `Makefile Conventions' in <CITE>The GNU Coding Standards</CITE>) --- это длинный, запутанный документ, и его
+содержание может в будущем измениться. Automake разработан для того,
+чтобы убрать бремя сопровождения Makefile с плеч человека, ведущего
+проект GNU (и взвалить его на человека, сопровождающего Automake).
+</P><P>
+
+Типичный входной файл Automake является просто набором макроопределений.
+Каждый такой файл обрабатывается, и из него создается файл
+<TT>`Makefile.in'</TT>. В каталоге проекта должен быть только один файл
+<TT>`Makefile.am'</TT>.
+</P><P>
+
+<A NAME="IDX2"></A>
+<A NAME="IDX3"></A>
+</P><P>
+
+Automake накладывает на проект некоторые ограничения; например, он
+предполагает, что проект использует программу Autoconf (see section `Введение' in <CITE>Руководство Autoconf</CITE>), а также налагает некоторые
+ограничения на содержимое файла <TT>`configure.in'</TT>.
+</P><P>
+
+<A NAME="IDX4"></A>
+<A NAME="IDX5"></A>
+</P><P>
+
+Automake требует наличия программы <CODE>perl</CODE> для генерации файлов
+<TT>`Makefile.in'</TT>.  Однако дистрибутив, созданный Automake, является
+полностью соответствующим стандартам GNU и не требует наличия
+<CODE>perl</CODE> для компиляции.
+</P><P>
+
+<A NAME="IDX6"></A>
+<A NAME="IDX7"></A>
+</P><P>
+
+Вы можете посылать пожелания по доработке и сообщения об ошибках
+Automake по адресу <A HREF="mailto:bug-automake@gnu.org">bug-automake@gnu.org</A>.
+</P><P>
+
+<A NAME="Общая информация"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

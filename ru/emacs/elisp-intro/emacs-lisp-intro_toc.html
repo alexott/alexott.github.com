@@ -1,0 +1,633 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 4  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Table of Contents</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Table of Contents">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Table of Contents">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC_Contents"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1>Table of Contents</H1>
+<UL>
+<A NAME="TOC1" HREF="emacs-lisp-intro_1.html#SEC1">Предисловие</A>
+<BR>
+<UL>
+<A NAME="TOC3" HREF="emacs-lisp-intro_1.html#SEC3">Для кого это написано</A>
+<BR>
+<A NAME="TOC4" HREF="emacs-lisp-intro_1.html#SEC4">Происхождение Emacs Lisp</A>
+<BR>
+<A NAME="TOC5" HREF="emacs-lisp-intro_1.html#SEC5">Замечание для новичков</A>
+<BR>
+<A NAME="TOC6" HREF="emacs-lisp-intro_1.html#SEC6">Благодарности</A>
+<BR>
+</UL>
+<A NAME="TOC7" HREF="emacs-lisp-intro_2.html#SEC7">1. Обработка списков</A>
+<BR>
+<UL>
+<A NAME="TOC8" HREF="emacs-lisp-intro_2.html#SEC8">1.1 Списки в Лисп</A>
+<BR>
+<UL>
+<A NAME="TOC9" HREF="emacs-lisp-intro_2.html#SEC9">1.1.1 Атомы Лиспа</A>
+<BR>
+<A NAME="TOC10" HREF="emacs-lisp-intro_2.html#SEC10">1.1.2 Пробелы в списках</A>
+<BR>
+<A NAME="TOC11" HREF="emacs-lisp-intro_2.html#SEC11">1.1.3 GNU Emacs помогает вам программировать</A>
+<BR>
+</UL>
+<A NAME="TOC12" HREF="emacs-lisp-intro_2.html#SEC12">1.2 Запуск Программы</A>
+<BR>
+<A NAME="TOC13" HREF="emacs-lisp-intro_2.html#SEC13">1.3 Получаем сообщение об ошибке</A>
+<BR>
+<A NAME="TOC14" HREF="emacs-lisp-intro_2.html#SEC14">1.4 Имена символов и определения функций</A>
+<BR>
+<A NAME="TOC15" HREF="emacs-lisp-intro_2.html#SEC15">1.5 Интерпретатор Лиспа</A>
+<BR>
+<UL>
+<A NAME="TOC16" HREF="emacs-lisp-intro_2.html#SEC16">1.5.1 Байт-компиляция</A>
+<BR>
+</UL>
+<A NAME="TOC17" HREF="emacs-lisp-intro_2.html#SEC17">1.6 Вычисление</A>
+<BR>
+<UL>
+<A NAME="TOC18" HREF="emacs-lisp-intro_2.html#SEC18">1.6.1 Вычисление внутренних списков</A>
+<BR>
+</UL>
+<A NAME="TOC19" HREF="emacs-lisp-intro_2.html#SEC19">1.7 Переменные</A>
+<BR>
+<UL>
+<A NAME="TOC20" HREF="emacs-lisp-intro_2.html#SEC20">1.7.1 Сообщение об ошибке для пустого символа</A>
+<BR>
+</UL>
+<A NAME="TOC21" HREF="emacs-lisp-intro_2.html#SEC21">1.8 Аргументы</A>
+<BR>
+<UL>
+<A NAME="TOC22" HREF="emacs-lisp-intro_2.html#SEC22">1.8.1 Типы Данных аргументов</A>
+<BR>
+<A NAME="TOC23" HREF="emacs-lisp-intro_2.html#SEC23">1.8.2 Аргумент как значение переменной или списка</A>
+<BR>
+<A NAME="TOC24" HREF="emacs-lisp-intro_2.html#SEC24">1.8.3 Аргументов может быть много</A>
+<BR>
+<A NAME="TOC25" HREF="emacs-lisp-intro_2.html#SEC25">1.8.4 А если аргумент неправильного типа</A>
+<BR>
+<A NAME="TOC26" HREF="emacs-lisp-intro_2.html#SEC26">1.8.5 Функция <CODE>message</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC27" HREF="emacs-lisp-intro_2.html#SEC27">1.9 Присваиваем переменной значение</A>
+<BR>
+<UL>
+<A NAME="TOC28" HREF="emacs-lisp-intro_2.html#SEC28">1.9.1 Используя <CODE>set</CODE></A>
+<BR>
+<A NAME="TOC29" HREF="emacs-lisp-intro_2.html#SEC29">1.9.2 Используя <CODE>setq</CODE></A>
+<BR>
+<A NAME="TOC30" HREF="emacs-lisp-intro_2.html#SEC30">1.9.3 Счетчик</A>
+<BR>
+</UL>
+<A NAME="TOC31" HREF="emacs-lisp-intro_2.html#SEC31">1.10 Резюме</A>
+<BR>
+<A NAME="TOC32" HREF="emacs-lisp-intro_2.html#SEC32">1.11 Упражнения</A>
+<BR>
+</UL>
+<A NAME="TOC33" HREF="emacs-lisp-intro_3.html#SEC33">2. Практика вычислений</A>
+<BR>
+<UL>
+<A NAME="TOC35" HREF="emacs-lisp-intro_3.html#SEC35">2.1 Имя буфера</A>
+<BR>
+<A NAME="TOC36" HREF="emacs-lisp-intro_3.html#SEC36">2.2 Как вернуть буфер</A>
+<BR>
+<A NAME="TOC37" HREF="emacs-lisp-intro_3.html#SEC37">2.3 Смена буфера</A>
+<BR>
+<A NAME="TOC38" HREF="emacs-lisp-intro_3.html#SEC38">2.4 Размер буфера и местоположение точки</A>
+<BR>
+<A NAME="TOC39" HREF="emacs-lisp-intro_3.html#SEC39">2.5 Упражнения</A>
+<BR>
+</UL>
+<A NAME="TOC40" HREF="emacs-lisp-intro_4.html#SEC40">3. Написание функций</A>
+<BR>
+<UL>
+<A NAME="TOC42" HREF="emacs-lisp-intro_4.html#SEC42">3.1 Особая форма <CODE>defun</CODE></A>
+<BR>
+<A NAME="TOC43" HREF="emacs-lisp-intro_4.html#SEC43">3.2 Установка определения функции</A>
+<BR>
+<UL>
+<A NAME="TOC44" HREF="emacs-lisp-intro_4.html#SEC44">3.2.1 Изменяем определение функции</A>
+<BR>
+</UL>
+<A NAME="TOC45" HREF="emacs-lisp-intro_4.html#SEC45">3.3 Делаем функцию интерактивной</A>
+<BR>
+<UL>
+<A NAME="TOC46" HREF="emacs-lisp-intro_4.html#SEC46">3.3.1 Интерактивная <CODE>multiply-by-seven</CODE>.</A>
+<BR>
+</UL>
+<A NAME="TOC47" HREF="emacs-lisp-intro_4.html#SEC47">3.4 Различные опции для <CODE>interactive</CODE></A>
+<BR>
+<A NAME="TOC48" HREF="emacs-lisp-intro_4.html#SEC48">3.5 Устанавливаем код надолго</A>
+<BR>
+<A NAME="TOC49" HREF="emacs-lisp-intro_4.html#SEC49">3.6 <CODE>let</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC50" HREF="emacs-lisp-intro_4.html#SEC50">3.6.1 Части выражения <CODE>let</CODE></A>
+<BR>
+<A NAME="TOC51" HREF="emacs-lisp-intro_4.html#SEC51">3.6.2 Пример выражения <CODE>let</CODE></A>
+<BR>
+<A NAME="TOC52" HREF="emacs-lisp-intro_4.html#SEC52">3.6.3 Неинициализированные переменные в операторе <CODE>let</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC53" HREF="emacs-lisp-intro_4.html#SEC53">3.7 Особая форма <CODE>if</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC54" HREF="emacs-lisp-intro_4.html#SEC54">3.7.1 Подробное рассмотрение функции <CODE>type-of-animal</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC55" HREF="emacs-lisp-intro_4.html#SEC55">3.8 Выражения if--then--else</A>
+<BR>
+<A NAME="TOC56" HREF="emacs-lisp-intro_4.html#SEC56">3.9 Истина и ложь в Lisp</A>
+<BR>
+<A NAME="TOC57" HREF="emacs-lisp-intro_4.html#SEC57">3.10 <CODE>save-excursion</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC58" HREF="emacs-lisp-intro_4.html#SEC58">3.10.1 Шаблон для выражения <CODE>save-excursion</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC59" HREF="emacs-lisp-intro_4.html#SEC59">3.11 Обзор</A>
+<BR>
+<A NAME="TOC60" HREF="emacs-lisp-intro_4.html#SEC60">3.12 Упражнения</A>
+<BR>
+</UL>
+<A NAME="TOC61" HREF="emacs-lisp-intro_5.html#SEC61">4. Что такое буфер</A>
+<BR>
+<UL>
+<A NAME="TOC62" HREF="emacs-lisp-intro_5.html#SEC62">4.1 Поиск дополнительной информации</A>
+<BR>
+<A NAME="TOC63" HREF="emacs-lisp-intro_5.html#SEC63">4.2 Упрощенное определение <CODE>beginning-of-buffer</CODE></A>
+<BR>
+<A NAME="TOC64" HREF="emacs-lisp-intro_5.html#SEC64">4.3 Определение <CODE>mark-whole-buffer</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC65" HREF="emacs-lisp-intro_5.html#SEC65">4.3.1 Тело <CODE>mark-whole-buffer</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC66" HREF="emacs-lisp-intro_5.html#SEC66">4.4 Определение <CODE>append-to-buffer</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC67" HREF="emacs-lisp-intro_5.html#SEC67">4.4.1 Интерактивное выражение в <CODE>append-to-buffer</CODE></A>
+<BR>
+<A NAME="TOC68" HREF="emacs-lisp-intro_5.html#SEC68">4.4.2 Тело <CODE>append-to-buffer</CODE></A>
+<BR>
+<A NAME="TOC69" HREF="emacs-lisp-intro_5.html#SEC69">4.4.3 <CODE>save-excursion</CODE> в <CODE>append-to-buffer</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC70" HREF="emacs-lisp-intro_5.html#SEC70">4.5 Обзор</A>
+<BR>
+<A NAME="TOC71" HREF="emacs-lisp-intro_5.html#SEC71">4.6 Упражнения</A>
+<BR>
+</UL>
+<A NAME="TOC72" HREF="emacs-lisp-intro_6.html#SEC72">5. Первые трудности</A>
+<BR>
+<UL>
+<A NAME="TOC73" HREF="emacs-lisp-intro_6.html#SEC73">5.1 Определение <CODE>copy-to-buffer</CODE></A>
+<BR>
+<A NAME="TOC74" HREF="emacs-lisp-intro_6.html#SEC74">5.2 Определение <CODE>insert-buffer</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC75" HREF="emacs-lisp-intro_6.html#SEC75">5.2.1 Интерактивное выражение в <CODE>insert-buffer</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC76" HREF="emacs-lisp-intro_6.html#SEC76">Буфер только-для-чтения</A>
+<BR>
+<A NAME="TOC77" HREF="emacs-lisp-intro_6.html#SEC77"><SAMP>`b'</SAMP> в интерактивном выражении</A>
+<BR>
+</UL>
+<A NAME="TOC78" HREF="emacs-lisp-intro_6.html#SEC78">5.2.2 Тело функции <CODE>insert-buffer</CODE></A>
+<BR>
+<A NAME="TOC79" HREF="emacs-lisp-intro_6.html#SEC79">5.2.3 <CODE>insert-buffer</CODE> с <CODE>if</CODE> вместо <CODE>or</CODE></A>
+<BR>
+<A NAME="TOC80" HREF="emacs-lisp-intro_6.html#SEC80">5.2.4 <CODE>or</CODE> в теле функции</A>
+<BR>
+<A NAME="TOC81" HREF="emacs-lisp-intro_6.html#SEC81">5.2.5 Выражение <CODE>let</CODE> в <CODE>insert-buffer</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC82" HREF="emacs-lisp-intro_6.html#SEC82">5.3 Полное определение <CODE>beginning-of-buffer</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC83" HREF="emacs-lisp-intro_6.html#SEC83">5.3.1 Необязательные аргументы</A>
+<BR>
+<A NAME="TOC84" HREF="emacs-lisp-intro_6.html#SEC84">5.3.2 <CODE>beginning-of-buffer</CODE> с аргументом</A>
+<BR>
+<UL>
+<A NAME="TOC85" HREF="emacs-lisp-intro_6.html#SEC85">Что происходит в больших буферах</A>
+<BR>
+<A NAME="TOC86" HREF="emacs-lisp-intro_6.html#SEC86">Что происходит в маленьких буферах</A>
+<BR>
+</UL>
+<A NAME="TOC87" HREF="emacs-lisp-intro_6.html#SEC87">5.3.3 Полный текст <CODE>beginning-of-buffer</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC88" HREF="emacs-lisp-intro_6.html#SEC88">5.4 Обзор</A>
+<BR>
+<A NAME="TOC89" HREF="emacs-lisp-intro_6.html#SEC89">5.5 Упражнения с <CODE>&#38;optional</CODE> аргументом</A>
+<BR>
+</UL>
+<A NAME="TOC90" HREF="emacs-lisp-intro_7.html#SEC90">6. Сужение и расширение</A>
+<BR>
+<UL>
+<A NAME="TOC92" HREF="emacs-lisp-intro_7.html#SEC92">6.1 Особая форма <CODE>save-restriction</CODE></A>
+<BR>
+<A NAME="TOC93" HREF="emacs-lisp-intro_7.html#SEC93">6.2 <CODE>what-line</CODE></A>
+<BR>
+<A NAME="TOC94" HREF="emacs-lisp-intro_7.html#SEC94">6.3 Упражнения на сужение</A>
+<BR>
+</UL>
+<A NAME="TOC95" HREF="emacs-lisp-intro_8.html#SEC95">7. <CODE>car</CODE>, <CODE>cdr</CODE>, <CODE>cons</CODE>: основные функции</A>
+<BR>
+<UL>
+<A NAME="TOC97" HREF="emacs-lisp-intro_8.html#SEC97">7.1 <CODE>car</CODE> и <CODE>cdr</CODE></A>
+<BR>
+<A NAME="TOC98" HREF="emacs-lisp-intro_8.html#SEC98">7.2 <CODE>cons</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC99" HREF="emacs-lisp-intro_8.html#SEC99">7.2.1 Найти длину списка: <CODE>length</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC100" HREF="emacs-lisp-intro_8.html#SEC100">7.3 <CODE>nthcdr</CODE></A>
+<BR>
+<A NAME="TOC101" HREF="emacs-lisp-intro_8.html#SEC101">7.4 <CODE>setcar</CODE></A>
+<BR>
+<A NAME="TOC102" HREF="emacs-lisp-intro_8.html#SEC102">7.5 <CODE>setcdr</CODE></A>
+<BR>
+<A NAME="TOC103" HREF="emacs-lisp-intro_8.html#SEC103">7.6 Упражнения</A>
+<BR>
+</UL>
+<A NAME="TOC104" HREF="emacs-lisp-intro_9.html#SEC104">8. Вырезание и сохранение текста</A>
+<BR>
+<UL>
+<A NAME="TOC106" HREF="emacs-lisp-intro_9.html#SEC106">8.1 <CODE>zap-to-char</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC107" HREF="emacs-lisp-intro_9.html#SEC107">8.1.1 Выражение <CODE>interactive</CODE></A>
+<BR>
+<A NAME="TOC108" HREF="emacs-lisp-intro_9.html#SEC108">8.1.2 Тело <CODE>zap-to-char</CODE></A>
+<BR>
+<A NAME="TOC109" HREF="emacs-lisp-intro_9.html#SEC109">8.1.3 Функция <CODE>search-forward</CODE></A>
+<BR>
+<A NAME="TOC110" HREF="emacs-lisp-intro_9.html#SEC110">8.1.4 Функция <CODE>progn</CODE></A>
+<BR>
+<A NAME="TOC111" HREF="emacs-lisp-intro_9.html#SEC111">8.1.5 Резюме <CODE>zap-to-char</CODE></A>
+<BR>
+<A NAME="TOC112" HREF="emacs-lisp-intro_9.html#SEC112">8.1.6 Реализация для 18 Версии Emacs</A>
+<BR>
+<UL>
+<A NAME="TOC113" HREF="emacs-lisp-intro_9.html#SEC113">Тело выражения <CODE>progn</CODE></A>
+<BR>
+</UL>
+</UL>
+<A NAME="TOC114" HREF="emacs-lisp-intro_9.html#SEC114">8.2 <CODE>kill-region</CODE></A>
+<BR>
+<A NAME="TOC115" HREF="emacs-lisp-intro_9.html#SEC115">8.3 <CODE>delete-region</CODE>: Погружение в язык Си</A>
+<BR>
+<A NAME="TOC116" HREF="emacs-lisp-intro_9.html#SEC116">8.4 Инициализация переменной с <CODE>defvar</CODE></A>
+<BR>
+<A NAME="TOC117" HREF="emacs-lisp-intro_9.html#SEC117">8.5 <CODE>copy-region-as-kill</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC118" HREF="emacs-lisp-intro_9.html#SEC118">8.5.1 Тело <CODE>copy-region-as-kill</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC119" HREF="emacs-lisp-intro_9.html#SEC119">Функция <CODE>kill-append</CODE></A>
+<BR>
+<A NAME="TOC120" HREF="emacs-lisp-intro_9.html#SEC120">Else-часть <CODE>copy-region-as-kill</CODE></A>
+<BR>
+</UL>
+</UL>
+<A NAME="TOC121" HREF="emacs-lisp-intro_9.html#SEC121">8.6 Обзор</A>
+<BR>
+<A NAME="TOC122" HREF="emacs-lisp-intro_9.html#SEC122">8.7 Упражнения с поиском</A>
+<BR>
+</UL>
+<A NAME="TOC123" HREF="emacs-lisp-intro_10.html#SEC123">9. Как реализованы списки</A>
+<BR>
+<UL>
+<A NAME="TOC124" HREF="emacs-lisp-intro_10.html#SEC124">9.1 Упражнения</A>
+<BR>
+</UL>
+<A NAME="TOC125" HREF="emacs-lisp-intro_11.html#SEC125">10. Вставка текста обратно</A>
+<BR>
+<UL>
+<A NAME="TOC126" HREF="emacs-lisp-intro_11.html#SEC126">10.1 Обзор списка уничтожений</A>
+<BR>
+<A NAME="TOC127" HREF="emacs-lisp-intro_11.html#SEC127">10.2 Переменная <CODE>kill-ring-yank-pointer</CODE></A>
+<BR>
+<A NAME="TOC128" HREF="emacs-lisp-intro_11.html#SEC128">10.3 Упражнения с <CODE>yank</CODE> и <CODE>nthcdr</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC129" HREF="emacs-lisp-intro_12.html#SEC129">11. Циклы и рекурсия</A>
+<BR>
+<UL>
+<A NAME="TOC130" HREF="emacs-lisp-intro_12.html#SEC130">11.1 <CODE>while</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC131" HREF="emacs-lisp-intro_12.html#SEC131">11.1.1 Цикл <CODE>while</CODE> и список</A>
+<BR>
+<A NAME="TOC132" HREF="emacs-lisp-intro_12.html#SEC132">11.1.2 Пример: <CODE>print-elements-of-list</CODE></A>
+<BR>
+<A NAME="TOC133" HREF="emacs-lisp-intro_12.html#SEC133">11.1.3 Цикл с увеличивающимся счетчиком</A>
+<BR>
+<UL>
+<A NAME="TOC134" HREF="emacs-lisp-intro_12.html#SEC134">Пример с увеличивающимся счетчиком</A>
+<BR>
+<A NAME="TOC135" HREF="emacs-lisp-intro_12.html#SEC135">Части определения функции</A>
+<BR>
+<A NAME="TOC136" HREF="emacs-lisp-intro_12.html#SEC136">Составляем определение функции</A>
+<BR>
+</UL>
+<A NAME="TOC137" HREF="emacs-lisp-intro_12.html#SEC137">11.1.4 Цикл с уменьшающимся счетчиком</A>
+<BR>
+<UL>
+<A NAME="TOC138" HREF="emacs-lisp-intro_12.html#SEC138">Пример с уменьшением счетчика</A>
+<BR>
+<A NAME="TOC139" HREF="emacs-lisp-intro_12.html#SEC139">Части определения функции </A>
+<BR>
+<A NAME="TOC140" HREF="emacs-lisp-intro_12.html#SEC140">Составляем определение функции </A>
+<BR>
+</UL>
+</UL>
+<A NAME="TOC141" HREF="emacs-lisp-intro_12.html#SEC141">11.2 Рекурсия</A>
+<BR>
+<UL>
+<A NAME="TOC142" HREF="emacs-lisp-intro_12.html#SEC142">11.2.1 Рекурсия на списке</A>
+<BR>
+<A NAME="TOC143" HREF="emacs-lisp-intro_12.html#SEC143">11.2.2 Рекурсия на месте счетчика</A>
+<BR>
+<UL>
+<A NAME="TOC144" HREF="emacs-lisp-intro_12.html#SEC144">Аргумент 3</A>
+<BR>
+</UL>
+<A NAME="TOC145" HREF="emacs-lisp-intro_12.html#SEC145">11.2.3 Пример рекурсии с использованием <CODE>cond</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC146" HREF="emacs-lisp-intro_12.html#SEC146">11.3 Упражнения с циклами</A>
+<BR>
+</UL>
+<A NAME="TOC147" HREF="emacs-lisp-intro_13.html#SEC147">12. Поиск с использованием регулярных выражений</A>
+<BR>
+<UL>
+<A NAME="TOC148" HREF="emacs-lisp-intro_13.html#SEC148">12.1 Регулярное выражение для <CODE>sentence-end</CODE></A>
+<BR>
+<A NAME="TOC149" HREF="emacs-lisp-intro_13.html#SEC149">12.2 Функция <CODE>re-search-forward</CODE></A>
+<BR>
+<A NAME="TOC150" HREF="emacs-lisp-intro_13.html#SEC150">12.3 <CODE>forward-sentence</CODE></A>
+<BR>
+<UL>
+<UL>
+<A NAME="TOC151" HREF="emacs-lisp-intro_13.html#SEC151">Циклы <CODE>while</CODE></A>
+<BR>
+<A NAME="TOC152" HREF="emacs-lisp-intro_13.html#SEC152">Поиск по регулярному выражению</A>
+<BR>
+</UL>
+</UL>
+<A NAME="TOC153" HREF="emacs-lisp-intro_13.html#SEC153">12.4 <CODE>forward-paragraph</CODE>: сокровищница функций</A>
+<BR>
+<UL>
+<UL>
+<A NAME="TOC154" HREF="emacs-lisp-intro_13.html#SEC154">Выражение <CODE>let*</CODE></A>
+<BR>
+<A NAME="TOC155" HREF="emacs-lisp-intro_13.html#SEC155">Цикл <CODE>while</CODE> движения вперед</A>
+<BR>
+<A NAME="TOC156" HREF="emacs-lisp-intro_13.html#SEC156">Между параграфами</A>
+<BR>
+<A NAME="TOC157" HREF="emacs-lisp-intro_13.html#SEC157">Внутри параграфа</A>
+<BR>
+<A NAME="TOC158" HREF="emacs-lisp-intro_13.html#SEC158">Без префикса заполнения</A>
+<BR>
+<A NAME="TOC159" HREF="emacs-lisp-intro_13.html#SEC159">С префиксом заполнения</A>
+<BR>
+<A NAME="TOC160" HREF="emacs-lisp-intro_13.html#SEC160">Итог</A>
+<BR>
+</UL>
+</UL>
+<A NAME="TOC161" HREF="emacs-lisp-intro_13.html#SEC161">12.5 Создание своего собственного файла <TT>`TAGS'</TT></A>
+<BR>
+<A NAME="TOC162" HREF="emacs-lisp-intro_13.html#SEC162">12.6 Заключение</A>
+<BR>
+<A NAME="TOC163" HREF="emacs-lisp-intro_13.html#SEC163">12.7 Упражнения с <CODE>re-search-forward</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC164" HREF="emacs-lisp-intro_14.html#SEC164">13. Подсчеты: Повторения и Регулярные выражения</A>
+<BR>
+<UL>
+<A NAME="TOC166" HREF="emacs-lisp-intro_14.html#SEC166">13.1 Функция <CODE>count-words-region</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC167" HREF="emacs-lisp-intro_14.html#SEC167">13.1.1 Ошибка в <CODE>count-words-region</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC168" HREF="emacs-lisp-intro_14.html#SEC168">13.2 Рекурсивный подсчет слов</A>
+<BR>
+<A NAME="TOC169" HREF="emacs-lisp-intro_14.html#SEC169">13.3 Упражнения: Сколько знаков пунктуации</A>
+<BR>
+</UL>
+<A NAME="TOC170" HREF="emacs-lisp-intro_15.html#SEC170">14. Считаем слова в <CODE>defun</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC172" HREF="emacs-lisp-intro_15.html#SEC172">14.1 Что считать?</A>
+<BR>
+<A NAME="TOC173" HREF="emacs-lisp-intro_15.html#SEC173">14.2 Что входит в состав слов или символов?</A>
+<BR>
+<A NAME="TOC174" HREF="emacs-lisp-intro_15.html#SEC174">14.3 Функция <CODE>count-words-in-defun</CODE></A>
+<BR>
+<A NAME="TOC175" HREF="emacs-lisp-intro_15.html#SEC175">14.4 Обработка нескольких функций в одном файле</A>
+<BR>
+<A NAME="TOC176" HREF="emacs-lisp-intro_15.html#SEC176">14.5 Открытие файла</A>
+<BR>
+<A NAME="TOC177" HREF="emacs-lisp-intro_15.html#SEC177">14.6 Подробности о <CODE>lengths-list-file</CODE></A>
+<BR>
+<A NAME="TOC178" HREF="emacs-lisp-intro_15.html#SEC178">14.7 Считаем слова в функциях из нескольких файлов</A>
+<BR>
+<UL>
+<A NAME="TOC179" HREF="emacs-lisp-intro_15.html#SEC179">14.7.1 Функция <CODE>append</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC180" HREF="emacs-lisp-intro_15.html#SEC180">14.8 Рекурсивная обработка нескольких файлов</A>
+<BR>
+<A NAME="TOC181" HREF="emacs-lisp-intro_15.html#SEC181">14.9 Подготовка данных для вывода в виде графика</A>
+<BR>
+<UL>
+<A NAME="TOC182" HREF="emacs-lisp-intro_15.html#SEC182">14.9.1 Сортировка списков</A>
+<BR>
+<A NAME="TOC183" HREF="emacs-lisp-intro_15.html#SEC183">14.9.2 Создание списка файлов</A>
+<BR>
+</UL>
+</UL>
+<A NAME="TOC184" HREF="emacs-lisp-intro_16.html#SEC184">15. Изготовляем график</A>
+<BR>
+<UL>
+<A NAME="TOC186" HREF="emacs-lisp-intro_16.html#SEC186">15.1 Функция <CODE>graph-body-print</CODE></A>
+<BR>
+<A NAME="TOC187" HREF="emacs-lisp-intro_16.html#SEC187">15.2 Функция <CODE>recursive-graph-body-print</CODE></A>
+<BR>
+<A NAME="TOC188" HREF="emacs-lisp-intro_16.html#SEC188">15.3 Need for Printed Axes</A>
+<BR>
+<A NAME="TOC189" HREF="emacs-lisp-intro_16.html#SEC189">15.4 Упражнения</A>
+<BR>
+</UL>
+<A NAME="TOC190" HREF="emacs-lisp-intro_17.html#SEC190">16. Ваш файл <TT>`.emacs'</TT></A>
+<BR>
+<UL>
+<A NAME="TOC192" HREF="emacs-lisp-intro_17.html#SEC192">16.1 Общесистемные файлы инициализации</A>
+<BR>
+<A NAME="TOC193" HREF="emacs-lisp-intro_17.html#SEC193">16.2 Установка переменных для одной сессии</A>
+<BR>
+<A NAME="TOC194" HREF="emacs-lisp-intro_17.html#SEC194">16.3 Начало файла <TT>`.emacs'</TT></A>
+<BR>
+<A NAME="TOC195" HREF="emacs-lisp-intro_17.html#SEC195">16.4 Режимы Text и Auto Fill</A>
+<BR>
+<A NAME="TOC196" HREF="emacs-lisp-intro_17.html#SEC196">16.5 Почтовые алиасы</A>
+<BR>
+<A NAME="TOC197" HREF="emacs-lisp-intro_17.html#SEC197">16.6 Режим отступа по табуляции (Indent Tabs)</A>
+<BR>
+<A NAME="TOC198" HREF="emacs-lisp-intro_17.html#SEC198">16.7 Некоторые привязки клавиш</A>
+<BR>
+<A NAME="TOC199" HREF="emacs-lisp-intro_17.html#SEC199">16.8 Загрузка файлов</A>
+<BR>
+<A NAME="TOC200" HREF="emacs-lisp-intro_17.html#SEC200">16.9 Автозагрузка</A>
+<BR>
+<A NAME="TOC201" HREF="emacs-lisp-intro_17.html#SEC201">16.10 Простое расширение: <CODE>line-to-top-of-window</CODE></A>
+<BR>
+<A NAME="TOC202" HREF="emacs-lisp-intro_17.html#SEC202">16.11 Таблицы ключей</A>
+<BR>
+<A NAME="TOC203" HREF="emacs-lisp-intro_17.html#SEC203">16.12 Цвета X11</A>
+<BR>
+<A NAME="TOC204" HREF="emacs-lisp-intro_17.html#SEC204">16.13 Разное для версии 19</A>
+<BR>
+<A NAME="TOC205" HREF="emacs-lisp-intro_17.html#SEC205">16.14 Измененная строка режима</A>
+<BR>
+</UL>
+<A NAME="TOC206" HREF="emacs-lisp-intro_18.html#SEC206">17. Отладка</A>
+<BR>
+<UL>
+<A NAME="TOC207" HREF="emacs-lisp-intro_18.html#SEC207">17.1 <CODE>debug</CODE></A>
+<BR>
+<A NAME="TOC208" HREF="emacs-lisp-intro_18.html#SEC208">17.2 <CODE>debug-on-entry</CODE></A>
+<BR>
+<A NAME="TOC209" HREF="emacs-lisp-intro_18.html#SEC209">17.3 <CODE>debug-on-quit</CODE> и <CODE>(debug)</CODE></A>
+<BR>
+<A NAME="TOC210" HREF="emacs-lisp-intro_18.html#SEC210">17.4 Отладчик на уровне исходного кода <CODE>edebug</CODE></A>
+<BR>
+<A NAME="TOC211" HREF="emacs-lisp-intro_18.html#SEC211">17.5 Упражнения по отладке</A>
+<BR>
+</UL>
+<A NAME="TOC212" HREF="emacs-lisp-intro_19.html#SEC212">18. Заключение</A>
+<BR>
+<A NAME="TOC213" HREF="emacs-lisp-intro_20.html#SEC213">A. Функция <CODE>the-the</CODE></A>
+<BR>
+<A NAME="TOC214" HREF="emacs-lisp-intro_21.html#SEC214">B. Обработка списка удалений</A>
+<BR>
+<UL>
+<A NAME="TOC215" HREF="emacs-lisp-intro_21.html#SEC215">B.1 Функция <CODE>rotate-yank-pointer</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC216" HREF="emacs-lisp-intro_21.html#SEC216">B.1.1 Тело функции <CODE>rotate-yank-pointer</CODE></A>
+<BR>
+<UL>
+<A NAME="TOC217" HREF="emacs-lisp-intro_21.html#SEC217">else-часть выражения <CODE>if</CODE></A>
+<BR>
+<A NAME="TOC218" HREF="emacs-lisp-intro_21.html#SEC218">Функция вычисления остатка <CODE>%</CODE></A>
+<BR>
+<A NAME="TOC219" HREF="emacs-lisp-intro_21.html#SEC219">Использование <CODE>%</CODE> в <CODE>rotate-yank-pointer</CODE></A>
+<BR>
+<A NAME="TOC220" HREF="emacs-lisp-intro_21.html#SEC220">Указатель на последний элемент</A>
+<BR>
+</UL>
+</UL>
+<A NAME="TOC221" HREF="emacs-lisp-intro_21.html#SEC221">B.2 <CODE>yank</CODE></A>
+<BR>
+<UL>
+<UL>
+<A NAME="TOC222" HREF="emacs-lisp-intro_21.html#SEC222">Передача аргумента</A>
+<BR>
+<A NAME="TOC223" HREF="emacs-lisp-intro_21.html#SEC223">Передаем отрицательный аргумент</A>
+<BR>
+</UL>
+</UL>
+<A NAME="TOC224" HREF="emacs-lisp-intro_21.html#SEC224">B.3 <CODE>yank-pop</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC225" HREF="emacs-lisp-intro_22.html#SEC225">C. График с помечеными осями</A>
+<BR>
+<UL>
+<A NAME="TOC227" HREF="emacs-lisp-intro_22.html#SEC227">C.1 Список переменных <CODE>print-graph</CODE></A>
+<BR>
+<A NAME="TOC228" HREF="emacs-lisp-intro_22.html#SEC228">C.2 The <CODE>print-Y-axis</CODE> Function</A>
+<BR>
+<UL>
+<A NAME="TOC229" HREF="emacs-lisp-intro_22.html#SEC229">C.2.1 Обходной путь: Вычисление остатка</A>
+<BR>
+<A NAME="TOC230" HREF="emacs-lisp-intro_22.html#SEC230">C.2.2 Создание элементов оси Y</A>
+<BR>
+<A NAME="TOC231" HREF="emacs-lisp-intro_22.html#SEC231">C.2.3 Создание колонки оси Y</A>
+<BR>
+<A NAME="TOC232" HREF="emacs-lisp-intro_22.html#SEC232">C.2.4 Финальная версия <CODE>print-Y-axis</CODE></A>
+<BR>
+</UL>
+<A NAME="TOC233" HREF="emacs-lisp-intro_22.html#SEC233">C.3 The <CODE>print-X-axis</CODE> Function</A>
+<BR>
+<UL>
+<A NAME="TOC234" HREF="emacs-lisp-intro_22.html#SEC234">C.3.1 X Axis Tic Marks</A>
+<BR>
+</UL>
+<A NAME="TOC235" HREF="emacs-lisp-intro_22.html#SEC235">C.4 Printing the Whole Graph</A>
+<BR>
+<UL>
+<A NAME="TOC236" HREF="emacs-lisp-intro_22.html#SEC236">C.4.1 Testing <CODE>print-graph</CODE></A>
+<BR>
+<A NAME="TOC237" HREF="emacs-lisp-intro_22.html#SEC237">C.4.2 Graphing Numbers of Words and Symbols</A>
+<BR>
+<UL>
+<A NAME="TOC238" HREF="emacs-lisp-intro_22.html#SEC238">A <CODE>lambda</CODE> Expression</A>
+<BR>
+<A NAME="TOC239" HREF="emacs-lisp-intro_22.html#SEC239">The <CODE>mapcar</CODE> Function</A>
+<BR>
+<A NAME="TOC240" HREF="emacs-lisp-intro_22.html#SEC240">Another Bug <small>...</small> Most Insidious</A>
+<BR>
+</UL>
+<A NAME="TOC241" HREF="emacs-lisp-intro_22.html#SEC241">C.4.3 The Printed Graph</A>
+<BR>
+</UL>
+</UL>
+<A NAME="TOC242" HREF="emacs-lisp-intro_23.html#SEC242">Index</A>
+<BR>
+<A NAME="TOC243" HREF="emacs-lisp-intro_24.html#SEC243">Об Авторе</A>
+<BR>
+</UL>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>December, 4  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

@@ -1,0 +1,266 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on March, 10  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Вставка</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Вставка">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Вставка">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC126"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_11.html#SEC125"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC127"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_11.html#SEC124"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_13.html#SEC130"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 10. Вставка текста обратно </H1>
+<!--docid::SEC126::-->
+<P>
+
+Когда вы вырезаете текст из буфера с помощью команды `kill', то вы
+можете вернуть его обратно с помощью команды `yank'. Текст, который
+вырезается из буфера помещается в список уничтожений (kill ring) и
+различные команды могут вставить соответствующее содержимое из списка
+уничтожений обратно в буфер (Не обязательно в тот же буфер).
+</P><P>
+
+Просто команда <KBD>C-y</KBD> (<CODE>yank</CODE>) вставляет в текущий буфер
+первый элемент из списка уничтожений. Если за командой <KBD>C-y</KBD> сразу
+следует <KBD>M-y</KBD>, то первый элемент замещается вторым элементом.
+Последующие команды <KBD>M-y</KBD> замещают второй элемент третьим,
+четвертым, пятым и так далее. Когда достигается последний элемент, то
+он замещается первым элементом и цикл повторяется. (Поэтому список
+уничтожений полностью называется кольцевым списком уничтожений (`kill
+ring'), но мы сокращаем его название. Однако на самом деле текст
+хранится в списке. See section <A HREF="elisp-intro-ru_22.html#SEC215">B. Обработка списка удалений</A>, для
+получения дополнительной информации о том, каким образом список может
+выглядеть как кольцо).
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_12.html#SEC127">10.1 Обзор списка уничтожений</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_12.html#SEC128">10.2 Переменная <CODE>kill-ring-yank-pointer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_12.html#SEC129">10.3 Упражнения с <CODE>yank</CODE> и <CODE>nthcdr</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Обзор списка уничтожений"></A>
+<HR SIZE="6">
+<A NAME="SEC127"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC126"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC128"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC126"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC126"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_13.html#SEC130"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 10.1 Обзор списка уничтожений </H2>
+<!--docid::SEC127::-->
+<P>
+
+Список уничтожений --- это список текстовых строк. Он может
+выглядеть следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>("некоторый текст" "другой кусок текста" "еще немного текста")
+</pre></td></tr></table></P><P>
+
+Если бы это было содержимым моего текущего списка уничтожений, и я бы
+нажал <KBD>C-y</KBD>, то в буфер на место курсора вставилась бы строка
+символов <SAMP>`некоторый текст'</SAMP>.
+</P><P>
+
+Команду <CODE>yank</CODE> можно также использовать для повторения текста не
+копируя его. Скопированный текст не вырезается из буфера, но его копия
+помещается в список уничтожений и впоследствии ее можно будет вернуть
+назад.
+</P><P>
+
+Для возвращения текста из списка уничтожений используются всего три
+функции --- <CODE>yank</CODE>, которая обычно связана с сочетанием
+клавиш <KBD>C-y</KBD>; <CODE>yank-pop</CODE>, которая обычно связана с <KBD>M-y</KBD>;
+и <CODE>rotate-yank-pointer</CODE>, которая используется двумя другими
+функциями.
+</P><P>
+
+Эти функции соотносятся со списком уничтожений через переменную
+<CODE>kill-ring-yank-pointer</CODE>. В самом деле вставка текста для обоих
+из них --- и для <CODE>yank</CODE> и для <CODE>yank-pop</CODE> реализуется
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(insert (car kill-ring-yank-pointer))
+</pre></td></tr></table></P><P>
+
+Чтобы начать понимать как работают функции <CODE>yank</CODE> и
+<CODE>yank-pop</CODE>, вначале необходимо взглянуть на переменную
+<CODE>kill-ring-yank-pointer</CODE> и функцию <CODE>rotate-yank-pointer</CODE>.
+</P><P>
+
+<A NAME="kill-ring-yank-pointer"></A>
+<HR SIZE="6">
+<A NAME="SEC128"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC127"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC129"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC126"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC126"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_13.html#SEC130"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 10.2 Переменная <CODE>kill-ring-yank-pointer</CODE> </H2>
+<!--docid::SEC128::-->
+<P>
+
+<CODE>kill-ring-yank-pointer</CODE> --- это переменная, точно такая же,
+как и <CODE>kill-ring</CODE>. Она указывает на что-то, с чем связано
+какое-нибудь значение, как и любая переменная Лисп.
+</P><P>
+
+Так, если бы значением списка уничтожений было бы:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>("некоторый текст" "другой кусок текста" "еще немного текста")
+</pre></td></tr></table></P><P>
+
+и <CODE>kill-ring-yank-pointer</CODE> указывал бы на второй элемент, то его
+значением было бы:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>("другой кусок текста" "еще немного текста")
+</pre></td></tr></table></P><P>
+
+Как объяснялось в предыдущей главе (see section <A HREF="elisp-intro-ru_11.html#SEC124">9. Как реализованы списки</A>),
+компьютер на самом деле не хранит две одинаковые копии текста на
+который указывают <CODE>kill-ring</CODE> и
+<CODE>kill-ring-yank-pointer</CODE>. Слова "другой кусок текста" и "еще
+немного текста" не повторяются. Вместо этого две переменные Лиспа
+указывают на один и тот же текст. Ниже приведена поясняющая диаграмма:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>kill-ring     kill-ring-yank-pointer
+    |               |
+    |      ___ ___  |     ___ ___      ___ ___ 
+     ---&#62; |   |   |  --&#62; |   |   |    |   |   |
+          |___|___|----&#62; |___|___|--&#62; |___|___|--&#62; nil
+            |              |            |      
+            |              |            |
+            |              |             --&#62; "еще немного текста"
+            |              |
+            |               --&#62; "другой кусок текста
+            |
+             --&#62; "некоторый текст"
+</pre></td></tr></table></P><P>
+
+Обе переменные --- <CODE>kill-ring</CODE> и
+<CODE>kill-ring-yank-pointer</CODE> являются указателями. Но список
+уничтожений обычно описывают как будто он фактически является тем, на
+что он указывает. Говорят, что <CODE>kill-ring</CODE> --- это список, а
+не указатель на список. И наоборот говорят, что
+<CODE>kill-ring-yank-pointer</CODE> --- это указатель на список.
+</P><P>
+
+Эти два способа говорить об одном и том же, могут вначале выглядеть
+довольно путано, но все же имеют определенный смысл. Список
+уничтожений вообще рассматривается как завершенная структура данных,
+которая содержит информацию недавно вырезанную из буферов Emacs. С
+другой стороны <CODE>kill-ring-yank-pointer</CODE> служит для обозначения
+--- `указывает на' ту часть списка уничтожений, где находится первый
+элемент (the CAR), который будет вставлен первым.
+</P><P>
+
+Функция <CODE>rotate-yank-pointer</CODE> изменяет значение
+<CODE>kill-ring-yank-pointer</CODE> таким образом, чтобы он указывал на другой
+элемент списка уничтожений; если <CODE>kill-ring-yank-pointer</CODE> указывает
+на последний элемент списка уничтожений, то следующее обращение к
+функции <CODE>rotate-yank-pointer</CODE> сделает полный оборот,
+<CODE>kill-ring-yank-pointer</CODE> снова будет указывать на первый элемент
+списка уничтожений. Таким образом список ведет себя как кольцо. Сама
+функция <CODE>rotate-yank-pointer</CODE> не очень сложна, но все же содержит
+множество деталей.  Она, и намного более простые функции <CODE>yank</CODE> и
+<CODE>yank-pop</CODE>, описаны в приложении. See section <A HREF="elisp-intro-ru_22.html#SEC215">B. Обработка списка удалений</A>.
+</P><P>
+
+<A NAME="Упражнения с nthcdr"></A>
+<HR SIZE="6">
+<A NAME="SEC129"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC128"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_13.html#SEC130"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC126"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC126"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_13.html#SEC130"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 10.3 Упражнения с <CODE>yank</CODE> и <CODE>nthcdr</CODE> </H2>
+<!--docid::SEC129::-->
+<P>
+
+<UL>
+<LI>
+Используя <KBD>C-h v</KBD> (<CODE>describe-variable</CODE>), посмотрите что
+сейчас находится в вашем списке уничтожений. Удалите что-нибудь из
+буфера <TT>`*scratch*'</TT>; и снова посмотрите на список уничтожений. С
+помощью <KBD>M-y</KBD> (<CODE>yank-pop)</CODE>, пройдите по всему кольцу
+уничтожений. Сколько элементов в нем? Найдите значение
+<CODE>kill-ring-max</CODE>. Заполнено ли ваше кольцо уничтожений, или вы
+можете добавить туда еще несколько элементов?
+<P>
+
+<LI>
+С помощью <CODE>nthcdr</CODE> и <CODE>car</CODE>, напишите несколько выражений для
+извлечения первого, второго, третьего и четвертого элементов списка.
+</UL>
+<P>
+
+<A NAME="Циклы и рекурсия"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_12.html#SEC126"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_13.html#SEC130"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>March, 10  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

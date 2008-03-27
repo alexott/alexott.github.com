@@ -1,0 +1,147 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on March, 10  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: the-the</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: the-the">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: the-the">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC214"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_20.html#SEC213"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_22.html#SEC215"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_20.html#SEC213"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_22.html#SEC215"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> A. Функция <CODE>the-the</CODE> </H1>
+<!--docid::SEC214::-->
+<P>
+
+Иногда, когда вы пишете текст, вы дублируете слова --- например,
+"you you" в начале предложения.  Я обнаружил, что в очень часто я
+дублирую слово "the'; поэтому я и дал функции для обнаружения
+дублированных слов имя <CODE>the-the</CODE>.
+</P><P>
+
+В качестве первого шага, вы могли бы использовать следующее регулярное
+выражение для поиска двойных слов:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>\\(\\w+[ \t\n]+\\)\\1
+</pre></td></tr></table></P><P>
+
+Это регулярное выражение соответствует одному или более символам, из
+которых состоят слова, за которыми следует один или несколько знаков
+пробела, табуляции или новой строки.  Однако, он не определяет
+дублированные слова, которые расположены на разных строках, поскольку
+заканчивающий первое слово знак конца строки отличается от
+заканчивающего второе слово знака пробела.  (Для получения
+дополнительной информации о регулярных выражениях, смотрите <A HREF="elisp-intro-ru_14.html#SEC148">Regular Expression Searches</A>, вместе с section `Syntax of Regular Expressions' in <CITE>The GNU Emacs Manual</CITE> и
+section `Regular Expressions' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.)
+</P><P>
+
+Вы можете производить поиск только для дублирующихся символов из
+которых состоят слова, но это не будет работать, поскольку это
+выражение будет определять дубликаты, такие как два вхождения `th' в
+предложении `with the'.
+</P><P>
+
+Другое регулярное выражение производит поиск символов составляющих
+слово, за которым следуют символы не входящие в слово, и дубль слова.
+Так, <SAMP>`\\w+'</SAMP> соответствует одному или нескольким символам
+входящим в слово, а <SAMP>`\\W*'</SAMP> соответствует одному или
+нескольким символам, которые не могут входить в слово.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>\\(\\(\\w+\\)\\W*\\)\\1
+</pre></td></tr></table></P><P>
+
+Снова, не очень полезное выражение.
+</P><P>
+
+Вот регулярное выражение, которое использую я.  Оно не является
+совершенным, но достаточно хорошо. <SAMP>`\\b'</SAMP> соответсвует пустой
+строке, находя начало или конец слова; <SAMP>`[^@ \n\t]+'</SAMP>
+соответствует одному или нескольким вложений символов, к которым
+<EM>не</EM> относятся знак @, пробел, знак новой строки или табуляции.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>\\b\\([^@ \n\t]+\\)[ \n\t]+\\1\\b
+</pre></td></tr></table></P><P>
+
+Кто-то может написать более сложное выражение, но я обнаружил, что это
+выражение вполне нормальное, так что я его и использую.
+</P><P>
+
+Вот функция <CODE>the-the</CODE>, как я ее включаю в свой файл
+<TT>`.emacs'</TT>, вместе с глобальной привязкой клавиш:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun the-the ()
+  "Производит поиск двойных слов в прямом направлении."
+  (interactive)
+  (message "Searching for for duplicated words ...")
+  (push-mark)
+  ;; This regexp is not perfect
+  ;; but is fairly good over all:
+  (if (re-search-forward
+       "\\b\\([^@ \n\t]+\\)[ \n\t]+\\1\\b" nil 'move)
+      (message "Found duplicated word.")
+    (message "End of buffer")))
+
+;; Привяжем `the-the' к C-c \
+(global-set-key "\C-c\\" 'the-the)
+</pre></td></tr></table></P><P>
+
+Вот тестовый текст:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>one two two three four five
+five six seven
+</pre></td></tr></table></P><P>
+
+Вы можете подставить другие регулярные выражения, показанные выше, в
+определение функции и попробовать каждое из них на это примере.
+</P><P>
+
+<A NAME="Список удалений"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_20.html#SEC213"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_22.html#SEC215"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>March, 10  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

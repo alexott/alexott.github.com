@@ -1,0 +1,1747 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on March, 10  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Обработка Списков</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Обработка Списков">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Обработка Списков">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC8"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC7"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC9"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_4.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 1. Обработка списков </H1>
+<!--docid::SEC8::-->
+<P>
+
+С первого взгляда Лисп кажется очень необычным языком программирования.
+В программах на Лисп очень много круглых скобок.  Некоторые люди даже
+заявляют, что сокращение Lisp происходит от "Lots of Isolated Silly
+Parentheses" <A NAME="DOCF2" HREF="elisp-intro-ru_fot.html#FOOT2">(2)</A>.  Но это утверждение несправедливо. LISP
+означает LISt Processing <A NAME="DOCF3" HREF="elisp-intro-ru_fot.html#FOOT3">(3)</A> и этот язык программирования обрабатывает
+<EM>списки</EM> (и списки списков), располагая их между круглых скобок.
+Круглые скобки ограничивают список.  Иногда перед списком ставится один
+апостроф <SAMP>`''</SAMP>.  Списки --- основа Лиспа.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC9">1.1 Списки в Лисп</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC13">1.2 Запуск Программы</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC14">1.3 Получаем сообщение об ошибке</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC15">1.4 Имена символов и определения функций</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC16">1.5 Интерпретатор Лиспа</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC18">1.6 Вычисление</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC20">1.7 Переменные</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC22">1.8 Аргументы</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC28">1.9 Присваиваем переменной значение</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC32">1.10 Резюме</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC33">1.11 Упражнения</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Списки Лиспа"></A>
+<HR SIZE="6">
+<A NAME="SEC9"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC10"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC13"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.1 Списки в Лисп </H2>
+<!--docid::SEC9::-->
+<P>
+
+В Лиспе список выглядит следующим образом: <CODE>'(роза фиалка
+маргаритка лютик)</CODE>.  Перед этим списком поставлен один апостроф.  Этот
+список можно переписать по другому, именно так в дальнейшем и будут
+выглядеть списки с которыми вам придется иметь дело:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>'(роза
+фиалка
+маргаритка
+лютик)
+</pre></td></tr></table></P><P>
+
+Элементами этого списка являются названия четырех разных цветов,
+разделенные друг от друга пробелами и окруженные круглыми скобками,
+подобно цветам в саду с каменной оградой.
+</P><P>
+
+Списки могут также содержать числа, например: <CODE>(+ 2 2)</CODE>.  В этом
+списке первый элемент это знак плюс <CODE>+</CODE>, за которым следуют два
+числа, разделенные пробелами.
+</P><P>
+
+В Лиспе и данные, и программы представляются одинаковым образом, то есть
+в виде списков, состоящих из слов, чисел или других списков, разделенные
+пробельными символами и окруженные круглыми скобками.  (Так как
+программы выглядят как данные, то одна программа легко может служить
+данными для другой программы --- это очень мощное свойство Лиспа).
+(Кстати, эти два замечания в скобках <EM>не являются</EM> допустимыми
+списками Лиспа, поскольку они содержат знаки препинания <SAMP>`;'</SAMP> и
+<SAMP>`.'</SAMP>).
+</P><P>
+
+Вот другой список, в этот раз со списком внутри себя:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>'(этот список содержит список (внутри себя))
+</pre></td></tr></table></P><P>
+
+Элементами этого списка являются слова <SAMP>`этот'</SAMP>, <SAMP>`список'</SAMP>,
+<SAMP>`содержит'</SAMP> и список <SAMP>`(внутри себя)'</SAMP>. Внутренний список
+составлен из слов <SAMP>`внутри'</SAMP>, <SAMP>`себя'</SAMP>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC10">1.1.1 Атомы Лиспа</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC11">1.1.2 Пробелы в списках</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC12">1.1.3 GNU Emacs помогает вам программировать</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Атомы Лиспа"></A>
+<HR SIZE="6">
+<A NAME="SEC10"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC9"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC11"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC9"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC13"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.1.1 Атомы Лиспа </H3>
+<!--docid::SEC10::-->
+<P>
+
+То, что мы называем словами, в Лиспе называют <EM>атомами</EM>. Этот термин
+происходит от исторического значения слова атом, что значит
+"неделимый". Что касается Лиспа, то слова, которые мы использовали в
+списках, нельзя разделить на меньшие части; то же самое можно сказать о
+числах и одиночных символах, таких как <SAMP>`+'</SAMP>. С другой стороны, в
+отличие от атома список можно разложить на составные части.  (<A HREF="elisp-intro-ru_9.html#SEC96"><CODE>car</CODE> <CODE>cdr</CODE> &#38; <CODE>cons</CODE>: основные функции</A>.)
+</P><P>
+
+В списке атомы разделяются друг от друга пробелами и могут находиться
+вплотную к скобкам.
+</P><P>
+
+<A NAME="IDX3"></A>
+<A NAME="IDX4"></A>
+Если рассматривать это с технической точки зрения, список в Лиспе
+состоит из круглых скобок, окружающих атомы, другие списки, или и
+списки, и атомы, разделенные пробелами. Список может иметь только один
+атом внутри себя или не иметь совсем ничего.  Список, который ничего не
+содержит, выглядит следующим образом: <CODE>()</CODE> и называется
+<EM>пустым списком</EM>. В отличие от всего остального, пустой список
+считается и атомом, и списком одновременно.
+</P><P>
+
+<A NAME="IDX5"></A>
+<A NAME="IDX6"></A>
+<A NAME="IDX7"></A>
+Печатное представление и атомов, и списков называют <EM>символическим
+выражением</EM>, или говоря точнее <EM>s-выражениями</EM>. Слово
+<EM>выражение</EM> может относиться печатному представлению, к атому или
+списку, как они содержатся внутри компьютера. Люди часто используют
+термин <EM>выражение</EM> не по назначению. (Также во многих книгах по
+Лиспу, слово <EM>форма</EM> используется, как синоним слова
+<EM>выражение</EM>).
+</P><P>
+
+Кстати, атомы, из которых состоит наша вселенная, были названы так,
+когда их считали неделимыми; но позже выяснилось, что это не совсем
+правильно. Атом можно расщепить на две части примерно одинакового
+размера, или он может распасться сам. Следовательно, физические атомы
+были названы преждевременно, до того, как прояснилась их истинная
+природа.  В Лиспе некоторые виды атомов, такие как массивы, можно
+разделить на части, но механизм разделения отличается от механизма
+разделения списка на составные части.  Когда дело касается операций на
+списках, атомы списка неразделимы.
+</P><P>
+
+Как и в английском языке, значения букв, составляющих название атома
+Лиспа, отличается от значения букв, составляющих слово.  Например,
+южно-американский ленивец по английски называется <SAMP>`ai'</SAMP>, и это
+полностью отличается от двух букв <SAMP>`a'</SAMP> и <SAMP>`i'</SAMP>.
+</P><P>
+
+В природе существует много различных видов атомов, но в Лиспе существует
+только несколько: например, <EM>числа</EM>, такие как 37, 511, или 1729;
+или <EM>символы</EM>,такие как <SAMP>`+'</SAMP>, <SAMP>`foo'</SAMP>, <SAMP>`forward-line'</SAMP>.
+Слова, которые мы перечислили выше, являются символами.  В обычных
+разговорах программистов слово "атом" используется не так часто,
+потому что программисты обычно пытаются быть более конкретны при
+указании типов атомов, которые они используют.  Программирование на
+Лиспе в основном имеет дело с символами (и иногда с числами) внутри
+списков.  (Кстати, предыдущие четыре слова в скобках являются правильным
+списком для Лиспа, так как он состоит из атомов, которые в этом случае
+являются символами, разделенными пробелами и закрытые в скобки, без
+каких либо знаков препинания).
+</P><P>
+
+Добавим, что текст между двойными кавычками (даже предложения или
+параграфы) считается одним атомом. Например:
+<A NAME="IDX8"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>'(этот список включает "текст между двойными кавычками.")
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX9"></A>
+В Лиспе весь текст между двойными кавычками, включая знаки препинания
+и пробельные символы, считается атомом.  Этот вид атома называется
+<EM>строка</EM> (от "строка символов") и обычно используется для
+сообщений, которые компьютер печатает для того, чтобы пользователь мог
+их прочесть. Строки отличаются от чисел и символов и используются
+по-другому.
+</P><P>
+
+<A NAME="Пробелы в Списках"></A>
+<HR SIZE="6">
+<A NAME="SEC11"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC10"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC12"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC9"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC13"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.1.2 Пробелы в списках </H3>
+<!--docid::SEC11::-->
+<P>
+
+Количество пробелов в списке не имеет значения. С точки зрения
+синтаксиса Лиспа,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>'(это одинаковые
+   списки)
+</pre></td></tr></table></P><P>
+
+это точно такой же список как и:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>'(это одинаковые списки)
+</pre></td></tr></table></P><P>
+
+Для Лиспа оба этих списка абсолютно одинаковы и состоят из символов
+<SAMP>`это'</SAMP>, <SAMP>`одинаковые'</SAMP>, <SAMP>`списки'</SAMP> именно в таком порядке.
+</P><P>
+
+Дополнительные пробелы и символы новой строки используются для того,
+чтобы сделать список более удобным для чтения людьми. Когда Лисп
+считывает выражение, он избавляется от лишних пробелов (но для того,
+чтобы атомы можно было воспринимать раздельно, между ними должен быть
+по меньшей мере один пробел.)
+</P><P>
+
+Это может показаться удивительным, но мы рассмотрели почти все виды
+списков Лиспа! Любой другой список в Лиспе выглядит более или менее
+похожим на один из выше рассмотренных примеров, разве что список может
+быть больше и выглядеть более сложным. Короче говоря, список находится
+между круглых скобок, строка находится между двойными кавычками,
+символ выглядит как слово, а число выглядит как число. (В определенных
+случаях могут использоваться квадратные скобки, точки и некоторые
+другие специальные символы; однако мы можем зайти довольно далеко и
+без них).
+</P><P>
+
+<A NAME="Набираем Списки"></A>
+<HR SIZE="6">
+<A NAME="SEC12"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC11"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC13"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC9"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC13"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.1.3 GNU Emacs помогает вам программировать </H3>
+<!--docid::SEC12::-->
+<P>
+
+Если вы набираете Лисп-выражение в GNU Emacs, используя основной режим
+Emacs Lisp или Lisp Interaction, то вы можете воспользоваться некоторыми
+командами, чтобы отформатировать Лисп-выражение так, чтобы его было
+легче воспринимать при чтении. Например, нажатие клавиши <KBD>TAB</KBD>
+автоматически выравнивает строку, в которой находится курсор,
+вправо. Команда для выравнивания области текста обычно привязана к
+сочетанию клавиш <KBD>M-C-\</KBD>. Выравнивание производится так, чтобы вы
+могли сразу увидеть, к какому списку принадлежат данные выражения списка
+(элементы вложенных списков расположены правее, чем элементы списков
+более верхнего уровня).
+</P><P>
+
+Кроме этого, когда вы печатаете закрывающую скобку, Emacs моментально
+переводит курсор к соответствующей ей открывающей скобке. Это очень
+полезная функция редактора, так как в каждом списке, который вы будете
+набирать, все скобки должны быть сбалансированы. (See section `Major Modes' in <CITE>The GNU Emacs Manual</CITE>, для получения дополнительной
+информации о режимах Emacs).
+</P><P>
+
+<A NAME="Запуск Программы"></A>
+<HR SIZE="6">
+<A NAME="SEC13"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC12"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC14"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC9"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_4.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.2 Запуск Программы </H2>
+<!--docid::SEC13::-->
+<P>
+
+<A NAME="IDX10"></A>
+Список в Лиспе (любой список) --- это программа, готовая к запуску.
+Если вы запустите ее (на жаргоне Лиспа <EM>вычислите</EM>), то компьютер
+сделает следующее: 1) ничего не сделает, а только вернет вам сам
+список; 2) отобразит сообщение об ошибке; 3) обработает первый символ
+в списке как команду сделать что-либо. (Обычно, именно
+последнее --- это то, что вы хотите на самом деле!)
+</P><P>
+
+Одиночный апостроф <CODE>'</CODE>, который я ставил перед некоторыми из
+списков в предыдущих абзацах, называют <EM>цитатой (quote)</EM> и, когда
+перед списком стоит апостроф, это сигнал для Лиспа ничего не делать со
+списком, а взять его как есть. Но если перед списком нет апостофа, то
+первый символ в списке имеет особое значение: --- это команда,
+которую компьютер должен выполнить. (В Лиспе эти команды называют
+<EM>функциями</EM>).  Перед списком <CODE>(+ 2 2)</CODE> нет апострофа, поэтому
+Лисп будет рассматривать <CODE>+</CODE> как инструкцию, сделать что-то с
+остальными символами списка; в этом примере он просто сложит последующие
+числа.
+</P><P>
+
+Если вы читаете это в Info внутри Gnu Emacs, то вот как вы можете
+вычислить такой список: расположите курсор сразу после правой скобки
+следующего ниже списка и нажмите сочетание клавиш <KBD>C-x C-e</KBD>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(+ 2 2)
+</pre></td></tr></table></P><P>
+
+Вы увидите, что в эхо-области появится число <CODE>4</CODE>. (Говоря на
+жаргоне Лиспа, вы только что "вычислили список".  Эхо-область---
+это строка внизу экрана, в которой отображается текст). Сейчас
+попробуйте сделать то же самое со списком, перед которым стоит
+апостроф: поместите курсор сразу за следующим списком и нажмите
+<KBD>C-x C-e</KBD>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>'(это список перед которым стоит апостроф)
+</pre></td></tr></table></P><P>
+
+В этом случае в эхо-области появится <CODE>(это список перед которым
+стоит апостроф)</CODE>.
+</P><P>
+
+<A NAME="IDX11"></A>
+<A NAME="IDX12"></A>
+В обоих случаях вы давали команду "вычислить выражение" встроенной в
+GNU Emacs программе (которая называется <EM>интерпретатор Лиспa</EM>).
+Имя интерпретатора Лисп произошло от названия задачи, которую
+выполняет человек, объясняющий выражение, т.е. "интерпретирующий"
+его.
+</P><P>
+
+Вы можете также вычислить атом, который не является частью списка (не
+окружен круглыми скобками), и снова интерпретатор Лиспа переведет это из
+формы, понятной человеку, на язык компьютера.  Но до того, как обсуждать
+это (see section <A HREF="elisp-intro-ru_3.html#SEC20">1.7 Переменные</A>), мы рассмотрим, что сделает интерпретатор
+Лиспа, когда вы совершите ошибку.
+</P><P>
+
+<A NAME="Первые Ошибки"></A>
+<HR SIZE="6">
+<A NAME="SEC14"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC13"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC15"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_4.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.3 Получаем сообщение об ошибке </H2>
+<!--docid::SEC14::-->
+<P>
+
+Чтобы вы не беспокоились из-за случайно совершенной ошибки, мы сейчас
+дадим команду интерпретатору Лиспа, которая выдаст сообщение об
+ошибке. Это совсем безвредно; на самом деле мы часто будем выдавать
+сообщения об ошибках, когда это нам необходимо. Если вы понимаете
+терминологию, сообщения об ошибках могут быть очень полезными. Вместо
+того, чтобы называть их сообщения об "ошибках", назовем их
+"подсказками".  Они как указатели для путешественника в незнакомую
+страну--- разобраться в них сначала тяжело, но когда все ясно, они
+указывают путь.
+</P><P>
+
+Вот, что мы сейчас сделаем: мы вычислим список, перед которым не стоит
+апостроф, а первый элемент списка не является командой. Этот список мы
+уже использовали, сейчас мы уберем одиночный апостроф.  Расположите
+курсор после выражения и нажмите <KBD>C-x C-e</KBD>;
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(это список перед которым стоит апостроф)
+</pre></td></tr></table></P><P>
+
+В этот раз вы увидите, что в эхо-области появится следующее сообщение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Symbol's function definition is void: это
+</pre></td></tr></table></P><P>
+
+(Также терминал может подать вам звуковой сигнал или мигнуть. Это
+чтобы привлечь ваше внимание). Сообщение исчезнет как только вы
+нажмете какую-нибудь клавишу, даже чтобы просто переместить курсор.
+</P><P>
+
+<A NAME="IDX13"></A>
+Основываясь на том, что мы уже знаем, мы можем полностью понять это
+сообщение об ошибке.  Вы знаете смысл слова <SAMP>`Symbol (символ)'</SAMP>. В
+этом случае оно относится к первому атому списка, слову
+<SAMP>`это'</SAMP>. Слово <SAMP>`функция'</SAMP> мы уже упоминали ранее. Это очень
+важное слово. Для себя мы можем определить его следующим образом:
+<EM>функция</EM> --- это набор инструкций для компьютера, которые
+сообщают ему, что необходимо сделать. (Строго говоря, символ говорит
+компьютеру, где найти инструкции, но это усложнение мы пока будем
+игнорировать).
+</P><P>
+
+Сейчас мы можем понять сообщении об ошибке: <SAMP>`Symbol's function
+definition is void: это'</SAMP>. Символу (то есть слову <SAMP>`это'</SAMP>), не
+соответствует никакой набор инструкций, которые мог бы выполнить
+компьютер.
+</P><P>
+
+Немного странное значение сообщения, <SAMP>`function definition is
+void'</SAMP> (определение функции --- пусто), объясняется тем, как
+реализован Emacs Lisp --- то есть, когда с символом не связано
+никакого определения функции, то место, где должно содержаться это
+определение --- пусто.
+</P><P>
+
+С другой стороны, так как мы смогли успешно сложить 2 и 2, то вычислив
+выражение <CODE>(+ 2 2)</CODE>, можно полагать, что с символом <CODE>+</CODE>
+связан некоторый набор инструкций, выполняя которые, компьютер
+складывает числа, следующие за <CODE>+</CODE>.
+</P><P>
+
+<A NAME="Имена &#38; Определения"></A>
+<HR SIZE="6">
+<A NAME="SEC15"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC14"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC16"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_4.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.4 Имена символов и определения функций </H2>
+<!--docid::SEC15::-->
+<P>
+
+Мы сейчас обсудим одну особенность Лиспа, основываясь на приобретенных
+нами знаниях: символ, такой как <CODE>+</CODE>, сам не является набором
+инструкций, которые должен выполнить компьютер. Вместо этого символ
+используется (возможно временно) как указатель на определение или набор
+инструкций. То есть через имя можно найти эти инструкции. Имена людей
+используются похожим образом. Ко мне можно обратиться, как к <SAMP>`Боб'</SAMP>;
+однако`я --- это не буквы <SAMP>`б'</SAMP>, <SAMP>`о'</SAMP>, <SAMP>`б'</SAMP>, а особая
+жизненная форма, обладающая сознанием. Я --- это не имя, но его
+можно использовать, чтобы обратиться ко мне.
+</P><P>
+
+В Лиспе один и тот же набор инструкций может быть связан с несколькими
+именами. Например, инструкции для сложения чисел можно связать как с
+символом <CODE>plus</CODE> или <CODE>плюс</CODE>, так и с символом <CODE>+</CODE> (так и
+есть в некоторых диалектах Лиспа).  Среди людей ко мне можно обращаться
+как к <SAMP>`Роберту'</SAMP>, так и к <SAMP>`Бобу'</SAMP>.
+</P><P>
+
+С другой стороны, к символу можно прикрепить только одно определение
+функции. В противном случае компьютер не смог бы выбрать, какое
+определение использовать. Если бы так было среди людей, то только один
+человек в мире мог носить имя <SAMP>`Боб'</SAMP>. Однако определение функции,
+к которому относится имя, можно легко изменить.
+</P><P>
+
+Поскольку Emacs Lisp огромен, то символы принято называть таким
+образом, чтобы сразу было ясно, к какой части Emacs принадлежит эта
+функция. Так все имена функций, которые имеют дело с Texinfo
+начинаются с <SAMP>`texinfo-'</SAMP>, а функции, которые имеют дело с
+электронной почтой, начинаются с <SAMP>`rmail-'</SAMP>.
+</P><P>
+
+<A NAME="Интерпретатор Лиспа"></A>
+<HR SIZE="6">
+<A NAME="SEC16"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC15"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC17"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.5 Интерпретатор Лиспа </H2>
+<!--docid::SEC16::-->
+<P>
+
+Основываясь на том, что изучили, мы можем понять, что делает
+интерпретатор Лиспа, когда мы даем ему команду вычислить выражение.
+Первым делом интерпретатор смотрит, есть ли апостроф перед списком; если
+да, то он только возвращает выражение как есть.  Если же апострофа нет,
+то интерпретатор анализирует первый элемент списка и пытается определить
+по этому символу определение функции. Если функция существует, то
+интерпретатор выполняет соответствующие ей инструкции. В противном
+случае он выдает сообщение об ошибке.
+</P><P>
+
+Вот как работает интерпретатор Лиспа.  Это очень просто.  Мы скоро
+рассмотрим некоторые нюансы, но, то что вы изучили, это основы.  Конечно,
+чтобы написать программу на Лиспе, вам необходимо знать, как определять
+функцию и связывать ее с именем, и как сделать это, не запутав компьютер
+и себя.
+</P><P>
+
+Вот и первый нюанс. Кроме списков, интерпретатор Лиспа может вычислить
+символ, перед которым нет апострофа, и который не заключен в круглые
+скобки. В этом случае интерпретатор Лиспа попытается определить значение
+символа, считая его <EM>переменной</EM>. Такая ситуация описана в разделе о
+переменных в данной главе.  (See section <A HREF="elisp-intro-ru_3.html#SEC20">1.7 Переменные</A>.)
+</P><P>
+
+<A NAME="IDX14"></A>
+Второй нюанс связан с тем, что некоторые функции необычны и работают
+несколько странно. Их называют <EM>особыми формами</EM>.  Их не очень много
+и они используются в специальных случаях, например, когда надо
+определить новую функцию.  В следующих нескольких главах мы рассмотрим
+некоторые из наиболее важных особых форм.
+</P><P>
+
+Третий и последний нюанс: если функция, которую анализирует
+интерпретатор Лиспа, не является особой формой, и если она часть списка,
+то интерпретатор Лиспа смотрит, есть ли внутри этого списка вложенные
+списки. Если есть, тогда интерпретатор вначале вычисляет внутренние
+списки, а затем внешние. Он всегда в первую очередь обрабатывает
+внутренние списки. Это делается для того, чтобы выяснить, какой они
+возвращают результат. Этот результат может использоваться в списке
+верхнего уровня.
+</P><P>
+
+Если внутренних списков нет, то интерпретатор вычисляет выражения
+слева направо, от одного выражения к другому.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC17">1.5.1 Байт-компиляция</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Байт-компиляция"></A>
+<HR SIZE="6">
+<A NAME="SEC17"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC16"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC18"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC15"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC16"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC18"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.5.1 Байт-компиляция </H3>
+<!--docid::SEC17::-->
+<P>
+
+Интерпретатор Лиспа может обрабатывать два вида данных: код, который
+может прочесть человек (мы и будем рассматривать его в этой книге) и
+особо обработанный код, не предназначенный для чтения людьми, так
+называемый <EM>байт-компилированный</EM> код. Байт-компилированный код
+выполняется гораздо быстрее чем обычный.
+</P><P>
+
+Вы можете перевести обычный код в байт-компилированный, запустив команду
+для компиляции, например, <CODE>byte-compile-file</CODE>. Байт-компилированный
+код обычно хранится в файлах, имеющих расширение <TT>`.elc'</TT>, а файлы,
+которые можно читать, имеют расширение <TT>`.el'</TT>. Вы можете увидеть оба
+типа файлов в директории <TT>`emacs/lisp'</TT>.
+</P><P>
+
+На практике многое из того, чем мы будем заниматьсяw{ ---} настраивать и
+расширять Emacsw{ ---} не потребует байт-компиляции; и я не буду
+обсуждать здесь эту тему. See section `Byte Compilation' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>, для более полного описания
+байт-компиляции.
+</P><P>
+
+<A NAME="Вычисление"></A>
+<HR SIZE="6">
+<A NAME="SEC18"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC17"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC19"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC16"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC20"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.6 Вычисление </H2>
+<!--docid::SEC18::-->
+<P>
+
+Когда интерпретатор Лиспа анализирует выражение, то говорят, что он
+занимается <EM>вычислением</EM>. То есть интерпретатор "вычисляет
+выражение". Я уже использовал этот термин несколько раз раньше.
+Слово пришло из повседневного языка, "выяснить значение или
+количество; оценить", согласно "Webster's New Collegiate
+Dictionary".
+</P><P>
+
+После вычисления выражения, интерпретатор Лиспа обычно <EM>возвращает</EM>
+значение, которое вычислил компьютер, выполняя инструкции, найденные в
+определении функции; иногда он прерывает выполнение функции и выдает
+сообщение об ошибке. (Интерпретатор может также выполнить не ту функцию,
+или он может начать повторять что-нибудь снова и снова --- зайти в
+так называемый "бесконечный цикл". Эти действия менее обычны, и мы
+можем проигнорировать их). В основном, интерпретатор возвращает
+какое-нибудь значение.
+</P><P>
+
+<A NAME="IDX15"></A>
+Одновременно с возвратом значения интерпретатор может сделать что-нибудь
+еще, например, переместить курсор или скопировать файл --- этот
+дополнительный род деятельности называют <EM>побочным
+эффектом</EM>. Действия, которые людьми считаются важными, такие как печать
+результатов, часто являются только "побочными эффектами" для
+интерпретатора Лиспа. Это может звучать несколько необычно, но позже мы
+довольно легко научимся использовать побочные эффекты.
+</P><P>
+
+В общем вычисление символического выражения обычно заставляет
+интерпретатор Лиспа возвратить какое-нибудь значение и, возможно,
+выполнить побочное действие; или прервать выполнение, отобразив
+соответствующее сообщение об ошибке.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC19">1.6.1 Вычисление внутренних списков</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Вычисление Внутренних Списков"></A>
+<HR SIZE="6">
+<A NAME="SEC19"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC18"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC20"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC16"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC18"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC20"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.6.1 Вычисление внутренних списков </H3>
+<!--docid::SEC19::-->
+<P>
+
+Если мы вычисляем список, внутри которого есть другой список, то при
+вычислении внешнего списка может использоваться значение, которое
+возвращается при вычислении внутреннего списка. Это объясняет, почему
+внутренние выражения вычисляются в первую очередь --- значения,
+которые они возвращают используются внешними выражениями.
+</P><P>
+
+Мы можем исследовать этот процесс, вычислив еще один пример на
+сложение чисел. Расположите курсор после следующего выражения и
+нажмите <KBD>C-x C-e</KBD>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(+ 2 (+ 3 3))
+</pre></td></tr></table></P><P>
+
+В эхо-области появится число 8.
+</P><P>
+
+Это произошло, потому что интерпретатор Лиспа вначале вычислил
+внутреннее выражение, <CODE>(+ 3 3)</CODE>, вычисление которого вернуло
+значение 6; а затем он вычислил внешнее выражение, которое теперь можно
+представить как <CODE>(+ 2 6)</CODE>, вычисление которого вернуло значение
+8. Так как в этом выражении больше нечего вычислять, то интерпретатор
+отобразил это значение в эхо-области.
+</P><P>
+
+Сейчас уже довольно легко понять название команды, которая запускается
+клавишами <KBD>C-x C-e</KBD> --- она называется <CODE>eval-last-sexp</CODE>.
+Буквы <CODE>sexp</CODE> --- это сокращение от "symbolic expression
+(символьное выражение)", а <CODE>eval</CODE> сокращение от "evaluate".  Эта
+команда означает `вычислить последнее символическое выражение'
+("evaluate last symbolic expression").
+</P><P>
+
+В порядке эксперимента вы можете сейчас попробовать вычислить это же
+выражение, расположив курсор на пустой строке сразу за выражением, или
+внутри него.
+</P><P>
+
+Вот копия предыдущего выражения:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(+ 2 (+ 3 3))
+</pre></td></tr></table></P><P>
+
+Если вы расположите курсор в начало пустой строки сразу за этим
+выражением и нажмете <KBD>C-x C-e</KBD>, то в эхо-области также отобразится
+8. Сейчас попробуйте расположить курсор внутри выражения. Если вы
+поставите его за предпоследней скобкой (будет казаться, что курсор
+поверх последней скобки), в эхо-области появится 6!  Это потому что
+сейчас мы вычислили выражение <CODE>(+ 3 3)</CODE>.
+</P><P>
+
+Теперь расположите курсор сразу за каким-нибудь числом. Нажмите
+<KBD>C-x C-e</KBD> и вы получите само это число.  В Лиспе, если вы
+вычисляете число, то возвращается само это число (этим числа
+отличаются от символов). Если вы вычислите список, начинающийся с
+символа <CODE>+</CODE>, то интерпретатор вернет вам значение, которое он
+получит, выполняя инструкции связанные, с этим символом. Если вы
+попытаетесь вычислить сам этот символ, произойдет что-то другое, и это
+мы рассмотрим в следующем разделе.
+</P><P>
+
+<A NAME="Переменные"></A>
+<HR SIZE="6">
+<A NAME="SEC20"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC19"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC21"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC18"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.7 Переменные </H2>
+<!--docid::SEC20::-->
+<P>
+
+В Лиспе к любому символу можно прикрепить какое-нибудь значение, точно
+также как к нему можно прикрепить функцию. Это две большие разницы.
+Функция --- это набор инструкций, которые компьютер должен
+выполнить. С другой стороны, значение --- это нечто, например, число
+или имя, то что может изменяться (vary) (поэтому такой символ назвали
+переменной (variable)). Значением символа может быть любое выражение,
+допустимое в Лиспе --- такое как число, символ, список, или
+строка. Символ, который имеет значение, часто называют <EM>переменной</EM>.
+</P><P>
+
+С символом одновременно может быть связано и определение функции и
+какое-нибудь значение. Это два различных понятия. Похоже на то, как
+имя Кембридж носит город в штате Массачусетс, и с этим именем связана
+еще кое-какая информация --- многие считают его "крупнейшим
+центром программирования".
+</P><P>
+
+(Кстати, в Emacs Lisp с символом могут быть связаны также список
+свойств и строка документации; они обсуждаются позже).
+</P><P>
+
+Есть другой способ разграничить эти понятия  --- представить себе
+символ как стол с выдвижными ящичками. Определение функции можно
+положить в один ящик, значение переменной в другой, и так далее. То, что
+мы положим в ящик для переменной, не повлияет на то, что находится в
+ящике для функции, и наоборот.
+</P><P>
+
+Переменная <CODE>fill-column</CODE> --- пример символа, которому
+соответствует некоторое значение (в каждом буфере GNU Emacs этому
+символу присвоено какое-нибудь значение, обычно 70 или 72.)  Чтобы
+узнать значение этого символа, вычислите его сами. Если вы читаете это в
+Info внутри GNU Emacs, вы можете сделать это, расположив курсор за
+символом и нажав <KBD>C-x C-e</KBD>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>fill-column
+</pre></td></tr></table></P><P>
+
+После того, как я нажал <KBD>C-x C-e</KBD>, Emacs напечатал в эхо-области
+число 72. Это значение я присвоил <CODE>fill-column</CODE>, когда писал эту
+книгу. В вашем случае оно может быть другим. Заметьте, что значение,
+которое вернулось после вычисления переменной, отпечаталось точно так
+же, как и значение, которое бы вернула функция. С точки зрения
+интерпретатора Лиспа возвращенное значение есть только возвращенное
+значение. Какого рода выражение мы вычисляли уже неважно, когда значение
+известно.
+</P><P>
+
+Символу может соответствовать любое значение или, используя жаргон
+Лиспа, мы можем <EM>связать</EM> с переменной любое значение ---
+число, такое как 72; строку, <CODE>такую как эта</CODE>; список, такой как
+<CODE>(ель сосна дуб)</CODE>; мы можем даже связать с переменной определение
+функции.
+</P><P>
+
+Значение можно связать с переменной несколькими способами.
+Дополнительную информацию ищите в See section <A HREF="elisp-intro-ru_3.html#SEC28">Присваиваем Переменной Значение</A>.
+</P><P>
+
+Заметьте, что вокруг слова <CODE>fill-column</CODE> не было скобок, когда мы
+вычислили его, чтобы найти связанное с ним значение. Это потому, что
+мы не собирались использовать его как функцию. Если бы
+<CODE>fill-column</CODE> было бы первым или единственным символом в списке,
+то интерпретатор Лиспа попытался бы найти определение функции,
+связанное с этим символом. Но с <CODE>fill-column</CODE> не связана никакая
+функция. Попробуйте вычислить следующее выражение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(fill-column)
+</pre></td></tr></table></P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Вы получите следующее сообщение об ошибке:
+
+Symbol's function definition is void: fill-column
+</pre></td></tr></table></P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC21">1.7.1 Сообщение об ошибке для пустого символа</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Пустая Переменная"></A>
+<HR SIZE="6">
+<A NAME="SEC21"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC20"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC18"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.7.1 Сообщение об ошибке для пустого символа </H3>
+<!--docid::SEC21::-->
+<P>
+
+Если вы попытаетесь вычислить символ, с которым не связано никакое
+значение, то вы получите сообщение об ошибке. Вы можете проверить
+это, продолжив эксперимент с нашим примером на сложение 2 плюс 2.  В
+следующем выражении расположите курсор после <CODE>+</CODE>, перед первым
+числом 2, и нажмите <KBD>C-x C-e</KBD>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(+ 2 2)
+</pre></td></tr></table></P><P>
+
+Вы получите следующее сообщение об ошибке:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Symbol's value as variable is void: +
+</pre></td></tr></table></P><P>
+
+Оно отличается от первого сообщения об ошибке, которое мы видели:
+<SAMP>`Symbol's function definition is void: это'</SAMP>. Во втором случае с
+символом, как с переменной, не было связано никакого значения; в первом
+случае с символом (то есть со словом <SAMP>`это'</SAMP>) не было связано
+определение функции.
+</P><P>
+
+В этом эксперименте с <CODE>+</CODE> мы заставили интерпретатор Лиспа
+вычислять символ <CODE>+</CODE> как переменную, вместо того, чтобы искать
+определение функции, связанное с этим символом. Мы сделали это,
+расположив курсор сразу за символом, а не после скобки, закрывающей
+список, как было раньше. Поэтому интерпретатор Лиспа вычислил предыдущее
+s-выражение, которое в нашем случае было символом <CODE>+</CODE>.
+</P><P>
+
+Так как с <CODE>+</CODE> не связано никакого значения, как с переменной, а
+только определение функции, то мы и получили сообщение об 
+ошибке --- значение символа как переменной пусто.
+</P><P>
+
+<A NAME="Аргументы"></A>
+<HR SIZE="6">
+<A NAME="SEC22"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC21"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC23"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.8 Аргументы </H2>
+<!--docid::SEC22::-->
+<P>
+
+Чтобы понять, как функция получает необходимую ей информацию, давайте
+снова рассмотрим наш старый добрый пример: 2 + 2. В Лиспе это
+записывается следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(+ 2 2)
+</pre></td></tr></table></P><P>
+
+После вычисления этого выражения, в эхо-области появится число 4.
+Интерпретатор Лиспа сложил числа, которые следовали за символом
+<CODE>+</CODE>.
+</P><P>
+
+<A NAME="IDX16"></A>
+Числа, которые складывает функция <CODE>+</CODE>, называют <EM>аргументами</EM>
+этой функции.  Аргументы ---это информация, которую мы сообщили или
+<EM>передали</EM> этой функции.
+</P><P>
+
+Слово "аргумент" здесь используется в математическом, а не
+повседневном смысле.  Здесь оно обозначает информацию, переданную
+функции, в нашем случае к функции <CODE>+</CODE>.  В Лиспе аргументы
+функции --- это атомы или списки, которые следуют за именем функции.
+Значения, возвращаемые вычислением этих атомов или списков, передаются в
+функцию.  Разные функции требуют разного числа аргументов, некоторые
+функции совсем не требуют аргументов.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC23">1.8.1 Типы Данных аргументов</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC24">1.8.2 Аргумент как значение переменной или списка</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;или&nbsp;списка.
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC25">1.8.3 Аргументов может быть много</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;число&nbsp;аргументов.
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC26">1.8.4 А если аргумент неправильного типа</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC27">1.8.5 Функция <CODE>message</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Очень полезная функция.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Типы данных"></A>
+<HR SIZE="6">
+<A NAME="SEC23"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC24"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.8.1 Типы Данных аргументов </H3>
+<!--docid::SEC23::-->
+<P>
+
+Типы данных, которые будут передаваться в функцию, зависят от того,
+какого рода информацию она использует. Аргументы функции, такой как
+<CODE>+</CODE>, должны иметь численные значения, поскольку <CODE>+</CODE> складывает
+числа. Другие функции используют аргументы другого типа.
+</P><P>
+
+<A NAME="IDX17"></A>
+Например, функция <CODE>concat</CODE> связывает вместе, или объединяет две
+или более строк, чтобы получить одну строку. Ее аргументы строки.
+Конкатенация двух символьных строк <CODE>abc</CODE>, <CODE>def</CODE> выдаст в
+результате строку <CODE>abcdef</CODE>. Это можно проверить вычислив
+следующее:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(concat "abc" "def")
+</pre></td></tr></table></P><P>
+
+Значение, произведенное вычислением, этого выражения равно
+<CODE>abcdef</CODE>.
+</P><P>
+
+Аргументами такой функции как <CODE>substring</CODE> являются и строки, и
+числа. Эта функция возвращает часть строки, подстроку своего первого
+аргумента.  Функция требует три аргумента.  Первый аргумент ---
+строка символов, второй и третий аргументы --- это числа, которые
+отмечают начало и конец строки.  Числа --- это количество символов
+(включая пробелы и знаки пунктуации) от начала строки.
+</P><P>
+
+Например если вы вычислите следующее выражение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(substring "Четыре черненьких чумазеньких чертенка." 7 29)
+</pre></td></tr></table></P><P>
+
+то в эхо-области появится фраза <CODE>""черненьких чумазеньких"</CODE>
+Аргументами функции <CODE>substring</CODE> были строка и два числа.
+</P><P>
+
+Отметим, что строка, которую мы передали в функцию <CODE>substring</CODE>,
+это один атом, даже если он был составлен из нескольких слов,
+разделенных пробелами. Лисп считает все, то заключено между двойными
+кавычками, частью строки, включая пробелы. Вы можете считать функцию
+<CODE>substring</CODE> как своего рода "разделитель атома" поскольку она
+извлекает часть из по-другому неделимого атома. Однако
+<CODE>substring</CODE> способна выделить подстроку только из строки, а с
+другого рода атомами, такими как символы или числа, она не работает.
+</P><P>
+
+<A NAME="Аргумент как Список"></A>
+<HR SIZE="6">
+<A NAME="SEC24"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC23"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC25"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.8.2 Аргумент как значение переменной или списка </H3>
+<!--docid::SEC24::-->
+<P>
+
+Аргументом может быть и символ, который возвращает значение, когда его
+вычислят. Например, когда мы вычисляем символ <CODE>fill-column</CODE>, то
+он возвращает число. Это число может использоваться в сложении.
+Поставьте курсор после следующего выражения и нажмите <KBD>C-x C-e</KBD>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(+ 2 fill-column)
+</pre></td></tr></table></P><P>
+
+Значение, которое вы получите будет числом, которое на два больше чем
+значение <CODE>fill-column</CODE>. В моем случае это было 74, поскольку
+<CODE>fill-column</CODE> установлено в 72.
+</P><P>
+
+Как мы только что видели, аргументом может быть символ, который
+возвращает некоторое значение, когда его вычисляют. Кроме того,
+аргумент может быть списком, который возвращает значение, когда его
+вычисляют. Например в следующем выражении, аргументами функции
+<CODE>concat</CODE> являются строка <CODE>"рыжие лисички."</CODE>, а также
+список <CODE>(+2 fill-column)</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(concat  (+ 2 fill-column) " рыжие лисички.")
+</pre></td></tr></table></P><P>
+
+Когда я вычислил это выражение, в эхо-области появилось <CODE>"74 рыжие
+лисички."</CODE>.  (Обратите внимание на пробелы перед словом <SAMP>`рыжие'</SAMP>,
+чтобы отделить их от числа).
+</P><P>
+
+<A NAME="Аргументов Может Быть Много"></A>
+<HR SIZE="6">
+<A NAME="SEC25"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC24"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC26"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.8.3 Аргументов может быть много </H3>
+<!--docid::SEC25::-->
+<P>
+
+Некоторые функции, такие как <CODE>concat</CODE>, <CODE>+</CODE> или <CODE>*</CODE>,
+принимают произвольное число аргументов. (<CODE>*</CODE> --- это символ
+умножения). Это можно проверить, вычислив каждое из следующих
+выражений обычным образом. То, что вы увидите в эхо-области, мы будем
+печатать в тексте после знака <SAMP>`=>'</SAMP>, вы можете считать этот
+знак как "вычисляется в".
+</P><P>
+
+В первый раз функции не имеют аргументов:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(+)       => 0
+
+(*)       => 1
+</pre></td></tr></table></P><P>
+
+Теперь у каждой функции один аргумент:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(+ 3)     => 3
+
+(* 3)     => 3
+</pre></td></tr></table></P><P>
+
+Сейчас уже по три аргумента:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(+ 3 4 5) => 12
+
+(* 3 4 5) => 60
+</pre></td></tr></table></P><P>
+
+<A NAME="Аргумент Неправильного Типа"></A>
+<HR SIZE="6">
+<A NAME="SEC26"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC25"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC27"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.8.4 А если аргумент неправильного типа </H3>
+<!--docid::SEC26::-->
+<P>
+
+Если вы попытаетесь передать функции аргумент неправильного типа, то
+интерпретатор Лиспа отобразит сообщение об ошибке. Например, функция
+<CODE>+</CODE> ожидает, что ее аргументами будут числа. В порядке
+эксперимента, мы передадим ей вместо числа символ <CODE>привет</CODE>, перед
+которым поставим апостроф . Расположите курсор после следующего
+выражения и нажмите <KBD>C-x C-e</KBD>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(+ 2 'привет)
+</pre></td></tr></table></P><P>
+
+Когда вы сделаете это, появится сообщение об ошибке. Это произошло когда
+интерпретатор Лиспа попытался сложить 2 со значением возвращаемым
+<CODE>'привет</CODE>, но это значение --- сам символ <CODE>привет</CODE>, а не
+число. Складывать можно только числа. Поэтому <CODE>+</CODE> и не смог
+выполнить сложение своих аргументов.
+</P><P>
+
+Как обычно сообщение об ошибке содержит полезную информацию, помогающюю
+исправить ее.  Оно гласит:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Wrong type argument: integer-or-marker-p, привет
+</pre></td></tr></table></P><P>
+
+Первая часть сообщения ясна: --- она говорит <SAMP>`Wrong type
+argument'</SAMP>. <A NAME="DOCF4" HREF="elisp-intro-ru_fot.html#FOOT4">(4)</A>
+Затем идет загадочное жаргонное словечко
+<SAMP>`integer-or-marker-p'</SAMP>. Этим словом интерпретатор пытается
+сообщить вам, какого типа аргументы ожидались функцией <CODE>+</CODE>.
+</P><P>
+
+Символ <CODE>integer-or-marker-p</CODE> означает, что интерпретатор Лиспа
+считал, что информация, представленная аргументом (значение аргумента)
+это целое число или маркер (особый объект представляющий позицию в
+буфере). Так как функция <CODE>+</CODE> может складывать только числа или
+маркеры, то интерпретатор проверяет или по другому тестирует типы
+аргументов на соответствие этим двум типам. (В Emacs положение курсора
+в буфере записывается в виде маркера. Когда вы ставите метку, нажимая
+<KBD>C-@</KBD> или <CODE>C-<KBD>SPC</KBD></CODE> Emacs запоминает положение в буфере
+и запоминает его в маркере).  Маркер можно упрощенно считать числом
+символов до точки от начала буфера. В Emacs Лисп <CODE>+</CODE> можно
+использовать для сложения числовых значений маркеров.
+</P><P>
+
+Буква <SAMP>`p'</SAMP> в <CODE>integer-or-marker-p</CODE> --- наследие практики
+ранних дней программирования на Лиспе. <SAMP>`p'</SAMP> означает `predicate'
+(предикат). На жаргоне, используемым первыми исследователями Лиспа,
+предикатом называли функцию, которая определяла правдиво ли
+какое-нибудь суждение и возвращала либо истину, либо ложь. Так
+<SAMP>`p'</SAMP> означает, что <CODE>integer-or-marker-p</CODE> --- это имя
+функции, которая проверяет свой аргумент на соответствие числу или
+маркеру и возвращает true(истина) или false(ложь). В Лиспе много
+функций, чьи имена которые оканчиваются на <SAMP>`p'</SAMP>, например,
+<CODE>zerop</CODE>, которая тестирует свой аргумент на равенство нулю, или
+<CODE>listp</CODE> --- функция, проверяющая, является ли ее аргумент
+списком.
+</P><P>
+
+И наконец, последняя часть сообщения об ошибке символ
+<CODE>привет</CODE>. Это значение аргумента, который мы передали к <CODE>+</CODE>.
+Если бы мы передали в функцию сложения правильный тип объекта, то
+значением аргумента было бы число, например, 37, а не символ
+<CODE>привет</CODE>. Но тогда бы вы не получили такого интересного сообщения
+об ошибке.
+</P><P>
+
+<A NAME="message"></A>
+<HR SIZE="6">
+<A NAME="SEC27"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC26"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.8.5 Функция <CODE>message</CODE> </H3>
+<!--docid::SEC27::-->
+<P>
+
+Как и <CODE>+</CODE>, функция <CODE>message</CODE> принимает переменное число
+аргументов. Ее обычно используют для отображения информационных
+сообщений пользователю. Мы опишем ее здесь, поскольку это одна из
+наиболее часто применяемых функций.
+</P><P>
+
+Сообщение отображается в эхо-области. Например, вы можете напечатать
+сообщение в эхо-области, вычислив следующий список:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(message "Это сообщение появится в эхо-области!")
+</pre></td></tr></table></P><P>
+
+Вся строка между двойными кавычками --- это один аргумент, и он
+появится в эхо-области. (Обратите внимание, что само сообщение
+появится в эхо-области в двойных кавычках --- это потому что вы
+видите значение, которое вернула функция <CODE>message</CODE>. В большинстве
+случаев использования функции <CODE>message</CODE> в программах, которые мы
+будем писать, текст, печатаемый в эхо-области --- это побочный
+эффект, без кавычек).
+</P><P>
+
+Однако если в строке найдется символ <SAMP>`%s'</SAMP>, то функция
+<CODE>message</CODE> не будет печатать его, а вместо этого просмотрит
+аргументы, которые следуют за строкой.  Она вычислит второй аргумент и
+напечатает его значение на месте <SAMP>`%s'</SAMP>.
+</P><P>
+
+Вы можете проверить это, расположив курсор после следующего выражения
+и нажав <KBD>C-x C-e</KBD>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(message "Имя этого буфера: %s." (buffer-name))
+</pre></td></tr></table></P><P>
+
+В моем случае в эхо-области появилось, <CODE>"Имя этого буфера:
+*info*."</CODE>. Функция <CODE>buffer-name</CODE> вернула имя буфера в виде
+строки, которую функция <CODE>message</CODE> вставила на место <CODE>%s</CODE>.
+</P><P>
+
+Чтобы напечатать значение в виде десятичного числа, вы должны вместо
+<SAMP>`%s'</SAMP> использовать <SAMP>`%d'</SAMP>. Например, чтобы напечатать в
+эхо-области значение <CODE>fill-column</CODE>, вычислите следующее:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(message "Значение переменной fill-column: %d." fill-column)
+</pre></td></tr></table></P><P>
+
+Когда я сделал это в моей эхо-области отобразилось <CODE>"Значение
+переменной fill-column: 72."</CODE>
+</P><P>
+
+Если в строке больше чем одна <SAMP>`%s'</SAMP>, то значение первого аргумента
+после строки печатается на месте первого появления <SAMP>`%s'</SAMP>, а
+значение второго аргумента --- на месте второго появления
+<SAMP>`%s'</SAMP>, и так далее. Например, если вы вычислите следующее:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(message "Ничего себе, в офисе %d %s!"
+         (- fill-column 14) "розовых слонов")
+</pre></td></tr></table></P><P>
+
+тогда в вашей эхо-области появиться довольно забавное сообщение.  У
+меня напечаталось: <CODE>"Ничего себе, в офисе 58 розовых слонов!"</CODE>.
+</P><P>
+
+Выражение <CODE>(- fill-column 14)</CODE> при вычислении вернуло число,
+которое подставилось на место <SAMP>`%d'</SAMP>; а строка в двойных кавычках
+<CODE>"розовых слонов"</CODE>, как единый аргумент, вставилась на место
+`%s'. (То есть строки между двойными кавычками при вычислении
+возвращает сами себя, как и числа).
+</P><P>
+
+Наконец, мы рассмотрим довольно сложный пример, который не только
+проиллюстрирует вычисление числа, но также покажет, как вы можете
+использовать вложенные выражения, чтобы получить текст, который
+заменит `%s':
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(message "Он увидел %d %s"
+         (- fill-column 34)
+         (concat "рыжих " "прыгающих "
+                 (substring
+                  "Шустрые, лисицы весело прыгали." 9 14)))
+</pre></td></tr></table></P><P>
+
+В этом примере у функции <CODE>message</CODE> три аргумента --- строка,
+<CODE>"Он увидел %d %s"</CODE>, выражение <CODE>(- fill-column 32)</CODE>, и
+выражение, которое начинается с функции <CODE>concat</CODE>. Значение,
+которое возвращается после вычисления <CODE>(- fill-column 32)</CODE>,
+вставляется на место <SAMP>`%d'</SAMP>, а значение от вычисления списка, где
+первый элемент <CODE>concat</CODE>, вставляется на место <SAMP>`%s'</SAMP>.
+</P><P>
+
+Когда я вычислил это выражение, в моей эхо-области появилось
+сообщение: <CODE>"Он увидел 38 рыжих прыгающих лисиц"</CODE>.
+</P><P>
+
+<A NAME="set &#38; setq"></A>
+<HR SIZE="6">
+<A NAME="SEC28"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC27"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC29"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC32"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.9 Присваиваем переменной значение </H2>
+<!--docid::SEC28::-->
+<P>
+
+<A NAME="IDX18"></A>
+Есть несколько способов, для того чтобы переменной можно было
+присвоить какое-нибудь значение. Например, с помощью функций
+<CODE>set</CODE> и <CODE>setq</CODE>. Или с помощью функции <CODE>let</CODE>
+(see section <A HREF="elisp-intro-ru_5.html#SEC50">3.6 <CODE>let</CODE></A>). (На Лисп жаргоне это называют <EM>связать</EM> переменную
+со значением.)
+</P><P>
+
+В следующем разделе мы не только опишем функции <CODE>set</CODE> и
+<CODE>setq</CODE>, но также покажем, как передавать аргументы.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC29">1.9.1 Используя <CODE>set</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Присваиваем значение..</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC30">1.9.2 Используя <CODE>setq</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Тоже самое, но удобнее.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_3.html#SEC31">1.9.3 Счетчик</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Считаем с помощью <CODE>setq</CODE>.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Используя set"></A>
+<HR SIZE="6">
+<A NAME="SEC29"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC30"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC32"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.9.1 Используя <CODE>set</CODE> </H3>
+<!--docid::SEC29::-->
+<P>
+
+Чтобы связать с символом <CODE>цветы</CODE> список <CODE>'(роза фиалка
+маргаритка лютик)</CODE>, вычислите следующее выражение, расположив курсор
+после него и нажав <KBD>C-x C-e</KBD>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(set 'цветы  '(роза фиалка маргаритка лютик))
+</pre></td></tr></table></P><P>
+
+В эхо-области появится список <CODE>(роза фиалка маргаритка лютик)</CODE> .
+Это то, что <EM>вернула</EM> функция <CODE>set</CODE>. Как побочный эффект
+символ <CODE>цветы</CODE> теперь связан со списком --- то есть, символ
+<CODE>цветы</CODE>, можно теперь считать переменной, значением которой
+является список. (Этот процесс между прочим показывает как побочный
+эффект для интерпретатора Лиспа для нас является основным. Это потому
+что каждая функция Лиспа должна возвращать какое-нибудь значение, но
+побочный эффект имеют только некоторые из них).
+</P><P>
+
+После вычисления выражения <CODE>set</CODE>, вы можете теперь вычислить
+символ <CODE>цветы</CODE> и посмотреть, какое он вернет значение.
+Расположите курсор после этого символа и нажмите <KBD>C-x C-e</KBD>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>цветы
+</pre></td></tr></table></P><P>
+
+Когда вы вычислите символ <CODE>цветы</CODE>, то в эхо-области появиться
+список <CODE>(роза фиалка маргаритка лютик)</CODE>.
+</P><P>
+
+Вспомним, что если вы вычислите <CODE>'цветы</CODE> --- тот же символ,
+но на этот раз с апострофом, то перед ним в эхо-области появиться сам
+этот символ <CODE>цветы</CODE>. Ниже символ, перед которым мы поставили
+апостроф, так что проверьте это:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>'цветы
+</pre></td></tr></table></P><P>
+
+Заметьте, что когда вы используете <CODE>set</CODE>, вам нужно ставить
+апостроф перед обеими аргументами <CODE>set</CODE>, если вы не хотите, чтобы
+интерпретатор вычислял их.  В нашем случае мы не хотим, чтобы аргументы
+вычислялись: ни переменная <CODE>цветы</CODE> ни список <CODE>(роза фиалка
+маргаритка лютик)</CODE>, поэтому перед каждым мы поставили апостроф.  (Если
+бы мы не поставили апостроф перед первым аргументом <CODE>set</CODE>,
+интерпретатор вычислил бы его перед выполнением функции.  Если с
+символом <CODE>цветы</CODE> не было бы связано никакое значение, вы бы
+получили сообщение об ошибке <SAMP>`Symbol's value as variable is void'</SAMP>;
+если бы вычисление символа <CODE>цветы</CODE> все же вернуло бы какое-нибудь
+значение, тогда функция <CODE>set</CODE> попыталась бы связать список именно с
+этим возвращенным значением.  Иногда так и надо делать; но такие
+ситуации весьма редки.)
+</P><P>
+
+<A NAME="Используя setq"></A>
+<HR SIZE="6">
+<A NAME="SEC30"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC29"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC31"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC32"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.9.2 Используя <CODE>setq</CODE> </H3>
+<!--docid::SEC30::-->
+<P>
+
+На практике вы почти всегда ставите апостроф перед первым аргументом
+<CODE>set</CODE>. Сочетание <CODE>set</CODE> с первым аргументом, перед которым
+стоит апостроф, встречается так часто, что была введена особая форма
+<CODE>setq</CODE>. Эта особая форма действует точно также, как и <CODE>set</CODE>,
+но перед первым аргументом не надо ставить апостроф, так как он не
+вычисляется. Также добавлена еще одна полезная возможность ---
+<CODE>setq</CODE> разрешает вам назначить одновременно значения нескольким
+переменным в одном выражении.
+</P><P>
+
+Чтобы установить значением переменной <CODE>плотоядные</CODE> список
+<CODE>'(лев тигр леопард)</CODE> с помощью <CODE>setq</CODE>, можно использовать
+следующее выражение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq плотоядные '(лев тигр леопард))
+</pre></td></tr></table></P><P>
+
+Это тоже самое, что и использование <CODE>set</CODE>, но первый аргумент
+защищен от вычисления <CODE>setq</CODE>. (<SAMP>`q'</SAMP> в <CODE>setq</CODE> означает
+<CODE>quote</CODE>). С <CODE>set</CODE> выражение выглядело бы по-другому:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(set 'плотоядные '(лев тигр леопард))
+</pre></td></tr></table></P><P>
+
+Также <CODE>setq</CODE> можно применять для назначения разных величин разным
+переменным. Первый аргумент связывается со значением второго
+аргумента, третий аргумент связывается со значением четвертого
+аргумента и так далее. Например, вы можете использовать следующее
+выражение, чтобы связать символ <CODE>деревья</CODE> со списком деревьев, а
+список травоядных с символом <CODE>травоядные</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq деревья '(сосна ель дуб клен) 
+      травоядные '(газель антилопа зебра))
+</pre></td></tr></table></P><P>
+
+(Это выражение можно было бы поместить в одну строку, но более длинные
+выражения не поместятся на страницу, кроме того людям легче читать
+красиво отформатированные списки.)
+</P><P>
+
+Хотя я использовал термин `назначить', существует другой способ
+представления работы функций <CODE>set</CODE> и <CODE>setq</CODE> ---
+представьте себе, что функции <CODE>set</CODE> и <CODE>setq</CODE> заставляют
+символ указывать на список. Этот последний способ представления очень
+обычен и в последующих главах я буду использовать его более часто, мы
+встретим по меньшей мере один символ в имени которого используется
+`указатель'. Это название выбрано потому, что символ имеет значение
+--- например, список, связанный с ним; или если по другому выразить,
+этот символ указывает на список.
+</P><P>
+
+<A NAME="Счетчик"></A>
+<HR SIZE="6">
+<A NAME="SEC31"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC30"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC32"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC22"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC32"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 1.9.3 Счетчик </H3>
+<!--docid::SEC31::-->
+<P>
+
+Здесь пример как использовать <CODE>setq</CODE> в счетчике. Вы можете
+использовать его, чтобы сосчитать сколько раз ваша программа
+повторилась. Вначале назначьте переменной значение равное нулю, а
+затем добавляйте по единице каждый раз, когда программа повторяется.
+Чтобы выполнить это, вам понадобится переменная, которая будет служить
+счетчиком, и два выражения: первое <CODE>setq</CODE>, которое устанавливает
+счетчик в ноль; и второе --- <CODE>setq</CODE>, которое увеличивает
+счетчик каждый раз, когда его вычисляют.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq counter 0)                ; Назовем это инициализацией.
+
+(setq counter (+ counter 1))    ; Здесь увеличиваем счетчик.
+
+counter                         ; А это счетчик.
+</pre></td></tr></table></P><P>
+
+(Текст после <SAMP>`;'</SAMP> --- это комментарий.)
+</P><P>
+
+Если вы сначала вычислите первое из этих выражений ---
+инициализатор <CODE>(setq counter 0)</CODE>, а затем третье выражение,
+<CODE>counter</CODE>, то в эхо-области появится <CODE>0</CODE>. Если вы вычислите
+второе выражение для приращения счетчика --- <CODE>(setq counter
+(+ counter 1))</CODE>, то счетчик получит значение 1. Так что если вы снова
+вычислите <CODE>counter</CODE>, то теперь в эхо-области появиться число
+<CODE>1</CODE>. Каждый раз, когда вы будете вычислять второе выражение,
+значение счетчика будет увеличиваться.
+</P><P>
+
+Когда вы вычисляете выражение приращения, <CODE>(setq counter (+
+counter 1))</CODE>, интерпретатор Лиспа вначале вычисляет внутренний
+список --- то есть сложение. Для этого он должен вычислить
+переменную <CODE>counter</CODE> и число 1. После вычисления переменной
+<CODE>counter</CODE>, возвращается ее текущее значение. Затем оно вместе с
+единицей передается функции <CODE>+</CODE>, которая складывает их вместе.
+Итоговая сумма возвращается как значение этой функции и передается
+<CODE>setq</CODE>, которая связывает переменную <CODE>counter</CODE> с этим новым
+значением. Таким образом и изменяется значение этой переменной.
+</P><P>
+
+<A NAME="Резюме"></A>
+<HR SIZE="6">
+<A NAME="SEC32"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC31"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC33"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC28"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_4.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.10 Резюме </H2>
+<!--docid::SEC32::-->
+<P>
+
+Изучение Лиспа подобно восхождению на холм, где первая часть подъема
+самая трудная. Мы только что преодолели самую трудную часть --- то
+что осталось, намного легче и вы почувствуете это, когда мы будем
+продвигаться вперед.
+</P><P>
+
+Если просуммировать:
+</P><P>
+
+<UL>
+
+<LI>
+Программы на Лиспе состоят из выражений, которые являются списками или
+одиночными атомами.
+<P>
+
+<LI>
+Списки состоят из нескольких атомов или списков, разделенных пробельными
+символами и окруженных круглыми скобками. Список может быть пустым.
+<P>
+
+<LI>
+Атомы --- это много-буквенные символы, такие как
+<CODE>forward-paragraph</CODE>; одно-буквенные символы, как <CODE>+</CODE>;
+символьные строки, ограниченные двойными кавычками; и числа.
+<P>
+
+<LI>
+После вычисления числа возвращается само число.
+<P>
+
+<LI>
+После вычисления строки, заключенной между двойными кавычками,
+возвращается сама строка.
+<P>
+
+<LI>
+Если вы вычислите символ, то интерпретатор вернет связанное с ним, как
+с переменной, значение.
+<P>
+
+<LI>
+Когда вы вычисляете список, интерпретатор Лиспа анализирует первый
+символ списка и затем ищет определение функции, связанное с этим
+символом. После этого выполняются инструкции этой функции.
+<P>
+
+<LI>
+Одиночная кавычка <CODE>'</CODE>, говорит интерпретатору Лиспа, что
+следующее выражение не надо вычислять, а надо просто вернуть его, как
+оно есть.
+<P>
+
+<LI>
+Аргументы --- это информация, которую мы передаем функции.
+Аргументы функции получаются после вычисления оставшихся элементов
+списка, где первый элемент это имя функции.
+        
+<LI>
+Любая функция всегда возвращает какое-нибудь значение после выполнения
+(если не было никакой ошибки); вдобавок она может также выполнить
+некоторые действия называемые "побочным эффектом". При выполнении
+многих функций главная цель --- это побочный эффект.
+</UL>
+<P>
+
+<A NAME="Первые Упражнения"></A>
+<HR SIZE="6">
+<A NAME="SEC33"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC32"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_4.html#SEC34"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_4.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 1.11 Упражнения </H2>
+<!--docid::SEC33::-->
+<P>
+
+Вот несколько простых упражнений:
+</P><P>
+
+<UL>
+<LI>
+Вызовите сообщение об ошибке, вычисляя какой-нибудь символ, не
+окруженный скобками.
+<P>
+
+<LI>
+Вызовите сообщение об ошибке, вычисляя какой-нибудь символ, окруженный
+скобками.
+<P>
+
+<LI>
+Создайте счетчик, который увеличивается на два за одно приращение.
+<P>
+
+<LI>
+Напишите какое-нибудь выражение, которое печатает сообщение в
+эхо-области, когда его вычисляешь.
+</UL>
+<P>
+
+<A NAME="Практика Вычислений"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_4.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>March, 10  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.27 in css mode. -->
+<html>
+  <head>
+    <title>test-otpc-tp.cpp</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #cccccc;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #00008b;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .negation-char {
+      }
+      .preprocessor {
+        /* font-lock-preprocessor-face */
+        color: #006400;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #0000ff;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #8b0000;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">/**</span><span class="comment">
+ * </span><span class="comment"><span class="keyword">@file</span></span><span class="comment">   test-ocmt-tp.cpp
+ * </span><span class="comment"><span class="keyword">@author</span></span><span class="comment"> Alex Ott &lt;<a href="mailto:alex_ott&#64;gmail.com">alex_ott&#64;gmail.com</a>&gt;
+ * 
+ * </span><span class="comment"><span class="keyword">@brief</span></span><span class="comment"> Implementation of 'stupid' www server with implementation of thread per
+ * connection strategy and usage of threads pool for keeping number of threads limited.
+ * Working threads use sync mode for input/output, but server thread work in async mode.
+ *
+ * Thread pool implemented by threadpool library, that you could obtain from
+ * http://threadpool.sf.net 
+ * 
+ */</span>
+
+<span class="preprocessor">#include</span> <span class="string">"test-otpc-conn.hpp"</span>
+<span class="preprocessor">#include</span> <span class="string">&lt;set&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="string">&lt;boost/threadpool.hpp&gt;</span>
+<span class="keyword">namespace</span> <span class="constant">tp</span>=<span class="constant">boost</span>::threadpool;
+
+<span class="comment-delimiter">/**</span><span class="comment">
+ * Server class
+ * 
+ */</span>
+<span class="keyword">class</span> <span class="type">server</span> : <span class="keyword">private</span> <span class="constant">boost</span>::<span class="type">noncopyable</span> {
+<span class="keyword">public</span>:
+    <span class="function-name">server</span>(<span class="constant">ba</span>::<span class="type">io_service</span>&amp; <span class="variable-name">io_service</span>, <span class="type">int</span> <span class="variable-name">thnum</span>, <span class="type">int</span> <span class="variable-name">port</span>=10001);
+
+<span class="keyword">private</span>:
+    <span class="type">void</span> <span class="function-name">handle_accept</span>(<span class="keyword">const</span> <span class="constant">boost</span>::<span class="constant">system</span>::<span class="type">error_code</span>&amp; <span class="variable-name">e</span>);
+    
+    <span class="constant">ba</span>::<span class="type">io_service</span>&amp; <span class="variable-name">io_service_</span>;         <span class="comment-delimiter">/**</span><span class="comment">&lt; reference to io_service */</span>
+    <span class="constant">ba</span>::<span class="constant">ip</span>::<span class="constant">tcp</span>::<span class="type">acceptor</span> <span class="variable-name">acceptor_</span>;     <span class="comment-delimiter">/**</span><span class="comment">&lt; object, that accepts new connections */</span>
+    <span class="constant">connection</span>::<span class="type">pointer</span> <span class="variable-name">new_connection_</span>; <span class="comment-delimiter">/**</span><span class="comment">&lt; pointer to connection, that will proceed next */</span>
+    <span class="constant">tp</span>::<span class="type">pool</span> <span class="variable-name">thp</span>;                        <span class="comment-delimiter">/**</span><span class="comment">&lt; thread pool object */</span>
+};
+
+<span class="comment-delimiter">/** </span><span class="comment">
+ * Initialize all needed data
+ * 
+ * </span><span class="comment"><span class="keyword">@param</span></span><span class="comment"> </span><span class="comment"><span class="variable-name">io_service</span></span><span class="comment"> reference to io_service
+ * </span><span class="comment"><span class="keyword">@param</span></span><span class="comment"> </span><span class="comment"><span class="variable-name">thnum</span></span><span class="comment"> number of threads in thread pool
+ * </span><span class="comment"><span class="keyword">@param</span></span><span class="comment"> </span><span class="comment"><span class="variable-name">port</span></span><span class="comment"> port to listen on, by default - 10001
+ */</span>
+<span class="constant">server</span>::<span class="function-name">server</span>(<span class="constant">ba</span>::<span class="type">io_service</span>&amp; <span class="variable-name">io_service</span>, <span class="type">int</span> <span class="variable-name">thnum</span>, <span class="type">int</span> <span class="variable-name">port</span>)
+    : io_service_(io_service),
+      acceptor_(io_service_, <span class="constant">ba</span>::<span class="constant">ip</span>::<span class="constant">tcp</span>::endpoint(<span class="constant">ba</span>::<span class="constant">ip</span>::<span class="constant">tcp</span>::v4(), port)),
+      new_connection_(<span class="constant">connection</span>::create(io_service_)),
+      thp(thnum) {
+    <span class="comment-delimiter">// </span><span class="comment">start acceptor in async mode
+</span>    acceptor_.async_accept(new_connection_-&gt;socket(),
+                           <span class="constant">boost</span>::bind(&amp;<span class="constant">server</span>::handle_accept, <span class="keyword">this</span>,
+                                       <span class="constant">ba</span>::<span class="constant">placeholders</span>::error));
+}
+
+<span class="comment-delimiter">/** </span><span class="comment">
+ * Run when new connection is accepted
+ * 
+ * </span><span class="comment"><span class="keyword">@param</span></span><span class="comment"> </span><span class="comment"><span class="variable-name">e</span></span><span class="comment"> reference to error object
+ */</span>
+<span class="type">void</span> <span class="constant">server</span>::<span class="function-name">handle_accept</span>(<span class="keyword">const</span> <span class="constant">boost</span>::<span class="constant">system</span>::<span class="type">error_code</span>&amp; <span class="variable-name">e</span>) {
+    <span class="keyword">if</span> (<span class="negation-char">!</span>e) {
+        <span class="comment-delimiter">// </span><span class="comment">schedule new task to thread pool
+</span>        thp.schedule(<span class="constant">boost</span>::bind(&amp;<span class="constant">connection</span>::run, new_connection_));
+        <span class="comment-delimiter">// </span><span class="comment">create next connection, that will accepted
+</span>        new_connection_=<span class="constant">connection</span>::create(io_service_);
+        <span class="comment-delimiter">// </span><span class="comment">start new accept operation
+</span>        acceptor_.async_accept(new_connection_-&gt;socket(),
+                               <span class="constant">boost</span>::bind(&amp;<span class="constant">server</span>::handle_accept, <span class="keyword">this</span>,
+                                           <span class="constant">ba</span>::<span class="constant">placeholders</span>::error));
+    }
+}
+
+<span class="comment-delimiter">/** </span><span class="comment">
+ * Main routine
+ * 
+ * </span><span class="comment"><span class="keyword">@param</span></span><span class="comment"> </span><span class="comment"><span class="variable-name">argc</span></span><span class="comment"> number of arguments
+ * </span><span class="comment"><span class="keyword">@param</span></span><span class="comment"> </span><span class="comment"><span class="variable-name">argv</span></span><span class="comment"> pointers to arguments
+ * 
+ * </span><span class="comment"><span class="keyword">@return</span></span><span class="comment"> error code
+ */</span>
+<span class="type">int</span> <span class="function-name">main</span>(<span class="type">int</span> <span class="variable-name">argc</span>, <span class="type">char</span>** <span class="variable-name">argv</span>) {
+    <span class="keyword">try</span> {
+        <span class="type">int</span> <span class="variable-name">thread_num</span>=10,<span class="variable-name">port</span>=10001;
+        <span class="comment-delimiter">// </span><span class="comment">read number of threads in thread pool from command line, if provided
+</span>        <span class="keyword">if</span>(argc &gt; 1)
+            thread_num=<span class="constant">boost</span>::<span class="type">lexical_cast</span>&lt;<span class="type">int</span>&gt;(argv[1]);
+        <span class="comment-delimiter">// </span><span class="comment">read port number from command line, if provided
+</span>        <span class="keyword">if</span>(argc &gt; 2)
+            port=<span class="constant">boost</span>::<span class="type">lexical_cast</span>&lt;<span class="type">int</span>&gt;(argv[2]);
+        <span class="constant">ba</span>::<span class="type">io_service</span> <span class="variable-name">io_service</span>;
+        <span class="comment-delimiter">// </span><span class="comment">construct new server object
+</span>        <span class="type">server</span> <span class="variable-name">s</span>(io_service, thread_num,port);
+        <span class="comment-delimiter">// </span><span class="comment">run io_service object, that perform all dispatch operations
+</span>        io_service.run();
+    } <span class="keyword">catch</span> (<span class="constant">std</span>::exception&amp; e) {
+        <span class="constant">std</span>::cerr &lt;&lt; e.what() &lt;&lt; <span class="constant">std</span>::endl;
+    }
+
+    <span class="keyword">return</span> 0;
+}
+
+     
+
+</pre>
+  </body>
+</html>

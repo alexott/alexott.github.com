@@ -1,0 +1,177 @@
+<HTML>
+<HEAD>
+<!-- Created by texi2html 1.56k from emacs.texi on 29 October 2002 -->
+
+<TITLE>Руководство по GNU Emacs - Предисловие</TITLE>
+</HEAD>
+<BODY>
+Go to the first, previous, <A HREF="emacs_2.html">next</A>, <A HREF="emacs_46.html">last</A> section, <A HREF="emacs_toc.html">table of contents</A>.
+<P><HR><P>
+
+<P>
+@macro transnote{note}
+<A NAME="DOCF1" HREF="emacs_foot.html#FOOT1">(1)</A>
+
+
+<P>
+@macro external{file}
+\file\
+
+
+<P>
+@ifnotinfo
+@verysmallbook
+
+
+<P>
+@kbdinputstyle code
+
+
+<P>
+@shorttitlepage Руководство по GNU Emacs
+Руководство по GNU Emacs
+Тринадцатая редакция, обновлено для Emacs версии 20.7
+Ричард Столмен
+
+
+<P>
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+
+<P>
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided also that the
+sections entitled "The GNU Manifesto", "Distribution" and "GNU
+General Public License" are included exactly as in the original, and
+provided that the entire resulting derived work is distributed under the
+terms of a permission notice identical to this one.
+
+
+<P>
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that the sections entitled "The GNU Manifesto",
+"Distribution" and "GNU General Public License" may be included in a
+translation approved by the Free Software Foundation instead of in the
+original English.
+
+
+<P>
+Тринадцатая редакция <BR>
+обновлено для Emacs версии 20.7, июль 1999
+
+
+<P>
+(C) Free Software Foundation, Inc., 1985-1987, 1993-1999 <BR>
+(C) Перевод.  Н. Ю. Иванова, 1993 <BR>
+(C) Перевод.  А. Я. Отт, О. С. Тихонов, 1999
+
+
+<P>
+ISBN 5-85593-133-1
+Ричард Столмен <BR>
+"Руководство по GNU Emacs"
+Издано АНО"ИЛКиРЛ" <BR>
+Лицензия ЛР N 066121 от 22.09.1998г.
+Подписано к печати 25.11.1999г. <BR>
+Формат 70х100 1/16 <BR>
+Тираж 1000 экз. Тип.зак.
+ОАО "АСТРА СЕМЬ" <BR>
+Москва, Филипповский пер.,13
+
+
+
+
+<H1><A NAME="SEC1" HREF="emacs_toc.html#TOC1">Предисловие</A></H1>
+
+<P>
+  Это руководство описывает использование и простую настройку редактора
+Emacs.  От читателя не требуется быть программистом; для простой
+настройки не надо обладать навыками в программировании.  Те
+пользователи, которые не интересуются настройкой, могут пропускать
+рассыпанные по тексту краткие советы по ней.
+
+
+<P>
+  Это, главным образом, справочное руководство, но его также можно
+использовать в качестве учебника.  Для тех, кто еще совсем не знаком с
+Emacs, неплохой идеей будет начать с обучающей диалоговой программы.
+Чтобы вызвать ее, запустите Emacs и наберите <KBD>C-h t</KBD>.  Тогда вы
+сможете изучить Emacs, используя его в специально разработанном файле,
+который описывает команды, говорит, когда их использовать, а затем
+объясняет полученные с помощью этих команд результаты.
+
+
+<P>
+  При первом чтении просто бегло просмотрите первую и вторую главы, в
+которых описана принятая в этом руководстве система обозначений и общий
+вид экрана в Emacs.  Обратите внимание, на какие вопросы есть ответы в
+этих главах, чтобы вы могли вернуться к ним позже.  После прочтения
+четвертой главы вы должны попрактиковаться с рассмотренными в ней
+командами.  Следующие несколько глав описывают часто используемые
+фундаментальные методы и понятия.  Вам нужно понять их до конца,
+экспериментируя с ними, если это необходимо.
+
+
+<P>
+  Главы с четырнадцатой по девятнадцатую описывают средства среднего
+уровня, полезные в любых видах редактирования.  Глава 20 и последующие
+описывают возможности, которые вы можете захотеть использовать, а можете
+и не захотеть; причитайте эти главы, когда эти возможности вам
+понадобятся.
+
+
+<P>
+  Если вам кажется, что Emacs работает неправильно, прочтите главу о
+решении проблем.  Она объясняет, как справиться с некоторыми часто
+возникающими трудностями (see section <A HREF="emacs_37.html#SEC477">Что делать с неполадками в Emacs</A>), а также когда и как нужно
+сообщать об ошибках в Emacs (see section <A HREF="emacs_37.html#SEC487">Описание ошибок в Emacs</A>).
+
+
+<P>
+  Чтобы отыскать документацию на отдельную команду, загляните в именной
+указатель.  Ключи (литеральные команды) и имена команд перечислены в
+отдельных именных указателях.  Также имеется словарь с перекрестными
+ссылками на каждый термин.
+
+
+<P>
+  Данное руководство доступно в печатной форме и в виде Info-файла.
+Info-файл служит для диалогового чтения с программой Info; это будет
+первичным способом просмотра интерактивной документации в системе GNU.
+И этот Info-файл, и сама программа Info распространяются вместе с GNU
+Emacs.  Печатная книга и Info-файл содержат по сути один тот же текст и
+создаются из общего исходного файла, который также распространяется
+вместе с GNU Emacs.
+
+
+<P>
+  GNU Emacs -- член семейства Emacs-редакторов, насчитывающего большое
+число редакторов, построенных на общих организационных принципах.  Чтобы
+почитать о философии, лежащей в основе Emacs, и уроках, полученных из
+его развития, выпишите копию AI memo 519a "Emacs, the Extensible,
+customizable Self-Documenting Display Editor", в Publication Department,
+Artificial Intelligence Lab, 545 Tech Square, Cambridge, MA 02139, USA.
+По последним сообщениям они стоили $2.25 за копию.  Другая полезная
+публикация -- это LCS TM-165, "A Cookbook for an Emacs", Craig Finseth,
+доступная из Publication Department, Laboratory for Computer Seince, 543
+Tech Square, Cambridge, MA 02139, USA.  Сегодняшняя цена $3.
+
+
+<P>
+  Эта редакция руководства предназначена для использования с GNU Emacs,
+установленном в системах GNU и Unix.  GNU Emacs также можно использовать
+в системах VMS, MS-DOS (иначе называемой MS-DOG), Windows NT и Windows
+95.  Эти системы придерживаются другого синтаксиса имен файлов; кроме
+того, VMS и MS-DOS не поддерживают всех возможностей GNU Emacs.  В этом
+руководстве мы не пытаемся описать применение Emacs в системе VMS.  Для
+получения информации об использовании Emacs в MS-DOS смотрите
+section <A HREF="emacs_40.html#SEC513">Emacs и MS-DOS</A>.
+
+
+<P><HR><P>
+Go to the first, previous, <A HREF="emacs_2.html">next</A>, <A HREF="emacs_46.html">last</A> section, <A HREF="emacs_toc.html">table of contents</A>.
+</BODY>
+</HTML>

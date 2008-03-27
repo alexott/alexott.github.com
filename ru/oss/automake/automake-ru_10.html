@@ -1,0 +1,257 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Документация</TITLE>
+
+<META NAME="description" CONTENT="automake: Документация">
+<META NAME="keywords" CONTENT="automake: Документация">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC48"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_9.html#SEC47"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC49"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_9.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_11.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 10. Построение документации </H1>
+<!--docid::SEC48::-->
+<P>
+
+В настоящее время Automake обеспечивает поддержку Texinfo и страниц
+руководства.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_10.html#SEC49">10.1 Texinfo</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_10.html#SEC50">10.2 Страницы руководства</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Texinfo"></A>
+<HR SIZE="6">
+<A NAME="SEC49"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC48"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC50"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC48"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_11.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 10.1 Texinfo </H2>
+<!--docid::SEC49::-->
+<P>
+
+<A NAME="IDX374"></A>
+<A NAME="IDX375"></A>
+<A NAME="IDX376"></A>
+</P><P>
+
+Если текущий каталог содержит исходный текст Texinfo, то вы должны
+указать это с помощью основной переменной <SAMP>`TEXINFOS'</SAMP>.  В общем случае файлы
+Texinfo могут быть преобразованы в формат info, и поэтому макрос
+<CODE>info_TEXINFOS</CODE> является наиболее часто используемым. Заметьте, что
+имена файлов исходных текстов Texinfo должны заканчиваться на
+<TT>`.texi'</TT> или <TT>`.texinfo'</TT>.
+<A NAME="IDX377"></A>
+<A NAME="IDX378"></A>
+</P><P>
+
+<A NAME="IDX379"></A>
+<A NAME="IDX380"></A>
+<A NAME="IDX381"></A>
+</P><P>
+
+<A NAME="IDX382"></A>
+<A NAME="IDX383"></A>
+<A NAME="IDX384"></A>
+</P><P>
+
+<A NAME="IDX385"></A>
+</P><P>
+
+Если файл <TT>`.texi'</TT> включает в себя с помощью <SAMP>`@include'</SAMP> файл
+<TT>`version.texi'</TT>, то он будет сгенерирован автоматически.  Файл <TT>`version.texi'</TT>
+определяет три макроса Texinfo, на которые вы можете ссылаться:
+<CODE>EDITION</CODE>, <CODE>VERSION</CODE> и <CODE>UPDATED</CODE>. Первые два макроса
+содержат номер версии вашего пакета (но для ясности они разделены на две
+части); последний макрос содержит дату изменения основного
+файла. Поддержка <TT>`version.texi'</TT> требует наличия программы
+<CODE>mdate-sh</CODE>; эта программа поставляется с Automake и автоматически
+включается при запуске <CODE>automake</CODE> с ключом <CODE>--add-missing</CODE>.
+</P><P>
+
+Иногда файл info зависит от более чем одного файла
+<TT>`.texi'</TT>. Например, в пакете GNU Hello, файл <TT>`hello.texi'</TT>
+включает файл <TT>`gpl.texi'</TT>. Вы можете сообщить об этих зависимостях
+Automake, используя переменную <CODE><VAR>texi</VAR>_TEXINFOS</CODE>. Вот как это
+делается в GNU Hello:
+<A NAME="IDX386"></A>
+<A NAME="IDX387"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>info_TEXINFOS = hello.texi
+hello_TEXINFOS = gpl.texi
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX388"></A>
+</P><P>
+
+По умолчанию Automake требует наличия файла <TT>`texinfo.tex'</TT> в том же
+каталоге, что и исходные файлы Texinfo. Однако, если вы используете в
+файле <TT>`configure.in'</TT> макрос <CODE>AC_CONFIG_AUX_DIR</CODE> (see section `Hахождение ввода `configure'' in <CITE>Руководство Autoconf</CITE>), то
+<TT>`texinfo.tex'</TT> ищется в заданном каталоге. Automake устанавливает
+файл <TT>`texinfo.tex'</TT>, если задан ключ <SAMP>`--add-missing'</SAMP>.
+</P><P>
+
+<A NAME="IDX389"></A>
+</P><P>
+
+Если в вашем пакете файлы Texinfo находятся в нескольких каталогах, то
+вы можете использовать переменную <CODE>TEXINFO_TEX</CODE> для того, чтобы
+сообщить Automake, где найти файл <TT>`texinfo.tex'</TT>.  Значением
+этой переменной должен быть относительный путь от текущего файла
+<TT>`Makefile.am'</TT> к файлу <TT>`texinfo.tex'</TT>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>TEXINFO_TEX = ../doc/texinfo.tex
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX390"></A>
+</P><P>
+
+Ключ <SAMP>`no-texinfo.tex'</SAMP> может быть использован для отмены требования
+наличия файла <TT>`texinfo.tex'</TT>. Однако предпочтительней использование
+переменной <CODE>TEXINFO_TEX</CODE>, поскольку это позволяет работать цели
+<CODE>dvi</CODE>.
+</P><P>
+
+<A NAME="IDX391"></A>
+<A NAME="IDX392"></A>
+<A NAME="IDX393"></A>
+<A NAME="IDX394"></A>
+</P><P>
+
+<A NAME="IDX395"></A>
+<A NAME="IDX396"></A>
+</P><P>
+
+Automake создает цель <CODE>install-info</CODE>; она, очевидно, используется
+некоторыми.  По умолчанию страницы info устанавливаются при
+выполнении <SAMP>`make install'</SAMP>. Это поведение может быть изменено,
+используя ключ <CODE>no-installinfo</CODE>.
+</P><P>
+
+<A NAME="Страницы руководства"></A>
+<HR SIZE="6">
+<A NAME="SEC50"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC49"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_11.html#SEC51"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC48"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_11.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 10.2 Страницы руководства </H2>
+<!--docid::SEC50::-->
+<P>
+
+<A NAME="IDX397"></A>
+<A NAME="IDX398"></A>
+<A NAME="IDX399"></A>
+</P><P>
+
+Пакет также может включать в свой состав справочные страницы (но
+взгляните на стандартны GNU за информацией о них, section `Man Pages' in <CITE>The GNU Coding Standards</CITE>).  Страницы руководства объявляются 
+с помощью основной переменной <SAMP>`MANS'</SAMP>.  Обычно используется макрос
+<CODE>man_MANS</CODE>. Справочные страницы автоматически устанавливаются в
+зависимости от расширения файлов в соответствующие подкаталоги
+<CODE>mandir</CODE>. Они не включаются в состав дистрибутива автоматически.
+<A NAME="IDX400"></A>
+<A NAME="IDX401"></A>
+</P><P>
+
+<A NAME="IDX402"></A>
+<A NAME="IDX403"></A>
+<A NAME="IDX404"></A>
+<A NAME="IDX405"></A>
+</P><P>
+
+По умолчанию страницы руководства устанавливаются при выполнении
+<SAMP>`make install'</SAMP>. Однако, поскольку проекты GNU не требуют наличия
+справочных страниц, то многие разработчики проектов не расходуют
+время на поддержание справочных страниц в обновленном состоянии. В этих
+случаях опция <CODE>no-installman</CODE> отключит установку справочных страниц
+по умолчанию. Пользователь все равно будет иметь возможность явно
+установить справочные страницы, используя команду <SAMP>`make
+install-man'</SAMP>.
+<A NAME="IDX406"></A>
+<A NAME="IDX407"></A>
+</P><P>
+
+Вот как документация обрабатывается в пакете GNU <CODE>cpio</CODE> (который
+включает в себя как документацию в Texinfo, так и справочные страницы):
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>info_TEXINFOS = cpio.texi
+man_MANS = cpio.1 mt.1
+EXTRA_DIST = $(man_MANS)
+</pre></td></tr></table></P><P>
+
+Исходные тексты Texinfo и страницы info считаются исходными файлами и
+включаются в состав дистрибутива.
+</P><P>
+
+В настоящее время страницы руководства не рассматриваются как исходные
+файлы, потому что зачастую они генерируются автоматически.  Именно
+поэтому они и не включаются автоматически в состав дистрибутива.
+</P><P>
+
+<A NAME="Установка"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_11.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

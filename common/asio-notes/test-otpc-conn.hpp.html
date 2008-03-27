@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.27 in css mode. -->
+<html>
+  <head>
+    <title>test-otpc-conn.hpp</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #cccccc;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #00008b;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .negation-char {
+      }
+      .preprocessor {
+        /* font-lock-preprocessor-face */
+        color: #006400;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #0000ff;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #8b0000;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">/**</span><span class="comment">
+ * </span><span class="comment"><span class="keyword">@file</span></span><span class="comment">   test-otpc-conn.hpp
+ * </span><span class="comment"><span class="keyword">@author</span></span><span class="comment"> Alex Ott &lt;<a href="mailto:alexott&#64;gmail.com">alexott&#64;gmail.com</a>&gt;
+ * 
+ * </span><span class="comment"><span class="keyword">@brief</span></span><span class="comment">  Declaration of sync connection class
+ * 
+ * 
+ */</span>
+
+<span class="preprocessor">#if</span><span class="negation-char"><span class="preprocessor">n</span></span><span class="preprocessor">def</span> _TEST_OTPC_CONN_H
+<span class="preprocessor">#define</span> <span class="variable-name">_TEST_OTPC_CONN_H</span> 1
+
+<span class="preprocessor">#include</span> <span class="string">"common.h"</span>
+
+<span class="comment-delimiter">/**</span><span class="comment">
+ * Class for handling connection in sync mode
+ * 
+ */</span>
+<span class="keyword">class</span> <span class="type">connection</span> : <span class="keyword">public</span> <span class="constant">boost</span>::<span class="type">enable_shared_from_this</span>&lt;<span class="type">connection</span>&gt; {
+<span class="keyword">public</span>:
+    <span class="keyword">typedef</span> <span class="constant">boost</span>::<span class="type">shared_ptr</span>&lt;<span class="type">connection</span>&gt; <span class="type">pointer</span>;
+
+    <span class="comment-delimiter">/** </span><span class="comment">
+     * Create new connection 
+     * 
+     * </span><span class="comment"><span class="keyword">@param</span></span><span class="comment"> </span><span class="comment"><span class="variable-name">io_service</span></span><span class="comment"> io_service in which this connection will work
+     * 
+     * </span><span class="comment"><span class="keyword">@return</span></span><span class="comment"> pointer to newly allocated object
+     */</span>
+    <span class="keyword">static</span> <span class="type">pointer</span> <span class="function-name">create</span>(<span class="constant">ba</span>::<span class="type">io_service</span>&amp; <span class="variable-name">io_service</span>) {
+        <span class="keyword">return</span> pointer(<span class="keyword">new</span> <span class="type">connection</span>(io_service));
+    }
+
+    <span class="comment-delimiter">/** </span><span class="comment">
+     * Return socket, associated with this connection. This socket used in accept operation
+     * 
+     * 
+     * </span><span class="comment"><span class="keyword">@return</span></span><span class="comment"> reference to socket
+     */</span>
+    <span class="constant">ba</span>::<span class="constant">ip</span>::<span class="constant">tcp</span>::<span class="type">socket</span>&amp; <span class="function-name">socket</span>() {
+        <span class="keyword">return</span> socket_;
+    }
+    <span class="type">void</span> <span class="function-name">run</span>();
+    
+<span class="keyword">private</span>:
+    <span class="function-name">connection</span>(<span class="constant">ba</span>::<span class="type">io_service</span>&amp; <span class="variable-name">io_service</span>);
+    
+    <span class="constant">ba</span>::<span class="type">io_service</span>&amp; <span class="variable-name">io_service_</span>; <span class="comment-delimiter">/**</span><span class="comment">&lt; reference to io_service, in which work this connection */</span>
+    <span class="constant">ba</span>::<span class="constant">ip</span>::<span class="constant">tcp</span>::<span class="type">socket</span> <span class="variable-name">socket_</span>; <span class="comment-delimiter">/**</span><span class="comment">&lt; socket, associated with browser */</span>
+    <span class="constant">ba</span>::<span class="type">streambuf</span> <span class="variable-name">buf</span>;           <span class="comment-delimiter">/**</span><span class="comment">&lt; buffer for request data */</span>
+    <span class="keyword">static</span> <span class="constant">std</span>::<span class="type">string</span> <span class="variable-name">message_</span>; <span class="comment-delimiter">/**</span><span class="comment">&lt; data, that we'll return to browser */</span>
+};
+
+
+<span class="preprocessor">#endif</span> <span class="comment-delimiter">/* </span><span class="comment">_TEST_OTPC_CONN_H */</span>
+
+</pre>
+  </body>
+</html>

@@ -1,13 +1,21 @@
 #title Проекты с открытым исходным кодом
-#keywords oss
+#keywords oss, gnu, alex ott, emacs, linux, tex, perl
 
 Я уже более 10 лет принимаю участие в различных проектах, в том числе и по разработке
-программ с открытам исходным кодом.  Среди них мне хотелось бы отметить:
+программ с открытам исходным кодом.  
 
- - [[http://wagner.pp.ru/~vitus/software/catdoc/][catdoc]] -- набор конвертеров для форматов MS Office
+*** Текущие проекты
+
  - [[http://sourceforge.net/projects/wfilter][wfilter]] -- проект по созданию свободной системы контентной фильтрации траффика,
-   предназначенной для управления доступом в Internet в школах, дома и т.п.
- - [[http://sourceforge.net/projects/dgav][dgav]] -- 
+   предназначенной для управления доступом в Internet в школах, дома и т.п. (в настоящее
+   время проект временно заморожен, но вы можете пообщаться со мной на тему его
+   продолжения)
+ - [[http://sourceforge.net/projects/openfwtk][openfwtk]] -- проект, реализующий различные фильтрующие прокси уровня приложения.
+   Поддерживаются различные протоколы, портирован на множество аппаратных платформ и
+   операционных систем.
+ - [[../cf/squid-gsbapi][squid-gsb]] -- утилита, реализующая поддержку Google Safe Browsing API для Squid
+ - [[http://wagner.pp.ru/~vitus/software/catdoc/][catdoc]] -- набор конвертеров для форматов MS Office
+ - [[http://sourceforge.net/projects/dgav][dgav]] -- форк проекта [[http://dansguardian.org/][dansguardian]], в котором добавлена поддержка различных антивирусов.
 
 Кроме разработки программ, было еще несколько проектов, целью которых был перевод
 различных книг и статей. Здесь можно отметить:
@@ -15,3 +23,22 @@
  - [[http://pcl.catap.ru][Русский перевод]] книги [[http://www.gigamonkeys.com/book/][Practical Common Lisp]]
  - [[http://code.google.com/p/funprog-ru/][Русский перевод]] курса лекций [[http://www.cl.cam.ac.uk/Teaching/Lectures/funprog-jrh-1996/index.html][Introduction to Functional Programming]]
 
+*** Предыдущие проекты
+
+Кроме перечисленных выше, было еще множество проектов, которые в настоящее время завершены
+или я прекратил свое участие в них:
+
+ - [[../emacs/emacs-manual][Перевод книги Р. Столмана "Руководство GNU Emacs (13-я редакция)"]], выпущен
+   издательством Института Логики.
+ - [[automake/automake-ru_toc.html][перевод руководства по Automake]] (варианты перевода в форматах [[automake/automake-ru.info.tar.gz][info]] и [[automake/automake-ru.texi.tar.gz][texinfo]]). Большое
+   спасибо Алексею Махоткину, который вычитал данный перевод
+ - [[autoconf/autoconf-ru_toc.html][перевод руководства по Autoconf]] (варианты перевода в форматах [[autoconf/autoconf-ru.info.tar.gz][info]] и [[autoconf/autoconf-ru.texi.gz][texinfo]])
+ - Переводы сборников рецептов по работе с Linux (HOWTO) сделанные мной можно найти на
+   сервере [[http://www.linux.org.ru/books/HOWTO/index.html][linux.org.ru]].
+
+
+*** Устаревшие (но может быть полезные) работы
+
+В предыдущие этапы своей жизни я занимался и другими проектами связанными с [[tex][LaTeX]],
+программированием на языке [[perl][Perl]] и т.п.  В настоящее время эти проекты стали неактивными,
+но я сохраняю относящиеся к ним материалы.

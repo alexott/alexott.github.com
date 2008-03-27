@@ -1,0 +1,1516 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 4  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Поиск regexp</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Поиск regexp">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Поиск regexp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC147"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC146"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC148"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC129"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_14.html#SEC164"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 12. Поиск с использованием регулярных выражений </H1>
+<!--docid::SEC147::-->
+<P>
+
+В GNU Emacs очень часто используется поиск с использованием регулярных
+выражений. Две функции <CODE>forward-sentence</CODE> и
+<CODE>forward-paragraph</CODE> наглядно продемонстрируют технику такого
+поиска.
+</P><P>
+
+Поиск с использованием регулярных выражений описан в section `Regular Expression Search' in <CITE>The GNU Emacs Manual</CITE>,
+также как и в section `Regular Expressions' in <CITE>The GNU Emacs Lisp Reference Manual</CITE> <A NAME="DOCF7" HREF="emacs-lisp-intro_fot.html#FOOT7">(7)</A>. В этой главе я полагаю,
+что вы по имеете какое-то представление о синтаксисе регулярных
+выражений. Главное, что надо помнить --- регулярные выражения
+разрешают вам производить поиск не только текстовых строк или
+символов, но и шаблонов. Например, функция <CODE>forward-sentence</CODE>
+ищет шаблон, который может обозначать конец предложения, и перемещает
+точку на это место.
+</P><P>
+
+До того, как мы приступим к изучению функции <CODE>forward-sentence</CODE>
+полезно представить, какой шаблон должен обозначать конец предложения.
+Это мы обсудим в следующем разделе; затем идет раздел, где мы
+познакомимся с функцией поиска по регулярным выражениям
+<CODE>re-search-forward</CODE>. После этого мы разберем принцип работы
+функции <CODE>forward-sentence</CODE>. И наконец, в последнем разделе главы
+рассматривается функция <CODE>forward-paragraph</CODE>. Это довольно сложная
+функция, на примере которой мы изучим несколько новых возможностей
+Emacs Lisp.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC148">12.1 Регулярное выражение для <CODE>sentence-end</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC149">12.2 Функция <CODE>re-search-forward</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Похожа на <CODE>search-forward</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC150">12.3 <CODE>forward-sentence</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Простой пример поиска regexp.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC153">12.4 <CODE>forward-paragraph</CODE>: сокровищница функций</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Давайте усложним задачу.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC161">12.5 Создание своего собственного файла <TT>`TAGS'</TT></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC162">12.6 Заключение</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC163">12.7 Упражнения с <CODE>re-search-forward</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="sentence-end"></A>
+<HR SIZE="6">
+<A NAME="SEC148"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC149"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_14.html#SEC164"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 12.1 Регулярное выражение для <CODE>sentence-end</CODE> </H2>
+<!--docid::SEC148::-->
+<P>
+
+Символ <CODE>sentence-end</CODE> связан с шаблоном, который отмечает конец
+предложения. Каким должно быть это регулярное выражение?
+</P><P>
+
+Ясно, что предложение может заканчиваться точкой, знаком вопроса или
+восклицательным знаком. Действительно только фразы, которые
+заканчиваются этими тремя символами будут считаться предложениями.
+Это значит, что шаблон должен включать следующий набор символов:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>[.?!]
+</pre></td></tr></table></P><P>
+
+Однако, мы не хотим чтобы <CODE>forward-sentence</CODE> перемещало курсор к
+первой найденной точке, знаку вопроса или восклицательному знаку,
+потому что такие символы могут использоваться и в середине
+предложения.  Точка например, используется для обозначения сокращений.
+Поэтому необходима дополнительная информация.
+</P><P>
+
+Договоримся<A NAME="DOCF8" HREF="emacs-lisp-intro_fot.html#FOOT8">(8)</A>, что после каждого предложения надо печатать два
+пробела, а после точки, вопросительного знака и восклицательного
+знака, если они встретились в теле предложения только один пробел.
+Поэтому точка, знак вопроса или вослицательный знак за которым следует
+два пробела --- хороший индикатор конца предложения. Это значит,
+что регулярное выражение должно включать эти три элемента как
+альтернативы. Группа альтернатив будет выглядеть следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>\\($\\| \\|  \\)
+       ^   ^^
+      TAB  SPC
+</pre></td></tr></table></P><P>
+
+Здесь <SAMP>`$'</SAMP> обозначает конец строки и я отметил, где в выражение
+вставлены два пробела и табуляция.  Оба этих символа фактически входят
+в выражение.
+</P><P>
+
+Перед скобками и вертикальными черточками требуется поставить два
+обратных слэша <SAMP>`\\'</SAMP>: первый обратный слэш для того, чтобы
+маскировать следующий обратный слэш, а второй, чтобы отметить
+следующий за ним символ, как специальный.
+</P><P>
+
+Также предложение может оканчиваться одним или несколькими символами
+перевода строки, вот так:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>[
+]*
+</pre></td></tr></table></P><P>
+
+Как пробелы и табуляция, перевод каретки на самом деле вставляется в
+регулярное выражение.  Звездочка означает, что <KBD>RET</KBD> может
+повториться ноль или более раз.
+</P><P>
+
+Но конец предложения не всегда состоит только из точки, знака вопроса
+или восклицательного знака, за которым следует соответствующее число
+пробелов --- перед пробелами могут также стоять закрывающие скобки
+или кавычки. Для учета этих символов требуется следующее выражение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>[]\"')}]*
+</pre></td></tr></table></P><P>
+
+В этом выражении, первый знак <SAMP>`]'</SAMP> --- это первый символ в
+выражении; перед вторым символом <SAMP>`"'</SAMP> стоит обратный слэш <SAMP>`\'</SAMP>
+для того, чтобы Emacs <EM>не</EM> считал <SAMP>`"'</SAMP> специальным символом.
+Последние три символа --- это <SAMP>`''</SAMP>, <SAMP>`)'</SAMP>, и <SAMP>`}'</SAMP>.
+</P><P>
+
+Все выше изложенное предполагает, что шаблон регулярного выражения,
+которое может обозначать конец предложения должно быть; и в самом деле,
+если мы вычислим <CODE>sentence-end</CODE> мы обнаружим что это вернет
+следующее значение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>sentence-end
+     => "[.?!][]\"')}]*\\($\\|     \\|  \\)[       
+]*"
+</pre></td></tr></table></P><P>
+
+<A NAME="re-search-forward"></A>
+<HR SIZE="6">
+<A NAME="SEC149"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC148"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_14.html#SEC164"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 12.2 Функция <CODE>re-search-forward</CODE> </H2>
+<!--docid::SEC149::-->
+<P>
+
+Функция <CODE>re-search-forward</CODE> очень похожа на функцию
+<CODE>search-forward</CODE> (See section <A HREF="emacs-lisp-intro_9.html#SEC109">The <CODE>search-forward</CODE> Function</A>.)
+</P><P>
+
+Функция <CODE>re-search-forward</CODE> производит поиск регулярного
+выражения. Если поиск успешен, то она оставляет курсор сразу за
+последним символом искомого текста. Если поиск производился в обратном
+направлении, то функция оставляет точку сразу перед первым символом
+искомого текста. Вы можете заставить <CODE>re-search-forward</CODE> вернуть
+<CODE>t</CODE> в случае успеха. (Перемещение точки является "побочным
+эффектом").
+</P><P>
+
+Как и функция <CODE>search-forward</CODE>, функция <CODE>re-search-forward</CODE>
+получает четыре аргумента:
+</P><P>
+
+<OL>
+<LI>
+Первый аргумент --- это само регулярное выражение, которое
+необходимо найти. Регулярное выражение должно быть строкой в двойных
+кавычках.
+<P>
+
+<LI>
+Необязательный второй аргумент ограничивает зону поиска; он может быть
+связан с определенной позицией в буфере.
+<P>
+
+<LI>
+Необязательный третий аргумент задает, то каким образом функция
+сообщит о неудачном поиске: <CODE>nil</CODE> в качестве третьего аргумента
+заставляет функцию сообщить об ошибке (и отобразить сообщение в
+эхо-области) когда поиск неудачен; любое другое значение заставляет
+функцию вернуть <CODE>nil</CODE>, если поиск окончится неудачно, и <CODE>t</CODE>
+в случае успеха.
+<P>
+
+<LI>
+Необязательный третий аргумент --- это число повторов.
+Отрицательное значение заставляет <CODE>re-search-forward</CODE> производить
+поиск в обратном направлении.
+</OL>
+<P>
+
+Шаблон для <CODE>re-search-forward</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(re-search-forward "<VAR>регулярное-выражение</VAR>"
+                <VAR>границы-поиска</VAR>
+                <VAR>что-делать-в-случае-неудачи</VAR>
+                <VAR>число-повторов</VAR>)
+</pre></td></tr></table></P><P>
+
+Второй, третий и четвертый аргумент необязательны.  Однако, если вы
+хотите передать значение к последнему аргументу, то вы также должны
+передать значение и для всех предыдущих аргументов.  В противном
+случае интерпретатор Лиспа неправильно присвоит значения аргументам
+функции.
+</P><P>
+
+В функции <CODE>forward-sentence</CODE>, регулярное выражение будет
+значением переменной <CODE>sentence-end</CODE>, то есть:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>"[.?!][]\"')}]*\\($\\|  \\|  \\)[       
+]*"
+</pre></td></tr></table></P><P>
+
+Границей поиска будет конец параграфа (так как предложение не может
+заканчиваться после окончания параграфа).  Если поиск будет неудачен,
+то функция вернет <CODE>nil</CODE>; число повторов можно обеспечить числовым
+аргументом при вызове функции <CODE>forward-sentence</CODE>.
+</P><P>
+
+<A NAME="forward-sentence"></A>
+<HR SIZE="6">
+<A NAME="SEC150"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC149"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC151"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 12.3 <CODE>forward-sentence</CODE> </H2>
+<!--docid::SEC150::-->
+<P>
+
+Команда для перемещения курсора вперед на предложение хорошо
+показывает, как в Emacs Lisp используется поиск по регулярным
+выражениям.  И хотя функция выглядит длиннее и сложнее чем должна была
+быть --- это потому что она также осуществляет и поиск в обратном
+направлении, и может перемещать курсор через несколько предложений.
+Эта команда обычно связана с <KBD>M-e</KBD>
+</P><P>
+
+Ниже код функции <CODE>forward-sentence</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>(defun forward-sentence (&#38;optional arg)
+  "Перемещает точку к концу предложения.  Аргумент -- число-повторов.
+При задании отрицательного аргумента, перемещает точку к началу
+предложения.  Концом предложения считается регулярное выражение
+значение sententce-end.  Поиск также завершается и при достижении
+конца параграфа."
+  (interactive "p")
+  (or arg (setq arg 1))
+  (while (&#60; arg 0)
+    (let ((par-beg
+           (save-excursion (start-of-paragraph-text) (point))))
+      (if (re-search-backward
+           (concat sentence-end "[^ \t\n]") par-beg t)
+          (goto-char (1- (match-end 0)))
+        (goto-char par-beg)))
+    (setq arg (1+ arg)))
+  (while (&#62; arg 0)
+    (let ((par-end
+           (save-excursion (end-of-paragraph-text) (point))))
+      (if (re-search-forward sentence-end par-end t)
+          (skip-chars-backward " \t\n")
+        (goto-char par-end)))
+    (setq arg (1- arg))))
+</FONT></pre></td></tr></table></P><P>
+
+На первый взгляд функция выглядит сложной и лучше всего сначала
+посмотреть на ее скелет, а затем изучить все остальные детали
+(нарастить мышцы).  Скелет функции получится, если отобразить только
+строки начинающиеся ближе всех к левой границе. <A NAME="DOCF9" HREF="emacs-lisp-intro_fot.html#FOOT9">(9)</A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun forward-sentence (&#38;optional arg)
+  "<VAR>документация</VAR><small>...</small>"
+  (interactive "p")
+  (or arg (setq arg 1))
+  (while (&#60; arg 0)
+    <VAR>тело-цикла-while</VAR>
+  (while (&#62; arg 0)
+    <VAR>тело-цикла-while</VAR>
+</pre></td></tr></table></P><P>
+
+Это уже выглядит намного проще!  Сразу видно, что определение функции
+состоит из документации, выражения <CODE>interactive</CODE>, выражения
+<CODE>or</CODE> и двух циклов <CODE>while</CODE>.
+</P><P>
+
+Давайте рассмотрим каждую из этих частей по очереди.
+</P><P>
+
+Нужно отметить, что документация как всегда обстоятельная и понятна.
+</P><P>
+
+Функция имеет обьявление <CODE>interactive "p"</CODE>.  Это значит, что
+обработанный префикс-аргумент, если он задан, будет передан в функцию
+в качестве ее аргумента.  (Это будет целое число).  Если при вызове
+функции ей не будет задан аргумент (он необязательный), то этому
+аргументу <CODE>arg</CODE> будет присвоено значение 1.  Если функцию
+<CODE>forward-sentence</CODE> вызвали не интерактивно и без аргумента, то
+аргументу <CODE>arg</CODE> будет присвоено значение <CODE>nil</CODE>.
+</P><P>
+
+Выражение <CODE>or</CODE> управляет префикс-аргументом.  Оно или оставляет
+значение аргумента как есть, если с ним уже связано значение; или
+присваивает аргументу <CODE>arg</CODE> значение 1, если с <CODE>arg</CODE> было
+связано значение <CODE>nil</CODE>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC151">Циклы <CODE>while</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC152">Поиск по регулярному выражению</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="циклы while в fwd-sentence"></A>
+<HR SIZE="6">
+<A NAME="SEC151"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC152"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC149"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Циклы <CODE>while</CODE> </H4>
+<!--docid::SEC151::-->
+<P>
+
+За выражением <CODE>or</CODE> следуют два цикла <CODE>while</CODE>.
+Проверка-истина-ложь первого цикла <CODE>while</CODE> возвращает истину,
+если аргумент <CODE>forward-sentence</CODE> --- отрицательное число.
+Это код обратного поиска.  Тело этого цикла очень похоже на тело
+второго цикла <CODE>while</CODE>, но это ни одно и тоже.  Мы пропустим
+первый цикл <CODE>while</CODE> и сосредоточимся на втором, в котором
+производится поиск вперед.
+</P><P>
+
+Второй цикл <CODE>while</CODE> схематично выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while (&#62; arg 0)            ; проверка-истина-ложь
+  (let <VAR>список-переменных</VAR>
+    (if (<VAR>проверка-истина-ложь</VAR>)
+        <VAR>then-часть</VAR>
+      <VAR>else-часть</VAR>
+  (setq arg (1- arg))))     ; <CODE>while</CODE> уменьшение счетчика
+</pre></td></tr></table></P><P>
+
+Это цикл <CODE>while</CODE> с уменьшением счетчика (See section <A HREF="emacs-lisp-intro_12.html#SEC129">Цикл с уменьшающимся счетчиком</A>.)  Проверка-истина-ложь возвращает
+значение истина до тех пор пока счетчик (в нашем случае <CODE>arg</CODE>)
+больше нуля; и каждый раз когда цикл повторяется значение счетчика
+уменьшается на единицу.
+</P><P>
+
+Если при вызове функции не задан префикс-аргумент, самый обычный способ
+использования этой команды, тело цикла <CODE>while</CODE> будет вычислено
+только один раз, так как значение <CODE>arg</CODE> в таком случае равно 1.
+</P><P>
+
+Тело цикла <CODE>while</CODE> состоит из выражения <CODE>let</CODE>, в котором
+создаются и инициализируются локальные переменные, а телом выражения
+<CODE>let</CODE> является выражение <CODE>if</CODE>.
+</P><P>
+
+Тело выражения <CODE>while</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let ((par-end
+       (save-excursion (end-of-paragraph-text) (point))))
+  (if (re-search-forward sentence-end par-end t)
+      (skip-chars-backward " \t\n")
+    (goto-char par-end)))
+</pre></td></tr></table></P><P>
+
+В выражении <CODE>let</CODE> создается и инициализируется локальная
+переменная <CODE>par-end</CODE>.  Как мы увидим, эта переменная
+используется, для того, чтобы ограничить поиск регулярного выражения.
+Если функции поиска не удастся найти правильное окончание предложения
+в параграфе, то она все равно остановится достигнув конца параграфа.
+</P><P>
+
+Но вначале давайте посмотрим как переменной <CODE>par-end</CODE>
+присваивается значение конца параграфа.  Это происходит, когда в
+выражении <CODE>let</CODE> переменной <CODE>par-end</CODE> присваивается значение,
+которое возвращает интерпретатор Лиспа, после вычисления выражения:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(save-excursion (end-of-paragraph-text) (point))
+</pre></td></tr></table></P><P>
+
+В этом выражении, <CODE>(end-of-paragraph-text)</CODE> перемещает курсор к
+концу параграфа, <CODE>(point)</CODE> возвращает значение точки и после
+этого <CODE>save-excursion</CODE> восстанавливает первоначальное положение
+курсора.  То есть <CODE>let</CODE> связывает <CODE>par-end</CODE> со значением,
+которое возвращает выражение <CODE>save-excursion</CODE>, которое в свою
+очередь равно позиции конца параграфа.  (Функция
+<CODE>(end-of-paragraph-text)</CODE> используется функцией
+<CODE>forward-paragraph</CODE>, которую мы вскоре рассмотрим.)
+</P><P>
+
+После этого Emacs вычисляет тело <CODE>let</CODE>, а это выражение
+<CODE>if</CODE>, которое выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (re-search-forward sentence-end par-end t) ; if-часть
+    (skip-chars-backward " \t\n")              ; then-часть
+  (goto-char par-end)))                        ; else-часть
+</pre></td></tr></table></P><P>
+
+Напомним, что <CODE>if</CODE> проверяет значение возвращаемое его первым
+аргументом и если это истина, то вычисляется then-часть; в противном
+случае интерпретатор Emacs Lisp вычисляет else-часть.
+Проверка-истина-ложь в выражении <CODE>if</CODE> --- это функция поиска
+регулярного выражения.
+</P><P>
+
+Может показаться странным, но "настоящая работа" функции
+<CODE>forward-sentence</CODE> выполняется именно здесь, но это самое обычное
+дело, если вы программирует на Лиспе.
+</P><P>
+
+<A NAME="fwd-sentence re-search"></A>
+<HR SIZE="6">
+<A NAME="SEC152"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC151"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC149"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Поиск по регулярному выражению </H4>
+<!--docid::SEC152::-->
+<P>
+
+Функция <CODE>re-search-forward</CODE> ищет конец предложения или шаблон,
+который определен регулярным выражением <CODE>sentence-end</CODE>.  Если
+шаблон найден ---то функция <CODE>re-search-forward</CODE> выполняет две
+вещи:
+</P><P>
+
+<OL>
+<LI>
+Функция <CODE>re-search-forward</CODE> имеет побочный эффект ---
+перемещает курсор в конец найденого образца.
+<P>
+
+<LI>
+Функция <CODE>re-search-forward</CODE> возвращает истину в качестве
+значения.  Это значение и получает <CODE>if</CODE>; это означает, что поиск
+завершился успешно.
+</OL>
+<P>
+
+Побочный эффект функции (перемещение курсора) завершается до того как
+выражение <CODE>if</CODE> начнет анализировать значение, которое вернулось в
+случае успешного поиска.
+</P><P>
+
+Когда функция <CODE>if</CODE> получает значение истина (если вызов
+<CODE>re-search-forward</CODE> был успешен), то <CODE>if</CODE> вычисляет
+then-часть --- выражение <CODE>(skip-chars-backward " \t\n")</CODE>.
+Это выражение перемещает курсор назад через пробелы, символы новой
+строки и символы табуляции, до первого печатного символа.  Поскольку
+курсор уже переместился к концу найденого образца, который означал
+конец предложения, то это действие оставляет курсор сразу за
+завершающим печатным символом предложения --- то есть точкой.
+</P><P>
+
+С другой стороны, если функция <CODE>re-search-forward</CODE> не смогла
+найти образец сопоставимый с концом предложения, то она возвращает
+ложное значение.  Ложное значение заставляет <CODE>if</CODE> вычислить свой
+третий аргумент --- выражение <CODE>(goto-char par-end)</CODE>, которое
+перемещает курсор к концу параграфа.
+</P><P>
+
+Поиск регулярных выражений --- очень полезная вещь и шаблон,
+который мы использовали в функции <CODE>forward-sentence</CODE> (когда
+функция <CODE>re-search-forward</CODE> используется, как проверка в
+выражении <CODE>if</CODE>) весьма часто применяется на практике.
+</P><P>
+
+<A NAME="forward-paragraph"></A>
+<HR SIZE="6">
+<A NAME="SEC153"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC152"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC154"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 12.4 <CODE>forward-paragraph</CODE>: сокровищница функций </H2>
+<!--docid::SEC153::-->
+<P>
+
+Функция <CODE>forward-paragraph</CODE> перемещает точку в конец параграфа.
+Обычно эта команда связана с сочетанием клавиш<KBD>M-}</KBD> и в ней
+используется несколько новых, интересных функции: <CODE>let*</CODE>,
+<CODE>match-beginning</CODE> и <CODE>looking-at</CODE>.
+</P><P>
+
+Определение функции для <CODE>forward-paragraph</CODE> значительно длиннее,
+чем определение функции <CODE>forward-sentence</CODE>, потому что она должна
+работать и с параграфами, у которых каждая строка которых начинается с
+префикса заполнения.
+</P><P>
+
+Префикс заполнения --- это строка символов, котороя повторяется в
+начале каждой строки.  Например, в программах на Лиспе существует
+соглашение начинать каждую строку комментария длинной в параграф со
+строки <SAMP>`;;; '</SAMP>.  В режиме Text используется другой префикс
+заполнения --- четыре пробела, таким образом создаются выровненные
+параграфы. (See section `Fill Prefix' in <CITE>The GNU Emacs Manual</CITE>, для
+получения дополнительной информации о префиксах заполнения).
+</P><P>
+
+Кроме того, существование префикса заполнения означает, что функция
+должна найти конец параграфа, строки которого начинаются с левой
+границы экрана. Функция <CODE>forward-paragraph</CODE> также должна находить
+конец параграфа когда все, или многие строки в буфере начинаются с
+префикса заполнения.
+</P><P>
+
+Более того иногда стоит проигнорировать существование префикса
+заполнения, особенно тогда, когда параграфы разделены пустыми
+строками.  Это добавляет сложности в реализацию.
+</P><P>
+
+Мы приведем здесь только части функции <CODE>forward-paragraph</CODE>, так
+как трудно не ужаснуться, если посмотреть на ее полное определение.
+</P><P>
+
+Схематично функция выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun forward-paragraph (&#38;optional arg)
+  "<VAR>документация</VAR><small>...</small>"
+  (interactive "p")
+  (or arg (setq arg 1))
+  (let*
+      <VAR>список-переменных</VAR>
+    (while (&#60; arg 0)        ; код-движения-назад
+      <small>...</small>
+      (setq arg (1+ arg)))
+    (while (&#62; arg 0)        ; код-движения-вперед
+      <small>...</small>
+      (setq arg (1- arg)))))
+</pre></td></tr></table></P><P>
+
+Первые части функции нам уже хорошо знакомы --- список аргументов
+функции состоит из одного необязательного аргумента.  Затем следует
+документация.
+</P><P>
+
+Знак <SAMP>`p'</SAMP> в нижнем регистре из обьявления <CODE>interactive</CODE>
+означает, что в функцию будет передан обработанный префикс-аргумент.
+Это будет целое число --- на сколько параграфов переместить
+курсор.
+</P><P>
+
+Выражение <CODE>or</CODE> на следующей строке обрабатывает самый общий
+случай --- когда при вызове функции не был задано никакого
+аргумента. Это происходит когда функция вызывается не интерактивно из
+другой программы.  Мы уже рассмотрели такой случай ранее
+(See section <A HREF="emacs-lisp-intro_13.html#SEC150">The <CODE>forward-sentence</CODE> function</A>.)
+Здесь мы подошли наконец к незнакомым частям функции.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC154">Выражение <CODE>let*</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC155">Цикл <CODE>while</CODE> движения вперед</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC156">Между параграфами</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC157">Внутри параграфа</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC158">Без префикса заполнения</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC159">С префиксом заполнения</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_13.html#SEC160">Итог</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"><CODE>forward-paragraph</CODE> полностью.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="fwd-para let"></A>
+<HR SIZE="6">
+<A NAME="SEC154"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC155"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Выражение <CODE>let*</CODE> </H4>
+<!--docid::SEC154::-->
+<P>
+
+Следующая строка функции <CODE>forward-paragraph</CODE> начинается с
+выражения <CODE>let*</CODE>.  Это назнакомая нам функция.  Символ
+<CODE>let*</CODE> не является тем же самым что и <CODE>let</CODE>.
+</P><P>
+
+<CODE>let*</CODE> особая форма, как и <CODE>let</CODE>, только в этом случае Emacs
+инициализирует переменные последовательно, одну за другой и переменные
+в конце списка-переменных могут использовать значения переменных
+проинициализированных в начале списка-переменных.
+</P><P>
+
+В выражении <CODE>let*</CODE> для нашей функции Emacs связывает две
+переменные: <CODE>fill-prefix-regexp</CODE> и <CODE>paragraph-separate</CODE>.
+Значение, которое будет связано с <CODE>paragraph-separate</CODE> зависит от
+того, какое значение было присвоено
+переменной<CODE>fill-prefix-regexp</CODE>.
+</P><P>
+
+Давайте рассмотрим их по очереди.  Символу <CODE>fill-prefix-regexp</CODE>
+присваивается значение, которое возвращается после вычисления
+следующего списка:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(and fill-prefix 
+     (not (equal fill-prefix ""))
+     (not paragraph-ignore-fill-prefix)
+     (regexp-quote fill-prefix))
+</pre></td></tr></table></P><P>
+
+В этом выражении первым элементом является функция <CODE>and</CODE>.
+</P><P>
+
+Функция <CODE>and</CODE> вычисляет свои аргументы до тех пор, пока один из
+них не вернет значение <CODE>nil</CODE>, в этом случае для всего выражения
+<CODE>and</CODE> возвращается значение <CODE>nil</CODE>; однако, если ни один из
+аргументов не возвратил <CODE>nil</CODE>, то результатом всего выражения
+<CODE>and</CODE> будет результат вычисления последнего аргумента функции.
+Другими словами выражение <CODE>and</CODE> возвращает истину только тогда,
+когда все его аргументы возвращают значение не равное <CODE>nil</CODE>.
+<A NAME="IDX63"></A>
+</P><P>
+
+В нашем случае переменная <CODE>fill-prefix-regexp</CODE> будет связана со
+значением не равным <CODE>nil</CODE>, только если следующие четыре выражения
+вернут истину (т.е. не-<CODE>nil</CODE>) после вычисления; в противном
+случает, <CODE>fill-prefix-regexp</CODE> будет назначено значение
+<CODE>nil</CODE>.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>fill-prefix</CODE>
+<DD>Когда вычисляется эта переменная, то возвращается значение
+префикса-заполнения, если он есть.  Если префикса заполнения нет, то
+эта переменная возвращает <CODE>nil</CODE>.
+<P>
+
+<DT><CODE>(not (equal fill-prefix "")</CODE>
+<DD>Это выражение проверяет равенство существующего префикса заполнения
+пустой строке, то есть строке в которой нет символов.  Пустая строка
+не особенно полезный префикс заполнения.
+<P>
+
+<DT><CODE>(not paragraph-ignore-fill-prefix)</CODE>
+<DD>Это выражение возвращает <CODE>nil</CODE>, в том случае если была включена
+переменная <CODE>paragraph-ignore-fill-prefix</CODE>, то есть ей присвоили
+истинное значение, например <CODE>t</CODE>.
+<P>
+
+<DT><CODE>(regexp-quote fill-prefix)</CODE>
+<DD>Это последний аргумент функции <CODE>and</CODE>.  Если все аргументы
+<CODE>and</CODE> были истины, то значение возвращаемое после вычисления
+этого выражения будет связано с переменной <CODE>fill-prefix-regexp</CODE>.
+</DL>
+<P>
+
+<A NAME="IDX64"></A>
+Если вычисление выражения <CODE>and</CODE> было успешно, то
+<CODE>fill-prefix-regexp</CODE> будет связан со значением
+<CODE>fill-prefix</CODE>, но измененного функцией <CODE>regexp-quote</CODE>.
+Функция <CODE>regexp-quote</CODE> принимает строку в качестве аргумента и
+возвращает регулярное выражение, которое точно сопоставимо с этой
+строкой и не подходит ни под что другое.  Это означает, что
+<CODE>fill-prefix-regexp</CODE> будет связан со значением, которое точно
+сопоставимо с префиксом заполнения, если префикс заполнения конечно
+существует.  В противном случае этой переменной будет присвоено
+значение <CODE>nil</CODE>.
+</P><P>
+
+Вторая локальная переменная в выражении <CODE>let*</CODE> --- это
+<CODE>paragraph-separate</CODE>.  Она связывается со значением, которое
+возвращается после вычисления следующего выражения:
+ 
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if fill-prefix-regexp
+    (concat paragraph-separate 
+            "\\|^" fill-prefix-regexp "[ \t]*$")
+  paragraph-separate)))
+</pre></td></tr></table></P><P>
+
+Это выражение обьясняет почему в функции <CODE>forward-paragraph</CODE>
+используется особая форма <CODE>let*</CODE>, а не <CODE>let</CODE>.
+Проверка-истина-ложь в <CODE>if</CODE> зависит от того, равна ли переменная
+<CODE>fill-prefix-regexp</CODE> значению <CODE>nil</CODE> или нет.
+</P><P>
+
+Если <CODE>fill-prefix-regexp</CODE> не имеет значения, то Emacs вычисляет
+else-часть выражения <CODE>if</CODE> и связывает <CODE>paragraph-separate</CODE> с
+ее локальным значением.  (<CODE>paragraph-separate</CODE> --- это
+регулярное выражение, которое сопоставимо с разделителем параграфа).
+</P><P>
+
+Но если <CODE>fill-prefix-regexp</CODE> присвоено какое-нибудь значение, то
+тогда Emacs вычисляет then-часть выражения <CODE>if</CODE> и связывает
+<CODE>paragraph-separate</CODE> с регулярным выражением одна из частей
+которого равна <CODE>fill-prefix-regexp</CODE>.
+</P><P>
+
+Если уточнить, то <CODE>paragraph-separate</CODE> присваивается
+первоначальное значение регулярного выражения для разделителей
+параграфа, к которому добавлено в виде альтернативы регулярное
+выражение <CODE>fill-prefix-regexp</CODE>, за которым следует пустая строка.
+<SAMP>`^'</SAMP> означает, что <CODE>fill-prefix-regexp</CODE> должен находиться в
+начале строки, а необязательные пробелы в конце строки заданы
+выражением <CODE>"[ \t]*$"</CODE>.  <SAMP>`\\|'</SAMP> определяет, что эта часть
+регулярного выражения является альтернативой
+<CODE>paragraph-separate</CODE>.
+</P><P>
+
+Теперь мы готовы анализировать тело <CODE>let*</CODE>.  Первый цикл
+<CODE>while</CODE> исполняется в том случае, если функция при вызове
+получила отрицательный аргумент и следовательно должна переместить
+курсор назад.  Мы пропустим эту часть.
+</P><P>
+
+<A NAME="fwd-para while"></A>
+<HR SIZE="6">
+<A NAME="SEC155"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC154"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC156"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Цикл <CODE>while</CODE> движения вперед </H4>
+<!--docid::SEC155::-->
+<P>
+
+Вторая часть тела <CODE>let*</CODE> обрабатывает движение вперед.  Это цикл
+<CODE>while</CODE>, который повторяется пока значение <CODE>arg</CODE> больше
+нуля.  Обычно значение аргумента равно 1, поэтому тело цикла
+<CODE>while</CODE> будет вычислено только один раз и курсор переместится
+вперед на один параграф.
+</P><P>
+
+В этом цикле обрабатываются три ситуации: когда курсор находиться
+между параграфами, когда курсор находится внутри параграфа и
+существует префикс заполнения, и когда курсор внутри параграфа, но
+префикса заполнения нет.
+</P><P>
+
+Цикл <CODE>while</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while (&#62; arg 0)
+  (beginning-of-line)
+
+  ;; между параграфами 
+  (while (prog1 (and (not (eobp))
+                     (looking-at paragraph-separate))
+           (forward-line 1)))
+
+  ;; внутри параграфа, с префиксом заполнения
+  (if fill-prefix-regexp
+      ;; Существующий префикс заполнения перекрывает paragraph-start.
+      (while (and (not (eobp))
+                  (not (looking-at paragraph-separate))
+                  (looking-at fill-prefix-regexp))
+        (forward-line 1))
+
+    ;; внутри параграфа, без префикса заполнения
+    (if (re-search-forward paragraph-start nil t)
+        (goto-char (match-beginning 0))
+      (goto-char (point-max))))
+
+  (setq arg (1- arg)))
+</pre></td></tr></table></P><P>
+
+Мы сразу видим что это цикл <CODE>while</CODE> с уменьшением счетчика, и
+выражение <CODE>(setq (1- arg))</CODE> служит уменьшителем.  Тело цикла
+состоит из трех выражений:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>;; между параграфами 
+(beginning-of-line)       
+(while 
+    <VAR>тело-while</VAR>)
+
+;; внутри параграфа, с префиксом заполнения
+(if <VAR>проверка-истина-ложь</VAR>    
+    <VAR>then-часть</VAR>             
+
+;; внутри параграфа, нет префикса заполнения
+  <VAR>else-часть</VAR>               
+</pre></td></tr></table></P><P>
+
+Когда интерпретатор Emacs Lisp вычисляет тело цикла <CODE>while</CODE>, то
+самое первое что он делает --- вычисляет выражение
+<CODE>(beginning-of-line)</CODE> и перемещает курсор в начало строки.  Затем
+следует внутренний цикл <CODE>while</CODE>.  Цель этого цикла ---
+переместить курсор из пустого пространства между параграфами, если он
+оказался там.  Наконец, в последнем выражении <CODE>if</CODE> и происходит
+фактическое перемещение курсора в конец параграфа.
+</P><P>
+
+<A NAME="fwd-para между параграфов"></A>
+<HR SIZE="6">
+<A NAME="SEC156"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC155"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC157"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Между параграфами </H4>
+<!--docid::SEC156::-->
+<P>
+
+Вначале давайте взглянем на внутренний цикл <CODE>while</CODE>.  Этот цикл
+обрабатывает случай когда курсор находится между параграфами; там
+используются три новых для нас функции: <CODE>prog1</CODE>, <CODE>eobp</CODE> и
+<CODE>looking-at</CODE>.
+<A NAME="IDX65"></A>
+<A NAME="IDX66"></A>
+<A NAME="IDX67"></A>
+</P><P>
+
+<UL>
+<LI>
+<CODE>prog1</CODE> очень похожа на функцию <CODE>progn</CODE>, кроме того, что
+после вычисления своих аргументов она возвращает значение первого
+аргумента, как значение вычисления всей функции <CODE>prog1</CODE>.
+(<CODE>progn</CODE> возвращает значение последнего аргумента как значение
+всего выражения).  Второй и последующие аргументы функции <CODE>prog1</CODE>
+вычисляются только ради их побочных эффектов.
+<P>
+
+<LI>
+<CODE>eobp</CODE> --- это сокращение от <SAMP>`End Of Buffer P'</SAMP> и эта
+функция возвращает истину, если курсор находится в конце буфера.
+<P>
+
+<LI>
+<CODE>looking-at</CODE> --- это функция, которая возвращает истину, если
+текст следующий за курсором сопоставим с регулярным выражением,
+переданным <CODE>looking-at</CODE> в качестве аргумента.
+</UL>
+<P>
+
+Цикл <CODE>while</CODE>, который мы сейчас рассмотрим, выглядит следующим
+образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while (prog1 (and (not (eobp))
+                   (looking-at paragraph-separate))
+              (forward-line 1)))
+</pre></td></tr></table></P><P>
+
+У этого цикла <CODE>while</CODE> нет тела!  Проверка-истина-ложь для этого
+цикла приведена ниже:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(prog1 (and (not (eobp))
+            (looking-at paragraph-separate))
+       (forward-line 1)))
+</pre></td></tr></table></P><P>
+
+Первый аргумент в функции <CODE>prog1</CODE> --- это выражение
+<CODE>and</CODE>.  Там проверяется находится ли курсор в конце буфера и
+сопоставим ли текст после курсора с регулярным выражением для
+разделения параграфов.
+</P><P>
+
+Если курсор не находится в конце буфера и символы следующие за
+курсором похожи на разделители параграфов, то значением всего
+выражения <CODE>and</CODE> является истина.  После вычисления выражения
+<CODE>and</CODE> интерпретатор Лиспа вычисляет второй аргумент к
+<CODE>prog1</CODE> --- это выражение <CODE>forward-line</CODE>.  Здесь
+происходит перемещение курсора на одну строку вперед.  Тем не менее
+возвращаемое значение для всего выражения <CODE>prog1</CODE> ---
+значение его первого аргумента, поэтому цикл <CODE>while</CODE> будет
+продолжаться до тех пор пока курсор находиться между параграфами и не
+в конце буфера.  Когда наконец, курсор подойдет к параграфу текста
+выражение <CODE>and</CODE> возвратит ложь.  Обратите внимание, что команда
+<CODE>forward-line</CODE> будет выполнена и в этом случае.  Это значит, что
+когда курсор перемещается от параграфа к параграфу, то он
+останавливается в начале второй строки параграфа.
+</P><P>
+
+<A NAME="fwd-para внутри параграфа"></A>
+<HR SIZE="6">
+<A NAME="SEC157"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC156"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC158"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Внутри параграфа </H4>
+<!--docid::SEC157::-->
+<P>
+
+Следующее выражение внешнего цикла <CODE>while</CODE> --- это выражение
+<CODE>if</CODE>.  Интерпретатор Лиспа вычисляет then-часть выражения
+<CODE>if</CODE>, в том случае, когда переменной <CODE>fill-prefix-regexp</CODE>
+было присвоено какое-нибудь значение отличное от <CODE>nil</CODE>, в
+противном случае, если нет префикса заполнения, вычисляется
+else-часть.
+</P><P>
+
+<A NAME="fwd-para нет префикса"></A>
+<HR SIZE="6">
+<A NAME="SEC158"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC157"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC159"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Без префикса заполнения </H4>
+<!--docid::SEC158::-->
+<P>
+
+Сначала давайте рассмотрим случай, когда префикс заполнения
+отсутствует. Этот случай немного проще.  Это еще одно внутреннее
+выражение <CODE>if</CODE>, и оно выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (re-search-forward paragraph-start nil t)
+    (goto-char (match-beginning 0))
+  (goto-char (point-max)))
+</pre></td></tr></table></P><P>
+
+В этом выражении на самом деле и выполняется та работа, которую
+большинство пользователей считают основной целью команды
+<CODE>forward-paragraph</CODE> --- здесь производится поиск регулярного
+выражения сопоставимого с началом следующего параграфа, и если он
+найден, то курсор перемещается на это место; но если начало следующего
+параграфа не обнаружено, то тогда курсор перемещается в конец
+доступной области буфера.
+</P><P>
+
+Единственная незнакомая здесь для нас функция --- это
+<CODE>match-beginning</CODE>.  Функция <CODE>match-beginning</CODE> возвращает
+число, описывающее начало текста сопоставленого в последнем поиске
+регулярного выражения.
+</P><P>
+
+Использование здесь функции <CODE>match-beginning</CODE> обьясняется одним
+свойством поиска вперед --- в случае успешного поиска, не важно
+был ли это поиск регулярного выражения или простой поиск, курсор
+перемещается в конец найденного текста.  В нашем случае успешный поиск
+переместит курсор в конец образца для <CODE>paragraph-start</CODE> ---
+это будет началом следующего параграфа, а не конец текущего.
+</P><P>
+
+Однако, мы хотим расположить курсор в конце текущего параграфа, а не в
+начале следующего.  Эти две позиции могут сильно отличаться, поскольку
+их может разделять несколько пустых строк.
+</P><P>
+
+<A NAME="IDX68"></A>
+Если функции <CODE>match-beginning</CODE> передан аргумент равный 0, то она
+возвращает позицию, совпадающую с началом текста, который был найден
+при последнем поиске по регулярному выражению.  В нашем случае самый
+последний поиск регулярного выражения осуществлял поиск
+<CODE>paragraph-start</CODE>, поэтому функция <CODE>match-beginning</CODE> вернет
+позицию начала шаблона, а не конец.  Начальная позиция --- это
+конец текущего параграфа.
+</P><P>
+
+(Между прочим, когда в качестве аргумента передается положительное
+число, ир функция <CODE>match-beginning</CODE> поместит точку на выражение,
+заключенное в скобки в последнем поиске по регулярному выражению. Это
+очень полезная функция).
+</P><P>
+
+<A NAME="fwd-para с префиксом"></A>
+<HR SIZE="6">
+<A NAME="SEC159"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC158"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC160"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> С префиксом заполнения </H4>
+<!--docid::SEC159::-->
+<P>
+
+Внутреннее выражение <CODE>if</CODE>, которое мы только что обсудили ---
+это else-часть внешнего выражения <CODE>if</CODE>, где проверка-истина-ложь
+проверяет наличие префикса заполнения.  Если префикс заполнения
+существует, то тогда вычисляется then-часть внешнего выражения
+<CODE>if</CODE>.  Она выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while (and (not (eobp))
+            (not (looking-at paragraph-separate))
+            (looking-at fill-prefix-regexp))
+  (forward-line 1))
+</pre></td></tr></table></P><P>
+
+В этом выражении курсор будет перемещаться вперед на строку до тех
+пор, пока следующие три выражения истинны:
+</P><P>
+
+<OL>
+<LI>
+Точка не находится в конце буфера.
+<P>
+
+<LI>
+Текст, который следует за точкой не является разделителем параграфа.
+<P>
+
+<LI>
+Образец, следующий за точкой сопоставим с регулярным выражением для
+префикса заполнения.
+</OL>
+<P>
+
+Последнее условие может выглядеть загадочным, если вы не вспомните,
+что в самом начале функции <CODE>forward-paragraph</CODE> мы переместили
+курсор в начало строки.  Это значит, что если в тексте есть префикс
+заполнения, то функция <CODE>looking-at</CODE> увидит его.
+</P><P>
+
+<A NAME="fwd-para резюме"></A>
+<HR SIZE="6">
+<A NAME="SEC160"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC159"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC161"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC150"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC161"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Итог </H4>
+<!--docid::SEC160::-->
+<P>
+
+Повторим, когда курсор перемещается вперед, функция
+<CODE>forward-paragraph</CODE> делает следующее:
+</P><P>
+
+<UL>
+<LI>
+Перемещает курсор в начало строки.
+<P>
+
+<LI>
+Пропускает пустые строки между параграфами.
+<P>
+
+<LI>
+Проверяет есть ли префикс заполнения, и если он есть, то:
+<P>
+
+<UL>
+
+<LI>
+Идет вперед строка за строкой, до тех пор пока строки не являются
+разделителями параграфов.
+</UL>
+<P>
+
+<LI>
+Но если префикса заполнения нет, то:
+<P>
+
+<UL>
+
+<LI>
+Ищет образец сопоставимый с началом следующего параграфа.
+<P>
+
+<LI>
+Перемещает курсор в начало найденного образца для начала параграфа,
+которое будет концом предыдущего параграфа.
+<P>
+
+<LI>
+Или перемещает курсор в конец доступной области буфера.
+</UL>
+</UL>
+<P>
+
+Для повтора, здесь мы приводим только что рассмотреную функцию,
+немного выравненную для ясности:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(interactive "p")
+(or arg (setq arg 1))
+(let* (
+       (fill-prefix-regexp
+        (and fill-prefix (not (equal fill-prefix ""))
+             (not paragraph-ignore-fill-prefix)
+             (regexp-quote fill-prefix)))
+
+       (paragraph-separate
+        (if fill-prefix-regexp
+            (concat paragraph-separate
+                    "\\|^"
+                    fill-prefix-regexp
+                    "[ \t]*$")
+          paragraph-separate)))
+
+  <VAR>код перемещения назад пропущен</VAR> <small>...</small>
+
+  (while (&#62; arg 0)                ; код-перемещения-вперед
+    (beginning-of-line)
+
+    (while (prog1 (and (not (eobp))
+                       (looking-at paragraph-separate))
+             (forward-line 1)))
+
+    (if fill-prefix-regexp
+        (while (and (not (eobp))  ; then-часть
+                    (not (looking-at paragraph-separate))
+                    (looking-at fill-prefix-regexp))
+          (forward-line 1))
+                                  ; else-часть: внутренний if
+      (if (re-search-forward paragraph-start nil t)
+          (goto-char (match-beginning 0))
+        (goto-char (point-max))))
+
+    (setq arg (1- arg)))))        ; уменьшение счетчика
+</pre></td></tr></table></P><P>
+
+Полное определение функции <CODE>forward-paragraph</CODE> включает также и
+код для того случая, когда осуществляется движение назад.
+</P><P>
+
+Если вы читаете этот текст в GNU Emacs и хотите увидеть всю функцию,
+то вы можете набрать <KBD>M-.</KBD> (<CODE>find-tag</CODE>) и после этого в
+появившейся эхо-области набрать имя функции.  Если функция
+<CODE>find-tag</CODE> запросит у вас имя таблицы <TT>`TAGS'</TT>, то задайте в
+качестве аргумента файл <TT>`TAGS'</TT> в вашем каталоге <TT>`emacs/src'</TT>,
+то есть, что то подобное <TT>`/usr/local/lib/emacs/19.23/src/TAGS'</TT>.
+(Точное имя каталога содержащего <TT>`emacs/src'</TT> зависит от того, как
+была установлена ваша копия Emacs.  Если вы не знаете его, то вы
+можете выяснить эту информацию нажав <KBD>C-h i</KBD>, чтобы запустить Info
+и здесь напечатав <KBD>C-x C-f</KBD>, эхо-области вы увидите полное
+маршуртное имя для каталога <TT>`emacs/info'</TT>.  Имя файла <TT>`TAGS'</TT>
+часто аналогично; тем не менее, иногда, файлы Info хранятся в другом
+месте).  <A NAME="DOCF10" HREF="emacs-lisp-intro_fot.html#FOOT10">(10)</A>
+</P><P>
+
+Вы может сами создать файлы <TT>`TAGS'</TT> для тех каталогов, в которых
+хранятся исходные тексты написанные на Emacs Lisp.
+See section <A HREF="emacs-lisp-intro_13.html#SEC161">Create Your Own <TT>`TAGS'</TT> File</A>.
+</P><P>
+
+<A NAME="etags"></A>
+<HR SIZE="6">
+<A NAME="SEC161"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC160"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC162"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC153"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_14.html#SEC164"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 12.5 Создание своего собственного файла <TT>`TAGS'</TT> </H2>
+<!--docid::SEC161::-->
+<P>
+
+Вы можете создать свои собственные файлы <TT>`TAGS'</TT>, которые будут
+вам помогать перемещаться по исходным текстам.  Например, если у вас в
+каталоге <TT>`~/emacs'</TT> находится такое же большое количество файлов,
+как и у меня --- целых 137 файлов Emacs Lisp <TT>`.el'</TT>, из
+которых я загружаю 17 --- то вы обнаружите, что если вы создадите
+файл <TT>`TAGS'</TT> для этого каталога, вам будет удобнее разыскивать
+нужную функцию, чем при использовании <CODE>grep</CODE> или какого-нибудь
+другого средства.
+</P><P>
+
+Создать файл <TT>`TAGS'</TT> можно с помощью программы <CODE>etags</CODE>,
+которая входит в стандартный дистрибутив Emacs.  Обычно <CODE>etags</CODE>
+компилируется и устанавливается при установке Emacs.  (Программа
+<CODE>etags</CODE> это не функция на Emacs Lisp и она не входит в состав
+Emacs; это отдельная программа, написанная на Си).
+</P><P>
+
+Чтобы создать файл <TT>`TAGS'</TT> сначала перейдите в тот каталог для
+которого вы хотите создать таблицу тэгов.  В Emacs вы можете сделать
+это с помощью команды <KBD>M-x cd</KBD> или открыв какой-нибудь файл из
+этого каталога, или выполнить для этого каталога команду <KBD>C-x d</KBD>
+(<CODE>dired</CODE>).  Теперь нажмите
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>M-! etags *.el
+</pre></td></tr></table></P><P>
+
+для создания файла <TT>`TAGS'</TT>.  При запуске программы <CODE>etags</CODE>
+можно использовать все расширения оболочки <CODE>sh</CODE>.  Например, если
+у вас два каталога для которых вы хотите создать один файл <TT>`TAGS
+file'</TT>, то для этого выполните команду подобную следующей, где
+<TT>`../elisp/'</TT> это второй каталог:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>M-! etags  *.el ../elisp/*.el
+</pre></td></tr></table></P><P>
+
+Наберите
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>M-! etags --help
+</pre></td></tr></table></P><P>
+
+для того чтобы изучить все ключи, которые можно использовать с
+<CODE>etags</CODE>.
+</P><P>
+
+Программа <CODE>etags</CODE> обрабатывает исходные тексты программ на языках
+Emacs Lisp, Common Lisp, Scheme, C, Fortran, Pascal, LaTeX, и
+большинство ассемблеров.  При анализе файла программа <CODE>etags</CODE>
+автоматически узнает используемый в файле язык по расширению файла и
+его содержанию.
+</P><P>
+
+Файлы <TT>`TAGS'</TT> очень помогают тогда, когда вы сами работаете над
+большим программным проектом и хотите найти функцию расположеную в
+неизвестном вам файле.  После создания новых функции все что вам
+надо --- это снова запустить программу <CODE>etags</CODE> и новые функции
+будут занесены в таблицу тегов.
+</P><P>
+
+<A NAME="Резюме для regexp"></A>
+<HR SIZE="6">
+<A NAME="SEC162"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC161"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC163"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_14.html#SEC164"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 12.6 Заключение </H2>
+<!--docid::SEC162::-->
+<P>
+
+Ниже приведено краткое перечисление недавно изученных функций.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>while</CODE>
+<DD>Повторно вычисляет тело выражения пока проверка-истина-ложь возвращает
+истинное значение.  После того, как проверка вернула значение
+<CODE>nil</CODE> цикл заканчивается, и все выражение возвращает <CODE>nil</CODE>.
+(Тело цикла вычисляется только ради побочных эффектов).
+<P>
+
+Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let ((foo 2))
+  (while (&#62; foo 0)
+    (insert (format "foo is %d.\n" foo))
+    (setq foo (1- foo))))
+
+     =>       foo is 2.
+             foo is 1.
+             nil
+</pre></td></tr></table>(Функция <CODE>insert</CODE> вставляет свои аргументы после курсора; функция
+<CODE>format</CODE> возвращает строку отформатированную подобно тому, как
+функция <CODE>message</CODE> форматирует свои аргументы; строка <CODE>\n</CODE>
+для обозначения перевода строки).
+</P><P>
+
+<DT><CODE>re-search-forward</CODE>
+<DD>Осуществляет поиск заданного образца, в случае успеха перемещает
+курсор в конец найденного текста.
+<P>
+
+Как и функция <CODE>search-forward</CODE> принимает четыре аргумента:
+</P><P>
+
+<OL>
+<LI>
+Образец для поиска, в виде регулярного выражения.
+<P>
+
+<LI>
+Границы поиска (необязательный параметр).
+<P>
+
+<LI>
+Что делать в случае неуспешного поиска --- вернуть значение
+<CODE>nil</CODE> или сигнализировать об ошибке (необязательный параметр).
+<P>
+
+<LI>
+Сколько раз повторять поиск; если задан отрицательный аргумент, то
+поиск происходит в обратном направлении (необязательный аргумент).
+</OL>
+<P>
+
+<DT><CODE>let*</CODE>
+<DD>Создает и инициализирует локальные переменные, после этого вычисляет
+оставшиеся аргументы, возвращает значение последнего из них.  При
+создании локальных переменных, для тех из них, которые идут позже,
+можно использовать значения ранее созданных переменных.
+<P>
+
+Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let* ((foo 7)
+      (bar (* 3 foo)))
+  (message "`bar' равно %d." bar))
+     => `bar' is 21.
+</pre></td></tr></table></P><P>
+
+<DT><CODE>match-beginning</CODE>
+<DD>Возвращает позицию начала текста найденного последним выражением для
+регулярного поиска.
+<P>
+
+<DT><CODE>looking-at</CODE>
+<DD>Возвращает <CODE>t</CODE>, если текст следующий за курсором сопоставим с
+аргументом, которое должно быть регулярным выражением.
+<P>
+
+<DT><CODE>eobp</CODE>
+<DD>Возвращает <CODE>t</CODE>, если курсор находится в конце доступной области
+буфера.  Конец доступной области буфера --- это конец буфера, если
+не включено сужение, или конец суженной области, если сужение
+включено.
+<P>
+
+<DT><CODE>prog1</CODE>
+<DD>Последовательно вычисляет свои аргументы и возвращает значение
+аргумента вычисленного <EM>первым</EM>.
+<P>
+
+Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(prog1 1 2 3 4)
+     => 1
+</pre></td></tr></table></DL>
+<P>
+
+<A NAME="Упражнения для re-search"></A>
+<HR SIZE="6">
+<A NAME="SEC163"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC162"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_14.html#SEC164"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_14.html#SEC164"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 12.7 Упражнения с <CODE>re-search-forward</CODE> </H2>
+<!--docid::SEC163::-->
+<P>
+
+<UL>
+<LI>
+Создайте функцию, которая будет искать регулярное выражение
+сопоставимое с двумя последовательнно расположенными пустыми строками.
+<P>
+
+<LI>
+Создайте функцию поиска сдвоенных слов, таких как `the the'.
+See section `Syntax of Regular Expressions' in <CITE>The GNU Emacs Manual</CITE>, для получения дополнительной информации о создании регулярных
+выражений, которые сопоставимы со строкой, составленной из двух
+одинаковых частей.  У вас может получится несколько выражений;
+некоторые из них лучше других.  Функция, которую использую я,
+представлена в приложении вместе с несколькими регулярными
+выражениями.  See section <A HREF="emacs-lisp-intro_20.html#SEC213"><CODE>the-the</CODE> Duplicated Words Function</A>.
+</UL>
+<P>
+
+<A NAME="Считаем слова"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_14.html#SEC164"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>December, 4  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

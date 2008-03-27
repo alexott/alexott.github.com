@@ -1,0 +1,5 @@
+#title Фотографии
+#keywords alex ott, photos
+
+Все фотографии находятся на [[http://picasaweb.google.com/alexott/][Google PicasaWeb]].
+

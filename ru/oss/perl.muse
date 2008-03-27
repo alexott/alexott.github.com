@@ -1,0 +1,50 @@
+#title Перловая страничка
+#keywords alex ott, perl 
+
+**Эти данные в достаточной степени устарели, поскольку я не работаю с Perl уже достаточно
+давно, и использую его льшь для написания коротких скриптов**
+
+Я и *Anton Petrusevich* сделали перевод некоторых [[http://www.stonehenge.com/merlyn/UnixReview/][выпусков PerlColumns]]. Это советы по
+применению Perl при работе в Unix. Они показывают некоторые интересные приемы работы с
+Perl:
+
+ - [[UnixReview/col01.html][Выпуск 1]] -- Основы разбора текста
+ - [[UnixReview/col02.html][Выпуск 2]] -- Подсчет слов
+ - [[UnixReview/col03.html][Выпуск 3]] -- Регулярные выражения
+ - [[UnixReview/col04.html][Выпуск 4]] -- Небольшая база данных
+ - [[UnixReview/col05.html][Выпуск 5]] -- Подпрограммы
+ - [[UnixReview/col06.html][Выпуск 6]] -- Сортировка
+ - [[UnixReview/col07.html][Выпуск 7]] -- Простые ссылки
+ - [[UnixReview/col08.html][Выпуск 8]] -- Ссылки на подпрограммы
+ - [[UnixReview/col09.html][Выпуск 9]] -- Grep для текста
+ - [[UnixReview/col10.html][Выпуск 10]] -- Обвязки (Wrappers)
+ - [[UnixReview/col11.html][Выпуск 11]] -- Работа со списками
+ - [[UnixReview/col12.html][Выпуск 12]] -- Встроенные документы
+ - [[UnixReview/col13.html][Выпуск 13]] -- Введение в объекты
+ - [[UnixReview/col14.html][Выпуск 14]] -- Еще раз об объектах
+ - [[UnixReview/col15.html][Выпуск 15]] -- Анализ файлов протокола
+ - [[UnixReview/col16.html][Выпуск 16]] -- Рекурсивная работа с каталогами
+ - [[UnixReview/col17.html][Выпуск 17]] -- Поиск исполняемых файлов, скрытых от пользователя
+ - [[UnixReview/col18.html][Выпуск 18]] -- Битовые операции
+ - [[UnixReview/col19.html][Выпуск 19]] -- Подключение файлов
+ - [[UnixReview/col20.html][Выпуск 20]] -- Вычисление выражений в тексте
+ - [[UnixReview/col21.html][Выпуск 21]] -- Выбор среди операций выбора
+ - [[UnixReview/col22.html][Выпуск 22]] -- Эффективное использование CPAN
+ - [[UnixReview/col23.html][Выпуск 23]] -- Редактирование файлов на месте
+ - [[UnixReview/col24.html][Выпуск 24]] -- Постоянные данные
+ - [[UnixReview/col25.html][Выпуск 25]] -- Получение дат с помощью Perl
+ - [[UnixReview/col26.html][Выпуск 26]] -- Нахождение простых чисел
+ - [[UnixReview/col27.html][Выпуск 27]] -- Расширение символьных ссылок
+ - [[UnixReview/col28.html][Выпуск 28]] -- Компиляция регулярных выражений
+ - [[UnixReview/col29.html][Выпуск 29]] -- Определение ``телефонных'' слов
+ - [[UnixReview/col30.html][Выпуск 30]] -- Глубокое копирование и рекурсия
+ - [[UnixReview/col31.html][Выпуск 31]] -- Развлечение с шаблонами в дождливые дни
+ - [[UnixReview/col32.html][Выпуск 32]] -- Некоторые приемы использования printf
+ - [[UnixReview/col33.html][Выпуск 33]] -- Taint checking made simple
+ - [[UnixReview/col34.html][Выпуск 34]] -- Hебольшой сеанс магии
+ - [[UnixReview/col35.html][Выпуск 35]] -- В чем разница?
+ - [[UnixReview/col36.html][Выпуск 36]] -- Что это?
+ - [[UnixReview/col37.html][Выпуск 37]] -- MIME -- это ужасная вещь
+ - [[UnixReview/col38.html][Выпуск 38]] -- Все о контексте
+
+

@@ -1,0 +1,300 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 4  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Сужение &#38; Расширение</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Сужение &#38; Расширение">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Сужение &#38; Расширение">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC90"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC89"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC92"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_6.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_8.html#SEC95"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 6. Сужение и расширение </H1>
+<!--docid::SEC90::-->
+<P>
+
+Сужение --- это возможность Emacs, с помощью которой вы можете
+сосредоточиться на какой-либо части буфера, и редактировать не боясь,
+что случайно измените другие части буфера. Сужение обычно запрещено,
+так как эта возможность может смутить начинающих пользователей Emacs.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_7.html#SEC91">Преимущества сужения</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_7.html#SEC92">6.1 Особая форма <CODE>save-restriction</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_7.html#SEC93">6.2 <CODE>what-line</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Номер строки на которой находиться курсор.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_7.html#SEC94">6.3 Упражнения на сужение</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="преимущества сужения"></A>
+<A NAME="SEC91"></A>
+<H2> Преимущества сужения </H2>
+<!--docid::SEC91::-->
+<P>
+
+При сужении, оставшиеся части буфера делаются невидимыми, как будто бы
+их и нет. Например это удобно, если вы хотите, например, заменить
+какое-нибудь слово только в одной части буфера; вы сужаете буфер к
+этой части и замена выполняется только в том разделе, а не во всем
+буфере. Команды поиска также работают только на видимом на экране
+суженном регионе, а не вне его, так что, если вы сузили документ к
+какой-нибудь части, то вы найдете только то что вам нужно в этой
+части.
+</P><P>
+
+Однако, сужение делает весь остальной буфер невидимым, а это может
+испугать людей, которые случайно включили сужение и думают, что они
+удалили часть своего файла. Более того команда <CODE>undo</CODE>(откат)
+(которая обычно привязана к <KBD>C-x u</KBD>) не выключает сужение, так что
+люди могут совсем отчаяться если они не знают что они снова могут
+сделать оставшийся буфер видимым с помощью команды <CODE>widen</CODE>. (В
+версии Emacs 18, с <CODE>widen</CODE> связана клавиша <KBD>C-x w</KBD>; в версии
+19 <KBD>C-x n w</KBD>).
+</P><P>
+
+Сужение полезно не только людям, но интерпретатору Лиспа. Часто
+функции Emacs Лиспа созданы для работы только на части буфера; или
+наоборот функция должна работать на всем буфере, который был
+сужен. Например, функция <CODE>what-line</CODE>, выключает сужение в буфере,
+если оно включено и когда закончит свою работу, восстанавливает
+сужение как оно было. С другой стороны, функция <CODE>count-lines</CODE>,
+которую вызывает <CODE>what-line</CODE>, использует сужение чтобы ограничить
+себя только той порцией буфера в которой она заинтересована и затем
+восстанавливает прежнюю ситуацию.
+</P><P>
+
+<A NAME="save-restriction"></A>
+<HR SIZE="6">
+<A NAME="SEC92"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC93"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC91"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_8.html#SEC95"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 6.1 Особая форма <CODE>save-restriction</CODE> </H2>
+<!--docid::SEC92::-->
+<P>
+
+В Emacs Лиспе вы можете использовать особую форму
+<CODE>save-restriction</CODE>, чтобы запомнить состояние сужения, если оно
+было включено. Когда интерпретатор Лиспа встречает
+<CODE>save-restriction</CODE>, он выполняет инструкции в теле выражения
+<CODE>save-restriction</CODE>, и затем отменяет все изменения сужения,
+которые могли произойти в этом коде. Если например буфер был сужен и
+код который следовал за <CODE>save-restriction</CODE> избавился от сужения,
+то <CODE>save-restriction</CODE> снова восстанавливает сужение после
+выполнения своих команд. В команде <CODE>what-line</CODE>, любое сужение
+буфера можно отменить с помощью команды <CODE>widen</CODE>, которая следует
+сразу за командой <CODE>save-restriction</CODE>. Первоначальное сужение
+будет восстановлено, сразу после завершения выполнения функции.
+</P><P>
+
+Шаблон для формы <CODE>save-restriction</CODE> очень прост:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(save-restriction
+  <VAR>тело</VAR><small>...</small> )
+</pre></td></tr></table></P><P>
+
+Тело <CODE>save-restriction</CODE> содержит одно или несколько выражений
+которые интерпретатор Лиспа будет вычислять последовательно.
+</P><P>
+
+Последнее замечание: если вам надо использовать обе формы и
+<CODE>save-restriction</CODE> и <CODE>save-excursion</CODE> одну сразу после
+другой, то вначале вы должны использовать <CODE>save-excursion</CODE>. Если
+вы запишите наоборот, то вам может не удастся записать сужение в
+буфере в который Emacs переключится после вызова
+<CODE>save-excursion</CODE>. То есть, если их надо использовать вместе, то
+это будет выглядеть следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(save-excursion
+  (save-restriction
+    <VAR>тело</VAR><small>...</small>))
+</pre></td></tr></table></P><P>
+
+<A NAME="what-line"></A>
+<HR SIZE="6">
+<A NAME="SEC93"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC92"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC94"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_8.html#SEC95"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 6.2 <CODE>what-line</CODE> </H2>
+<!--docid::SEC93::-->
+<P>
+
+Команда <CODE>what-line</CODE> возвращает номер строки в которой находится
+курсор. Эта функция демонстрирует использование команд
+<CODE>save-excursion</CODE> и <CODE>save-restriction</CODE>. Ниже приведен полный
+текст функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun what-line ()
+  "Напечатать номер текущей строки в буфере."
+  (interactive)
+  (save-restriction
+    (widen)
+    (save-excursion
+      (beginning-of-line)
+      (message "Line %d"
+               (1+ (count-lines 1 (point)))))))
+</pre></td></tr></table></P><P>
+
+У функции есть строка документации и она интерактивна, как мы этого
+ожидали. Затем следуют две строки, где используются функции
+<CODE>save-restriction</CODE> и <CODE>widen</CODE>.
+</P><P>
+
+Особая форма <CODE>save-restriction</CODE> запоминает сужение, если оно было
+включено в текущем буфере и восстанавливает его после вычисления тела
+формы <CODE>save-restriction</CODE>.
+</P><P>
+
+За особой формой <CODE>save-restriction</CODE> следует вызов <CODE>widen</CODE>
+(расширение). Эта функция отменяет сужение в текущем буфере, если оно
+было включено на момент вызова <CODE>what-line</CODE>. (Если буфер был
+сужен, то эти установки запомнила функция <CODE>save-restriction</CODE>).
+Это расширение позволяет для команд считающих строки считать от начала
+буфера. В противном случае они были бы ограничены только видимой
+областью буфера. Любое сужение будет восстановлено, сразу после
+завершения функции, с помощью особой формы <CODE>save-restriction</CODE>.
+</P><P>
+
+За вызовом <CODE>widen</CODE> следует <CODE>save-excursion</CODE>, которая
+запоминает местоположение курсора (то есть точки) и метки, и
+восстанавливает их после того как инструкции в теле
+<CODE>save-excursion</CODE> перемещают точку с помощью функции
+<CODE>beginning-of-line</CODE>.
+</P><P>
+
+(Заметим что выражение <CODE>(widen)</CODE> находится между функциями
+<CODE>save-restriction</CODE> и <CODE>save-excursion</CODE>. Когда вы пишете два
+выражения <CODE>save- <small>...</small></CODE> последовательно, то сначала записывайте
+<CODE>save-excursion</CODE>).
+</P><P>
+
+Последние две строки функции <CODE>what-line</CODE> --- это функции
+которые вычисляют номер строки в буфере и затем отображают сообщение в
+эхо-области
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(message "Line %d"
+         (1+ (count-lines 1 (point)))))))
+</pre></td></tr></table></P><P>
+
+Функция <CODE>message</CODE> печатает однострочное сообщение в низу экрана
+Emacs. Первым аргументом этой функции являляется строка внутри двойных
+кавычек, которая печатается как есть. Однако, если она содержит
+символы <SAMP>`%d'</SAMP>, <SAMP>`%s'</SAMP> и <SAMP>`%c'</SAMP>, то на их место вставляет
+аргументы которые следуют за этой строкой. <SAMP>`%d'</SAMP> печатает аргумент
+как десятичное число, поэтому сообщение в эхо-области будет следующим:
+<SAMP>`Line 345'</SAMP>.
+</P><P>
+
+Число которое будет напечатано на месте <SAMP>`%d'</SAMP>, вычисляется в
+последней строке функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(1+ (count-lines 1 (point)))
+</pre></td></tr></table></P><P>
+
+Все что делает это код --- это считает строки от первой позиции в
+буфере, отмеченной <CODE>1</CODE>, до точки <CODE>(point)</CODE>, и затем
+прибавляет единицу к этому числу. (Функция <CODE>1+</CODE> добавляет единицу
+к своему аргументу). Мы добавляем единицу, поскольку
+<CODE>count-lines</CODE> считает только строки <EM>перед</EM> текущей линией.
+</P><P>
+
+После того как <CODE>count-lines</CODE> завершит свою работу, и в эхо-области
+будет напечатано сообщение, <CODE>save-excursion</CODE> восстановит точку и
+метку к их первоначальным значениям; а <CODE>save-restriction</CODE>
+восстановит первоначальный вид экрана если было сужение.
+</P><P>
+
+<A NAME="Упражнения для Сужения"></A>
+<HR SIZE="6">
+<A NAME="SEC94"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC93"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_8.html#SEC95"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_8.html#SEC95"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 6.3 Упражнения на сужение </H2>
+<!--docid::SEC94::-->
+<P>
+
+Напишите функцию которая отображает первые 60 символов в текущем
+буфере, даже если вы сузили буфер в его второй половине, так что
+первые строки не видны. Восстановите точку, метку и сужение. Для этого
+примера вам понадобятся функции <CODE>save-restriction</CODE>, <CODE>widen</CODE>,
+<CODE>goto-char</CODE>, <CODE>point-min</CODE>, <CODE>buffer-substring</CODE>,
+<CODE>message</CODE>, и некоторые другие, целый набор.
+</P><P>
+
+<A NAME="car cdr &#38; cons"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_7.html#SEC90"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_8.html#SEC95"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>December, 4  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

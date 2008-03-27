@@ -1,0 +1,5 @@
+#title Squid GSB redirector
+#refresh 1;url=cf/squid-gsbapi.html
+
+Страница перемещена [[cf/squid-gsb][в другое место]]
+

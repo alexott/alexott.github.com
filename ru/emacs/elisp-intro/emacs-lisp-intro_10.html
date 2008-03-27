@@ -1,0 +1,305 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 4  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Реализация Списков</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Реализация Списков">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Реализация Списков">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC123"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC122"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC124"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_11.html#SEC125"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 9. Как реализованы списки </H1>
+<!--docid::SEC123::-->
+<P>
+
+В Лиспе атомы записывают в ясной манере; если реализация не ясна на
+практике, то она тем не менее ясна в теории. Атом <SAMP>`роза'</SAMP>,
+например хранится, как четыре последовательные буквы <SAMP>`р'</SAMP>,
+<SAMP>`о'</SAMP>, <SAMP>`з'</SAMP>, <SAMP>`а'</SAMP>. С другой стороны, список храниться по
+другому. Механизм достаточно простой, но надо чуть привыкнуть к идее.
+Список хранится используя набор сдвоенных указателей. В наборе, первый
+указатель каждой пары указывает на атом или другой список, а второй
+указатель каждой пары указывает на следующую пару указателей, или на
+символ <CODE>nil</CODE>, который означает конец списка.
+</P><P>
+
+Сам указатель --- это просто электронный адрес того, на что он
+указывает. Следовательно список хранится, как серия электронных
+адресов.
+</P><P>
+
+Например, в списке <CODE>(роза фиалка лютик)</CODE> --- три элемента,
+<SAMP>`роза'</SAMP>, <SAMP>`фиалка'</SAMP> и <SAMP>`лютик'</SAMP>. В компьютере электронный
+адрес <SAMP>`роза'</SAMP> записывается в сегменте памяти компьютера вместе с
+адресом, который является электронным адресом размещения атома
+<SAMP>`фиалка'</SAMP>; а этот адрес (тот, который сообщает где размещается
+<SAMP>`фиалка'</SAMP>) хранится вместе с адресом, который сообщает где
+размещен атом <SAMP>`лютик'</SAMP>.
+</P><P>
+
+Все это звучит сложнее, чем есть на самом деле, и это легко понять
+посмотрев на диаграмму:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    ___ ___      ___ ___      ___ ___ 
+   |___|___|--&#62; |___|___|--&#62; |___|___|--&#62; nil
+     |            |            |      
+     |            |            |
+      --&#62; роза     --&#62; фиалка   --&#62; лютик
+</pre></td></tr></table></P><P>
+
+На диаграмме, каждый прямоугольник представляет слово в памяти
+компьютера, которое содержит объект Лиспа, обычно в форме электронного
+адреса. Прямоугольники, то есть  адреса расположены попарно. Каждая
+стрелка указывает туда, где хранится объект с этим адресом --- это
+или атом или пара адресов. Первый прямоугольник --- это
+электронный адрес атома <SAMP>`роза'</SAMP> и стрелка указывает на атом
+<SAMP>`роза'</SAMP>; второй прямоугольник это адрес следующей пары
+прямоугольников, первый из которых --- это адрес атома
+<SAMP>`фиалка'</SAMP>, а второй --- это адрес следующей пары адресов.
+Самый последний прямоугольник указывает на символ <CODE>nil</CODE>, который
+означает конец списка.
+</P><P>
+
+Когда переменной присваивается список, например с помощью функции
+<CODE>setq</CODE>, на самом деле в этой переменной сохраняется адрес первого
+прямоугольника списка. Так вычисление следующего выражения
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq букет '(роза фиалка лютик))
+</pre></td></tr></table></P><P>
+
+создаст следующую ситуацию:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  букет
+     |
+     |     ___ ___      ___ ___      ___ ___ 
+      --&#62; |___|___|--&#62; |___|___|--&#62; |___|___|--&#62; nil
+            |            |            |      
+            |            |            |
+             --&#62; роза     --&#62; фиалка   --&#62; лютик
+</pre></td></tr></table></P><P>
+
+В этом случае, символ <CODE>букет</CODE> содержит адрес первой пары
+прямоугольников. В самом деле символ <CODE>букет</CODE> состоит из группы
+адресов-прямоугольников, один из которых --- адрес печатного слова
+<SAMP>`букет'</SAMP>, второй --- это адрес определения функции
+прикрепленной к символу, если он конечно есть, а третий --- это
+адрес первой пары адресов-прямоугольников для списка <CODE>(роза
+фиалка лютик)</CODE>, и т.д.
+</P><P>
+
+Тот же самый список можно проиллюстрировать и с помощью других
+прямоугольников:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>букет
+ |
+ |    --------------       ---------------       ----------------
+ |   | car   | cdr  |     | car    | cdr  |     | car     | cdr  |
+  --&#62;| роза  |   o-------&#62;| фиалка |   o-------&#62;| лютик   |  nil |
+     |       |      |     |        |      |     |         |      |
+      --------------       ---------------       ----------------
+</FONT></pre></td></tr></table></P><P>
+
+В прошлых разделах книги я предложил, что вы можете представить
+символ, как шкаф с полками. Определение функции хранится на одной
+полке, значение переменной на другой, и так далее. То, что мы положили
+на одну полку можно изменить, не задев содержимое другой полки и
+наоборот. Фактически то, что хранится на каждой полке --- это
+адрес значения или определения функции. Это похоже на старый сундук,
+где хранится карта захороненных сокровищ.
+</P><P>
+
+(Кроме имени, определения функции и значения переменной, у символа
+есть `полочка' для <EM>списка свойств</EM> в который можно записать
+другую информацию. Мы не будем обсуждать здесь списки свойств;
+смотрите section `Property Lists' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.)
+</P><P>
+
+Вот и честное представление:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>              Шкаф                      Содержимое Полок
+
+         ---------------------
+        |                     |
+        |    имя символа      |             букет
+        |                     |
+         ---------------------
+        |                     |
+        | определение функции |             [нет]
+        |                     |
+         ---------------------
+        |                     |
+        | значение переменной |             (роза фиалка лютик)
+        |                     |
+         ---------------------
+        |                     |
+        |   список свойств    |             [не описан здесь]
+        |                     |
+         ---------------------
+        |/                   \|
+</FONT></pre></td></tr></table></P><P>
+
+Если символу присваивается CDR списка, то сам список не меняется;
+символу просто присваивается адрес другого элемента списка. (На
+жаргоне Лиспа CAR и CDR `не деструктивны'). Так вычисление
+следующего выражения
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq цветы (cdr букет))
+</pre></td></tr></table></P><P>
+
+выдаст вот это:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>букет        цветы
+  |              |        
+  |     ___ ___  |     ___ ___      ___ ___ 
+   --&#62; |   |   |  --&#62; |   |   |    |   |   |
+       |___|___|----&#62; |___|___|--&#62; |___|___|--&#62; nil
+         |              |            |      
+         |              |            |
+          --&#62; роза       --&#62; фиалка   --&#62; лютик
+</pre></td></tr></table></P><P>
+
+Значение <CODE>цветы</CODE> --- это <CODE>(фиалка лютик)</CODE>, или можно
+сказать по другому, символ <CODE>цветы</CODE> содержит адрес пары
+адресов-прямоугольников, первый из которых содержит адрес атома
+<CODE>фиалка</CODE>, а второй содержит адрес атома <CODE>лютик</CODE>.
+</P><P>
+
+Пару адресов-прямоугольников называют <EM>списочной ячейкой (cons
+cell)</EM> или <EM>точечная пара</EM>. See section `List Type' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>, и section `Dotted Pair Notation' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>, за
+дополнительной информацией о списочных ячейках и точечных парах.
+</P><P>
+
+Функция <CODE>cons</CODE> добавляет новую пару адресов перед серией адресов,
+как это показано выше. Например, вычисление выражения
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq букет (cons 'лилия букет))
+</pre></td></tr></table></P><P>
+
+выдаст:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>букет                       цветы        
+  |                             |                 
+  |     ___ ___        ___ ___  |     ___ ___       ___ ___        
+   --&#62; |   |   |      |   |   |  --&#62; |   |   |     |   |   |       
+       |___|___|----&#62; |___|___|----&#62; |___|___|----&#62;|___|___|--&#62; nil
+         |              |              |             |             
+         |              |              |             |             
+          --&#62; лилия      --&#62; роза       --&#62; фиалка    --&#62; лютик
+</pre></td></tr></table></P><P>
+
+Однако это не изменило значение символа <CODE>цветы</CODE>, как вы можете
+проверить вычислив следующее выражение,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(eq (cdr (cdr букет)) цветы)
+</pre></td></tr></table></P><P>
+
+это вернет <CODE>t</CODE> для true.
+</P><P>
+
+До тех пор, пока его не изменили, символ <CODE>цветы</CODE> все еще содержит
+значение <CODE>(фиалка лютик)</CODE> --- то есть адрес списочной ячейки,
+чей первый элемент является адресом атома <CODE>фиалка</CODE>. Также это не
+изменило никакую из других списочных ячеек --- они все еще там.
+</P><P>
+
+В Лиспе получая CDR списка, вы только получите адрес следующей
+списочной ячейки в группе; получив CAR списка, вы получите первый
+элемент списка; чтобы добавить новый элемент в список с помощью
+<CODE>cons</CODE>, вы добавляете новую списочную ячейку перед списком. Вот в
+принципе и все! Основы Лиспа гениально просты!
+</P><P>
+
+А на что указывает последний адрес в группе списочных ячеек? Он
+указывает на пустой список, <CODE>nil</CODE>.
+</P><P>
+
+В общем говоря, когда переменная Лисп устанавливается значение, то это
+делается через адрес списка, к которому относится эта переменная.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_10.html#SEC124">9.1 Упражнения</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Упражнения со списками"></A>
+<HR SIZE="6">
+<A NAME="SEC124"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_11.html#SEC125"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_11.html#SEC125"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 9.1 Упражнения </H2>
+<!--docid::SEC124::-->
+<P>
+
+Установите значением символа <CODE>цветы</CODE> список из <CODE>фиалка</CODE> и
+<CODE>лютик</CODE>. С помощью <CODE>cons</CODE> добавьте еще цветов в этот список
+и назначьте его значением переменной <CODE>больше-цветов</CODE>. Установите
+CAR списка <CODE>цветы</CODE> какую-нибудь рыбу. Что сейчас содержит
+список <CODE>больше-цветов</CODE>?
+</P><P>
+
+<A NAME="Вставка"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_11.html#SEC125"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>December, 4  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

@@ -1,0 +1,1299 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Программы</TITLE>
+
+<META NAME="description" CONTENT="automake: Программы">
+<META NAME="keywords" CONTENT="automake: Программы">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC20"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_6.html#SEC19"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC21"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_6.html#SEC19"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 7. Построение программ и библиотек </H1>
+<!--docid::SEC20::-->
+<P>
+
+Большая часть функциональности Automake направлена на то, чтобы
+облегчить компиляцию программ и библиотек.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC21">7.1 Построение программ</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC22">7.2 Построение библиотеки</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC23">7.3 Специальная обработка переменных <SAMP>`LIBOBJS'</SAMP> и <SAMP>`ALLOCA'</SAMP></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Специальная обработка переменных LIBOBJS и ALLOCA</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC24">7.4 Построение разделяемых библиотек</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC25">7.5 Переменные, используемые при построении программ</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC26">7.6 Поддержка Yacc и Lex</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC27">7.7 Поддержка C++</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC28">7.8 Поддержка Fortran 77</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC34">7.9 Поддержка других языков</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC35">7.10 Автоматическая де-ANSI-фикация</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC36">7.11 Автоматическое отслеживание зависимостей</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Программа"></A>
+<HR SIZE="6">
+<A NAME="SEC21"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC22"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.1 Построение программ </H2>
+<!--docid::SEC21::-->
+<P>
+
+<A NAME="IDX221"></A>
+<A NAME="IDX222"></A>
+<A NAME="IDX223"></A>
+<A NAME="IDX224"></A>
+<A NAME="IDX225"></A>
+<A NAME="IDX226"></A>
+</P><P>
+
+В каталоге, содержащем исходные тексты, из которых будет построена
+программа (в отличие от библиотеки), в основном используется
+макрос <SAMP>`PROGRAMS'</SAMP>. Программы могут быть установлены в каталоги
+<CODE>bindir</CODE>, <CODE>sbindir</CODE>, <CODE>libexecdir</CODE>, <CODE>pkglibdir</CODE>, или же
+вообще не устанавливаться (<SAMP>`noinst'</SAMP>).
+</P><P>
+
+Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>bin_PROGRAMS = hello
+</pre></td></tr></table></P><P>
+
+В этом простом примере результирующий <TT>`Makefile.in'</TT> будет
+содержать код для генерации программы с именем <CODE>hello</CODE>. Переменная
+<CODE>hello_SOURCES</CODE> используется для указания того, какие файлы
+исходных текстов будут использованы для компиляции исполняемого файла:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>hello_SOURCES = hello.c version.c getopt.c getopt1.c getopt.h system.h 
+</pre></td></tr></table></P><P>
+
+В результате этого каждый упомянутый в этой переменной файл <SAMP>`.c'</SAMP>
+будет скомпилирован в соответствующий файл <SAMP>`.o'</SAMP>.  Затем все они
+компонуются для создания <TT>`hello'</TT>.
+</P><P>
+
+<A NAME="IDX227"></A>
+<A NAME="IDX228"></A>
+<A NAME="IDX229"></A>
+</P><P>
+
+Если переменная <SAMP>`<VAR>prog</VAR>_SOURCES'</SAMP> необходима, но не указана, то
+она получает значение по умолчанию, равное единственному файлу
+<TT>`prog.c'</TT>.
+<A NAME="IDX230"></A>
+<A NAME="IDX231"></A>
+</P><P>
+
+В одном каталоге могут компилироваться несколько программ.  Эти
+программы могут совместно использовать один и тот же исходный файл,
+который должен быть указан в 
+каждом определении <SAMP>`_SOURCES'</SAMP>.
+</P><P>
+
+<A NAME="IDX232"></A>
+<A NAME="IDX233"></A>
+</P><P>
+
+Заголовочные файлы, перечисленные в определении <SAMP>`_SOURCES'</SAMP>,
+включаются в дистрибутив, а в других случаях игнорируются. В том
+случае, если это не очень удобно, вы не должны включать файл,
+созданный <TT>`configure'</TT> в переменную <SAMP>`_SOURCES'</SAMP>; этот файл не
+должен распространяться. Файлы Lex (<SAMP>`.l'</SAMP>) и Yacc (<SAMP>`.y'</SAMP>) также
+должны быть перечислены; смотрите раздел <A HREF="automake-ru_7.html#SEC26">7.6 Поддержка Yacc и Lex</A>.
+</P><P>
+
+<A NAME="IDX234"></A>
+</P><P>
+
+Automake должен знать все файлы исходных текстов, которые могут
+участвовать в компиляции программы, даже если не все файлы будут
+использоваться в каждом конкретном случае.  Файлы, которые компилируются
+только при выполнении определенных условий, должны быть перечислены в
+соответствующей переменной <SAMP>`EXTRA_'</SAMP>.  Например, если
+<TT>`hello-linux.c'</TT> будет, в зависимости от условий, включен в
+программу <CODE>hello</CODE>, то файл <TT>`Makefile.am'</TT> должен содержать:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>EXTRA_hello_SOURCES = hello-linux.c
+</pre></td></tr></table></P><P>
+
+Иногда также полезно аналогичным образом определить во время
+конфигурации, какие программы будут скомпилированы.  Например, GNU <CODE>cpio</CODE>
+создает программы <CODE>mt</CODE> и <CODE>rmt</CODE> только при выполнении определенных
+условий.
+</P><P>
+
+<A NAME="IDX235"></A>
+</P><P>
+
+В этом случае вы должны уведомить Automake обо всех программах, которые
+могут быть построены, но в то же время заставить сгенерированный файл
+<TT>`Makefile.in'</TT> использовать программы, заданные при выполнении
+<CODE>configure</CODE>. Это делается подстановкой значений при выполнении
+<CODE>configure</CODE> в каждом определении <SAMP>`_PROGRAMS'</SAMP>.  А все
+программы, которые можно создать, перечисляются в переменной
+<CODE>EXTRA_PROGRAMS</CODE>.
+<A NAME="IDX236"></A>
+</P><P>
+
+Если вы хотите скомпоновать программу с библиотеками, которые не найдены
+<CODE>configure</CODE>, то для этого вы должны использовать переменную
+<CODE>LDADD</CODE>.  Эта переменная может использоваться для добавления ключей
+в командную строку компоновщика.
+<A NAME="IDX237"></A>
+</P><P>
+
+<A NAME="IDX238"></A>
+</P><P>
+
+Иногда несколько программ компилируются в одном каталоге, но при этом у
+них различные требования к компоновке.  В этом случае для
+переопределения глобальной переменной <CODE>LDADD</CODE> вы можете
+использовать переменную <SAMP>`<VAR>prog</VAR>_LDADD'</SAMP> (где <VAR>prog</VAR> является
+именем программы, как оно появляется в некоторых переменных
+<SAMP>`_PROGRAMS'</SAMP>, и обычно записывается буквами в нижнем регистре). Если
+эта переменная существует для заданной программы, то программа
+компонуется без использования <CODE>LDADD</CODE>.
+<A NAME="IDX239"></A>
+</P><P>
+
+Например, в GNU cpio, <CODE>pax</CODE>, <CODE>cpio</CODE> и <CODE>mt</CODE> компонуются с
+библиотекой <TT>`libcpio.a'</TT>. Однако, программа <CODE>rmt</CODE>, создаваемая в том же
+каталоге, не имеет такого требования к компоновке.  Более того, программы
+<CODE>mt</CODE> и <CODE>rmt</CODE> создаются только на определенных типах машин. Вот
+как выглядит <TT>`src/Makefile.am'</TT> из поставки cpio (в сокращенном
+виде):
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>bin_PROGRAMS = cpio pax @MT@
+libexec_PROGRAMS = @RMT@
+EXTRA_PROGRAMS = mt rmt
+
+LDADD = ../lib/libcpio.a @INTLLIBS@
+rmt_LDADD =
+
+cpio_SOURCES = <small>...</small>
+pax_SOURCES = <small>...</small>
+mt_SOURCES = <small>...</small>
+rmt_SOURCES = <small>...</small>
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX240"></A>
+</P><P>
+
+<SAMP>`<VAR>prog</VAR>_LDADD'</SAMP> не подходит для передачи специфических для
+программы флагов компоновщика (за исключением <SAMP>`-l'</SAMP> и
+<SAMP>`-L'</SAMP>). Для передачи таких флагов используйте переменную
+<SAMP>`<VAR>prog</VAR>_LDFLAGS'</SAMP>.
+<A NAME="IDX241"></A>
+</P><P>
+
+<A NAME="IDX242"></A>
+</P><P>
+
+Также иногда полезно собирать программу, в зависимости от цели, которая
+не является частью этой программы. Это может быть сделано с использованием
+переменной <SAMP>`<VAR>prog</VAR>_DEPENDENCIES'</SAMP>.  Каждая программа зависит от
+содержимого такой переменной, но никакой дополнительной интерпретации не
+производится.
+</P><P>
+
+Если переменная <SAMP>`<VAR>prog</VAR>_DEPENDENCIES'</SAMP> не определена, то она
+будет вычислена Automake.  Автоматически присвоенная ей величина является
+содержимым переменной <SAMP>`<VAR>prog</VAR>_LDADD'</SAMP> с
+большинством подстановок configure.  Ключи <SAMP>`-l'</SAMP> и <SAMP>`-L'</SAMP>
+удаляются. Остающимися подстановками configure являются только
+<SAMP>`@LIBOBJS@'</SAMP> и <SAMP>`@ALLOCA@'</SAMP>; они остаются потому, что они
+заведомо не приведут к генерации неправильных значений для
+<SAMP>`<VAR>prog</VAR>_DEPENDENCIES'</SAMP>.
+</P><P>
+
+<A NAME="Библиотека"></A>
+<HR SIZE="6">
+<A NAME="SEC22"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC21"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC23"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.2 Построение библиотеки </H2>
+<!--docid::SEC22::-->
+<P>
+
+<A NAME="IDX243"></A>
+<A NAME="IDX244"></A>
+<A NAME="IDX245"></A>
+</P><P>
+
+<A NAME="IDX246"></A>
+<A NAME="IDX247"></A>
+<A NAME="IDX248"></A>
+</P><P>
+
+Построение библиотеки по большей части аналогично построению программы. 
+В этом случае именем основной переменной является <SAMP>`LIBRARIES'</SAMP>.  Библиотеки могут
+быть установлены в каталоги <CODE>libdir</CODE> или в <CODE>pkglibdir</CODE>.
+</P><P>
+
+Смотрите See section <A HREF="automake-ru_7.html#SEC24">7.4 Построение разделяемых библиотек</A>, для получения информации о том,
+как компилировать разделяемые библиотеки, используя программу Libtool и
+основную переменную <SAMP>`LTLIBRARIES'</SAMP>.
+</P><P>
+
+Каждая переменная <SAMP>`_LIBRARIES'</SAMP> является списком библиотек, которые
+должны быть построены. Например, для того, чтобы создать библиотеку с
+именем <TT>`libcpio.a'</TT>, но не устанавливать ее, вы должны написать:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>noinst_LIBRARIES = libcpio.a
+</pre></td></tr></table></P><P>
+
+Файлы исходных текстов для библиотек определяются точно так же, как и
+для программ, через переменные <SAMP>`_SOURCES'</SAMP>. Заметьте, что имя
+библиотеки является канонизированным (see section <A HREF="automake-ru_2.html#SEC7">2.5 Как именуются порожденные переменные</A>), так что
+переменная <SAMP>`_SOURCES'</SAMP> для <TT>`liblob.a'</TT> является равной
+<SAMP>`liblob_a_SOURCES'</SAMP>, а не <SAMP>`liblob.a_SOURCES'</SAMP>.
+</P><P>
+
+<A NAME="IDX249"></A>
+<A NAME="IDX250"></A>
+<A NAME="IDX251"></A>
+</P><P>
+
+Дополнительные объекты могут быть добавлены в библиотеку, используя
+переменную <SAMP>`<VAR>library</VAR>_LIBADD'</SAMP>. Это можно использовать для
+объектов, определенных <CODE>configure</CODE>. Опять пример из <CODE>cpio</CODE>:
+<A NAME="IDX252"></A>
+<A NAME="IDX253"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>libcpio_a_LIBADD = @LIBOBJS@ @ALLOCA@
+</pre></td></tr></table></P><P>
+
+<A NAME="LIBOBJS"></A>
+<HR SIZE="6">
+<A NAME="SEC23"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC22"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC24"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.3 Специальная обработка переменных <SAMP>`LIBOBJS'</SAMP> и <SAMP>`ALLOCA'</SAMP> </H2>
+<!--docid::SEC23::-->
+<P>
+
+<A NAME="IDX254"></A>
+<A NAME="IDX255"></A>
+</P><P>
+
+Automake явно распознает использование переменных <CODE>@LIBOBJS@</CODE> и
+<CODE>@ALLOCA@</CODE>, и использует эту информацию вместе со списком файлов
+<CODE>LIBOBJS</CODE>, полученным из <TT>`configure.in'</TT>, для автоматического
+включения соответствующих файлов исходных текстов в дистрибутив
+(see section <A HREF="automake-ru_13.html#SEC53">13. Что войдет в дистрибутив</A>). Эти файлы исходных текстов также обрабатываются для
+автоматического определения зависимостей; смотрите раздел
+See section <A HREF="automake-ru_7.html#SEC36">7.11 Автоматическое отслеживание зависимостей</A>.
+</P><P>
+
+Использование <CODE>@LIBOBJS@</CODE> и <CODE>@ALLOCA@</CODE> распознается в
+переменных <SAMP>`_LDADD'</SAMP> и <SAMP>`_LIBADD'</SAMP>.
+</P><P>
+
+<A NAME="Разделяемые библиотеки"></A>
+<HR SIZE="6">
+<A NAME="SEC24"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC23"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC25"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.4 Построение разделяемых библиотек </H2>
+<!--docid::SEC24::-->
+<P>
+
+<A NAME="IDX256"></A>
+<A NAME="IDX257"></A>
+</P><P>
+
+Построение разделяемой библиотеки является относительно сложной
+задачей.  Для помощи в платформонезависимом построении разделяемых
+библиотек была создана программа GNU Libtool (see section `Introduction' in <CITE>Libtool Manual</CITE>).
+</P><P>
+
+<A NAME="IDX258"></A>
+<A NAME="IDX259"></A>
+<A NAME="IDX260"></A>
+<A NAME="IDX261"></A>
+<A NAME="IDX262"></A>
+</P><P>
+
+<A NAME="IDX263"></A>
+<A NAME="IDX264"></A>
+</P><P>
+
+Automake использует Libtool для построения библиотек, указанных в
+переменной <SAMP>`LTLIBRARIES'</SAMP>. Каждая переменная <SAMP>`_LTLIBRARIES'</SAMP>
+является списком разделяемых библиотек, которые нужно
+построить. Например, для создания библиотеки с именем
+<TT>`libgettext.a'</TT> и соответствующей ей разделяемой библиотеки, а также
+их установки в <SAMP>`libdir'</SAMP>, вы должны написать:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>lib_LTLIBRARIES = libgettext.la
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX265"></A>
+<A NAME="IDX266"></A>
+<A NAME="IDX267"></A>
+<A NAME="IDX268"></A>
+</P><P>
+
+<A NAME="IDX269"></A>
+</P><P>
+
+Заметьте, что разделяемые библиотеки <EM>должны</EM> быть установлены, так
+что использование <CODE>check_LTLIBRARIES</CODE> не разрешено. Однако же,
+разрешено использование переменной <CODE>noinst_LTLIBRARIES</CODE>. Эта
+возможность должна быть использована для "готовых библиотек" libtool.
+</P><P>
+
+<A NAME="IDX270"></A>
+<A NAME="IDX271"></A>
+</P><P>
+
+Для каждой библиотеки переменная <SAMP>`<VAR>library</VAR>_LIBADD'</SAMP> содержит
+имена дополнительных объектов libtool (файлы <TT>`.lo'</TT>), которые будет
+добавляться в разделяемую библиотеку. Переменная
+<SAMP>`<VAR>library</VAR>_LDFLAGS'</SAMP> содержит любые дополнительные флаги
+libtool, такие как <SAMP>`-version-info'</SAMP> или <SAMP>`-static'</SAMP>.
+</P><P>
+
+<A NAME="IDX272"></A>
+</P><P>
+
+В то время как обычные библиотеки могут включать <CODE>@LIBOBJS@</CODE>,
+библиотеки, использующие libtool, должны использовать
+<CODE>@LTLIBOBJS@</CODE>. Это требуется, поскольку имена объектных файлов,
+над которыми работает libtool, не обязательно оканчиваются на
+<TT>`.o'</TT>. Руководство по libtool содержит более детальное описание этой
+темы.
+</P><P>
+
+Для библиотек, устанавливаемых в некоторый каталог, Automake будет
+автоматически снабжать их соответствующим ключом <SAMP>`-rpath'</SAMP>. Однако
+для библиотек, определенных во время конфигурации (и таким образом
+перечисленных в переменной <CODE>EXTRA_LTLIBRARIES</CODE>), Automake не знает
+возможных каталогов установки; для таких библиотек вы должны сами
+добавить ключ <SAMP>`-rpath'</SAMP> в соответствующую переменную
+<SAMP>`_LDFLAGS'</SAMP>.
+</P><P>
+
+Для подробного описания смотрите @xref{Использование Automake, Использование Automake с Libtool, libtool, Libtool Manual}.
+</P><P>
+
+<A NAME="Переменные программ"></A>
+<HR SIZE="6">
+<A NAME="SEC25"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC24"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC26"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.5 Переменные, используемые при построении программ </H2>
+<!--docid::SEC25::-->
+<P>
+
+Иногда полезно знать, какие переменные <TT>`Makefile'</TT> Automake
+использует для компиляции; например, вам в некоторых случаях может быть
+необходимо использовать ваш собственный способ компиляции.
+</P><P>
+
+Некоторые переменные наследуются от Autoconf: это <CODE>CC</CODE>,
+<CODE>CFLAGS</CODE>, <CODE>CPPFLAGS</CODE>, <CODE>DEFS</CODE>, <CODE>LDFLAGS</CODE> и
+<CODE>LIBS</CODE>.
+<A NAME="IDX273"></A>
+</P><P>
+
+Также есть некоторые дополнительные переменные, определенные самим
+Automake: 
+</P><P>
+
+<DL COMPACT>
+<A NAME="IDX274"></A>
+<DT><CODE>INCLUDES</CODE>
+<DD><A NAME="IDX275"></A>
+Задает список ключей <SAMP>`-I'</SAMP>. Может быть установлен в вашем файле
+<TT>`Makefile.am'</TT>, если у вас есть специальные каталоги, в которых вы
+хотите осуществлять поиск.  Automake автоматически подставляет некоторые
+ключи <SAMP>`-I'</SAMP>.  В частности, он генерирует строку с ключами
+<SAMP>`-I$(srcdir)'</SAMP> и <SAMP>`-I'</SAMP>, указывающий на каталог с файлом
+<TT>`config.h'</TT> (если вы используете <CODE>AC_CONFIG_HEADER</CODE> или
+<CODE>AM_CONFIG_HEADER</CODE>).
+<P>
+
+<CODE>INCLUDES</CODE> может быть использован для других ключей <CODE>cpp</CODE>, а
+не только для <SAMP>`-I'</SAMP>. Например, эта переменная используется для
+передачи специальных ключей <SAMP>`-D'</SAMP> вашему компилятору.
+</P><P>
+
+<A NAME="IDX276"></A>
+<DT><CODE>COMPILE</CODE>
+<DD><A NAME="IDX277"></A>
+Эта команда используется для компиляции исходных файлов на языке C. Имя
+файла исходных текстов добавляется для формирования полной командной строки.
+<P>
+
+<A NAME="IDX278"></A>
+<DT><CODE>LINK</CODE>
+<DD><A NAME="IDX279"></A>
+Эта команда используется для компоновки программы на языке C.
+</DL>
+<P>
+
+<A NAME="Поддержка Yacc и Lex"></A>
+<HR SIZE="6">
+<A NAME="SEC26"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC25"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC27"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.6 Поддержка Yacc и Lex </H2>
+<!--docid::SEC26::-->
+<P>
+
+В Automake есть некоторая поддержка Yacc и Lex.
+</P><P>
+
+Automake предполагает, что файлы с расширением <TT>`.c'</TT>, которые
+создаются <CODE>yacc</CODE> (или <CODE>lex</CODE>) должны называться точно так же, как
+и входной файл.  Это значит, что при использовании исходного yacc-файла
+<TT>`foo.y'</TT> Automake будет считать, что промежуточный файл будет
+называться <TT>`foo.c'</TT> (а не более традиционно, <TT>`y.tab.c'</TT>).
+</P><P>
+
+Расширение имени yacc-файла используется для
+определения расширения имени готового файла на языках <SAMP>`C'</SAMP> или
+<SAMP>`C++'</SAMP>. Файлы с расширением <SAMP>`.y'</SAMP> будут превращены в файлы с
+расширением <SAMP>`.c'</SAMP>; аналогично <SAMP>`.yy'</SAMP> станут <SAMP>`.cc'</SAMP>;
+<SAMP>`.y++'</SAMP> станут <SAMP>`c++'</SAMP>; и <SAMP>`.yxx'</SAMP> станут <SAMP>`.cxx'</SAMP>.
+</P><P>
+
+Подобным образом исходные тексты на <CODE>lex</CODE> могут быть использованы для
+создания файлов на <SAMP>`C'</SAMP> или <SAMP>`C++'</SAMP>; распознаются файлы с
+расширениями <SAMP>`.l'</SAMP>, <SAMP>`.ll'</SAMP>, <SAMP>`.l++'</SAMP> и <SAMP>`.lxx'</SAMP>.
+</P><P>
+
+Вы не должны явно упоминать промежуточные файлы (на <SAMP>`C'</SAMP> или
+<SAMP>`C++'</SAMP>) в переменных <SAMP>`SOURCES'</SAMP>; вы должны указывать
+только список исходных файлов.
+</P><P>
+
+Промежуточные файлы, созданные <CODE>yacc</CODE> (или <CODE>lex</CODE>), будут
+включены в созданный дистрибутив.  Таким образом, пользователю
+не обязательно иметь у себя <CODE>yacc</CODE> или <CODE>lex</CODE>.
+</P><P>
+
+Если был обнаружен исходный текст на <CODE>yacc</CODE>, то ваш файл
+<TT>`configure.in'</TT> должен определить переменную <SAMP>`YACC'</SAMP>. Это легко
+делается макросом <SAMP>`AC_PROG_YACC'</SAMP> (see section `Проверка отдельных программ' in <CITE>Руководство Autoconf</CITE>).
+</P><P>
+
+Аналогичным образом, если есть исходный текст <CODE>lex</CODE>, то в
+<TT>`configure.in'</TT> должна быть определена переменная <SAMP>`LEX'</SAMP>. Вы
+можете использовать для этого макрос <SAMP>`AC_PROG_LEX'</SAMP>
+(see section `Проверка отдельных программ' in <CITE>Руководство Autoconf</CITE>). Поддержка <CODE>lex</CODE> в Automake также требует
+использования макроса <SAMP>`AC_DECL_YYTEXT'</SAMP> -- automake необходимо знать
+значение <SAMP>`LEX_OUTPUT_ROOT'</SAMP>. Все эти тонкости обрабатываются при использовании
+макроса <CODE>AM_PROG_LEX</CODE> (see section <A HREF="automake-ru_5.html#SEC17">5.4 Макросы Autoconf, поставляемые с Automake</A>).
+</P><P>
+
+<A NAME="IDX280"></A>
+<A NAME="IDX281"></A>
+<A NAME="IDX282"></A>
+<A NAME="IDX283"></A>
+<A NAME="IDX284"></A>
+</P><P>
+
+Automake делает возможным включение в одну программу нескольких исходных
+файлов <CODE>yacc</CODE> (или <CODE>lex</CODE>). Для запуска <CODE>yacc</CODE> (или
+<CODE>lex</CODE>) в подкаталогах Automake использует небольшую программу,
+<CODE>ylwrap</CODE>. Это необходимо, поскольку имя выходного файла
+yacc является фиксированным, а параллельное выполнение make может
+одновременно запустить несколько экземпляров <CODE>yacc</CODE>. Программа
+<CODE>ylwrap</CODE> распространяется вместе с Automake. Она должна быть в
+каталоге, указанном переменной <SAMP>`AC_CONFIG_AUX_DIR'</SAMP> (see section `Нахождение ввода `configure'' in <CITE>Руководство Autoconf</CITE>) или в
+текущем каталоге, если данный макрос не используется в
+<TT>`configure.in'</TT>.
+</P><P>
+
+Для <CODE>yacc</CODE>, недостаточно просто управлять блокировками.
+Результирующий файл
+<CODE>yacc</CODE> всегда использует внутри одни и те же
+имена символов, так что невозможно скомпоновать два парсера <CODE>yacc</CODE>
+в одну и ту же программу.
+</P><P>
+
+Мы рекомендуем использование следующего приема с переименованием
+объектов, который используется в <CODE>gdb</CODE>:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#define	yymaxdepth c_maxdepth
+#define	yyparse	c_parse
+#define	yylex	c_lex
+#define	yyerror	c_error
+#define	yylval	c_lval
+#define	yychar	c_char
+#define	yydebug	c_debug
+#define	yypact	c_pact	
+#define	yyr1	c_r1			
+#define	yyr2	c_r2			
+#define	yydef	c_def		
+#define	yychk	c_chk		
+#define	yypgo	c_pgo		
+#define	yyact	c_act		
+#define	yyexca	c_exca
+#define yyerrflag c_errflag
+#define yynerrs	c_nerrs
+#define	yyps	c_ps
+#define	yypv	c_pv
+#define	yys	c_s
+#define	yy_yys	c_yys
+#define	yystate	c_state
+#define	yytmp	c_tmp
+#define	yyv	c_v
+#define	yy_yyv	c_yyv
+#define	yyval	c_val
+#define	yylloc	c_lloc
+#define yyreds	c_reds
+#define yytoks	c_toks
+#define yylhs	c_yylhs
+#define yylen	c_yylen
+#define yydefred c_yydefred
+#define yydgoto	c_yydgoto
+#define yysindex c_yysindex
+#define yyrindex c_yyrindex
+#define yygindex c_yygindex
+#define yytable	 c_yytable
+#define yycheck	 c_yycheck
+#define yyname   c_yyname
+#define yyrule   c_yyrule
+</pre></td></tr></table></P><P>
+
+Для каждого <SAMP>`#define'</SAMP> замените префикс <SAMP>`c_'</SAMP> на то, что вы
+хотите использовать. Эти определения работают для программ <CODE>bison</CODE>,
+<CODE>byacc</CODE> и традиционных <CODE>yacc</CODE>. Если вы обнаружили, что какой-нибудь
+генератор парсеров использует символы, не указанные в этом списке, то
+сообщите нам новое имя, чтобы мы добавили его.
+</P><P>
+
+<A NAME="Поддержка C++"></A>
+<HR SIZE="6">
+<A NAME="SEC27"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC26"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC28"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.7 Поддержка C++ </H2>
+<!--docid::SEC27::-->
+<P>
+
+<A NAME="IDX285"></A>
+</P><P>
+
+Automake полностью поддерживает C++.
+</P><P>
+
+Любой пакет, содержащий код на C++, должен определить переменную
+<SAMP>`CXX'</SAMP> в файле <TT>`configure.in'</TT>; самым простым способом сделать
+это является использование макроса <CODE>AC_PROG_CXX</CODE> (see section `Проверка отдельных программ' in <CITE>Руководство Autoconf</CITE>).
+</P><P>
+
+Несколько дополнительных переменных определяются при обнаружении
+исходных файлов на C++:
+</P><P>
+
+<DL COMPACT>
+<A NAME="IDX286"></A>
+<DT><CODE>CXX</CODE>
+<DD><A NAME="IDX287"></A>
+Имя компилятора C++.
+<P>
+
+<A NAME="IDX288"></A>
+<DT><CODE>CXXFLAGS</CODE>
+<DD><A NAME="IDX289"></A>
+Флаги, передаваемые компилятору C++.
+<P>
+
+<A NAME="IDX290"></A>
+<DT><CODE>CXXCOMPILE</CODE>
+<DD><A NAME="IDX291"></A>
+Команда, используемая для компиляции исходных текстов на языке C++. Имя
+файла с исходным текстом добавляется к ней для формирования полной
+командной строки.
+<P>
+
+<A NAME="IDX292"></A>
+<DT><CODE>CXXLINK</CODE>
+<DD><A NAME="IDX293"></A>
+Эта команда используется для компоновки программы на C++.
+</DL>
+<P>
+
+<A NAME="Поддержка Fortran 77"></A>
+<HR SIZE="6">
+<A NAME="SEC28"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC27"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC29"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.8 Поддержка Fortran 77 </H2>
+<!--docid::SEC28::-->
+<P>
+
+<A NAME="IDX294"></A>
+</P><P>
+
+Automake полностью поддерживает Fortran 77.
+</P><P>
+
+Любой пакет, содержащий исходные тексты на языке Fortran 77, должен
+определить выходную переменную <SAMP>`F77'</SAMP> в файле <TT>`configure.in'</TT>;
+самым простым способом является использование макроса <CODE>AC_PROG_F77</CODE>
+(see section `Проверка отдельных программ' in <CITE>Руководство Autoconf</CITE>).  See section <A HREF="automake-ru_7.html#SEC33">7.8.4 Использование Fortran 77 с Autoconf</A>.
+</P><P>
+
+При использовании исходных текстов на Fortran 77 определяются несколько
+дополнительных переменных:
+</P><P>
+
+<DL COMPACT>
+
+<A NAME="IDX295"></A>
+<DT><CODE>F77</CODE>
+<DD><A NAME="IDX296"></A>
+Имя компилятора Fortran 77.
+<P>
+
+<A NAME="IDX297"></A>
+<DT><CODE>FFLAGS</CODE>
+<DD><A NAME="IDX298"></A>
+Флаги, передаваемые компилятору Fortran 77.
+<P>
+
+<A NAME="IDX299"></A>
+<DT><CODE>RFLAGS</CODE>
+<DD><A NAME="IDX300"></A>
+Флаги, передаваемые компилятору Ratfor.
+<P>
+
+<A NAME="IDX301"></A>
+<DT><CODE>F77COMPILE</CODE>
+<DD><A NAME="IDX302"></A>
+Команда, используемая для компиляции исходных текстов на Fortran 77.
+Имя файла исходных текстов добавляется к ней чтобы получить полную
+командную строку.
+<P>
+
+<A NAME="IDX303"></A>
+<DT><CODE>FLINK</CODE>
+<DD><A NAME="IDX304"></A>
+Команда, используемая для компоновки программы на Fortran 77 или разделяемой
+библиотеки.
+<P>
+
+</DL>
+<P>
+
+Automake может вдобавок к компиляции выполнять предварительную обработку
+исходных файлов на Fortran 77 и Ratfor<A NAME="DOCF1" HREF="automake-ru_fot.html#FOOT1">(1)</A>. Automake также содержит некоторую поддержку для создания
+программ и разделяемых библиотек, которые написаны на смеси Fortran 77 и
+других языков (see section <A HREF="automake-ru_7.html#SEC31">7.8.3 Использование Fortran 77 с C и C++</A>).
+</P><P>
+
+Это описывается в следующих разделах.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC29">7.8.1 Предварительная обработка файлов Fortran 77</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC30">7.8.2 Компиляция файлов Fortran 77</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC31">7.8.3 Использование Fortran 77 с C и C++</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC33">7.8.4 Использование Fortran 77 с Autoconf</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Предварительная обработка Fortran 77"></A>
+<HR SIZE="6">
+<A NAME="SEC29"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC28"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC30"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC28"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 7.8.1 Предварительная обработка файлов Fortran 77 </H3>
+<!--docid::SEC29::-->
+<P>
+
+<A NAME="IDX305"></A>
+<A NAME="IDX306"></A>
+<A NAME="IDX307"></A>
+</P><P>
+
+Файл <TT>`N.f'</TT> автоматически создается из файла <TT>`N.F'</TT> или
+<TT>`N.r'</TT>. Это правило запускает препроцессор для преобразования
+исходных текстов Fortran 77 или Ratfor с директивами препроцессора в
+строгий исходный текст Fortran 77. Вот точные команды, которые
+используются для этого:
+</P><P>
+
+<DL COMPACT>
+
+<DT><TT>`.F'</TT>
+<DD><CODE>$(F77) -F $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_FFLAGS) $(FFLAGS)</CODE>
+<P>
+
+<DT><TT>`.r'</TT>
+<DD><CODE>$(F77) -F $(AM_FFLAGS) $(FFLAGS) $(AM_RFLAGS) $(RFLAGS)</CODE>
+<P>
+
+</DL>
+<P>
+
+<A NAME="Компиляция файлов Fortran 77"></A>
+<HR SIZE="6">
+<A NAME="SEC30"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC29"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC31"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC28"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 7.8.2 Компиляция файлов Fortran 77 </H3>
+<!--docid::SEC30::-->
+<P>
+
+<TT>`N.o'</TT> автоматически создается из <TT>`N.f'</TT>, <TT>`N.F'</TT> или
+<TT>`N.r'</TT> запуском компилятора Fortran 77. Для компиляции используются
+следующий команды:
+</P><P>
+
+<DL COMPACT>
+
+<DT><TT>`.f'</TT>
+<DD><CODE>$(F77) -c $(AM_FFLAGS) $(FFLAGS)</CODE>
+<P>
+
+<DT><TT>`.F'</TT>
+<DD><CODE>$(F77) -c $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_FFLAGS) $(FFLAGS)</CODE>
+<P>
+
+<DT><TT>`.r'</TT>
+<DD><CODE>$(F77) -c $(AM_FFLAGS) $(FFLAGS) $(AM_RFLAGS) $(RFLAGS)</CODE>
+<P>
+
+</DL>
+<P>
+
+<A NAME="Использование Fortran 77 с C и C++"></A>
+<HR SIZE="6">
+<A NAME="SEC31"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC30"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC32"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC28"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 7.8.3 Использование Fortran 77 с C и C++ </H3>
+<!--docid::SEC31::-->
+<P>
+
+<A NAME="IDX308"></A>
+<A NAME="IDX309"></A>
+<A NAME="IDX310"></A>
+<A NAME="IDX311"></A>
+<A NAME="IDX312"></A>
+</P><P>
+
+В настоящее время Automake предоставляет <EM>ограниченную</EM> поддержку
+создания программ и разделяемых библиотек, которые являются смесью
+Fortran 77 и C и/или C++. Однако существует много других вопросов,
+возникающих при смешивании кода на Fortran 77 с кодом на других языках,
+которые в настоящее время <EM>не</EM> обрабатываются Automake, но
+обрабатываются другими пакетами<A NAME="DOCF2" HREF="automake-ru_fot.html#FOOT2">(2)</A>.
+</P><P>
+
+Automake может предоставить вам помощь двумя способами:
+</P><P>
+
+<OL>
+<LI>
+Автоматический выбор компоновщика в зависимости от комбинации исходного
+кода. 
+<P>
+
+<LI>
+Автоматический выбор флагов компоновщика (например, <SAMP>`-L'</SAMP> и
+<SAMP>`-l'</SAMP>) для передачи автоматически выбранному компоновщику для
+компоновки с соответствующими внутренними библиотеками и библиотеками
+времени исполнения Fortran 77.
+<P>
+
+<A NAME="IDX313"></A>
+Эти дополнительные флаги компоновщика Fortran 77 выдаются в выходную
+переменную <CODE>FLIBS</CODE> макросом Autoconf <CODE>AC_F77_LIBRARY_LDFLAGS</CODE>,
+который поставляется со свежими версиями Autoconf (Autoconf версии 2.13
+и выше).  See section `Характеристики компилятора Fortran 77' in <CITE>Autoconf</CITE>.
+</OL>
+<P>
+
+Если Automake определяет, что программа или разделяемая библиотека
+(упомянутые в каких-либо основных переменных <CODE>_PROGRAMS</CODE> или
+<CODE>_LTLIBRARIES</CODE>) содержит исходный код, который является смесью
+Fortran 77 и C и/или C++, то он требует вызова макроса
+<CODE>AC_F77_LIBRARY_LDFLAGS</CODE> в файле <TT>`configure.in'</TT>, и чтобы в
+соответствующей переменной <CODE>_LDADD</CODE> (для программ) или
+<CODE>_LIBADD</CODE> (для разделяемых библиотек) появились ссылки либо на
+<CODE>$(FLIBS)</CODE>, либо на <CODE>@FLIBS@</CODE>.  От человека, пишущего
+<TT>`Makefile.am'</TT>, требуется убедиться, что переменные 
+<CODE>$(FLIBS)</CODE> или <CODE>@FLIBS@</CODE> находятся в соответствующих
+переменных <CODE>_LDADD</CODE> или <CODE>_LIBADD</CODE>.
+</P><P>
+
+<A NAME="IDX314"></A>
+<A NAME="IDX315"></A>
+</P><P>
+
+Например, рассмотрим следующий <TT>`Makefile.am'</TT>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>bin_PROGRAMS = foo
+foo_SOURCES  = main.cc foo.f
+foo_LDADD    = libfoo.la @FLIBS@
+
+pkglib_LTLIBRARIES = libfoo.la
+libfoo_la_SOURCES  = bar.f baz.c zardoz.cc
+libfoo_la_LIBADD   = $(FLIBS)
+</pre></td></tr></table></P><P>
+
+В этом случае Automake будет настаивать, чтобы макрос
+<CODE>AC_F77_LIBRARY_LDFLAGS</CODE> был упомянут в <TT>`configure.in'</TT>.  Более 
+того,
+если переменная <CODE>@FLIBS@</CODE> не была упомянута в переменной
+<CODE>foo_LDADD</CODE> и <CODE>libfoo_la_LIBADD</CODE>, то Automake выдаст
+предупреждение.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC32">7.8.3.1 Как выбирается компоновщик</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Как выбирается компоновщик"></A>
+<HR SIZE="6">
+<A NAME="SEC32"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC31"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC33"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC30"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC31"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> 7.8.3.1 Как выбирается компоновщик </H4>
+<!--docid::SEC32::-->
+<P>
+
+<A NAME="IDX316"></A>
+<A NAME="IDX317"></A>
+</P><P>
+
+Следующая диаграмма показывает, как Automake производит выбор
+соответствующего компоновщика.
+</P><P>
+
+Например, если используемый код на Fortran 77, C и C++ компонуется в
+одну программу, то выбирается компоновщик C++. В этом случае, если
+компоновщики C или Fortran 77 требуют какие-либо специальные библиотеки,
+которые не подключаются компоновщиком C++, то они должны быть вручную
+добавлены пользователем в переменные <CODE>_LDADD</CODE> или <CODE>_LIBADD</CODE>
+файла <TT>`Makefile.am'</TT>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>                     \              Linker
+          source      \
+           code        \     C        C++     Fortran
+     -----------------  +---------+---------+---------+
+                        |         |         |         |
+     C                  |    x    |         |         |
+                        |         |         |         |
+                        +---------+---------+---------+
+                        |         |         |         |
+         C++            |         |    x    |         |
+                        |         |         |         |
+                        +---------+---------+---------+
+                        |         |         |         |
+               Fortran  |         |         |    x    |
+                        |         |         |         |
+                        +---------+---------+---------+
+                        |         |         |         |
+     C + C++            |         |    x    |         |
+                        |         |         |         |
+                        +---------+---------+---------+
+                        |         |         |         |
+     C +       Fortran  |         |         |    x    |
+                        |         |         |         |
+                        +---------+---------+---------+
+                        |         |         |         |
+         C++ + Fortran  |         |    x    |         |
+                        |         |         |         |
+                        +---------+---------+---------+
+                        |         |         |         |
+     C + C++ + Fortran  |         |    x    |         |
+                        |         |         |         |
+                        +---------+---------+---------+
+</pre></td></tr></table></P><P>
+
+<A NAME="Fortran 77 и Autoconf"></A>
+<HR SIZE="6">
+<A NAME="SEC33"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC32"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC34"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC31"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC28"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC34"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 7.8.4 Использование Fortran 77 с Autoconf </H3>
+<!--docid::SEC33::-->
+<P>
+
+Имеющаяся в Automake поддержка Fortran 77 требует наличия свежей версии
+Autoconf, которая поддерживает Fortran 77.  Полная поддержка
+Fortran 77 была добавлена в Autoconf 2.13, так что вы можете
+использовать эту версию Autoconf или более позднюю.
+</P><P>
+
+<A NAME="Поддержка других языков"></A>
+<HR SIZE="6">
+<A NAME="SEC34"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC33"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC35"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC28"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.9 Поддержка других языков </H2>
+<!--docid::SEC34::-->
+<P>
+
+В настоящее время Automake включает в себя полную поддержку только C,
+C++ (see section <A HREF="automake-ru_7.html#SEC27">7.7 Поддержка C++</A>) и Fortran 77 (see section <A HREF="automake-ru_7.html#SEC28">7.8 Поддержка Fortran 77</A>). Поддержка других языков находится в зачаточном состоянии и будет
+улучшена по требованию пользователей.
+</P><P>
+
+<A NAME="ANSI"></A>
+<HR SIZE="6">
+<A NAME="SEC35"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC34"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC36"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.10 Автоматическая де-ANSI-фикация </H2>
+<!--docid::SEC35::-->
+<P>
+
+<A NAME="IDX318"></A>
+</P><P>
+
+Хотя стандарты GNU позволяют использование ANSI C, это может привести к
+ограничению переносимости пакета на некоторые старые компиляторы (особенно
+SunOS).
+</P><P>
+
+Automake позволяет вам обойти проблему с такими машинами путем
+<EM>де-ANSI-фикации</EM> каждого исходного файла перед компиляцией.
+</P><P>
+
+<A NAME="IDX319"></A>
+<A NAME="IDX320"></A>
+</P><P>
+
+Если в <TT>`Makefile.am'</TT> переменная <CODE>AUTOMAKE_OPTIONS</CODE>
+(see section <A HREF="automake-ru_15.html#SEC55">15. Изменение поведения Automake</A>) содержит ключ <CODE>ansi2knr</CODE>, то в генерируемый
+файл <TT>`Makefile.in'</TT> будет вставлен код для де-ANSI-фикации.
+</P><P>
+
+Это заставит считать каждый исходный текст на языке C соответствующим
+ANSI C.  Если доступен компилятор, соответствующий ANSI C,
+то он будет использован.  В противном случае для
+преобразования исходных файлов в стандарт K&#38;R будет использована
+программа <CODE>ansi2knr</CODE>, а затем преобразованные файлы будут
+скомпилированы.
+</P><P>
+
+Программа <CODE>ansi2knr</CODE> совершенно бесхитростна.  Она предполагает, что
+исходный текст будет отформатирован определенным способом; подробное
+описание находится на странице руководства по <CODE>ansi2knr</CODE>.
+</P><P>
+
+Поддержка де-ANSI-фикации требует наличия файлов <TT>`ansi2knr.c'</TT> и
+<TT>`ansi2knr.1'</TT> в том же пакете, где находятся и исходные тексты на
+ANSI C; эти файлы поставляются в комплекте Automake.  Файл
+<TT>`configure.in'</TT> должен также содержать вызов макроса
+<CODE>AM_C_PROTOTYPES</CODE> (see section <A HREF="automake-ru_5.html#SEC17">5.4 Макросы Autoconf, поставляемые с Automake</A>).
+<A NAME="IDX321"></A>
+</P><P>
+
+Automake также работает в тех случаях, когда файлы <CODE>ansi2knr</CODE>
+находятся в другом подкаталоге текущего пакета. Это делается добавлением
+в опцию <CODE>ansi2knr</CODE> относительного пути к соответствующему
+каталогу. Например, предположим, что исходные тексты на ANSI C 
+располагаются в подкаталогах <TT>`src'</TT> и <TT>`lib'</TT>. Файлы
+<TT>`ansi2knr.c'</TT> и <TT>`ansi2knr.1'</TT> находятся в подкаталоге
+<TT>`lib'</TT>. Вот что должно быть написано в <TT>`src/Makefile.am'</TT>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>AUTOMAKE_OPTIONS = ../lib/ansi2knr
+</pre></td></tr></table></P><P>
+
+Если никакой префикс не задан, то считается, что файлы находятся в
+текущем каталоге.
+</P><P>
+
+Файлы, перечисленные в переменной <CODE>LIBOBJS</CODE> и нуждающиеся в
+де-ANSI-фикации, не будут обрабатываться автоматически.  Это происходит
+из-за того, что <CODE>configure</CODE> будет генерировать имена объектных
+файлов в виде <TT>`regex.o'</TT>, в то время как <CODE>make</CODE> будет искать
+<TT>`regex_.o'</TT> (при выполнении де-ANSI-фикации). В конечном счете эта
+проблема может быть решена с помощью методов <CODE>autoconf</CODE>, но для
+этого вы должны поместить следующий код в ваш файл <TT>`configure.in'</TT>,
+как раз перед вызовом макроса <CODE>AC_OUTPUT</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre># This is necessary so that .o files in LIBOBJS are also built via
+# the ANSI2KNR-filtering rules.
+LIBOBJS=`echo $LIBOBJS|sed 's/\.o /\$U.o /g;s/\.o$/\$U.o/'`
+</pre></td></tr></table></P><P>
+
+<A NAME="Зависимости"></A>
+<HR SIZE="6">
+<A NAME="SEC36"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC35"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 7.11 Автоматическое отслеживание зависимостей </H2>
+<!--docid::SEC36::-->
+<P>
+
+Для разработчика зачастую мучительно бывает постоянно обновлять файл
+<TT>`Makefile.in'</TT> при изменении зависимостей
+включаемых в проект файлов. Automake предоставляет возможность
+автоматического отслеживания изменения зависимостей и записи информации
+о них в сгенерированный <TT>`Makefile.in'</TT>.
+</P><P>
+
+В настоящее время эта поддержка требует использования GNU <CODE>make</CODE> и
+<CODE>gcc</CODE>. В будущем может быть возможным поставка другой программы
+генерации зависимостей, если это будет требоваться. По умолчанию этот
+режим разрешен, если в текущем каталоге определена любая программа или
+библиотека на C, так что вы можете получить от не-GNU make ошибку
+<SAMP>`Должен быть разделитель'</SAMP>.
+</P><P>
+
+<A NAME="IDX322"></A>
+</P><P>
+
+Когда вы решаете создать дистрибутив, то цель <CODE>dist</CODE> перезапустит
+<CODE>automake</CODE> с ключом <SAMP>`--include-deps'</SAMP> и другими
+ключами.  See section <A HREF="automake-ru_4.html#SEC12">4. Создание файла <TT>`Makefile.in'</TT></A>, и <A HREF="automake-ru_15.html#SEC55">15. Изменение поведения Automake</A>.  При этом предварительно 
+сгенерированные зависимости будут помещены в созданный
+<TT>`Makefile.in'</TT> и, таким образом, они окажутся в дистрибутиве.  При
+этом в дистрибутив код генерации зависимостей не будет включен в
+дистрибутив,  так что человек, загрузивший ваш дистрибутив и не
+использующий GNU <CODE>make</CODE> и <CODE>gcc</CODE>, не получит ошибки.
+</P><P>
+
+<A NAME="IDX323"></A>
+</P><P>
+
+При добавлении зависимостей в <TT>`Makefile.in'</TT>, из них автоматически
+удаляются все специфические для данной системы зависимости.  Это может
+быть сделано перечислением файлов в переменной
+<SAMP>`OMIT_DEPENDENCIES'</SAMP>. Например, Automake удаляет все ссылки на
+системные заголовочные файлы. Иногда полезно указать, чтобы были удалены
+отдельные заголовочные файлы. Например, если ваш файл
+<TT>`configure.in'</TT> использует макрос <SAMP>`AM_WITH_REGEX'</SAMP>, то любая
+зависимость от файла <TT>`rx.h'</TT> или <TT>`regex.h'</TT> должны быть удалена,
+потому что правильное значение не может быть известно до того, как
+пользователь выполнит конфигурацию пакета.
+</P><P>
+
+Оказывается, Automake достаточно умен для обработки именно этого случая
+использования заголовочных файлов библиотеки регулярных выражений. 
+Он также автоматически убирает зависимость от
+<TT>`libintl.h'</TT> при использовании <SAMP>`AM_GNU_GETTEXT'</SAMP>.
+</P><P>
+
+<A NAME="IDX324"></A>
+<A NAME="IDX325"></A>
+</P><P>
+
+Автоматическое отслеживание зависимостей может быть запрещено помещением
+<CODE>no-dependencies</CODE> в переменную <CODE>AUTOMAKE_OPTIONS</CODE>.
+</P><P>
+
+Если вы распаковываете дистрибутив, созданный <CODE>make dist</CODE>, и
+хотите включить отслеживание зависимостей, то просто перезапустите
+<CODE>automake</CODE>.
+</P><P>
+
+Файлы зависимостей помещаются в подкаталог с именем <TT>`.deps'</TT>
+каталога, где происходит построение. Эти зависимости являются
+специфическими для машины. Можете удалить их, если хотите; они
+будут автоматически пересозданы при следующей сборке.
+</P><P>
+
+<A NAME="Другие объекты"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_7.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_8.html#SEC37"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

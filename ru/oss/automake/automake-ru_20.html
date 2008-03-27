@@ -1,0 +1,120 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Cygnus</TITLE>
+
+<META NAME="description" CONTENT="automake: Cygnus">
+<META NAME="keywords" CONTENT="automake: Cygnus">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC62"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_19.html#SEC61"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_21.html#SEC63"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_19.html#SEC61"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_21.html#SEC63"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 20. Эффект использования ключа <CODE>--cygnus</CODE> </H1>
+<!--docid::SEC62::-->
+<P>
+
+<A NAME="IDX488"></A>
+</P><P>
+
+Cygnus Solutions применяет немного другие правила о том как будет
+конструироваться файл <TT>`Makefile.in'</TT>. Передача ключа <SAMP>`--cygnus'</SAMP>
+для <CODE>automake</CODE> вызовет то, что сгенерированный <TT>`Makefile.in'</TT>
+будет соответствовать правилам  Cygnus.
+</P><P>
+
+Вот точное описания действия ключа <SAMP>`--cygnus'</SAMP>:
+</P><P>
+
+<UL>
+<LI>
+Файлы Info всегда создаются в каталоге, где происходит построение, а не
+в каталоге с исходными текстами.
+<P>
+
+<LI>
+Не требуется наличие файла <TT>`texinfo.tex'</TT>, если есть файлы с
+исходными текстами Texinfo. Предполагается, что файл будет предоставлен,
+но в том месте, где  Automake не сможет найти его. Это предположение
+является следствием того, как обычно поставляются пакеты Cygnus.
+<P>
+
+<LI>
+При выполнении <SAMP>`make dist'</SAMP> файлы будут искаться в каталоге, где
+происходило построение, а также в каталоге с исходными текстами. Это
+требуется для того, чтобы файлы info были помещены в дистрибутив.
+<P>
+
+<LI>
+Поиск некоторые утилиты будет производится в каталогах. где происходит
+сборка, а также в каталогах, указанных в переменной среды <SAMP>`PATH'</SAMP>
+пользователя. Этими утилитами являются <CODE>runtest</CODE>, <CODE>expect</CODE>,
+<CODE>makeinfo</CODE> и <CODE>texi2dvi</CODE>.
+<P>
+
+<LI>
+Подразумевается использование ключа <CODE>--foreign</CODE>.
+<P>
+
+<LI>
+Подразумевается использование ключей <SAMP>`no-installinfo'</SAMP> и
+<SAMP>`no-dependencies'</SAMP>. 
+<P>
+
+<LI>
+Требуются макросы <SAMP>`AM_MAINTAINER_MODE'</SAMP> и <SAMP>`AM_CYGWIN32'</SAMP>.
+<P>
+
+<LI>
+Цель <CODE>check</CODE> не зависит от цели <CODE>all</CODE>.
+</UL>
+<P>
+
+Люди, сопровождающие программы GNU рекомендуют использовать уровень
+ограничений <SAMP>`gnu'</SAMP>, а не режим Cygnus.
+</P><P>
+
+<A NAME="Расширение"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_19.html#SEC61"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_21.html#SEC63"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

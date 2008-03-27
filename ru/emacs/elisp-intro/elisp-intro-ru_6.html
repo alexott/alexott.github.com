@@ -1,0 +1,946 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on March, 10  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Что такое буфер</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Что такое буфер">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Что такое буфер">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC62"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC61"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC63"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_7.html#SEC73"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 4. Что такое буфер </H1>
+<!--docid::SEC62::-->
+<P>
+
+В этой главе мы детально изучим несколько реальных функций, написанных
+на Emacs Лиспе. Это называется проходом по (walk-through). Эти функции
+используются как примеры Лисп кода, и это не придуманные примеры;
+исключая первую, немного упрощенную функцию, они демонстрируют
+настоящий код используемый, в GNU Emacs. Вы можете многому научиться
+изучая эти функции. В последующих главах мы изучим и несколько других
+функций.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_6.html#SEC63">4.1 Поиск дополнительной информации</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_6.html#SEC64">4.2 Упрощенное определение <CODE>beginning-of-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Объяснение <CODE>goto-char</CODE>,</TD></TR>
+</TABLE>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<CODE>point-min</CODE>,&nbsp;и&nbsp;<CODE>push-mark</CODE>.
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_6.html#SEC65">4.3 Определение <CODE>mark-whole-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Почти тоже самое как и</TD></TR>
+</TABLE>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<CODE>beginning-of-buffer</CODE>.
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_6.html#SEC67">4.4 Определение <CODE>append-to-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Использует <CODE>save-excursion</CODE></TD></TR>
+</TABLE>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<CODE>insert-buffer-substring</CODE>.
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_6.html#SEC71">4.5 Обзор</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_6.html#SEC72">4.6 Упражнения</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Поиск Информации"></A>
+<HR SIZE="6">
+<A NAME="SEC63"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC64"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_7.html#SEC73"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.1 Поиск дополнительной информации </H2>
+<!--docid::SEC63::-->
+<P>
+
+<A NAME="IDX40"></A>
+<A NAME="IDX41"></A>
+В этом разделе я опишу каждую новую функцию иногда в деталях, иногда
+кратко. Если вы заинтересовались, то вы можете получить полную
+документацию по любой функции Emacs Лисп, в любое время нажав <KBD>C-h
+f</KBD> и затем набрав в мини-буфер имя интересующей вас
+функции. Аналогичным образом вы можете получить полную документацию по
+любой переменной, нажав <KBD>C-h v</KBD>, и затем имя переменной (потом
+<KBD>RET</KBD>).
+</P><P>
+
+<A NAME="IDX42"></A>
+Так же, если вы захотите посмотреть исходный код этой функции, то вы
+можете использовать функцию <CODE>find-tags</CODE>, чтобы переместиться
+туда. Нажмите <KBD>M-.</KBD> (то есть нажмите клавишу <KBD>META</KBD> и клавишу
+точка одновременно, или по другому нажмите и отпустите клавишу
+<KBD>ESC</KBD>, и потом нажмите точку. В появившемся мини-буфере наберите
+имя функции, чей исходный код вы хотите увидеть, например,
+<CODE>mark-whole-buffer</CODE>, после чего нажмите <KBD>RET</KBD>. Emacs
+переключится в другой буфер и отобразит исходный код этой функции на
+экране вашего компьютера. Чтобы вернуться обратно нажмите <KBD>C-x b
+<KBD>RET</KBD></KBD>.
+</P><P>
+
+<A NAME="IDX43"></A>
+<A NAME="IDX44"></A>
+В зависимости от того как обстоят дела с вашим дистрибутивом Emacs,
+вам может понадобится описать `таблицу тегов' (tag table), которая
+обычно хранится в файле <TT>`TAGS'</TT>. Таблица, которую вы наверняка
+захотите описать, находится в каталоге <TT>`emacs/src'</TT>; то есть вы
+должны использовать команду <CODE>M-x visit-tags-table</CODE>, и задать в
+мини-буфере полный путь к этому файлу например
+<TT>`/usr/local/lib/emacs/19.23/src/TAGS'</TT>. See section `Tag Tables' in <CITE>The GNU Emacs Manual</CITE>. Также смотрите <A HREF="elisp-intro-ru_14.html#SEC162">Create Your Own <TT>`TAGS'</TT> File</A>, для получения дополнительной информации о том
+как самому создать таблицу тегов.
+</P><P>
+
+После того как вы поближе ознакомитесь с Emacs Лиспом, вы часто будете
+использовать <CODE>find-tags</CODE> для перемещения по исходным кодам Emacs;
+и часто будете создавать свои собственные таблицы <TT>`TAGS'</TT>.
+</P><P>
+
+<A NAME="IDX45"></A>
+Кстати, файлы, содержащие программы на Лиспе обычно называют
+библиотеками. Такая метафора произошла от использования
+специализированных библиотек, таких как юридическая библиотека или
+техническая, а не общественных библиотек. Каждая библиотека, или
+файл, содержит функции которые связаны с определенной темой или
+расширением, например, `abbrev.el' управляет сокращениями, `help.el'
+содержит реализацию встроенной помощи. (Иногда несколько библиотек
+обеспечивают код для чего то одного, как различные файлы `rmail..'
+реализуют интерфейс для чтения электронной почты.)  В `The GNU Emacs
+Manual', вы можете встретить упоминание, что команда C-h p позволяет
+вам производить поиск в стандартных библиотеках Emacs Lisp по ключевым
+словам.
+</P><P>
+
+<A NAME="simplified-beginning-of-buffer"></A>
+<HR SIZE="6">
+<A NAME="SEC64"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC63"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC65"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_7.html#SEC73"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.2 Упрощенное определение <CODE>beginning-of-buffer</CODE> </H2>
+<!--docid::SEC64::-->
+<P>
+
+Команда beggining-of-buffer очень подходящая функция для старта
+--- во- первых, вы наверняка уже пользовались ей, и она очень
+понятна. Если ее использовать как интерактивную команду,
+<CODE>beginning-of-buffer</CODE> перемещает курсор в начало буфера, оставляя
+метку на предыдущей позиции курсора. Обычно связана с клавишами
+<KBD>M-&#60;</KBD>.
+</P><P>
+
+В этой главе мы обсудим укороченную версию этой функции, которая
+подходит для обычного применения этой функции. Укороченная функция
+работает как и ожидается, но она не содержит кода для обработки
+сложных опций. В следующей главе мы опишем полную версию функции.
+(See section <A HREF="elisp-intro-ru_7.html#SEC83">Complete Definition of <CODE>beginning-of-buffer</CODE></A>.)
+</P><P>
+
+До рассмотрения исходного кода давайте вспомним, что должно
+содержаться в определении функции --- оно должно содержать
+выражение, которое делает функцию интерактивной, так что ее можно
+вызвать, набрав <KBD>M-x beginning-of-buffer</KBD> или нажав клавишу
+<KBD>C-&#60;</KBD>; оно должно содержать код, который оставляет метку в
+первоначальной позиции курсора в буфере; и код, который перемещает
+курсор в начало буфера.
+</P><P>
+
+А вот и наша укороченная версия этой функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun simplified-beginning-of-buffer ()
+  "Переместить курсор в начало буфера,
+поставив метку на предыдущей позиции курсора."
+  (interactive)
+  (push-mark)
+  (goto-char (point-min)))
+</pre></td></tr></table></P><P>
+
+Как и все определения функций, это определение соответствует нашему
+шаблону для особой форму <CODE>defun</CODE> и имеет пять основных частей:
+</P><P>
+
+<OL>
+<LI>
+Имя --- в нашем случае <CODE>simplified-beginning-of-buffer</CODE>.
+<P>
+
+<LI>
+Список аргументов --- в нашем случае пустой список <CODE>()</CODE>.
+<P>
+
+<LI>
+Строку документации.
+<P>
+
+<LI>
+Выражение, которое делает функцию интерактивной.
+<P>
+
+<LI>
+Тело функции.
+</OL>
+<P>
+
+В этом определении функции, список аргументов пуст --- это
+означает что, наша упрощенная версия не требует аргументов. (Когда мы
+рассмотрим полное определение функции, мы увидим, что ей можно
+передать необязательный аргумент).
+</P><P>
+
+Выражение <CODE>interactive</CODE> говорит интерпретатору, что эту функцию
+можно вызывать интерактивно. В нашем случае у <CODE>interactive</CODE> нет
+аргументов, так как <CODE>simplified-beginning-of-buffer</CODE> их и не
+требует.
+</P><P>
+
+Тело состоит из двух строк кода:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(push-mark)
+(goto-char (point-min))
+</pre></td></tr></table></P><P>
+
+В первой строке выражение <CODE>(push-mark)</CODE>. Когда интерпретатор
+Лиспа вычисляет это выражение, он устанавливает метку на месте
+текущего положения курсора. Позиция этой метки запоминается в кольце
+меток (mark ring).
+</P><P>
+
+В следующей строке выражение <CODE>(goto-char (point-min))</CODE>. Она
+заставляет курсор прыгнуть к минимально возможной точке в текущем
+буфере, то есть обычно к его началу (или началу доступной области
+буфера если он сужен. See section <A HREF="elisp-intro-ru_8.html#SEC91">Narrowing and Widening</A>.)
+</P><P>
+
+Команда <CODE>push-mark</CODE> устанавливает метку на месте предыдущего
+положения курсора, где он был расположен до того, как выражение
+<CODE>(goto-char (point-min))</CODE> переместило его в конец буфера.
+Следовательно, вы можете вернуться на старое место с помощью команды
+<CODE>exchange-point-and-mark</CODE> которая обычно связана с <KBD>C-x C-x</KBD>.
+</P><P>
+
+Вот и все определение функции!
+</P><P>
+
+<A NAME="IDX46"></A>
+Когда вы читаете какой-нибудь код и встречаете незнакомую функцию
+--- например, <CODE>goto-char</CODE>, то вы можете выяснить, что же она
+делает с помощью команды <CODE>describe-function</CODE>. Чтобы использовать
+эту команду, нажмите <KBD>C-h f</KBD> и затем в эхо-области наберите имя
+функции. Команда <CODE>describe-function</CODE> напечатает документацию по
+этой функции в окне <TT>`*Help*'</TT>. Вот например, документация для
+функции <CODE>goto-char</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>One arg, a number.  Set point to that number.  Beginning of buffer is
+position (point-min), end is (point-max).  (Один арг, число.
+Устанавливает значение точки равное этому числу.  Начало буфера позиция
+(point-min), конец буфера (point-max).)
+</pre></td></tr></table></P><P>
+
+(Подсказка в эхо-области при использовании describe-function предложит
+вам символ перед курсором, так что вы можете с удобством использовать
+эту функцию, расположив курсор после интересующей вас функции и нажав
+<KBD>C-h f <KBD>RET</KBD></KBD>).
+</P><P>
+
+Определение функции <CODE>end-of-buffer</CODE> аналогично определению
+<CODE>beginning-of-buffer</CODE> только там, где в теле второй функции стоит
+выражение <CODE>(goto-char (point-min))</CODE>; в первой будет
+<CODE>(goto-char (point-max))</CODE>.
+</P><P>
+
+<A NAME="mark-whole-buffer"></A>
+<HR SIZE="6">
+<A NAME="SEC65"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC64"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC66"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC67"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.3 Определение <CODE>mark-whole-buffer</CODE> </H2>
+<!--docid::SEC65::-->
+<P>
+
+Функцию <CODE>mark-whole-buffer</CODE> понять не труднее чем
+<CODE>simplified-beginning-of-buffer</CODE>. Однако, в данном случае, мы
+рассмотрим полную версию функции, а не укороченную.
+</P><P>
+
+Функция <CODE>mark-whole-buffer</CODE> используется не так часто как функция
+<CODE>beginning-of-buffer</CODE>, но тем не менее очень полезна --- она
+выделяет весь буфер как один регион, располагая точку в начале, а
+метку в конце буфера. Она обычно привязана к сочетанию клавиш <KBD>C-x
+h</KBD>.
+</P><P>
+
+Полный код для этой функции выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun mark-whole-buffer ()
+ "Поставить точку в начале а метку в конце буфера."
+  (interactive)
+  (push-mark (point))
+  (push-mark (point-max))
+  (goto-char (point-min)))
+</pre></td></tr></table></P><P>
+
+Как и все другие функции, <CODE>mark-whole-buffer</CODE> полностью
+соответствует шаблону для определения функции. Напомним его снова:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun <VAR>имя-функции</VAR> (<VAR>список-аргументов</VAR>)
+  "<VAR>докуменация</VAR><small>...</small>"
+  (<VAR>выражение-interactive</VAR><small>...</small>)
+  <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+Вот как устроена эта функция: имя функции <CODE>mark-whole-buffer</CODE>; за
+ним следует пустой список аргументов <SAMP>`()'</SAMP>, который означает, что
+функция не требует аргументов. Затем идет строка документации.
+</P><P>
+
+Следующая строка содержит выражение <CODE>(interactive)</CODE> которое для
+Emacs означает, что функцию можно будет использовать интерактивно.
+Это похоже на аналогичные строки функции
+<CODE>simplified-beginning-of-buffer</CODE>, которую мы рассмотрели в
+предыдущем разделе.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_6.html#SEC66">4.3.1 Тело <CODE>mark-whole-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Только три строчки.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Тело mark-whole-buffer"></A>
+<HR SIZE="6">
+<A NAME="SEC66"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC65"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC67"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC64"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC65"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC67"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.3.1 Тело <CODE>mark-whole-buffer</CODE> </H3>
+<!--docid::SEC66::-->
+<P>
+
+Тело функции <CODE>mark-whole-buffer</CODE> состоит из трех строчек кода:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(push-mark (point))
+(push-mark (point-max))
+(goto-char (point-min))
+</pre></td></tr></table></P><P>
+
+В первой из этих строк выражение <CODE>(push-mark (point))</CODE>.
+</P><P>
+
+Это выражение делает ту же самую работу, что и первая строка в теле
+функции <CODE>simplified-beginning-of-buffer</CODE>, в которой написано
+следующее <CODE>(push-mark)</CODE>. В обоих случаях интерпретатор Лиспа
+устанавливает метку в текущее положение курсора.
+</P><P>
+
+Я не знаю, почему в <CODE>mark-whole-buffer</CODE> написано выражение
+<CODE>(push-mark (point))</CODE>, а в <CODE>beginning-of-buffer</CODE> просто
+<CODE>(push-mark)</CODE>. Возможно, что тот кто писал код, не знал, что
+аргумент для функции <CODE>(push-mark)</CODE> необязательный и что, если в
+функцию не передать аргумент, то она автоматически установит метку на
+месте текущего положения курсора (это действие по умолчанию). Или,
+возможно, выражение было написано, чтобы соответствовать по длине
+следующей строке. В любом случае эта строка заставляет Emacs
+установить метку в текущем положении курсора.
+</P><P>
+
+Следующая строка <CODE>mark-whole-buffer</CODE>й --- это
+<CODE>(push-mark (point-max))</CODE>. Это выражение устанавливает метку в
+точке буфера, которая имеет максимальное значение. Это обычно конец
+буфера (или, если буфер сужен, конец доступной порции буфера.
+See section <A HREF="elisp-intro-ru_8.html#SEC91">Narrowing and Widening</A>, за
+дополнительной информации об сужении). После того как эта метка была
+установлена, предыдущая метка, которую мы установили прежде, больше не
+установлена, но Emacs запомнил ее позицию, как и всех прежде
+установленных меток. Это значит что вы можете, если желаете вернуться
+к этой позиции, нажав <KBD>C-u C-<KBD>SPC</KBD></KBD> дважды.
+</P><P>
+
+Последняя строка этой функции --- выражение <CODE>(goto-char
+(point-min))</CODE>. Она выглядит точно также как и в функции
+<CODE>beginning-of-buffer</CODE>. Это выражение перемещает курсор к точке
+буфера которая имеет минимальное значение, обычно к началу буфера (или
+к началу доступной области буфера, в случае сужения). В результате
+работы всей функции, точка помещается в начале буфера, метка в конце.
+То есть весь буфер следовательно регион.
+</P><P>
+
+<A NAME="append-to-buffer"></A>
+<HR SIZE="6">
+<A NAME="SEC67"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC66"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC68"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC65"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC71"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.4 Определение <CODE>append-to-buffer</CODE> </H2>
+<!--docid::SEC67::-->
+<P>
+
+Команда <CODE>append-to-buffer</CODE> почти так же проста, как и команда
+<CODE>mark-whole-buffer</CODE>. Она копирует регион (то есть часть буфера
+между точкой и меткой) из текущего буфера в заданный.
+</P><P>
+
+<A NAME="IDX47"></A>
+В теле команды <CODE>append-to-buffer</CODE> для копирования региона
+используется функция <CODE>insert-buffer-substring</CODE>. Принцип работы
+функции <CODE>insert-buffer-substring</CODE> (вставить-в-буфер-подстроку)
+заложен в ее названии --- она берет символьную строку из части
+буфера --- "подстроку" и вставляет ее в другой буфер. Большая
+часть действий в функции <CODE>append-to-buffer</CODE> --- это
+подготовка параметров для работы функции
+<CODE>insert-buffer-substring</CODE>; мы должны будем задать буфер куда нам
+необходимо скопировать текст, а также регион, который мы будем
+копировать. А вот и полный текст функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun append-to-buffer (buffer start end)
+  "Добавить к заданному буферу текст в регионе.
+Текст вставляется в буфер перед точкой.
+
+При вызове принимает три аргумента:
+буфер или его имя, и два числа задающие регион в
+текущем буфере."
+  (interactive "BAppend to buffer: \nr")
+  (let ((oldbuf (current-buffer)))
+    (save-excursion
+      (set-buffer (get-buffer-create buffer))
+      (insert-buffer-substring oldbuf start end))))
+</pre></td></tr></table></P><P>
+
+Работу этой функции мы сможем лучше понять, если посмотрим на нее как
+на серию уже известных нам шаблонов.
+</P><P>
+
+Самый верхний шаблон --- само определение функции. В этом случае
+он выглядит следующим образом (мы заполнили в нем несколько слотов):
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun append-to-buffer (buffer start end)
+  "<VAR>докуменация</VAR><small>...</small>"
+  (interactive "BAppend to buffer: \nr")
+  <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+Первая строка функции включает ее имя и три аргумента. Эти аргументы:
+<CODE>buffer</CODE> (куда мы и будем копировать текст), <CODE>start</CODE> и
+<CODE>end</CODE> (соответственно начало и конец региона в текущем буфере
+откуда мы и будем копировать текст.)
+</P><P>
+
+Следующая часть функции --- это документация, которая как всегда,
+должна быть понятной и простой
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_6.html#SEC68">4.4.1 Интерактивное выражение в <CODE>append-to-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Две части выражения <CODE>interactive</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_6.html#SEC69">4.4.2 Тело <CODE>append-to-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_6.html#SEC70">4.4.3 <CODE>save-excursion</CODE> в <CODE>append-to-buffer</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Как работает the <CODE>save-excursion</CODE>.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="append interactive"></A>
+<HR SIZE="6">
+<A NAME="SEC68"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC67"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC69"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC65"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC67"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC71"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.1 Интерактивное выражение в <CODE>append-to-buffer</CODE> </H3>
+<!--docid::SEC68::-->
+<P>
+
+Поскольку функцию <CODE>append-to-buffer</CODE> предполагается использовать
+интерактивно, то в ней есть выражение <CODE>interactive</CODE>. (Чтобы
+повторить <CODE>interactive</CODE>, смотри <A HREF="elisp-intro-ru_5.html#SEC46">Making a Function Interactive</A>). Это выражение выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(interactive "BAppend to buffer: \nr")
+</pre></td></tr></table></P><P>
+
+Аргумент к interactive --- это строка, состоящая из двух частей,
+разделенных символом <SAMP>`\n'</SAMP>.
+</P><P>
+
+Первая часть --- это <SAMP>`BAppend to buffer: '</SAMP> (добавить к
+буферу). Здесь <SAMP>`B'</SAMP> --- один из предопределенных символов для
+<CODE>interactive</CODE>, который означает имя буфера, которое будет
+передано в функцию. Emacs запросит имя буфера, отобразив подсказку в
+мини-буфере, для формирования которой используется строка, которая
+следует за <SAMP>`B'</SAMP> (в нашем случае это <SAMP>`Append to buffer: '</SAMP>).
+После ввода запрашиваемого буфера Emacs свяжет переменную
+<CODE>buffer</CODE> в списке аргументов с заданным буфером.
+</P><P>
+
+Символ новой строки, <SAMP>`\n'</SAMP>, отделяет первую часть аргумента от
+второй части. Затем следует <SAMP>`r'</SAMP>, который говорит Emacs связать
+два аргумента, которые следуют за символом <CODE>buffer</CODE> в списке
+аргументов функции (то есть <CODE>start</CODE> и <CODE>end</CODE>) к значениям
+точки и метки.
+</P><P>
+
+<A NAME="append-to-buffer body"></A>
+<HR SIZE="6">
+<A NAME="SEC69"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC68"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC70"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC65"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC67"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC71"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.2 Тело <CODE>append-to-buffer</CODE> </H3>
+<!--docid::SEC69::-->
+<P>
+
+Тело функции <CODE>append-to-buffer</CODE> начинается с <CODE>let</CODE>.
+</P><P>
+
+Как мы уже видели ранее, (see section <A HREF="elisp-intro-ru_5.html#SEC50"><CODE>let</CODE></A>) цель выражения
+<CODE>let</CODE> --- создать и присвоить первоначальные значения к одной
+и более переменных, которые будут использоваться только в теле
+<CODE>let</CODE>. Это значит, что такую переменную нельзя будет спутать с
+любой переменной, носящей такое же имя вне выражения <CODE>let</CODE>.
+</P><P>
+
+Мы можем видеть как выражение <CODE>let</CODE> входит в состав функции,
+показав шаблон для <CODE>append-to-buffer</CODE> с выделенным выражением
+<CODE>let</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun append-to-buffer (buffer start end)
+  "<VAR>документация</VAR><small>...</small>"
+  (interactive "BAppend to buffer: \nr")
+  (let ((<VAR>переменная</VAR> <VAR>значение</VAR>))
+        <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+В составе выражения <CODE>let</CODE> три элемента:
+</P><P>
+
+<OL>
+<LI>
+Сам символ <CODE>let</CODE>;
+<P>
+
+<LI>
+Список переменных: в нашем случае один двух-элементный список,
+<CODE>(<VAR>переменная</VAR> <VAR>значение</VAR>)</CODE>;
+<P>
+
+<LI>
+Тело выражения <CODE>let</CODE>.
+</OL>
+<P>
+
+В функции <CODE>append-to-buffer</CODE> список переменных выглядит следующим
+образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(oldbuf (current-buffer))
+</pre></td></tr></table></P><P>
+
+Здесь одна переменная <CODE>oldbuf</CODE> связывается со значением,
+возвращаемым после вычисления выражения <CODE>(current-buffer)</CODE>.
+Переменная <CODE>oldbuf</CODE>, используется для запоминания буфера, в
+котором вы работаете в данный момент.
+</P><P>
+
+Элемент или элементы в списке переменных окружаются скобками так,
+чтобы интерпретатор Лиспа мог отделить список переменных от тела
+выражения <CODE>let</CODE>. В результате двухэлементный список внутри списка
+переменных окружен дополнительными скобками. Все вместе выглядит
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let ((oldbuf (current-buffer)))
+  <small>...</small> )
+</pre></td></tr></table></P><P>
+
+Две скобки перед <CODE>oldbuf</CODE> могут вызвать удивление, если вы не
+вспомните, что первая скобка это граница всего списка переменных, а
+вторая отмечает начало двухэлементного списка <CODE>(oldbuf
+(current-buffer))</CODE>.
+</P><P>
+
+<A NAME="append save-excursion"></A>
+<HR SIZE="6">
+<A NAME="SEC70"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC69"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC71"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC65"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC67"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC71"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 4.4.3 <CODE>save-excursion</CODE> в <CODE>append-to-buffer</CODE> </H3>
+<!--docid::SEC70::-->
+<P>
+
+Тело выражения <CODE>let</CODE> в <CODE>append-to-buffer</CODE> состоит из
+выражения <CODE>save-excursion</CODE>.
+</P><P>
+
+Функция <CODE>save-excursion</CODE> запоминает местоположение точки и метки,
+и затем восстанавливает их этим значениям после завершения выполнения
+тела <CODE>save-excursion</CODE>. В добавок <CODE>save-excursion</CODE> запоминает
+первоначальный буфер и также его восстанавливает. Именно поэтому
+<CODE>save-excursion</CODE> используется в <CODE>append-to-buffer</CODE>.
+</P><P>
+
+<A NAME="IDX48"></A>
+<A NAME="IDX49"></A>
+Кстати, вы заметили, что функции в Лиспе обычно форматируются так, что
+все входящее в состав многострочного списка выравнивается немного
+правее, чем первый символ этого списка. В этой функции, например,
+<CODE>let</CODE> выравнено немного правее чем <CODE>defun</CODE>, а
+<CODE>save-excursion</CODE> правее чем <CODE>let</CODE>, то есть следующим
+образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun <small>...</small>
+  <small>...</small>
+  <small>...</small>
+  (let<small>...</small>
+    (save-excursion
+      <small>...</small>
+</pre></td></tr></table></P><P>
+
+Такое соглашение о форматировании позволяет легко определить, что две
+строки в теле <CODE>save-excursion</CODE> закрытые в скобки, связаны с
+<CODE>save-excursion</CODE>, а само выражение <CODE>save-excursion</CODE> закрыто
+в скобки, связанные с <CODE>let</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let ((oldbuf (current-buffer)))
+  (save-excursion
+    (set-buffer (get-buffer-create buffer))
+    (insert-buffer-substring oldbuf start end))))
+</pre></td></tr></table></P><P>
+
+Использование функции <CODE>save-excursion</CODE> полностью соответствует
+следующему шаблону:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(save-excursion
+  <VAR>первое-выражение-в-теле</VAR>
+  <VAR>второе-выражение-в-теле</VAR>
+   <small>...</small>
+  <VAR>последнее-выражение-в-теле</VAR>)
+</pre></td></tr></table></P><P>
+
+В нашей функции тело <CODE>save-excursion</CODE> содержит только два
+выражения. Тело выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(set-buffer (get-buffer-create buffer))
+(insert-buffer-substring oldbuf start end)
+</pre></td></tr></table></P><P>
+
+Когда вычисляется функция <CODE>append-to-buffer</CODE>, эти два выражения
+вычисляются последовательно. Значение последнего выражения
+возвращается как значение самой функции <CODE>save-excursion</CODE>; другое
+выражение вычисляется только за его побочный эффект.
+</P><P>
+
+В первой строке тела <CODE>save-excursion</CODE> используется функция
+<CODE>set-buffer</CODE>, для того, чтобы изменить текущий буфер на тот,
+который передан функции <CODE>append-to-buffer</CODE> как первый аргумент.
+(Изменение буфера --- это побочный эффект; как мы говорили ранее в
+Лиспе побочный эффект это часто основная вещь, которой мы добиваемся).
+Во второй строке и выполняется вся основная работа функции.
+</P><P>
+
+Функция <CODE>set-buffer</CODE> переключает внимание Emacs к буферу, куда мы
+будем копировать текст, из которого нас вернет
+<CODE>save-excursion</CODE>. Эта строка выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(set-buffer (get-buffer-create buffer))
+</pre></td></tr></table></P><P>
+
+Вложенное в этот список выражение --- это <CODE>(get-buffer-create
+buffer)</CODE>. Это выражение использует функцию <CODE>get-buffer-create</CODE>,
+которая или получает имя существующего буфера или, если его не
+существует, то создает такой буфер с данным именем. Это значит, что вы
+можете использовать <CODE>append-to-buffer</CODE>, чтобы вставить текст в
+буфер, которого до этого не существовало.
+</P><P>
+
+<CODE>get-buffer-create</CODE> также оберегает <CODE>set-buffer</CODE> от ненужной
+ошибки --- функции <CODE>set-buffer</CODE> в качестве аргумента
+необходим буфер; если вы опишете буфер, которого на самом деле еще
+нет, то Emacs заартачится. Поскольку <CODE>get-buffer-create</CODE> создаст
+буфер, если его еще не существует, то <CODE>set-buffer</CODE> всегда будет
+обеспечен существующим буфером.
+</P><P>
+
+Последняя строка <CODE>append-to-buffer</CODE> выполняет работу добавляя
+текст:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(insert-buffer-substring oldbuf start end)
+</pre></td></tr></table></P><P>
+
+Функция <CODE>insert-buffer-substring</CODE> копирует строку <EM>из</EM>
+буфера, заданного первым аргументом и вставляет строку в текущий
+буфер. В нашем случае аргумент к <CODE>insert-buffer-substring</CODE>
+--- это значение переменной созданной выражением <CODE>let</CODE>, то есть
+значение <CODE>oldbuf</CODE>, который был текущим буфером на момент
+выполнения команды <CODE>append-to-buffer</CODE>.
+</P><P>
+
+После того, как <CODE>insert-buffer-substring</CODE> закончит работу,
+<CODE>save-excursion</CODE> восстановит первоначальный буфер и
+<CODE>append-to-buffer</CODE> сделала свою работу.
+</P><P>
+
+В схематичной форме, работу тела можно представить так:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let (<VAR>связать-</VAR><CODE>oldbuf</CODE><VAR>-со-значением-</VAR><CODE>current-buffer</CODE>)
+  (save-excursion                       ; Запомнить буфер, точку, метку.
+    <VAR>изменить-буфер</VAR>
+    <VAR>вставить-текст-из-</VAR><CODE>oldbuf</CODE><VAR>-в-буфер</VAR>)
+
+  <VAR>вернуться-назад-к-первоначальному-буферу</VAR>
+<VAR>пусть-локальное-значение-</VAR><CODE>oldbuf</CODE><VAR>-изчезнет</VAR>
+
+</pre></td></tr></table></P><P>
+
+Если подвести итог, то <CODE>append-to-buffer</CODE> работает следующим
+образом --- она сохраняет значение текущего буфера в переменной
+<CODE>oldbuf</CODE>. Затем или получает новый буфер, или создает его, если
+это необходимо, и переключает внимание Emacs на него. Используя
+значение <CODE>oldbuf</CODE> вставляет регион текста из старого буфера в
+новый буфер; и после этого используя <CODE>save-excursion</CODE>, возвращает
+вас в обратно в первоначальный буфер.
+</P><P>
+
+Рассмотрев <CODE>append-to-buffer</CODE>, мы изучили довольно сложную
+функцию. Она демонстрирует использование <CODE>let</CODE> и
+<CODE>save-excursion</CODE>, способы изменения текущего буфера и как
+возвращения обратно из другого буфера. Многие другие функции точно
+также используют <CODE>let</CODE>, <CODE>save-excursion</CODE>, <CODE>set-buffer</CODE>.
+</P><P>
+
+<A NAME="Buffer Related Review"></A>
+<HR SIZE="6">
+<A NAME="SEC71"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC70"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC72"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC67"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_7.html#SEC73"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.5 Обзор </H2>
+<!--docid::SEC71::-->
+<P>
+
+Ниже краткие описания функций которые мы обсудили в этой главе.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>describe-function</CODE>
+<DD><DT><CODE>describe-variable</CODE>
+<DD>Отображает документацию для функции или переменной. Обычно связана с
+клавишами <KBD>C-h f</KBD> и <CODE>C-h v</CODE>.
+<P>
+
+<DT><CODE>find-tag</CODE>
+<DD>Находит файл содержащий исходный текст функции или объявление
+переменной и переключает буфер туда, поместив курсор в начало искомой
+функции или переменной. Обычно связана с <KBD>M-.</KBD>(клавиша <KBD>META</KBD>
+за которой следует точка).
+<P>
+
+<DT><CODE>save-excursion</CODE>
+<DD>Сохраняет значение точки и метки и восстанавливает их после выполнения
+тела <CODE>save-excursion</CODE>. Также запоминает текущий буфер и
+восстанавливает его тоже.
+<P>
+
+<DT><CODE>push-mark</CODE>
+<DD>Устанавливает метку и записывает значение предыдущей метки в кольцо
+меток. Метка --- это положение в буфере, которое запоминает свою
+относительную позицию даже если какой-нибудь текст добавить или
+удалить из буфера.
+<P>
+
+<DT><CODE>goto-char</CODE>
+<DD>Устанавливает точку в место описанное значением аргумента, которое
+будет числом, маркером, или выражением, которое возвращает позицию
+--- например, <CODE>(point-min)</CODE>.
+<P>
+
+<DT><CODE>insert-buffer-substring</CODE>
+<DD>Копирует регион текста из буфера, который передается как аргумент к
+функции, и вставляет регион в текущий буфер.
+<P>
+
+<DT><CODE>mark-whole-buffer</CODE>
+<DD>Пометить весь буфер как регион. Обычно связано с <KBD>C-x h</KBD>.
+<P>
+
+<DT><CODE>set-buffer</CODE>
+<DD>Переключить внимание Emacs на другой буфер, но не изменять содержание
+текущего окна. Используется когда над другим буфером будет работать
+программа, а не человек.
+<P>
+
+<DT><CODE>get-buffer-create</CODE>
+<DD><DT><CODE>get-buffer</CODE>
+<DD>Найти буфер с заданным именем или создать новый, если буфера с таким
+именем не существует. Функция <CODE>get-buffer</CODE> возвращает <CODE>nil</CODE>,
+если буфера с заданным именем не существует.
+</DL>
+<P>
+
+<A NAME="Упражнения с Буфером"></A>
+<HR SIZE="6">
+<A NAME="SEC72"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC71"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_7.html#SEC73"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_7.html#SEC73"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 4.6 Упражнения </H2>
+<!--docid::SEC72::-->
+<P>
+
+<UL>
+<LI>
+Напишите свою версию <CODE>simplified-end-of-buffer</CODE> затем проверьте
+ее, чтобы увидеть как она работает.
+<P>
+
+<LI>
+Напишите функцию используя выражения <CODE>if</CODE> и <CODE>get-buffer</CODE>,
+которая печатает сообщение говорящее существует ли буфер имя которого
+вы задаете как аргумент к этой функции
+<P>
+
+<LI>
+С помощью <CODE>find-tag</CODE>, найдите исходный код для функции
+<CODE>copy-to-buffer</CODE>.
+<P>
+
+Using <CODE>find-tag</CODE>, find the source for the <CODE>copy-to-buffer</CODE>
+function.
+</UL>
+<P>
+
+<A NAME="Первые трудности"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_7.html#SEC73"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>March, 10  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

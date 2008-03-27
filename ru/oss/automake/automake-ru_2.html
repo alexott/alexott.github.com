@@ -1,0 +1,519 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Общая информация</TITLE>
+
+<META NAME="description" CONTENT="automake: Общая информация">
+<META NAME="keywords" CONTENT="automake: Общая информация">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC2"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_1.html#SEC1"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC3"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_1.html#SEC1"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 2. Общая информация </H1>
+<!--docid::SEC2::-->
+<P>
+
+Следующие разделы описывают основные принципы работы Automake.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_2.html#SEC3">2.1 Общие операции</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_2.html#SEC4">2.2 Типы иерархии каталогов пакета</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_2.html#SEC5">2.3 Ограничения</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_2.html#SEC6">2.4 Единообразная схема наименования</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_2.html#SEC7">2.5 Как именуются порожденные переменные</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Общие операции"></A>
+<HR SIZE="6">
+<A NAME="SEC3"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC4"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.1 Общие операции </H2>
+<!--docid::SEC3::-->
+<P>
+
+Automake читает файл <TT>`Makefile.am'</TT> и создает на его основе файл
+<TT>`Makefile.in'</TT>. Специальные макросы и цели, определенные в
+<TT>`Makefile.am'</TT>, заставляют Automake генерировать более
+специализированный код; например, макроопределение <SAMP>`bin_PROGRAMS'</SAMP>
+заставит создать цели для компиляции и компоновки программ.
+</P><P>
+
+<A NAME="IDX8"></A>
+<A NAME="IDX9"></A>
+<A NAME="IDX10"></A>
+</P><P>
+
+Макроопределения и цели из файла <TT>`Makefile.am'</TT> копируются в файл
+<TT>`Makefile.in'</TT> без изменений. Это позволяет вам добавлять в
+генерируемый файл <TT>`Makefile.in'</TT> произвольный код. Например,
+дистрибутив Automake включает в себя нестандартную цель <CODE>cvs-dist</CODE>,
+которую использует человек, сопровождающий Automake, для создания
+дистрибутивов из системы контроля исходного кода.
+</P><P>
+
+<A NAME="IDX11"></A>
+</P><P>
+
+Заметьте, что расширения GNU make не распознаются программой
+Automake. Использование таких расширений в файле <TT>`Makefile.am'</TT>
+приведет к ошибкам или странному поведению.
+</P><P>
+
+Automake пытается сгруппировать комментарии к расположенным по соседству
+целям и макроопределениям.
+</P><P>
+
+<A NAME="IDX12"></A>
+<A NAME="IDX13"></A>
+</P><P>
+
+Цель, определенная в <TT>`Makefile.am'</TT>, обычно переопределяет любую
+цель с таким же именем, которая была бы автоматически создана
+<CODE>automake</CODE>. Хотя этот прием и работает, старайтесь избегать его
+использования, поскольку иногда автоматически созданные цели являются
+очень важными.
+</P><P>
+
+<A NAME="IDX14"></A>
+<A NAME="IDX15"></A>
+</P><P>
+
+Аналогичным образом, макрос, определенный в <TT>`Makefile.am'</TT>, будет
+переопределять любой макрос, который создает <CODE>automake</CODE>. Это часто
+более полезно, чем возможность переопределения цели. Но будьте
+осторожны, поскольку многие из макросов, создаваемых программой
+<CODE>automake</CODE>, считаются макросами только для внутреннего
+использования, и их имена могут измениться в будущих версиях.
+</P><P>
+
+<A NAME="IDX16"></A>
+<A NAME="IDX17"></A>
+<A NAME="IDX18"></A>
+</P><P>
+
+При обработке макроопределения Automake рекурсивно обрабатывает
+макросы, на которые есть ссылка в данном макроопределении. Например,
+если Automake исследует содержимое <CODE>foo_SOURCES</CODE> в следующем
+определении:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>xs = a.c b.c
+foo_SOURCES = c.c $(xs)
+</pre></td></tr></table></P><P>
+
+то он будет использовать файлы <TT>`a.c'</TT>, <TT>`b.c'</TT> и <TT>`c.c'</TT> как
+содержимое <CODE>foo_SOURCES</CODE>.
+</P><P>
+
+<A NAME="IDX19"></A>
+<A NAME="IDX20"></A>
+<A NAME="IDX21"></A>
+</P><P>
+
+Automake также вводит форму комментария, который <EM>не</EM> копируется в
+выходной файл; все строки, начинающиеся с <SAMP>`##'</SAMP>, полностью
+игнорируются Automake.
+</P><P>
+
+Очень часто первая строка файла <TT>`Makefile.am'</TT> выглядит следующим
+образом:
+</P><P>
+
+<A NAME="IDX22"></A>
+<A NAME="IDX23"></A>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>## Process this file with automake to produce Makefile.in
+## Для получения Makefile.in обработайте этот файл программой automake
+</pre></td></tr></table></P><P>
+
+<A NAME="Глубина"></A>
+<HR SIZE="6">
+<A NAME="SEC4"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC3"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC5"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.2 Типы иерархии каталогов пакета </H2>
+<!--docid::SEC4::-->
+<P>
+
+<A NAME="IDX24"></A>
+<A NAME="IDX25"></A>
+<A NAME="IDX26"></A>
+<A NAME="IDX27"></A>
+<A NAME="IDX28"></A>
+<A NAME="IDX29"></A>
+</P><P>
+
+<CODE>automake</CODE> поддерживает три типа иерархии каталогов: плоскую,
+неглубокую и глубокую.
+</P><P>
+
+Если все файлы пакета располагаются в одном каталоге, то это
+<EM>плоский</EM> пакет.  В файле <TT>`Makefile.am'</TT> для этого типа пакета
+по определению отсутствует макрос <CODE>SUBDIRS</CODE>.  Примером такого
+пакета может служить <CODE>termutils</CODE>.
+</P><P>
+
+<A NAME="IDX30"></A>
+</P><P>
+
+<A NAME="IDX31"></A>
+</P><P>
+
+<EM>Глубокий</EM> пакет -- это такой, в котором все исходные тексты лежат в
+подкаталогах; каталог верхнего уровня содержит в основном
+конфигурационную информацию. Хорошим примером такого пакета является GNU
+<CODE>cpio</CODE>, а так же GNU <CODE>tar</CODE>.  Файл <TT>`Makefile.am'</TT> в
+каталоге верхнего уровня глубокого пакета содержит макрос
+<CODE>SUBDIRS</CODE>, но в нем нет никаких других
+макросов для определения объектов компиляции.
+</P><P>
+
+<EM>Неглубокий</EM> пакет подразумевает, что основные файлы исходных текстов
+располагаются в каталоге верхнего уровня, а различные части этого пакета
+(обычно библиотеки) находятся в подкаталогах. К пакетам такого типа
+относится Automake (а также GNU <CODE>make</CODE>, который в настоящее время
+не использует <CODE>automake</CODE>).
+</P><P>
+
+<A NAME="Строгость"></A>
+<HR SIZE="6">
+<A NAME="SEC5"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC4"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC6"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.3 Ограничения </H2>
+<!--docid::SEC5::-->
+<P>
+
+<A NAME="IDX32"></A>
+</P><P>
+
+Хотя Automake предназначен для использования людьми, сопровождающими
+пакеты GNU, он также старается приспособиться и к тем, кто хочет
+использовать Automake, но не хочет соблюдать все соглашения GNU.
+</P><P>
+
+<A NAME="IDX33"></A>
+<A NAME="IDX34"></A>
+<A NAME="IDX35"></A>
+<A NAME="IDX36"></A>
+<A NAME="IDX37"></A>
+<A NAME="IDX38"></A>
+<A NAME="IDX39"></A>
+</P><P>
+
+Сейчас Automake поддерживает три уровня <EM>строгости
+(strictness)</EM>, задающих, сколь строго Automake должен
+проверять соответствие стандартам.
+</P><P>
+
+Строгость может принимать следующие значения:
+</P><P>
+
+<DL COMPACT>
+<DT><SAMP>`foreign'</SAMP>
+<DD>Automake проверит только те вещи, которые совершенно необходимы для правильного
+функционирования. Например, в то время как стандарты GNU требуют наличия файла
+<TT>`NEWS'</TT>, он не требуется при использовании этого режима. Название
+режима ("иностранный", "внешний")
+произошло от того факта, что Automake предназначен для использования программ 
+GNU; эти ослабленные требования не являются стандартным режимом
+функционирования.
+<P>
+
+<DT><SAMP>`gnu'</SAMP>
+<DD>Automake проверит, насколько это возможно, соответствие 
+стандартам GNU для пакетов. Этот режим действует по умолчанию.
+<P>
+
+<DT><SAMP>`gnits'</SAMP>
+<DD>Automake проверит совместимость с еще не написанными <EM>стандартами
+Gnits</EM>.  Они основаны на стандартах GNU, но еще более детальны. Если вы не 
+являетесь помощником в разработке стандартов Gnits, вам лучше избегать 
+этой опции до тех пор, пока стандарт Gnits не будет опубликован.
+</DL>
+<P>
+
+Для более детальной информации о точном смысле уровня строгости смотрите 
+<A HREF="automake-ru_19.html#SEC61">19. Эффект использования ключей <CODE>--gnu</CODE> и <CODE>--gnits</CODE></A>.
+</P><P>
+
+<A NAME="Единообразие"></A>
+<HR SIZE="6">
+<A NAME="SEC6"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC5"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC7"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.4 Единообразная схема наименования </H2>
+<!--docid::SEC6::-->
+<P>
+
+<A NAME="IDX40"></A>
+</P><P>
+
+Макросы Automake (с этого места мы будем ссылаться на них как на  
+<EM>переменные</EM>) в общем следуют <EM>Единообразной Схеме Именования</EM>,
+которая позволяет легко понять, как собираются программы (и другие 
+результирующие объекты),  и как они устанавливаются. Эта схема также
+поддерживает определение того, что должно быть собрано во время выполнения 
+<CODE>configure</CODE>.
+</P><P>
+
+<A NAME="IDX41"></A>
+<A NAME="IDX42"></A>
+<A NAME="IDX43"></A>
+<A NAME="IDX44"></A>
+</P><P>
+
+<A NAME="IDX45"></A>
+<A NAME="IDX46"></A>
+</P><P>
+
+Во время выполнения <CODE>make</CODE>, некоторые переменные используются для 
+определения того, что должно быть собрано. Эти переменные называются 
+<EM>основными переменными</EM>. Например, основная переменная <CODE>PROGRAMS</CODE> 
+содержит список программ, которые должны быть скомпилированы и собраны.
+<A NAME="IDX47"></A>
+</P><P>
+
+<A NAME="IDX48"></A>
+<A NAME="IDX49"></A>
+<A NAME="IDX50"></A>
+</P><P>
+
+<A NAME="IDX51"></A>
+<A NAME="IDX52"></A>
+<A NAME="IDX53"></A>
+</P><P>
+
+Различные наборы переменных используются для принятия решения о том, куда
+должны быть установлены собранные объекты. Эти переменные называются
+подобно основным переменным, но имеют префикс, указывающий, какой из
+стандартных каталогов должен быть использован в качестве каталогаx для установки.
+Имена стандартных каталогов определены в стандартах GNU
+(see section `Directory Variables' in <CITE>The GNU Coding Standards</CITE>). Automake расширяет это список переменными <CODE>pkglibdir</CODE>,
+<CODE>pkgincludedir</CODE> и <CODE>pkgdatadir</CODE>, которые имеют те же значения,
+что и не-<SAMP>`pkg'</SAMP> версии, но с прибавленным к ним суффиксом
+<SAMP>`@PACKAGE@'</SAMP>. Например, <CODE>pkglibdir</CODE> определена как
+<CODE>$(datadir)/@PACKAGE@</CODE>.
+<A NAME="IDX54"></A>
+</P><P>
+
+<A NAME="IDX55"></A>
+<A NAME="IDX56"></A>
+</P><P>
+
+Для каждой из основных переменных также существует дополнительная
+переменная, имя которой образовано добавлением префикса <SAMP>`EXTRA_'</SAMP> к
+имени основной переменной. Эта переменная используется для перечисления
+объектов, которые могут быть собраны, а могут и не собраны в
+зависимости от принятого <CODE>configure</CODE> решения. Для того, чтобы
+создать файл <TT>`Makefile.in'</TT>, работающий в любой ситуации, Automake
+должен сразу узнать полный список объектов, которые вообще могут быть
+собраны.  Исходя из этого, переменные с префиксом <SAMP>`EXTRA_'</SAMP>
+обязательны.
+</P><P>
+
+<A NAME="IDX57"></A>
+<A NAME="IDX58"></A>
+<A NAME="IDX59"></A>
+</P><P>
+
+Например, пакет <CODE>cpio</CODE> во время конфигурации принимает решение о том,
+какие программы необходимо скомпилировать.  Некоторые программы
+устанавливаются в <CODE>bindir</CODE>, а некоторые -- в <CODE>sbindir</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>EXTRA_PROGRAMS = mt rmt
+bin_PROGRAMS = cpio pax
+sbin_PROGRAMS = @PROGRAMS@
+</pre></td></tr></table></P><P>
+
+Определение основной переменной без префикса (например, <CODE>PROGRAMS</CODE>) 
+является ошибкой.
+</P><P>
+
+Заметьте, что общий суффикс <SAMP>`dir'</SAMP> опускается при создании имен
+переменных; таким образом, имя переменной записывается как
+<SAMP>`bin_PROGRAMS'</SAMP>, а не <SAMP>`bindir_PROGRAMS'</SAMP>.
+</P><P>
+
+Нельзя устанавливать любые типы объектов в любые каталоги.
+Automake будет расценивать такие попытки как ошибку. Automake
+также будет диагностировать очевидные ошибки в именах каталогов.
+</P><P>
+
+<A NAME="IDX60"></A>
+<A NAME="IDX61"></A>
+<A NAME="IDX62"></A>
+</P><P>
+
+Иногда стандартных каталогов--- даже с расширениями Automake---
+недостаточно. В частности, иногда полезно для ясности устанавливать
+объекты в подкаталог какого-то предопределенного каталога. Здесь
+Automake также позволяет вам расширить список возможных каталогов для
+установки.  Заданный префикс (например, <SAMP>`zar'</SAMP>) является
+разрешенным, если определена переменная, имеющая такое же имя, но с
+суффиксом <SAMP>`dir'</SAMP> (например, <CODE>zardir</CODE>).
+</P><P>
+
+<A NAME="IDX63"></A>
+</P><P>
+
+Например, пока поддержка HTML не станет частью Automake, вы можете
+использовать такой фрагмент кода для установки документации в формате
+HTML:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>htmldir = $(prefix)/html
+html_DATA = automake.html
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX64"></A>
+<A NAME="IDX65"></A>
+</P><P>
+
+Специальный префикс <SAMP>`noinst'</SAMP> показывает, что указанные объекты
+вообще не должны быть установлены.
+</P><P>
+
+<A NAME="IDX66"></A>
+<A NAME="IDX67"></A>
+</P><P>
+
+Специальный префикс <SAMP>`check'</SAMP> показывает, что указанные объекты не
+должны быть скомпилированы до тех пор, пока не будет запущена команда <CODE>make
+check</CODE>.
+</P><P>
+
+Вот список возможных основных имен: <SAMP>`PROGRAMS'</SAMP>, <SAMP>`LIBRARIES'</SAMP>,
+<SAMP>`LISP'</SAMP>, <SAMP>`SCRIPTS'</SAMP>, <SAMP>`DATA'</SAMP>, <SAMP>`HEADERS'</SAMP>, <SAMP>`MANS'</SAMP> и
+<SAMP>`TEXINFOS'</SAMP>.
+</P><P>
+
+<A NAME="IDX68"></A>
+<A NAME="IDX69"></A>
+<A NAME="IDX70"></A>
+<A NAME="IDX71"></A>
+<A NAME="IDX72"></A>
+<A NAME="IDX73"></A>
+<A NAME="IDX74"></A>
+<A NAME="IDX75"></A>
+</P><P>
+
+<A NAME="Канонизация"></A>
+<HR SIZE="6">
+<A NAME="SEC7"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC6"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_3.html#SEC8"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 2.5 Как именуются порожденные переменные </H2>
+<!--docid::SEC7::-->
+<P>
+
+<A NAME="IDX76"></A>
+<A NAME="IDX77"></A>
+</P><P>
+
+Иногда имена переменных в Makefile образуются на базе некоторого текста,
+заданного пользователем. Например, имена программ преобразуются в имена
+макросов Makefile. Automake канонизирует этот текст, так что он не
+должен следовать правилам именования макросов Makefile. Все имена в
+имени, за исключением букв, чисел, и подчеркиваний, при создании ссылки
+на макрос преобразуются в
+подчеркивания . Например, если ваша
+программа называется <CODE>sniff-glue</CODE>, то унаследованная переменная
+будет называться <CODE>sniff_glue_SOURCES</CODE>, а не <CODE>sniff-glue_SOURCES</CODE>.
+</P><P>
+
+<A NAME="Примеры"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

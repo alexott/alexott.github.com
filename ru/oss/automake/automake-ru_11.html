@@ -1,0 +1,142 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Установка</TITLE>
+
+<META NAME="description" CONTENT="automake: Установка">
+<META NAME="keywords" CONTENT="automake: Установка">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC51"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC50"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_12.html#SEC52"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_12.html#SEC52"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 11. Что будет установлено </H1>
+<!--docid::SEC51::-->
+<P>
+
+<A NAME="IDX408"></A>
+<A NAME="IDX409"></A>
+</P><P>
+
+Automake обрабатывает установку вашей программы после компиляции.
+Всё перечисленное в <CODE>PROGRAMS</CODE>,
+<CODE>SCRIPTS</CODE>, <CODE>LIBRARIES</CODE>, <CODE>LISP</CODE>, <CODE>DATA</CODE> и
+<CODE>HEADERS</CODE> автоматически устанавливается на соответствующие места.
+</P><P>
+
+Automake также обрабатывает установку указанных страниц info и
+страниц руководства.
+</P><P>
+
+В том случае, когда программа установки устанавливает пакет на несколько
+машин с общей структурой каталогов, Automake создает отдельные
+цели <CODE>install-data</CODE> и <CODE>install-exec</CODE> -- они позволяют
+установить машино-независимые части только один раз. Цель <CODE>install</CODE>
+зависит от обоих этих целей.
+<A NAME="IDX410"></A>
+<A NAME="IDX411"></A>
+<A NAME="IDX412"></A>
+</P><P>
+
+Automake также создает цель <CODE>uninstall</CODE>, цель <CODE>installdirs</CODE> и
+цель <CODE>install-strip</CODE>.
+<A NAME="IDX413"></A>
+<A NAME="IDX414"></A>
+<A NAME="IDX415"></A>
+</P><P>
+
+Также можно расширить этот механизм определением цели
+<CODE>install-exec-local</CODE> или <CODE>install-data-local</CODE>. Если эти цели
+определены, то они будут запущены при выполнении <SAMP>`make install'</SAMP>.
+<A NAME="IDX416"></A>
+<A NAME="IDX417"></A>
+</P><P>
+
+Переменные, использующие стандартные префиксы каталогов <SAMP>`data'</SAMP>,
+<SAMP>`info'</SAMP>, <SAMP>`man'</SAMP>, <SAMP>`include'</SAMP>, <SAMP>`oldinclude'</SAMP>,
+<SAMP>`pkgdata'</SAMP> или <SAMP>`pkginclude'</SAMP> (например, <SAMP>`data_DATA'</SAMP>) будут
+устанавливаться при выполнении цели <SAMP>`install-data'</SAMP>.
+</P><P>
+
+Переменные, использующие стандартные префиксы каталогов <SAMP>`bin'</SAMP>,
+<SAMP>`sbin'</SAMP>, <SAMP>`libexec'</SAMP>, <SAMP>`sysconf'</SAMP>, <SAMP>`localstate'</SAMP>,
+<SAMP>`lib'</SAMP> или <SAMP>`pkglib'</SAMP> (например, <SAMP>`bin_PROGRAMS'</SAMP>), устанавливаются
+целью <SAMP>`install-exec'</SAMP>.
+</P><P>
+
+Любые переменные, использующие определенные пользователем префиксы
+каталогов со словом <SAMP>`exec'</SAMP> в имени (например,
+<SAMP>`myexecbin_PROGRAMS'</SAMP> устанавливаются целью <SAMP>`install-exec'</SAMP>. Все
+другие определенные пользователем префиксы устанавливаются целью
+<SAMP>`install-data'</SAMP>.
+</P><P>
+
+<A NAME="IDX418"></A>
+</P><P>
+
+Automake генерирует поддержку переменной <SAMP>`DESTDIR'</SAMP> во всех правилах
+установки. Переменная <SAMP>`DESTDIR'</SAMP> используется в процессе выполнения
+<SAMP>`make install'</SAMP> для перемещения устанавливаемых объектов в область
+установки. К каждому объекту и пути добавляется значение переменной
+<SAMP>`DESTDIR'</SAMP> до того, как быть скопированным в область установки. Вот
+пример типичного использования DESTDIR:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>make DESTDIR=/tmp/staging install
+</pre></td></tr></table></P><P>
+
+Это помещает устанавливаемые объекты в дерево каталогов, которое создано
+в каталоге <TT>`/tmp/staging'</TT>. Если устанавливаются файлы
+<TT>`/gnu/bin/foo'</TT> и <TT>`/gnu/share/aclocal/foo.m4'</TT>, то
+вышеприведенная команда установит <TT>`/tmp/staging/gnu/bin/foo'</TT> и
+<TT>`/tmp/staging/gnu/share/aclocal/foo.m4'</TT>.
+</P><P>
+
+Это свойство часто используется для построения пакетов и установок. Для
+получения дополнительной информации смотрите section `Makefile Conventions' in <CITE>The GNU Coding Standards</CITE>.
+</P><P>
+
+<A NAME="Очистка"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_10.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_12.html#SEC52"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

@@ -1,0 +1,1715 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 4  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Вырезание &#38; Сохранение текста</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Вырезание &#38; Сохранение текста">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Вырезание &#38; Сохранение текста">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC104"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_8.html#SEC103"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC106"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_8.html#SEC95"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 8. Вырезание и сохранение текста </H1>
+<!--docid::SEC104::-->
+<P>
+
+Когда вы вырезаете из буфера текст с помощью команды `kill' в GNU
+Emacs, то он заноситься в список и вы можете вернуть его обратно с
+помощью команды `yank'.
+</P><P>
+
+(Использование слова `kill' (убить, уничтожить), для операций, которые
+в особенности ничего <EM>не</EM> разрушают --- просто историческое
+недоразумение. Намного более подходящим будет слово `clip' (вырезать,
+зажать), что именно и делают команды kill --- они вырезают текст
+из буфера и заносят его в хранилище, откуда его можно вернуть обратно.
+У меня иногда появляется желание заменить в исходных текстах Emacs все
+вхождения слова `kill' на `clip', а все слова `killed' на `clipped').
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC105">Сохранение текста в списке</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC106">8.1 <CODE>zap-to-char</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Вырезание текста до символа.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC114">8.2 <CODE>kill-region</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Вырезание блока текста.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC115">8.3 <CODE>delete-region</CODE>: Погружение в язык Си</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Погружение в Си.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC116">8.4 Инициализация переменной с <CODE>defvar</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Как переменной присвоить первоначальное</TD></TR>
+</TABLE>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;значение.
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC117">8.5 <CODE>copy-region-as-kill</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Определение для копирования текста.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC121">8.6 Обзор</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC122">8.7 Упражнения с поиском</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Сохранение Текста"></A>
+<A NAME="SEC105"></A>
+<H2> Сохранение текста в списке </H2>
+<!--docid::SEC105::-->
+<P>
+
+Когда вы вырезаете текст из буфера, то он сохраняется в списке.
+Последовательные куски текста хранятся в списке последовательно, так
+что список может выглядеть следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>("блок текста" "последний блок")
+</pre></td></tr></table></P><P>
+
+Для добавления в список текста можно использовать функцию <CODE>cons</CODE>,
+примерно так:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(cons "другой блок" 
+      '("блок текста" "последний блок"))
+</pre></td></tr></table></P><P>
+
+Если вы вычислите это выражение, то в эхо-области появится список из
+трех выражений:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>("другой блок" "блок текста" "последний блок")
+</pre></td></tr></table></P><P>
+
+С помощью функций <CODE>car</CODE> и <CODE>nthcdr</CODE>, вы можете извлечь любой
+элемент списка, который вы пожелаете. Например, в следующем фрагменте,
+при выполнении <CODE>nthcdr 1 <small>...</small></CODE> возвратится список без первого
+элемента; а <CODE>car</CODE> вернет первый элемент от остатка --- то
+есть второй элемент первоначального списка.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(car (nthcdr 1 '("другой блок"
+                 "блок текста"
+                 "последний блок")))
+     => "блок текста"
+</pre></td></tr></table></P><P>
+
+На самом деле функции в Emacs конечно сложнее чем эти. Функция для
+вырезания и извлечения текста написана так, что Emacs может вычислить
+какой элемент списка вы хотите получить --- первый, второй или
+другой. Кроме этого, когда вы достигните конца списка, то Emacs вернет
+вам первый элемент списка, а не <CODE>nil</CODE>.
+</P><P>
+
+Список в котором содержаться блоки текста, называют <EM>kill ring</EM>. В
+этой главе мы опишем эту структуру данных и как ее используют,
+вначале, на примере работы функции <CODE>zap-to-char</CODE>. В этой функции
+вызывается другая функция, которая работает с kill ring. То есть, как
+обычно, до того как карабкаться на гору, мы заберемся на холм.
+</P><P>
+
+В последующей главе описывается как вернуть текст, который мы вырезали
+из буфера.  See section <A HREF="emacs-lisp-intro_11.html#SEC125">Вставка Текста Обратно</A>.
+</P><P>
+
+<A NAME="zap-to-char"></A>
+<HR SIZE="6">
+<A NAME="SEC106"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC107"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC105"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC114"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.1 <CODE>zap-to-char</CODE> </H2>
+<!--docid::SEC106::-->
+<P>
+
+Функция <CODE>zap-to-char</CODE> реализована по разному в версиях GNU Emacs
+18 и 19. В 19 версии функция попроще, и работает немного по другому.
+Мы вначале изучим функцию написанную для версии 19, а потом для версии
+18.
+</P><P>
+
+В 19 версии Emacs интерактивная функция <CODE>zap-to-char</CODE> удаляет из
+блока текст между положением курсора (т.е. точкой) до, включительно
+следующего вхождения описанного символа. Удаленный текст помещается в
+список уничтожений; и в последствии его можно извлечь оттуда, нажав
+<KBD>C-y</KBD> (<CODE>yank</CODE>). Если команде задан аргумент, то вырезается
+текст до заданного числа символов. То есть, если курсор был в начале
+предложения и символом был <SAMP>`с'</SAMP>, то будет удалено слово <SAMP>`То
+ес'</SAMP>. Если аргумент был равен двум, то будет удалено <SAMP>`То есть ес'</SAMP>
+до второго появления заданного символа, включительно, в слове
+<SAMP>`если'</SAMP>.
+</P><P>
+
+В версии 18 Emacs текст удаляется от курсора до символа, но <EM>не
+включая</EM> сам символ. То есть в предыдущем примере сам символ <SAMP>`с'</SAMP>
+<EM>не</EM> будет удален.
+</P><P>
+
+Кроме этого, в версии 18 функция удаляет текст до конца буфера, если
+заданный символ не найден; а в версии 19, в этом случае отображается
+только сообщение об ошибке (и ничего не удаляется).
+</P><P>
+
+Для того, чтобы определить сколько текста нужно удалить, в обоих
+версиях <CODE>zap-to-char</CODE> используется функция поиска. Различные
+поисковые функции очень часто используются в функциях работающих с
+текстом и стоит обратить на них особое внимание, также как и на
+команду удаления.
+</P><P>
+
+Ниже полный текст функции <CODE>zap-to-char</CODE> для 19 версии Emacs:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun zap-to-char (arg char)  ; version 19 implementation
+  "Удаляет до и включительно ARG'того появления CHAR
+Идет назад если ARG отрицательно; сигнализирует об ошибке если CHAR не
+найден"   
+  (interactive "*p\ncZap to char: ")
+  (kill-region (point)
+               (progn
+                 (search-forward
+                  (char-to-string char) nil nil arg)
+                 (point))))
+</pre></td></tr></table></P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC107">8.1.1 Выражение <CODE>interactive</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC108">8.1.2 Тело <CODE>zap-to-char</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Краткий обзор.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC109">8.1.3 Функция <CODE>search-forward</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Как найти строку.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC110">8.1.4 Функция <CODE>progn</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC111">8.1.5 Резюме <CODE>zap-to-char</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Используем <CODE>point</CODE> и</TD></TR>
+</TABLE>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<CODE>search-forward</CODE>.
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC112">8.1.6 Реализация для 18 Версии Emacs</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Реализация для 18 версии.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="интерактивная zap-to-char"></A>
+<HR SIZE="6">
+<A NAME="SEC107"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC106"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC108"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC105"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC106"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC114"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.1.1 Выражение <CODE>interactive</CODE> </H3>
+<!--docid::SEC107::-->
+<P>
+
+Выражение для interactive в функции <CODE>zap-to-char</CODE> выглядит
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(interactive "*p\ncZap to char: ")
+</pre></td></tr></table></P><P>
+
+Текст внутри двойных кавычек, <CODE>"*p\ncZap to char: "</CODE>, описывает
+три различные вещи. Первое и самое простое --- звездочка <SAMP>`*'</SAMP>,
+вызовет ошибку если буфер открыт в режиме только-для-чтения. Это
+означает, что если вы попытаетесь вызвать <CODE>zap-to-char</CODE> в буфере
+который открыт в режиме только-для-чтения, вы не сможете удалить
+текст, и получите следующее сообщении об ошибке которое гласит
+"Buffer is read-only"; также ваш терминал может издать звуковой
+сигнал.
+</P><P>
+
+Вторая часть <CODE>"*p\ncZap to char: "</CODE> --- это <SAMP>`p'</SAMP>. Эта
+часть оканчивается символом новой строки, <SAMP>`\n'</SAMP>. <SAMP>`p'</SAMP>
+означает, что первым аргументом передаваемым функции будет значение
+`префикс-аргумента'. Префикс-аргумент передается нажатием <KBD>C-u</KBD> и
+затем вводом числа или набором <KBD>M-</KBD> и числа. Если вы вызвали
+функцию интерактивно, без задания префикса, то в функцию будет
+передано значение 1.
+</P><P>
+
+Третья часть <CODE>"*p\ncZap to char: "</CODE> --- есть <SAMP>`cZap to
+char: '</SAMP>. Здесь символ <SAMP>`c'</SAMP> в нижнем регистре означает, что
+<CODE>interactive</CODE> выдаст подсказку и аргумент будет символом.
+Подсказка идет сразу за <SAMP>`c'</SAMP>, и это строка <SAMP>`Zap to char: '</SAMP>
+(пробел после двоеточия поставлен для более удобного отображения).
+</P><P>
+
+Все это вместе --- это подготовка аргументов для функции
+<CODE>zap-to-char</CODE>, так чтобы они были правильного типа и дает
+пользователю подсказку.
+</P><P>
+
+<A NAME="тело zap-to-char"></A>
+<HR SIZE="6">
+<A NAME="SEC108"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC107"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC109"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC105"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC106"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC114"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.1.2 Тело <CODE>zap-to-char</CODE> </H3>
+<!--docid::SEC108::-->
+<P>
+
+В теле функции <CODE>zap-to-char</CODE> содержатся инструкции которые удаляют
+текст из буфера от текущего положения курсора до заданного символа.
+Первая часть выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(kill-region (point) <small>...</small>
+</pre></td></tr></table></P><P>
+
+<CODE>(point)</CODE> --- это текущее положение курсора.
+</P><P>
+
+Затем идет выражение <CODE>progn</CODE>. Тело выражения <CODE>progn</CODE> состоит
+из вызова <CODE>search-forward</CODE> и <CODE>point</CODE>.
+</P><P>
+
+Легче понять как работает <CODE>progn</CODE> после изучения функции
+<CODE>search-forward</CODE>, так что мы сначала рассмотрим
+<CODE>search-forward</CODE>, а затем вернемся к <CODE>progn</CODE>.
+</P><P>
+
+<A NAME="search-forward"></A>
+<HR SIZE="6">
+<A NAME="SEC109"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC108"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC110"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC105"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC106"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC114"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.1.3 Функция <CODE>search-forward</CODE> </H3>
+<!--docid::SEC109::-->
+<P>
+
+Функцию <CODE>search-forward</CODE> в <CODE>zap-to-char</CODE> используют для
+нахождения заданного символа. Если поиск закончился успешно, то
+<CODE>search-forward</CODE> оставляет курсор (точку) сразу за последним
+символом в искомой строке. (В нашем случае искомая строка имеет длину
+в один символ). Если поиск производился в обратном направлении, то
+<CODE>search-forward</CODE> оставляет точку как раз перед первым символом
+искомой строки. Также, <CODE>search-forward</CODE> возвращает <CODE>t</CODE>, если
+поиск был успешным. (Следовательно перемещение курсора --- это
+`побочный эффект').
+</P><P>
+
+В <CODE>zap-to-char</CODE>, функция <CODE>search-forward</CODE> выглядит следующим
+образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(search-forward (char-to-string char) nil nil arg)
+</pre></td></tr></table></P><P>
+
+Функция <CODE>search-forward</CODE> требует четырех аргументов:
+</P><P>
+
+<OL>
+<LI>
+Первый аргумент --- это цель поиска. Это должна быть строка, такая
+как например, <SAMP>`"z"'</SAMP>.
+<P>
+
+В нашем случае оказывается, что в <CODE>zap-to-char</CODE> передается
+одиночный символ. Из-за некоторых компьютерных тонкостей,
+интерпретатор Лиспа обрабатывает одиночный символ по другому, чем он
+обрабатывает строку символов. Внутри компьютера, одиночный символ
+представлен в другом электронном формате, в отличии от строки
+состоящей из одного символа. (В компьютере один символ часто занимает
+ровно один байт; но строка может быть короткой или длинной, и
+компьютер должен быть готов к этому). Поскольку функция
+<CODE>search-forward</CODE> ожидает получить строку, то полученный символ
+нужно преобразовать внутри компьютера из одного формата в другой,
+иначе функция <CODE>search-forward</CODE> не сможет работать. Для этих целей
+используют функцию <CODE>char-to-string</CODE>.
+</P><P>
+
+<LI>
+Второй аргумент ограничивает поиск --- он задает позицию в буфере.
+В нашем случае, поиск может продолжаться до конца буфера, так что
+никакие границы не нужны и второй аргумент равен <CODE>nil</CODE>.
+<P>
+
+<LI>
+Третий аргумент информирует, что функция должна делать, если поиск
+окончится неудачей --- сигнализировать об ошибке (и напечатать
+сообщение) или вернуть <CODE>nil</CODE>. <CODE>nil</CODE> в качестве третьего
+аргумента заставит функцию сообщить об ошибке, если поиск окончится
+неудачно.
+<P>
+
+<LI>
+Четвертый аргумент <CODE>search-forward</CODE> --- это число повторов
+--- сколько появлений строки искать. Этот аргумент является
+необязательным, и если функция вызвана без числа повторов, то этому
+аргументу присваивается значение 1. Если этот аргумент отрицательный,
+то поиск производится в обратном направлении.
+</OL>
+<P>
+
+Ниже шаблон для выражения <CODE>search-forward</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(search-forward "<VAR>искомая-строка</VAR>"
+                <VAR>границы-поиска</VAR>
+                <VAR>что-делать-в-случае-неудачи</VAR>
+                <VAR>число-повторов</VAR>)
+</pre></td></tr></table></P><P>
+
+Сейчас давайте взглянем на выражение <CODE>progn</CODE>.
+</P><P>
+
+<A NAME="progn"></A>
+<HR SIZE="6">
+<A NAME="SEC110"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC109"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC111"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC105"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC106"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC114"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.1.4 Функция <CODE>progn</CODE> </H3>
+<!--docid::SEC110::-->
+<P>
+
+<CODE>progn</CODE> --- это функция которая заставляет, чтобы каждый из
+ее аргументов последовательно был вычислен и затем возвращает значение
+последнего вычисленного выражения. Предыдущие выражения вычисляются
+только ради побочных эффекты, которые они производят. Значения,
+которые они возвращают теряются.
+</P><P>
+
+Шаблон для выражения <CODE>progn</CODE> очень прост:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(progn
+  <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+В <CODE>zap-to-char</CODE>, выражение <CODE>progn</CODE> должно сделать две
+вещи --- расположить курсор на правильную позицию; и вернуть
+значение точки так, чтобы <CODE>kill-region</CODE> знал сколько текста он
+должен удалить.
+</P><P>
+
+Первый аргумент <CODE>progn</CODE> --- это <CODE>search-forward</CODE>. Когда
+<CODE>search-forward</CODE> найдет строку, функция оставит точку сразу за
+последним символом искомой строки. (В этом случае искомая строка
+длинной только в один символ). Если поиск производится в обратном
+направлении, то <CODE>search-forward</CODE> оставит точку сразу перед первым
+символом искомой строки. Следовательно движение курсора ---
+побочный эффект.
+</P><P>
+
+Второй и последний аргумент <CODE>progn</CODE> --- это выражение
+<CODE>(point)</CODE>. Это выражение возвращает значение точки которое в
+нашем случае будет на том месте, где его оставила функция
+<CODE>search-forward</CODE>. Это значение будет возвращено, как значение
+всего выражения <CODE>progn</CODE>, и будет передано как второй аргумент для
+функции <CODE>kill-region</CODE>.
+</P><P>
+
+<A NAME="Резюме zap-to-char"></A>
+<HR SIZE="6">
+<A NAME="SEC111"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC110"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC112"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC105"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC106"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC114"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.1.5 Резюме <CODE>zap-to-char</CODE> </H3>
+<!--docid::SEC111::-->
+<P>
+
+Теперь, когда мы разобрались как работают функции
+<CODE>search-forward</CODE> и <CODE>progn</CODE>, мы может понять как в целом
+работает функция <CODE>zap-to-char</CODE>.
+</P><P>
+
+Первый аргумент <CODE>kill-region</CODE> --- это позиция курсора, когда
+была дана команда <CODE>zap-to-char</CODE> --- значение точки в это
+время. Внутри <CODE>progn</CODE>, функция для поиска затем перемещает точку
+как раз за заданный символ, и <CODE>point</CODE> возвращает значение точки в
+этом месте. Функция <CODE>kill-region</CODE> получает два значения точки
+--- первое начало блока текста, а второе --- конец блока, и затем
+удаляет этот блок.
+</P><P>
+
+Функция <CODE>progn</CODE> необходима, поскольку <CODE>kill-region</CODE>
+принимает два аргумента; и не будет работать, если выражения
+<CODE>search-forward</CODE> и <CODE>point</CODE> записать последовательно, как два
+аргумента. Выражение <CODE>progn</CODE> --- это один аргумент и вернет
+одно значение. которое необходимо <CODE>kill-region</CODE> для своего
+второго аргумента.
+</P><P>
+
+<A NAME="v-18-zap-to-char"></A>
+<HR SIZE="6">
+<A NAME="SEC112"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC111"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC113"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC105"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC106"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC114"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.1.6 Реализация для 18 Версии Emacs </H3>
+<!--docid::SEC112::-->
+<P>
+
+Реализация функции <CODE>zap-to-char</CODE> для Emacs версии 18 несколько
+отличается от реализации для версии 19 --- там удаляется текст до,
+но не включая заданный символ; и удаляется текст до конца буфера, если
+заданный символ не найден.
+</P><P>
+
+Различие заключается во втором аргументе к команде <CODE>kill-region</CODE>.
+Там: где в 19 версии Emacs функция выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(progn
+  (search-forward (char-to-string char) nil nil arg)
+  (point))
+</pre></td></tr></table></P><P>
+
+В 18 версии все выглядит по другому:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (search-forward (char-to-string char) nil t arg)
+    (progn (goto-char
+            (if (&#62; arg 0) (1- (point)) (1+ (point))))
+           (point))
+  (if (&#62; arg 0)
+      (point-max)
+    (point-min)))
+</pre></td></tr></table></P><P>
+
+Это выглядит значительно сложнее, но все это станет легко понятным,
+если рассмотреть этот код по частям.
+</P><P>
+
+Первая часть это:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (search-forward (char-to-string char) nil t arg)
+</pre></td></tr></table></P><P>
+
+Его можно представить с помощью выражения <CODE>if</CODE> следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if <VAR>смогли-найти-заданный-символ-и-переместить-туда-курсор</VAR>
+    <VAR>тогда-уточнить-местоположение-точки-и-вернуть-его</VAR>
+   <VAR>иначе-переместить-курсор-в-конец-буфера-и-вернуть-значение-точки</VAR>)
+</pre></td></tr></table></P><P>
+
+Вычисление выражения <CODE>if</CODE> описывает второй аргумент функции
+<CODE>kill-region</CODE>. Поскольку первый аргумент является точкой ---
+этот процесс позволяет <CODE>kill-region</CODE> удалить текст между точкой и
+заданным символом.
+</P><P>
+
+Мы уже упоминали, что побочным эффектом <CODE>search-forward</CODE> является
+перемещение точки. <CODE>search-forward</CODE> возвращает <CODE>t</CODE>, если
+поиск завершился успешно, и <CODE>nil</CODE> или сообщение об ошибке в
+зависимости от третьего аргумента с <CODE>search-forward</CODE>. В нашем
+случае третий аргумент равен <CODE>t</CODE> и он заставляет функцию вернуть
+<CODE>nil</CODE>, если поиск завершился неудачно. Как мы увидим, довольно
+легко написать программу реагирующую на тот случай, когда поиск вернет
+<CODE>nil</CODE>.
+</P><P>
+
+В реализации <CODE>zap-to-char</CODE> для Emacs версии 18, поиск происходит,
+поскольку <CODE>if</CODE> вызывает функцию поиска в выражении для
+проверка-истинна-ложь. Если поиск успешен, то Emacs вычисляет
+then-часть выражения <CODE>if</CODE>. С другой стороны, если поиск
+завершился неудачей, тогда Emacs вычисляет else-часть выражения
+<CODE>if</CODE>.
+</P><P>
+
+Когда поиск успешен, в выражении <CODE>if</CODE>, выполняется выражение
+<CODE>progn</CODE> --- то есть оно запускается, как программа.
+</P><P>
+
+Как мы уже говорили раньше <CODE>progn</CODE> --- это функция, которая
+последовательно вычисляет свои аргументы и после этого возвращает
+значение последнего из них. Предыдущие выражения вычисляются только
+ради их побочного эффекта. Возвращаемые ими значения игнорируются.
+</P><P>
+
+В этой версии <CODE>zap-to-char</CODE>, выражение <CODE>progn</CODE> выполняется
+когда функция <CODE>search-forward</CODE> находит искомый символ. Выражение
+<CODE>progn</CODE> должно сделать две вещи --- поместить курсор в точное
+местоположение; и вернуть это местоположение точки, так чтобы
+<CODE>kill-region</CODE> знал как далеко удалять текст.
+</P><P>
+
+Причиной наличия всего этого кода в <CODE>progn</CODE>, является то, что
+когда <CODE>search-forward</CODE> находит строку которую она искала, она
+оставляет точку сразу за последним символом в целевой строке. (В нашем
+случае целевая строка длинной в один символ). Если поиск производится
+назад, то <CODE>search-forward</CODE> оставляет точку как раз перед первым
+символом в целевой строке.
+</P><P>
+
+Однако эта версия <CODE>zap-to-char</CODE> написана так, чтобы не удалять
+заданный символ. Например, если <CODE>zap-to-char</CODE> должна удалить
+текст до символа <SAMP>`z'</SAMP>, то эта версия не удалит сам символ
+<SAMP>`z'</SAMP>. Поэтому необходимо переместить точку так, чтобы заданный
+символ не был удален.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC113">Тело выражения <CODE>progn</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="тело progn"></A>
+<HR SIZE="6">
+<A NAME="SEC113"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC112"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC114"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC111"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC112"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC114"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Тело выражения <CODE>progn</CODE> </H4>
+<!--docid::SEC113::-->
+<P>
+
+Тело <CODE>progn</CODE> состоит из двух выражений. Оно выровнено, чтобы
+представить его более ясно, и с добавленными комментариями выражение
+<CODE>progn</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(progn 
+
+  (goto-char                ; Первое выражение в <CODE>progn</CODE>.
+        (if (&#62; arg 0)       ; Если <CODE>arg</CODE> положителен,
+            (1- (point))    ;   переместиться назад на один символ;
+          (1+ (point))))    ;   иначе переместиться вперед на один символ.
+ 
+  (point))                  ; Второе выражение в <CODE>progn</CODE>:
+                            ;   вернуть позицию точки.
+</pre></td></tr></table></P><P>
+
+Выражение <CODE>progn</CODE> делает следующее: когда поиск производится
+вперед (<CODE>arg</CODE> положителен), то Emacs оставляет точку как раз за
+искомым символом. В таком случае необходимо переместить курсор назад
+на одну позицию. В этом случае выражение в <CODE>progn</CODE> будет
+выглядеть следующим образом: <CODE>(goto-char (1- (point)))</CODE>. Это
+выражение перемещает точку на один символ назад. (<CODE>1-</CODE> вычитает
+единицу из своего аргумента, а <CODE>1+</CODE> наоборот, прибавляет
+единицу). С другой стороны, если аргумент к <CODE>zap-to-char</CODE>
+отрицателен, то поиск будет произведен в обратном
+направлении. <CODE>if</CODE> определит это и выражение будет выглядеть
+следующим образом: <CODE>(goto-char (1+ (point)))</CODE>. (Функция <CODE>1+</CODE>
+прибавляет единицу к своему аргументу).
+</P><P>
+
+Второй и последний аргумент к <CODE>progn</CODE>й --- это выражение
+<CODE>(point)</CODE>. Это выражение возвращает значение позиции к которой
+переместилась точка в первом выражении тела <CODE>progn</CODE>. Затем это
+значение возвращается выражением <CODE>if</CODE> и передается как второй
+аргумент в функцию <CODE>kill-region</CODE>.
+</P><P>
+
+Короче говоря, функция работает следующим образом: первый аргумент к
+<CODE>kill-region</CODE> --- это позиция курсора в тот момент, когда
+была запущена команда <CODE>zap-to-char</CODE> --- значение точки в это
+время. Функция поиска затем перемещает точку, если поиск был успешен.
+Выражение <CODE>progn</CODE> затем перемещает точку так, чтобы заданный
+символ не был удален и возвращает значение точки, после того как это
+будет выполнено. Функция <CODE>kill-region</CODE> после этого удаляет эту
+область текста.
+</P><P>
+
+Наконец, else-часть выражения <CODE>if</CODE> выполняется тогда, когда
+заданный символ не найден. Если аргумент к функции <CODE>zap-to-char</CODE>
+положителен (или он не задан), и заданный символ не найден, то
+удаляется весь текст от текущего положения курсора до конца доступной
+области буфера (или до конца буфера если не включено сужение). Если
+<CODE>arg</CODE> отрицателен и заданный символ не найден, то текст удаляется
+к началу буфера. Это реализуется в следующей инструкции <CODE>if</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (&#62; arg 0) (point-max) (point-min))
+</pre></td></tr></table></P><P>
+
+Здесь говорится, что если <CODE>arg</CODE> положительное число, то вернуть
+значение функции <CODE>point-max</CODE>, в противном случае, вернуть
+значение функции <CODE>point-min</CODE>.
+</P><P>
+
+Для повторения перепишем инструкции из <CODE>kill-region</CODE>, с
+комментариями:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(kill-region
+ (point)                    ; начало-области
+ (if (search-forward
+      (char-to-string char) ; цель-поиска
+      nil                   ; границы-поиска: нет
+      t                     ; Вернуть <CODE>nil</CODE> в случае неудачи.
+      arg)                  ; число-повторов.
+     (progn                 ; then-часть
+       (goto-char     
+        (if (&#62; arg 0)
+            (1- (point))
+          (1+ (point))))
+       (point))
+   
+   (if (&#62; arg 0)            ; else-часть
+       (point-max)
+     (point-min))))
+</pre></td></tr></table></P><P>
+
+Как видно, реализация для Emacs версии 19 делает чуть-чуть меньше чем
+в Emacs версии 18, но намного проще.
+</P><P>
+
+<A NAME="kill-region"></A>
+<HR SIZE="6">
+<A NAME="SEC114"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC113"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC115"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC106"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.2 <CODE>kill-region</CODE> </H2>
+<!--docid::SEC114::-->
+<P>
+
+Функция <CODE>zap-to-char</CODE> использует функцию <CODE>kill-region</CODE>. Это
+очень простая функция; без полной строки документации она выглядит
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun kill-region (beg end)
+  "Удалить текст между точкой и меткой.
+Текст удаляется, но сохраняется в kill ring."
+  (interactive "*r")
+  (copy-region-as-kill beg end)
+  (delete-region beg end))
+</pre></td></tr></table></P><P>
+
+Главное, что надо отметить --- это то, что в теле используются
+функции <CODE>delete-region</CODE> и <CODE>copy-region-as-kill</CODE>, которые мы
+изучим в последующих разделах.
+</P><P>
+
+<A NAME="delete-region"></A>
+<HR SIZE="6">
+<A NAME="SEC115"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC114"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC116"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.3 <CODE>delete-region</CODE>: Погружение в язык Си </H2>
+<!--docid::SEC115::-->
+<P>
+
+В функции <CODE>zap-to-char</CODE> используется функция <CODE>kill-region</CODE>,
+из которой в свою очередь вызываются две другие функции ---
+<CODE>copy-region-as-kill</CODE> и <CODE>delete-region</CODE>. Функцию
+<CODE>copy-region-as-kill</CODE> мы опишем в следующем разделе; она помещает
+копию блока текста, так, что ее можно вернуть обратно.
+(See section <A HREF="emacs-lisp-intro_9.html#SEC117"><CODE>copy-region-as-kill</CODE></A>.)
+</P><P>
+
+Функция <CODE>delete-region</CODE> удаляет содержимое области текста и вы не
+сможете вернуть его обратно.
+</P><P>
+
+В отличии от многих функций которые обсуждались здесь,
+<CODE>delete-region</CODE> написана не на Emacs Lisp --- она написана на
+языке С, и это одна из немногих примитивных функций в системе GNU
+Emacs. Поскольку она очень проста, то я ненадолго вынырну из Лиспа и
+опишу ее здесь.
+</P><P>
+
+Как и многие другие примитивы Emacs, <CODE>delete-region</CODE> реализована
+в форме макроса С, макрос который служит шаблоном для кода. Первый
+раздел макроса выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>DEFUN ("delete-region", Fdelete_region, Sdelete_region, 2, 2, "r",
+  "Удалить текст между точкой и меткой.\n\
+Когда вызывается из программы ожидает два аргумента,\n\
+число символов задающие протяженность области которая будет удалена.")
+</FONT></pre></td></tr></table></P><P>
+
+Не объясняя деталей написания макросов, стоит указать, что этот макрос
+начинается со слова <CODE>DEFUN</CODE>. Слово <CODE>DEFUN</CODE> выбрано по той
+причине, что этот код служит таким же целям, что и <CODE>defun</CODE> в
+Лиспе. За словом <CODE>DEFUN</CODE> следует семь частей в круглых скобках:
+</P><P>
+
+<UL>
+<LI>
+Первая часть --- это имя, которое дано функции в Лиспе, в этом
+случае, <CODE>delete-region</CODE>.
+<P>
+
+<LI>
+Вторая часть --- это имя функции на языке С,
+<CODE>Fdelete_region</CODE>. По принятому соглашению, ее имя начинается с
+<SAMP>`F'</SAMP>. Поскольку в С не разрешается использование знак тире в
+идентификаторах, то вместо него используется знак подчеркивания.
+<P>
+
+<LI>
+Третья часть --- это имя для постоянной структуры С, которая
+записывает информацию на эту функцию для внутреннего использования.
+Это имя функции на языке С, но начинающее с буквы <CODE>S</CODE>, а не
+<SAMP>`F'</SAMP>.
+<P>
+
+<LI>
+Четвертая и пятая часть описывают минимальное и максимальное число
+аргументов которые принимает функция. В нашем случае, функция требует
+ровно 2 аргумента.
+<P>
+
+<LI>
+Шестая часть, точно такая же как аргумент к объявлению
+<CODE>interactive</CODE> в функции написанной на Лиспе --- буква за
+которой может последовать подсказка. В нашем случае, это буква
+<CODE>"r"</CODE>, которая означает, что два аргумента к функции будут
+позициями начала и конца области в буфере. В этом коде нет никаких
+подсказок.
+<P>
+
+<LI>
+Седьмая часть --- это строка документации, точно такая же, как и
+для функции написанной на Emacs Lisp, кроме того, что каждый символ
+новой строки надо записать явно, в виде <CODE>\n</CODE> за которой должно
+явно следовать обратный слэш и перевод строки.
+</UL>
+<P>
+
+Затем идут формальные параметры, с утверждением какого они типа и
+затем, как можно вызвать `тело' макроса. Для <CODE>delete-region</CODE>
+`тело' состоит из следующих трех строк:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>validate_region (&#38;b, &#38;e);
+del_range (XINT (b), XINT (e));
+return Qnil;
+</pre></td></tr></table></P><P>
+
+Первая функция, <CODE>validate_region</CODE> проверяет правда ли что
+значения переданные в функцию как начало и конец области текста
+надлежащего типа и внутри диапазона. Вторая функция, <CODE>del_range</CODE>,
+фактически и производит удаление текста. Если функция завершает свою
+работу без ошибок, то третья строка вернет <CODE>Qnil</CODE>, для успешного
+завершения.
+</P><P>
+
+<CODE>del_range</CODE> --- это довольно сложная функция, которую мы не
+будем здесь рассматривать. Однако все же стоит взглянуть на два
+аргумента, которые передаются <CODE>del_range</CODE>. Это <CODE>XINT
+(b)</CODE> и <CODE>XINT (e)</CODE>. Когда дело доходит до языка С, <CODE>b</CODE> и
+<CODE>e</CODE> --- два тридцати двух-битные целых числа, которые
+отмечают начало и конец области текста для удаления. Но как и другие
+числа в Emacs Lisp, из тридцати двух бит для хранения числа
+используются только 24; оставшиеся восемь бит используются для
+хранения информации о типе объекта, и некоторых других целях. (На
+некоторых машинах используются только 6 бит).  В нашем случае восемь
+бит используются для записи того, что эти числа --- позиции в
+буфере. Когда биты числа используются для таких целей их называют
+<EM>тег</EM>. Использование восьми-битовых тегов для каждого
+тридцати-двух битового целого делает возможным Emacs исполнятся
+быстрее чем раньше. С другой стороны, поскольку числа ограничены
+только двадцатью четырьмя битами, то буферы Emacs ограничены
+приблизительно восемью мегабайтами. (Вы можете резко увеличить
+максимальный размер буфера изменив определения <CODE>VALBITS</CODE> и
+<CODE>GCTYPEBITS</CODE> в <TT>`emacs/src/config.h'</TT> до компиляции. Смотрите
+замечание в <TT>`emacs/etc/FAQ'</TT> который входит в дистрибутив Emacs).
+</P><P>
+
+<SAMP>`XINT'</SAMP> --- это С макрос, который извлекает 24 битовое число
+из тридцати-двух битового объекта Лиспа; восемь бит используемых для
+других целей отбрасываются. Так <CODE>del_range (XINT (b), XINT
+(e))</CODE> удаляет область между начальной позицией <CODE>b</CODE> и конечной
+позицией <CODE>e</CODE>.
+</P><P>
+
+С точки зрения человека который пишет на Лиспе, Emacs выглядит очень
+простым; но для того чтобы все это работало, внутри него спрятано
+очень много сложного.
+</P><P>
+
+<A NAME="defvar"></A>
+<HR SIZE="6">
+<A NAME="SEC116"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC115"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC117"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.4 Инициализация переменной с <CODE>defvar</CODE> </H2>
+<!--docid::SEC116::-->
+<P>
+
+В отличии от функции <CODE>delete-region</CODE>, функция
+<CODE>copy-region-as-kill</CODE> написана на Emacs Lisp. Она копирует
+область из буфера и сохраняет его в переменной <CODE>kill-ring</CODE>. В
+этом разделе мы рассмотрим как создается и инициализируется эта
+переменная.
+</P><P>
+
+(Снова необходимо отметить, что термин <CODE>kill-ring</CODE> является
+неправильным. Текст, который вырезается из буфера можно вернуть
+назад --- это не хранилище трупов, а хранилище воскресших из
+мертвых).
+</P><P>
+
+В Emacs Lisp, переменная, такая как <CODE>kill-ring</CODE>, создается и
+инициализируется с помощью особой формы <CODE>defvar</CODE>. Это сокращение
+от "define variable".
+</P><P>
+
+<CODE>defvar</CODE> --- особая форма похожая на <CODE>setq</CODE> в том, что
+она устанавливает значение переменной. Но она отличается от
+<CODE>setq</CODE> в двух местах: во первых, она устанавливает переменную,
+только если у нее еще не значения. Если у переменной уже есть
+значение, то <CODE>defvar</CODE> не изменяет его. Во вторых, у <CODE>defvar</CODE>
+может быть строка документации.
+</P><P>
+
+Вы можете посмотреть текущее значение любой переменной с помощью
+функции <CODE>describe-variable</CODE>, которая обычно запускается
+сочетанием клавиш <KBD>C-h v</KBD>. Если вы нажмете <KBD>C-h v</KBD>, а затем
+наберете в мини-буфер <CODE>kill-ring</CODE> и нажмете <KBD>RET</KBD>, то вы
+увидите, что содержит в данный момент kill ring --- там может быть
+очень много! И наоборот если вы ничего еще не редактировали в этой
+сессии Emacs, то kill-ring будет пуст. В конце <TT>`*Help*'</TT> буфера,
+вы увидите документацию для <CODE>kill-ring</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Documentation:
+List of killed text sequences.
+</pre></td></tr></table></P><P>
+
+kill-ring определяется с помощью <CODE>defvar</CODE> следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defvar kill-ring nil
+  "List of killed text sequences.")
+</pre></td></tr></table></P><P>
+
+В этом определении переменной, ей присваивается начальное значение
+<CODE>nil</CODE>, которое весьма разумно, поскольку, если вы ничего не
+сохраняли, то вы ничего и не получите после команды <CODE>yank</CODE>.
+Строка документации записывается точно также, как и для специальной
+формы <CODE>defun</CODE>. Точно также первая строка должна быть завершенным
+предложением, поскольку некоторые команды, например <CODE>apropos</CODE>,
+отображают только первую строку документации. Последующие строки не
+надо выравнивать; в противном случае они будут выглядеть странно когда
+вы используете <KBD>C-h v</KBD> (<CODE>describe-variable</CODE>).
+</P><P>
+
+<A NAME="IDX56"></A>
+<A NAME="IDX57"></A>
+Большая часть переменных являются внутренними для Emacs, но некоторые
+используются как опции так что вы легко можете установить их с помощью
+команды <CODE>edit-options</CODE>. Эти установки действительны только во
+время текущей сессии редактирования; чтобы установить переменную
+постоянно ее надо записать в ваш <TT>`.emacs'</TT>. See section <A HREF="emacs-lisp-intro_17.html#SEC190">Ваш файл <TT>`.emacs'</TT></A>.)
+</P><P>
+
+Опции предназначенные для установки пользователями можно отличить от
+других переменных по звездочке <SAMP>`*'</SAMP>, в первом столбце их строки
+документации.
+</P><P>
+
+Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defvar line-number-mode nil
+  "*Не-nil означает отображать номер текущей строки в строке состояния.")
+</pre></td></tr></table></P><P>
+
+Это означает, что вы можете использовать команду <CODE>edit-options</CODE>
+для того чтобы изменить значение переменной <CODE>line-number-mode</CODE>.
+</P><P>
+
+Конечно, вы можете также изменить значение переменной
+<CODE>line-number-mode</CODE> вычислив следующее выражение <CODE>setq</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq line-number-mode t)
+</pre></td></tr></table></P><P>
+
+See section <A HREF="emacs-lisp-intro_2.html#SEC29">Используя <CODE>setq</CODE></A>.
+</P><P>
+
+<A NAME="copy-region-as-kill"></A>
+<HR SIZE="6">
+<A NAME="SEC117"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC116"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC118"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.5 <CODE>copy-region-as-kill</CODE> </H2>
+<!--docid::SEC117::-->
+<P>
+
+Функция <CODE>copy-region-as-kill</CODE> копирует область текста из буфера и
+сохраняет ее в переменной, которая называется <CODE>kill-ring</CODE>.
+</P><P>
+
+Если вы вызовете <CODE>copy-region-as-kill</CODE> сразу после команды
+<CODE>kill-region</CODE>, то Emacs добавит свежескопированный текст к
+предыдущему тексту. Это означает, что если ли вы с помощью команды
+<CODE>yank</CODE> вставите текст обратно, то вы получите все сразу --- и
+последний и предпоследний удаленный текст. С другой стороны, если
+перед командой <CODE>copy-region-as-kill</CODE> была выполнена какая-либо
+другая команда, то текст будет сохранен, как отдельный элемент в
+список уничтожений.
+</P><P>
+
+Ниже приведена полная версия функции <CODE>copy-region-as-kill</CODE>,
+отформатированная для ясности и с добавленными комментариями:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun copy-region-as-kill (beg end)
+  "Сохранить удаленную область в kill-ring."
+  (interactive "r")
+
+  (if (eq last-command 'kill-region)
+
+      ;; then-часть: Добавить ново удаленный текст
+      ;;   к предыдущему удаленному тексту.
+      (kill-append (buffer-substring beg end) (&#60; end beg))
+
+    ;; else-часть: Добавить ново удаленный текст как отдельный элемент
+    ;;   к kill ring и укоротить его если необходимо.
+    (setq kill-ring
+          (cons (buffer-substring beg end) kill-ring))
+    (if (&#62; (length kill-ring) kill-ring-max) 
+        (setcdr (nthcdr (1- kill-ring-max) kill-ring) nil)))
+
+  (setq this-command 'kill-region)
+  (setq kill-ring-yank-pointer kill-ring))
+</pre></td></tr></table></P><P>
+
+Как обычно, эту функцию можно разделить на составные части:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun copy-region-as-kill (<VAR>argument-list</VAR>)
+  "<VAR>documentation</VAR><small>...</small>"
+  (interactive "r")
+  <VAR>body</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+Аргументы нызваютсяя <CODE>beg</CODE> и <CODE>end</CODE> и функция интерактивная с
+аргументом к <CODE>interactive</CODE> <CODE>"r"</CODE>, так что два аргумента
+должны являться началом и концом области. Если вы читаете этот
+документ с самого начала, то все это стало для вас тривиальным.
+</P><P>
+
+Документация может показаться не совсем верной если вы не помните что
+слово `kill' здесь имеет немного другое значение.
+</P><P>
+
+Тело функции начинается с оператора <CODE>if</CODE>. Он предназначен для
+двух различных ситуаций --- исполняется ли эта команда сразу за
+командой <CODE>kill-region</CODE> или нет. В первом случае, новый блок
+текста добавляется к предыдущему удаленному тексту. В противном случае
+он вставляется в начало <CODE>kill-ring</CODE>, как отдельный элемент.
+</P><P>
+
+Последние две строки функции --- это два выражение <CODE>setq</CODE>.
+Одно из них присваивает переменной <CODE>this-command</CODE> значение
+<CODE>kill-region</CODE>, а другое заставляет переменную
+<CODE>kill-ring-yank-pointer</CODE> указывать на <CODE>kill-ring</CODE>.
+</P><P>
+
+Тело <CODE>copy-region-as-kill</CODE> заслуживает более детального
+обсуждения.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC118">8.5.1 Тело <CODE>copy-region-as-kill</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="тело copy-region-as-kill"></A>
+<HR SIZE="6">
+<A NAME="SEC118"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC117"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC119"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC116"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC117"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 8.5.1 Тело <CODE>copy-region-as-kill</CODE> </H3>
+<!--docid::SEC118::-->
+<P>
+
+Функция <CODE>copy-region-as-kill</CODE> написана так, чтобы два и более
+удаления комбинировали текст в один кусок. Более того, удаления,
+которые удаляют вперед от текущей позиции курсора добавляются в конец
+предыдущего удаленного текста, а команды, которые удаляют текст назад
+добавляются в начало предыдущего удаленного текста. Таким образом
+слова всегда остаются в правильном порядке.
+</P><P>
+
+В этой функции используются две переменные, которые запоминают
+предыдущую и текущую команду Emacs. Это переменные <CODE>this-command</CODE>
+и <CODE>last-command</CODE>.
+</P><P>
+
+Обычно, когда выполняется какая-нибудь функция, Emacs устанавливает
+значение переменной <CODE>this-command</CODE> равной имени выполняемой
+функции (в нашем случае это должно быть <CODE>copy-region-as-kill</CODE>).
+Одновременно Emacs устанавливает значение <CODE>last-command</CODE> равным
+предыдущему значению <CODE>this-command</CODE>. Однако команда
+<CODE>copy-region-as-kill</CODE> ведет себя немного по-другому; она
+устанавливает переменную <CODE>this-command</CODE> равную
+<CODE>kill-region</CODE>, что является именем функции из которой мы вызвали
+<CODE>copy-region-as-kill</CODE>.
+</P><P>
+
+В первой части тела функции <CODE>copy-region-as-kill</CODE>, выражение
+<CODE>if</CODE> определяет равно ли значение <CODE>last-command</CODE>
+<CODE>kill-region</CODE>. Если да, то вычисляется then-часть выражения
+<CODE>if</CODE>; в ней используется функция <CODE>kill-append</CODE> чтобы слить
+удаленный текст с текстом который является первым элементом (CAR)
+в <CODE>kill-ring</CODE>. С другой стороны, если значение
+<CODE>last-command</CODE> не равно <CODE>kill-region</CODE>, то функция
+<CODE>copy-region-as-kill</CODE> добавляет новый элемент к <CODE>kill-ring</CODE>.
+</P><P>
+
+Выражение <CODE>if</CODE> читается следующим образом; в нем используется
+<CODE>eq</CODE>, функция которую мы еще не видели:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (eq last-command 'kill-region)
+    ;; then-часть
+    (kill-append (buffer-substring beg end) (&#60; end beg))
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX58"></A>
+Функция <CODE>eq</CODE> проверяет действительно ли ее первый аргумент тот же
+самый объект Лиспа, как и второй ее аргумент. Функция <CODE>eq</CODE> похожа
+на функцию <CODE>equal</CODE> тем, что она используется в тестах на
+равенство, но она отличается тем, что пытается определить представляют
+ли два символа действительно один и тот же объект внутри компьютера,
+но под разными именами. А функция <CODE>equal</CODE> определяет правда ли
+структура и содержание двух выражений одинаково.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC119">Функция <CODE>kill-append</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_9.html#SEC120">Else-часть <CODE>copy-region-as-kill</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="функция kill-append"></A>
+<HR SIZE="6">
+<A NAME="SEC119"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC118"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC120"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC117"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC118"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Функция <CODE>kill-append</CODE> </H4>
+<!--docid::SEC119::-->
+<P>
+
+Функция <CODE>kill-append</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun kill-append (string before-p)
+  (setcar kill-ring
+          (if before-p
+              (concat string (car kill-ring))
+              (concat (car kill-ring) string))))
+</pre></td></tr></table></P><P>
+
+Мы можем рассмотреть эту функцию по частям. Здесь функция
+<CODE>setcar</CODE> использует <CODE>concat</CODE> для того, чтобы присоединить
+новый текст к <CODE>car</CODE> <CODE>kill-ring</CODE>. Добавлять текст, как
+отдельный элемент или присоединять его к предыдущему тексту ---
+это зависит от результатов выражения <CODE>if</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if before-p                            ; if-часть
+    (concat string (car kill-ring))     ; then-часть
+  (concat (car kill-ring) string))      ; else-часть
+</pre></td></tr></table></P><P>
+
+Если блок текста был удален перед блоком текста, удаленным прошлой
+командой, то он будет добавлен перед текстом, который был сохранен
+предыдущей командой удаления текста; и наоборот, если удаленный текст
+следовал за ним, то его добавят после предыдущего текста. Выражение
+<CODE>if</CODE> зависит от предиката <CODE>before-p</CODE>, который необходим для
+того, чтобы принять решение о том, добавлять ли свеже-скопированный
+текст перед, или после предыдущего скопированного текста.
+</P><P>
+
+Символ <CODE>before-p</CODE> --- это имя одного из аргументов к
+<CODE>kill-append</CODE>. Когда вычисляется функция <CODE>kill-append</CODE> этот
+аргумент связывается со значением, которое возвращает вычисление
+фактического аргумента. В данном случае это выражение <CODE>(&#60; end
+beg)</CODE>. Само это выражение не определяет, дейстивтельно ли что
+удаленный текст в этой команде размещался перед, или после удаленного
+текста; все что она делает --- это определяет действительно ли
+переменная <CODE>end</CODE> меньше, чем переменная <CODE>beg</CODE>. Если это так,
+то это означает, что пользователь наверняка движется в направлении
+начала буфера. Также результат вычисления предикативного выражения
+<CODE>(&#60; end beg)</CODE> будет истинным и текст будет добавлен перед
+предыдущим текстом. С другой стороны, если значение переменной
+<CODE>end</CODE> больше, чем значение переменной <CODE>beg</CODE>, то текст будет
+добавлен после предыдущего текста.
+</P><P>
+
+Когда свеже-сохраненный текст будет добавлен, то строка с новым
+текстом будет слита со старым перед ним:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(concat string (car kill-ring))
+</pre></td></tr></table></P><P>
+
+Но если текст будет добавлен, то она будет слита с текстом, но после
+старого текста:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(concat (car kill-ring) string))
+</pre></td></tr></table></P><P>
+
+Чтобы понять, как это работает, нам вначале надо изучить функцию
+<CODE>concat</CODE>. Эта функция соединяет вместе две строки. Результатом
+является строка. Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(concat "abc" "def")
+     => "abcdef"
+
+(concat "новый " 
+        (car '("первый элемент" "второй элемент")))
+     => "новый первый элемент"
+
+(concat (car 
+        '("первый элемент" "второй элемент")) " модифицирован")
+     => "первый первый элемент"
+</pre></td></tr></table></P><P>
+
+Теперь имеет смысл рассмотреть функцию <CODE>kill-append</CODE> ---  она
+изменяет содержимое буфера уничтожений. Список уничтожений (kill
+ring) --- это список, каждый из элементов которого является
+сохраненным текстом. Функция <CODE>setcar</CODE> в действительности изменяет
+первый элемент данного списка. Она делает это используя функцию
+<CODE>concat</CODE> для замены предыдущего первого элемента списка
+уничтожений (поле CAR списка уничтожений) на новый элемент,
+созданный объединением старого и нового текста. Новый сохраняемый
+текст помещается перед, или после старого сохраненного текста, в
+зависимости от того, где находился этот текст по отношению к
+предыдущему вырезанному фрагменту. Все объединение становится первым
+элементом списка уничтожений.
+</P><P>
+
+В данном случае, вот как выглядит начало моего списка уничтожений:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>("связываем вместе" "сохраненный текст" "элемент" <small>...</small>
+</pre></td></tr></table></P><P>
+
+<A NAME="copy-region-as-kill else-часть"></A>
+<HR SIZE="6">
+<A NAME="SEC120"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC119"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC121"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC117"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC118"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Else-часть <CODE>copy-region-as-kill</CODE> </H4>
+<!--docid::SEC120::-->
+<P>
+
+Теперь вернемся назад к объяснению <CODE>copy-region-as-kill</CODE>:
+</P><P>
+
+Если последняя команда была не <CODE>kill-region</CODE>, то вместо вызова
+функции <CODE>kill-append</CODE>, происходит вызов else-части следующего
+кода:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if <VAR>true-or-false-test</VAR>
+    <VAR>what-is-done-if-test-returns-true</VAR>
+  ;; else-часть
+  (setq kill-ring
+        (cons (buffer-substring beg end) kill-ring))
+  (if (&#62; (length kill-ring) kill-ring-max)
+      (setcdr (nthcdr (1- kill-ring-max) kill-ring) nil)))
+</pre></td></tr></table></P><P>
+
+Строка с <CODE>setq</CODE> в else-части, устанавливает новое значение списка
+уничтожений равной результату добавления удаляемой строки к старому
+списку уничтожений.
+</P><P>
+
+Мы можем увидеть как это работает, с помощью небольшого примера:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq example-list '("вот предложениме" "другое предложение"))
+</pre></td></tr></table></P><P>
+
+После оценки этого выражения с помощью <KBD>C-x C-e</KBD>, вы можете
+оценить <CODE>example-list</CODE> и увидите, что возвращается следующее:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>example-list
+     => ("вот предложениме" "другое предложение")
+</pre></td></tr></table></P><P>
+
+Теперь, вы можете добавить новый элемент в данный список, путем оценки
+следующего выражения:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq example-list (cons "третье предложение" example-list))
+</pre></td></tr></table></P><P>
+
+Когда мы оценим <CODE>example-list</CODE>, мы обнаружим, что его значение
+равно:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=smallexample><FONT SIZE=-1><pre>example-list
+     => (третье предложение" "вот предложениме" "другое предложение")
+</FONT></pre></td></tr></table></P><P>
+
+Таким образом, третий элемент был добавлен в список с помощью функции
+<CODE>cons</CODE>.
+</P><P>
+
+Это аналогично тому, что делают <CODE>setq</CODE> и <CODE>cons</CODE> в функции,
+за тем исключением, что для получения части текста буфера и передачи
+его функции <CODE>cons</CODE>, используется функция <CODE>buffer-substring</CODE>.
+Вот эта строка:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq kill-ring (cons (buffer-substring beg end) kill-ring))
+</pre></td></tr></table></P><P>
+
+Следующий кусок else-части <CODE>copy-region-as-kill</CODE> --- это
+другое выражение <CODE>if</CODE>. Это выражение <CODE>if</CODE> сохраняет список
+уничтожений от излишнего разрастания. Этот код выглядит следующим
+образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (&#62; (length kill-ring) kill-ring-max)
+    (setcdr (nthcdr (1- kill-ring-max) kill-ring) nil)))
+</pre></td></tr></table></P><P>
+
+Этот код проверяет, не превысила ли длина списка уничтожений
+некоторого максимального значения. Это значение <CODE>kill-ring-max</CODE>
+(которое по умолчанию равно 30). Если длина списка уничтожений слишком
+большая, то этот код устанавливает последний элемент списка
+уничтожений равным <CODE>nil</CODE>. Это делается с помощью двух функций
+--- <CODE>nthcdr</CODE> и <CODE>setcdr</CODE>.
+</P><P>
+
+Мы выше рассматривали функцию <CODE>setcdr</CODE> (see section <A HREF="emacs-lisp-intro_8.html#SEC102"><CODE>setcdr</CODE></A>).
+Она устанавливает значение поля CDR списка, точно также, как и
+<CODE>setcar</CODE> устанавливает значение поля CAR списка. Однако в
+этом случа, <CODE>setcdr</CODE> не установит значение поля <CODE>cdr</CODE> всего
+списка уничтожений; функция <CODE>nthcdr</CODE> используется для того, чтобы
+установить  <CODE>cdr</CODE> предпоследнего элемента списка уничтожений
+--- это означает, что поскольку <CODE>cdr</CODE> предпоследнего элемента
+является последним элементом списка уничтожений, то будет установлено
+значение последнего элемента списка уничтожений.
+</P><P>
+
+Функция <CODE>nthcdr</CODE> работает путем повторяющегося взятия поля
+CDR списка --- она берет CDR от CDR от CDR
+<small>...</small> Она делает это <VAR>N</VAR> раз, и возвращает результат.
+</P><P>
+
+Таким образом, если у нас есть четырех-элементный список, который
+должен стать трех-элементным, то мы должны установить поле CDR
+предпоследнего элемента равным <CODE>nil</CODE>, и таким образом сократить
+список.
+</P><P>
+
+Вы можете увидеть это путем последовательной оценки следующих трех
+выражений. Сначала, установите значение <CODE>trees</CODE> равным
+<CODE>(maple oak pine birch)</CODE>, затем установите значение поля CDR
+второго поля CDR, равным <CODE>nil</CODE> и затем посмотрите на
+значение <CODE>trees</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq trees '(maple oak pine birch))
+     => (maple oak pine birch)
+
+(setcdr (nthcdr 2 trees) nil)
+     => nil
+
+trees
+     => (maple oak pine)
+</pre></td></tr></table></P><P>
+
+(Значение, возвращенное выражением <CODE>setcdr</CODE> равно <CODE>nil</CODE>,
+поскольку это то значение, которое получило поле CDR).
+</P><P>
+
+Для повторения, в <CODE>copy-region-as-kill</CODE>, функция <CODE>nthcdr</CODE>
+берет CDR на один меньшее число раз, чем максимально разрешенная
+длина списка уничтожений, и поле CDR этого элемента (который
+является оставшимися элементами списка уничтожений) делается равным
+<CODE>nil</CODE>. Это предотвращает список уничтожений от излишнего
+разрастания.
+</P><P>
+
+Предпоследней строкой функции <CODE>copy-region-as-kill</CODE> является
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre><CODE>(setq this-command 'kill-region)</CODE>
+</pre></td></tr></table></P><P>
+
+Эта строка не является частью ни внутреннего, ни внешнего выражения
+<CODE>if</CODE>, так что она оценивается при каждом вызове
+<CODE>copy-region-as-kill</CODE>. Здесь вы найдем место, где
+<CODE>this-command</CODE> получает значение <CODE>kill-region</CODE>. Как мы
+увидели ранее, когда выполняется следующая команда, то
+<CODE>last-command</CODE> получит это значение.
+</P><P>
+
+В заключение, последняя строка <CODE>copy-region-as-kill</CODE> выглядит
+так:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq kill-ring-yank-pointer kill-ring)
+</pre></td></tr></table></P><P>
+
+<CODE>kill-ring-yank-pointer</CODE> --- это глобальная переменная,
+которая получает устанавливается в <CODE>kill-ring</CODE>.
+</P><P>
+
+Даже хотя <CODE>kill-ring-yank-pointer</CODE> и называется <SAMP>`pointer'</SAMP>
+(указатель), это переменная, аналогичная списку уничтожений. Однако,
+ее имя было выбрано таким образом, чтобы помочь людям понять как
+используется эта переменная. Переменная используется в функциях, таких
+как <CODE>yank</CODE> и <CODE>yank-pop</CODE> (see section <A HREF="emacs-lisp-intro_11.html#SEC125">Вставка Текста Обратно</A>).
+</P><P>
+
+Это ведет нас к коду, который вставляет обратно текст, который был
+выкушен из буфера --- к командам вставки (yank). Однако, до
+обсуждения команд вставки, лучше изучить как списки реализованы внутри
+компьютера. Это сделает более простым такие загадки, как использование
+термина `указатель (pointer)'.
+</P><P>
+
+<A NAME="cons &#38; search-fwd Review"></A>
+<HR SIZE="6">
+<A NAME="SEC121"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC120"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC122"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC117"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.6 Обзор </H2>
+<!--docid::SEC121::-->
+<P>
+
+Кратко повторим недавно изученные функции.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>car</CODE>
+<DD><DT><CODE>cdr</CODE>
+<DD><CODE>car</CODE> возвращает первый элемент списка; <CODE>cdr</CODE> возвращает
+второй, и последующие элементы списка.
+<P>
+
+Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(car '(1 2 3 4 5 6 7))
+     => 1
+(cdr '(1 2 3 4 5 6 7))
+     => (2 3 4 5 6 7)
+</pre></td></tr></table></P><P>
+
+<DT><CODE>cons</CODE>
+<DD><CODE>cons</CODE> конструирует список, добавляя свой первый аргумент ко
+второму аргументу.
+<P>
+
+Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(cons 1 '(2 3 4))
+     => (1 2 3 4)
+</pre></td></tr></table></P><P>
+
+<DT><CODE>nthcdr</CODE>
+<DD>Возвращает результат вызова <CODE>cdr</CODE> `n' раз на списке. То есть
+`остаток остатка`.
+<P>
+
+Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(nthcdr 3 '(1 2 3 4 5 6 7))
+     => (4 5 6 7)
+</pre></td></tr></table></P><P>
+
+<DT><CODE>setcar</CODE>
+<DD><DT><CODE>setcdr</CODE>
+<DD><CODE>setcar</CODE> изменяет первый элемент списка; <CODE>setcdr</CODE> изменяет
+второй, и последующий элементы списка.
+<P>
+
+Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq triple '(1 2 3))
+
+(setcar triple '37)
+
+triple
+     => (37 2 3)
+
+(setcdr triple '("foo" "bar"))
+
+triple
+     => (37 "foo" "bar")
+</pre></td></tr></table></P><P>
+
+<DT><CODE>progn</CODE>
+<DD>Последовательно вычисляет каждый аргумент и затем возвращает значение
+последнего из них.
+<P>
+
+Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(progn 1 2 3 4)
+     => 4
+</pre></td></tr></table></P><P>
+
+<DT><CODE>save-restriction</CODE>
+<DD>Запоминает включено ли сужение в текущем буфере, и если включено, то
+после вычисления своих аргументов восстанавливает его.
+<P>
+
+<DT><CODE>search-forward</CODE>
+<DD>Ищет строку, и если строка найдена, то перемещает точку.
+<P>
+
+Принимает четыре аргумента:
+</P><P>
+
+<OL>
+<LI>
+Искомую строку.
+<P>
+
+<LI>
+Границу поиска, необязательный параметр.
+<P>
+
+<LI>
+Необязательный параметр --- что делать, если поиск окончится
+неудачей --- вернуть <CODE>nil</CODE>, или отобразить сообщение об
+ошибке.
+<P>
+
+<LI>
+Необязательный параметр --- сколько раз повторять поиск; если
+аргумент отрицательный, то поиск осуществляется в обратном
+направлении.
+</OL>
+<P>
+
+<DT><CODE>kill-region</CODE>
+<DD><DT><CODE>delete-region</CODE>
+<DD><DT><CODE>copy-region-as-kill</CODE>
+<DD><P>
+
+<CODE>kill-region</CODE> вырезает текст между точкой и меткой и сохраняет
+его в списке уничтожений, так, что вы может впоследствии вернуть его с
+помощью команды <CODE>yank</CODE>.
+</P><P>
+
+<CODE>delete-region</CODE> удаляет текст между точкой и меткой из буфера и
+отбрасывает его. Вы не сможете вернуть его назад.
+</P><P>
+
+<CODE>copy-region-as-kill</CODE> копирует текст между точкой и меткой в
+<CODE>kill-ring</CODE>, так, что впоследствии вы можете вернуть его снова.
+Эта функция не удаляет и не вырезает текст из буфера.
+</DL>
+<P>
+
+<A NAME="Упражнение с поиском"></A>
+<HR SIZE="6">
+<A NAME="SEC122"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC121"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 8.7 Упражнения с поиском </H2>
+<!--docid::SEC122::-->
+<P>
+
+<UL>
+<LI>
+Напишите интерактивную функцию, которая ищет строку. Если строка
+найдена, то функция оставляет точку на ее месте и печатает сообщение
+"Строка найдена!". (Не называйте свою функцию <CODE>search-forward</CODE>;
+если вы так сделаете, то вы перепишите существующую в Emacs
+функцию. Назовите свою версию как нибудь, например
+<CODE>test-search</CODE>).
+<P>
+
+<LI>
+Напишите функцию, которая печатает в эхо-области третий аргумент
+<CODE>kill-ring</CODE>, если он существует; если в <CODE>kill-ring</CODE> нет
+столько элементов, то печатается соответствующее сообщение.
+<P>
+
+<LI>
+Начиная с версии Emacs 19.29 <CODE>copy-region-as-kill</CODE> больше не
+устанавливает <CODE>this-command</CODE>. Каковы последствия этого изменения?
+Как вы думаете, чем это вызвано?
+</UL>
+<P>
+
+<A NAME="Реализация Списков"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_9.html#SEC104"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_10.html#SEC123"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>December, 4  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

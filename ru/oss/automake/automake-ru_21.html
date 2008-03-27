@@ -1,0 +1,134 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Расширение</TITLE>
+
+<META NAME="description" CONTENT="automake: Расширение">
+<META NAME="keywords" CONTENT="automake: Расширение">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC63"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_20.html#SEC62"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_22.html#SEC64"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_20.html#SEC62"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_22.html#SEC64"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 21. Когда не хватает возможностей Automake </H1>
+<!--docid::SEC63::-->
+<P>
+
+Неявная семантика копирования Automake означает, что много проблем может
+быть решено простым добавлением некоторых целей для <CODE>make</CODE> и правил
+для <TT>`Makefile.in'</TT>. Automake будет игнорировать эти добавления.
+</P><P>
+
+<A NAME="IDX489"></A>
+<A NAME="IDX490"></A>
+</P><P>
+
+Есть некоторые предостережения для этих работ. Хотя вы можете
+переопределить цели, уже используемые Automake, но часто это просто
+неразумно, особенно в каталоге верхнего уровня пакета не относящегося к
+типу flat. Однако, вы можете указать в вашем файле <TT>`Makefile.in'</TT>
+различные полезные цели, имеющие суффикс <SAMP>`-local'</SAMP>. Automake
+дополнит стандартные цели этими целями пользователя.
+</P><P>
+
+<A NAME="IDX491"></A>
+<A NAME="IDX492"></A>
+<A NAME="IDX493"></A>
+<A NAME="IDX494"></A>
+<A NAME="IDX495"></A>
+<A NAME="IDX496"></A>
+<A NAME="IDX497"></A>
+<A NAME="IDX498"></A>
+<A NAME="IDX499"></A>
+<A NAME="IDX500"></A>
+</P><P>
+
+К целям, поддерживающим локальную версию относятся: <CODE>all</CODE>,
+<CODE>info</CODE>, <CODE>dvi</CODE>, <CODE>check</CODE>, <CODE>install-data</CODE>,
+<CODE>install-exec</CODE>, <CODE>uninstall</CODE> и разные цели <CODE>clean</CODE>
+(<CODE>mostlyclean</CODE>, <CODE>clean</CODE>, <CODE>distclean</CODE> и
+<CODE>maintainer-clean</CODE>). Заметьте, что в этом списке нет целей
+<CODE>uninstall-exec-local</CODE> или <CODE>uninstall-data-local</CODE>; есть только
+<CODE>uninstall-local</CODE>. Это не имеет значения для удаления только данных
+или исполняемых файлов.
+<A NAME="IDX501"></A>
+<A NAME="IDX502"></A>
+<A NAME="IDX503"></A>
+<A NAME="IDX504"></A>
+<A NAME="IDX505"></A>
+<A NAME="IDX506"></A>
+<A NAME="IDX507"></A>
+</P><P>
+
+Например, вот один из способов установить файл в каталог <TT>`/etc'</TT>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>install-data-local:
+        $(INSTALL_DATA) $(srcdir)/afile /etc/afile
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX508"></A>
+<A NAME="IDX509"></A>
+</P><P>
+
+Некоторые цели также имеют способ запускать другие цели после выполнения
+всех своих действий, это называется <EM>ловушка (hook)</EM>. Ловушка
+называется по имени цели, с добавлением суффикса <SAMP>`-hook'</SAMP>. Целями,
+разрешающими использование ловушек являются <CODE>install-data</CODE>,
+<CODE>install-exec</CODE>, <CODE>dist</CODE> и <CODE>distcheck</CODE>.
+<A NAME="IDX510"></A>
+<A NAME="IDX511"></A>
+<A NAME="IDX512"></A>
+</P><P>
+
+Например, вот как создать жесткую ссылку на установленную программу:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>install-exec-hook:
+        ln $(bindir)/program $(bindir)/proglink
+</pre></td></tr></table></P><P>
+
+<A NAME="Распространение"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_20.html#SEC62"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_22.html#SEC64"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

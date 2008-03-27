@@ -1,0 +1,620 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 4  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Отладка</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Отладка">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Отладка">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC206"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_17.html#SEC205"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC207"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_17.html#SEC190"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_19.html#SEC212"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 17. Отладка </H1>
+<!--docid::SEC206::-->
+<P>
+
+В GNU Emacs имеется два отладчика --- <CODE>debug</CODE> и <CODE>edebug</CODE>.
+Первый встроен внутрь Emacs и поэтому всегда с вами; второй --- это
+расширение к Emacs, которое стало частью стандартного дистрибутива с 19
+версии.
+</P><P>
+
+Оба отладчика подробно описаны в section `Debugging Lisp Programs' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.  В этой главе я
+коротко покажу их применение.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_18.html#SEC207">17.1 <CODE>debug</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to use the built-in debugger.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_18.html#SEC208">17.2 <CODE>debug-on-entry</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Start debugging when you call a function.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_18.html#SEC209">17.3 <CODE>debug-on-quit</CODE> и <CODE>(debug)</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Start debugging when you quit with <KBD>C-g</KBD>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_18.html#SEC210">17.4 Отладчик на уровне исходного кода <CODE>edebug</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to use Edebug, a source level debugger.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_18.html#SEC211">17.5 Упражнения по отладке</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="debug"></A>
+<HR SIZE="6">
+<A NAME="SEC207"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC208"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_19.html#SEC212"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 17.1 <CODE>debug</CODE> </H2>
+<!--docid::SEC207::-->
+<P>
+
+Предположим, что вы написали определение функции которая возвращает
+сумму чисел от 1 до заданного числа.  (Это функция <CODE>triangle</CODE>
+описанная ранее).
+</P><P>
+
+Однако, в определение функции вкралась ошибка.  Вы набрали <SAMP>`1='</SAMP>
+вместо <SAMP>`1-'</SAMP>.  Вот неправильное определение функции:
+</P><P>
+
+<A NAME="IDX106"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun triangle-bugged (number)
+  "Возвращает сумму чисел от 1 до  NUMBER включительно."
+  (let ((total 0))
+    (while (&#62; number 0)
+      (setq total (+ total number))
+      (setq number (1= number)))      ; Здесь ошибка.
+    total))
+</pre></td></tr></table></P><P>
+
+Если вы читаете это в Info, то вы можете вычислить это определение
+обычным образом.  После этого в эхо-области должно появится
+<CODE>triangle-bugged</CODE>.
+</P><P>
+
+Сейчас вычислите функцию <CODE>triangle-bugged</CODE> с аргументом 4:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(triangle-bugged 4)
+</pre></td></tr></table></P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Вы получите сообщение об ошибке, которое гласит:
+
+Symbol's function definition is void: 1=
+</pre></td></tr></table></P><P>
+
+Практически, для такой простой ошибки, это сообщение даст вам всю
+необходимую информацию, для того чтобы исправить определение.  Однако
+предположим, что вы не совсем понимаете что происходит?
+</P><P>
+
+<A NAME="IDX107"></A>
+Вы может включить отладку, установив значением переменной
+<CODE>debug-on-error</CODE> в значение <CODE>t</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq debug-on-error t)
+</pre></td></tr></table></P><P>
+
+Это заставит Emacs запустить отладчик когда он в следующий раз
+встретит ошибку.
+</P><P>
+
+Вы может выключить отладку установив значением переменной
+<CODE>debug-on-error</CODE> в значение <CODE>nil</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq debug-on-error nil)
+</pre></td></tr></table></P><P>
+
+Установите <CODE>debug-on-error</CODE> в <CODE>t</CODE> и вычислите следующее:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(triangle-bugged 4)
+</pre></td></tr></table></P><P>
+
+В этот раз, Emacs создаст буфер, который называется <TT>`*Backtrace*'</TT>
+и выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>---------- Buffer: *Backtrace* ----------
+Signalling: (void-function 1=)
+  (1= number))
+  (setq number (1= number)))
+  (while (&#62; number 0) (setq total (+ total number))
+        (setq number (1= number))))
+  (let ((total 0)) (while (&#62; number 0) (setq total ...)
+        (setq number ...)) total))
+  triangle-bugged(4)
+  eval((triangle-bugged 4))
+  eval-last-sexp(nil)
+* call-interactively(eval-last-sexp)
+---------- Buffer: *Backtrace* ----------
+</pre></td></tr></table></P><P>
+
+(Я немного переформатировал пример --- отладчик не урезает длинные
+строки).
+</P><P>
+
+<A NAME="IDX108"></A>
+<A NAME="IDX109"></A>
+Вы должны читать буфер <TT>`*Backtrace*'</TT> с самого низа; в нем
+перечисляется что делал Emacs, и что привело к ошибке.  В нашем случае
+Emacs вначале выполнил интерактивный вызов функции связанной с
+<KBD>C-x C-e</KBD> (<CODE>eval-last-sexp</CODE>), что привело к вычислению
+выражения <CODE>triangle-bugged</CODE>.  Каждая последующая строка расскажет
+вам о том, что интерпретатор Лиспа вычислял после этого.
+</P><P>
+
+Третья строка сверху это
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq number (1= number))
+</pre></td></tr></table></P><P>
+
+Emacs попробовал вычислить это выражение; для того, чтобы сделать это,
+надо было вычислить внутреннее выражение, которое показано во второй
+строке сверху:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(1= number)
+</pre></td></tr></table></P><P>
+
+Здесь и произошла ошибка, поскольку верхняя строка сообщает:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Signalling: (void-function 1=)
+</pre></td></tr></table></P><P>
+
+Теперь вы можете исправить опечатку, заново вычислить определение
+функции и после этого, снова запустить тестовую программу.
+</P><P>
+
+Если вы читаете это в Info, то вы можете сейчас выключить
+<CODE>debug-on-error</CODE> установив переменную в <CODE>nil</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq debug-on-error nil)
+</pre></td></tr></table></P><P>
+
+<A NAME="debug-on-entry"></A>
+<HR SIZE="6">
+<A NAME="SEC208"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC207"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC209"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_19.html#SEC212"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 17.2 <CODE>debug-on-entry</CODE> </H2>
+<!--docid::SEC208::-->
+<P>
+
+Второй способ запустить <CODE>debug</CODE> для функции --- это вызвать
+отладчик когда вы запускаете эту функцию.  Вы может сделать это с
+помощью функции <CODE>debug-on-entry</CODE>.
+</P><P>
+
+Наберите:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>M-x debug-on-entry RET triangle-bugged RET
+</pre></td></tr></table></P><P>
+
+Теперь, вычислите следующее выражение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(triangle-bugged 5)
+</pre></td></tr></table></P><P>
+
+Emacs создаст буфер <TT>`*Backtrace*'</TT> и скажет вам, что он находится
+в начале вычисления функции <CODE>triangle-bugged</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>---------- Buffer: *Backtrace* ----------
+Entering:
+* triangle-bugged(5)
+  eval((triangle-bugged 5))
+  eval-last-sexp(nil)
+* call-interactively(eval-last-sexp)
+---------- Buffer: *Backtrace* ----------
+</pre></td></tr></table></P><P>
+
+В буфере <TT>`*Backtrace*'</TT>, нажмите <KBD>d</KBD>.  Emacs вычислит первое
+выражение функции <CODE>triangle-bugged</CODE>; и буфер будет выглядеть
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>---------- Buffer: *Backtrace* ----------
+Beginning evaluation of function call form:
+* (let ((total 0)) (while (&#62; number 0) (setq total ...)
+        (setq number ...)) total))
+  triangle-bugged(5)
+* eval((triangle-bugged 5))
+  eval-last-sexp(nil)
+* call-interactively(eval-last-sexp)
+---------- Buffer: *Backtrace* ----------
+</pre></td></tr></table></P><P>
+
+Затем, нажмите <KBD>d</KBD> снова, и так, не спеша, восемь раз.  Каждый раз
+когда вы нажимает <KBD>d</KBD>, Emacs будет вычислять следующее выражение
+из определения функции.  Постепенно буфер будет выглядеть следующим
+образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>---------- Buffer: *Backtrace* ----------
+Beginning evaluation of function call form:
+* (setq number (1= number)))
+* (while (&#62; number 0) (setq total (+ total number)) 
+        (setq number (1= number))))
+* (let ((total 0)) (while (&#62; number 0) 
+        (setq total ...) (setq number ...)) total))
+  triangle-bugged(5)
+* eval((triangle-bugged 5))
+  eval-last-sexp(nil)
+* call-interactively(eval-last-sexp)
+---------- Buffer: *Backtrace* ----------
+</pre></td></tr></table></P><P>
+
+Теперь, если вы нажмете <KBD>d</KBD> еще два раза, то Emacs достигнет
+ошибки и две верхнии строки буфера <TT>`*Backtrace*'</TT> будут выглядеть
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>---------- Buffer: *Backtrace* ----------
+Signalling: (void-function 1=)
+* (1= number))
+<small>...</small>
+---------- Buffer: *Backtrace* ----------
+</pre></td></tr></table></P><P>
+
+Последовательно нажимая <KBD>d</KBD>, вы смогли пройтись по всей функции.
+</P><P>
+
+Вы можете выйти из буфера <TT>`*Backtrace*'</TT> нажав <KBD>q</KBD>; это
+отменяет трассировку, но не отменяет <CODE>debug-on-entry</CODE>.
+</P><P>
+
+<A NAME="IDX110"></A>
+Чтобы отменить эффект <CODE>debug-on-entry</CODE>, запустите функцию
+<CODE>cancel-debug-on-entry</CODE> и задайте ей имя функции, например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>M-x cancel-debug-on-entry RET triangle-debugged RET
+</pre></td></tr></table></P><P>
+
+(Если вы читаете это в Info, то отмените <CODE>debug-on-entry</CODE> прямо
+сейчас).
+</P><P>
+
+<A NAME="debug-on-quit"></A>
+<HR SIZE="6">
+<A NAME="SEC209"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC208"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC210"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_19.html#SEC212"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 17.3 <CODE>debug-on-quit</CODE> и <CODE>(debug)</CODE> </H2>
+<!--docid::SEC209::-->
+<P>
+
+Кроме установки <CODE>debug-on-error</CODE> или запуска
+<CODE>debug-on-entry</CODE>, есть два других способа активизировать отладчик
+<CODE>debug</CODE>.
+</P><P>
+
+<A NAME="IDX111"></A>
+Вы можете запустить <CODE>debug</CODE> в любое время, когда вы нажимаете
+<KBD>C-g</KBD> (<CODE>keyboard-quit</CODE>), просто установив переменную
+<CODE>debug-on-quit</CODE> в значение <CODE>t</CODE>.  Это может быть полезным для
+отладки бесконечных циклов.
+</P><P>
+
+<A NAME="IDX112"></A>
+Или вы можете вставить строку, которая говорит запустит <CODE>(debug)</CODE>
+прямо в вашей программе, там где вы хотите чтобы был запущен
+отладчик. Например, вот так:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun triangle-bugged (number)
+  "Возвращает сумму чисел от 1 до  NUMBER включительно."
+  (let ((total 0))
+    (while (&#62; number 0)
+      (setq total (+ total number))
+      (debug)                         ; Запуск отладчика.
+      (setq number (1= number)))      ; Ошибка здесь.
+    total))
+</pre></td></tr></table></P><P>
+
+Более подробно функция <CODE>debug</CODE> описана в section `The Lisp Debugger' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.
+</P><P>
+
+<A NAME="edebug"></A>
+<HR SIZE="6">
+<A NAME="SEC210"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC209"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC211"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_19.html#SEC212"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 17.4 Отладчик на уровне исходного кода <CODE>edebug</CODE> </H2>
+<!--docid::SEC210::-->
+<P>
+
+Edebug обычно показывает исходный код программы, которую вы
+отлаживаете, со стрелочкой на левой стороне, которая отмечает текущую
+исполняемую строку.
+</P><P>
+
+Вы можете исследовать работу функции пройдя ее построчно или поставив
+<EM>точку останова</EM> в интересующем вас месте и запустив функцию на
+выполнение.
+</P><P>
+
+Более подробно edebug описан в section `Edebug' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.
+</P><P>
+
+Вот ошибочное определение функции <CODE>рекурсивный-треугольник</CODE>
+(просто для напоминания).  Этот пример представлен без выравнивания
+влево <CODE>defun</CODE>, как обьяснено ниже.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=display><pre style="font-family: serif"><TT>(defun triangle-recursively-bugged (number)
+  "Возвращает сумму чисел от 1 до  NUMBER включительно.
+Использует рекурсию."
+  (if (= number 1)                   
+      1                              
+    (+ number                        
+       (triangle-recursively-bugged   
+        (1= number)))))               ; Ошибка здесь.</TT>
+</pre></td></tr></table></P><P>
+
+Обычно вы устанавливаете это определение расположив курсор после
+закрывающей последней скобки функции и нажав <KBD>C-x C-e</KBD>
+(<CODE>eval-last-sexp</CODE>), или расположив курсор в теле функции и нажав
+<KBD>C-M-x</KBD> (<CODE>eval-defun</CODE>). (По умолчанию команда
+<CODE>eval-defun</CODE> работает только в режимах Emacs Lisp и Lisp
+Interactive).
+ 
+Однако, чтобы подготовить это определение функции для Edebug вы должны
+вначале <EM>инструментировать</EM> код с помощью другой команды.  В
+версии 19 Emacs, вы может сделать это расположив курсор в теле
+определения и нажав следующую комбинацию клавиш:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>M-x edebug-defun RET
+</pre></td></tr></table></P><P>
+
+Это заставит Emacs загрузить Edebug автоматически, если он еще не
+загружен, и правильно инструментировать функцию.  (После загрузки
+Edebug вы сможете использовать стандартные клавиши, такие как <KBD>C-u
+C-M-x</KBD> (<CODE>eval-defun</CODE> с префикс-аргументом) для запуска
+<CODE>edebug-defun</CODE>).
+</P><P>
+
+В версии 18 Emacs, вы должны загрузить Edebug сами; вы можете сделать
+это записав соответствующую команду <CODE>load</CODE> в свой файл
+<TT>`.emacs'</TT>.
+</P><P>
+
+Если вы читаете это в Info, то вы можете инструментировать функцию
+<CODE>triangle-recursively-bugged</CODE>, которая показана выше.
+<CODE>edebug-defun</CODE> не сможет правильно определить границы функции
+если строка с <CODE>defun</CODE> выровнена влево; так что пример представлен
+без обычных пробелов влево для <CODE>defun</CODE>.
+</P><P>
+
+После того, как вы проинструментировали функцию, расположите курсор за
+следующим выражением и нажмите <KBD>C-x C-e</KBD> (<CODE>eval-last-sexp</CODE>):
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(triangle-recursively-bugged 3)
+</pre></td></tr></table></P><P>
+
+Вы прыгнете сразу назад к исходному коду
+<CODE>triangle-recursively-bugged</CODE> и курсор будет расположет в начале
+строки функции содержащей функцию <CODE>if</CODE>.  Также слева вы увидете
+стрелку, которая выглядит следующим образом --- <SAMP>`=&#62;'</SAMP>.  Эта
+стрелка отмечает текущую позицию выполнения функции.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>=&#62;-!-(if (= number 1)
+</pre></td></tr></table></P><P>
+
+В примере положение точки отображено как <SAMP>`-!-'</SAMP> (В книге оно
+показано, как пять звездочек).
+</P><P>
+
+Если сейчас вы нажмете клавишу <KBD>SPC</KBD>, то точка переместится к
+следующему выражению, которое будет исполнятся; строка будет выглядеть
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>=&#62;(if -!-(= number 1)
+</pre></td></tr></table></P><P>
+
+Когда вы продолжите нажимать клавишу <KBD>SPC</KBD>, точка будет
+перемещаться от выражение к выражению.  Одновременно с этим, когда
+выражение возвращает значение, это значение будет отображатся в
+эхо-области.  Например, после того, как вы переместили точку мимо
+<CODE>number</CODE> вы увидите следующее:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Result: 3 = C-c
+</pre></td></tr></table></P><P>
+
+Это значит, что значение <CODE>number</CODE> 3 --- то есть это
+ASCII <KBD>CTL-C</KBD> (третья буква английского алфавита).
+</P><P>
+
+Вы может продолжать двигаться по программе до тех пор, пока вы не
+достигните строки с ошибкой.  Перед вычислением эта строка будет
+выглядеть следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>=&#62;        -!-(1= number)))))               ; Ошибка здесь.
+</pre></td></tr></table></P><P>
+
+Если вы нажмете <KBD>SPC</KBD> еще раз, то появится сообщение об ошибке,
+которое гласит:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>Symbol's function definition is void: 1=
+</pre></td></tr></table></P><P>
+
+Это и есть ошибка.
+</P><P>
+
+Нажмите <SAMP>`q'</SAMP> чтобы покинуть Edebug.
+</P><P>
+
+Чтобы удалить инструментарий из определения функции, надо просто
+заново вычислите определение с помощью команды, которая не
+инструментируют ее.  Например, вы можете расположить курсор за
+последней скобкой функции и нажать <KBD>C-x C-e</KBD>.
+</P><P>
+
+Edebug может делать намного больше чем просто позволить вам построчно
+выполнять функцию.  Вы можете задать условия таким образом, чтобы он
+останавливался только на ошибках; вы можете задать отображение
+различных выражений; можете узнать сколько раз была вызвана та или
+иная функция и много чего другого.
+</P><P>
+
+Edebug полностью описан в section `Edebug' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.
+</P><P>
+
+<A NAME="Упражнения по отладке"></A>
+<HR SIZE="6">
+<A NAME="SEC211"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC210"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_19.html#SEC212"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_19.html#SEC212"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 17.5 Упражнения по отладке </H2>
+<!--docid::SEC211::-->
+<P>
+
+<UL>
+<LI>
+Установите функцию <CODE>count-words-region</CODE> и сделайте так, чтобы при
+ее запуске был активизирован встроенный отладчик.  Запустите команду
+на блоке текста содержащего всего два слова.  Вам понадобится нажать
+<KBD>d</KBD> значительное число раз.  На вашей системе какая ловушка (hook)
+вызывается после окончания работы команды? (Для получения
+дополнительной информации о ловушках, смотрите section `Command Loop Overview' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.)
+<P>
+
+<LI>
+Скопируйте <CODE>count-words-region</CODE> в буфер <TT>`*scratch*'</TT>, удалите
+пробелы перед <CODE>defun</CODE>, если это необходимо необходимо,
+инструментируйте функцию для Edebug, и проследите за ее исполнением.
+В функции не должно быть ошибок, хотя вы можете внести одну, если
+конечно захотите.  Если в функции нет ошибок, то пошаговое выполнение
+завершится без проблем.
+<P>
+
+<LI>
+Во время работы в Edebug нажмите <KBD>?</KBD>, для того чтобы увидеть все
+команды Edebug.  (Обычно <CODE>global-edebug-prefix</CODE> связан с <KBD>C-x
+X</KBD>, т.е. за <KBD><KBD>CTL</KBD>-x</KBD> следует <KBD>X</KBD> в верхнем регистре;
+используйте этот префикс для выполнения комманд Edebug вне буфера
+отладки).
+<P>
+
+<LI>
+В отладочном буфере Edebug с помощью команды <KBD>p</KBD>
+(<CODE>edebug-bounce-point</CODE>) выясните на какой области текста работает
+функция <CODE>count-words-region</CODE>.
+<P>
+
+<LI>
+Переместите точку на несколько строк вниз от функции и затем нажмите
+команду <KBD>h</KBD> (<CODE>edebug-goto-here</CODE>) для того, чтобы
+переместиться к этой точке.
+<P>
+
+<LI>
+С помощью команды <KBD>t</KBD> (<CODE>edebug-trace-mode</CODE>) заставьте Edebug
+самому протрассировать функцию; используйте <KBD>T</KBD> в верхнем регистре
+для <CODE>edebug-Trace-fast-mode</CODE>.
+<P>
+
+<LI>
+Установите точку останова, затем запустите Edebug в режиме Trace до
+тех пор пока он не достигнет точки останова.
+</UL>
+<P>
+
+<A NAME="Заключение"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_19.html#SEC212"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>December, 4  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

@@ -1,0 +1,130 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Дистрибутив</TITLE>
+
+<META NAME="description" CONTENT="automake: Дистрибутив">
+<META NAME="keywords" CONTENT="automake: Дистрибутив">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC53"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_12.html#SEC52"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_14.html#SEC54"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_12.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_14.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 13. Что войдет в дистрибутив </H1>
+<!--docid::SEC53::-->
+<P>
+
+<A NAME="IDX424"></A>
+<A NAME="IDX425"></A>
+</P><P>
+
+Цель <CODE>dist</CODE>, создаваемая в генерируемом файле <TT>`Makefile.in'</TT>,
+может быть использована для создания сжатого файла <CODE>tar</CODE> с
+дистрибутивом. Имя tar-файла основывается на переменных <SAMP>`PACKAGE'</SAMP> и
+<SAMP>`VERSION'</SAMP>; а точнее, он называется
+<SAMP>`<VAR>package</VAR>-<VAR>version</VAR>.tar.gz'</SAMP>.
+<A NAME="IDX426"></A>
+<A NAME="IDX427"></A>
+<A NAME="IDX428"></A>
+Вы можете использовать переменную <CODE>make</CODE> с именем <SAMP>`GZIP_ENV'</SAMP>
+для того, чтобы управлять запуском gzip. Значением по умолчанию является
+строка <SAMP>`--best'</SAMP>.
+</P><P>
+
+В большинстве случаев файлы, необходимые для дистрибутива, автоматически
+находятся Automake: все файлы исходных текстов автоматически включаются
+в состав дистрибутива, так же как и все файлы <TT>`Makefile.am'</TT> и
+<TT>`Makefile.in'</TT>. Automake также имеет встроенный список часто
+используемых файлов, которые автоматически включаются в состав
+дистрибутива, если они существуют в текущем каталоге.  Этот список показывается
+при выполнении <SAMP>`automake --help'</SAMP>. Также автоматически включаются
+файлы, которые читает программа <CODE>configure</CODE> (например, файлы исходных
+текстов, относящиеся к файлам, указанным при запуске макроса
+<CODE>AC_OUTPUT</CODE>).
+</P><P>
+
+Все равно, иногда существуют файлы, которые должны входить в состав
+дистрибутива, но которые не смогли попасть в автоматически созданный
+список.  Эти файлы должны быть перечислены в переменной
+<CODE>EXTRA_DIST</CODE>. Вы можете указывать в переменной <CODE>EXTRA_DIST</CODE>
+файлы из подкаталогов. Вы можете также указывать каталоги: в этом
+случае весь каталог будет рекурсивно скопирован в дистрибутив.
+<A NAME="IDX429"></A>
+</P><P>
+
+Если вы определили переменную <CODE>SUBDIRS</CODE>, то Automake будет
+рекурсивно включать подкаталоги в состав дистрибутива. Если
+<CODE>SUBDIRS</CODE> определен условно (see section <A HREF="automake-ru_18.html#SEC60">18. Условные операторы</A>), то
+Automake включит в дистрибутив все подкаталоги, которые могут появиться
+в <CODE>SUBDIRS</CODE>. Если вам необходимо указать список каталогов условно,
+то вы можете задать в переменной <CODE>DIST_SUBDIRS</CODE> точный список
+подкаталогов, которые необходимо включить в дистрибутив.
+<A NAME="IDX430"></A>
+</P><P>
+
+<A NAME="IDX431"></A>
+</P><P>
+
+Время от времени полезно иметь возможность изменить дистрибутив до
+того, как он будет упакован.  Если существует цель <CODE>dist-hook</CODE>, то она
+запускается после создания каталога с дистрибутивом, но до того, как
+создается файл <TT>`.tar'</TT> (или <TT>`.shar'</TT>).  Это применяется для распространения
+файлов из подкаталогов, в которых было бы избыточным создавать файл
+<TT>`Makefile.am'</TT>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>dist-hook:
+        mkdir $(distdir)/random
+        cp -p $(srcdir)/random/a1 $(srcdir)/random/a2 $(distdir)/random
+</pre></td></tr></table></P><P>
+
+Automake также создает цель <CODE>distcheck</CODE>, которая может помочь
+убедиться в том, что дистрибутив работает.  <CODE>distcheck</CODE> создает
+дистрибутив и пытается его построить с помощью <CODE>VPATH</CODE>.
+<A NAME="IDX432"></A>
+</P><P>
+
+<A NAME="Тесты"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_12.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_14.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

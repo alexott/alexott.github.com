@@ -1,0 +1,184 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on February, 19  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>automake: Ключи</TITLE>
+
+<META NAME="description" CONTENT="automake: Ключи">
+<META NAME="keywords" CONTENT="automake: Ключи">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC55"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_14.html#SEC54"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC56"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_14.html#SEC54"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC56"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 15. Изменение поведения Automake </H1>
+<!--docid::SEC55::-->
+<P>
+
+Различные возможности Automake могут контролироваться ключами в файле
+<TT>`Makefile.am'</TT>. Такие ключи перечислены в специальной переменной с
+именем <CODE>AUTOMAKE_OPTIONS</CODE>. В настоящее время распознаются следующие
+ключи:
+<A NAME="IDX444"></A>
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>gnits</CODE>
+<DD><DT><CODE>gnu</CODE>
+<DD><DT><CODE>foreign</CODE>
+<DD><DT><CODE>cygnus</CODE>
+<DD><A NAME="IDX445"></A>
+<A NAME="IDX446"></A>
+<A NAME="IDX447"></A>
+<A NAME="IDX448"></A>
+Устанавливает соответствующий уровень ограничений. Ключ <CODE>gnits</CODE>
+также предполагает наличие ключей <CODE>readme-alpha</CODE> и
+<CODE>check-news</CODE>.
+<P>
+
+<DT><CODE>ansi2knr</CODE>
+<DD><DT><CODE>path/ansi2knr</CODE>
+<DD><A NAME="IDX449"></A>
+Включает автоматическую де-ANSI-фикацию. See section <A HREF="automake-ru_7.html#SEC35">7.10 Автоматическая де-ANSI-фикация</A>. Если в начале
+строки указан путь, то сгенерированный <TT>`Makefile.in'</TT> будет искать
+программу <TT>`ansi2knr'</TT> в указанном каталоге. В общем случае путь
+должен быть относительным путем к другому каталогу в данном пакете (хотя
+в настоящее время Automake не делает проверку этого пути).
+<P>
+
+<DT><CODE>check-news</CODE>
+<DD><A NAME="IDX450"></A>
+Вызывает сбой <CODE>make dist</CODE> до тех пор, пока номер текущей версии не
+появится в нескольких первых строках файла <TT>`NEWS'</TT>.
+<P>
+
+<DT><CODE>dejagnu</CODE>
+<DD><A NAME="IDX451"></A>
+Заставляет генерировать специфичные для <CODE>dejagnu</CODE> правила.
+See section <A HREF="automake-ru_14.html#SEC54">14. Поддержка комплектов тестирования</A>.
+<P>
+
+<DT><CODE>dist-shar</CODE>
+<DD><A NAME="IDX452"></A>
+Создает цель <CODE>dist-shar</CODE> также как и обычную цель <CODE>dist</CODE>. Эта
+новая цель будет создавать shar-архив дистрибутива.
+<A NAME="IDX453"></A>
+<P>
+
+<DT><CODE>dist-zip</CODE>
+<DD><A NAME="IDX454"></A>
+Создает цель  <CODE>dist-zip</CODE> также как и обычную цель <CODE>dist</CODE>
+Эта новая цель будет создавать zip-архив дистрибутива.
+<A NAME="IDX455"></A>
+<P>
+
+<DT><CODE>dist-tarZ</CODE>
+<DD><A NAME="IDX456"></A>
+Создает цель <CODE>dist-tarZ</CODE> также как и обычную цель <CODE>dist</CODE>
+target. Эта новая цель будет создавать сжатый tar-архив дистрибутива;
+предполагается использование традиционных программ <CODE>tar</CODE> и
+<CODE>compress</CODE>. Предупреждение: Если вы в действительности используете
+<CODE>GNU tar</CODE>, то созданный архив может содержать непереносимые
+конструкции.
+<A NAME="IDX457"></A>
+<P>
+
+<DT><CODE>no-dependencies</CODE>
+<DD><A NAME="IDX458"></A>
+Этот ключ похож на ключ командной строки <SAMP>`--include-deps'</SAMP>, но
+полезен в тех ситуациях, где вы не имеете необходимости в автоматическом
+отслеживание зависимостей See section <A HREF="automake-ru_7.html#SEC36">7.11 Автоматическое отслеживание зависимостей</A>. В этом случае можно
+запретить автоматическое отслеживание зависимостей. 
+<P>
+
+<DT><CODE>no-installinfo</CODE>
+<DD><A NAME="IDX459"></A>
+Сгенерированный <TT>`Makefile.in'</TT> не будет по умолчанию обрабатывать и
+устанавливать страницы info. Однако, цели <CODE>info</CODE> и
+<CODE>install-info</CODE> все равно будут доступны. Этот ключ запрещен при
+уровне ограничения <SAMP>`GNU'</SAMP> и выше.
+<A NAME="IDX460"></A>
+<A NAME="IDX461"></A>
+<P>
+
+<DT><CODE>no-installman</CODE>
+<DD><A NAME="IDX462"></A>
+Сгенерированный <TT>`Makefile.in'</TT> не будет по умолчанию устанавливать
+справочные страницы.  Однако, цель <CODE>install-man</CODE> все равно будет
+доступна для использования. Этот ключ запрещен при уровне ограничения
+<SAMP>`GNU'</SAMP> и выше.
+<A NAME="IDX463"></A>
+<P>
+
+<DT><CODE>no-texinfo.tex</CODE>
+<DD><A NAME="IDX464"></A>
+Отменяет требования на наличие файла <TT>`texinfo.tex'</TT>, даже если файлы
+texinfo присутствуют в этом каталоге.
+<P>
+
+<DT><CODE>readme-alpha</CODE>
+<DD><A NAME="IDX465"></A>
+Если этот выпуск является выпуском в стадии альфа и существует файл
+<TT>`README-alpha'</TT>, то он будет добавлен в дистрибутив. Если задан этот
+ключ, то номер версии может быть представлен в одной из двух
+форм. Первая форма выглядит следующим образом:
+<SAMP>`<VAR>MAJOR</VAR>.<VAR>MINOR</VAR>.<VAR>ALPHA</VAR>'</SAMP>, где каждый элемент является
+числом; заключительная точка и номер должны быть опущены для не-альфа
+выпусков. Вторая форма выглядит следующим образом:
+<SAMP>`<VAR>MAJOR</VAR>.<VAR>MINOR</VAR><VAR>ALPHA</VAR>'</SAMP>, где <VAR>ALPHA</VAR> это буква; они
+должны быть убраны для не-альфа выпусков.
+<P>
+
+<DT><VAR>version</VAR>
+<DD><A NAME="IDX466"></A>
+Может быть указан номер версии (например, <SAMP>`0.30'</SAMP>). Если Automake не
+новее указанной версии, то будет запрещено создание <TT>`Makefile.in'</TT>.
+</DL>
+<P>
+
+Нераспознанные ключи оцениваются <CODE>automake</CODE>.
+</P><P>
+
+<A NAME="Разное"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_14.html#SEC54"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_16.html#SEC56"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[Index]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="automake-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>February, 19  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

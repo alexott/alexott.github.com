@@ -1,0 +1,359 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on March, 10  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Предисловие</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Предисловие">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Предисловие">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC2"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_1.html#SEC1"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC4"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_1.html#SEC1"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> Предисловие </H1>
+<!--docid::SEC2::-->
+<P>
+
+Большая часть интегрированной среды GNU Emacs написана на языке
+программирования Emacs Lisp.  Код написанный на этом языке
+программирования --- это программное обеспечение, набор инструкций,
+которые говорят компьютеру что делать, когда вы даете эти команды.
+Emacs сконструирован так, что вы можете писать новый код на Emacs Lisp и
+легко устанавливать его как расширение к редактору.  Вот почему Emacs
+называют "расширяемым редактором".
+</P><P>
+
+(На самом деле, поскольку Emacs может делать много больше, чем просто
+редактировать текст, его по праву можно назвать "расширяемой средой
+редактирования", но эта фраза слишком труднопроизносима.  Также, все,
+что вы делаете в Emacs: находите даты по календарю Майа и фазы луны,
+упрощаете полином, отлаживаете программы, управляете файлами, читаете
+электронную почту, пишете книги --- все эти действия являются
+редактированием в самом общем смысле слова).
+</P><P>
+
+Хотя о языке Emacs Lisp обычно вспоминают только в связи с текстовым
+редактором, это полноправный язык программирования.  Вы можете
+использовать его так же как и любой другой язык программирования.
+</P><P>
+
+Возможно, вы хотите научиться программированию, или добавить
+какую-нибудь полезную функцию к Emacs; может быть, вы хотите стать
+программистом.  Введение в Emacs Lisp написано, чтобы помочь вам в самом
+начале: оно станет вашим помощником в изучении основ программирования и,
+что более важно, покажет вам, как в дальнейшем вы сможете обучаться
+самостоятельно.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_2.html#SEC3">Как читать этот текст</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_2.html#SEC4">Для кого это написано</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_2.html#SEC5">Происхождение Emacs Lisp</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Немного истории.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_2.html#SEC6">Замечание для новичков</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_2.html#SEC7">Благодарности</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Как читать этот текст"></A>
+<A NAME="SEC3"></A>
+<H2> Как читать этот текст </H2>
+<!--docid::SEC3::-->
+<P>
+
+В этой книге вы увидите небольшие простенькие программы, которые можно
+опробовать не выходя из Emacs.  Если вы читаете этот документ с помощью
+встроенной в Emacs справочной системы Info, то вы можете запускать
+программы по мере их появления.  (Это очень легко сделать, и я научу вас
+этому, когда появятся примеры).  Вместо этого вы можете читать эту книгу
+в печатном виде сидя рядом с компьютером, на котором запущен Emacs.
+(Именно так я обычно делаю; я очень люблю книги).  Если у вас нет под
+боком Emacs, то вы все равно сможете с пользой читать эту книгу, но в
+таком случае, лучше относиться к ней как к художественному произведению
+или как к путеводителю в незнакомую страну: интересно, но лучше все-таки
+побывать там.
+</P><P>
+
+Большая часть этой книги посвящена изучению и объяснению программ,
+используемых в GNU Emacs.  Такой способ выбран не случайно: во-первых, я
+хочу, чтобы вы познакомились с настоящим, работающим кодом (функциями
+которыми вы пользуетесь каждый день); и во-вторых, чтобы вы
+познакомились с тем, как устроен Emacs.  Очень полезно понимать как
+работает ваш редактор.  Также я надеюсь, что у вас появится желание
+исследовать исходный код, написанный на Emacs Lisp, входящий в состав GNU
+Emacs.  Благодаря этому вы сможете многому научиться.  GNU Emacs ---
+это сокровищница знаний, охраняемая драконом.
+</P><P>
+
+Кроме изучения Emacs как редактора и Emacs Lisp как языка
+программирования, примеры и исследование исходных кодов Emacs дадут вам
+возможность познакомиться с Emacs, как с интегрированной средой
+программирования.  GNU Emacs очень помогает при разработке программного
+обеспечения, поскольку предоставляет инструменты, с которыми вам будет
+удобно работать, например, сочетание клавиш <KBD>M-.</KBD>  (Это сочетание
+запускает команду <CODE>find-tag</CODE>).  Вы также научитесь использовать
+буфера и другие объекты, которые являются частью среды редактирования.
+Обучение этим возможностям Emacs похоже на изучение новых маршрутов в
+вашем родном городе.
+</P><P>
+
+Кроме этого я написал несколько программ в качестве более сложных
+примеров.  Хотя это только примеры, они являются самыми настоящими
+программами.  Я сам использую их.  Другие люди используют их.  Вы тоже
+можете использовать их.  Если не считать фрагментов программ, которые
+приведены здесь только в "учебных целях, то, что вы увидите в этой
+книге, используется в реальной жизни.  В этом огромное преимущество
+Emacs Lisp --- его легко приспособить для повседневной работы.
+</P><P>
+
+Наконец, я надеюсь поделиться богатым опытом использования Emacs, чтобы
+вы могли понять аспекты программирования, которые вы еще не знаете.  Вы
+часто сможете использовать Emacs для решения какой-нибудь задачи или для
+выяснения, как сделать что-то иным способом.  Emacs придаст вам
+уверенность<A NAME="DOCF1" HREF="elisp-intro-ru_fot.html#FOOT1">(1)</A> в своих
+силах, а это не только приятно само по себе, но и является огромным
+преимуществом.
+</P><P>
+
+<A NAME="Кто Вы"></A>
+<HR SIZE="6">
+<A NAME="SEC4"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC2"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC5"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC3"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> Для кого это написано </H2>
+<!--docid::SEC4::-->
+<P>
+
+Этот текст написан как элементарное введение в программирование для
+людей, которые сами не являются профессиональными программистами.  Если
+вы профессиональный программист, то вас может не устроить эта книга.
+Может быть, вы уже стали специалистом в чтении справочных руководств, и
+вас будет раздражать организация этого текста.
+</P><P>
+
+Опытный программист, который просмотрел этот текст сказал мне:
+</P><P>
+
+<BLOCKQUOTE>
+<I>Я предпочитаю учиться из справочников.  Я "ныряю" в каждый параграф
+и "вдыхаю" в промежутке между ними.</I>
+<P>
+
+<I>Когда я заканчиваю параграф, то полагаю, что тема закрыта, и я знаю
+все, что нужно (есть исключения, когда следующий параграф начинает
+говорить об этом более детально).  Я ожидаю, что хорошо написанное
+руководство не будет избыточным и будет иметь отлично организованный
+индекс и содержать ссылки на места, где я смогу найти всю необходимую
+мне информацию.</I>
+</BLOCKQUOTE>
+<P>
+
+Это введение написано не для такого человека!
+</P><P>
+
+Во-первых, я пробую сказать все как минимум три раза: первый раз ---
+чтобы представить что-нибудь; второй раз --- чтобы показать это в
+контексте; и третий раз --- чтобы напомнить или показать информацию
+в другом ракурсе.
+</P><P>
+
+Во-вторых, я никогда не помещаю всю информацию о новом понятии в одном
+месте, тем более в одном параграфе.  По моему мнению это возлагает
+слишком тяжелую ношу на читателя.  Вместо этого я пробую объяснить
+только то, что вам надо знать к этому времени.  (Иногда я включаю
+немного дополнительной информации, откладывая формальное объяснение до
+более позднего времени).
+</P><P>
+
+Когда вы будете читать этот текст, не ждите, что вы научитесь всему с
+первого раза.  Часто вы только, так сказать, "поверхностно"
+познакомитесь с некоторыми представленными темами.  Я надеюсь, что
+неплохо структурировал текст и дал вам достаточно подсказок, для того,
+чтобы вы смогли понять, что более важно, и сконцентрировались на этом.
+</P><P>
+
+Иногда вам все таки придется "углубляться" в некоторые параграфы
+--- нет другого способа усвоить их.  Но я пытался уменьшить число таких
+мест в тексте.  Эта книга более походит на пологий холм, чем на отвесную
+гору.
+</P><P>
+
+Это <EM>введение</EM> в <CITE>Программирование на Emacs Lisp</CITE> имеет
+вспомогательный документ,
+section `The GNU Emacs Lisp Reference Manual' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.
+Справочное руководство содержит намного больше деталей, чем данная
+книга.  В справочнике вся информация об одной теме сконцентрирована в
+одном месте.  Вы можете использовать это руководство, если вы похожи на
+программиста о котором я упоминал выше.  И конечно, после того как вы
+прочтете это <CITE>Введение</CITE>, то вы поймете, что <CITE>GNU Emacs Lisp
+Reference Manual</CITE> весьма полезен, когда вы пишете свои собственные
+программы.
+</P><P>
+
+<A NAME="Происхождение Emacs Lisp"></A>
+<HR SIZE="6">
+<A NAME="SEC5"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC4"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC6"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> Происхождение Emacs Lisp </H2>
+<!--docid::SEC5::-->
+<P>
+
+Лисп был разработан в конце 1950-х годов в Массачусетском
+Технологическом Институте в результате проекта по исследованию
+искусственного интеллекта.  Огромная мощь языка Лисп сделала его
+подходящим также и для других задач, например, для написания команд
+редактирования.
+</P><P>
+
+<A NAME="IDX1"></A>
+<A NAME="IDX2"></A>
+GNU Emacs Lisp в основном произошел от Maclisp, который был создан в МТИ
+в 1960-е годы.  И кое-где основывается на Common Lisp, который стал
+стандартом в 1980-е годы.  Однако Emacs Lisp намного проще чем Common
+Lisp.  (В стандартном дистрибутиве Emacs есть файл расширения
+<TT>`cl.el'</TT>, который добавляет к Emacs Lisp много возможностей Common
+Lisp).
+</P><P>
+
+<A NAME="Замечание Для Новичков"></A>
+<HR SIZE="6">
+<A NAME="SEC6"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC5"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC7"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> Замечание для новичков </H2>
+<!--docid::SEC6::-->
+<P>
+
+Если вы не используете GNU Emacs, то прочтение этого документа все равно
+принесет вам пользу.  Однако я настоятельно рекомендую вам освоить
+Emacs.  Вы сможете научиться использовать Emacs с помощью встроенной
+обучающей программы (Tutorial).  Чтобы запустить ее нажмите <KBD>C-h t</KBD>.
+(Это значит что вы нажимаете и отпускаете клавишу <KBD>CTRL</KBD> и <KBD>h</KBD>
+одновременно, а потом нажимаете и отпускаете клавишу <KBD>t</KBD>).
+</P><P>
+
+Также я часто буду упоминать стандартные команды Emacs, перечисляя
+клавиши, которые вы должны нажать, чтобы запустить эту команду и потом
+даю имя команды в скобках, например: <KBD>M-C-\</KBD>
+(<CODE>indent-region</CODE>).  Это означает, что обычно команда
+<CODE>indent-region</CODE> запускается нажатием сочетания клавиш
+<KBD>M-C-\</KBD>.  (Вы можете, если захотите, изменить сочетания клавиш,
+которые надо набрать, чтобы запустить команду; это называется
+<EM>привязка</EM>.  See section <A HREF="elisp-intro-ru_18.html#SEC203">Таблицы ключей</A>.)  Сокращение
+<KBD>M-C-\</KBD> означает, что вы одновременно нажимаете клавиши
+<KBD>META</KBD>, <KBD>CTRL</KBD> и <KBD>\</KBD>.  Иногда подобные комбинации называют
+клавиатурными аккордами, поскольку это похоже на аккорды при игре на
+пианино.  Если на вашей клавиатуре нет ни клавиши <KBD>META</KBD>, ни
+<KBD>ALT</KBD>, то в качестве префикса можно использовать клавишу
+<KBD>ESC</KBD>.  В этом случае <KBD>M-C-\</KBD> означает, что вы нажимаете и
+отпускаете клавишу <KBD>ESC</KBD>, а потом одновременно нажимаете и
+отпускаете клавиши <KBD>CTRL</KBD> и <KBD>\</KBD>.
+</P><P>
+
+Если вы читаете этот документ в Info с помощью GNU Emacs, то вы можете
+пролистать весь этот документ, нажимая клавишу пробела <KBD>SPC</KBD>. (Чтобы
+изучить Info, нажмите <KBD>C-h i</KBD> и затем выберите пункт Info).
+</P><P>
+
+Замечание по терминологии: когда я использую слово Лисп, я обычно имею в
+виду все различные диалекты Лиспа, но, когда я говорю о Emacs Lisp, я
+имею в виду именно Emacs Lisp.
+</P><P>
+
+<A NAME="Благодарности"></A>
+<HR SIZE="6">
+<A NAME="SEC7"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC6"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> Благодарности </H2>
+<!--docid::SEC7::-->
+<P>
+
+Я искренне благодарен всем кто помог мне с этой книгой.  Выражаю особую
+признательность Jim Blandy, Noah Friedman, Jim Kingdon,
+Roland McGrath, Frank Ritter, Randy Smith, Richard M.
+Stallman, и Melissa Weisshaus.  Благодарю также Philip Johnson
+и David Stampe за их терпеливую поддержку.  Все ошибки исключительно
+мои собственные.
+</P><P>
+
+<A NAME="Обработка Списков"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_3.html#SEC8"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>March, 10  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

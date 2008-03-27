@@ -1,0 +1,7 @@
+#title Squid GSB redirector
+#refresh 1;url=cf/squid-gsbapi.html
+
+Page is moved to [[cf/squid-gsb][another location]]
+
+
+;  LocalWords:  redirector html

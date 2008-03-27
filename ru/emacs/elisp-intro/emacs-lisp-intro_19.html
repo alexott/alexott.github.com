@@ -1,0 +1,172 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 4  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Заключение</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Заключение">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Заключение">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC212"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC211"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_20.html#SEC213"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_20.html#SEC213"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 18. Заключение </H1>
+<!--docid::SEC212::-->
+<P>
+
+Сейчас мы добрались до конца этого введения.  Вы достаточно научились
+программированию на Emacs Lisp для того чтобы устанавливать значения
+переменных, создавать простые файлы <TT>`.emacs'</TT> для себя и своих
+друзей, а также писать небольшие настройки и расширения к Emacs.
+</P><P>
+
+Самое место остановиться.  Или если вы хотите, то вы можете идти
+вперед и учиться самостоятельно.
+</P><P>
+
+Вы изучили основные принципы программирования.  Но только некоторые.
+Намного больше тонкостей мы даже не коснулись.
+</P><P>
+
+Дорога по которой вы можете отправится прямо сейчас лежит среди
+исходных текстов GNU Emacs и в
+section `The GNU Emacs Lisp Reference Manual' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.
+</P><P>
+
+Исследование исходных кодов Emacs Lisp --- это приключение.  Когда
+вы читаете программу и обнаруживаете незнакомую функцию или выражение,
+то вы должны выяснить что она делает.
+</P><P>
+
+Обращайтесь к справочному руководству.  Это полное, подробное и
+довольно доступно написаное изложение Emacs Lisp.  Оно написано не
+только для экспертов, но и для таких как вы.  (<CITE>Справочное
+руководство</CITE> поставляется в стандартном дистрибутиве GNU Emacs.  Как и
+это введение оно поставляется в виде Texinfo файла, так что вы можете
+создать интерактивную документацию или распечатать в виде книги).
+</P><P>
+
+Не забывайте и о встроенной помощи, которая является частью GNU Emacs.
+Существует помощь для всех функций а программа <CODE>find-tags</CODE>
+позволит вам быстро найти исходный код любой функции.
+</P><P>
+
+Вот как я сам начал исследовать исходный код.  Из-за того, что его имя
+говорит само за себя, я сначала заглянул в файл <TT>`simple.el'</TT>
+--- это было довольно давно.  Некоторые функции выглядели достаточно
+сложными или по крайней мере так казалось с первого взгляда.  Первая
+функция выглядит достаточно сложной.  Это функция <CODE>open-line</CODE>.
+</P><P>
+
+Вы можете медленно изучить работу этой функции, подобно тому как мы
+делали это с функцией <CODE>forward-sentence</CODE>.
+(See section <A HREF="emacs-lisp-intro_13.html#SEC150">12.3 <CODE>forward-sentence</CODE></A>.)
+Или вы захотите пропустить эту функцию и взглянуть на следующую,
+например <CODE>split-line</CODE>.  Вы же не обязаны читать все функции.
+Согласно <CODE>count-words-in-defun</CODE>, функция <CODE>split-line</CODE>
+содержит всего 27 слов и символов.
+</P><P>
+
+Даже такая короткая функция содержит четыре выражения которые мы не
+изучали: <CODE>skip-chars-forward</CODE>, <CODE>indent-to</CODE>, <CODE>insert</CODE>, и
+<SAMP>`?\n'</SAMP>.
+</P><P>
+
+Рассмотрим функцию <CODE>insert</CODE>.  (Она уже упоминалась в
+<A HREF="emacs-lisp-intro_13.html#SEC162">12.6 Заключение</A>.)
+В Emacs вы можете выяснить больше о функции <CODE>insert</CODE> нажав
+<KBD>C-h f</KBD> (<CODE>describe-function</CODE>) и задав имя функции.  Это
+отобразит документацию по данной функции.  Вы можете найти исходный
+код с помощью функции <CODE>find-tag</CODE>, которая привязана к <KBD>M-.</KBD>
+(в данном случае это не очень полезно; эта функция является примитивом
+написанным на С а не на Lisp).  Наконец вы можете узнать, что сообщает
+справочник по этому поводу, посетив Info, нажав <KBD>i</KBD>
+(<CODE>Info-index</CODE>), и затем набрав имя функции или отыскав
+<CODE>insert</CODE> в индексе печатного руководства.
+</P><P>
+
+Подобным образом вы можете выяснить что значит <SAMP>`?\n'</SAMP>.  Вы можете
+снова попробовать <CODE>Info-index</CODE> с <SAMP>`?\n'</SAMP>.  Окажется, что это
+бесполезно; но не отчаивайтесь.  Если вы будет искать по <SAMP>`\n'</SAMP> без
+<SAMP>`?'</SAMP>, то вы попадете прямо в соответствующий раздел руководства.
+(See section `Character Type' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.  <SAMP>`?\n'</SAMP> означает символ новой строки.)
+</P><P>
+
+Вы можете догадаться что делают функции <CODE>skip-chars-forward</CODE> и
+<CODE>indent-to</CODE>; или также найти информацию по ним.  (Кстати сама
+функция <CODE>describe-function</CODE> расположена в файле <TT>`help.el'</TT>
+--- это одна из длинных, но понятных функций.  В ее определении
+показано как настраивать выражение <CODE>interactive</CODE> без
+использования стандартных символьных кодов; а также показано как
+создавать временный буфер).
+</P><P>
+
+Среди других интересных файлов можно отметить файлы
+<TT>`paragraphs.el'</TT>, <TT>`loaddefs.el'</TT> и <TT>`loadup.el'</TT>.  В файле
+<TT>`paragraphs.el'</TT> есть как короткие и легко понятные функции, так и
+достаточно длинные и сложные.  Файл <TT>`loaddefs.el'</TT> содержит много
+стандартных автозагрузок и много другого.  Я никогда не смотрел его
+полностью, только некоторые его части.  <TT>`loadup.el'</TT> --- это
+файл в котором загружаются стандартные части Emacs; там можно многое
+узнать о том, как устроем редактор.  (See section `Building Emacs' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>, для получения
+дополнительной информации о сборке редактора).
+</P><P>
+
+Как я уже говорил вы изучили только основы; однако и это очень
+важно --- мы едва коснулись основных аспектов программирования.  Я
+ничего не говорил о сортировке информации, кроме использование одной
+функции <CODE>sort</CODE>;  Я ничего не говорил о том, как сохранять
+информацию, кроме использование списков и переменных.  Я не также
+говорил и о том, как создавать программы, которые сами пишут
+программы.  Это темы для другой книги, другого курса.
+</P><P>
+
+Но мы изучили достаточно для того, чтобы на практике эффективно
+использовать GNU Emacs.  То что мы сделали --- это только начало.
+А конец этой книги --- это конец начала.
+</P><P>
+
+<A NAME="the-the"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_18.html#SEC206"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_20.html#SEC213"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>December, 4  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

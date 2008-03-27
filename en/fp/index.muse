@@ -1,5 +1,19 @@
-#title FP
+#title Functional programming
 #keywords functional programming, alex ott, fp, ocaml, lisp, haskell, erlang
 
-* aaaa
+I'm working with functional languages for a long time.  Lisp was my first functional
+language, that i studied. Now i mostly programm in [[../scheme/index][Scheme]] and [[../lisp/index][Common Lisp]], but also plays
+with Erlang, OCaml and Haskell.
 
+** Some links about functional languages
+
+These links could be useful for users, interested in studying of functional programming: 
+
+ - [[http://www.cl.cam.ac.uk/Teaching/Lectures/funprog-jrh-1996/index.html][Introduction in functional programming]], by John Harrison.
+ - [[http://www.cl.cam.ac.uk/users/mjcg/Teaching/FuncProg/FuncProg.html][Introduction in functional programming]], by Mike Gordon.
+ - [[http://www.cs.chalmers.se/~rjmh/tutorials.html][Tutorials for functional programming]]
+ - [[http://www.cs.trinity.edu/~jhowland/ccsc98/ccsc98/ccsc98.html][Recursion, Iteration and Functional Languages]]
+ - [[http://www.cs.hmc.edu/~keller/cs60book/][Computer Science: Abstraction to Implementation]], by Robert M. Keller É Harvey Mudd College.
+ - [[http://www.luca.demon.co.uk/][Personal page by Luca Cardelli]].
+ - [[http://www.math.chalmers.se/~rjmh/Papers/whyfp.html][Why Functional Programming Matters]]
+ - [[http://plaslab.cis.nctu.edu.tw/eriol/TR/criticSML.364.ps.Z][Andrew W. Appel: A Critique of Standard ML]]

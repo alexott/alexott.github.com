@@ -44,3 +44,14 @@ syntax: regexp
 ^de/oss/index\.html$
 ^copyright\.html$
 ^en/fp/index\.html$
+^ru/photos\.html$
+^ru/squid-gsb\.html$
+^ru/cf/squid-gsb\.html$
+^en/squid-gsb\.html$
+^en/cf/squid-gsb\.html$
+^ru/writings\.html$
+^ru/cf/squid-gsbapi\.html$
+^en/cf/squid-gsbapi\.html$
+^ru/cpp/BoostAsioNotes\.html$
+^ru/oss/perl\.html$
+^ru/oss/tex\.html$

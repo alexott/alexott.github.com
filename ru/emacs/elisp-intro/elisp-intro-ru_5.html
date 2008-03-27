@@ -1,0 +1,1829 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on March, 10  2004 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Написание функций</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Написание функций">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Написание функций">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC41"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_4.html#SEC40"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC43"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_4.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 3. Написание функций </H1>
+<!--docid::SEC41::-->
+<P>
+
+Когда интерпретатор Лиспа вычисляет список, он анализирует, связано ли
+с первым символом списка определение функции; или по-другому,
+указывает ли символ на какую-нибудь функцию. Если указывает, то
+компьютер выполняет инструкции этой функции. Символ, с которым связано
+определение функции, обычно называют просто функцией (хотя строго
+говоря, сама функция --- это ee определение, а символ только
+указывает на нее).
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC42">Немного о примитивных функциях</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC43">3.1 Особая форма <CODE>defun</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC44">3.2 Установка определения функции</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC46">3.3 Делаем функцию интерактивной</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC48">3.4 Различные опции для <CODE>interactive</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC49">3.5 Устанавливаем код надолго</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC50">3.6 <CODE>let</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Создание и инициализация локальных переменных.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC54">3.7 Особая форма <CODE>if</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Что есть if?</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC56">3.8 Выражения if--then--else</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC57">3.9 Истина и ложь в Lisp</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Что в Лиспе считается истиной?.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC58">3.10 <CODE>save-excursion</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Как запомнить точку, метку и текущий буфер.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC60">3.11 Обзор</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC61">3.12 Упражнения</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Примитивные Функции"></A>
+<A NAME="SEC42"></A>
+<H2> Немного о примитивных функциях </H2>
+<!--docid::SEC42::-->
+<P>
+
+<A NAME="IDX26"></A>
+<A NAME="IDX27"></A>
+Все функции определяются в терминах других функций, кроме нескольких
+<EM>примитивных</EM> функций, которые написаны на языке программирования
+С. Когда вы пишете определение функции, вы пишете его на Emacs Лисп и
+используете другие функции как строительные блоки. Некоторые из
+функций, которые вы используете, сами написаны на Emacs Лиспе
+(возможно даже вами), а некоторые будут примитивами, написанными на
+языке С. Примитивные функции используются точно так же, как те,
+которые написаны на Emacs Лиспе, и ведут себя точно таким же образом.
+Они написаны на языке С, поэтому мы можем легко переносить GNU Emacs
+на любую платформу, которая поддерживает язык С.
+</P><P>
+
+Еще раз подчеркнем следующее --- когда вы пишете код на Emacs
+Лиспе, вы не различаете функции написанные на С и функции, написанные
+на Emacs Лиспе. Разница здесь не играет особой роли. Я упомянул о ней
+только потому, что это полезно знать. В самом деле, если вы
+попытаетесь исследовать этот вопрос, то вы не узнаете на каком языке
+написана уже существующая функция: на С или на Emacs Лиспе.
+</P><P>
+
+<A NAME="defun"></A>
+<HR SIZE="6">
+<A NAME="SEC43"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC44"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.1 Особая форма <CODE>defun</CODE> </H2>
+<!--docid::SEC43::-->
+<P>
+
+<A NAME="IDX28"></A>
+В Лиспе с символом, таким как <CODE>mark-whole-buffer</CODE>, связан
+некоторый код, который выполняется компьютером, когда вызывается эта
+функция. Этот код называют <EM>определением функции</EM>, и он создается
+вычислением Лисп-выражения, которое начинается с символа <CODE>defun</CODE>
+(это сокращение от <EM>define function</EM>). Поскольку <CODE>defun</CODE> не
+вычисляет свои аргументы обычным образом, то она называется
+<EM>особой формой</EM>.
+</P><P>
+
+В следующих разделах мы рассмотрим определения функций, входящие в
+дистрибутив Emacs, такие как, например, <CODE>mark-whole-buffer</CODE>. А в
+этом разделе мы опишем несколько простых функций так, чтобы вы
+представляли себе, как это выглядит. Это будут арифметические функции,
+поскольку они наиболее просты. Некоторые не любят арифметические
+примеры; однако, если вы один из таких людей, не отчаивайтесь. Едва ли
+какой нибудь код, который мы будем изучать в оставшихся главах, будет
+связан с арифметикой или математикой. В основном мы будем обрабатывать
+текст тем или иным способом.
+</P><P>
+
+Определение функции может содержать до пяти частей, которые следуют
+после слова <CODE>defun</CODE>:
+</P><P>
+
+<OL>
+<LI>
+Имя символа, с которым это определение функции будет связано.
+<P>
+
+<LI>
+Список аргументов, которые можно будет передать в эту функцию. Если
+функция не требует аргументов, тогда это пустой список <CODE>()</CODE>.
+<P>
+
+<LI>
+Строка документации, описывающая работу функции. (Формально не
+обязательна, но настоятельно рекомендуемая).
+<P>
+
+<LI>
+Необязательное выражение, чтобы сделать функцию интерактивной, чтобы
+вы могли использовать ее, нажав <KBD>M-x</KBD> и набрав имя функции; или
+связать с ней какое-нибудь сочетание клавиш или клавишу.
+<P>
+
+<A NAME="IDX29"></A>
+<LI>
+Сами инструкции, которые будет выполнять компьютер --- так
+называемое <EM>тело</EM> определения функции.
+</OL>
+<P>
+
+Полезно, для запоминания думать о пяти частях в определении функции,
+как о следующем шаблоне, где есть место для каждой части:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun <VAR>имя-функции</VAR> (<VAR>аргументы</VAR><small>...</small>)
+  "<VAR>необязательная-документация</VAR><small>...</small>"
+  (interactive <VAR>как-получить-аргументы</VAR>)     ; необязательно
+  <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+Как первый пример мы рассмотрим определение функции, которая умножает
+свой аргумент на 7. (Это пример не интерактивной функции.
+See section <A HREF="elisp-intro-ru_5.html#SEC46">Making a Function Interactive</A>, для получения
+дополнительной информации).
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun умножить-на-семь (number)
+  "Умножить NUMBER на семь."
+  (* 7 number))
+</pre></td></tr></table></P><P>
+
+Это определение начинается со скобок и символа <CODE>defun</CODE>, за
+которым следует имя функции.
+</P><P>
+
+<A NAME="IDX30"></A>
+За именем функции идет список, который содержит аргументы,
+передаваемые этой функции. Этот список называется <EM>списком
+аргументов</EM>. В нашем случае в списке только один элемент ---
+символ <CODE>number</CODE>. Когда будет выполняться функция, этот символ
+будет связан со значением аргумента, который передали функции при
+вызове.
+</P><P>
+
+Вместо того, чтобы назвать наш аргумент словом <CODE>number</CODE>, я мог бы
+выбрать любое другое имя. Например, слово <CODE>multiplicand</CODE>. Я
+выбрал слово `number', поскольку это подсказывает, какого рода
+значение ожидает функция; но слово `multiplicand' тоже весьма неплохо,
+поскольку оно подскажет, какую роль этот аргумент будет играть в теле
+нашей функции. Если бы я назвал аргумент <CODE>foogle</CODE>, это было бы
+намного хуже, потому что такое имя не несет никакой полезной
+информации. Выбор имен это обязанность программиста, и лучше если они
+будут помогать в понимании функции.
+</P><P>
+
+На самом деле вы можете выбрать любое имя, какое пожелаете для символа
+в списке аргументов, даже имя, которое используется в какой-нибудь
+другой функции --- имя, которое вы используете для аргумента,
+локально для этого конкретного определения функции. В этом определении
+имя относится к одному объекту, а такое же имя вне определения
+функции --- к совсем другой. Положим, что в вашей семье вас зовут
+`Коротышка'; когда кто-нибудь из вашей семьи говорит `Коротышка'
+--- они имеют в виду вас. Но вне вашей семьи, например, в каком
+нибудь фильме, `Коротышкой' могут звать кого-нибудь еще. Так как имя
+для символа в списке аргументов локально для данного определения
+функции, то вы можете изменять значение такого символа внутри тела
+функции, не изменяя его значения вне функции. Похожего эффекта можно
+достигнуть использованием выражения <CODE>let</CODE>. (See section <A HREF="elisp-intro-ru_5.html#SEC50"><CODE>let</CODE></A>.)
+</P><P>
+
+Заметьте также, что мы обсуждаем слово `number' в двух различных
+значениях --- как символ, который появится в программе, и как имя
+чего-то, что будет заменено чем-то другим во время вычисления функции.
+В первом случае <CODE>number</CODE> --- это символ, а не число; так
+получилось, что в пределах функции, это переменная, чье значение
+--- искомое число, но наш главный интерес в нем, как в символе. С
+другой стороны, когда мы говорим о функции, нас интересует, что за
+число будет подставлено за место слова <VAR>number</VAR>. Чтобы четко это
+различать, мы используем различные шрифты для отображения слов в этих
+двух обстоятельствах. Когда мы говорим об этой функции, или о том как
+это работает, мы соотносимся к числу как <VAR>number</VAR>. В теле функции
+мы пишем это, как <CODE>number</CODE>.
+</P><P>
+
+За списком аргументов следует строка документации, которая описывает
+данную функцию. Это ее вы видите, когда нажимаете сочетание
+клавиш<KBD>C-h f</KBD> и набираете имя функции. Кстати, если вы пишете
+строку документации, такую как эту, то вы должны сделать первую строку
+завершенным предложением, так как некоторые команды, такие как
+<CODE>apropos</CODE>, печатают только первую строку многострочной
+документации. Так же вы не должны выравнивать вторую строку строки
+документации, если она у вас появляется, потому что это выглядит
+странно, когда вы используете сочетание клавиш <KBD>C-h f</KBD>
+(<CODE>describe-function</CODE>). Строка документации необязательна, но
+очень полезна, поэтому ее надо включать во все функции, которые вы
+создаете.
+</P><P>
+
+<A NAME="IDX31"></A>
+Третья строка нашего примера --- это тело определения функции.
+(Большинство определений функций, конечно, намного больше чем это). В
+нашем случае тело --- это список <CODE>(* 7 number)</CODE>, которое
+умножает значение <VAR>number</VAR> на 7. (В Emacs Лиспе <CODE>*</CODE> функция
+умножения, как <CODE>+</CODE> функция сложения).
+</P><P>
+
+Когда вы будете использовать функцию <CODE>умножить-на-семь</CODE>,
+аргумент <CODE>number</CODE> будет заменен конкретным числом, которое вы
+захотите использовать. Ниже пример использования функции
+<CODE>умножить-на-семь</CODE>, но не пытайтесь вычислить ее!
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(умножить-на-семь 3)
+</pre></td></tr></table></P><P>
+
+С символом <CODE>number</CODE>, который описан в определении функции в
+предыдущем разделе, при данном вызове функции "связывается"
+фактическое значение 3. Заметьте, что, хотя <CODE>number</CODE> в
+определении функции был в скобках, но при вызове функции
+<CODE>умножить-на-семь</CODE>, он передавался уже без скобок. Скобки
+используются в определении функции для того, чтобы компьютер мог
+отделить список аргументов от тела функции.
+</P><P>
+
+Если вы вычислите этот пример, то наверняка получите сообщение об
+ошибке. (Смелей, пробуйте!) Это потому что хотя мы и написали
+определение функции, но еще не проинформировали компьютер об этом
+определении (не внесли определение этой функции в Emacs). Инсталляция
+функции --- это процесс передачи интерпретатору Лиспа определения
+функции. Она описана в следующем разделе.
+</P><P>
+
+<A NAME="Инсталляция"></A>
+<HR SIZE="6">
+<A NAME="SEC44"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC43"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC45"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.2 Установка определения функции </H2>
+<!--docid::SEC44::-->
+<P>
+
+Если вы читаете это в Info внутри Emacs, то вы можете попробовать
+выполнить функцию <CODE>умножить-на-семь</CODE>, вначале вычислив
+определение функции, а затем вычислив <CODE>(умножить-на-семь 3)</CODE>.
+Копия определения функции расположена ниже. Поставьте курсор за
+последней скобкой определения функции и нажмите <KBD>C-x C-e</KBD>. Когда
+вы сделаете это, в эхо-области появится строка
+<CODE>умножить-на-семь</CODE>. (Это означает, что когда вычисляется
+определение функции, возвращаемым значением является имя определяемой
+функции). Одновременно с этим мы устанавливаем функцию.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun умножить-на-семь (number)
+  "Умножить NUMBER на семь."
+  (* 7 number))
+</pre></td></tr></table></P><P>
+
+Вычислив <CODE>defun</CODE>, вы только что установили
+<CODE>умножить-на-семь</CODE> в Emacs. Эта функция сейчас точно такая же
+часть Emacs, как и <CODE>forward-word</CODE>, или любая другая функция
+редактирования, которую вы используете. (<CODE>умножить-на-семь</CODE>
+останется в системе, до тех пор пока вы не завершите сессию Emacs.
+Чтобы загружать код автоматически, когда вы запускаете Emacs, смотрите
+<A HREF="elisp-intro-ru_5.html#SEC49">Installing Code Permanently</A>.)
+</P><P>
+
+Вы можете увидеть эффект установки <CODE>умножить-на-семь</CODE> вычислив
+следующий пример. Расположите курсор после выражения и нажмите
+<KBD>C-x C-e</KBD>. В эхо-области появиться число 21.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(умножить-на-семь 3)
+</pre></td></tr></table></P><P>
+
+Если хотите, вы сейчас можете прочесть документацию для этой функции
+нажав <KBD>C-h f</KBD> (<CODE>describe-function</CODE>) и затем набрав в
+мини-буфере имя нашей функции, <CODE>умножить-на-семь</CODE>. Когда вы
+сделает это, на экране появится окно <TT>`*Help*'</TT>, которое отобразит
+следующее:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>умножить-на-семь:
+Умножить NUMBER на семь.
+</pre></td></tr></table></P><P>
+
+(Чтобы закрыть окно помощи нажмите <KBD>C-x 1</KBD>.)
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC45">3.2.1 Изменяем определение функции</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Изменяем функцию"></A>
+<HR SIZE="6">
+<A NAME="SEC45"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC44"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC46"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC43"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC44"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.2.1 Изменяем определение функции </H3>
+<!--docid::SEC45::-->
+<P>
+
+Если вы хотите изменить код, связанный с <CODE>умножить-на-семь</CODE>,
+только перепишите его. Чтобы установить новую версию на месте старой,
+снова вычислите определение функции. Именно так вы модифицируете код в
+Emacs. Все очень просто.
+</P><P>
+
+Например, вы можете изменить функцию <CODE>умножить-на-семь</CODE> так,
+чтобы она семь раз складывала это число, вместо того чтобы умножать
+его на семь. Мы получим тот же самый ответ, но другим способом.
+Одновременно мы добавим к определению комментарий; комментарий ---
+это текст, который интерпретатор Лиспа игнорирует, но люди находят
+весьма и весьма полезным. В нашем случае комментарий будет говорить,
+что это "вторая версия".
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun умножить-на-семь (number)       ; Вторая версия.
+  "Умножить NUMBER на семь."
+  (+ number number number number number number number))
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX32"></A>
+Комментарии следуют после точки с запятой <SAMP>`;'</SAMP>. Согласно
+синтаксису Лиспа все, что следует после <CODE>;</CODE> --- комментарий.
+Конец линии --- конец комментария. Чтобы растянуть комментарий на
+две или более строк, начинайте каждую строку с точки с запятой.
+</P><P>
+
+See section <A HREF="elisp-intro-ru_18.html#SEC195">Начало файла <TT>`.emacs'</TT></A>, и
+section `Comments' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>, для дополнительной информации о комментариях.
+</P><P>
+
+Вы можете установить эту версию <CODE>умножить-на-семь</CODE> точно так же,
+как и предыдущую, расположив курсор за последней скобкой и нажав
+<KBD>C-x C-e</KBD>.
+</P><P>
+
+Если просуммировать, именно так вы и пишете код на Emacs Лисп ---
+сначала вы создаете функцию, устанавливаете ее, тестируете; потом
+исправляете ошибки или улучшаете и инсталлируете ее вновь.
+</P><P>
+
+<A NAME="Interactive"></A>
+<HR SIZE="6">
+<A NAME="SEC46"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC45"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC47"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC44"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC48"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.3 Делаем функцию интерактивной </H2>
+<!--docid::SEC46::-->
+<P>
+
+Вы можете сделать функцию интерактивной, поместив список, который
+начинается с особой формы <CODE>interactive</CODE> сразу после документации.
+Пользователь запускает интерактивную функцию нажав M-x и потом набрав
+имя функции в мини-буфере; или нажав клавишу, к которой эта функция
+привязана, например, <KBD>C-n</KBD> для <CODE>next-line</CODE>, или <KBD>C-x h</KBD>
+для <CODE>mark-whole-buffer</CODE>.
+</P><P>
+
+Когда вы вызываете интерактивную функцию интерактивно, то возвращаемое
+ей значение автоматически не отображается в эхо-области. Это от того,
+что вы часто вызываете интерактивную функцию из-за ее побочных
+эффектов, например, перемещение курсора на слово или строку, а не
+из-за возвращаемого значения. Если бы возвращаемое значение каждый
+раз, когда вы нажимаете клавишу, отображалось бы в эхо-области, то это
+бы очень сильно отвлекало внимание пользователя.
+</P><P>
+
+Использование особой формы <CODE>interactive</CODE> и способ отобразить
+значение в эхо-области можно проиллюстрировать интерактивной версией
+<CODE>умножить-на-семь</CODE>.
+</P><P>
+
+Вот и текст программы:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun умножить-на-семь (number)       ; Интерактивная версия.
+  "Умножить NUMBER на семь."
+  (interactive "p")
+  (message "Итог %d" (* 7 number)))
+</pre></td></tr></table></P><P>
+
+Вы можете установить эту функцию, расположив курсор после определения
+и нажав <KBD>C-x C-e</KBD>. В эхо-области появится имя функции. Теперь вы
+можете использовать эту функцию, нажав <CODE>C-u</CODE>, затем какое-нибудь
+число и потом <KBD>M-x умножить-на-семь</KBD>, а в конце <KBD>ВВОД</KBD>. В
+эхо-области появится фраза <SAMP>`Итог <small>...</small>'</SAMP>, где на месте <small>...</small>
+будет стоять итоговое произведение.
+</P><P>
+
+То есть, вы можете запустить функцию, подобную этой, двумя способами:
+</P><P>
+
+<OL>
+<LI>
+Задав как префикс-аргумент число, передаваемое в функцию, потом нажав
+<KBD>M-x</KBD> и имя функции, например <KBD>C-u 3 M-x forward-sentence</KBD>;
+или,
+<P>
+
+<LI>
+Нажав клавишу или сочетание клавиш, с которой связана эта функция,
+например, <KBD>C-u 3 M-e</KBD>.
+</OL>
+<P>
+
+Оба только что упомянутых примера работают одинаковым образом ---
+они перемещают точку на два предложения. (Так как
+<CODE>умножить-на-семь</CODE> не привязана ни к какой клавише, то ее нельзя
+вычислить вторым способом.)
+</P><P>
+
+(See section <A HREF="elisp-intro-ru_18.html#SEC199">Привязки клавиш</A>, чтобы
+научиться, как связывать команду с клавишей.)
+</P><P>
+
+Префикс-аргумент можно передать интерактивной функции, либо нажав
+клавишу <KBD>МETA</KBD>, затем число, например <KBD>M-3 M-e</KBD>, или нажав
+<KBD>C-u</KBD>, и потом число, например, <KBD>C-u 3 M-e.</KBD> (Если вы просто
+нажмете <KBD>C-u</KBD> по умолчанию префикс-аргумент будет равен 4).
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC47">3.3.1 Интерактивная <CODE>умножить-на-семь</CODE>.</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Интерактивная версия.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Детали умножить-на-семь"></A>
+<HR SIZE="6">
+<A NAME="SEC47"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC46"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC48"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC44"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC46"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC48"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.3.1 Интерактивная <CODE>умножить-на-семь</CODE>. </H3>
+<!--docid::SEC47::-->
+<P>
+
+Давайте рассмотрим использование особой формы <CODE>interactive</CODE> и
+функции <CODE>message</CODE> в интерактивной версии
+<CODE>умножить-на-семь</CODE>. Напомним, как выглядит определение функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun умножить-на-семь (number)       ; Интерактивная версия.
+  "Умножить NUMBER на семь."
+  (interactive "p")
+  (message "Итог %d" (* 7 number)))
+</pre></td></tr></table></P><P>
+
+В этой функции, выражение <CODE>(interactive "p")</CODE> --- список из
+двух элементов. <CODE>"p"</CODE> говорит Emacs передать префикс-аргумент в
+функцию и использовать его значение как значение аргумента.
+</P><P>
+
+Аргумент будет числом. Это значит, что символ <CODE>number</CODE> будет
+связан с этим числом в строке:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(message "Итог %d" (* 7 number))
+</pre></td></tr></table></P><P>
+
+Например, если префикс-аргумент 5, то интерпретатор Лиспа будет
+вычислять эту строку, как будто бы она выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(message "Итог %d" (* 7 5))
+</pre></td></tr></table></P><P>
+
+(Если вы читаете это в GNU Emacs,то вы можете вычислить это выражение
+сами). Первым делом интерпретатор вычислит внутренний список --- в
+нашем случае <CODE>(* 7 5)</CODE>. Возвращенное значение 35. Затем он
+вычислит внешний список, передав значения второго и последующих
+элементов списка функции <CODE>message</CODE>.
+</P><P>
+
+Как мы уже знаем, <CODE>message</CODE> --- это функция Emacs Лисп,
+специально предназначенная для отображения однострочных сообщений
+пользователю (See section <A HREF="elisp-intro-ru_3.html#SEC27">The <CODE>message</CODE> function</A>.).
+Напомним, что функция <CODE>message</CODE> печатает свой первый аргумент в
+эхо-области как есть, кроме следующих символов <SAMP>`%d'</SAMP>, <SAMP>`%s'</SAMP>,
+<SAMP>`%c'</SAMP>. Когда она встречает одну из таких управляющих
+последовательностей, эта функция вычисляет второй и последующие
+аргументы и вставляет их значения на место соответствующей управляющей
+последовательности.
+</P><P>
+
+В интерактивной версии <CODE>умножить-на-семь</CODE> управляющая строка
+<SAMP>`%d'</SAMP>, которая требует число, а значение, возвращаемое вычислением
+<CODE>(*7 5)</CODE> это число 35. Поэтому число 35 печатается на месте
+<SAMP>`%d'</SAMP> и конечное сообщение <SAMP>`Итог 35'</SAMP>.
+</P><P>
+
+(Заметьте, что, когда вы вызываете функцию <CODE>умножить-на-семь</CODE>,
+то сообщение печатается без кавычек, но если вызвать саму функцию
+<CODE>message</CODE>, то текст напечатается в двойных кавычках. Это потому
+что при вычислении функции <CODE>message</CODE> в эхо-области появляется
+значение, которое возвращает эта функция, но когда функция
+<CODE>message</CODE> используется в более сложном выражении, то текст
+отображается без кавычек как побочный эффект.)
+</P><P>
+
+<A NAME="Опции interactive"></A>
+<HR SIZE="6">
+<A NAME="SEC48"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC47"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC49"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC46"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.4 Различные опции для <CODE>interactive</CODE> </H2>
+<!--docid::SEC48::-->
+<P>
+
+В предыдущем примере <CODE>умножить-на-семь</CODE> как аргумент при вызове
+<CODE>interactive</CODE> использовалась строка <CODE>"p"</CODE>. Это указание
+интерпретатору Emacs Лиспа передать в функцию численное значение
+префикс-аргумента, который вы можете задать, нажав либо <KBD>C-u</KBD>,
+либо <KBD>META</KBD> и затем набрав какое-нибудь число. В Emacs более 20
+символов, предопределенных для использования с <CODE>interactive</CODE>.
+Почти во всех случаях, та или другая из этих опций позволит вам
+передать интерактивно в функцию всю необходимую информацию.
+(See section `Code Characters for <CODE>interactive</CODE>' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>.)
+</P><P>
+
+Например, символ <SAMP>`r'</SAMP> заставляет Emacs передать начало и конец
+области (текущие значения точки и метки) в функцию как два различных
+аргумента. Его используют следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(interactive "r")
+</pre></td></tr></table></P><P>
+
+Другой символ <SAMP>`B'</SAMP> --- указание для Emacs запросить от вас имя
+буфера, которое будет передано в функцию. В этом случае Emacs
+отобразит в мини-буфере подсказку, используя строку, которая следует
+за <SAMP>`B'</SAMP>, например, <CODE>"BДобавить к буферу: "</CODE>. Emacs не
+только отобразит подсказку в мини-буфере, но также позволит
+воспользоваться функцией автодополнения, что здорово помогает (просто
+наберите первые несколько символов и нажмите <KBD>TAB</KBD>).
+</P><P>
+
+Функция, которая требует два и более аргумента, может получить
+информацию для каждого из них, добавляя к строке за <CODE>interactive</CODE>
+различные части. Когда вы сделаете это, информация передается в каждый
+аргумент в том же самом порядке как они описаны в списке аргументов
+<CODE>interactive</CODE>. В строке каждая часть отделяется друг от друга
+<SAMP>`\n'</SAMP> --- символом новой строки. Например, если за
+<CODE>interactive</CODE> будет следовать строка <CODE>"BДобавить к буферу:
+\nr"</CODE>, то это заставит интерпретатор Лиспа передать в функцию значения
+точки и метки, а также запросить у вас имя буфера (в целом три
+аргумента).
+</P><P>
+
+В этом случае определение функции будет выглядеть следующим образом:
+<CODE>buffer</CODE>, <CODE>start</CODE> и <CODE>end</CODE> --- символы, которые
+<CODE>interactive</CODE> свяжет с буфером и текущими значениями начала и
+конца блока текста:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun <VAR>имя-функции</VAR> (buffer start end)
+  "<VAR>документация</VAR><small>...</small>"
+  (interactive "BДобавить к буферу: \nr")
+  <VAR>тело-функции</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+(Пробел после двоеточия в подсказке для лучшего отображения в
+эхо-области. Функция <CODE>append-to-buffer</CODE> выглядит точно таким
+образом. See section <A HREF="elisp-intro-ru_6.html#SEC67">The Definition of <CODE>append-to-buffer</CODE></A>.)
+</P><P>
+
+Если функции не требуются аргументы, тогда и у <CODE>interactive</CODE> их
+не будет. Такая функция будет содержать только выражение
+<CODE>(interactive)</CODE>. Именно так выглядит функция
+<CODE>mark-whole-buffer</CODE>.
+</P><P>
+
+Если ни один из существующих буквенных кодов не подходит для вашего
+приложения, то вы можете передать ваши собственные аргументы к
+<CODE>interactive</CODE> в виде списка. See section `Using <CODE>Interactive</CODE>' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>, для
+дополнительной информации об этом методе.
+</P><P>
+
+<A NAME="Постоянная Инсталляция"></A>
+<HR SIZE="6">
+<A NAME="SEC49"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC48"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC50"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.5 Устанавливаем код надолго </H2>
+<!--docid::SEC49::-->
+<P>
+
+Когда вы устанавливаете функцию, вычисляя ее определение, то она
+остается внутри Emacs до тех пор, пока вы не завершите работу с ним.
+Если вы снова запустите Emacs, то функция не будет установлена, до тех
+пор пока вы не вычислите ее определение снова.
+</P><P>
+
+Иногда вам может понадобиться, чтобы функция устанавливалась
+автоматически, когда вы запускаете новую сессию Emacs. Это можно
+выполнить несколькими способами:
+</P><P>
+
+<UL>
+<LI>
+Если некоторая функция нужна только вам, то вы можете сохранить ее
+определение в своем файле инициализации <TT>`.emacs'</TT>. Когда вы
+запускаете Emacs, ваш файл <TT>`.emacs'</TT> автоматически вычисляется, и
+все определения функций, расположенные в нем, устанавливаются.
+See section <A HREF="elisp-intro-ru_18.html#SEC191">Ваш файл <TT>`.emacs'</TT></A>.
+<P>
+
+<LI>
+Если ваша функция будет полезна всем пользователям компьютера, ее
+определение можно разместить в файле, который называется
+<TT>`site-init.el'</TT> и который загружается при компиляции
+Emacs. (Прочитайте файл <TT>`INSTALL'</TT>, который входит в дистрибутив
+Emacs).
+<P>
+
+<LI>
+Альтернатива этому --- расположить определения функций, которые вы
+хотите установить, в один или несколько файлов и использовать функцию
+<CODE>load</CODE>, которая заставит Emacs вычислить эти файлы и таким
+образом установит каждую функцию, расположенную в этих
+файлах. See section <A HREF="elisp-intro-ru_18.html#SEC200">Загрузка файлов</A>.
+</UL>
+<P>
+
+Наконец, если вы считаете что ваш код может быть полезен всем
+пользователям Emacs в мире, то вы можете опубликовать его в Internet
+или послать копию Free Software Foundation. (Когда вы будете это
+делать, пожалуйста включите в состав кода copyleft notice до того, как
+публиковать его). Если вы пошлете копию вашего кода Free Software
+Foundation, nj его могут включить в следующую версию Emacs. В основном
+именно так Emacs и разрастался в течении многих лет, с помощью
+пользователей.
+</P><P>
+
+<A NAME="let"></A>
+<HR SIZE="6">
+<A NAME="SEC50"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC49"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC51"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.6 <CODE>let</CODE> </H2>
+<!--docid::SEC50::-->
+<P>
+
+Выражение <CODE>let</CODE> --- это особая форма в Lisp, которую вы
+будете часто использовать при создании своих функций. Поскольку она
+используется очень часто, то давайте рассмотрим ее в этой главе.
+</P><P>
+
+<CODE>let</CODE> используют, чтобы связать значение с символом таким
+образом, чтобы интерпретатор Лиспа не спутал переменную с таким же
+именем, но определенную вне функции. Чтобы оценить важность этой
+особой формы, рассмотрим ситуацию.
+</P><P>
+
+Чтобы понять всю важность этой особой формы, рассмотрим житейский
+пример --- например, у вас есть собственная дача и в предложении
+"Не мешало бы дачу покрасить.", вы имеете в виду именно свою фазенду.
+Если вы навестили загородный участок друга, то такая фраза сказанная
+вами будет уже относиться к даче друга, а если ее только недавно
+построили, то вы рискуете нарваться на неприятности. Та же самая
+ситуация может случиться и в Лиспе, если переменная, которая
+используется внутри одной функции названа также как и переменная
+используемая в другой функции, и у этих переменных не обязательно
+должно быть одинаковое значение.
+</P><P>
+
+<A NAME="IDX33"></A>
+Особая форма <CODE>let</CODE> защищает от такого рода путаницы. <CODE>let</CODE>
+создает имя для локальной переменной, которая затеняет любое
+использование такого же имени вне выражения <CODE>let</CODE>. Это как
+понимание того, что, когда вы сказали `дача', то вы имели в виду свою
+дачку, а не друга. (Символы используемые в списке аргументов действуют
+точно таким же образом.  See section <A HREF="elisp-intro-ru_5.html#SEC43">Особая Форма <CODE>defun</CODE></A>.).
+</P><P>
+
+Локальные переменные, создаваемые выражением <CODE>let</CODE>, сохраняют
+свои значения <EM>только</EM> внутри самого выражения <CODE>let</CODE> (внутри
+выражений, которые вы вызываете из выражения <CODE>let</CODE>); локальные
+переменные не действуют вне выражения <CODE>let</CODE>.
+</P><P>
+
+<CODE>let</CODE> может создать более одной переменной одновременно. Так же
+<CODE>let</CODE> назначает каждой переменной при создании первоначальное
+значение, или то, которое задаете вы, или <CODE>nil</CODE>. (На жаргоне Лисп
+программистов это означает `связать переменную со значением'). После
+того как <CODE>let</CODE> создал переменные и назначил им какое-нибудь
+значение, выполняется код в теле <CODE>let</CODE> и возвращается результат
+последнего значение в теле, как значение всего выражения <CODE>let</CODE>.
+</P><P>
+
+(`Выполнить' --- это жаргонный термин, который означает вычислить
+список; он произошел от использования слова в значении `получить
+практический результат' (<CITE>Oxford English Dictionary</CITE>). Поскольку
+вы вычисляете выражение, чтобы исполнить действие, то `выполнить'
+используется, как синоним `вычислить'.)
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC51">3.6.1 Части выражения <CODE>let</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC52">3.6.2 Пример выражения <CODE>let</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC53">3.6.3 Неинициализированные переменные в операторе <CODE>let</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Части выражения let"></A>
+<HR SIZE="6">
+<A NAME="SEC51"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC50"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC52"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC49"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC50"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.6.1 Части выражения <CODE>let</CODE> </H3>
+<!--docid::SEC51::-->
+<P>
+
+<A NAME="IDX34"></A>
+Выражение <CODE>let</CODE> --- это список, состоящий из трех частей.
+Первая часть --- сам символ <CODE>let</CODE>. Вторая часть --- это
+список, который называют <EM>список переменных</EM>, каждый элемент
+которого или символ или двухэлементный список, первый элемент которого
+символ. Третья часть выражения <CODE>let</CODE> --- это основное тело
+выражения. Тело обычно состоит из одного или более списков.
+</P><P>
+
+Шаблон для выражения <CODE>let</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let <VAR>список_переменных</VAR> <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table>    
+Символы в списке переменных --- это переменные, которым особая
+форма <CODE>let</CODE> присваивает начальное значение. Если символ только
+один, то ему присваивается значение <CODE>nil</CODE>; если символ входит в
+состав двухэлементного списка, то ему назначается значение, которое
+возвращает интерпретатор Лиспа после вычисления второго элемента
+списка.
+</P><P>
+
+Так, список переменных может выглядеть следующим образом ---
+<CODE>(нитки (иголки 3))</CODE>. В этом случае в выражении <CODE>let</CODE>, Emacs
+свяжет символ <CODE>нитки</CODE> со значением <CODE>nil</CODE>, а символ
+<CODE>иголки</CODE> со значением 3.
+</P><P>
+
+Когда вы будете писать выражение <CODE>let</CODE>, то вам надо будет
+заполнить соответствующими выражениями места в шаблоне для выражения
+<CODE>let</CODE>.
+</P><P>
+
+Если список переменных состоит из двухэлементных списков, как это
+часто и случается, то шаблон для выражения <CODE>let</CODE> будет таким:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let ((<VAR>переменная</VAR> <VAR>значение</VAR>)
+      (<VAR>переменная</VAR> <VAR>значение</VAR>)
+      <small>...</small>)
+      <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+<A NAME="Пример выражения let"></A>
+<HR SIZE="6">
+<A NAME="SEC52"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC51"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC53"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC49"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC50"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.6.2 Пример выражения <CODE>let</CODE> </H3>
+<!--docid::SEC52::-->
+<P>
+
+В следующем выражении создаются и инициализируются две переменные
+<CODE>зебра</CODE> и <CODE>тигр</CODE>. Телом выражения <CODE>let</CODE> является
+список, в котором вызывается функция <CODE>message</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let ((зебра 'полосаты)
+      (тигр 'свирепы))
+  (message "Некоторые животные %s, а другие %s."
+	   зебра тигр))
+</pre></td></tr></table></P><P>
+
+Здесь список переменных <CODE>((зебра 'полосаты) (тигр 'свирепы))</CODE>.
+</P><P>
+
+Две переменные <CODE>зебра</CODE> и <CODE>тигр</CODE>. Каждая переменная является
+первым элементом двухэлементного списка, и ей назначается результат
+вычисления второго элемента двухэлементного списка. В списке
+переменных Emacs связывает переменную <CODE>зебра</CODE> со значение
+<CODE>полосаты</CODE>, а переменную <CODE>тигр</CODE> со значением <CODE>свирепы</CODE>.
+В нашем случае перед символами, которые будут представлять
+первоначальное значение переменных, стоит апостроф. На их месте мог бы
+стоять любой список или строка. Основное тело <CODE>let</CODE> начинается
+после списка переменных. В этом случае тело является списком, который
+использует функцию <CODE>message</CODE>, чтобы распечатать строку в
+эхо-области.
+</P><P>
+
+Вы можете вычислить этот пример обычным образом, поместив курсор за
+последней закрывающей скобкой и нажав <KBD>C-x C-e</KBD>. Когда вы сделаете
+это, в эхо-области появится следующая строка:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>"Некоторые животные полосаты, а другие свирепы."
+</pre></td></tr></table></P><P>
+
+Как мы уже знаем, функция <CODE>message</CODE> печатает свой первый аргумент
+полностью, кроме спецсимволов, например, <SAMP>`%s'</SAMP>. В этом случае
+значение переменной <CODE>зебра</CODE> напечатается на месте первого
+<SAMP>`%s'</SAMP>, а значение переменной <CODE>тигр</CODE> на месте второго
+<SAMP>`%s'</SAMP>.
+</P><P>
+
+<A NAME="Неинициализированные переменные let"></A>
+<HR SIZE="6">
+<A NAME="SEC53"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC52"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC54"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC49"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC50"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC54"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.6.3 Неинициализированные переменные в операторе <CODE>let</CODE> </H3>
+<!--docid::SEC53::-->
+<P>
+
+Если вы не назначили переменным в выражении <CODE>let</CODE> какое-нибудь
+свое первоначальное значение, то им автоматически присваивается
+значение <CODE>nil</CODE>, как в следующем выражении:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let ((береза 3)
+      сосна 
+      ель
+      (дуб 'что-то))
+  (message
+   "Вот %d переменные со значениями %s, %s, и %s."
+   береза сосна ель дуб))
+</pre></td></tr></table></P><P>
+
+Вот список переменных этого выражения: <CODE>((береза 3) сосна ель
+(дуб 'что-то))</CODE>
+</P><P>
+
+Если вы вычислите это выражение как обычно, в эхо-области появится
+следующая фраза:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>"Вот 3 переменные со значениями nil, nil, и что-то."
+</pre></td></tr></table></P><P>
+
+В этом случае Emacs присвоил символу <CODE>береза</CODE> число 3, символам
+<CODE>сосна</CODE> и <CODE>ель</CODE> значения <CODE>nil</CODE>, а символу <CODE>дуб</CODE>
+значение <CODE>что-то</CODE>.
+</P><P>
+
+Обратите внимание, что в списке переменных <CODE>let</CODE> переменные
+<CODE>сосна</CODE> и <CODE>ель</CODE> стоят сами по себе, как атомы, и не окружены
+скобками --- поэтому им при инициализации назначается значение
+<CODE>nil</CODE>. Но <CODE>дуб</CODE> в составе списка <CODE>(дуб 'что-то)</CODE> и
+поэтому ему присваивается значение <CODE>что-то</CODE>. Аналогично
+<CODE>березе</CODE> присваивается число 3, так как она в списке, где вторым
+элементом является число 3. (Напомним, что поскольку число вычисляется
+само собой, то его не надо предварять апострофом. Также число
+печатается в сообщении на месте <SAMP>`%d'</SAMP>, а не <SAMP>`%s'</SAMP>). Вся группа
+из четырех переменных помещается в скобки, чтобы ограничить их от
+основного тела <CODE>let</CODE>.
+</P><P>
+
+<A NAME="if"></A>
+<HR SIZE="6">
+<A NAME="SEC54"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC53"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC55"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC50"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC56"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.7 Особая форма <CODE>if</CODE> </H2>
+<!--docid::SEC54::-->
+<P>
+
+Третья особая форма, которую мы изучим в этой главе, в добавок к
+<CODE>defun</CODE> и <CODE>let</CODE> --- это условная <CODE>if</CODE>. Эту форму
+используют когда надо проинструктировать компьютер принять решение.
+Можно конечно создавать функции и без использования этой формы, но
+поскольку ее все же используют довольно часто, и она очень важна, то
+мы рассмотрим ее здесь. Ее используют, например, в определении функции
+<CODE>beginning-of-buffer</CODE>.
+</P><P>
+
+Основная идея <CODE>if</CODE> --- "<EM>если</EM> какое-то условие
+истинно, то <EM>тогда</EM> выполняем какие-то действия". Если условие
+ложно, то действия не выполняются. Например, вы можете принять
+следующее решение "Если будет хорошая погода, то тогда я пойду на
+пляж!"
+</P><P>
+
+<A NAME="IDX35"></A>
+<A NAME="IDX36"></A>
+В выражении <CODE>if</CODE>, написанном на Лиспе, слово `then' не
+используют; тест и действие --- это соответственно второй и третий
+элемент списка, где первый элемент сам <CODE>if</CODE>. Тем не менее
+тестовую часть выражения <CODE>if</CODE> часто называют <EM>if-часть</EM>, а
+следующую часть --- <EM>then-часть</EM>.
+</P><P>
+
+Так же, когда записывается выражение <CODE>if</CODE>, проверка-истинна-ложь
+обычно записывается на той же самой строке, где и символ <CODE>if</CODE>, но
+действие, которое будет выполнятся, если проверка истинна, на второй и
+последующих строках. Таким образом оформленное выражение <CODE>if</CODE>
+легче воспринимается.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if <VAR>проверка-истинна-или-ложь</VAR>
+    <VAR>выполняемые-действия-если-проверка-истинна</VAR>)
+</pre></td></tr></table></P><P>
+
+Проверка-истинна-ложь --- это выражение, которое будет вычисляться
+интерпретатором Лиспа.
+</P><P>
+
+Ниже пример, который вы можете вычислить обычным образом. Там
+проверяется, правда ли, что число 5, больше чем число 4. Так как это
+похоже на правду, будет отображено следующее сообщение <SAMP>`5 больше
+чем 4!'</SAMP>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (&#62; 5 4)                             ; if-part 
+    (message "5 больше чем 4!"))        ; then-part
+</pre></td></tr></table></P><P>
+
+(Функция <CODE>&#62;</CODE> проверяет больше ли ее первый аргумент, чем второй,
+и возвращает истину в случае успеха).
+<A NAME="IDX37"></A>
+</P><P>
+
+Конечно, в настоящей программе тестовое условие для выражения
+<CODE>if</CODE> не будет так жестко фиксировано, как в этом примере <CODE>(&#62;
+5 4)</CODE>. Вместо этого по крайней мере одна из переменных будет связана
+со значением, которое не известно заранее. (Если бы мы знали его
+заранее, зачем тогда было бы его проверять!)
+</P><P>
+
+Например, значение может быть связано с аргументом в определении
+функции. В следующем определении функции характеристика животного это
+значение, которое передается в функцию.  Если значение аргумента
+<CODE>характеристика</CODE> --- <CODE>свирепость</CODE>, тогда печатается
+сообщение <SAMP>`Это тигр!'</SAMP>; в противном случае вернется <CODE>nil</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun тип-животного (характеристика)
+  "Напечатать сообщение в эхо-области. В зависимости от ХАРАКТЕРИСТИКИ.
+     Если ХАРАКТЕРИСТИКА `свирепость', тогда напечатать предупреждение."
+  (if (equal характеристика 'свирепость)
+      (message "Это тигр!")))
+</pre></td></tr></table></P><P>
+
+Если вы читаете это внутри Emacs, то вы можете вычислить определение
+этой функции как обычно, чтобы установить ее в Emacs, а потом
+вычислить два следующих выражения:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(тип-животного 'свирепость)
+
+(тип-животного 'зебра)
+</pre></td></tr></table></P><P>
+
+Когда вы вычислите <CODE>(тип-животного 'свирепость)</CODE>, в эхо-области
+появится следующее сообщение: <CODE>"Это тигр!"</CODE>; а когда вы вычислите
+<CODE>(тип-животного 'зебра)</CODE>, в эхо-области будет напечатано
+<CODE>nil</CODE>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC55">3.7.1 Подробное рассмотрение функции <CODE>type-of-animal</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Пример выражения <CODE>if</CODE>.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Детали type-of-animal"></A>
+<HR SIZE="6">
+<A NAME="SEC55"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC54"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC56"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC50"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC54"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC56"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.7.1 Подробное рассмотрение функции <CODE>type-of-animal</CODE> </H3>
+<!--docid::SEC55::-->
+<P>
+
+Давайте рассмотрим функцию <CODE>тип-животного</CODE> подробнее.
+</P><P>
+
+Эта функция написана стандартным образом путем заполнения
+соответствующих мест в двух шаблонах --- один для определения
+функции <CODE>defun</CODE>, а второй для выражения <CODE>if</CODE>.
+</P><P>
+
+Шаблон для каждой неинтерактивной функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun <VAR>имя-функции</VAR> (<VAR>список-аргументов</VAR>)
+  "<VAR>документация</VAR><small>...</small>"
+  <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+Части функции, соответствующие шаблону, выглядят следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun тип-животного (характеристика)
+  "Напечатать сообщение в эхо-области. В зависимости от ХАРАКТЕРИСТИКИ.
+Если ХАРАКТЕРИСТИКА `свирепость', тогда напечатать предупреждение."
+    <VAR>тело: </VAR> <CODE>if</CODE> <VAR>выражение</VAR>)
+</pre></td></tr></table></P><P>
+
+В этом случае имя функции <CODE>тип-животного</CODE>; ей передается значение
+одного аргумента. За списком аргументов следует двухстрочный
+комментарий. Мы включили документацию в наш пример, так как надо
+выработать у себя привычку писать документацию к каждой функции. Тело
+функции состоит из выражения <CODE>if</CODE>.
+</P><P>
+
+Шаблон для выражения <CODE>if</CODE> такой:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if <VAR>проверка-истинна-ложь</VAR>
+    <VAR>выполняемые-действия-если-проверка-истинна</VAR>)
+</pre></td></tr></table></P><P>
+
+В определении функции <CODE>тип-животного</CODE>, настоящий код для
+<CODE>if</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (equal характеристика 'свирепость)
+    (message "Это тигр!")))
+</pre></td></tr></table></P><P>
+
+Здесь проверка-истинна-ложь это выражение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(equal характеристика 'свирепость)
+</pre></td></tr></table></P><P>
+
+В Лиспе, функция <CODE>equal</CODE> проверяет на равенство два своих
+аргумента. В нашем случае второй аргумент символ <CODE>'свирепость</CODE>, а
+первый --- значение символа <CODE>характеристика</CODE> (другими словами
+аргумент, который передали в нашу функцию.)
+</P><P>
+
+В начале мы передали в функцию <CODE>тип-животного</CODE> аргумент
+<CODE>'свирепость</CODE>. Поскольку <CODE>свирепость</CODE> равна
+<CODE>свирепость</CODE>, то вычисление выражения <CODE>(equal характеристика
+'свирепость)</CODE>, вернуло истинное значение. Когда это произошло,
+<CODE>if</CODE> вычислило свой второй аргумент или then-часть:
+<CODE>(message "Это тигр!")</CODE>
+</P><P>
+
+Во втором примере мы передали функции <CODE>тип-животного</CODE> аргумент
+<CODE>зебра</CODE>. <CODE>зебра</CODE> не равна <CODE>свирепости</CODE>, поэтому
+then-часть не вычислялось и выражение <CODE>if</CODE> вернуло <CODE>nil</CODE>.
+</P><P>
+
+<A NAME="else"></A>
+<HR SIZE="6">
+<A NAME="SEC56"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC55"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC57"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC54"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.8 Выражения if--then--else </H2>
+<!--docid::SEC56::-->
+<P>
+
+У выражения <CODE>if</CODE> может быть необязательный третий аргумент,
+который называют <EM>else-часть</EM>, это на тот случай, когда проверка
+истинна-ложь окончится неудачей, то есть вернет ложь. Когда это
+происходит, второй аргумент или then-часть <EM>не</EM> вычисляется, а
+вычисляется третья часть или else-часть выражения <CODE>if</CODE>. Вы можете
+считать это альтернативой для дождливого дня в следующем решении `если
+будет солнечный день, тогда пойду на пляж, иначе буду читать книгу!'.
+</P><P>
+
+Слово "else" не надо записывать согласно синтаксису Лиспа;
+else-часть в выражении <CODE>if</CODE> идет сразу за then-частью. Обычно,
+else-часть записывают на отдельной строке и выравнивают немного левее
+чем then-часть:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if <VAR>проверка-истинна-ложь</VAR>
+    <VAR>выполняемые-действия-если-проверка-истинна</VAR>)
+  <VAR>действия-выполняемые-если-проверка-ложна</VAR>)
+</pre></td></tr></table></P><P>
+
+Например, следующее выражение <CODE>if</CODE> напечатает сообщение <SAMP>`4
+не больше чем 5'</SAMP> если вы вычислите его обычным образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (&#62; 4 5)                             ; if-часть
+    (message "5 больше чем 4!")         ; then-часть
+  (message "4 не больше чем 5!"))       ; else-часть
+</pre></td></tr></table></P><P>
+
+Обратите внимание, что разные уровни выравнивания сразу позволяют
+отделить then-часть от else-части. (В GNU Emacs существуют несколько
+команд, которые автоматически выравнивают выражения <CODE>if</CODE>.
+See section <A HREF="elisp-intro-ru_3.html#SEC12">GNU Emacs Помогает Вам Программировать</A>.)
+</P><P>
+
+Вы можете расширить функцию <CODE>тип-животного</CODE>, чтобы включить
+else-часть, просто добавив ее к выражению <CODE>if</CODE>.
+</P><P>
+
+Затем посмотрите, что изменится, если вы как обычно вычислите
+следующую версию <CODE>тип-животного</CODE>, для того чтобы установить ее, и
+потом вычислите два примера ее использования с различными аргументами.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun тип-животного (характеристика)	; Вторая версия
+  "Напечатать сообщение в эхо-области. В зависимости от ХАРАКТЕРИСТИКИ.
+     Если ХАРАКТЕРИСТИКА `свирепость, тогда напечатать предупреждение."
+  (if (equal характеристика 'свирепость)
+      (message "Это тигр!")
+    (message "Оно не свирепое!")))
+</pre></td></tr></table></P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(тип-животного 'свирепость)
+
+(тип-животного 'зебра)
+</pre></td></tr></table></P><P>
+
+Когда вы вычислите <CODE>(тип-животного 'свирепость)</CODE>, в эхо-области
+будет напечатано следующее сообщение <CODE>"Это тигр!"</CODE>, а когда вы
+измените аргумент на <CODE>зебра</CODE>, вы увидите <CODE>"Оно не
+свирепое!"</CODE>.
+</P><P>
+
+(Конечно, если <VAR>характеристика</VAR> будет <CODE>жестокость</CODE>, сообщение
+<CODE>"Оно не свирепое!"</CODE> может быть обманчивым! Когда вы пишете
+реальные программы, вы всегда должны принимать в рассмотрение
+возможность таких неожиданных аргументов и соответствующим образом
+реагировать на них).
+</P><P>
+
+<A NAME="Истина &#38; Ложь"></A>
+<HR SIZE="6">
+<A NAME="SEC57"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC56"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC58"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.9 Истина и ложь в Lisp </H2>
+<!--docid::SEC57::-->
+<P>
+
+Существует важный аспект, касающийся проверки на истинность в
+выражении <CODE>if</CODE>. Пока мы говорили об `истине' и `лжи' как о
+значении предикатов, как будто это какие-то новые объекты в Лиспе. На
+самом деле `ложь' --- это наш старый друг <CODE>nil</CODE>. Все
+остальное --- это `истина'.
+</P><P>
+
+Выражение, которое осуществляет проверку условия, возвращает
+<EM>true</EM>, если результат вычисления проверочного условия не
+<CODE>nil</CODE>. Другими словами, результат проверки считается истинным,
+если возвращенное значение число такое как 47; строка, например
+<CODE>"привет"</CODE>; или символ (любой кроме <CODE>nil</CODE>), например
+<CODE>цветы</CODE>; или список, или даже буфер!
+</P><P>
+
+До того как проиллюстрировать выше сказанное, мы поподробнее объясним
+значение <CODE>nil</CODE>.
+</P><P>
+
+В Лиспе, символ <CODE>nil</CODE> имеет два значения. Во-первых --- это
+означает пустой список. Во-вторых --- это означает false (ложь), и
+именно это значение возвращает проверка истинна-ложь, если проверка
+прошла не успешно. <CODE>nil</CODE> можно записать как пустой список
+<CODE>()</CODE>, или как <CODE>nil</CODE>. Когда дело доходит до интерпретатора
+Лиспа, то <CODE>()</CODE> и <CODE>nil</CODE> считаются одинаковыми. Людям, однако,
+больше нравится использовать <CODE>nil</CODE> для значения ложь, и <CODE>()</CODE>
+как обозначение пустого списка.
+</P><P>
+
+В Лиспе, любое значение, которое не равно <CODE>nil</CODE> (или не пустой
+список) считается истиной. Это означает, что если вычисление проверки
+истинна-ложь в выражении <CODE>if</CODE> вернет что угодно кроме пустого
+списка, то это будет считаться истиной. Например, если на месте
+проверяемого условия будет число, то при вычислении оно вернет само
+себя, именно как это делают числа, когда их вычисляют. В этом случае
+проверка истина-ложь будет считаться выполненной успешно. Проверка
+будет считаться неудачной только тогда, когда при вычислении
+проверяемого выражения оно вернет <CODE>nil</CODE> или пустой список.
+</P><P>
+
+Вы можете проверить это, вычислив два следующих примера.
+</P><P>
+
+В первом из них, в проверке выражения <CODE>if</CODE> вычисляется число 4, и
+так как она возвращает сама себя, это считается истиной, и поэтому
+вычисляется then-часть выражения <CODE>if</CODE> --- в результате в
+эхо-области появляется <SAMP>`истина'</SAMP>. Во втором примере <CODE>nil</CODE>
+означает ложь --- поэтому вычисляется else-часть выражения
+<CODE>if</CODE>, и в эхо-области печатается <SAMP>`ложь'</SAMP>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if 4
+    'истина
+  'ложь)
+
+(if nil
+    'истина
+  'ложь)
+</pre></td></tr></table></P><P>
+
+Кстати, если какое-нибудь полезное значение не доступно для
+возвращения при тестовом условии, которое завершается успешно, то
+тогда интерпретатор Лиспа вернет символ <CODE>t</CODE>, который в таких
+случаях означает истина. Например, выражение <CODE>(&#62; 5 4)</CODE> вернет
+<CODE>t</CODE> в результате вычисления, как вы можете проверить сами:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(&#62; 5 4)
+</pre></td></tr></table></P><P>
+
+С другой стороны, эта функция вернет <CODE>nil</CODE>, если проверка
+завершится неудачей.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(&#62; 4 5)
+</pre></td></tr></table></P><P>
+
+<A NAME="save-excursion"></A>
+<HR SIZE="6">
+<A NAME="SEC58"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC57"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC59"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC60"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.10 <CODE>save-excursion</CODE> </H2>
+<!--docid::SEC58::-->
+<P>
+
+Функция <CODE>save-excursion</CODE> --- четвертая и последняя особая
+форма, которую мы обсудим в этой главе.
+</P><P>
+
+В основном программы на Emacs Лиспе используются для редактирования, и
+функция <CODE>save-excursion</CODE> встречается очень часто. Она сохраняет
+местоположение точки и метки, выполняет тело функции, и затем
+восстанавливает точку и метку в их первоначальные значения. Основная
+роль этой функции --- оберегать пользователя от неожиданных
+перемещений точки или метки при выполнении команд редактирования.
+</P><P>
+
+До обсуждения <CODE>save-excursion</CODE> может быть полезным вначале
+вспомнить что такое точка (point) и метка (mark) в GNU Emacs.
+<EM>Точка</EM> (point) --- это текущее положение курсора. Там где
+курсор, там и точка. Если быть более точным на терминалах, где курсор
+кажется поверх символа, точка расположена, как раз перед этим
+символом. В Emacs Лиспе, точка --- это целое число. Первый символ
+в буфере --- число один, второй --- число два, и так далее.
+Функция <CODE>point</CODE> возвращает текущую позицию курсора как число. В
+каждом буфере свое собственное значение для точки.
+</P><P>
+
+<EM>Метка</EM> (mark) --- это другая позиция в буфере; ее можно
+установить с помощью команды, такой как <KBD>C-<KBD>SPC</KBD></KBD>
+(<CODE>set-mark-command</CODE>). Если метка установлена, то вы можете
+использовать команду <KBD>C-x C-x</KBD> (<CODE>exchange-point-and-mark</CODE>).
+Это заставит курсор переместиться к метке и установить метку на месте
+прошлого положения курсора. В добавок, если вы установите другую
+метку, то позиция предыдущей будет сохранена в кольце меток. Вы
+можете переместить курсор на место сохраненной метки, нажимая <KBD>C-u
+C-<KBD>SPC</KBD></KBD> один или несколько раз.
+</P><P>
+
+Часть буфера между точкой и меткой называется <EM>блок</EM> (region).
+Много команд работают над блоком текста, например,
+<CODE>center-region</CODE>, <CODE>count-lines-region</CODE>, <CODE>kill-region</CODE> и
+<CODE>print-region</CODE>.
+</P><P>
+
+Особая форма <CODE>save-excursion</CODE> сохраняет местоположение точки и
+метки и восстанавливает эти позиции после того, как тело этой особой
+формы будет вычислено интерпретатором Лиспа. Например, если точка была
+в начале какого-нибудь блока текста, и некоторый код переместил в
+процессе вычислений точку в конец буфера, то тогда
+<CODE>save-excursion</CODE> восстановит первоначальное положение точки,
+после того как закончится вычисление тела <CODE>save-excursion</CODE>.
+</P><P>
+
+В Emacs, функции часто перемещают точку в процессе внутренней работы,
+хотя пользователь и не ожидает этого. Например так делает функция
+<CODE>count-lines-region</CODE>. Чтобы оградить пользователя от
+раздражающих, и с его точки зрения ненужных прыжков курсора, часто
+используют функцию <CODE>save-excursion</CODE>, чтобы сохранять положение
+точки и метки в местах, ожидаемых пользователем. Использование
+<CODE>save-excursion</CODE> --- хороший стиль программирования.
+</P><P>
+
+Чтобы убедиться, что все в порядке, <CODE>save-excursion</CODE>
+восстанавливает значения точки и метки, даже если что-то идет не так в
+теле функции (или если быть более точным и использовать надлежащий
+жаргон в "случае ненормального завершения" (abnormal exit)). Эта
+возможность может быть очень полезной.
+</P><P>
+
+Кроме восстановления значений точки и метки, <CODE>save-excursion</CODE>
+запоминает текущий буфер и также восстанавливает его. Это означает,
+что вы можете написать программу, которая меняет буфер в процессе
+своей работы, и потом <CODE>save-excursion</CODE> переключит вас обратно в
+первоначальный буфер. Именно так <CODE>save-excursion</CODE> используется в
+функции <CODE>append-to-buffer</CODE>.  (See section <A HREF="elisp-intro-ru_6.html#SEC67">The Definition of <CODE>append-to-buffer</CODE></A>.)
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="elisp-intro-ru_5.html#SEC59">3.10.1 Шаблон для выражения <CODE>save-excursion</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Шаблон для save-excursion"></A>
+<HR SIZE="6">
+<A NAME="SEC59"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC58"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC60"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC57"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC58"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC60"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 3.10.1 Шаблон для выражения <CODE>save-excursion</CODE> </H3>
+<!--docid::SEC59::-->
+<P>
+
+Шаблон для использования в программах выражения <CODE>save-excursion</CODE>
+очень прост:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(save-excursion
+  <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+Тело функции --- это одно или несколько выражений, которые
+последовательно будут вычислены интерпретатором Лиспа. Если в теле
+более одного выражения, то значение последнего будет считаться
+значением, возвращаемым всей функцией <CODE>save-excursion</CODE>. Другие
+выражения в теле функции будут вычислены только ради их побочных
+эффектов; кстати, можно сказать, что и сама функция
+<CODE>save-excursion</CODE> используется только из-за своего побочного
+эффекта (восстановления точки и метки).
+</P><P>
+
+Более детально шаблон для <CODE>save-excursion</CODE> выглядит следующим
+образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(save-excursion
+  <VAR>первое-выражение-в-теле</VAR>
+  <VAR>второе-выражение-в-теле</VAR>
+  <VAR>третье-выражение-в-теле</VAR>
+   <small>...</small>
+  <VAR>последнее-выражение-в-теле</VAR>)
+</pre></td></tr></table></P><P>
+
+Выражения, конечно, могут быть или просто символами или списками.
+</P><P>
+
+В программах на Emacs Лиспе выражение <CODE>save-excursion</CODE> часто
+помещают в тело выражения <CODE>let</CODE>. Это выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let <VAR>список-переменных</VAR>
+  (save-excursion
+    <VAR>тело</VAR><small>...</small>))
+</pre></td></tr></table>  
+<A NAME="Review"></A>
+<HR SIZE="6">
+<A NAME="SEC60"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC59"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC61"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC58"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.11 Обзор </H2>
+<!--docid::SEC60::-->
+<P>
+
+В последней главе мы ввели в рассмотрение довольно значительное число
+функции и особых форм. Здесь я попытаюсь кратко повторить их все, плюс
+представлю несколько простых, но очень полезных функций, которые вы
+еще не знаете.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>eval-last-sexp</CODE>
+<DD>Вычислить последнее символическое выражение перед текущим положением
+курсора. Возвращенное значение будет напечатано в эхо-области, если
+эта функция запущена без префикс-аргумента; если функция запущена с
+префикс-аргументом, то результат печатается в текущем буфере. Эта
+команда обычно привязана к сочетанию клавиш <KBD>C-x C-e</KBD>.
+<P>
+
+<DT><CODE>defun</CODE>
+<DD>Define function (Определить функцию). Эта особая форма может включать
+до пяти частей --- имя, шаблон для аргументов, передаваемых в
+функцию, необязательную документацию, необязательное интерактивное
+объявление, и само тело функции.
+<P>
+
+Например:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun back-to-indentation ()
+  "Переместить точку к первому видимому символу на линии."
+  (interactive)
+  (beginning-of-line 1)
+  (skip-chars-forward " \t"))
+</pre></td></tr></table></P><P>
+
+<DT><CODE>interactive</CODE>
+<DD>Объявить интерпретатору, что эта функция может использоваться
+интерактивно. За этой особой формой может следовать строка, состоящая
+из нескольких частей, о том, как передать информацию в эту функцию. В
+этой строке могут так же содержаться подсказки отображаемые в
+эхо-области. Части строки разделяются друг от друга символами новой
+строки <SAMP>`\n'</SAMP>.
+<P>
+
+Наиболее часто используемые символы:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>b</CODE>
+<DD>Имя существующего буфере.
+<P>
+
+<DT><CODE>f</CODE>
+<DD>Имя существующего файла.
+<P>
+
+<DT><CODE>p</CODE>
+<DD>Числовой префикс-аргумент. (Обратите внимание, что `p' набран в нижнем
+регистре).
+ 
+<DT><CODE>r</CODE>
+<DD>Точка и метка, как два числовых аргумента, самое маленькое первым.
+Это единственный символ, который сразу описывает два последовательных
+аргумента, а не один.
+</DL>
+<P>
+
+See section `Code Characters for <SAMP>`interactive'</SAMP>' in <CITE>The GNU Emacs Lisp Reference Manual</CITE>, для более полного списка
+символов, предопределенных для <CODE>interactive</CODE>.
+</P><P>
+
+<DT><CODE>let</CODE>
+<DD>Объявляет список переменных, которые будут использоваться внутри тела
+<CODE>let</CODE>, и присваивает им первоначальные значения, или <CODE>nil</CODE>
+или заданное программистом; затем вычисляет оставшиеся выражения в
+теле <CODE>let</CODE> и возвращает результат вычисления последнего из них.
+Внутри тела <CODE>let</CODE> интерпретатор Лиспа игнорирует переменные с
+теми же именами, которые существуют вне выражения <CODE>let</CODE>.
+<P>
+
+Например,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let ((foo (buffer-name))
+      (bar (buffer-size)))
+  (message
+   "В этом буфере %s ровно %d characters."
+   foo bar))
+</pre></td></tr></table></P><P>
+
+<DT><CODE>save-excursion</CODE>
+<DD>Запоминает значение точки, метки и текущего буфера перед вычислением
+тела этой особой формы. Затем восстанавливает их значения к
+первоначальным.
+<P>
+
+Например,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(message "Мы на расстоянии %d символов от начала буфера."
+         (- (point)
+            (save-excursion
+              (goto-char (point-min)) (point))))
+</pre></td></tr></table></P><P>
+
+<DT><CODE>if</CODE>
+<DD>Вычисляет первый аргумент особой формы; если результат ---
+истинна, вычисляет второй аргумент; иначе вычисляет третий аргумент,
+если он существует.
+<P>
+
+Особая форма <CODE>if</CODE> называется условной формой. В Emacs Лиспе
+существуют и другие условные формы, но <CODE>if</CODE> наиболее часто
+используемая.
+</P><P>
+
+Например,
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(if (string= (int-to-string 19)
+             (substring (emacs-version) 10 12))
+    (message "Это 19 версия Emacs")
+  (message "Это не 19 версия Emacs"))
+</pre></td></tr></table></P><P>
+
+<DT><CODE>equal</CODE>
+<DD><DT><CODE>eq</CODE>
+<DD>Проверяют два объекта на равенство.  <CODE>equal</CODE> возвращает истину
+если два объекта имеют одинаковую структуру и содержание. Другая
+функция <CODE>eq</CODE> возвращает истину, если два аргумента на самом деле
+один и тот же объект.
+<A NAME="IDX38"></A>
+<A NAME="IDX39"></A>
+<P>
+
+<DT><CODE>&#60;</CODE>
+<DD><DT><CODE>&#62;</CODE>
+<DD><DT><CODE>&#60;=</CODE>
+<DD><DT><CODE>&#62;=</CODE>
+<DD>Функция <CODE>&#60;</CODE> проверяет, меньше ли ее первый аргумент чем второй.
+Соответственно функция <CODE>&#62;</CODE> проверяет больше ли ее первый аргумент
+чем второй. <CODE>&#60;=</CODE> проверяет меньше или равен первый аргумент
+второго и <CODE>&#62;=</CODE> соответственно больше либо равен первый аргумент
+второму. Эти функции работают только с численными аргументами.
+<P>
+
+<DT><CODE>message</CODE>
+<DD>Печатает сообщение в эхо-области. Длина сообщения ограничена только
+одной строкой. Первый аргумент --- это строка, которая может
+содержать символы <SAMP>`%s'</SAMP>, <SAMP>`%d'</SAMP>, <SAMP>`%c'</SAMP>, на месте которых
+будут подставлены последующие аргументы функции <CODE>message</CODE>.
+Аргумент, подставляемый на место <SAMP>`%s'</SAMP>, должен быть строкой или
+символом; на место <SAMP>`%d'</SAMP> подставляется число. Аргумент, который
+используется с <SAMP>`%c'</SAMP> тоже должен быть числом, оно будет напечатано
+как код для ASCII символа.
+<P>
+
+<DT><CODE>setq</CODE>
+<DD><DT><CODE>set</CODE>
+<DD>Функция <CODE>setq</CODE> устанавливает значением своего первого аргумента
+значение второго аргумента. Первый аргумент <CODE>setq</CODE> не вычисляется
+автоматически. Эту функцию можно использовать и сразу с несколькими
+аргументами. Другая функция <CODE>set</CODE> принимает только два аргумента,
+и после вычисления обоих назначает значению, возвращенному первым
+аргументом, значение, возвращенное вычислением второго аргумента.
+<P>
+
+<DT><CODE>buffer-name</CODE>
+<DD>Используется без аргумента, возвращает имя буфера в виде строки.
+<P>
+
+<DT><CODE>buffer-file-name</CODE>
+<DD>Используется без аргумента, возвращает имя файла, связанного с данным
+буфером.
+<P>
+
+<DT><CODE>current-buffer</CODE>
+<DD>Возвращает текущий активный буфер Emacs --- это необязательно
+должен быть буфер, который отображен на экране.
+<P>
+
+<DT><CODE>other-buffer</CODE>
+<DD>Возвращает недавно выбранный буфер.
+<P>
+
+<DT><CODE>switch-to-buffer</CODE>
+<DD>Устанавливает буфер, который задан как аргумент активным для Emacs и
+одновременно отображает его в текущем окне. Обычно эта команда
+связана с <KBD>C-x b</KBD>.
+<P>
+
+<DT><CODE>set-buffer</CODE>
+<DD>Переключает внимание Emacs на другой буфер. Не изменяет содержимое
+текущего окна Emacs.
+<P>
+
+<DT><CODE>buffer-size</CODE>
+<DD>Возвращает число символов в текущем буфере.
+<P>
+
+<DT><CODE>point</CODE>
+<DD>Возвращает значение текущей позиции курсора как целое, считая число
+символов с начала буфера.
+<P>
+
+<DT><CODE>point-min</CODE>
+<DD>Возвращает минимально возможное значение точки в текущем
+буфере. Обычно 1, если не включено сужение.
+<P>
+
+<DT><CODE>point-max</CODE>
+<DD>Возвращает максимально возможное значение точки в текущем буфере.
+Обычно конец буфера, если не включено сужение.
+</DL>
+<P>
+
+<A NAME="Упражнения для defun"></A>
+<HR SIZE="6">
+<A NAME="SEC61"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC60"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 3.12 Упражнения </H2>
+<!--docid::SEC61::-->
+<P>
+
+<UL>
+<LI>
+Напишите не интерактивную функцию, которая удваивает значение своего
+аргумента, числа. Сделайте эту функцию интерактивной.
+<P>
+
+<LI>
+Напишите функцию, которая проверяет: больше ли текущее значение
+<CODE>fill-column</CODE>, чем значение аргумента, переданного в функцию, и
+если да, то печатает соответствующее сообщение в эхо-области.
+</UL>
+<P>
+
+<A NAME="Что такое буфер"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_5.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_6.html#SEC62"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_24.html#SEC243">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="elisp-intro-ru_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>March, 10  2004</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>

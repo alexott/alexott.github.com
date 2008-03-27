@@ -1,0 +1,1502 @@
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Created on December, 4  2003 by texi2html 1.64 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>Программирование на Emacs Lisp: Циклы и рекурсия</TITLE>
+
+<META NAME="description" CONTENT="Программирование на Emacs Lisp: Циклы и рекурсия">
+<META NAME="keywords" CONTENT="Программирование на Emacs Lisp: Циклы и рекурсия">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.64">
+
+</HEAD>
+
+<BODY LANG="" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC129"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_11.html#SEC128"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC130"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_11.html#SEC125"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> 11. Циклы и рекурсия </H1>
+<!--docid::SEC129::-->
+<P>
+
+В Emacs Лиспе есть два основных способа сделать так, чтобы выражение
+или серия выражений вычислилось несколько раз --- один с помощью
+цикла <CODE>while</CODE>: а другой --- с помощью <EM>рекурсии</EM>.
+</P><P>
+
+Повторения могут быть очень полезны. Например, чтобы переместить
+курсор через четыре предложения, вам надо только написать программу
+которая перемещает курсор вперед на одно предложение и затем повторить
+этот процесс четыре раза. Поскольку компьютер не устает и не скучает,
+то такие повторяющиеся действия не имеют вредных эффектов, которые
+некоторые виды повторяющихся действий могут иметь на людей.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC130">11.1 <CODE>while</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Заставляем код повторяться.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC141">11.2 Рекурсия</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC146">11.3 Упражнения с циклами</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="while"></A>
+<HR SIZE="6">
+<A NAME="SEC130"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC129"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC131"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC129"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC129"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC141"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 11.1 <CODE>while</CODE> </H2>
+<!--docid::SEC130::-->
+<P>
+
+<CODE>while</CODE> --- это особая форма, которая проверяет правда ли что
+значение, которое вернуло вычисление ее первого аргумента, является ли
+истинным или ложным. Это похоже на то, что делает интерпретатор Лиспа
+с <CODE>if</CODE>; однако то, что интерпретатор делает затем, несколько
+отличается.
+</P><P>
+
+В выражении <CODE>while</CODE>, если значение которое вернулось после
+вычисления первого аргумента ложь, то интерпретатор Лиспа пропускает
+оставшуюся часть --- <EM>тело</EM> выражения, и не вычисляет его.
+Если наоборот значением является истинна, то интерпретатор Лиспа
+вычисляет тело выражения и снова проверяет чему равен первый аргумент
+выражения <CODE>while</CODE> --- истина или ложь. Если снова значением
+первого аргумента является истина, то интерпретатор Лисп снова
+вычисляет тело выражения.
+</P><P>
+
+Шаблон для выражения <CODE>while</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while <VAR>проверка-истинна-ложь</VAR>
+  <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+До тех пор, пока проверка-истина-ложь в выражении <CODE>while</CODE> будет
+возвращать истину, тело всего выражения будет повторно вычисляться.
+Этот процесс называется циклом, поскольку интерпретатор Лиспа снова и
+снова повторяет один и тот же код, как будто аэроплан делает петлю.
+Когда в результате вычисления проверки-истинна-ложь возвратится ложь,
+то интерпретатор Лиспа не вычисляет оставшуюся часть выражения
+<CODE>while</CODE> и как говорят --- `выходит из цикла'.
+</P><P>
+
+Понятно, что если значение, возвращаемое вычислением первого аргумента
+<CODE>while</CODE> всегда истина, то тело цикла будет вычисляться снова и
+снова <small>...</small>, т.е, всегда. И наоборот, если значение первого
+аргумента никогда не будет равно истине, тогда и тело цикла никогда не
+будет вычислено. Мастерство написания циклов <CODE>while</CODE> как раз и
+состоит из выбора механизма, такого, чтобы проверка-истина-ложь
+возвращала истину нужное число раз, как раз столько, сколько раз вы
+хотите вычислить внутреннее выражение, а затем вернуть ложь.
+</P><P>
+
+Значение, возвращаемое после вычисления <CODE>while</CODE> --- это
+значение проверки-истина-ложь. Интересное следствие, что сам цикл
+<CODE>while</CODE> после завершения без ошибок вернет <CODE>nil</CODE> или ложь
+--- не важно сколько раз он сам исполнялся, 1 раз или 100 или совсем
+ни разу. Выражение <CODE>while</CODE>, которое вычислилось успешно, никогда
+не вернет значение истину! Это значит, что <CODE>while</CODE> всегда
+используется ради побочных эффектов, то есть именно за
+последовательное повторное вычисление выражений тела цикла
+<CODE>while</CODE>. Именно это имеет смысл. Не то, что сам акт цикла, а
+последовательности которые происходят когда выражения цикла
+последовательно вычисляются.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC131">11.1.1 Цикл <CODE>while</CODE> и список</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC132">11.1.2 Пример: <CODE>print-elements-of-list</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Uses <CODE>while</CODE>, <CODE>car</CODE>, <CODE>cdr</CODE>.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC133">11.1.3 Цикл с увеличивающимся счетчиком</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC137">11.1.4 Цикл с уменьшающимся счетчиком</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Пример цикла"></A>
+<HR SIZE="6">
+<A NAME="SEC131"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC130"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC132"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC129"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC130"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC141"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 11.1.1 Цикл <CODE>while</CODE> и список </H3>
+<!--docid::SEC131::-->
+<P>
+
+Один из способов управлять циклом <CODE>while</CODE> --- это проверить,
+содержит ли список что-нибудь. Если да, то цикл повторяется; а если
+нет, то повторения заканчиваются. Поскольку эта техника очень часто
+применяется на практике, то давайте рассмотрим ее поподробнее с
+помощью небольшого примера.
+</P><P>
+
+Простой способ проверить имеет ли список какие-нибудь элементы ---
+это вычислить список; если там нет элементов, то есть --- это
+пустой список, то вернется пустой список <CODE>()</CODE>, который является
+тем же самым, что и <CODE>nil</CODE> или ложь. С другой стороны если список
+имеет какие-нибудь элементы, то после вычисления вернутся эти
+элементы. Поскольку Лисп считает все, что не <CODE>nil</CODE>, истиной, то
+список с какими-нибудь элементами считается истиной и выражения в теле
+цикла <CODE>while</CODE> будут вычисляться.
+</P><P>
+
+Например, вы может связать переменную <CODE>пустой-список</CODE> с
+<CODE>nil</CODE> вычислив следующее выражение <CODE>setq</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq пустой-список ())
+</pre></td></tr></table></P><P>
+
+После вычисления этого выражения, вы можете вычислить переменную
+<CODE>пустой-список</CODE> обычным образом, поместив курсор после символа и
+нажав <CODE>C-x C-e</CODE>; в эхо-области появится <CODE>nil</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>пустой-список
+</pre></td></tr></table></P><P>
+
+С другой стороны, если вы назначите переменной список со значениями,
+то когда вы вычислите переменную, появится этот список, как вы это
+можете увидеть, вычислив следующие два выражения:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq животные '(жираф газель лев тигр))
+
+животные
+</pre></td></tr></table></P><P>
+
+Поэтому, чтобы создать цикл <CODE>while</CODE>, который проверяет есть ли в
+списке <CODE>животные</CODE> какие-нибудь элементы, то первую часть списка
+надо записать в следующем виде:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while животные
+       <small>...</small>
+</pre></td></tr></table></P><P>
+
+Когда <CODE>while</CODE> проверит свой первый аргумент, будет вычислена
+переменная <CODE>животные</CODE>. Она вернет список. Пока в списке есть
+элементы, <CODE>while</CODE> будет считать результат теста равным истине; но
+когда список будет пуст, то результатом теста будет ложь.
+</P><P>
+
+Чтобы защититься от зацикливания <CODE>while</CODE> нам нужен некий
+механизм, который постепенно будет опустошать список. Одна из часто
+применяемых техник --- это укорачивать первоначальный список с
+помощью <CODE>cdr</CODE>, в одном из выражений в теле цикла <CODE>while</CODE>.
+Каждый раз, когда вычисляется функция <CODE>cdr</CODE> список становится
+короче, до тех пор пока не останется пустой список. В этот раз
+проверка-истинна-ложь цикла <CODE>while</CODE> вернет ложное значение, и
+тело цикла больше не будет вычисляться.
+</P><P>
+
+Например, список животных, связанных с переменной <CODE>животные</CODE>
+можно связать с CDR первоначального списка, с помощью следующего
+выражения:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq животные (cdr животные))
+</pre></td></tr></table></P><P>
+
+Если вы вычислите предыдущее выражение, а затем вычислите это
+выражение, то вы увидите, что в эхо-области появится <CODE>(газель лев
+тигр)</CODE>. Если вы снова вычислите это выражение, то в эхо-области
+появится <CODE>(лев тигр)</CODE>, после еще одного вычисления вы увидите
+<CODE>(тигр)</CODE> и наконец <CODE>nil</CODE>.
+</P><P>
+
+Шаблон для цикла <CODE>while</CODE>, в котором используется функция
+<CODE>cdr</CODE> для того, чтобы постепенно проверка-истина-ложь наконец-то
+вернула ложь и цикл закончился, выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while <VAR>проверить-пуст-ли-список</VAR>
+  <VAR>тело</VAR><small>...</small>
+  <VAR>установить-список-в-cdr-списка</VAR>)
+</pre></td></tr></table></P><P>
+
+Эту проверку и использование <CODE>cdr</CODE> можно сложить вместе в
+функцию, которая проходит через список и печатает каждый элемент
+списка на отдельной строке.
+</P><P>
+
+<A NAME="print-elements-of-list"></A>
+<HR SIZE="6">
+<A NAME="SEC132"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC131"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC133"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC129"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC130"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC141"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 11.1.2 Пример: <CODE>print-elements-of-list</CODE> </H3>
+<!--docid::SEC132::-->
+<P>
+
+Функция <CODE>печать-элементов-списка</CODE> иллюстрирует использование
+цикла <CODE>while</CODE> со списком.
+</P><P>
+
+<A NAME="IDX59"></A>
+Этой функции требуется несколько строк для вывода. Поскольку
+эхо-область вмещает только одну строку, то мы не сможем показать как
+она работает, тем же способом, как мы показывали функции в прошлом,
+вычисляя их не выходя из буфреа Info. Вместо этого, вам надо будет
+скопировать необходимые выражения в ваш буфер <TT>`*scratch*'</TT> и
+вычислить их там. Вы можете скопировать выражения поставив метку в
+начале региона с помощью сочетания клавиш <KBD>C-<KBD>SPC</KBD></KBD>
+(<CODE>set-mark-command</CODE>), затем переместив курсор в конец региона и
+скопировав регион с помощью <KBD>M-w</KBD> (<CODE>copy-region-as-kill</CODE>). В
+буфере <TT>`*scratch*'</TT> вы можете вставить выражения назад, с помощью
+<KBD>C-y</KBD> (<CODE>yank</CODE>).
+</P><P>
+
+После того, как вы скопировали выражения в буфер <TT>`*scratch*'</TT>,
+последовательно вычислите их. Обязательно вычислите последнее
+выражение --- <CODE>(печать-элементов-списка)</CODE>, нажав <KBD>C-u C-x
+C-e</KBD>, то есть задав префикс аргумент к <CODE>eval-last-sexp</CODE>. Это
+заставит вывести результат вычисления в буфер <TT>`*scratch*'</TT> а не в
+эхо-области. (В противном случае вы увидите в эхо-области что-то
+подобное: <CODE>^Jжираф^J^Jгазель^J^Jлев^J^Jтигр^Jnil</CODE>, где каждый
+символ <SAMP>`^J'</SAMP> означает символ новой строки, которая в буфере
+<TT>`*scratch*'</TT> будет разделять слова на отдельные строки. Вы можете
+вычислить выражения прямо в буфер Info, для того, чтобы посмотреть что
+получится).
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq животные '(жираф газель лев тигр))
+
+(defun печать-элементов-списка (list)
+  "Печатать каждый элемент СПИСКА на отдельной строке."
+  (while list
+    (print (car list))
+    (setq list (cdr list))))
+
+(печать-элементов-списка животные)
+</pre></td></tr></table></P><P>
+
+Когда вы последовательно вычислите эти три выражения в буфере
+<TT>`*scratch*'</TT>, то в нем там будет напечатано:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>жираф
+
+газель
+
+лев
+
+тигр
+
+nil
+</pre></td></tr></table></P><P>
+
+Каждый элемент списка выведен на отдельной строке (это делает функция
+<CODE>print</CODE>), за затем печатается значение, возвращенное функцией.
+Поскольку, последним выражением функции является цикл <CODE>while</CODE>, а
+цикл <CODE>while</CODE> всегда возвращает <CODE>nil</CODE>, то за последним
+элементом списка будет напечатано значение <CODE>nil</CODE>.
+</P><P>
+
+<A NAME="Увеличение цикла"></A>
+<HR SIZE="6">
+<A NAME="SEC133"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC132"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC134"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC129"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC130"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC137"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 11.1.3 Цикл с увеличивающимся счетчиком </H3>
+<!--docid::SEC133::-->
+<P>
+
+Цикл не особенно полезен, если он не останавливается, когда это
+необходимо. Кроме управления циклом с помощью списка, обычный способ
+остановки цикла --- это написать первым элементом проверку,
+которая возвращает ложь когда завершится необходимое число повторений.
+Это значит что цикл должен иметь счетчик --- выражение, которое
+считает сколько раз цикл повторился.
+</P><P>
+
+Проверка может быть выражением таким, как <CODE>(&#60; счетчик
+нужное-число)</CODE>, которое вернет <CODE>t</CODE>, если значение <CODE>счетчик</CODE>
+меньше чем <CODE>нужное-число</CODE> повторов, и <CODE>nil</CODE>, если
+<CODE>счетчик</CODE> равен или больше чем <CODE>нужное-число</CODE>. Выражение
+которое увеличивает счетчик может быть простым выражением <CODE>setq</CODE>,
+таким как <CODE>(setq счетчик (1+ счетчик))</CODE>, где <CODE>1+</CODE> ---
+встроенная в Emacs Лисп функция которая добавляет 1 к своему
+аргументу. (Выражение <CODE>(1+ счетчик)</CODE> имеет тоже самое значение,
+что и <CODE>(+ счетчик 1)</CODE>, но для человека первое выражение более
+понятно.)
+</P><P>
+
+Шаблон для цикла <CODE>while</CODE> управляемого увеличивающимся счетчиком
+выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre><VAR>установить-счетчик-к-начальному-значению</VAR>
+(while (&#60; счетчик нужное-число)         ; проверка-истинна-ложь
+  <VAR>тело</VAR><small>...</small>                    
+  (setq счетчик (1+ счетчик)))          ; инкремент, увеличение
+</pre></td></tr></table></P><P>
+
+Необходимо отметить, что вам надо будет присвоить <CODE>счетчик</CODE>
+начальное значение; обычно оно равно 1.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC134">Пример с увеличивающимся счетчиком</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC135">Части определения функции</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC136">Составляем определение функции</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Пример с увеличением"></A>
+<HR SIZE="6">
+<A NAME="SEC134"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC133"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC135"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC132"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC133"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC137"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Пример с увеличивающимся счетчиком </H4>
+<!--docid::SEC134::-->
+<P>
+
+Предположим, что вы играете на пляже и решили составить из камушков
+треугольник, положив один камень в первую линию, два во вторую, три в
+третью линию и так далее, вот так:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>               *
+              * *
+             * * *
+            * * * *
+</pre></td></tr></table></P><P>
+
+(Около 2500 лет назад, Пифагор и другие начали изучение теории чисел,
+рассматривая именно такие вопросы.)
+</P><P>
+
+Предположим, что вы хотите знать сколько камней вам понадобится для
+того чтобы сложить треугольник из семи строк?
+</P><P>
+
+Ясно, что вам надо будет добавить числа от 1 до 7. Есть два способа
+сделать это --- начать с самого маленького числа, единицы и
+добавлять последовательно 1, 2, 3, 4 и так далее; или начать с самого
+большого числа и добавлять вниз по уменьшению: 7, 6, 5, 4 и так далее.
+Из-за того, что оба механизма демонстрируют обычные способы
+используемые в циклах, мы создадим два примера, один считающий вверх и
+другой считающий вниз. В первом примере мы начнем с 1 и будем
+добавлять 2, 3, 4 и так далее.
+</P><P>
+
+Если вам надо добавить только короткий список чисел, то самый легкий
+способ сделать это --- сложить все числа одновременно. Однако,
+если вы не знаете заранее сколько будет чисел в списке или вы хотите
+быть готовы к самым длинным спискам, то вам надо будет организовать
+сложение так, что вам надо будет повторять простой процесс столько
+раз, сколько надо, вместо того чтобы сразу выполнить один сложный
+процесс.
+</P><P>
+
+Например, вместо того чтобы складывать все камни сразу, вы можете
+сложить число камней в первой строке, 1, с числом камней во второй
+строке, 2, и затем добавить к итоговой сумме число камней в третьей
+строке, 3. После этого, вы можете добавить число камней в четвертой
+строке, 4, к сумме первых трех строк, и так далее.
+</P><P>
+
+Главная характеристика этого процесса --- повторение очень
+простое. В этом случае за каждый шаг мы добавляем только два числа
+--- число камней в строке к итоговому числу. Этот процесс сложения
+двух чисел повторяется снова и снова, до тех пор, пока к итоговому
+результату не будет добавлена последняя строка. В более сложных циклах
+повторяющиеся действия могут быть не такими простыми, но это будет
+проще чем делать все сразу.
+</P><P>
+
+<A NAME="Части примера с увеличением"></A>
+<HR SIZE="6">
+<A NAME="SEC135"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC134"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC136"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC132"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC133"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC137"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Части определения функции </H4>
+<!--docid::SEC135::-->
+<P>
+
+Предыдущий анализ подготовил нас к созданию нашего определения
+функции --- во первых нам понадобиться переменная, которую мы
+можем назвать <CODE>итог</CODE>, и где будет храниться итоговое число
+камней. Именно это значение и будет возвращать наша функция.
+</P><P>
+
+Во вторых, мы знаем что функции нужен будет аргумент --- этот
+аргумент будет обозначать число строк в треугольнике. Его можно
+назвать <CODE>число-строк</CODE>.
+</P><P>
+
+Наконец нам понадобиться переменная, которую мы будем использовать как
+счетчик. Мы могли бы назвать ее <CODE>счетчик</CODE>, но лучше ее назвать
+<CODE>номер-строки</CODE>. Поскольку этот счетчик считает строки и
+программы, то надо давать максимально понятные имена.
+</P><P>
+
+Когда интерпретатор Лиспа начинает вычислять выражения функции,
+значение <CODE>итог</CODE> надо установить в ноль, поскольку мы пока ничего
+не добавили. После этого функция должна добавить число камней в первой
+строке к итогу, затем число камней во второй строке, затем число
+камней в третьей строке и так далее, до тех пор, пока не останется
+строк для добавления.
+</P><P>
+
+Обе переменные --- <CODE>итог</CODE> и <CODE>число-строк</CODE> используются
+только внутри функции, поэтому они могут быть объявлены как локальные
+переменные, с помощью <CODE>let</CODE>, где им будут присвоены начальные
+значения. Ясно что начальным значением <CODE>итог</CODE> должен быть 0. А
+начальное значение <CODE>число-строк</CODE> должно быть равно 1, поскольку
+мы начнем считать с первой строки. Это значит, что выражение
+<CODE>let</CODE> будет выглядеть следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>  (let ((итог 0)
+        (номер-строки 1))
+    <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+После объявления внутренних переменных и присвоения им начальных
+значений, мы можем начать цикл <CODE>while</CODE>. Выражение, которое будет
+работать как проверка, должна возвращать <CODE>t</CODE>, если истинна пока
+значение <CODE>номер-строки</CODE> меньше или равно <CODE>число-строк</CODE>.
+(Если бы выражение проверяло только то, что номер строки меньше чем
+число строк, то мы бы никогда не добавили последнюю строку к итогу;
+поэтому номер строки может быть меньше или равен числу строк).
+</P><P>
+
+<A NAME="IDX60"></A>
+В Лиспе присутствует функция <CODE>&#60;=</CODE>, которая возвращает истину если
+значение первого аргумента меньше или равно значению второго
+аргумента, или ложь в противном случае. Поэтому выражение, которое
+будет вычислять цикл <CODE>while</CODE> как проверочное условие будет
+выглядеть следующим должно образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(&#60;= номер-строки число-строк)
+</pre></td></tr></table></P><P>
+
+Итоговое число камней можно найти, снова добавляя число камней в
+строке к итоговому числу камней. Поскольку число камней в строке равно
+номеру строки, то итог можно найти, просто добавляя номер строки к
+итоговому результату. (Ясно, что в более сложной ситуации, число
+камней в строке может быть связано с номером строки более сложным
+способом; в этом случае, номер строки надо будет заменить
+соответствующим выражением).
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq итог (+ итог номер-строки))
+</pre></td></tr></table></P><P>
+
+В этом выражении новому значению <CODE>итог</CODE> присваивается сумма
+предыдущего значение <CODE>итог</CODE> и число камней в текущей строке.
+</P><P>
+
+После изменения значения <CODE>итог</CODE>, надо как-то изменить переменную,
+которая входит в условие цикла. Это делается увеличением значения
+переменной <CODE>текущая-строка</CODE>, которая служит счетчиком для нашей
+функции. После того как переменная <CODE>текущая-строка</CODE> будет
+увеличена, проверка-истина-ложь в начале цикла <CODE>while</CODE> снова
+проверит не стало ли ее значение больше чем значение
+<CODE>число-строк</CODE>, и если она все еще меньше, то цикл повторится
+снова.
+</P><P>
+
+Существующая в Emacs Lisp функция <CODE>1+</CODE> добавляет 1 к своему
+аргументу, поэтому переменная <CODE>текущая-строка</CODE>, может быть
+увеличена с помощью следующего выражения:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq текущая-строка (1+ текущая-строка))
+</pre></td></tr></table></P><P>
+
+<A NAME="Полный пример на увеличение"></A>
+<HR SIZE="6">
+<A NAME="SEC136"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC135"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC137"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC132"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC133"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC137"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Составляем определение функции </H4>
+<!--docid::SEC136::-->
+<P>
+
+Мы уже рассмотрели части определение функции; сейчас нам надо только
+сложить их вместе.
+</P><P>
+
+Вначале возьмем выражение <CODE>while</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while (&#60;= текущая-строка число-строк)   ; проверка-истина-ложь
+  (setq итог (+ итог текущая-строка))
+  (setq текущая-строка (1+ текущая-строка)))    ; увеличение
+</pre></td></tr></table></P><P>
+
+Вместе со списком переменных выражения <CODE>let</CODE>, этот код почти
+завершает тело определения функции. Однако для завершения всей картины
+все же требуется нанести последний штрих.
+</P><P>
+
+Последний штрих --- это поместить переменную <CODE>итог</CODE> на
+отдельную строку после выражения <CODE>while</CODE>. В противном случае
+значение возвращенное функцией будет значением возвращаемым циклом
+<CODE>while</CODE>, поскольку этот цикл является последним выражением
+функции, а он всегда возвращает <CODE>nil</CODE>.
+</P><P>
+
+Это может быть не заметно на первый взгляд. Код выглядит так, как
+будто бы увеличивающее выражение --- это последнее выражение всей
+функции. Но это выражение только часть тела <CODE>while</CODE> ---
+последний элемент списка, который начинается с символа <CODE>while</CODE>.
+Более того, сам цикл <CODE>while</CODE> --- это список внутри тела
+<CODE>let</CODE>.
+</P><P>
+
+Схематично, функция выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun <VAR>имя-функции</VAR> (<VAR>список-аргументов</VAR>)
+  "<VAR>документация</VAR><small>...</small>"
+  (let (<VAR>список-переменных</VAR>)
+    (while (<VAR>проверка-истина-ложь</VAR>)
+      <VAR>тело-while</VAR><small>...</small> )
+      <small>...</small> )              ; Здесь необходимо последнее выражение.
+</pre></td></tr></table></P><P>
+
+Результат вычисления <CODE>let</CODE> --- это то что вернет
+<CODE>defun</CODE>, поскольку <CODE>let</CODE> не вложена в какой-нибудь внешний
+список кроме самой <CODE>defun</CODE>. Однако, если <CODE>while</CODE> --- это
+последний элемент выражения <CODE>let</CODE>, то функция всегда будет
+возвращать <CODE>nil</CODE>. А это совсем не то что мы хотим! В самом деле,
+то что мы хотим получить --- это значение переменной <CODE>итог</CODE>.
+Его можно получить просто поместив этот символ, как последний элемент
+списка <CODE>let</CODE>. Он будет вычислен после того, как будут вычислены
+все предыдущие элементы <CODE>let</CODE>, в том числе и цикл <CODE>while</CODE>, а
+это значит, что там будет храниться правильный итоговый результат.
+</P><P>
+
+Это может быть более понятным, если напечатать список начинающийся с
+<CODE>let</CODE> в одну строку. В таком формате сразу видно, что
+<VAR>список-переменных</VAR> и выражение <CODE>while</CODE> являются
+соответственно вторым и третьим элементом списка начинающегося с
+<CODE>let</CODE>, а <CODE>итог</CODE> --- это последний элемент:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let (<VAR>список-пер</VAR>) (while (<VAR>проверка-истина-ложь</VAR>) <VAR>тело-while</VAR><small>...</small> ) итог) 
+</pre></td></tr></table></P><P>
+
+Сложив все вместе, полное определение функции <CODE>треугольник</CODE>
+выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun треугольник (число-строк)    ; Версия с
+                                    ;   увеличивающимся счетчиком.
+  "Считает число камней в треугольнике.
+Первая строка один камень, вторая два камня,
+третья строка три камня, и так далее.
+Аргумент---ЧИСЛО-СТРОК."
+  (let ((итог 0)
+        (текущая-строка 1))
+    (while (&#60;= текущая-строка число-строк)
+      (setq итог (+ итог текущая-строка))
+      (setq текущая-строка (1+ текущая-строка)))
+    итог))
+</pre></td></tr></table></P><P>
+
+После того как вы установили <CODE>треугольник</CODE>, вычислив определение
+функции, вы можете опробовать ее. Ниже приведены два примера:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(треугольник 4)
+
+(треугольник 7)
+</pre></td></tr></table></P><P>
+
+Сумма первых четырех чисел --- 10, а сумма первых семи чисел
+--- 28.
+</P><P>
+
+<A NAME="Цикл на уменьшение"></A>
+<HR SIZE="6">
+<A NAME="SEC137"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC136"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC138"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC133"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC130"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC141"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 11.1.4 Цикл с уменьшающимся счетчиком </H3>
+<!--docid::SEC137::-->
+<P>
+
+Другой обычный способ создания цикла <CODE>while</CODE> --- это написать
+в нем проверку, где выясняется больше счетчик нуля или нет. До тех пор
+пока счетчик больше нуля, цикл повторяется. Но когда счетчик равен или
+меньше нуля, цикл останавливается. Для того чтобы это работало,
+счетчику надо присвоить какое-нибудь значение большее нуля, которое в
+теле цикла будет постепенно уменьшаться.
+</P><P>
+
+В этом случае проверяемым условием цикла может быть выражение такое
+как, например <CODE>(&#62; счетчик 0)</CODE>, которое возвращает <CODE>t</CODE>, если
+значение <CODE>счетчик</CODE> больше нуля и <CODE>nil</CODE>, если значение
+<CODE>счетчик</CODE> меньше или равно нулю. Выражение, которое уменьшает
+счетчик с каждым выполнением цикла может быть простым выражением
+<CODE>setq</CODE>, например, <CODE>(setq счетчик (1- счетчик))</CODE>, где
+<CODE>1-</CODE> встроенная в Emacs Lisp функция, которая вычитает 1 из
+своего аргумента.
+</P><P>
+
+Шаблон для уменьшающего цикла <CODE>while</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while (&#62; счетчик 0)                    ; проверка-истина-ложь
+  <VAR>body</VAR><small>...</small>
+  (setq счетчик (1- счетчик)))          ; уменьшение
+</pre></td></tr></table></P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC138">Пример с уменьшением счетчика</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC139">Части определения функции </A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC140">Составляем определение функции </A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Пример с уменьшением"></A>
+<HR SIZE="6">
+<A NAME="SEC138"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC137"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC135"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC133"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC137"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC139"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Пример с уменьшением счетчика </H4>
+<!--docid::SEC138::-->
+<P>
+
+Чтобы продемонстрировать цикл с уменьшающимся счетчиком, мы перепишем
+функцию <CODE>треугольник</CODE>, таким образом, чтобы счетчик уменьшался.
+</P><P>
+
+Можно сказать, что это реверсивная ранняя версия функции. Теперь,
+чтобы выяснить сколько камней надо, чтобы создать треугольник из трех
+линий мы сложим число камней в последней строке --- 3, с числом
+камней в предыдущей строке --- 2, и затем добавим итог сложения
+этих двух строк к числу камней в первой строке --- 1.
+</P><P>
+
+Аналогично, чтобы найти число камней в треугольнике из 7 строк, сложим
+число камней в седьмой строке, с числом камней в предыдущей строке
+--- 6 и затем добавим к итоговой сумме число камней в пятой строке
+--- 5, ну и так далее. Как и в предыдущем примере, в каждом сложении
+участвуют только два числа --- общее число камней в уже
+добавленных строках и число камней в текущей строке. Этот процесс
+сложения двух чисел будет повторятся снова и снова, до тех пор пока
+больше не останется строк для добавления.
+</P><P>
+
+Мы знаем с какого числа камней начать: число камней в последней строке
+равно числу строк. Если треугольник состоит из семи строк, то число
+камней в последней строке равно 7. Еще мы знаем сколько камней в
+предыдущей строке: их на один меньше, чем число камней в текущей
+строке.
+</P><P>
+
+<A NAME="Части примера на уменьшение"></A>
+<HR SIZE="6">
+<A NAME="SEC135"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC138"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC136"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC134"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC133"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC137"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Части определения функции  </H4>
+<!--docid::SEC139::-->
+<P>
+
+Мы начнем работу с объявления трех переменных: числа строк в
+треугольнике; числа камней в текущей строке; и итогового числа камней,
+которое нам и надо вычислить. Эти переменные можно назвать
+<CODE>число-строк</CODE>, <CODE>текущая-строка</CODE> и <CODE>итог</CODE>,
+соответственно.
+</P><P>
+
+Обе переменные, и <CODE>итог</CODE> и <CODE>текущая-строка</CODE> используются
+только внутри функции и обьявляются с помощью <CODE>let</CODE>. Начальным
+значением переменной <CODE>итог</CODE> должно быть конечно, ноль. Однако
+начальное значение <CODE>текущая-строка</CODE> должна быть равна числу строк
+в треугольнике, поскольку мы начнем сложение с самой длинной строки.
+</P><P>
+
+Это значит, что начало выражения <CODE>let</CODE> будет выглядеть следующим
+образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(let ((итог 0)
+      (текущая-строка число-строк))
+  <VAR>body</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+Итоговое число камней можно найти, последовательно добавляя число
+камней в текущей строке к уже найденной сумме, то есть повторно
+вычисляя следующее выражение:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq итог (+ итог текущая-строка))
+</pre></td></tr></table></P><P>
+
+После того, как <CODE>текущая-строка</CODE> добавлена к значению
+<CODE>итог</CODE>, значение <CODE>текущая-строка</CODE> будет уменьшено на один,
+теперь когда в следующий раз цикл будет повторятся, то к итогу будет
+добавлено число камней в предыдущей строке.
+</P><P>
+
+Поскольку число камней в предыдущей строке на единицу меньше чем число
+камней в текущей строке, то для вычисления числа камней в предыдущей
+строке можно использовать встроенную в Emacs Lisp функцию <CODE>1-</CODE>.
+Это делается в следующем выражении:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq текущая-строка (1- текущая-строка))
+</pre></td></tr></table></P><P>
+
+Наконец, мы знаем что цикл <CODE>while</CODE> должен прекратить вычисления,
+когда будет добавлена первая строка, где всего один камень. Поэтому
+проверка для цикла <CODE>while</CODE> выглядит очень просто:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(while (&#62; текущая-строка 0)
+</pre></td></tr></table></P><P>
+
+<A NAME="Полный пример на уменьшение"></A>
+<HR SIZE="6">
+<A NAME="SEC136"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC135"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC141"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC132"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC133"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC137"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Составляем определение функции  </H4>
+<!--docid::SEC140::-->
+<P>
+
+Соединив все рассмотренные выражения вместе, у нас получиться
+следующее определение функции:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>;;; Первая версия с уменьшающимся счетчиком.
+(defun треугольник (число-строк)        
+  "Найти числи камней в треугольнике."
+  (let ((итог 0)
+        (текущая-строка число-строк))
+    (while (&#62; текущая-строка 0)
+      (setq итог (+ итог текущая-строка))
+      (setq текущая-строка
+            (1- текущая-строка)))
+    итог))
+</pre></td></tr></table></P><P>
+
+Эта функция работает, как и надо.
+</P><P>
+
+Однако выясняется, что одна из локальных переменных,
+<CODE>текущая-строка</CODE> не нужна!
+</P><P>
+
+<A NAME="IDX61"></A>
+Когда будет вычисляться функция <CODE>треугольник</CODE>, то символ
+<CODE>число-строк</CODE> будет связан с числом, которое при вызове
+функциибыло задано в качестве начального значение. Это число можно
+изменять в теле функции, как будто это локальная переменная, не
+опасаясь что изменения будут видны вне этой функции. Это весьма
+полезное свойство Лиспе; это значит, что переменную <CODE>число-строк</CODE>
+можно использовать в функции, вместо переменной <CODE>текущая-строка</CODE>.
+</P><P>
+
+Ниже приведена вторая версия функции, котороя выглядит более понятно:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun треугольник (число)                ; Вторая версия.
+  "Возвращает сумму чисел от 1 до ЧИСЛО включительно."
+  (let ((итог 0))
+    (while (&#62; число 0)
+      (setq итог (+ итог число))
+      (setq число (1- число)))
+    итог))
+</pre></td></tr></table></P><P>
+
+Вкратце говоря, правильно написанный цикла <CODE>while</CODE> будет состоять
+из трех частей:
+</P><P>
+
+<OL>
+<LI>
+Проверки, которая должна возвращать ложное значение после того, как
+цикл повторился нужное число раз.
+<P>
+
+<LI>
+Главного вычисляемого выражения, которое мы вернем, после того, как
+цикл повторится нужное число раз.
+<P>
+
+<LI>
+Выражения, где изменяется значение передаваемое в
+проверку-истина-ложь, так чтобы проверка возвращала ложное значение
+только после того, как цикл повторился нужное число раз
+</OL>
+<P>
+
+<A NAME="Рекурсия"></A>
+<HR SIZE="6">
+<A NAME="SEC141"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC136"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC142"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC130"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC129"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC146"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 11.2 Рекурсия </H2>
+<!--docid::SEC141::-->
+<P>
+
+Рекурсивная функция содержит в своем теле выражения в которых
+вызывается сама эта функция. Когда эта функция вызывает сама себя, она
+снова вычисляет выражения, где вызывается эта функция, поэтому функция
+вычисляет саму себя <small>...</small> и <small>...</small>. Рекурсивная функция будет
+продолжать вызывать себя снова и снова, если в ней также не
+предусмотрено условия для остановки рекурсии.
+</P><P>
+
+Рекурсивная функция обычно содержит условное выражение, которое имеет
+три части:
+</P><P>
+
+<OL>
+<LI>
+Проверку-истина-ложь, которая определяет вызывать ли снова эту
+функцию, обычно называемую <EM>рекурсивная-проверка</EM>.
+<P>
+
+<LI>
+Имя функции.
+<P>
+
+<LI>
+Выражение, которое заставляет рекурсивную-проверку вернуть ложь после
+нужного числа повторов, обычно называемую
+<EM>выражение-следующего-вызова</EM>.
+</OL>
+<P>
+
+Рекурсивные функции могут быть намного проще чем обычные функции. И в
+самом деле, когда люди впервые начали их использовать, они часто
+получались настолько простыми, что в это было трудно поверить. Как и
+для того, чтобы научиться кататься на велосипеде, для того, чтобы
+научиться понимать рекурсивные функции надо приложить усилии, но зато
+потом все становится очень простым.
+</P><P>
+
+Шаблон для рекурсивной функции выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun <VAR>имя-рекурсивной-функции</VAR> (<VAR>список-аргументов</VAR>)
+  "<VAR>документация</VAR><small>...</small>"
+  <VAR>тело</VAR><small>...</small>
+  (if <VAR>рекурсивная-проверка</VAR>
+    (<VAR>имя-рекурсивной-функции</VAR> 
+         <VAR>выражение-следующего-вызова</VAR>)))
+</pre></td></tr></table></P><P>
+
+Каждый раз, когда вычисляется рекурсивная функция, ее аргументом
+становится <SAMP>`выражение-следующего-вызова'</SAMP>, и это значение
+используется в рекурсивной
+проверке. <SAMP>`Выражение-следующего-вызова'</SAMP> создается таким образом,
+чтобы рекурсивная-проверка закончилась неудачей именно тогда, когда
+функция больше не должна повторяться.
+</P><P>
+
+Рекурсивную-проверку иногда называют <EM>условием завершения</EM>,
+поскольку она останавливает повторы, когда возвращает ложное значение.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC142">11.2.1 Рекурсия на списке</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC143">11.2.2 Рекурсия на месте счетчика</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Меняем цикл <CODE>while</CODE> на рекурсию.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC145">11.2.3 Пример рекурсии с использованием <CODE>cond</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Пример рекурсии с другим условием.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Рекурсия на списке"></A>
+<HR SIZE="6">
+<A NAME="SEC142"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC141"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC143"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC130"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC141"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC146"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 11.2.1 Рекурсия на списке </H3>
+<!--docid::SEC142::-->
+<P>
+
+Пример цикла <CODE>while</CODE>, который печатал элементы списка, можно
+переписать рекурсивно. Ниже приведен код который делает это, включая
+выражение присваивающий список переменной <CODE>животные</CODE>.
+</P><P>
+
+Этот пример надо скопировать в буфер <TT>`*scratch*'</TT> и там
+последовательно вычислить каждое выражение. Используйте <KBD>C-u C-x
+C-e</KBD> для того, чтобы вычислить последнее выражение, так, чтобы
+результат отпечатался в буфере; в противном случае интерпретатор Лиспа
+сожмет результат в одну строку для отображения в эхо-области.
+</P><P>
+
+Расположите курсор сразу за последней закрывающей скобкой функции
+<CODE>рекурсивная-печать-элементов</CODE>, перед комментарием. В притивном
+случае интерпретатор Лиспа попробует вычислить комментарий.
+</P><P>
+
+<A NAME="IDX62"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(setq животные '(жираф газель лев тигр))
+
+(defun рекурсивная-печать-элементов (список)
+  "Печать каждого элемента СПИСОК на отдельной строке.
+Использует рекурсию."
+  (print (car список))                  ; тело
+  (if список                            ; рекурсивная-проверка
+      (рекурсивная-печать-элементов     ; рекурсивный вызов
+       (cdr список))))                  ; выражение-следующего-вызова
+
+(рекурсивная-печать-элементов животные)
+</pre></td></tr></table></P><P>
+
+Функция <CODE>рекурсивная-печать-элементов</CODE> вначале печатает первый
+элемент списка --- значение поля CAR списка. Затем, если
+список не пуст, то функция вызывает сама себя, но при вызове передает
+в качестве аргумента не весь список, а второй и последующие элементы
+списка, то есть --- поле CDR списка.
+</P><P>
+
+Когда происходит вычисление, функция печатает первый элемент списка,
+который она получила в качестве аргумента (теперь это будет второй
+элемент первоначального списка). Затем вычисляется выражение
+<CODE>if</CODE>, и если оно снова возвращает истинное значени, то функция
+снова вызывает сама себя, передавая в качестве аргумента CDR
+списка, с которым она была вызвана, то есть (после второго вызова)
+--- это значение CDR от значения CDR первоначального
+списка.
+</P><P>
+
+Каждый раз, когда функция вызывает сама себя, она при вызове передает
+аргумент, который короче первоначального списка. В конце концов она
+вызовет себя задав в качестве аргумента пустой список. Функция
+<CODE>nil</CODE> напечатает пустой список как <CODE>nil</CODE>. Затем, в условном
+выражении проверится значание <CODE>список</CODE>. Поскольку сейчас его
+значение равно <CODE>nil</CODE>, то проверка завершится неудачей, и поэтому
+then-часть вычислятся не будет. И вся функция вернет <CODE>nil</CODE>.
+Поэтому вы увидите <CODE>nil</CODE> дважды, когда вы вычислите эту функцию.
+</P><P>
+
+Если вы вычислите <CODE>(рекурсивная-печать-элементов животные)</CODE> в
+буфере <TT>`*scratch*'</TT>, то вы увидите следующий результат:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>жираф
+
+газель
+
+лев
+
+тигр
+
+nil
+nil
+</pre></td></tr></table></P><P>
+
+(Первое <CODE>nil</CODE> --- это напечатанное значение пустого списка; а
+второе <CODE>nil</CODE> --- это значение которое вернуло вся функция).
+</P><P>
+
+<A NAME="Треугольник с рекурсией"></A>
+<HR SIZE="6">
+<A NAME="SEC143"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC142"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC144"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC130"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC141"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC145"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 11.2.2 Рекурсия на месте счетчика </H3>
+<!--docid::SEC143::-->
+<P>
+
+Функцию <CODE>треугольник</CODE>, приведенную в предыдущем разделе, также
+можно переписать в виде рекурсии. Она будет выглядеть следующим
+образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun рекурсивный-треугольник (число)
+  "Возвращает сумму чисел от 1 до ЧИСЛО включительно.
+Использует рекурсию."
+  (if (= число 1)                    ; рекурсивная-проверка
+      1                               ; then-часть
+    (+ число                         ; else-часть
+       (рекурсивный-треугольник          ; рекурсивный вызов
+        (1- число)))))               ; выражение-следующего-вызова
+
+(рекурсивный-треугольник 7)
+</pre></td></tr></table></P><P>
+
+Вы можете установить данную функцию вычислив ее и затем проверить ее
+работу, вычислив <CODE>(рекурсивный-треугольник 7)</CODE>. (Не забудьте
+расположить курсор сразу за закрывающей скобкой определения функции,
+перед комментарием).
+</P><P>
+
+Чтобы понять как работает эта функция, давайте рассмотрим что
+произойдет в при ее вызове с разными аргументами, когда мы передадим в
+функцию значения 1, 2, 3, или 4.
+</P><P>
+
+Первое, что случится если значение аргумента равно 1?
+</P><P>
+
+Первое выражение в теле функции --- это выражение <CODE>if</CODE>. Оно
+проверяет равно ли значение переменной <CODE>число</CODE> единице; если да,
+то Emacs вычисляет then-часть выражения <CODE>if</CODE>, которое возвращает
+число 1 в качестве значения функции. (Треугольник состоящий только из
+одной строки можно сложить из одного камня).
+</P><P>
+
+Предположим, что теперь значение аргумента равно 2. В этом случае,
+Emacs вычислит else-часть выражения <CODE>if</CODE>.
+</P><P>
+
+Else-часть состоит из сложения, рекурсивного вызова функции
+<CODE>рекурсивный-треугольник</CODE> и уменьшения числа; все это выглядит
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(+ число (рекурсивный-треугольник (1- число)))
+</pre></td></tr></table></P><P>
+
+Когда Emacs вычисляет это выражение, то сначала вычисляется самое
+внутреннее выражение; затем последовательно вычисляются другие части
+выражения. Рассмотрим эти шаги более подробно:
+</P><P>
+
+<DL COMPACT>
+<DT><I>Этап 1    Вычисление самого внутреннего выражения.</I>
+<DD><P>
+
+Самое внутреннее выражение --- это <CODE>(1- число)</CODE>, поэтому
+Emacs вначале уменьшает <CODE>число</CODE> с 2 до 1.
+</P><P>
+
+<DT><I>Этап 2    Вычисление функции <CODE>рекурсивный-треугольник</CODE>.</I>
+<DD><P>
+
+Не имеет значения, что вызов этой функции происходит из нее же самой.
+Emacs передаст результат Этапа 1 в качестве аргумента при вызове
+функции <CODE>рекурсивный-треугольник</CODE>.
+</P><P>
+
+То есть, теперь, Emacs вычислит <CODE>рекурсивный-треугольник</CODE> с
+аргументом равным 1. Это значит, что вычисление
+<CODE>рекурсивный-треугольник</CODE> вернет 1 (как мы уже знаем).
+</P><P>
+
+<DT><I>Этап 3    Вычисление значения <CODE>число</CODE>.</I>
+<DD><P>
+
+Переменная <CODE>число</CODE> --- это первый элемент списка, который
+начинается с символа <CODE>+</CODE>; его значение равно 2.
+</P><P>
+
+<DT><I>Этап 4    Вычисление выражения <CODE>+</CODE>.</I>
+<DD><P>
+
+Выражение <CODE>+</CODE> получает два аргумента --- первый от вычисления
+<CODE>число</CODE> (Этап 3) и второй от вычисления
+<CODE>рекурсивный-треугольник</CODE> (Этап 2).
+</P><P>
+
+Результат этого сложения --- это сумма 2 плюс 1, то есть будет
+возвращено число 3 (ведь треугольник из двух строк можно сложить из
+трех камней).
+</DL>
+<P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="emacs-lisp-intro_12.html#SEC144">Аргумент 3</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Рекурсивный пример с арг. 3"></A>
+<HR SIZE="6">
+<A NAME="SEC144"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC143"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC145"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC142"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC143"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC145"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> Аргумент 3 </H4>
+<!--docid::SEC144::-->
+<P>
+
+Предположим, что функция <CODE>рекурсивный-треугольник</CODE> вызвана с
+аргументом равным 3.
+</P><P>
+
+<DL COMPACT>
+<DT><I>Этап 1    Вычисление рекурсивной-проверки.</I>
+<DD><P>
+
+Вначале вычисляется выражение <CODE>if</CODE>. Это рекурсивная-проверка, и
+поскольку она возвратит ложное значение, то будет вычислена else-часть
+выражения <CODE>if</CODE>. (Обратите внимание, что в этом примере,
+<CODE>рекурсивная-проверка</CODE> составлена таким образом, чтобы функция
+вызывала саму себя только тогда, когда проверка вернет ложное
+значение, а не тогда, когда она вернет истинное значение).
+</P><P>
+
+<DT><I>Этап 2    Вычисление самого внутреннего выражения else-части.</I>
+<DD><P>
+
+Вычисляется самое внутреннее выражение else-части, которое уменьшает 3
+до 2. Это <CODE>выражение-следующего-вызова</CODE>.
+</P><P>
+
+<DT><I>Этап 3    Вычисление функции <CODE>рекурсивный-треугольник</CODE>.</I>
+<DD><P>
+
+В функцию <CODE>рекурсивный-треугольник</CODE> передается число 2.
+</P><P>
+
+Мы уже знаем, что произойдет, когда Emacs вычислит функцию
+<CODE>рекурсивный-треугольник</CODE> с аргументом равным 2. Пройдя через
+рассмотренную нами последовательность вычислений, интерпретатор вернет
+значение 3.
+</P><P>
+
+<DT><I>Этап 4    Вычисление сложения.</I>
+<DD><P>
+
+Функция <CODE>+</CODE> будет вычислена с аргументами 3 и 3; где первый
+результат получен в результате вычисления функции
+<CODE>(рекурсивный-треугольник 2)</CODE>, а второе число было задано, в
+качестве аргумента при вызове функции.
+</DL>
+<P>
+
+Это значит, что функция в результате вычисления вернет значение равное
+6.
+</P><P>
+
+Теперь, когда мы знаем, что произойдет когда функция
+<CODE>рекурсивный-треугольник</CODE> будет вызвана с аргументом равным 3, то
+становиться ясно, что получится, когда мы вызовем ее с аргументом
+равным 4:
+</P><P>
+
+<BLOCKQUOTE>
+В рекурсивном вызове, вычисление 
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(рекурсивный-треугольник (1- 4))
+</pre></td></tr></table></P><P>
+
+вернет значение вычисления
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(рекурсивный-треугольник 3)
+</pre></td></tr></table></P><P>
+
+а это равно 6, и теперь это значение будет передано в функцию <CODE>+</CODE>
+вместе с аргументом функции равным 4.
+</BLOCKQUOTE>
+<P>
+
+Значит вся функция вернет 10.
+</P><P>
+
+Каждый раз, когда вычисляется функция <CODE>рекурсивный-треугольник</CODE>,
+в ее теле вызывается она сама, но с уменьшенным аргументом, и эти
+вызовы будут происходить до тех пор, пока аргумент не уменьшится
+настолько, что рекурсивные вызовы закончатся и спираль раскрутится в
+обратную сторону.
+</P><P>
+
+<A NAME="Рекурсия с cond"></A>
+<HR SIZE="6">
+<A NAME="SEC145"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC144"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC146"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC143"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC141"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC146"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> 11.2.3 Пример рекурсии с использованием <CODE>cond</CODE> </H3>
+<!--docid::SEC145::-->
+<P>
+
+Версия <CODE>рекурсивный-треугольник</CODE> представленная ранее была
+написана с использованием особой формы <CODE>if</CODE>. Но ее можно было
+также написать и с использованием другой особой формы, которая
+называется <CODE>cond</CODE>. Название этой особой формы произошло от
+сокращения слова <SAMP>`conditional'</SAMP> <A NAME="DOCF6" HREF="emacs-lisp-intro_fot.html#FOOT6">(6)</A>.
+</P><P>
+
+Хотя особоя форма <CODE>cond</CODE> используется в программах на Emacs Lisp
+не так часто, как <CODE>if</CODE>, но тем не менее она применяется
+достаточно часто, и поэтому заслуживает отдельного рассмотрения.
+</P><P>
+
+Шаблон для выражения <CODE>cond</CODE> выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(cond
+ <VAR>тело</VAR><small>...</small>)
+</pre></td></tr></table></P><P>
+
+где <VAR>тело</VAR> состоит из серии списков.
+</P><P>
+
+Более подробно, шаблон выглядит следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(cond
+ ((<VAR>первая-проверка-истина-ложь</VAR> <VAR>первое-следствие</VAR>)
+  (<VAR>вторая-проверка-истина-ложь</VAR> <VAR>второе-следствие</VAR>)
+  (<VAR>третья-проверка-истина-ложь</VAR> <VAR>третье-следствие</VAR>)
+  <small>...</small>)
+</pre></td></tr></table></P><P>
+
+Когда интерпретатор Лиспа вычисляет выражение <CODE>cond</CODE>, он вначале
+вычисляет первый элемент (CAR или <CODE>проверку-истина-ложь</CODE>)
+первого выражения в серии списков внутри тела <CODE>cond</CODE>.
+</P><P>
+
+Если <CODE>проверка-истина-ложь</CODE> возвращает <CODE>nil</CODE>, то оставшееся
+выражение (следствие) пропускается, и вычисляется
+<CODE>проверка-истина-ложь</CODE> следующего выражения. Когда будет
+обнаружено выражение, чье <CODE>проверка-истина-ложь</CODE> возвращает не
+<CODE>nil</CODE>, то будет вычислено <CODE>следствие</CODE> этого выражения. На
+самом деле <CODE>следствие</CODE> может состоять из серии выражений. Если
+следствие состоит из серии выражений, то эти выражения будут вычислены
+последовательно и будет возвращено значение последнего из них. Если в
+выражении нет следствия, то будет возвращено значение
+<CODE>проверки-истина-ложь</CODE>.
+</P><P>
+
+Если ни одна из проверок истина-ложь не вернет истину, то значением
+всего выражения <CODE>cond</CODE> будет <CODE>nil</CODE>.
+</P><P>
+
+Переписанная с использованием <CODE>cond</CODE> функция треугольник выглядит
+следующим образом:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>(defun треугольник-с-cond (число)
+  (cond ((&#60;= число 0) 0)
+        ((= число 1) 1)
+        ((&#62; число 1)
+         (+ число (треугольник-с-cond (1- число))))))
+</pre></td></tr></table></P><P>
+
+В этом примере, <CODE>cond</CODE> вернет 0, если число меньше или равно 0;
+вернет 1, если число равно 1, или вычислит выражени
+<CODE>треугольник-с-cond (1- число)</CODE>, если число больше 1.
+</P><P>
+
+<A NAME="Упражнения с циклами"></A>
+<HR SIZE="6">
+<A NAME="SEC146"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC145"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC141"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC129"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> 11.3 Упражнения с циклами </H2>
+<!--docid::SEC146::-->
+<P>
+
+<UL>
+<LI>
+Напишите функцию аналогичную функции <CODE>треугольник</CODE> для которой
+значение камней в каждой строкe которой равно квадрату номера строки.
+Используете цикл <CODE>while</CODE>.
+<P>
+
+<LI>
+Создайте функцию аналогичную функции <CODE>треугольник</CODE>, в которой
+вместо операции сложения используется операция умножения.
+<P>
+
+<LI>
+Перепишите эти две функции с использованием рекурсии. Перепишите их с
+использованием особой формы <CODE>cond</CODE>.
+<P>
+
+<LI>
+Создайте функцию для режима Texinfo, котороя создает индекс в начале
+каждого параграфа в котором встречается какое-нибудь определение
+(помеченное как <SAMP>`@dfn'</SAMP>). (В файле Texinfo, <SAMP>`@dfn'</SAMP> означает
+определение. Для получения дополнительной информации смотрите
+@xref{Indicating, , Indicating Definitions, texinfo}.)
+</UL>
+<P>
+
+<A NAME="Поиск regexp"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_12.html#SEC141"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_13.html#SEC147"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_23.html#SEC242">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="emacs-lisp-intro_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+on <I>December, 4  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+
+</BODY>
+</HTML>
