@@ -1,34 +1,33 @@
 #title Alexey Ott's Curriculum Vitae (russian)
 #keywords cv, curriculum vitae, alex ott, alexey ott, алексей отт, алекс отт, резюме
 
-* Персональная информация
+** Персональная информация
 
  - **Имя**: Алексей (Алекс) Отт
  - **Адрес**: Im Schlinge 59, 33106 Paderborn, Germany
- - **Phone**: +4917650439409 (mobile), +4952549210056 (home)
+ - **Телефон**: +4917650439409 (mobile), +4952549210056 (home)
  - **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]]
- - **Citizenship**: German, Russian
- - **Date of Birth**: 04 Jun 1974
+ - **Гражданство**: Россия, Германия
+ - **День рождения**: 04 Jun 1974
 
-* Work Experience
+** Опыт работы
 
- - Senior Developer at *Securec Computing Corp.*
-  - **Dates (from-to)**: 01.2007-now
-  - **Name and address of employer**: [[http://www.securecomputing.com][Secure Computing Corp]]. 33100 Paderborn, Germany
-  - **Positions held**: Senior Developer
-  - **Type of business**: Software Development
-  - **Main activities and responsibilities**: 
-    - Development of content-filtering software
-    - Architect of new versions of software<br><br>
+ - Ведущий разработчик (Senior Developer) в *Securec Computing Corp.*
+  - **Дата (с-по)**: 01.2007-н.в.
+  - **Название и адрес работодателя**: [[http://www.securecomputing.com][Secure Computing Corp]]. 33100 Paderborn, Germany
+  - **Вид бизнеса**: Software Development
+  - **Служебные обязаности**: 
+    - Разработка ПО для контентной фильтрации трафика
+    - Проектирование новых версий ПО<br><br>
 
- - Head of Software development group at *Jet Infosystems*
-  - **Dates (from-to)**: 10.2001-11.2006
-  - **Name and address of employer**: [[http://www.jetinfo.com][Jet Infosystems]]. B. Novodmitrovskaya, 14/1, 127015 Moscow, Russia
-  - **Positions held**: Head of Software development group, Chief System Architect
-  - **Type of business**: System Integration
-  - **Main activities and responsibilities**: 
-    - Leader of development group (9 people);
-    - Lead of development projects;
+ - Руководитель группы разработки ПО в *Инфосистемы Джет*
+  - **Дата (с-по)**: 10.2001-11.2006
+  - **Название и адрес работодателя**: [[http://www.jet.msk.su][Инфосистемы Джет]]. Б. Новодмитровская, 14/1, 127015 Москва
+  - **Должности**: Руководитель группы разработки ПО, ведущий системный архитектор
+  - **Вид бизнеса**: Системная интеграция и разработка ПО
+  - **Служебные обязаности**: 
+    - Руководство группой разработчиков (9 человек);
+    - Руководство проектами внедрения ПО;
     - Architect and development of custom and off-the-shelf software (C/C++, Scheme, Lisp, Java);
     - Negotiation with customers
     - Present solutions for customers;
@@ -42,7 +41,7 @@
      - BeepayXP – payment processing software for the Vimpelkom – large Russian Mobile
        Company (Data architect, server infrastructure architect, project coordinator); 
      - File-NG – data type detection library;
-     - KCIAS - lead architect in data and process integration pilot project (on the base
+     - KCIAS -- lead architect in data and process integration pilot project (on the base
        of SeeBeyond) for a Russian Central bank. Business process analysis, Project
        architecture design, product selection. 
      - Content-type detection add-on for the Cerberus software (Mail filtering software for Lotus Notes);
@@ -50,79 +49,79 @@
      - Mail projects for different clients (Infrastructure architect, project coordinator);
      - Custom software solutions (Development in C/C++, Java, Scheme).<br><br>
 
- - Teacher at *Tomsk Polytechnic University*
-  - **Dates (from-to)**: 09.1998-08.2001
-  - **Name and address of employer**: Tomsk Polytechnic University, Lenina Str, 30, Tomsk, Russia
-  - **Positions held**: Assistant of Chair of Technical Physic (Teacher)
-  - **Type of business**: Education
-  - **Main activities and responsibilities**: 
+ - Преподаватель в *Томском политехническом университете*
+  - **Дата (с-по)**: 09.1998-08.2001
+  - **Название и адрес работодателя**: Tomsk Polytechnic University, Lenina Str, 30, Tomsk, Russia
+  - **Должности**: Assistant of Chair of Technical Physic (Teacher)
+  - **Вид бизнеса**: Education
+  - **Служебные обязаности**: 
     - Provide trainings for students in branch of thermodynamic, molecular physic,
       computer modeling of physical processes;
     - Administration of faculty network (mix of Unix and Windows servers) – 1500 users;
     - Development of Intranet applications.<br><br>
  
- - Developer  *E-Compare Corp.*
-  - **Dates (from-to)**: 10.2000 – 4.2001
-  - **Name and address of employer**: E-Compare Corp, USA
-  - **Positions held**: Developer (remote work)
-  - **Type of business**: Software Development
-  - **Main activities and responsibilities**: 
+ - Разработчик в  *E-Compare Corp.*
+  - **Дата (с-по)**: 10.2000-4.2001
+  - **Название и адрес работодателя**: E-Compare Corp, USA
+  - **Должности**: Developer (remote work)
+  - **Вид бизнеса**: Software Development
+  - **Служебные обязаности**: 
     - Writing modules for search engine (Perl, Oracle);
     - Web programming (HTML, JavaScript).
 
 
-* Education and trainings
+** Education and trainings
 
  - **Engineer** at *Tomsk Polytechnic University*, Russia
-  - **Dates (from-to)**: 1991-1997
+  - **Дата (с-по)**: 1991-1997
   - **Title of qualification awarded**: Physic (Engineer)
   - **Name and type of organisation**: Physical-technical department of Tomsk Polytechnic University
   - **Principal subjects**: Physic and Chemistry of Plasma, Mathematics
   - **Level in national classification**: Higher education diploma<br><br>
 
  - **MBA** at *Magdeburg University*, Germany
-  - **Dates (from-to)**: 2003-2005
+  - **Дата (с-по)**: 2003-2005
   - **Title of qualification awarded**: Master of Business Administration
   - **Name and type of organisation**:  Deutsches MBA Program, Magdeburg University, Germany
   - **Principal subjects**: General management, Finance, Marketing
 
 
-* Personal skills and competences
-
-** Technical skills and competences
+** Технические навыки
 
 I work with computers since 1989 using different types of hardware and operating systems.
 
 *** Programming languages and software development skills
 
- - C and C++ – more than 10 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
- - Scheme and Common Lisp – 8 years
- - Java (including J2EE) – 5 years (currently inactive)
- - Perl – 5 years (currently inactive)
- - OCaml and F# – 3 year (currently inactive)
- - Prolog - 2 years (currently inactive)
- - SQL – 7 years (Oracle and PostgreSQL)
- - UML modeling in complex projects
- - x86 Assembler – 5 years (currently inactive)
+ - C и C++ – более 10 лет (в основном на Unix-подобных системах – Linux, Sun Solaris, HP-UX, FreeBSD)
+ - Scheme и Common Lisp – 8 лет
+ - Java (включая J2EE) – 5 лет (в настоящее время не активный навык)
+ - Perl – 5 лет (в настоящее время не активный навык)
+ - OCaml и F# – 3 года (в настоящее время не активный навык)
+ - Prolog - 2 года (в настоящее время не активный навык)
+ - SQL – 7 лет (Oracle и PostgreSQL)
+ - UML-моделирование в сложных проектах
+ - x86 Assembler – 5 лет (в настоящее время не активный навык)
 
-*** Other computer-related skills
+*** Другие технические навыки
 
- - Administration of UNIX-like OS – Linux (since 1996), Sun Solaris (since 2000), HP-UX
-   (since 2001), FreeBSD (since 2000) 
- - Administration of Windows OSes – NT4, 2000, XP
- - Administration of relational databases (Oracle and PostgreSQL) 
+ - Администрирование UNIX-подобных ОС – Linux (с 1996-го г.), Sun Solaris (с 2000-го г.),
+   HP-UX (с 2001-го г.), FreeBSD (с 2000-го г.)
+ - Администрирование ОС Windows – NT4, 2000, XP
+ - Администрирование СУБД (Oracle и PostgreSQL) 
 
-*** Open Source projects
+*** Проекты с открытым исходным кодом
 
- - Catdoc - Open-source converter for MS Office files, development of PPT & XLS converters
- - ALTLinux - Linux distribution, package maintainer (2001-2004)
- - Dansguardian – web-filtering software (currently inactive)
+ - Catdoc -- Конвертер для файлов MS Office, разработка конвертеров для файлов в формате
+   PPT & XLS
+ - ALTLinux -- Linux distribution, package maintainer (2001-2004)
+ - Dansguardian – ПО для фильтрации веб-трафика
+ - openfwtk -- межсетевой экран уровня приложений
  - Russian documentation for Linux – author of different articles about Linux
 
-*** Certification
+*** Сертификаты
 
- - Authorised ALTLinux specialist", certificate number 0x000C;
- - Brainbench certification ([[http://www.brainbench.com/xml/bb/transcript/public/viewtranscript.xml?pid=5075245][Brainbench ID 5075245]]):
+ - "ALTLinux specialist", сертификат номер 0x000C;
+ - Сертификация на сайте Brainbench ([[http://www.brainbench.com/xml/bb/transcript/public/viewtranscript.xml?pid=5075245][Brainbench ID 5075245]]):
   - Master C++
   - Master C++ Fundamentals
   - Master Unix Programming
@@ -133,13 +132,15 @@ I work with computers since 1989 using different types of hardware and operating
   - Master Linux Administration (Redhat)
   - C Programmer
 
-** Languages
+** Персональные навыки и компетенции
 
- - **Russian**: Mother tongue
- - **English**: Good reading, writing & verbal skills
- - **German**: Good reading, basic writing and verbal skills
+*** Владение языками
 
-** Social and organizational skills and competences
+ - **Русский**: родной язык
+ - **Английский**: Хорошее владение, способен проходить интервью
+ - **Немецкий**: Хорошее владение, способен проходить интервью
+
+*** Социальные и организационные навыки
 
  - Ability to working in multinational commands, working with foreign customers
  - Ability to lead and working in teams (and alone)
@@ -147,9 +148,9 @@ I work with computers since 1989 using different types of hardware and operating
    departments to make projects.
  - Participation in Open Source projects
 
-* Other personal info
+** Прочая персональная информация
 
- - **Driving license**: present
+ - **Водительские права**: категории Б
  - **Artistic skills and competences**: Author of different articles, in physic and
    computer-related branches. Co-author of Russian translation of "GNU Emacs manual".
 
