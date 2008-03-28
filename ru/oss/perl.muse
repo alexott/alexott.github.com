@@ -8,15 +8,15 @@
 применению Perl при работе в Unix. Они показывают некоторые интересные приемы работы с
 Perl:
 
- - [[UnixReview/col01.html][Выпуск 1]] -- Основы разбора текста
- - [[UnixReview/col02.html][Выпуск 2]] -- Подсчет слов
- - [[UnixReview/col03.html][Выпуск 3]] -- Регулярные выражения
- - [[UnixReview/col04.html][Выпуск 4]] -- Небольшая база данных
- - [[UnixReview/col05.html][Выпуск 5]] -- Подпрограммы
- - [[UnixReview/col06.html][Выпуск 6]] -- Сортировка
- - [[UnixReview/col07.html][Выпуск 7]] -- Простые ссылки
- - [[UnixReview/col08.html][Выпуск 8]] -- Ссылки на подпрограммы
- - [[UnixReview/col09.html][Выпуск 9]] -- Grep для текста
+ - [[UnixReview/col01.html][Выпуск 01]] -- Основы разбора текста
+ - [[UnixReview/col02.html][Выпуск 02]] -- Подсчет слов
+ - [[UnixReview/col03.html][Выпуск 03]] -- Регулярные выражения
+ - [[UnixReview/col04.html][Выпуск 04]] -- Небольшая база данных
+ - [[UnixReview/col05.html][Выпуск 05]] -- Подпрограммы
+ - [[UnixReview/col06.html][Выпуск 06]] -- Сортировка
+ - [[UnixReview/col07.html][Выпуск 07]] -- Простые ссылки
+ - [[UnixReview/col08.html][Выпуск 08]] -- Ссылки на подпрограммы
+ - [[UnixReview/col09.html][Выпуск 09]] -- Grep для текста
  - [[UnixReview/col10.html][Выпуск 10]] -- Обвязки (Wrappers)
  - [[UnixReview/col11.html][Выпуск 11]] -- Работа со списками
  - [[UnixReview/col12.html][Выпуск 12]] -- Встроенные документы

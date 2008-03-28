@@ -3,8 +3,8 @@
 
 * Персональная информация
 
- - **Name**: Alexey (Alex) Ott
- - **Address**: Im Schlinge 59, 33106 Paderborn, Germany
+ - **Имя**: Алексей (Алекс) Отт
+ - **Адрес**: Im Schlinge 59, 33106 Paderborn, Germany
  - **Phone**: +4917650439409 (mobile), +4952549210056 (home)
  - **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]]
  - **Citizenship**: German, Russian
