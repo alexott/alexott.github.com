@@ -1,4 +1,21 @@
-#title writings
-#keywords alex ott, writings
+#title Articles
+#keywords alex ott, articles, writings, emacs, zsh, content filtering
 
-* writings
+I often write articles on themes that are very interesting for me.  Many of them are in
+Russian, but i also translate some of them to English.
+
+*** Articles about Emacs
+
+ - [[emacs-vcs/][Article about using Emacs for work with version control systems]] 
+; ([[emacs-vcs/emacs-vcs.ru.pdf][PDF]])
+
+; *** Programming 
+; - [[prog-checking/][Статья про поиск ошибок работы с памятью]] -- утечек памяти, доступ за пределами
+;   выделенных участков памяти и т.п.  В статье описываются такие средства как Valgrind,
+;   Google Performance Tools и другие.
+
+*** Information security and content filtering
+
+ - [[cf/][Article about modern trends in content filtering]] ([[cf/cf-trends.en.pdf][PDF]])
+  
+

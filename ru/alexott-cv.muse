@@ -15,7 +15,7 @@
  - Ведущий разработчик (Senior Developer) в *Securec Computing Corp.*
   - **Дата (с-по)**: 01.2007-н.в.
   - **Название и адрес работодателя**: [[http://www.securecomputing.com][Secure Computing Corp]]. 33100 Paderborn, Germany
-  - **Вид бизнеса**: Software Development
+  - **Вид бизнеса**: Разработка ПО
   - **Служебные обязаности**: 
     - Разработка ПО для контентной фильтрации трафика
     - Проектирование новых версий ПО<br><br>
@@ -26,71 +26,75 @@
   - **Должности**: Руководитель группы разработки ПО, ведущий системный архитектор
   - **Вид бизнеса**: Системная интеграция и разработка ПО
   - **Служебные обязаности**: 
-    - Руководство группой разработчиков (9 человек);
-    - Руководство проектами внедрения ПО;
-    - Architect and development of custom and off-the-shelf software (C/C++, Scheme, Lisp, Java);
-    - Negotiation with customers
-    - Present solutions for customers;
-    - Participation in marketing activity;
-    - Infrastructure architect (data & process integration projects, network projects, mail projects).
-    - *Executed Projects*:
-     - MailBoss – mail filtering and archiving software (architect and develop software,
-       lead the development process); http://www.jetinfosecurity.com; 
-     - WebBoss – web filtering software (architect and develop software, lead the
-       development process); http://www.jetinfosecurity.com; 
-     - BeepayXP – payment processing software for the Vimpelkom – large Russian Mobile
-       Company (Data architect, server infrastructure architect, project coordinator); 
-     - File-NG – data type detection library;
-     - KCIAS -- lead architect in data and process integration pilot project (on the base
-       of SeeBeyond) for a Russian Central bank. Business process analysis, Project
-       architecture design, product selection. 
-     - Content-type detection add-on for the Cerberus software (Mail filtering software for Lotus Notes);
-     - Custom Web Portals for the government departments (architect solutions, project coordinator);
-     - Mail projects for different clients (Infrastructure architect, project coordinator);
-     - Custom software solutions (Development in C/C++, Java, Scheme).<br><br>
+    - Руководство группой разработчиков (9 человек)
+    - Руководство проектами внедрения ПО
+    - Проектирование и разработка заказного и "коробочного" ПО (C/C++, Scheme, Lisp, Java)
+    - Переговоры с клиентами
+    - Презентация решений клиентам
+    - Участие в маркетинговых мероприятиях (выставки и т.п.)
+    - Архитектор инфраструктурных проектов (проекты по интеграции данных и процессов,
+      сетевые проекты и т.п.)
+    - *Выполненые проекты*:
+     - СМАП "Дозор-Джет" – ПО для фильтрации и архивации электронной почты (проектирование
+       и разработка ПО, управление прцоессом разработки); http://www.jetsoft.ru
+     - СКВТ "Дозор-Джет" – ПО для фильтрации веб-трафика (architect and develop software,
+       lead the development process); http://www.jetsoft.ru
+     - BeepayXP – ПО для обработки платежей для компании Вымпелком – крупного оператора
+       мобильной связи (проектирование архитектуры обработки данных, архитектор серверной
+       инфраструктуры, координатор проекта)
+     - File-NG – библиотека для определения типов данных
+     - КЦ ИАС -- ведущий архитектор пилотного проекта по интеграции данных и процессов (на
+       базе ПО SeeBeyond) для Центрального Банка РФ (анализ бизнес-процессов, разработка
+       архитектуры проекта, выбор продукта для реализации)
+     - Разработка заказных Web-порталов для государственных организаций (разработка
+       архитектуры, руководство разработкой)
+     - Внедрение почтового ПО для различных клиентов (разработка архитектуры, управление
+       проектом)
+     - Разработка заказного ПО (с использованием C/C++, Java, Scheme)<br><br>
 
  - Преподаватель в *Томском политехническом университете*
   - **Дата (с-по)**: 09.1998-08.2001
-  - **Название и адрес работодателя**: Tomsk Polytechnic University, Lenina Str, 30, Tomsk, Russia
-  - **Должности**: Assistant of Chair of Technical Physic (Teacher)
-  - **Вид бизнеса**: Education
+  - **Название и адрес работодателя**: Томский политехнический университет, ул. Ленина, 30, Томск
+  - **Должности**: Ассистент кафедры технической физики
+  - **Вид бизнеса**: Образование
   - **Служебные обязаности**: 
-    - Provide trainings for students in branch of thermodynamic, molecular physic,
-      computer modeling of physical processes;
-    - Administration of faculty network (mix of Unix and Windows servers) – 1500 users;
-    - Development of Intranet applications.<br><br>
+    - Проведение учебных занятий по термодинамике, молекулярной физики, информатике,
+      компьютерному моделированию физических процессов
+    - Разработка курса лекций для нового предмета "Компьютерное моделирование физических
+      процессов" 
+    - Администрирование сети факультета (смешанная сеть Unix и Windows серверов) – 1500 пользователей;
+    - Разработка Интранет приложений<br><br>
  
  - Разработчик в  *E-Compare Corp.*
   - **Дата (с-по)**: 10.2000-4.2001
   - **Название и адрес работодателя**: E-Compare Corp, USA
-  - **Должности**: Developer (remote work)
-  - **Вид бизнеса**: Software Development
+  - **Должности**: Разработчик (удаленная работа)
+  - **Вид бизнеса**: Разработка ПО
   - **Служебные обязаности**: 
-    - Writing modules for search engine (Perl, Oracle);
-    - Web programming (HTML, JavaScript).
+    - Разработка модулей для поисковой системы (Perl, Oracle)
+    - Web-программирование (HTML, JavaScript)
 
+** Образование и тренинги
 
-** Education and trainings
-
- - **Engineer** at *Tomsk Polytechnic University*, Russia
+ - **Инженер** в *Томском политехническом университете*
   - **Дата (с-по)**: 1991-1997
-  - **Title of qualification awarded**: Physic (Engineer)
-  - **Name and type of organisation**: Physical-technical department of Tomsk Polytechnic University
-  - **Principal subjects**: Physic and Chemistry of Plasma, Mathematics
-  - **Level in national classification**: Higher education diploma<br><br>
+  - **Квалификация**: Физик (инженер)
+  - **Название организации**: Физико-технический факультет Томского политехнического университета
+  - **Основные предметы**: Физика и химия плазмы, математика<br><br>
 
- - **MBA** at *Magdeburg University*, Germany
+ - **MBA** в *университет Magdeburg*, Германия
   - **Дата (с-по)**: 2003-2005
-  - **Title of qualification awarded**: Master of Business Administration
-  - **Name and type of organisation**:  Deutsches MBA Program, Magdeburg University, Germany
-  - **Principal subjects**: General management, Finance, Marketing
+  - **Квалификация**: Master of Business Administration
+  - **Название организации**:  Deutsches MBA Program, Magdeburg University, Germany
+  - **Основные предметы**: Общие вопросы управления, финансы, маркетинг, экономика
 
 
 ** Технические навыки
 
-I work with computers since 1989 using different types of hardware and operating systems.
+Я работаю с компьютерами с 1989-го года, используя разные виды оборудования и операционные
+системы.
 
-*** Programming languages and software development skills
+*** Языки программирования и разработка ПО
 
  - C и C++ – более 10 лет (в основном на Unix-подобных системах – Linux, Sun Solaris, HP-UX, FreeBSD)
  - Scheme и Common Lisp – 8 лет
@@ -142,15 +146,15 @@ I work with computers since 1989 using different types of hardware and operating
 
 *** Социальные и организационные навыки
 
- - Ability to working in multinational commands, working with foreign customers
- - Ability to lead and working in teams (and alone)
- - Experience in managing of software development teams, coordinating different
-   departments to make projects.
- - Participation in Open Source projects
+ - Способность работы в многонациональных организация и с иностранными клиентами
+ - Опыт управления группами разработчиков, координации различных отделов для выполнения
+   проекта
+ - Способность работы над проектами в группе (и в одиночку)
+ - Участие в проектах с открытым исходным кодом
 
 ** Прочая персональная информация
 
  - **Водительские права**: категории Б
- - **Artistic skills and competences**: Author of different articles, in physic and
-   computer-related branches. Co-author of Russian translation of "GNU Emacs manual".
+ - Автор множества статей по физике и компьютерным областям. Соавтор русского перевода
+   "GNU Emacs manual".
 

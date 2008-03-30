@@ -1,4 +1,33 @@
-#title cf
-#keywords alex ott, cf
+#title Information security and content filtering
+#keywords alex ott, cf, content filtering, web filtering
 
-* cf
+More than 7 years I working in branch of information security and development of software
+for content filtering.
+
+Until the end of 2006 i worked in [[http://www.jetinfo.com][Jet Infosystems]], first as developer, and later as head
+of software development group.  I worked on e-mail filtering product SMAP "Dozor Jet", and
+architect and develop the web-filtering product called SKVT "Dozor Jet".  Both products
+working in many big companies and government organizations in Russia, Ukraine &
+Kazakhstan.
+
+Since 2007 i working as Senior Developer in [[http://www.securecomputing.com][Secure Computing Corp]] on [[http://www.securecomputing.com/index.cfm?skey=22][Secure Web]] product
+(old name -- Webwasher).
+
+*** Open source projects
+
+I also working on some open source projects related to the content filtering and
+information security.
+
+ - [[http://sourceforge.net/projects/wfilter][wfilter]] -- project of creating free content filtering software for use in schools, at
+   home, etc. 
+ - [[http://sourceforge.net/projects/openfwtk][openfwtk]] -- application level firewall, supporting different protocols.  Very portable
+   and working on different hardware and OSes.
+ - [[./squid-gsbapi][squid-gsb]] -- utility, that implement support of Safe Browsing API in Squid
+ - [[http://sourceforge.net/projects/dgav][dgav]] -- for of [[http://dansguardian.org/][dansguardian]] project for adding of antivirus support in it.
+
+*** Publications on information security and content filtering
+
+ - [[../writings/cf/][Article about modern trends in content filtering]] ([[../writings/cf/cf-trends.en.pdf][PDF]])
+
+
+;  LocalWords:  Webwasher LocalWords

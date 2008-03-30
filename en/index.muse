@@ -1,10 +1,42 @@
 #title Alex Ott's home page (english)
-#keywords alex ott, home page, emacs, linux, programming, c++, functional programming, scheme, lisp, common lisp, haskell, ocaml, articles, writings
+#keywords alex ott, home page, emacs, linux, programming, c++, functional programming, scheme, lisp, common lisp, haskell, ocaml, articles
 
+* Short information about me
 
-* Short information about myself
+**Name**: Alexey (Alex) Ott<br>
+**Age**: 33<br>
+**E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]]<br>
+**Jabber**: [[xmpp://alexott@gmail.com][alexott@gmail.com]]<br>
+**Live in**: Germany
 
+Other my personal information you can find in my profile at [[https://www.plaxo.com/add_me?u=38655136415&v0=861575&k0=1086616232][Plaxo]]. And my *wish list* i keep
+on [[http://amazon.de/gp/registry/wishlist/3GN7PNIFBJSHC][Amazon.de]].
 
+You can also read my [[alexott-cv][CV]] ([[alexott-cv.pdf][PDF]]).  And also, my professional information you can find at
+[[http://www.linkedin.com/in/alexott][LinkedIn]].
 
-* My Writings
+You can read what i do in my [[http://alexott.blogspot.com/][personal blog]].
+
+* What i do
+
+My main work -- development of software, starting from architect it, and finishing in
+implementation and marketing activity.  Besides this i do consulting of external projects.
+Currently my specialization are information security and [[cf/index][content filtering]].
+
+At work and at home i working on different projects, using different programming
+languages.  My main languages are [[cpp/index][C & C++]], but i also often use [[lisp/index][Lisp]], [[scheme/index][Scheme]], OCaml, and
+other [[fp/index][functional programming]] languages.
+
+For a long time (more than 10 years) i working with Unix-like operating systems -- [[linux/index][Linux]],
+Solaris, HP-UX, FreeBSD, and [[macosx/index][Mac OS X]].
+
+I also use [[emacs/index][Emacs editor]], for performing most of my tasks -- from programming to mail
+reading and Internet surfing.
+
+I also wrote many articles on different themes -- about content filtering, Emacs editor
+and programming.  List of articles you can find in [[writings/index]["Articles" section]].
+
+Besides articles, i working on different [[oss/index][open source projects]].
+
+;  LocalWords:  OCaml
 
