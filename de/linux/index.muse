@@ -1,4 +1,0 @@
-#title linux
-#keywords alex ott, linux
-
-* linux

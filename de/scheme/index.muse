@@ -1,4 +1,0 @@
-#title scheme
-#keywords alex ott, scheme
-
-* scheme
