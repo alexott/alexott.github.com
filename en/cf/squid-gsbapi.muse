@@ -17,20 +17,20 @@ configure package.  If Boost is installed in non-standard place, you could use
 and libs for Boost.
 
 It was successfully tested on Linux with kernel 2.6 (Ubuntu) and Mac OS X Tiger (10.4) on
-iMac.  Teoretically it should be compilable also on MS Windows, but i hadn't tried yet.
+iMac.  Theoretically it should be compilable also on MS Windows, but i hadn't tried yet.
 
 * How to run
 
-This system consiste from two utilities: updater (=gsb-updater=) & checker (=gsb-redirector=).
+This system consists from two utilities: updater (=gsb-updater=) & checker (=gsb-redirector=).
 Bot utilities accepts the same command-line options and use same configuration file.  Most
 important option -- =-c=, specify where configuration file is located, by default used file
-squid-gsb.conf in current directory.
+=squid-gsb.conf= in current directory.
 
 Updater should run periodically (once per half hour via =cron=, for example) and will
 connect to the google and update hashes.
 
-Redirector run in endless loop and read url from stdin, check it agains hashes and output
-URL, if this site is found in correspondig hash, or empty line, if no matches found.
+Redirector run in endless loop and read url from stdin, check it against hashes and output
+URL, if this site is found in corresponding hash, or empty line, if no matches found.
 Utility automatically detects if hash files was updated and reload them.
 
 

@@ -25,7 +25,7 @@ lambda, fusion, spirit, asio, etc.
 *** Small articles about programming in C & C++
 
 In my blog you can find some notes about [[http://alexott.blogspot.com/search/label/c%2B%2B][C++]] & [[http://alexott.blogspot.com/search/label/boost][Boost]] -- about releases of new libraries,
-tips & trics, etc.
+tips & tricks, etc.
 
 Beside this i also write articles dedicated to C & C++ programming, and auxiliary topics:
 
