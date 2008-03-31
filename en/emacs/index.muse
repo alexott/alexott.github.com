@@ -7,7 +7,7 @@ all my tasks -- program in different languages, write articles, read e-mail & us
 talk in irc & jabber, and more other things (and my site created with [[http://mwolson.org/projects/EmacsMuse.html][Muse]] -- wiki-like
 package for Emacs).
 
-*** Articles about Emacs
+* Articles about Emacs
 
 I wrote (and continue to write) series of articles about using Emacs to perform different
 tasks (many of articles in Russian, and here listed only some translated articles):
@@ -16,11 +16,11 @@ tasks (many of articles in Russian, and here listed only some translated article
 
 You can also find [[../writings/][other my articles]].
 
-*** My configuration file
+* My configuration file
 
 *will uploaded some time later*
 
-*** Useful links
+* Useful links
 
 This links could be useful when searching information about Emacs:
 

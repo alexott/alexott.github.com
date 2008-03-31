@@ -13,7 +13,7 @@ Kazakhstan.
 Since 2007 i working as Senior Developer in [[http://www.securecomputing.com][Secure Computing Corp]] on [[http://www.securecomputing.com/index.cfm?skey=22][Secure Web]] product
 (old name -- Webwasher).
 
-*** Open source projects
+* Open source projects
 
 I also working on some open source projects related to the content filtering and
 information security.
@@ -25,7 +25,7 @@ information security.
  - [[./squid-gsbapi][squid-gsb]] -- utility, that implement support of Safe Browsing API in Squid
  - [[http://sourceforge.net/projects/dgav][dgav]] -- for of [[http://dansguardian.org/][dansguardian]] project for adding of antivirus support in it.
 
-*** Publications on information security and content filtering
+* Publications on information security and content filtering
 
  - [[../writings/cf/][Article about modern trends in content filtering]] ([[../writings/cf/cf-trends.en.pdf][PDF]])
 

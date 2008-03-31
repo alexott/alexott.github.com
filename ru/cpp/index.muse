@@ -14,7 +14,7 @@ regex, и заканчивая bind, lambda, fusion, spirit, asio и др.
 С использованием библиотек Boost был написан коммерческий продукт СКВТ "Дозор-Джет",
 который успешно продается на российских просторах.
 
-*** Рекомендуемая литература
+* Рекомендуемая литература
  
  - Классика жанра -- Бьярн Страуструп "Язык программирования C++. Специальное издание"
  - [[http://www.amazon.de/Beyond-Standard-Library-Introduction-Boost/dp/0321133544/ref=pd_bbs_sr_1?ie=UTF8&s=books-intl-de&qid=1206692370&sr=8-1][Beyond the C++ Standard Library. An Introduction to Boost]] -- хорошее описание базовых
@@ -24,7 +24,7 @@ regex, и заканчивая bind, lambda, fusion, spirit, asio и др.
    Metaprogramming Library
  - Серия книг [[http://www.amazon.com/s/ref=nb_ss_gw/104-1912664-7359959?url=search-alias%3Dstripbooks&field-keywords=C%2B%2B+In-Depth+&x=19&y=21][C++ In-Depth]], многие из которых [[http://www.ozon.ru/context/detail/id/1273213/][переведены на русский язык]].
 
-*** Небольшие заметки про программирование на C и C++
+* Небольшие заметки про программирование на C и C++
 
 В моем блоге вы можете найти записи, посвященные использованию [[http://alexott-ru.blogspot.com/search/label/c%2B%2B][C++]] и [[http://alexott-ru.blogspot.com/search/label/boost][Boost]], относящиеся к
 анонсам новых библиотек, примерам работы с библиотеками и т.п.

@@ -13,7 +13,7 @@ lambda, fusion, spirit, asio, etc.
 С использованием библиотек Boost был написан коммерческий продукт СКВТ "Дозор-Джет",
 который успешно продается на российских просторах.
 
-*** Recommended books 
+* Recommended books 
  
  - Classical book -- Bjarne Stroustrup [[http://www.amazon.de/C%2B%2B-Programming-Language-Special/dp/0201700735/ref=pd_bbs_sr_1?ie=UTF8&s=books-intl-de&qid=1206965638&sr=8-1][The C++ Programming Language. Special Edition]]
  - [[http://www.amazon.de/Beyond-Standard-Library-Introduction-Boost/dp/0321133544/ref=pd_bbs_sr_1?ie=UTF8&s=books-intl-de&qid=1206692370&sr=8-1][Beyond the C++ Standard Library. An Introduction to Boost]] -- very good description of
@@ -22,7 +22,7 @@ lambda, fusion, spirit, asio, etc.
    book about metaprogramming in C++, based on Boost Metaprogramming Library
  - Series of books with common name [[http://www.amazon.com/s/ref=nb_ss_gw/104-1912664-7359959?url=search-alias%3Dstripbooks&field-keywords=C%2B%2B+In-Depth+&x=19&y=21][C++ In-Depth]]
 
-*** Small articles about programming in C & C++
+* Small articles about programming in C & C++
 
 In my blog you can find some notes about [[http://alexott.blogspot.com/search/label/c%2B%2B][C++]] & [[http://alexott.blogspot.com/search/label/boost][Boost]] -- about releases of new libraries,
 tips & tricks, etc.

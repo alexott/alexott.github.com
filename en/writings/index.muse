@@ -4,7 +4,7 @@
 I often write articles on themes that are very interesting for me.  Many of them are in
 Russian, but i also translate some of them to English.
 
-*** Articles about Emacs
+* Articles about Emacs
 
  - [[emacs-vcs/][Article about using Emacs for work with version control systems]] 
 ; ([[emacs-vcs/emacs-vcs.ru.pdf][PDF]])
@@ -14,7 +14,7 @@ Russian, but i also translate some of them to English.
 ;   выделенных участков памяти и т.п.  В статье описываются такие средства как Valgrind,
 ;   Google Performance Tools и другие.
 
-*** Information security and content filtering
+* Information security and content filtering
 
  - [[cf/][Article about modern trends in content filtering]] ([[cf/cf-trends.en.pdf][PDF]])
   

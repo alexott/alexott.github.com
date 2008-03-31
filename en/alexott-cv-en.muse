@@ -1,7 +1,7 @@
 #title Alexey Ott's Curriculum Vitae
 #keywords cv, curriculum vitae, alex ott, alexey ott
 
-** Personal Info
+* Personal Info
 
  - **Name**: Alexey (Alex) Ott
  - **Address**: Im Schlinge 59, 33106 Paderborn, Germany
@@ -10,7 +10,7 @@
  - **Citizenship**: German, Russian
  - **Date of Birth**: 04 Jun 1974
 
-** Work Experience
+* Work Experience
 
  - **Senior Developer** at *Secure Computing Corp.*<br>
  **Dates (from-to)**: 01.2007-now<br>
@@ -76,7 +76,7 @@
     - Web programming (HTML, JavaScript).
 
 
-** Education and trainings
+* Education and trainings
 
  - **Engineer** at *Tomsk Polytechnic University*, Russia<br>
  **Dates (from-to)**: 1991-1997<br>
@@ -91,13 +91,11 @@
  **Name and type of organisation**:  Deutsches MBA Program, Magdeburg University, Germany<br>
  **Principal subjects**: General management, Finance, Marketing
 
-** Personal skills and competences
-
-*** Technical skills and competences
+* Technical skills and competences
 
 I work with computers since 1989 using different types of hardware and operating systems.
 
-**** Programming languages and software development skills
+** Programming languages and software development skills
 
  - C and C++ – more than 10 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
  - Scheme and Common Lisp – 8 years
@@ -109,14 +107,14 @@ I work with computers since 1989 using different types of hardware and operating
  - UML modeling in complex projects
  - x86 Assembler – 5 years (currently inactive)
 
-**** Other computer-related skills
+** Other computer-related skills
 
  - Administration of UNIX-like OS – Linux (since 1996), Sun Solaris (since 2000), HP-UX
    (since 2001), FreeBSD (since 2000) 
  - Administration of Windows OSes – NT4, 2000, XP
  - Administration of relational databases (Oracle and PostgreSQL) 
 
-**** Open Source projects
+** Open Source projects
 
  - Catdoc -- Open-source converter for MS Office files, development of PPT & XLS converters
  - ALTLinux -- Linux distribution, package maintainer (2001-2004)
@@ -124,7 +122,7 @@ I work with computers since 1989 using different types of hardware and operating
  - openfwtk -- application level firewall
  - Russian documentation for Linux – author of different articles about Linux
 
-**** Certification
+** Certification
 
  - Authorised "ALTLinux specialist", certificate number 0x000C;
  - Brainbench certification ([[http://www.brainbench.com/xml/bb/transcript/public/viewtranscript.xml?pid=5075245][Brainbench ID 5075245]]):
@@ -138,13 +136,15 @@ I work with computers since 1989 using different types of hardware and operating
   - Master Linux Administration (Redhat)
   - C Programmer
 
-*** Languages
+* Personal skills and competences
+
+** Languages
 
  - **Russian**: Mother tongue
  - **English**: Good reading, writing & verbal skills
  - **German**: Good reading, basic writing and verbal skills
 
-*** Social and organizational skills and competences
+** Social and organizational skills and competences
 
  - Ability to working in multinational commands, working with foreign customers
  - Ability to lead and working in teams (and alone)
@@ -152,7 +152,7 @@ I work with computers since 1989 using different types of hardware and operating
    departments to make projects.
  - Participation in Open Source projects
 
-** Other personal info
+* Other personal info
 
  - **Driving license**: present
  - **Artistic skills and competences**: Author of different articles, in physic and

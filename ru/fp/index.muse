@@ -12,7 +12,7 @@
 Я в своих проектах в основном использую языки [[../lisp/][Common Lisp]] и [[../scheme/][Scheme]], но кроме того, веду
 разработку личных проектов на OCaml/F#, Haskell & Erlang.
 
-*** Рекомендуемая литература
+* Рекомендуемая литература
 
  - [[http://mitpress.mit.edu/sicp/][Structure & Interpretation of Computer Programs]] -- классический учебник по
    программированию, который рекомендуется программистам на любых языках.  Существует
@@ -28,7 +28,7 @@
 
 ; - [[http://plaslab.cis.nctu.edu.tw/eriol/TR/criticSML.364.ps.Z][Andrew W. Appel: A Critique of Standard ML]]
 
-*** Полезные ссылки
+* Полезные ссылки
 
  - [[http://www.luca.demon.co.uk][Персональная страница Luca Cardelli]], на которой можно найти статьи по функциональным
    языкам и системам типов.
