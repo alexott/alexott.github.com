@@ -2,6 +2,10 @@ syntax: glob
 *.orig
 *.rej
 *~
+*.aux
+*.out
+*.tex
+*.log
 
 syntax: regexp
 .*\#.*\#$
@@ -55,3 +59,8 @@ syntax: regexp
 ^ru/cpp/BoostAsioNotes\.html$
 ^ru/oss/perl\.html$
 ^ru/oss/tex\.html$
+^en/cpp/BoostAsioNotes\.html$
+^ru/alexott-cv-ru\.html$
+^en/alexott-cv-en\.pdf$
+^en/alexott-cv-en\.html$
+^ru/alexott-cv-ru\.pdf$

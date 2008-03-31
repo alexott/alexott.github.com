@@ -1,36 +1,33 @@
-#title Языки C, C++ и связанные с ним вещи
+#title  C & C++ languages
 #keywords alex ott, cpp, c++, boost, asio
 
-Я программирую на C и C++ более десяти лет и в настоящее время это основной язык всех моих
-рабочих, и многих личных проектов.  Основной используемый компилятор -- GCC, в основном
-4-й версии, но встречаются на пути и более старые версии.
+I'm programming in C & C++ more than 10 years, and now this is main language for work &
+some personal projects.  I mostly use GCC as compiler, now this is GCC version 4.
 
-В своих работах я активно использую библиотеки из [[http://www.boost.org][проекта Boost]], которые имеют высокое
-качество, отличный уровень абстракции и высокую переносимость, что позволяет мне
-сосредоточиться на реализации моих алгоритмов не отвлекаясь на "изобретение велосипедов".
-Я использую большой набор библиотек, начиная от достаточно простых, таких как smart_ptr и
-regex, и заканчивая bind, lambda, fusion, spirit, asio и др.
+In my works i actively use libraries from [[http://www.boost.org][Boost project]], that has beautiful quality and
+very portable.  Their usage allow me to think about "business logic" in my programs
+without reimplementing common things, like sockets, serialization, etc.  I use many
+libraries, starting from simple ones, like smart_ptr & regex, and finishing with bind,
+lambda, fusion, spirit, asio, etc.
 
 С использованием библиотек Boost был написан коммерческий продукт СКВТ "Дозор-Джет",
 который успешно продается на российских просторах.
 
-*** Рекомендуемая литература
+*** Recommended books 
  
- - Классика жанра -- Бьярн Страуструп "Язык программирования C++. Специальное издание"
- - [[http://www.amazon.de/Beyond-Standard-Library-Introduction-Boost/dp/0321133544/ref=pd_bbs_sr_1?ie=UTF8&s=books-intl-de&qid=1206692370&sr=8-1][Beyond the C++ Standard Library. An Introduction to Boost]] -- хорошее описание базовых
-   библиотек Boost
+ - Classical book -- Bjarne Stroustrup [[http://www.amazon.de/C%2B%2B-Programming-Language-Special/dp/0201700735/ref=pd_bbs_sr_1?ie=UTF8&s=books-intl-de&qid=1206965638&sr=8-1][The C++ Programming Language. Special Edition]]
+ - [[http://www.amazon.de/Beyond-Standard-Library-Introduction-Boost/dp/0321133544/ref=pd_bbs_sr_1?ie=UTF8&s=books-intl-de&qid=1206692370&sr=8-1][Beyond the C++ Standard Library. An Introduction to Boost]] -- very good description of
+   base Boost libraries
  - [[http://www.amazon.de/Template-Metaprogramming-Concepts-Techniques-Beyond/dp/0321227255/ref=sr_1_2?ie=UTF8&s=books-intl-de&qid=1206692370&sr=8-2][C++ Template Metaprogramming. Concepts, Tools, and Techniques from Boost and Beyond]] --
-   книга про метапрограммирование на языке C++, основываясь на библиотеке Boost
-   Metaprogramming Library
- - Серия книг [[http://www.amazon.com/s/ref=nb_ss_gw/104-1912664-7359959?url=search-alias%3Dstripbooks&field-keywords=C%2B%2B+In-Depth+&x=19&y=21][C++ In-Depth]], многие из которых [[http://www.ozon.ru/context/detail/id/1273213/][переведены на русский язык]].
+   book about metaprogramming in C++, based on Boost Metaprogramming Library
+ - Series of books with common name [[http://www.amazon.com/s/ref=nb_ss_gw/104-1912664-7359959?url=search-alias%3Dstripbooks&field-keywords=C%2B%2B+In-Depth+&x=19&y=21][C++ In-Depth]]
 
-*** Небольшие заметки про программирование на C и C++
+*** Small articles about programming in C & C++
 
-В моем блоге вы можете найти записи, посвященные использованию [[http://alexott-ru.blogspot.com/search/label/c%2B%2B][C++]] и [[http://alexott-ru.blogspot.com/search/label/boost][Boost]], относящиеся к
-анонсам новых библиотек, примерам работы с библиотеками и т.п.
+In my blog you can find some notes about [[http://alexott.blogspot.com/search/label/c%2B%2B][C++]] & [[http://alexott.blogspot.com/search/label/boost][Boost]] -- about releases of new libraries,
+tips & trics, etc.
 
-Кроме того, я пишу небольшие статьи посвященные использованию C++, а также к сопуствующим
-вопросам: 
+Beside this i also write articles dedicated to C & C++ programming, and auxiliary topics:
 
- - [[./BoostAsioNotes][Что такое Boost.Asio и зачем он нужен]]
- - [[../writings/prog-checking][Статья про поиск ошибок работы с памятью]]
+ - [[./BoostAsioNotes][What is Boost.Asio, and why we should use it]]
+; - [[../writings/prog-checking][Статья про поиск ошибок работы с памятью]]

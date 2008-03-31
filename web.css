@@ -68,7 +68,7 @@ text-decoration:none;
 }
 
 #header p {
-width:450px;
+width:350px;
 float:right;
 text-align:center;
 margin:8px 0 0;
@@ -263,17 +263,17 @@ border:4px solid #f0f0f0;
 }
 
 #content ul, #contentwide ul, #contentwide2 ul, #content ol, #contentwide ol, #contentwide2 ol {
-margin:0 0 16px 20px;
+margin:5px 0 16px 20px;
 padding:0;
 }
 
 #content li, #contentwide li, #contentwide2 li {
 margin:0;
-padding:0 0 0 5px;
+padding:4px 0 0 5px;
 }
 
 #content ul ul, #contentwide ul ul, #contentwide2 ul ul, #content ol ol, #contentwide ol ol, #contentwide2 ol ol {
-margin:0 0 0 16px;
+margin:5px 0 0 16px;
 padding:0;
 }
 

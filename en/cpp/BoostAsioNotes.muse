@@ -1,0 +1,51 @@
+#title What is Boost.Asio, and why we should use it
+#keywords boost, asio, boost::asio, alex ott
+
+Writing portable networking code in С++ is problem with long history, and was developed
+many libraries, that tried to solve this problem. But i could say, that [[http://asio.sf.net][Boost.Asio]] is the
+best implementation between existing. On the base of Boost.Asio already exists some number
+of libraries and applications ([[http://www.pion.org/projects/pion-network-library][libpion]], [[http://cpp-netlib.sf.net][cpp-netlib]]), and development of some new is in
+progress. Beside this, on the base of Boost.Asio i had projected and developed a filtering
+subsystem for web-filtering product SKVT "Dozor-Jet" aka WebBoss.
+
+Boost.Asio has following main features:
+
+ - ability to write cross-platform networking code, working on the most of existing
+   platforms - Windows, Unix-like, Tru64, QNX, etc..
+ - supports both IPv4 and IPv6
+ - support for TCP & UDP
+ - support for asynchronous operations
+ - provide std::iostream compatible interfaces
+ - support for SSL connections
+ - support for delayed operations (timers)
+
+For me, main advantage of Boost.Asio (besides cross-platform work) is, that on each
+platform, it use most effective strategy (=epoll= on Linux 2.6, =kqueue= on FreeBSD/MacOSX,
+Overlapped IO on MS Windows), and that, library allow to use different strategies -
+synchronous and asynchronous work with sockets, usage of streaming input/output,
+compatible with =std::iostream=. And these strategies could be mixed in one application, for
+example, accept connections in async mode, and than run thread, which will do input/output
+in sync mode ([[../../common/asio-notes/test-otpc.cpp.html][test-otpc.cpp]] example).
+
+For demonstration of Boost.Asio's features i wrote (some of parts was adopted from
+Boost.Asio examples) several examples, implementing different data handling strategies
+(more examples could be found on the home page of Boost.Asio). I had used these examples
+for selecting appropriate data handling strategies for my own applications. All these
+examples implements "stupid" web-server, that read request and return back single page,
+independent on address, that was specified in request. Currently published following
+examples (all sources include file [[../../common/asio-notes/common.h.html][common.h]]):
+
+ - [[../../common/asio-notes/test-mcmt.cpp.html][test-mcmt.cpp]] -- implements data handling strategy Many Connections/Many Threads - it
+   run several threads, each of them accept connections and perform input/output in async
+   mode;
+ - [[../../common/asio-notes/test-otpc.cpp.html][test-otpc.cpp]] -- implements strategy One Thread per Connection - one thread accepts
+   connections in async mode, and than run thread, in which input/output performed in sync
+   mode (code, performing this is in files [[../../common/asio-notes/test-otpc-conn.cpp.html][test-otpc-conn.cpp]] & [[../../common/asio-notes/test-otpc-conn.hpp.html][test-otpc-conn.hpp]]);
+ - [[../../common/asio-notes/test-otpc-tp.cpp.html][test-otpc-tp.cpp]] -- almost same as [[../../common/asio-notes/test-otpc.cpp.html][test-otpc.cpp]], but instead of dedicated thread for
+   every connection, used pool of threads, implemented by [[http://threadpool.sf.net][threadpool]] library.
+
+To build examples (all sources are [[../../common/asio-notes/sources.tar.gz][here]]) you need at least boost version 1.35, that
+contain Boost.Asio.
+
+I think, that on the base of this note it will possible to write more complete article,
+but this is future task, but now you can ask me about boost.asio directly :-)

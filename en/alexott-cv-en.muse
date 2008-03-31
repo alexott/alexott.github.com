@@ -1,4 +1,4 @@
-#title Alexey Ott's Curriculum Vitae (english)
+#title Alexey Ott's Curriculum Vitae
 #keywords cv, curriculum vitae, alex ott, alexey ott
 
 ** Personal Info
@@ -12,21 +12,21 @@
 
 ** Work Experience
 
- - Senior Developer at *Securec Computing Corp.*
-  - **Dates (from-to)**: 01.2007-now
-  - **Name and address of employer**: [[http://www.securecomputing.com][Secure Computing Corp]]. 33100 Paderborn, Germany
-  - **Positions held**: Senior Developer
-  - **Type of business**: Software Development
-  - **Main activities and responsibilities**: 
+ - **Senior Developer** at *Securec Computing Corp.*<br>
+ **Dates (from-to)**: 01.2007-now<br>
+ **Name and address of employer**: [[http://www.securecomputing.com][Secure Computing Corp]]. 33100 Paderborn, Germany<br>
+ **Positions held**: Senior Developer<br>
+ **Type of business**: Software Development<br>
+ **Main activities and responsibilities**: 
     - Development of content-filtering software
-    - Architect of new versions of software<br><br>
+    - Architect of new versions of software<br>
 
- - Head of Software development group at *Jet Infosystems*
-  - **Dates (from-to)**: 10.2001-11.2006
-  - **Name and address of employer**: [[http://www.jetinfo.com][Jet Infosystems]]. B. Novodmitrovskaya, 14/1, 127015 Moscow, Russia
-  - **Positions held**: Head of Software development group, Chief System Architect
-  - **Type of business**: System Integration
-  - **Main activities and responsibilities**: 
+ - **Head of Software development group** at *Jet Infosystems*<br>
+ **Dates (from-to)**: 10.2001-11.2006<br>
+ **Name and address of employer**: [[http://www.jetinfo.com][Jet Infosystems]]. B. Novodmitrovskaya, 14/1, 127015 Moscow, Russia<br>
+ **Positions held**: Head of Software development group, Chief System Architect<br>
+ **Type of business**: System Integration<br>
+ **Main activities and responsibilities**: 
     - Leader of development group (9 people);
     - Lead of development projects;
     - Architect and development of custom and off-the-shelf software (C/C++, Scheme, Lisp, Java);
@@ -36,14 +36,14 @@
     - Infrastructure architect (data & process integration projects, network projects,
       mail projects).
     - *Performed Projects*:
-     - **Mailboss*** (aka SMAP "Dozor-Jet") – mail filtering and archiving software (architect
+     - **Mailboss** (aka SMAP "Dozor-Jet") – mail filtering and archiving software (architect
        and develop software, lead the development process);
        http://www.jetinfosecurity.com;
-     - **Webboss*** (aka SKVT "Dozor-Jet") – web filtering software (architect and develop
+     - **Webboss** (aka SKVT "Dozor-Jet") – web filtering software (architect and develop
        software, lead the development process); http://www.jetinfosecurity.com;
-     - **BeepayXP*** – payment processing software for the Vimpelkom – large Russian Mobile
+     - **BeepayXP** – payment processing software for the Vimpelkom – large Russian Mobile
        Company (Data architect, server infrastructure architect, project coordinator); 
-     - **File-NG*** – data type detection library;
+     - **File-NG** – data type detection library;
      - KC IAS - lead architect in data and process integration pilot project (on the base
        of Sun Java CAPS) for a Russian Central bank. Business process analysis, Project
        architecture design, product selection.
@@ -53,44 +53,43 @@
        coordinator);
      - Mail projects for different clients (Infrastructure architect, project
        coordinator);
-     - Custom software solutions (Development in C/C++, Java, Scheme).<br><br>
+     - Custom software solutions (Development in C/C++, Java, Scheme).<br>
 
- - Teacher at *Tomsk Polytechnic University*
-  - **Dates (from-to)**: 09.1998-08.2001
-  - **Name and address of employer**: Tomsk Polytechnic University, Lenina Str, 30, Tomsk, Russia
-  - **Positions held**: Assistant of Chair of Technical Physic (Teacher)
-  - **Type of business**: Education
-  - **Main activities and responsibilities**: 
+ - **Teacher** at *Tomsk Polytechnic University*<br>
+ **Dates (from-to)**: 09.1998-08.2001<br>
+ **Name and address of employer**: Tomsk Polytechnic University, Lenina Str, 30, Tomsk, Russia<br>
+ **Positions held**: Assistant of Chair of Technical Physic (Teacher)<br>
+ **Type of business**: Education<br>
+ **Main activities and responsibilities**: 
     - Provide trainings for students in branch of thermodynamic, molecular physic,
       computer modeling of physical processes;
     - Administration of faculty network (mix of Unix and Windows servers) – 1500 users;
-    - Development of Intranet applications.<br><br>
+    - Development of Intranet applications.<br>
  
- - Developer  *E-Compare Corp.*
-  - **Dates (from-to)**: 10.2000 – 4.2001
-  - **Name and address of employer**: E-Compare Corp, USA
-  - **Positions held**: Developer (remote work)
-  - **Type of business**: Software Development
-  - **Main activities and responsibilities**: 
+ - **Developer** at  *E-Compare Corp.*<br>
+ **Dates (from-to)**: 10.2000 – 4.2001<br>
+ **Name and address of employer**: E-Compare Corp, USA<br>
+ **Positions held**: Developer (remote work)<br>
+ **Type of business**: Software Development<br>
+ **Main activities and responsibilities**: 
     - Writing modules for search engine (Perl, Oracle);
     - Web programming (HTML, JavaScript).
 
 
 ** Education and trainings
 
- - **Engineer** at *Tomsk Polytechnic University*, Russia
-  - **Dates (from-to)**: 1991-1997
-  - **Title of qualification awarded**: Physic (Engineer)
-  - **Name and type of organisation**: Physical-technical department of Tomsk Polytechnic University
-  - **Principal subjects**: Physic and Chemistry of Plasma, Mathematics
-  - **Level in national classification**: Higher education diploma<br><br>
+ - **Engineer** at *Tomsk Polytechnic University*, Russia<br>
+ **Dates (from-to)**: 1991-1997<br>
+ **Title of qualification awarded**: Physic (Engineer)<br>
+ **Name and type of organisation**: Physical-technical department of Tomsk Polytechnic University<br>
+ **Principal subjects**: Physic and Chemistry of Plasma, Mathematics<br>
+ **Level in national classification**: Higher education diploma<br>
 
- - **MBA** at *Magdeburg University*, Germany
-  - **Dates (from-to)**: 2003-2005
-  - **Title of qualification awarded**: Master of Business Administration
-  - **Name and type of organisation**:  Deutsches MBA Program, Magdeburg University, Germany
-  - **Principal subjects**: General management, Finance, Marketing
-
+ - **MBA** at *Magdeburg University*, Germany<br>
+ **Dates (from-to)**: 2003-2005<br>
+ **Title of qualification awarded**: Master of Business Administration<br>
+ **Name and type of organisation**:  Deutsches MBA Program, Magdeburg University, Germany<br>
+ **Principal subjects**: General management, Finance, Marketing
 
 ** Personal skills and competences
 

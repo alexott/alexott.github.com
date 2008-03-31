@@ -1,43 +1,20 @@
 #title Emacs
 #keywords alex ott, emacs, gnus, gnu emacs, xemacs
 
-Я использую Emacs уже более 10 лет (в последние 7 лет я пользуюсь GNU Emacs, но до этого
-использовал и XEmacs).  Emacs для меня служит чем-то вроде швейцарского перочинного ножа
--- я выполняю с его помощью практически все операции -- программирую, пишу статьи, читаю
-почту и usenet news, общаюсь в irc & jabber, а также делаю еще кучу дел (и мой сайт сделан
-с помощью [[http://mwolson.org/projects/EmacsMuse.html][Muse]] -- пакета для Emacs).
+I use Emacs about 10 years (during last 7 years I'm using GNU Emacs, but before i also
+used XEmacs).  Emacs for me is something like Swiss army knife -- with it i perform almost
+all my tasks -- program in different languages, write articles, read e-mail & usenet news,
+talk in irc & jabber, and more other things (and my site created with [[http://mwolson.org/projects/EmacsMuse.html][Muse]] -- wiki-like
+package for Emacs).
 
 *** Articles about Emacs
 
-Я написал (и продолжаю писать) серию статей посвященную использованию редактора Emacs для
-выполнения различных задач.
+I wrote (and continue to write) series of articles about using Emacs to perform different
+tasks (many of articles in Russian, and here listed only some translated articles):
 
- - [[../writings/emacs-vcs/][Рассказ про использование Emacs с системами контроля версий]] 
+ - [[../writings/emacs-vcs/][Article about using Emacs with version control systems]] 
 
-Вы также можете ознакомиться и с [[../writings/][другими моими статьями]].  
-
-
-*** Small tips
-
-Данные советы по большей части применимы для GNU Emacs версии 21.x и старше:
-
- - При использовании desktop.el для сохранения списка файлов и переменных при выходе
-   изEmacs может быть полезен такой код, который к сохраняемым данным добавляет еще и
-   кодировку с которой использовался буфер.
-
-<src lang="elisp">
-(add-to-list 'desktop-locals-to-save 'buffer-file-coding-system)
-</src>
-      
- - Emacs позволяет указывать нужную кодировку для определенных типов файлов. Это делается
-   добавлением записей в переменную =file-coding-system-alist=. Записи представляют собой
-   пары значений =регулярное выражение/кодировка=. Эту переменную можно установить с помощью
-   команды =customize-variable=.
-      
- - Отправка почты на сервера требующие SMTP Auth делается согласно инструкциям на
-   [[http://josefsson.org/emacs-rfc2554.html][этой странице]].
-
-More tips and tricks you can find in my blog, in [[http://alexott.blogspot.com/search/label/emacs][section about Emacs]].
+You can also find [[../writings/][other my articles]].
 
 *** My configuration file
 

@@ -35,3 +35,18 @@ text-decoration:underline;
 color:#0000ff;
 background-color:inherit;
 }
+
+#content ul, #contentwide ul, #contentwide2 ul, #content ol, #contentwide ol, #contentwide2 ol {
+margin:5px 0 16px 20px;
+padding:0;
+}
+
+#content li, #contentwide li, #contentwide2 li {
+margin:0;
+padding:4px 0 0 5px;
+}
+
+#content ul ul, #contentwide ul ul, #contentwide2 ul ul, #content ol ol, #contentwide ol ol, #contentwide2 ol ol {
+margin:5px 0 0 16px;
+padding:0;
+}
