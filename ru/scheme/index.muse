@@ -1,5 +1,5 @@
-#title scheme
-#keywords alex ott, scheme
+#title Язык Scheme
+#keywords scheme, mzscheme
 
 Я активно программировал на Scheme (реализация [[http://www.plt-scheme.org][mzscheme]]) во время разработки продукта СМАП
 "Дозор-Джет", который полностью был написан на этом языке (за исключением небольшой

@@ -1,4 +1,4 @@
 #title writings
-#keywords alex ott, writings
+#keywords writings, artikel
 
 * writings

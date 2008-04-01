@@ -1,5 +1,5 @@
 #title Information security and content filtering
-#keywords alex ott, cf, content filtering, web filtering
+#keywords cf, content filtering, web filtering
 
 More than 7 years I working in branch of information security and development of software
 for content filtering.

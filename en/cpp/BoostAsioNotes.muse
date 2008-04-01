@@ -1,5 +1,5 @@
 #title What is Boost.Asio, and why we should use it
-#keywords boost, asio, boost::asio, alex ott
+#keywords boost, asio, boost::asio
 
 Writing portable networking code in С++ is problem with long history, and was developed
 many libraries, that tried to solve this problem. But i could say, that [[http://asio.sf.net][Boost.Asio]] is the

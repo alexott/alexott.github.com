@@ -1,5 +1,5 @@
 #title Open source projects
-#keywords oss, gnu, alex ott, emacs, linux, tex, perl
+#keywords oss, gnu, emacs, linux, tex, perl
 
 I'm more than 10 years working on different open source projects.  Currently I'm working
 on following projects:

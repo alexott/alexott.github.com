@@ -1,5 +1,5 @@
 #title Проекты с открытым исходным кодом
-#keywords oss, gnu, alex ott, emacs, linux, tex, perl
+#keywords oss, gnu, emacs, linux, tex, perl
 
 Я уже более 10 лет принимаю участие в различных проектах, в том числе и по разработке
 программ с открытам исходным кодом.  

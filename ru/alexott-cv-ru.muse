@@ -1,5 +1,5 @@
 #title Alexey Ott's Curriculum Vitae
-#keywords cv, curriculum vitae, alex ott, alexey ott, алексей отт, алекс отт, резюме
+#keywords cv, curriculum vitae, alexey ott, алексей отт, алекс отт, резюме
 
 * Персональная информация
 

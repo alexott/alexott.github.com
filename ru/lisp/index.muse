@@ -1,5 +1,5 @@
 #title Программирование на Lisp
-#keywords alex ott, lisp, elisp, common lisp
+#keywords lisp, elisp, common lisp
 
 Случилось так, что Lisp был вторым языком программирования, который я выучил и на котором
 программировал некоторое время (первым языком был Fortran, которому нас учили в

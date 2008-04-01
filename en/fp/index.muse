@@ -1,5 +1,5 @@
 #title Functional programming
-#keywords functional programming, alex ott, fp, ocaml, lisp, haskell, erlang
+#keywords functional programming, fp, ocaml, lisp, haskell, erlang
 
 I'm working with functional languages for a long time.  Lisp was my first functional
 language, that i studied. Now i mostly programm in Scheme and Common Lisp, but also plays

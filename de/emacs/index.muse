@@ -1,4 +1,4 @@
 #title emacs
-#keywords alex ott, emacs
+#keywords emacs
 
 * emacs

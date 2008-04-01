@@ -1,5 +1,5 @@
 #title Писательские работы
-#keywords alex ott, writings, emacs, zsh, content filtering
+#keywords writings, emacs, zsh, content filtering
 
 Случилось так, что я иногда пишу статьи на темы, которые меня интересуют, и в которых
 размер знаний уже превысил определенный объем.  По большей части это статьи касающиеся

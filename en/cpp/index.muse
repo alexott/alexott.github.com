@@ -1,5 +1,5 @@
 #title  C & C++ languages
-#keywords alex ott, cpp, c++, boost, asio
+#keywords cpp, c++, boost, asio
 
 I'm programming in C & C++ more than 10 years, and now this is main language for work &
 some personal projects.  I mostly use GCC as compiler, now this is GCC version 4.

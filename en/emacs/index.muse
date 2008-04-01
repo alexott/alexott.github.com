@@ -1,5 +1,5 @@
 #title Emacs
-#keywords alex ott, emacs, gnus, gnu emacs, xemacs
+#keywords emacs, gnus, gnu emacs, xemacs
 
 I use Emacs about 10 years (during last 7 years I'm using GNU Emacs, but before i also
 used XEmacs).  Emacs for me is something like Swiss army knife -- with it i perform almost

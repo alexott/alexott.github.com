@@ -1,5 +1,5 @@
 #title Emacs
-#keywords alex ott, emacs, gnus, gnu emacs, xemacs
+#keywords emacs, gnus, gnu emacs, xemacs
 
 Emacs активно используется мной уже более 10 лет (в последние 7 лет я пользуюсь GNU Emacs,
 но до этого использовал и XEmacs).  Emacs для меня служит чем-то вроде швейцарского

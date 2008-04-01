@@ -1,0 +1,201 @@
+#title How this site was created
+#keywords home page, muse, emacs
+
+Идея переделать свою домашнюю страницу возникла у меня очень давно -- старый вариант
+существовал уже более 10 лет и имел крайне примитивный дизайн, на уровне HTML версии 2.  
+
+** Подготовительная работа
+
+Поскольку на нынешнем моем хостинге мне доступна только опция раздачи статических файлов,
+то это сразу наложило существенные ограничения на реализацию.  Сначала я собрался писать
+генератор на чем-нибудь вроде Perl'а, но вовремя опомнился, и вспомнил, что видел сайты
+сделанные с помощью [[http://mwolson.org/projects/EmacsMuse.html][Emacs Muse]], который я уже использовал для того, чтобы писать различные
+заметки и статьи.
+
+Другой задачей был новый дизайн сайта.  Поскольку художник/верстальщик из меня некудышный,
+я полез в Интернет в поиске подходящих бесплатных шаблонов сайтов.  В итоге я набрел на
+сайт [[http://andreasviklund.com/][Andreas Viklund]]'а и взял понравившийся мне шаблон (правда немного пришлось его
+подкрутить для использования нужных шрифтов и т.п.).
+
+Основное оформление шаблона прикрутилось к Muse без каких-либо проблем, и теперь я
+использую его для всех своих новых заметок и статей, некоторые из которых вы можете найти
+на сайте.  Пришлось лишь немного попрограммировать для того, чтобы сайт обзавелся
+изменяемой частью в виде меню для навигации, но об этом в разделе "Реализация".
+
+** Реализация
+
+Для генерации сайта из исходных текстов Muse используется конфигурационный сайт, состоящий
+из нескольких частей, описанных ниже.
+
+Сначала мы инициализируем пакет и выставляем нужные переменные.  Среди загружаемых пакетов
+есть неиспользуемые непосредственно в генерации сайта, но этот же конфигурационный файл у
+меня используется и для других проектов.  А переменные определяют поведение пакета,
+например, наличие расширения =.muse= для всех документов, кодировку документов и
+генерируемого html и т.п.
+
+<src lang="lisp">
+(require 'muse-mode)
+(require 'muse-html)
+(require 'muse-colors)
+(require 'muse-wiki)
+(require 'muse-latex)
+(require 'muse-texinfo)
+(require 'muse-docbook)
+(require 'muse-project)
+
+(add-to-list 'auto-mode-alist '("\\.muse$" . muse-mode))
+
+(custom-set-variables
+ '(muse-html-encoding-default (quote utf-8))
+ '(muse-html-meta-content-encoding (quote utf-8))
+ '(muse-html-charset-default "utf-8")
+ '(muse-file-extension "muse")
+ '(muse-mode-auto-p nil)
+ '(muse-wiki-allow-nonexistent-wikiword nil)
+ '(muse-wiki-use-wikiword nil)
+ '(muse-ignored-extensions (quote ("bz2" "gz" "[Zz]" "rej" "orig" "png" "hgignore" "gif"
+                                   "css" "jpg" "html" "sh" "lftp" "pdf")))
+)
+
+(defun my-muse-mode-hook ()
+  (setq auto-fill-mode t)
+  (flyspell-mode 1)
+  (footnote-mode 1)
+  )
+(add-hook 'muse-mode-hook 'my-muse-mode-hook)
+
+</src>
+
+Для генерации содержимого сайта я переопределил два стиля -- для HTML & PDF, что позволяет
+мне использовать стили, отличающиеся от стилей, применяемых для других моих проектов --
+статей и всяческих записей.
+
+<src lang="lisp">
+(muse-derive-style "my-page-html" "html"
+                   :header "~/projects/my-page-muse/header.tmpl"
+                   :footer "~/projects/my-page-muse/footer.tmpl")
+
+(muse-derive-style "my-page-pdf" "pdf"
+                   :header "~/projects/my-page-muse/header.tex"
+                   :footer "~/projects/my-page-muse/footer.tex")
+</src>
+
+Файлы используемые в этих стилях также лежат на моем сайте: HTML -- [[../../header.tmpl][header.tmpl]] &
+[[../../footer.tmpl][footer.tmpl]], PDF -- [[../../header.tex][header.tex]] & [[../../footer.tex][footer.tex]].  Исходные файлы Muse также лежат на сайте, и
+вы можете увидеть их, заменив расширение =.html= на =.muse=, например для данного расказа это
+будет [[./EmacsMuseMyPage.muse]].
+
+Затем определяется проект сайта:
+
+<src lang="lisp">
+(setq muse-project-alist
+      `(
+        ("my-page"
+         (,@(muse-project-alist-dirs "~/projects/my-page-muse") :default "index")
+         ,@(muse-project-alist-styles "~/projects/my-page-muse"
+                                      "~/projects/my-page-muse"
+                                      "my-page-html")
+         (:base "my-page-pdf"
+                :path "~/projects/my-page-muse/en"
+                :include "/alexott-cv-en[^/]*$")
+         (:base "my-page-pdf"
+                :path "~/projects/my-page-muse/ru"
+                :include "/alexott-cv-ru[^/]*$"))))
+</src>
+
+Сайт выводится в тот же каталог, где находятся исходные файлы (с учетом их расположения в
+иерархии каталогов проекта) -- в данном случае это =~/projects/my-page-muse=.
+=muse-project-alist-dirs= генерирует список каталогов проекта для которых будет применяться
+заданный стиль (=my-page-html=).  А две последних записи используются для генерации
+PDF-версии английского и русского резюме используя стиль =my-page-pdf=.
+
+Для правильной генерации ссылок на стили и прочие файлы я написал небольшую функцию
+=muse-gen-relative-name=, которая принимает в качестве параметра имя файла относительно
+корневого каталога проекта, и генерирует имя файла относительно текущего файла:
+
+<src lang="lisp">
+(defun muse-gen-relative-name (name)
+  (concat
+   (file-name-directory (muse-wiki-resolve-project-page (muse-project)))
+   name))
+</src>
+
+Другая функция, =muse-mp-detect-language=, используется для определения того, какой язык
+используется для данного файла[1]:
+
+<src lang="lisp">
+(defun muse-mp-detect-language ()
+  (let ((lang "NN")
+        (cur-dir (file-name-directory (muse-current-file)))
+        )
+    (let ((smatch (string-match "/\\(ru\\|en\\|de\\)/" cur-dir)))
+      (when smatch
+        (setq lang (substring cur-dir (+ smatch 1) (+ smatch 3)))))
+    lang))
+</src>
+
+Структура меню, генерируемая для каждой страницы, определяется переменной =my-page-menu=, и
+представляет собой ассоциативный список, каждый элемент которого состоит из названия языка
+и списка пар, представляющих имя файла (или каталога) и соответствующее название пункта
+меню.
+
+<src lang="lisp">
+(setq my-page-menu '(("ru" . ( ("index.html" . "Главная")
+                               ("cf/" . "Информационная безопасность")
+                               ("fp/" . "Функциональное программирование")
+                               ("scheme/" . "Scheme")
+                               ("lisp/" . "Lisp")
+                               ("cpp/" . "C++")
+                               ("oss/" . "Open Source Projects")
+                               ("emacs/" . "Emacs")
+                               ("writings/" . "Статьи")))
+                     ("en" . ( ("index.html" . "Main")
+                               ("cf/" . "Information Security")
+                               ("fp/" . "Functional programming")
+                               ("cpp/" . "C++")
+                               ("oss/" . "Open Source Projects")
+                               ("emacs/" . "Emacs")
+                               ("writings/" . "Articles")))))
+</src>
+
+И собственно функция для генерации меню на каждой странице, входящей в проект.  Она
+определяет язык страницы, получает имя генерируемого файла, и в процессе генерации меню
+выделяет аттрибутом пункт, соответствующий нужному разделу сайта (например, этот рассказ
+находится в разделе "Статьи").
+
+<src lang="lisp">
+(defun muse-mp-generate-menu ()
+  (let* ((menu-lang (muse-mp-detect-language))
+         (menu-struct (assoc menu-lang my-page-menu))
+         (menu-string "")
+         (rel-dir (file-name-directory (muse-wiki-resolve-project-page (muse-project))))
+         (rel-path (if (> (length rel-dir) 2)   (substring rel-dir 3) ""))
+         (cur-path-muse (muse-current-file))
+         (cur-path-html (replace-regexp-in-string "\\.muse" ".html" cur-path-muse))
+         )
+      (when menu-struct
+        (let ((menu-list (if (not (null menu-struct)) (cdr menu-struct))))
+          (setq menu-string
+                (concat "<ul class=\"avmenu\">"
+                        (apply #'concat 
+                               (mapcar
+                                (lambda (x)
+                                  (concat "<li><a href=\"" rel-path (car x)
+                                          (if (string-match (concat "/" menu-lang "/" (car x))
+                                                            cur-path-html)
+                                              "\" class=\"current\""
+                                            "\"")
+                                          ">" (cdr x) "</a></li>"))
+                                menu-list))
+                        "</ul>"))))
+      menu-string))
+</src>
+
+Вот и все. Все Получилось достаточно просто и не требует никаких дополнительных действий
+по изменению сгенеренного html.  Полученные файлы может сразу загружать на сервер.
+
+
+Footnotes: 
+[1] Реализация этой функции не особо оптимальна и может приводить к ошибкам, но ее можно
+    переписать не затрагивая остальной код.
+

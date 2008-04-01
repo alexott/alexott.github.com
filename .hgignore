@@ -64,3 +64,5 @@ syntax: regexp
 ^en/alexott-cv-en\.pdf$
 ^en/alexott-cv-en\.html$
 ^ru/alexott-cv-ru\.pdf$
+^ru/writings/EmacsMuseMyPage\.html$
+^en/writings/EmacsMuseMyPage\.html$

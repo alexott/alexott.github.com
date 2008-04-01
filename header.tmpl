@@ -4,11 +4,12 @@
     <title><lisp>(muse-publishing-directive "title")</lisp></title>
     <meta name="generator" content="muse.el">
     <meta name="author" content="Alex Ott">
-    <meta http-equiv="<lisp>muse-html-meta-http-equiv</lisp>" content="<lisp>muse-html-meta-content-type</lisp>">
+    <meta http-equiv="<lisp>muse-html-meta-http-equiv</lisp>" 
+          content="<lisp>muse-html-meta-content-type</lisp>">
     <lisp>
       (let ((keywords (muse-publishing-directive "keywords")))
         (when keywords
-          (concat "<meta name=\"keywords\" content=\"" keywords "\">")))
+          (concat "<meta name=\"keywords\" content=\"alex ott, " keywords "\">")))
     </lisp>
     <lisp>
       (let ((refresh (muse-publishing-directive "refresh")))
@@ -20,14 +21,16 @@
         (when maintainer
           (concat "<link rev=\"made\" href=\"" maintainer "\">")))
     </lisp>
-	 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="<lisp>(muse-gen-relative-name "web.css")</lisp>">
-    <link rel="stylesheet" type="text/css" href="<lisp>(muse-gen-relative-name "print.css")</lisp>" media="print">
+	 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" 
+         href="<lisp>(muse-gen-relative-name "web.css")</lisp>">
+    <link rel="stylesheet" type="text/css" 
+          href="<lisp>(muse-gen-relative-name "print.css")</lisp>" media="print">
   </head>
   <body>
     <div id="wrap">
 
       <div id="header">
-<!--        <h1></h1> -->
+        <h1><lisp>(muse-publishing-directive "title")</lisp></h1>
         <p>
           <a href="<lisp>(muse-gen-relative-name "ru/index.html")</lisp>">Russian</a> 
           <!-- &middot; <a href="<lisp>(muse-gen-relative-name "de/index.html")</lisp>">German</a> -->
@@ -51,10 +54,14 @@
 
 <div class="announce">
 <br>
-<form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  <input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm" />  <input type="text" name="q" size="20" />  <input type="submit" name="sa" value="Search" /> </form>
+<form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm" />  
+<input type="text" name="q" size="20" />  <input type="submit" name="sa" value="Search" /> </form>
 <script type="text/javascript"
-        src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru"></script>
+        src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
 </div>
 
-      </div>
-      <div id="contentwide">
+</div> <!-- leftside -->
+
+<div id="contentwide">

@@ -1,5 +1,5 @@
 #title Articles
-#keywords alex ott, articles, writings, emacs, zsh, content filtering
+#keywords articles, writings, emacs, zsh, content filtering
 
 I often write articles on themes that are very interesting for me.  Many of them are in
 Russian, but i also translate some of them to English.

@@ -1,5 +1,5 @@
 #title Alex Ott's home page (german)
-#keywords alex ott
+#keywords home page, deutsch
 
 
 * Kurz personal information

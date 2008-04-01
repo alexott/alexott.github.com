@@ -1,5 +1,5 @@
 #title Alex Ott's home page (English)
-#keywords alex ott, home page, emacs, linux, programming, c++, functional programming, scheme, lisp, common lisp, haskell, ocaml, articles
+#keywords home page, emacs, linux, programming, c++, functional programming, scheme, lisp, common lisp, haskell, ocaml, articles
 
 * Short information about me
 

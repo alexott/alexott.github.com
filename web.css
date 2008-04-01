@@ -49,15 +49,15 @@ margin:0 0 0.7em 0;
 #header {
 margin:10px 0 0;
 padding:0;
-height:55px;
+height:65px;
 }
 
 #header h1 {
 color:#505050;
 background-color:inherit;
-width:390px;
+width:600px;
 margin:0 0 10px;
-font-size:2em;
+font-size:1.4em;
 float:left;
 }
 
@@ -73,7 +73,7 @@ float:right;
 text-align:center;
 margin:8px 0 0;
 font-weight:bold;
-line-height:1.3em;
+line-height:1.1em;
 }
 
 #frontphoto {
