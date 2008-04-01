@@ -43,7 +43,7 @@ Emacs активно используется мной уже более 10 ле
    выпущен в виде бумажной книги и его можно купить в интернет-магазинах. Кроме этого,
    доступна [[emacs-manual/emacs_toc.html][электронная версия]] данного перевода.
 
- - Финальная версия [[elisp-intro/elisp-intro-ru.html][перевода введения в программирование на Emacs Lisp]] (я учавствовал в
+ - Финальная версия [[elisp-intro/elisp-intro-ru.html][перевода введения в программирование на Emacs Lisp]] (я участвовал в
    вычитке этого документа)
 
  - Переводы [[http://www.linux.org.ru/books/HOWTO/Emacs-Beginner-HOWTO.html][Emacs Beginner HOWTO]] и [[http://www.linux.org.ru/books/HOWTO/LinuxDoc+Emacs+Ispell-HOWTO.html][LinuxDoc+Emacs+Ispell HOWTO]] уже наверное можно считать
