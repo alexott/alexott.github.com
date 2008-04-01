@@ -5,7 +5,7 @@ Emacs активно используется мной уже более 10 ле
 но до этого использовал и XEmacs).  Emacs для меня служит чем-то вроде швейцарского
 перочинного ножа -- я выполняю с его помощью практически все операции -- программирую,
 пишу статьи, читаю почту и usenet news, общаюсь в irc & jabber, а также делаю еще кучу дел
-(и мой сайт сделан с помощью [[http://mwolson.org/projects/EmacsMuse.html][Muse]] -- пакета для Emacs).
+(и [[../writings/EmacsMuseMyPage][мой сайт сделан]] с помощью [[http://mwolson.org/projects/EmacsMuse.html][Muse]] -- пакета a-la wiki для Emacs).
 
 * Статьи про Emacs
 

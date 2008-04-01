@@ -4,7 +4,7 @@
 I use Emacs about 10 years (during last 7 years I'm using GNU Emacs, but before i also
 used XEmacs).  Emacs for me is something like Swiss army knife -- with it i perform almost
 all my tasks -- program in different languages, write articles, read e-mail & usenet news,
-talk in irc & jabber, and more other things (and my site created with [[http://mwolson.org/projects/EmacsMuse.html][Muse]] -- wiki-like
+talk in irc & jabber, and more other things (and [[../writings/EmacsMuseMyPage][my site created]] with [[http://mwolson.org/projects/EmacsMuse.html][Muse]] -- wiki-like
 package for Emacs).
 
 * Articles about Emacs
