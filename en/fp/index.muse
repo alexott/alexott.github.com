@@ -14,6 +14,7 @@ These links could be useful for users, interested in studying of functional prog
  - [[http://www.cs.chalmers.se/~rjmh/tutorials.html][Tutorials for functional programming]]
  - [[http://www.cs.trinity.edu/~jhowland/ccsc98/ccsc98/ccsc98.html][Recursion, Iteration and Functional Languages]]
  - [[http://www.cs.hmc.edu/~keller/cs60book/][Computer Science: Abstraction to Implementation]], by Robert M. Keller É Harvey Mudd College.
+ - [[http://www.cs.brown.edu/~sk/Publications/Books/ProgLangs/][Programming Languages: Application and Interpretation]],by Shriram Krishnamurthi
  - [[http://www.luca.demon.co.uk/][Personal page by Luca Cardelli]].
  - [[http://www.math.chalmers.se/~rjmh/Papers/whyfp.html][Why Functional Programming Matters]]
  - [[http://plaslab.cis.nctu.edu.tw/eriol/TR/criticSML.364.ps.Z][Andrew W. Appel: A Critique of Standard ML]]

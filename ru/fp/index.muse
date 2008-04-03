@@ -24,7 +24,9 @@
  - [[http://www.cs.chalmers.se/~rjmh/tutorials.html][Учебные статьи по функциональному программированию]]
  - [[http://www.math.chalmers.se/~rjmh/Papers/whyfp.html][Why Functional Programming Matters]]
  - [[http://www.cs.trinity.edu/~jhowland/ccsc98/ccsc98/ccsc98.html][Recursion, Iteration and Functional Languages]]
- - [[http://www.cs.hmc.edu/~keller/cs60book/][Книга Computer Science: Abstraction to Implementation]], написанная Robert M. Keller и Harvey Mudd College.
+ - [[http://www.cs.hmc.edu/~keller/cs60book/][Книга Computer Science: Abstraction to Implementation]], написанная Robert M. Keller и
+   Harvey Mudd College.
+ - [[http://www.cs.brown.edu/~sk/Publications/Books/ProgLangs/][Programming Languages: Application and Interpretation]], автор Shriram Krishnamurthi
 
 ; - [[http://plaslab.cis.nctu.edu.tw/eriol/TR/criticSML.364.ps.Z][Andrew W. Appel: A Critique of Standard ML]]
 
