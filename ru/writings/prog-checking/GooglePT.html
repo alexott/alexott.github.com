@@ -7,8 +7,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="keywords" content="memory leaks, утечки памяти, анализ производительности, performance analysis, google performance tools, GPT">
     
-    <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="web.css">
-    <link rel="stylesheet" type="text/css" href="print.css" media="print">
+    
+	 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../web.css">
+    <link rel="stylesheet" type="text/css" href="../print.css" media="print">
   </head>
   <body>
     <div id="wrap">
@@ -54,7 +55,7 @@ x86_64 и PowerPC.  Кроме того, <code>tcmalloc</code> можно ско
 инфраструктуру autotools, так что вам для установки необходимо лишь скачать исходные
 тексты с <a href="http://code.google.com/p/google-perftools/">сайта проекта</a> и выполнить последовательность команд:</p>
 
-<pre class="example">
+<pre class="src">
 ./configure
 make
 make install
@@ -173,7 +174,7 @@ HeapChecker: crashing because of leaks
 
 <dt><strong>HEAP_CHECK_STRICT_CHECK</strong></dt>
 <dd>(true или false, по умолчанию: true), определяет функцию,
-которая будет использоваться для проверок &mdash; <a href="SameHeap">SameHeap</a> или <a href="NoLeaks">NoLeaks</a></dd>
+которая будет использоваться для проверок &mdash; SameHeap или NoLeaks</dd>
 
 <dt><strong>HEAP_CHECK_IDENTIFY_LEAKS</strong></dt>
 <dd>(true или false, по умолчанию: false), позволяет получить

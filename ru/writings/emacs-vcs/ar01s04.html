@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет PCL-CVS</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s03.html" title="Пакет DVC"><link rel="next" href="ar01s05.html" title="Пакет xtla"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет <span class="application">PCL-CVS</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s03.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s05.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.pcl-cvs"></a>Пакет <span class="application">PCL-CVS</span></h2></div></div></div><p>Пакет <span class="application">PCL-CVS</span> предоставляет пользователю эффективные средства с
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет PCL-CVS</title><link rel="stylesheet" href="web.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s03.html" title="Пакет DVC"><link rel="next" href="ar01s05.html" title="Пакет xtla"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет <span class="application">PCL-CVS</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s03.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s05.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.pcl-cvs"></a>Пакет <span class="application">PCL-CVS</span></h2></div></div></div><p>Пакет <span class="application">PCL-CVS</span> предоставляет пользователю эффективные средства с
   системой контроля версий <span class="application">CVS</span>, которая широко распространена в мире
   свободного программного обеспечения.  Кроме стандартных возможностей,
   которые реализованы пакетом <span class="application">VC</span>, данный пакет предоставляет следующие
@@ -6,7 +6,7 @@
   </p><div class="itemizedlist"><ul type="disc"><li><p>просмотр состояния файлов для выбранного проекта;</p></li><li><p>работа с изменениями для данного проекта;</p></li><li><p>работа со всеми, или выбранными объектами вашего проекта.</p></li></ul></div><p>
   </p><p>Данный пакет является частью поставки <span class="application">GNU Emacs</span> 21, и кроме
   того он доступен в виде пакета для <span class="application">XEmacs</span>.  Для других версий <span class="application">Emacs</span> вы
-  можете найти исходные тексты по адресу <a class="ulink" href="ftp://flint.cs.yale.edu/pub/monnier/pcl-cvs" target="_top">ftp://flint.cs.yale.edu/pub/monnier/pcl-cvs</a>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2574602"></a>Основные понятия и принципы работы</h3></div></div></div><p>Вся работа с пакетом осуществляется в специальном буфере,
+  можете найти исходные тексты по адресу <a class="ulink" href="ftp://flint.cs.yale.edu/pub/monnier/pcl-cvs" target="_top">ftp://flint.cs.yale.edu/pub/monnier/pcl-cvs</a>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2577113"></a>Основные понятия и принципы работы</h3></div></div></div><p>Вся работа с пакетом осуществляется в специальном буфере,
     создаваемом командами <span class="application">PCL-CVS</span>.  Этот буфер
     называется <code class="literal">*cvs*</code>, и в нем отображается состояние
     файлов, находящихся в выбранном каталоге, который содержит ваш проект.
@@ -44,7 +44,7 @@
         изменения в репозиторий;</p></dd><dt>Need-Update</dt><dd><p>репозиторий содержит более свежую версию, или файл был добавлен в репозиторий и у вас его еще нет;</p></dd><dt>Need-Merge</dt><dd><p>вы внесли изменения в файл, и кто-то также внес изменения в файл в репозитории, так что необходимо совместить эти изменения;</p></dd><dt>Missing</dt><dd><p>файл был внезапно удален из вашего каталога, но для
         него не была выполнена команда <span class="command"><strong>cvs remove</strong></span>.</p></dd></dl></div><p>
 
-    </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2574938"></a>Основные команды и привязки клавиш</h3></div></div></div><p>Команды, предоставляемые пакетом
+    </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2577442"></a>Основные команды и привязки клавиш</h3></div></div></div><p>Команды, предоставляемые пакетом
     <span class="application">PCL-CVS</span> имеют префикс <span class="command"><strong>cvs-</strong></span>
     и имена, аналогичные подкомандам команды <span class="application">CVS</span>.
     Для выполнения части команд необходимо наличие буфера
@@ -71,7 +71,7 @@
     (<code class="function">cvs-mode-status</code>) для получения информации о
     выбранных файлах.</p><p>По умолчанию, эти команды выполняются рекурсивно, но вы
     можете изменить это поведение, используя флаг <code class="option">-l</code>
-    для команд <span class="application">CVS</span>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575259"></a>Команды перемещения в буфере и пометки файлов</h4></div></div></div><p>Для перемещения по буферу <code class="literal">*cvs*</code> используются
+    для команд <span class="application">CVS</span>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2577744"></a>Команды перемещения в буфере и пометки файлов</h4></div></div></div><p>Для перемещения по буферу <code class="literal">*cvs*</code> используются
       команды <code class="function">cvs-mode-next-line</code> (клавиша
       <span class="keysym">n</span>) —  для перемещения на следующую строку и
       <code class="function">cvs-mode-previous-line</code> (клавиша
@@ -88,7 +88,7 @@
       <code class="function">cvs-mode-mark-matching-files</code> (клавиша
       <span class="keysym">%</span>), или которые имеют определенный статус —  команда
       <code class="function">cvs-mode-mark-on-state</code> (клавиша
-      <span class="keysym">S</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575397"></a>Добавление, удаление, редактирование и обновление файлов</h4></div></div></div><p>Добавление файлов производится очень простым способом —  просто отметьте все нужные файлы (обычно они
+      <span class="keysym">S</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2577876"></a>Добавление, удаление, редактирование и обновление файлов</h4></div></div></div><p>Добавление файлов производится очень простым способом —  просто отметьте все нужные файлы (обычно они
       имеют статус <span class="emphasis"><em>Unknown</em></span>), и нажмите на клавишу
       <span class="keysym">a</span> (команда <code class="function">cvs-mode-add</code>).
       Статус файлов будет изменен на <span class="emphasis"><em>Added</em></span>, и затем вы
@@ -156,7 +156,7 @@
       трехстороннее интерактивное слияние изменений, но если уже существует
       конфликт в выбранных файлах, то их содержимое не будет использоваться
       при работе, и после завершения работы, все изменения сделанные <span class="application">CVS</span>,
-      будут затерты.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2575995"></a>Получение информации о файлах и прочие команды</h4></div></div></div><p>Для получения информации о файлах может использоваться две
+      будут затерты.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2578446"></a>Получение информации о файлах и прочие команды</h4></div></div></div><p>Для получения информации о файлах может использоваться две
       команды.  Команда <code class="function">cvs-mode-log</code> (клавиша
       <span class="keysym">l</span>) выполняет команду <span class="command"><strong>cvs log</strong></span>
       для выбранных файлов и результат отображается в буфере
@@ -185,7 +185,7 @@
       <code class="literal">*cvs*</code> используется команда
       <code class="function">cvs-mode-quit</code>, которая привязана к клавише
       <span class="keysym">q</span>.</p><p>Режим <span class="application">PCL-CVS</span> также определяет несколько дополнительных режимов —  для редактирования сообщений для журнала изменений, а
-      также режим для просмотра журнала изменений.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2576231"></a>Настройка</h3></div></div></div><p>Выполнение команд <span class="application">PCL-CVS</span> зависит от значения некоторых
+      также режим для просмотра журнала изменений.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2578670"></a>Настройка</h3></div></div></div><p>Выполнение команд <span class="application">PCL-CVS</span> зависит от значения некоторых
     переменных, настройку которых легче всего осуществить с помощью команды
     <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span> customize-group pcl-cvs</code>.
     В эти настройки входит как настройка самих переменных, так и

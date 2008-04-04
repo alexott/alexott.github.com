@@ -1,8 +1,8 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Интеграция с Perforce</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s10.html" title="Работа с ClearCase"><link rel="next" href="ar01s12.html" title="Интеграция с Microsoft Visual SourceSafe"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Интеграция с <span class="application">Perforce</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s10.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s12.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.perforce"></a>Интеграция с <span class="application">Perforce</span></h2></div></div></div><p><span class="application">Perforce</span> —  достаточно популярная система контроля версий,
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Интеграция с Perforce</title><link rel="stylesheet" href="web.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s10.html" title="Работа с ClearCase"><link rel="next" href="ar01s12.html" title="Интеграция с Microsoft Visual SourceSafe"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Интеграция с <span class="application">Perforce</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s10.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s12.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.perforce"></a>Интеграция с <span class="application">Perforce</span></h2></div></div></div><p><span class="application">Perforce</span> —  достаточно популярная система контроля версий,
   используемая во многих проектах по разработке коммерческого программного
   обеспечения.  Ссылки на ресурсы об использовании <span class="application">Perforce</span> вы можете
   найти в разделе <a class="xref" href="ar01s11.html#emacs.vcs.perforce.addinfo" title="Дополнительная информация">Дополнительная информация</a>.  Поддержка <span class="application">Perforce</span> в <span class="application">Emacs</span>
-  осуществляется с помощью пакета <span class="application">p4</span>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2585672"></a>Установка</h3></div></div></div><p>Для установки пакета вам нужно скачать исходный текст с <a class="ulink" href="http://p4el.sourceforge.net" target="_top">сайта проекта</a>.  Поместите
+  осуществляется с помощью пакета <span class="application">p4</span>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2587707"></a>Установка</h3></div></div></div><p>Для установки пакета вам нужно скачать исходный текст с <a class="ulink" href="http://p4el.sourceforge.net" target="_top">сайта проекта</a>.  Поместите
     пакет в место, где его найдет <span class="application">Emacs</span>, и поместите следующую команду в
     файл инициализации <span class="application">Emacs</span>:
 
@@ -11,12 +11,12 @@
 
     Пакет может работать как с <span class="application">GNU Emacs</span>, так и с <span class="application">XEmacs</span>.  Для
     работы пакета необходимо наличие <span class="application">Ediff</span>, и еще нескольких пакетов,
-    которые обычно идут в составе <span class="application">Emacs</span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2585746"></a>Работа с пакетом</h3></div></div></div><p>Работу с пакетом можно логически разделить на несколько групп действий — работа с репозиторием, получение информации о файлах, работа с файлами и ветками, работа с изменениями, настройка параметров и прочие команды. Более подробно, каждая из групп действий будет рассмотрена в следующих разделах.</p><p>Команды выполняются через стандартные средства выполнения команд
+    которые обычно идут в составе <span class="application">Emacs</span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2587775"></a>Работа с пакетом</h3></div></div></div><p>Работу с пакетом можно логически разделить на несколько групп действий — работа с репозиторием, получение информации о файлах, работа с файлами и ветками, работа с изменениями, настройка параметров и прочие команды. Более подробно, каждая из групп действий будет рассмотрена в следующих разделах.</p><p>Команды выполняются через стандартные средства выполнения команд
     <span class="application">Emacs</span>, используя привязки клавиш или используя меню
     <code class="literal">P4</code>, которое появляется после загрузки пакета, и в
     котором перечислены практически все команды предоставляемые пакетом.
     Для некоторых команд пакета, пользователь может задать дополнительные
-    аргументы, используя сочетание клавиш <span class="keysym">C</span>+<span class="keysym">u</span>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2585814"></a>Работа с репозиторием, файлами, заданиями и ветками</h4></div></div></div><p>Синхронизация локальных файлов с репозиторием производится с
+    аргументы, используя сочетание клавиш <span class="keysym">C</span>+<span class="keysym">u</span>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2587842"></a>Работа с репозиторием, файлами, заданиями и ветками</h4></div></div></div><p>Синхронизация локальных файлов с репозиторием производится с
       помощью команды <code class="function">p4-get</code> (сочетание
       <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">p</span> <span class="keysym">G</span>).
       Команда позволяет синхронизировать как отдельные файлы, так и все
@@ -74,7 +74,7 @@
       <code class="function">p4-label</code> (сочетание клавиш
       <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">p</span> <span class="keysym">L</span>),
       а синхронизация меток с клиентом производится с помощью команды
-      <code class="function">p4-labelsync</code> (сочетание клавиш <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">p</span> <span class="keysym">l</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2586378"></a>Работа с изменениями</h4></div></div></div><p>Работа с изменениями является важной частью использования
+      <code class="function">p4-labelsync</code> (сочетание клавиш <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">p</span> <span class="keysym">l</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2588385"></a>Работа с изменениями</h4></div></div></div><p>Работа с изменениями является важной частью использования
       системы контроля версий.  Для поддержки этого, пакет <span class="application">p4</span> имеет в своем составе множество команд —  для просмотра изменений,
       подтверждения или отмены изменений.</p><p>Получить список изменений, внесенных пользователем можно
       получить с помощью команды <code class="function">p4-changes</code>, которая
@@ -133,7 +133,7 @@
       (<span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">p</span> <span class="keysym">R</span>),
       так что вам нужно использовать обе команды, если у вас есть открытые и
       не-открытые файлы в одном каталоге и вы хотите обновить их из
-      репозитория.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2586817"></a>Получение информации</h4></div></div></div><p>Для получения информации о конкретном изменении, может
+      репозитория.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2588808"></a>Получение информации</h4></div></div></div><p>Для получения информации о конкретном изменении, может
       использоваться команда <code class="function">p4-describe</code> (она привязана
       к сочетанию клавиш <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">p</span> <span class="keysym">D</span>).
       Она отображает описание изменения, его номер, имя пользователя, дату и
@@ -163,7 +163,7 @@
       <code class="function">p4-files</code> (сочетание клавиш
       <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">p</span> <span class="keysym">F</span>).
       Пользователь может получить список всех файлов, или только файлов,
-      совпадающих с заданной маской.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2587098"></a>Управление репозиторием</h4></div></div></div><p>Пакет <span class="application">p4</span> позволяет управлять репозиторием <span class="application">Perforce</span> не
+      совпадающих с заданной маской.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2589078"></a>Управление репозиторием</h4></div></div></div><p>Пакет <span class="application">p4</span> позволяет управлять репозиторием <span class="application">Perforce</span> не
       покидая <span class="application">Emacs</span>.  Сюда относятся команды управления пользователями,
       группами пользователей и клиентами.</p><p>Создание нового пользователя производится с помощью команды
       <code class="function">p4-user</code> (сочетание клавиш
@@ -187,7 +187,7 @@
       В спецификацию клиента входят его имя, описание, список файлов,
       которые будут видны в репозитории, и другие параметры.  По умолчанию,
       новые клиенты создаются с возможностью просмотра всех файлов в
-      репозитории.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2587284"></a>Прочие команды</h4></div></div></div><p>Сочетание клавиш <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">p</span> <span class="keysym">h</span>
+      репозитории.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2589257"></a>Прочие команды</h4></div></div></div><p>Сочетание клавиш <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">p</span> <span class="keysym">h</span>
       запускает команду <code class="function">p4-help</code>, которая может
       использоваться для получения справочной информации о работе с пакетом,
       или о работе с конкретной командой.  Описание привязок клавиш,
@@ -203,7 +203,7 @@
       открытии файлов.  Включение и отключение этой проверки пользователь
       может выполнить с помощью команды
       <code class="function">p4-toggle-vc-mode</code> (сочетание клавиш
-      <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">p</span> <span class="keysym">t</span>).</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2587477"></a>Настройка</h3></div></div></div><p>Для работы с пакетом <span class="application">p4</span>, ну и конечно с <span class="application">Perforce</span>, необходимо
+      <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">p</span> <span class="keysym">t</span>).</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2589441"></a>Настройка</h3></div></div></div><p>Для работы с пакетом <span class="application">p4</span>, ну и конечно с <span class="application">Perforce</span>, необходимо
     установить значения переменных среды <code class="varname">P4CLIENT</code>,
     <code class="varname">P4USER</code> и <code class="varname">P4PORT</code>.  Однако вы можете
     задать нужные значения и с помощью команд пакета.  Для этого

@@ -5,7 +5,7 @@
     <meta name="generator" content="muse.el">
     <meta name="author" content="Alex Ott">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="keywords" content="emacs, dvc, version control, git, darcs, bazaar, mercurial, hg">
+    <meta name="keywords" content="emacs, dvc, version control, git, darcs, bazaar, mercurial, hg, monotone">
     
     
 	 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../web.css">
@@ -102,9 +102,9 @@ for each of system on <a href="http://download.gna.org/dvc/">the site</a> of pro
 Installation</h2>
 
 <p class="first">Installation of package is quite simple &mdash; you need to download archive from site, unpack
-it and setup it with standard command sequence:</p>
+it and setup it with standard commands sequence:</p>
 
-<pre class="example">
+<pre class="src">
 ./configure
 make
 make install
@@ -113,8 +113,8 @@ make install
 <p>To be able to use functions, provided by package, you need to add following lines to Emacs
 initialization file:</p>
 
-<pre class="example">
-(add-to-list 'load-path &quot;path_to_installed_package&quot;)
+<pre class="src">
+(add-to-list 'load-path <span style="color: #008b00;">"path_to_installed_package"</span>)
 (require 'dvc-autoloads)
 </pre>
 
@@ -218,12 +218,12 @@ you can use function <code>dvc-inventory</code> (<code>C-x V i</code>), that dis
 this buffer user can use same commands and key bindings, as in the status buffer.</p>
 
 <p>User can do some manipulations on list of objects (files and directories) in repository.
-Usually, in each of VCS exists list of ignored files, that could be edited by user.  For
-quick manipulations with this list there are several functions.  <code>dvc-ignore-files</code> (<code># i</code> or
-just <code>i</code>) function put current (or marked) file(s) into list of ignored objects.
-<code>dvc-ignore-file-extensions</code> (<code># I</code>) function also modify this list, but put into it not full
-file names, but only their extensions.  And if you want to modify this list other way &mdash;
-remove file from list, or add complex regular expression, then you can use function
+Usually, in each of VCS exists list of ignored files, that could be edited by user<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.
+For quick manipulations with this list there are several functions.  <code>dvc-ignore-files</code> (<code># i</code>
+or just <code>i</code>) function put current (or marked) file(s) into list of ignored objects.
+<code>dvc-ignore-file-extensions</code> (<code># I</code> or <code>M-I</code>) function also modify this list, but put into it
+not full file names, but only their extensions.  And if you want to modify this list other
+way &mdash; remove file from list, or add complex regular expression, then you can use function
 <code>dvc-edit-ignore-files</code> (<code># e</code>), that open buffer with list of ignored objects, and allow you
 to edit it (please mention, that syntax of this file depends on used version control
 system).</p>
@@ -240,7 +240,7 @@ Branches and external repositories</h2>
 VCS, so <em>DVC</em> provide number of functions for performing these tasks.  For all supported VCS
 exists common set of commands, providing basic functionality.  And, as <em>DVC</em> project is
 successor of <em>Xtla</em> project, then for work with <em>GNU Arch</em> &amp; <em>Bazaar</em> exists more functions &mdash;
-bookmarks for repositories, etc.<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup> Backends for other VCSs could also provide additional
+bookmarks for repositories, etc.<sup><a class="footref" name="fnr.4" href="#fn.4">4</a></sup> Backends for other VCSs could also provide additional
 functions, specific to concrete VCS.</p>
 
 <p>Following commands are common for all supported DVCS:</p>
@@ -344,7 +344,10 @@ functions could be directly used by user, if there are no corresponding function
 To execute them you can add global prefix <code>C-x V</code> to their local key binding.  In this
 text I'll mark them as a <em>global</em>.</p>
 
-<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> Description of corresponding functions you can find in section &mdash; <a href="EmacsXtla.html">Xtla</a></p>
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> User can also see ignored files if variable <code>dvc-status-display-ignored</code> will has
+non-<code>nil</code> value.</p>
+
+<p class="footnote"><a class="footnum" name="fn.4" href="#fnr.4">4.</a> Description of corresponding functions you can find in section &mdash; <a href="EmacsXtla.html">Xtla</a></p>
 
 
 

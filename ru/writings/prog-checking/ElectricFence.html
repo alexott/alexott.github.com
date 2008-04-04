@@ -7,8 +7,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="keywords" content="bugs finding, electric fence, efence, article, поиск ошибок, memory leaks, утечки памяти">
     
-    <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="web.css">
-    <link rel="stylesheet" type="text/css" href="print.css" media="print">
+    
+	 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../web.css">
+    <link rel="stylesheet" type="text/css" href="../print.css" media="print">
   </head>
   <body>
     <div id="wrap">
@@ -64,14 +65,14 @@
 отладчик для того, чтобы посмотреть стек вызова функций приведший к возникновению ошибки.
 Например, рассмотрим выполнение следующей программы, содержащую двойное освобождение памяти:</p>
 
-<pre class="example">
-#include &lt;stdlib.h&gt;
+<pre class="src">
+<span style="color: #006400;">#include</span> <span style="color: #008b00;">&lt;stdlib.h&gt;</span>
 
-int main(int argc, char** argv) {
-	char* mem=(char*)(malloc(10));
-	free(mem);
-	free(mem);
-	return 0;
+<span style="color: #0000ff;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #0000ff;">int</span> <span style="color: #8b0000;">argc</span>, <span style="color: #0000ff;">char</span>** <span style="color: #8b0000;">argv</span>) {
+    <span style="color: #0000ff;">char</span>* <span style="color: #8b0000;">mem</span>=(<span style="color: #0000ff;">char</span>*)(malloc(10));
+    free(mem);
+    free(mem);
+    <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 

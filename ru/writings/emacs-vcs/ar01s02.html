@@ -1,11 +1,11 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет VC</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s01.html" title="Введение"><link rel="next" href="ar01s03.html" title="Пакет DVC"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет <span class="application">VC</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s01.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s03.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.vc"></a>Пакет <span class="application">VC</span></h2></div></div></div><p>Пакет <span class="application">VC</span> предоставляет пользователю унифицированный интерфейс к различным
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет VC</title><link rel="stylesheet" href="web.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s01.html" title="Введение"><link rel="next" href="ar01s03.html" title="Пакет DVC"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет <span class="application">VC</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s01.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s03.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.vc"></a>Пакет <span class="application">VC</span></h2></div></div></div><p>Пакет <span class="application">VC</span> предоставляет пользователю унифицированный интерфейс к различным
   системам контроля версий.  В настоящее время существуют интерфейсы к системам <span class="application">RCS</span>,
   <span class="application">CVS</span>, <span class="application">MetaCVS</span>, <span class="application">Subversion</span>, <span class="application">GNU Arch</span>, <span class="application">SCCS</span>, <span class="application">Darcs</span>, <span class="application">SourceSafe</span>, <span class="application">ClearCase</span>,
   <span class="application">Git</span> и <span class="application">Mercurial</span> (некоторые из них доступны только в версии <span class="application">GNU Emacs</span> 22.0,
   репозитории <span class="application">GNU Emacs</span> или с сайтов авторов).  К тому же не все модули имеют поддержку
   всех команд, которые предоставляются пакетом <span class="application">VC</span>, например, модуль
   <span class="application">vc-arch</span> не поддерживает команду
-  <code class="function">vc-cancel-version</code>, и некоторые другие.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2523676"></a>Основные понятия и подходы</h3></div></div></div><p>На развитие пакета <span class="application">VC</span> очень сильное влияние оказала система контроля версий
+  <code class="function">vc-cancel-version</code>, и некоторые другие.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2523519"></a>Основные понятия и подходы</h3></div></div></div><p>На развитие пакета <span class="application">VC</span> очень сильное влияние оказала система контроля версий
     <span class="application">RCS</span>, поэтому некоторые концепции напрямую связаны с принципами использования данного
     пакета.</p><p>Когда файл находится под контролем системы контроля версий, то говорят, что файл
     «<span class="quote">зарегистрирован</span>» в системе контроля версий.  Каждому файлу соответствует
@@ -26,7 +26,7 @@
     описывающий состояние файла равен <code class="literal">-</code>, то файл не заблокирован
     или не изменен, а если он заблокирован или изменен, то будет использоваться
     символ <code class="literal">:</code>.  В том случае, если файл был заблокирован другим
-    пользователем, то поле статуса будет выглядеть как <code class="literal">:user:</code>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2523849"></a>Работа с пакетом</h3></div></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2523855"></a>Основная цепочка действий</h4></div></div></div><p>Основной командой в пакете <span class="application">VC</span> является
+    пользователем, то поле статуса будет выглядеть как <code class="literal">:user:</code>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2523690"></a>Работа с пакетом</h3></div></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2523695"></a>Основная цепочка действий</h4></div></div></div><p>Основной командой в пакете <span class="application">VC</span> является
       <code class="function">vc-next-action</code>, которая выполняет следующую
       логическую команду для данной системы контроля версий.  В зависимости
       от используемой системы контроля версий, порядок команд в цепочке
@@ -54,7 +54,7 @@
       буфер без использования <span class="keysym">C</span>+<span class="keysym">c</span> <span class="keysym">C</span>+<span class="keysym">c</span>.  А если вы хотите использовать одно и
       то же сообщение для нескольких файлов, то вы можете воспользоваться
       сочетаниями клавиш <span class="keysym">M</span>+<span class="keysym">n</span>, <span class="keysym">M</span>+<span class="keysym">p</span>, <span class="keysym">M</span>+<span class="keysym">s</span> и <span class="keysym">M</span>+<span class="keysym">r</span>, которые работают так же как и в
-      мини-буфере, позволяя перемещаться по истории сообщений.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2524316"></a>Работа с изменениями</h4></div></div></div><p>Пакет <span class="application">VC</span> позволяет пользователю просматривать изменения
+      мини-буфере, позволяя перемещаться по истории сообщений.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2525243"></a>Работа с изменениями</h4></div></div></div><p>Пакет <span class="application">VC</span> позволяет пользователю просматривать изменения
       внесенные в процессе работы с файлами.  Для получения списка изменений
       между вашей рабочей версией и последней подтвержденной версией,
       пользователь может воспользоваться командой
@@ -84,7 +84,7 @@
       новые изменения, основанные на промежуточных результатах.  После
       выполнения команды <code class="function">vc-revert-buffer</code> файл остается
       не заблокированным, так что для внесения изменений, вас необходимо
-      снова заблокировать его.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2570989"></a>Работа с файлами</h4></div></div></div><p>Регистрация файла в системе контроля версий производится с
+      снова заблокировать его.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2573590"></a>Работа с файлами</h4></div></div></div><p>Регистрация файла в системе контроля версий производится с
       помощью команды <code class="function">vc-register</code> (сочетание клавиш
       <span class="keysym">C</span>+<span class="keysym">x</span>
       <span class="keysym">v</span> <span class="keysym">i</span>).  Выбор системы контроля версий
@@ -111,7 +111,7 @@
       команду <code class="function">vc-print-log</code>, которая привязана к
       сочетанию клавиш <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">v</span> <span class="keysym">l</span>.
       Данная команда отображает историю изменений, включая текст
-      комментариев к этим изменениям.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571184"></a>Использование <span class="application">VC</span> совместно с Dired</h4></div></div></div><p>Команды описанные в предыдущих разделах в первую очередь предназначены для работы с отдельными файлами. Но для больших проектов, часто необходимо работать с множеством файлов — 
+      комментариев к этим изменениям.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2573780"></a>Использование <span class="application">VC</span> совместно с Dired</h4></div></div></div><p>Команды описанные в предыдущих разделах в первую очередь предназначены для работы с отдельными файлами. Но для больших проектов, часто необходимо работать с множеством файлов — 
       просматривать какие файлы изменились, список изменений и т.п.  Для
       реализации этих действий, пакет <span class="application">VC</span> поддерживает специальный режим —  <code class="function">vc-dired-mode</code>.  Для создания буфера,
       использующего такой режим, используется команда
@@ -133,7 +133,7 @@
       используется в качестве префиксной для команд пакета <span class="application">VC</span>.  Команды
       <span class="application">VC</span> те же самые, что и описанные в прочих разделах, только не
       используется префикс <span class="keysym">C</span>+<span class="keysym">x</span>, и они могут выполняться к множеству
-      помеченных файлов.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571358"></a>Ветви версий (branches)</h4></div></div></div><p>Как и другие пакеты для интеграции с системами контроля версий,
+      помеченных файлов.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2573949"></a>Ветви версий (branches)</h4></div></div></div><p>Как и другие пакеты для интеграции с системами контроля версий,
       пакет <span class="application">VC</span> поддерживает работу с разными ветвями версий.  Пакет
       поддерживает создание ветвей, переключение между ними, а также слияние
       изменений между разными ветвями.  Для переключения на другую ветвь
@@ -161,7 +161,7 @@
       <code class="function">vc-resolve-conflicts</code> для разрешения возникших
       конфликтов.  Она запускает новую сессию Ediff, где вы можете
       просматривать возникшие конфликты, и применять или отвергать
-      предлагаемые изменения.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571509"></a>Взаимодействие с удаленными репозиториями</h4></div></div></div><p>Некоторые системы контроля версий поддерживают концепцию
+      предлагаемые изменения.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2574096"></a>Взаимодействие с удаленными репозиториями</h4></div></div></div><p>Некоторые системы контроля версий поддерживают концепцию
       центрального репозитория, который хранит «<span class="quote">главные</span>» файлы, а также
       историю изменений.  Репозиторий может быть локальным, или
       располагаться на удаленном сервере.  <span class="application">VC</span> автоматически распознает тот
@@ -178,7 +178,7 @@
       <code class="function">vc-version-other-window</code>, разница между резервными
       копиями созданными автоматически и вручную, лишь в лишнем знаке точка
       перед знаком <code class="literal">~</code>.  Многие команды <span class="application">VC</span> могут
-      использовать любую из резервных копий.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571614"></a>Работа со «<span class="quote">снимками</span>»</h4></div></div></div><p>«<span class="quote">Снимок</span>» (snapshot) —  это именованный набор версий
+      использовать любую из резервных копий.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2574198"></a>Работа со «<span class="quote">снимками</span>»</h4></div></div></div><p>«<span class="quote">Снимок</span>» (snapshot) —  это именованный набор версий
       файлов, который может рассматриваться как отдельная единица.
       Некоторые системы контроля версий сами поддерживают концепцию
       «<span class="quote">снимков</span>», тогда пакет <span class="application">VC</span> использует эти возможности.
@@ -195,7 +195,7 @@
       «<span class="quote">снимок</span>» с заданным именем.</p><p>Многие команды пакета <span class="application">VC</span> позволяют использовать имена
       «<span class="quote">снимков</span>» в качестве аргументов вместо номеров версий
       файлов.  Это особенно полезно просмотре списка изменений между
-      релизами программ.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2571786"></a>Прочие команды</h4></div></div></div><p>Обычно, для файлов находящихся под управлением системы контроля
+      релизами программ.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2574361"></a>Прочие команды</h4></div></div></div><p>Обычно, для файлов находящихся под управлением системы контроля
       версий, для каждого файла ведется отдельный список изменений.  Но в
       проектах GNU списки изменений ведутся для всего проекта, или для
       отдельных каталогов.  Для организации взаимодействия между этими двумя
@@ -215,13 +215,13 @@
       заголовок подходящий для системы контроля версий.  Заголовки хранятся
       в переменных вида <code class="varname">vc-BACKEND-header</code>, так что вы
       можете изменять их значения, для вставки собственных
-      заголовков.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2571928"></a>Настройка</h3></div></div></div><p>Используя стандартные средства настройки Emacs пользователь может
+      заголовков.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2574499"></a>Настройка</h3></div></div></div><p>Используя стандартные средства настройки Emacs пользователь может
     настроить поведение выполняемых команд.  Для этого необходимо лишь
     выполнить <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span> customize-group vc</code>.  Часть
     опций применяется ко всем поддерживаемым системам контроля версий, часть
     применяется только к конкретным реализациям.  Полное описание основных
     переменных, используемых для настройки пакета <span class="application">VC</span> вы можете найти в
-    руководстве по <span class="application">GNU Emacs</span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2571983"></a>Дополнительная информация</h3></div></div></div><p>Некоторые из подсистем, обеспечивающих работу пакета <span class="application">VC</span> с разными системами
+    руководстве по <span class="application">GNU Emacs</span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2574552"></a>Дополнительная информация</h3></div></div></div><p>Некоторые из подсистем, обеспечивающих работу пакета <span class="application">VC</span> с разными системами
     контроля версий доступны только с сайтов их авторов, и пока не включены в поставку
     <span class="application">GNU Emacs</span> или <span class="application">XEmacs</span>.  Вы можете найти эти модули по адресам: <a class="ulink" href="http://www.emacswiki.org/elisp/vc-darcs.el" target="_top">vc-darcs</a>, <a class="ulink" href="http://www.chezmarshall.freeserve.co.uk/elisp/vcvss.html" target="_top">vc-vss</a>, <a class="ulink" href="http://www.fukt.hk-r.se/~flognat/vc/" target="_top">vc-clearcase</a>.</p><p>Много информации относящейся к пакету <span class="application">VC</span>, а также к другим модулям вы можете
     найти на сайте <a class="ulink" href="http://www.emacswiki.org/cgi-bin/wiki/CategoryVersionControl" target="_top">Emacs WiKi</a>.

@@ -7,8 +7,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="keywords" content="bugs finding, dmalloc, article, поиск ошибок, memory leaks, утечки памяти">
     
-    <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="web.css">
-    <link rel="stylesheet" type="text/css" href="print.css" media="print">
+    
+	 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../web.css">
+    <link rel="stylesheet" type="text/css" href="../print.css" media="print">
   </head>
   <body>
     <div id="wrap">
@@ -45,7 +46,7 @@ Windows (в среде Cygwin)<sup><a class="footref" name="fnr.1" href="#fn.1">
 <p class="first">Также как и многие пакеты для Unix, <code>dmalloc</code> собирается достаточно просто &mdash; необходимо
 скачать исходные тексты с сайта, распаковать и выполнить три команды:</p>
 
-<pre class="example">
+<pre class="src">
 ./configure
 make
 make install
@@ -74,9 +75,9 @@ make install
 указывая их имен и не вдаваясь в особенности синтаксиса командного процессора<sup><a class="footref" name="fnr.4" href="#fn.4">4</a></sup>.  В типовой
 ситуации, <code>dmalloc</code> используется следующим образом:</p>
 
-<pre class="example">
-eval `dmalloc -b options debug_level`
-LD_PRELOAD=libmalloc.so.4 ./your-program
+<pre class="src">
+<span style="color: #006400;">eval</span> <span style="color: #ff00ff;">`dmalloc -b options debug_level`</span>
+<span style="color: #8b0000;">LD_PRELOAD</span>=libmalloc.so.4 ./your-program
 </pre>
 
 <p>наличие команды <code>eval</code> необходимо, поскольку если просто вызвать <code>dmalloc</code>, то он выведет на
@@ -93,8 +94,8 @@ LD_PRELOAD=libmalloc.so.4 ./your-program
 <code>-d</code> утилиты <code>dmalloc</code> для задания числа, описывающего нужные проверки, или опцию <code>-p</code>, которая
 позволяет задать проверки используя их имена, например:</p>
 
-<pre class="example">
-eval `dmalloc -d 0 -l log_file -p log-non-free -p check-fence -p check-funcs`
+<pre class="src">
+<span style="color: #006400;">eval</span> <span style="color: #ff00ff;">`dmalloc -d 0 -l log_file -p log-non-free -p check-fence -p check-funcs`</span>
 </pre>
 
 <p>В данном случае, опция <code>-d</code> обнуляет выставленные флаги, а затем с помощью опций <code>-p</code>

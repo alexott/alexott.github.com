@@ -1,33 +1,54 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
   <head>
-    <title>Use Emacs to work with mercurial</title>
+    <title>Use Emacs to work with Mercurial</title>
     <meta name="generator" content="muse.el">
     <meta name="author" content="Alex Ott">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="keywords" content="emacs, version control, mercurial, hg">
     
-    <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="web.css">
-    <link rel="stylesheet" type="text/css" href="print.css" media="print">
+    
+	 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../web.css">
+    <link rel="stylesheet" type="text/css" href="../print.css" media="print">
   </head>
   <body>
     <div id="wrap">
-    <h1>Use Emacs to work with mercurial</h1>
+    <h1>Use Emacs to work with Mercurial</h1>
     <!-- Page published by Emacs Muse begins here -->
 <div class="contents">
 <dl>
 <dt>
-<a href="#sec1">Работа с пакетом</a>
+<a href="#sec1">Installation</a>
 </dt>
 <dt>
-<a href="#sec2">Настройка пакета</a>
+<a href="#sec2">Work with package</a>
+</dt>
+<dt>
+<a href="#sec3">Customization</a>
 </dt>
 </dl>
 </div>
 
 
+<p>In Emacs support of <em>Mercurial</em> implemented by two packages.  In <em>Mercurial's</em> distribution
+exists package <em>mercurial.el</em>, that implement <em>native</em> support, and described in this
+document.  There is also support for <em>Mercurial</em> in the <em>DVC</em> package, that described in
+<a href="EmacsDVC.html">section about DVC</a>.</p>
+
 <h2><a name="sec1" id="sec1"></a>
-Работа с пакетом</h2>
+Installation</h2>
+
+<p class="first">To install the package you need to copy the file <code>mercurial.el</code> from <code>contrib</code> directory in
+the <em>Mercurial's</em> distribution into place, where Emacs could find it, and put following
+command into Emacs's initialization file<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>:</p>
+
+<pre class="src">
+(require 'mercurial)
+</pre>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Work with package</h2>
 
 <p class="first">Принципы работы <em>mercurial.el</em> во многом аналогичны работе пакета VC (стоит отметить, что
 поддержка <em>Mercurial</em> имеется и в VC) и используют те же самые привязки клавиш, что и пакет
@@ -96,8 +117,8 @@ VC.  <em>mercurial.el</em> &mdash; вспомогательный режим, к
 отсутствуют в удаленном, и поместить их туда (push).</p>
 
 
-<h2><a name="sec2" id="sec2"></a>
-Настройка пакета</h2>
+<h2><a name="sec3" id="sec3"></a>
+Customization</h2>
 
 <p class="first">Настройка пакета осуществляется с помощью стандартных средств Emacs.  Группа настройки
 называется <code>mercurial</code>.  Пользователь может, например, изменить префикс для глобальных
@@ -113,6 +134,10 @@ VC.  <em>mercurial.el</em> &mdash; вспомогательный режим, к
 информацией из журнала изменений при вызове команд <code>hg-log-repo</code> и <code>hg-log</code>.  И конечно,
 пользователь может определить <code>hg-mode-hook</code>, который будет выполнен в процессе включения
 <code>hg-mode</code> для данного буфера.</p>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Latest version of <em>mercurial.el</em> you can download from repository, link to which you can
+find at <a href="http://www.emacswiki.org/cgi-bin/wiki/MercurialMode">Mercurial's page on Emacs WiKi</a>.</p>
 
 
 

@@ -1,11 +1,11 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Работа с ClearCase</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s09.html" title="Работа с Aegis"><link rel="next" href="ar01s11.html" title="Интеграция с Perforce"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Работа с <span class="application">ClearCase</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s09.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s11.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.clearcase"></a>Работа с <span class="application">ClearCase</span></h2></div></div></div><p>Для системы <span class="application">ClearCase</span> имеется как модуль для пакета <span class="application">VC</span>, так и специализированный модуль —  <span class="application">clearcase</span>.  Специализированный модуль
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Работа с ClearCase</title><link rel="stylesheet" href="web.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s09.html" title="Работа с Aegis"><link rel="next" href="ar01s11.html" title="Интеграция с Perforce"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Работа с <span class="application">ClearCase</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s09.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s11.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.clearcase"></a>Работа с <span class="application">ClearCase</span></h2></div></div></div><p>Для системы <span class="application">ClearCase</span> имеется как модуль для пакета <span class="application">VC</span>, так и специализированный модуль —  <span class="application">clearcase</span>.  Специализированный модуль
   имеет больше возможностей, и пользователям рекомендуется использовать
   именно его.  Данный пакет поддерживает следующие возможности:
 
   </p><div class="itemizedlist"><ul type="disc"><li><p>просмотр и работа со снапшотами;</p></li><li><p>режимы для редактирования комментарием и настроек;</p></li><li><p>контекстное меню;</p></li><li><p>запуск стандартных графических утилит
     <span class="application">ClearCase</span>;</p></li><li><p>выполнение большинства действий напрямую из
     <span class="application">Emacs</span>.</p></li></ul></div><p>
-  </p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2584028"></a>Установка пакета</h3></div></div></div><p>Пакет <span class="application">clearcase</span> доступен для загрузки со <a class="ulink" href="http://members.verizon.net/~vze24fr2/EmacsClearCase" target="_top">страницы автора</a>.  Он может использоваться и с <span class="application">GNU Emacs</span> версии 20.4
+  </p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2586148"></a>Установка пакета</h3></div></div></div><p>Пакет <span class="application">clearcase</span> доступен для загрузки со <a class="ulink" href="http://members.verizon.net/~vze24fr2/EmacsClearCase" target="_top">страницы автора</a>.  Он может использоваться и с <span class="application">GNU Emacs</span> версии 20.4
     или выше, и с достаточно свежими версиями <span class="application">XEmacs</span>. Пакет может работать в разных операционных системах —  как семейства Windows,
     так и семейства Unix.  Для использования пакета, лишь поместите файлы в
     доступное для <span class="application">Emacs</span> место, и выполните команду
@@ -14,7 +14,7 @@
 </pre><p>Пакет имеет проблемы при совместном использовании со старой версией
     пакета <span class="application">vc-hooks</span>, в которой используются
     несовместимые версии пакета <span class="application">tq</span>.  Но сейчас это
-    встречается достаточно редко.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2584120"></a>Использование пакета <span class="application">clearcase</span></h3></div></div></div><p>Пакет <span class="application">clearcase</span> пытается по возможности сохранять
+    встречается достаточно редко.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2586235"></a>Использование пакета <span class="application">clearcase</span></h3></div></div></div><p>Пакет <span class="application">clearcase</span> пытается по возможности сохранять
     совместимость с <span class="application">VC</span> по части привязок клавиш.  Но предоставляемый
     интерфейс является более мощным, и лучше отражает идеологию <span class="application">ClearCase</span>,
     чем модуль для пакета <span class="application">VC</span>.</p><p>Работа с пакетом может осуществляться через выполнение команд
@@ -39,7 +39,7 @@
     оканчиваются на суффикс <code class="function">-current-buffer</code>) существует
     аналогичная команда, которая работает с текущим файлом в буфере
     <span class="application">dired</span>.  Такие команды имеют суффикс
-    <code class="function">-dired-file</code>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2584380"></a>Работа с версиями</h4></div></div></div><p>Пакет <span class="application">clearcase</span> старается в своей работе поддерживать логику
+    <code class="function">-dired-file</code>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2586484"></a>Работа с версиями</h4></div></div></div><p>Пакет <span class="application">clearcase</span> старается в своей работе поддерживать логику
       операций, которые предоставляются пакетом <span class="application">VC</span>.  Для этого, определены
       команды <code class="function">clearcase-next-action-current-buffer</code> и
       <code class="function">clearcase-next-action-dired-files</code>, которые выполняют
@@ -81,7 +81,7 @@
       <code class="function">clearcase-version-other-window</code>, которая привязана
       к сочетанию клавиш <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">v</span> <span class="keysym">~</span>.</p><p>Создание новой ветки производится с помощью команды
       <code class="function">clearcase-mkbrtype</code>, которая привязана к сочетанию
-      клавиш <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">v</span> <span class="keysym">m</span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2584760"></a>Работа с изменениями</h4></div></div></div><p>Команды работы с изменениями можно разделить на две группы.
+      клавиш <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">v</span> <span class="keysym">m</span>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2586845"></a>Работа с изменениями</h4></div></div></div><p>Команды работы с изменениями можно разделить на две группы.
       Первая группа для получения списков изменений использует команду
       <span class="command"><strong>diff</strong></span> (они имеют название начинающееся с
       <code class="function">clearcase-diff</code>), а вторая группа команд, для
@@ -101,7 +101,7 @@
         <code class="function">clearcase-diff-named-version-dired-file</code> — 
         сравнивают текущий буфер или отмеченные файлы с указанной
         версией.</p></li></ul></div><p>
-      </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2584918"></a>Получение информации</h4></div></div></div><p>Для получения описания файлов используются две команды.  Команда
+      </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2586997"></a>Получение информации</h4></div></div></div><p>Для получения описания файлов используются две команды.  Команда
       <code class="function">clearcase-describe-current-buffer</code> (сочетание
       клавиш <span class="keysym">C</span>+<span class="keysym">x</span> <span class="keysym">v</span> <span class="keysym">?</span>)
       используется для получения описания файла в текущем буфере, а команда
@@ -119,7 +119,7 @@
       Пользователь может просматривать эти свойства с помощью команды
       <code class="function">clearcase-fprop-display-properties</code>, а также
       вставлять их в текущий буфер с помощью команды
-      <code class="function">clearcase-fprop-dump-to-current-buffer</code>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2585093"></a>Использование внешних утилит <span class="application">ClearCase</span></h4></div></div></div><p>Пакет <span class="application">clearcase</span> позволяет использовать множество утилит,
+      <code class="function">clearcase-fprop-dump-to-current-buffer</code>.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2587165"></a>Использование внешних утилит <span class="application">ClearCase</span></h4></div></div></div><p>Пакет <span class="application">clearcase</span> позволяет использовать множество утилит,
       входящих в состав <span class="application">ClearCase</span>, не покидая удобную среду <span class="application">Emacs</span>.
       </p><div class="itemizedlist"><ul type="disc"><li><p><code class="function">clearcase-gui-clearexplorer</code> — 
         запускает <span class="command"><strong>ClearExplorer</strong></span>;</p></li><li><p><code class="function">clearcase-gui-deliver</code> — 
@@ -143,7 +143,7 @@
         предыдущей версией;</p></li><li><p><code class="function">clearcase-gui-diff-pred-dired-file</code> — 
         использует графический интерфейс для сравнения выбранных версий с их
         базовыми версиями.</p></li></ul></div><p>
-      </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2585317"></a>Прочие команды</h4></div></div></div><p>Редактирование конфигурации <span class="application">ClearCase</span> производится с помощью
+      </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2587380"></a>Прочие команды</h4></div></div></div><p>Редактирование конфигурации <span class="application">ClearCase</span> производится с помощью
       команд, которые начинаются с <code class="function">clearcase-edcs</code>. Для редактирования конфигурации определен специальный режим — 
       <code class="function">clearcase-edcs-mode</code>, который включается одноименной
       командой.  Редактирование конфигурации производится с помощью команды
@@ -166,7 +166,7 @@
       воссоздания ошибки и ее исправления.</p><p>Команды <code class="function">clearcase-integrate</code> и
       <code class="function">clearcase-unintegrate</code> явно устанавливают или удаляют
       хуки и команды, которые обеспечивают интеграцию с системой контроля версий
-      <span class="application">ClearCase</span>.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2585516"></a>Настройка</h3></div></div></div><p>Также как и другие пакеты, пакет <span class="application">clearcase</span> поддерживает
+      <span class="application">ClearCase</span>.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2587565"></a>Настройка</h3></div></div></div><p>Также как и другие пакеты, пакет <span class="application">clearcase</span> поддерживает
     стандартный механизм настройки <span class="application">Emacs</span>.  Для настройки надо всего лишь
     выполнить команду <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span> customize-group clearcase</code>.  С его
     помощью пользователь может задать множество параметров, например, что

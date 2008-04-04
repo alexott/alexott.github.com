@@ -1,12 +1,12 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет PSVN</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s05.html" title="Пакет xtla"><link rel="next" href="ar01s07.html" title="Работа с Darcs"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет <span class="application">PSVN</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s05.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s07.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.psvn"></a>Пакет <span class="application">PSVN</span></h2></div></div></div><p>Пакет <span class="application">PSVN</span> является для <span class="application">Subversion</span> тем же, что и <span class="application">PCL-CVS</span> для
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет PSVN</title><link rel="stylesheet" href="web.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s05.html" title="Пакет xtla"><link rel="next" href="ar01s07.html" title="Работа с Darcs"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет <span class="application">PSVN</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s05.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s07.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.psvn"></a>Пакет <span class="application">PSVN</span></h2></div></div></div><p>Пакет <span class="application">PSVN</span> является для <span class="application">Subversion</span> тем же, что и <span class="application">PCL-CVS</span> для
   <span class="application">CVS</span>.  Пакет дает пользователю доступ ко всем основным возможностям,
-  предоставляемым системой <span class="application">Subversion</span>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2580263"></a>Установка пакета</h3></div></div></div><p>Установка пакета проста —  загрузите с <a class="ulink" href="http://www.xsteve.at/prg/emacs/psvn.el" target="_top">сайта</a> последнюю
+  предоставляемым системой <span class="application">Subversion</span>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2582563"></a>Установка пакета</h3></div></div></div><p>Установка пакета проста —  загрузите с <a class="ulink" href="http://www.xsteve.at/prg/emacs/psvn.el" target="_top">сайта</a> последнюю
     версию пакета, поместите его в доступный для <span class="application">Emacs</span> каталог, и
     поместите в файл инициализации следующую команду:
     
     </p><pre class="screen">(require 'psvn)
 </pre><p>
-    </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2580300"></a>Работа с пакетом</h3></div></div></div><p>Работа с пакетом по принципам, совершенно аналогична работе с
+    </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2582599"></a>Работа с пакетом</h3></div></div></div><p>Работа с пакетом по принципам, совершенно аналогична работе с
     пакетом <span class="application">PCL-CVS</span> —  вся работа производится в буфере, создаваемом командами пакета. В настоящее время этот буфер создается лишь одной командой —  <code class="function">svn-status</code>, реализация других
     команд, производится в настоящее время.  Буфер, создаваемый в процессе
     работы данной команды, называется <code class="literal">*svn-status*</code>.
@@ -19,7 +19,7 @@
     <span class="command"><strong>svn status -v</strong></span>.</p><p>Пользователь может выполнять команды, используя предопределенные
     привязки клавиш, либо может использовать меню <code class="literal">SVN</code>,
     появляющееся при работе с буфером
-    <code class="literal">*svn-status*</code>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2580460"></a>Навигация и работа с пометками</h4></div></div></div><p>Команды навигации по буферу <code class="literal">*svn-status*</code> аналогичны командам других пакетов для работы с системами контроля версий —  вы можете использовать либо клавишу управления курсором,
+    <code class="literal">*svn-status*</code>.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2582746"></a>Навигация и работа с пометками</h4></div></div></div><p>Команды навигации по буферу <code class="literal">*svn-status*</code> аналогичны командам других пакетов для работы с системами контроля версий —  вы можете использовать либо клавишу управления курсором,
       либо команду <code class="function">svn-status-previous-line</code> (привязана
       к клавише <span class="keysym">C</span>+<span class="keysym">p</span>)
       для перемещения на предыдущую строку, и команду
@@ -44,7 +44,7 @@
       <span class="keysym">*</span> <span class="keysym">A</span>), а для пометки файлов не
       находящихся под контролем <span class="application">Subversion</span>,
       команда <code class="function">svn-status-mark-unknown</code> (сочетание клавиш
-      <span class="keysym">*</span> <span class="keysym">?</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2580680"></a>Добавление, удаление и обновление файлов</h4></div></div></div><p>Добавление файлов в репозиторий можно производить с помощью
+      <span class="keysym">*</span> <span class="keysym">?</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2582957"></a>Добавление, удаление и обновление файлов</h4></div></div></div><p>Добавление файлов в репозиторий можно производить с помощью
       нескольких команд.  Базовой командой является
       <code class="function">svn-status-add-file</code> (она привязана к клавише
       <span class="keysym">a</span>), которая добавляет текущий файл в репозиторий (или
@@ -93,7 +93,7 @@
       <span class="application">PSVN</span> не поддерживает команды импорта данных
       в архив, и получения данных из репозитория.  Но работа над поддержкой
       этих функций ведется, и может быть они будут реализованы в будущих
-      версиях.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2581016"></a>Работа с изменениями</h4></div></div></div><p>Как уже упоминалось выше, вы должны подтвердить изменения в
+      версиях.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2583281"></a>Работа с изменениями</h4></div></div></div><p>Как уже упоминалось выше, вы должны подтвердить изменения в
       репозиторий.  Подтверждение выполняется с помощью команды
       <code class="function">svn-status-commit-file</code> (клавиша
       <span class="keysym">c</span>).  После подтверждения, ваши изменения будут видны
@@ -121,7 +121,7 @@
       <span class="keysym">E</span>) использует для сравнения пакет
       <span class="application">Ediff</span>.  Все эти команды могут выполнять
       сравнение с произвольной версией, если им будет задан префиксный
-      аргумент перед их выполнением.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2581196"></a>Работа с метаданными (properties)</h4></div></div></div><p>Система контроля версий <span class="application">Subversion</span> позволяет пользователю
+      аргумент перед их выполнением.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2583454"></a>Работа с метаданными (properties)</h4></div></div></div><p>Система контроля версий <span class="application">Subversion</span> позволяет пользователю
       привязывать различные метаданные к файлам и версиям.  Кроме этого,
       существуют метаданные, не привязанные к конкретной версии.  Изменения
       в метаданных распространяются вместе с изменениями, внесенными в
@@ -158,7 +158,7 @@
       обозначения перевода строк используется для данного объекта,
       <code class="function">svn-status-property-set-keyword-list</code> (сочетание
       <span class="keysym">P</span> <span class="keysym">y</span>) позволяет отредактировать
-      список ключевых слов связанных с данным объектом.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2581467"></a>Получение информации и прочие команды</h4></div></div></div><p>Для получения информации о текущем файле может использоваться
+      список ключевых слов связанных с данным объектом.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2583718"></a>Получение информации и прочие команды</h4></div></div></div><p>Для получения информации о текущем файле может использоваться
       команда <code class="function">svn-status-info</code>, которая привязана к
       клавише <span class="keysym">i</span>.  При ее использовании, в буфере
       <code class="literal">*svn-process*</code> будет отображен результат выполнения
@@ -188,7 +188,7 @@
       включения показа.</p><p>Для выхода из буфера <code class="literal">*svn-status*</code> и его
       удаления используется команда
       <code class="function">svn-status-bury-buffer</code>, которая привязана к
-      клавише <span class="keysym">q</span>, также как и в других пакетах.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2581678"></a>Настройка</h3></div></div></div><p>Стандартные средства <span class="application">Emacs</span> позволяют пользователю настроить
+      клавише <span class="keysym">q</span>, также как и в других пакетах.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2583920"></a>Настройка</h3></div></div></div><p>Стандартные средства <span class="application">Emacs</span> позволяют пользователю настроить
     только параметры начертаний, которые используются для отображения данных
     в буфере.  Остальные настройки нужно задавать с помощью команд Emacs
     Lisp.  Но большая часть этих настроек имеет нормальные значения по

@@ -1,7 +1,7 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет xtla</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s04.html" title="Пакет PCL-CVS"><link rel="next" href="ar01s06.html" title="Пакет PSVN"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет <span class="application">xtla</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s04.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s06.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.xtla"></a>Пакет <span class="application">xtla</span></h2></div></div></div><p>Пакет <span class="application">xtla</span> значительно расширяет возможности интеграции
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Пакет xtla</title><link rel="stylesheet" href="web.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><meta name="keywords" content="Emacs, GNU Emacs, XEmacs, version control, configuration management, "><link rel="start" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="up" href="index.html" title="Использование Emacs совместно с системами контроля версий"><link rel="prev" href="ar01s04.html" title="Пакет PCL-CVS"><link rel="next" href="ar01s06.html" title="Пакет PSVN"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Пакет <span class="application">xtla</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s04.html">Пред.</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s06.html">След.</a></td></tr></table><hr></div><div class="section" lang="ru"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="emacs.vcs.xtla"></a>Пакет <span class="application">xtla</span></h2></div></div></div><p>Пакет <span class="application">xtla</span> значительно расширяет возможности интеграции
   <span class="application">Emacs</span> с системой контроля версий <span class="application">GNU Arch</span> (он же
   <span class="application">tla</span> и/или с
-  <span class="application">Bazaar</span>)<sup>[<a name="id2576347" href="#ftn.id2576347" class="footnote">3</a>]</sup>.  Данный пакет, в
+  <span class="application">Bazaar</span>)<sup>[<a name="id2578778" href="#ftn.id2578778" class="footnote">4</a>]</sup>.  Данный пакет, в
   отличии от модуля <span class="application">vc-arch</span>, предоставляет
   пользователю полный спектр команд для работы с репозиториями
   <span class="application">GNU Arch</span>.  К основным возможностям пакета относятся:
@@ -12,7 +12,7 @@
   <span class="command"><strong>tla</strong></span> или <span class="command"><strong>baz</strong></span>, так что она
   должна быть установлена в вашей системе. На момент написания данной
   статьи была выпущена версия 1.2 пакета <span class="application">xtla</span> так что в статье будут
-  описаны ее возможности.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2576537"></a>Установка пакета</h3></div></div></div><p>Для работы с пакетом необходимо наличие нескольких пакетов:
+  описаны ее возможности.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2578961"></a>Установка пакета</h3></div></div></div><p>Для работы с пакетом необходимо наличие нескольких пакетов:
     <span class="application">ewoc.el</span>, который необходим для работы всего
     пакета <span class="application">xtla</span> (он поставляется вместе с <span class="application">xtla</span>, и находится в
     каталоге <code class="filename">contrib</code>), <span class="application">tree-widget.el</span>,
@@ -27,7 +27,7 @@
 
     </p><pre class="screen">(require 'xtla-autoloads)
 </pre><p>
-    </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2576643"></a>Использование пакета</h3></div></div></div><p>Команды пакета имеют префиксы <code class="function">tla-</code>
+    </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2579061"></a>Использование пакета</h3></div></div></div><p>Команды пакета имеют префиксы <code class="function">tla-</code>
     и <code class="function">xtla</code> и доступны через предопределенные ключи
     (сочетания клавиш), для которых используется префикс
     <span class="keysym">C</span>+<span class="keysym">x</span>
@@ -44,7 +44,7 @@
     предыдущему объекту, <span class="keysym">n</span> —  переходит к
     следующему объекту, <span class="keysym">q</span> —  прекращает работу с
     данным буфером, <span class="keysym">m</span> и <span class="keysym">u</span> — 
-    ставят и снимают пометку с текущего объекта.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2576795"></a>Работа с архивами</h4></div></div></div><p>Для работы с архивами используется команда
+    ставят и снимают пометку с текущего объекта.</p><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2579207"></a>Работа с архивами</h4></div></div></div><p>Для работы с архивами используется команда
       <code class="function">tla-archives</code> (или сочетание клавиш
       <span class="keysym">C</span>+<span class="keysym">x</span>
       <span class="keysym">T</span> <span class="keysym">A</span>).  При ее вызове, пользователю
@@ -87,7 +87,7 @@
       списка зарегистрированных архивов и веток разработки, в более красивом
       виде.  Вы можете видеть результат выполнения на рисунке <a class="xref" href="ar01s05.html#emacs.vcs.xtla.browse" title="Рисунок 1. Результат выполнения tla-browse">Результат выполнения tla-browse</a>.</p><p>
       </p><div class="figure-float" style="float: left;"><div class="figure"><a name="emacs.vcs.xtla.browse"></a><p class="title"><b>Рисунок 1. Результат выполнения tla-browse</b></p><div class="figure-contents"><div class="screenshot"><div class="mediaobject"><img src="xtla-browse.png" alt="Результат выполнения tla-browse"></div></div></div></div><br class="figure-break"></div><p>
-    </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2577238"></a>Использование закладок</h4></div></div></div><p>Закладки сильно облегчают работу разработчика в том случае, если он работает с большим количеством репозиториев. Для наиболее часто используемых версий, разработчик может определить закладки и быстро переходить к нужным архивам и веткам разработки. Для работы с закладками существует специальная команда — 
+    </p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2579628"></a>Использование закладок</h4></div></div></div><p>Закладки сильно облегчают работу разработчика в том случае, если он работает с большим количеством репозиториев. Для наиболее часто используемых версий, разработчик может определить закладки и быстро переходить к нужным архивам и веткам разработки. Для работы с закладками существует специальная команда — 
       <code class="function">tla-bookmarks</code>, которая вызывается сочетанием
       клавиш <span class="keysym">C</span>+<span class="keysym">x</span>
       <span class="keysym">T</span> <span class="keysym">b</span>.  После ее выполнения будет
@@ -171,7 +171,7 @@
     </p><p>Кроме работы с закладками из буфера
     <code class="literal">*tla-bookmarks*</code>, вы можете выполнять действия
     относящиеся к закладкам из других буферов, например, из буфера для
-    работы с архивами (команда <span class="keysym">b</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2578117"></a>Работа с файлами в выбранном репозитории</h4></div></div></div><p>При работе с выбранным репозиторием пользователь может выполнять самые разные действия —  добавлять и удалять файлы, вставлять
+    работы с архивами (команда <span class="keysym">b</span>).</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h4 class="title"><a name="id2580486"></a>Работа с файлами в выбранном репозитории</h4></div></div></div><p>При работе с выбранным репозиторием пользователь может выполнять самые разные действия —  добавлять и удалять файлы, вставлять
     теги <span class="application">GNU Arch</span>, и многое другое. Для этого выделены отдельные команды.
     Однако, более удобным способом работы будет использование буфера
     объектов (inventories).
@@ -340,12 +340,12 @@
   клавиш <span class="keysym">C</span>+<span class="keysym">c</span>
   <span class="keysym">C</span>+<span class="keysym">c</span>.  Можно также
   вносить изменения только для отмеченных файлов, что помогает делать
-  изменения атомарными.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2580035"></a>Настройка</h3></div></div></div><p>Настройка данного пакета не проста, а очень проста —  выполните
+  изменения атомарными.</p></div></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2582346"></a>Настройка</h3></div></div></div><p>Настройка данного пакета не проста, а очень проста —  выполните
   команду <code class="function"><span class="keysym">M</span>+<span class="keysym">x</span>
   customize-group xtla</code> и задайте все необходимые опции. Диапазон настроек очень велик —  начиная от расположения команд, необходимых
   для работы, и до задания параметров отображения данных.  Вы также можете
   задать префиксное сочетание клавиш, отличное от используемого по
-  умолчанию.</p><p>Пакет позволяет пользователю задать хуки практически на каждую из реализованных им операций. Это позволит пользователю более тонко контролировать работу с данными в репозитории.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2580096"></a>Дополнительная информация</h3></div></div></div><p>Немного дополнительной информации вы можете найти на странице GNU
+  умолчанию.</p><p>Пакет позволяет пользователю задать хуки практически на каждую из реализованных им операций. Это позволит пользователю более тонко контролировать работу с данными в репозитории.</p></div><div class="section" lang="ru"><div class="titlepage"><div><div><h3 class="title"><a name="id2582405"></a>Дополнительная информация</h3></div></div></div><p>Немного дополнительной информации вы можете найти на странице GNU
   Arch WiKi, по адресу <a class="ulink" href="http://wiki.gnuarch.org/xtla" target="_top">http://wiki.gnuarch.org/xtla</a>.
   И конечно весь сайт <a class="ulink" href="http://wiki.gnuarch.org" target="_top">GNU Arch WiKi</a>
   будет вам великолепным подспорьем в работе с <span class="application">GNU Arch</span>.</p><p>Для получения полного списка команд, используйте сочетание клавиш
@@ -356,7 +356,7 @@
   используя сочетание клавиш
   <span class="keysym">C</span>+<span class="keysym">x</span>
   <span class="keysym">T</span> <span class="keysym">h</span> <code class="literal">command</code>, что
-  приводит к запуску команды <span class="command"><strong>tla command -H</strong></span>.</p></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id2576347" href="#id2576347" class="para">3</a>] </sup>В настоящее время
+  приводит к запуску команды <span class="command"><strong>tla command -H</strong></span>.</p></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id2578778" href="#id2578778" class="para">4</a>] </sup>В настоящее время
   ведется разработка пакета <span class="application">dvc</span>, который
   является развитием идей заложенных в <span class="application">xtla</span> и в котором планируется
   реализовать поддержку разных распределенных систме контроля версий,
