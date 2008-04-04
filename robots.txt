@@ -1,9 +1,9 @@
 User-agent: *
-Disallow: /linux
-Disallow: /emacs
-Disallow: /sgml
-Disallow: /gnu
-Disallow: /tex
-Disallow: /perl
-Disallow: /files
-Disallow: /misc
+Disallow: /~ott/linux/
+Disallow: /~ott/emacs/
+Disallow: /~ott/sgml/
+Disallow: /~ott/gnu/
+Disallow: /~ott/tex/
+Disallow: /~ott/perl/
+Disallow: /~ott/files/
+Disallow: /~ott/misc/
