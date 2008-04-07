@@ -9,3 +9,5 @@ Disallow: /~ott/files/
 Disallow: /~ott/misc/
 Disallow: /~ott/header.tmpl
 Disallow: /~ott/footer.tmpl
+Disallow: /~ott/resume-ru.txt
+Disallow: /~ott/emacs/emacs-21-4-whats-new.html
