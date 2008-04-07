@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title>Работа с dmalloc</title>
+    <meta name="generator" content="muse.el">
+    <meta name="author" content="Alex Ott">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="bugs finding, dmalloc, article, поиск ошибок, memory leaks, утечки памяти">
+    
+    
+	 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../web.css">
+    <link rel="stylesheet" type="text/css" href="../print.css" media="print">
+  </head>
+  <body>
+    <div id="wrap">
+    <h1>Работа с dmalloc</h1>
+    <!-- Page published by Emacs Muse begins here -->
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Установка</a>
+</dt>
+<dt>
+<a href="#sec2">Использование</a>
+</dt>
+<dt>
+<a href="#sec3">Анализ результатов работы</a>
+</dt>
+</dl>
+</div>
+
+
+<p><a href="http://dmalloc.com/">dmalloc</a> &mdash; библиотека для выявления проблем работы с памятью &mdash; утечек памяти, обращение к
+областям памяти за границами выделенных блоков (также как и <a href="ElectricFence.html">Electric Fence</a>), а также сбор
+различной статистики по выделению памяти.  Данная библиотека переопределяет стандартные
+функции выделения и освобождения памяти.  Библиотека написана в портабельном стиле, и
+может быть использована на Linux, Solaris и других Unix-совместимых системах, включая MS
+Windows (в среде Cygwin)<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.</p>
+
+<p><em>На мой взгляд, в настоящее время использование данной библиотеки не особо оправдано,
+поскольку имеются более мощные альтернативы &mdash; <a href="Valgrind.html">Valgrind</a> и <a href="GooglePT.html">Google Performance Tools</a>.</em></p>
+
+<h2><a name="sec1" id="sec1"></a>
+Установка</h2>
+
+<p class="first">Также как и многие пакеты для Unix, <code>dmalloc</code> собирается достаточно просто &mdash; необходимо
+скачать исходные тексты с сайта, распаковать и выполнить три команды:</p>
+
+<pre class="src">
+./configure
+make
+make install
+</pre>
+
+<p>Если вы будете использовать <code>dmalloc</code> с многопоточными программами, то вам нужно будет
+передать параметр <code>--enable-threads</code> скрипту <code>configure</code>.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Использование</h2>
+
+<p class="first">Также как и другие пакеты, предназначенные для поиска ошибок работы с памятью,
+использовать <code>dmalloc</code> очень просто &mdash; вам нужно слинковать библиотеку с программой, или
+загрузить ее с помощью <code>LD_PRELOAD</code>.<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>  Стоит отметить, что существует две версии библиотеки:
+для программ на языке C &mdash; 
+<code>libdmalloc</code>, и для программ на C++ &mdash; 
+<code>libdmallocthcxx</code>.<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>  Вторая
+библиотека кроме поддержки стандартных <code>malloc</code> &amp; <code>free</code>, также поддерживает операторы C++ для
+работы с памятью &mdash; 
+<code>new</code>, <code>new []</code> и т.п.</p>
+
+<p>Аналогично другим пакетам, <code>libdmalloc</code> также получает информацию о настройках из переменных
+среды.  Некоторым отличием является то, что в состав пакета входит командно-строковая
+утилита <code>dmalloc</code>, которую можно использовать для установки конкретных переменных, не
+указывая их имен и не вдаваясь в особенности синтаксиса командного процессора<sup><a class="footref" name="fnr.4" href="#fn.4">4</a></sup>.  В типовой
+ситуации, <code>dmalloc</code> используется следующим образом:</p>
+
+<pre class="src">
+<span style="color: #006400;">eval</span> <span style="color: #ff00ff;">`dmalloc -b options debug_level`</span>
+<span style="color: #8b0000;">LD_PRELOAD</span>=libmalloc.so.4 ./your-program
+</pre>
+
+<p>наличие команды <code>eval</code> необходимо, поскольку если просто вызвать <code>dmalloc</code>, то он выведет на
+экран команды устанавливающую переменную среды <code>DMALLOC_OPTIONS</code>, а не установит их<sup><a class="footref" name="fnr.5" href="#fn.5">5</a></sup>.  В
+зависимости от используемого командного процессора <code>dmalloc</code> необходимо указать конкретную
+опцию: <code>-b</code> для процессоров, совместимых по синтаксису с <code>sh</code> &mdash; 
+<code>bash</code>, <code>zsh</code> и другие, и <code>-c</code> для
+использующих <code>csh</code>-совместимый синтаксис.</p>
+
+<p>Кроме того, пользователь должен указать уровень подробности с которой будет проводиться
+проверка (debug level).  Существует несколько предопределенных значений (<code>low</code>, <code>runtime</code>,
+<code>medium</code> и <code>high</code>) которые задают предопределенные наборы проверок (от минимальных до
+максимальных), но пользователь может задать и собственные наборы проверок, используя опцию
+<code>-d</code> утилиты <code>dmalloc</code> для задания числа, описывающего нужные проверки, или опцию <code>-p</code>, которая
+позволяет задать проверки используя их имена, например:</p>
+
+<pre class="src">
+<span style="color: #006400;">eval</span> <span style="color: #ff00ff;">`dmalloc -d 0 -l log_file -p log-non-free -p check-fence -p check-funcs`</span>
+</pre>
+
+<p>В данном случае, опция <code>-d</code> обнуляет выставленные флаги, а затем с помощью опций <code>-p</code>
+формируется новый набор флагов проверок<sup><a class="footref" name="fnr.6" href="#fn.6">6</a></sup>.  Полный список доступных проверок можно
+получить передав <code>dmalloc</code> опции <code>-DV</code>, что приведет к выводу названий проверок, их кратких
+описаний, а также числовых значений, им соответствующих.</p>
+
+<p>Среди других опций, передаваемых <code>dmalloc</code>, наиболее часто используемой является опция <code>-l</code>
+(или <code>--logfile</code>), которая позволяет указать имя файла в который будет выводиться отчет.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Анализ результатов работы</h2>
+
+<p class="first">После завершения работы анализируемой программы в указанном файле мы получим информацию об
+ошибках, найденных во время работы.  В приведенном ниже примере, программа предпринимала
+попытку освободить уже освобожденный блок памяти, что и было указано в предпоследней
+строке отчета<sup><a class="footref" name="fnr.7" href="#fn.7">7</a></sup>:</p>
+
+<pre class="example">
+..... описание параметров, переданных libdmalloc
+1204541422: 3: ERROR: free: cannot locate pointer in heap (err 22)
+1204541422: 3:   error details: finding address in heap
+1204541422: 3:   pointer '0xb7fc8ff0' from 'test-double-free.c:7' prev access 'unknown'
+</pre>
+
+<p>Если в программе имеются ошибки, приводящие к утечкам памяти, то в отчете появятся строки,
+подобные приведенным в примере:</p>
+
+<pre class="example">
+1204542221: 3: Dumping Not-Freed Pointers Changed Since Start:
+1204542221: 3:  not freed: '0xb7fdffc8|s1' (10 bytes) from 'test-memleak.c:6'
+1204542221: 3:  total-size  count  source
+1204542221: 3:          10      1  test-memleak.c:6
+1204542221: 3:          10      1  Total of 1
+</pre>
+
+<p>Помимо вывода данных о найденных ошибках, <code>libdmalloc</code> выводит данные о выделении памяти,
+количестве вызовов конкретных функций и т.п. вещах, например:</p>
+
+<pre class="example">
+1204542469: 3: Dumping Chunk Statistics:
+1204542469: 3: basic-block 4096 bytes, alignment 8 bytes
+1204542469: 3: heap address range: 0xb7f01000 to 0xb7f0a000, 36864 bytes
+1204542469: 3:     user blocks: 1 blocks, 4074 bytes (11%)
+1204542469: 3:    admin blocks: 8 blocks, 32768 bytes (89%)
+1204542469: 3:    total blocks: 9 blocks, 36864 bytes
+1204542469: 3: heap checked 0
+1204542469: 3: alloc calls: malloc 2, calloc 0, realloc 0, free 1
+1204542469: 3: alloc calls: recalloc 0, memalign 0, valloc 0
+1204542469: 3: alloc calls: new 0, delete 0
+1204542469: 3:   current memory in use: 10 bytes (1 pnts)
+1204542469: 3:  total memory allocated: 20 bytes (2 pnts)
+1204542469: 3:  max in use at one time: 10 bytes (1 pnts)
+1204542469: 3: max alloced with 1 call: 10 bytes
+1204542469: 3: max unused memory space: 22 bytes (68%)
+1204542469: 3: top 10 allocations:
+1204542469: 3:  total-size  count in-use-size  count  source
+1204542469: 3:          10      1          10      1  test-memleak.c:6
+1204542469: 3:          10      1           0      0  test-memleak.c:4
+1204542469: 3:          20      2          10      1  Total of 2
+</pre>
+
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Библиотека может использоваться для выявления проблем и в многопоточных программах.</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> Для получения детальной информации об файлах с исходными текстами и конкретных
+строках, вызвавших появление ошибок, пользователь может скомпилировать свою программу
+подключив заголовочный файл <code>dmalloc.h</code>. Об этом можно подробней прочитать в
+<a href="http://dmalloc.com/docs/latest/online/dmalloc_9.html">документации</a>.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> Библиотеки предназначенные для работы с многопоточных программами имеют суффикс <code>th</code>,
+например: <code>libdmallocth.so.4</code></p>
+
+<p class="footnote"><a class="footnum" name="fn.4" href="#fnr.4">4.</a> Пользователь может также задать опции, которые будут использоваться при каждом запуске
+&lt;code>dmalloc</code>.  Для этого надо указать необходимые опции в файл настройки <code>~/.dmallocrc</code>.</p>
+
+<p class="footnote"><a class="footnum" name="fn.5" href="#fnr.5">5.</a> В <a href="http://dmalloc.com/docs/latest/online/dmalloc_4.html">документации</a> приводится несколько примеров команд для командного процессора, которые
+позволят пользователю не указывать явно команду <code>eval</code>.</p>
+
+<p class="footnote"><a class="footnum" name="fn.6" href="#fnr.6">6.</a> Стоит отметить, что при последовательных вызовах <code>dmalloc</code> происходит сохранение
+значений, которые не изменяются текущим вызовом.  Пользователь может явно указать на
+то, что не указанные значения были удалены, используя опцию <code>-r</code>, или сохранены, если
+задана опция <code>-k</code>.</p>
+
+<p class="footnote"><a class="footnum" name="fn.7" href="#fnr.7">7.</a> В данном примере, тестовая программа была скомпилирована с подключением файла
+&lt;code>dmalloc.h</code>, чтобы библиотека получила данные о номерах строк в файле.  В том случае,
+если вы не можете пересобрать исходные тексты, то вы можете получить информацию о
+номерах строк используя gdb, как это описано в <a href="http://dmalloc.com/docs/latest/online/dmalloc_17.html#SEC23">документации</a>.</p>
+
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+  </div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+	_uacct = "UA-78697-3";
+	urchinTracker();
+</script>
+  </body>
+</html>
