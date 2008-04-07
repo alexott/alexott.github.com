@@ -7,3 +7,5 @@ Disallow: /~ott/tex/
 Disallow: /~ott/perl/
 Disallow: /~ott/files/
 Disallow: /~ott/misc/
+Disallow: /~ott/header.tmpl
+Disallow: /~ott/footer.tmpl
