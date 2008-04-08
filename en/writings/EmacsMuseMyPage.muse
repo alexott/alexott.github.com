@@ -30,7 +30,7 @@ doesn't used for site generation, but they used for my other projects.  Variable
 behaviour of package, for example, =.muse= extension for all Muse files, encoding for files
 & generated html, etc.
 
-<src lang="lisp">
+<src lang="emacs-lisp">
 (require 'muse-mode)
 (require 'muse-html)
 (require 'muse-colors)
@@ -66,7 +66,7 @@ behaviour of package, for example, =.muse= extension for all Muse files, encodin
 For site generation, i redefine two style -- for HTML & PDF -- this allows me to use
 styles, that differ from styles, used for other projects.
 
-<src lang="lisp">
+<src lang="emacs-lisp">
 (muse-derive-style "my-page-html" "html"
                    :header "~/projects/my-page-muse/header.tmpl"
                    :footer "~/projects/my-page-muse/footer.tmpl")
@@ -82,7 +82,7 @@ replace =.html= to =.muse=, for example, for this article this file is [[./Emacs
 
 You also need to define project for this site:
 
-<src lang="lisp">
+<src lang="emacs-lisp">
 (setq muse-project-alist
       `(
         ("my-page"
@@ -107,7 +107,7 @@ For proper generation of links to style files (=.css=) and images i wrote small 
 =muse-gen-relative-name=, that accept file name (relative to root directory of project) as
 parameter, and generate proper file name relative to current file:
 
-<src lang="lisp">
+<src lang="emacs-lisp">
 (defun muse-gen-relative-name (name)
   (concat
    (file-name-directory (muse-wiki-resolve-project-page (muse-project)))
@@ -117,7 +117,7 @@ parameter, and generate proper file name relative to current file:
 Other function, =muse-mp-detect-language=, is used for detecting which language used for
 current file файла[1]:
 
-<src lang="lisp">
+<src lang="emacs-lisp">
 (defun muse-mp-detect-language ()
   (let ((lang "NN")
         (cur-dir (file-name-directory (muse-current-file)))
@@ -133,12 +133,12 @@ Structure of navigation menu, generated for every page, is defined by variable
 and list of pair, representing file (or directory) name and corresponding title for menu
 item.
 
-<src lang="lisp">
+<src lang="emacs-lisp">
 (setq my-page-menu '(("ru" . ( ("index.html" . "Главная")
                                ("cf/" . "Информационная безопасность")
                                ("fp/" . "Функциональное программирование")
                                ("scheme/" . "Scheme")
-                               ("lisp/" . "Lisp")
+                               ("lisp/" . "emacs-lisp")
                                ("cpp/" . "C++")
                                ("oss/" . "Open Source Projects")
                                ("emacs/" . "Emacs")
@@ -156,7 +156,7 @@ And at the end, function for menu generation, that called for every page in proj
 function detect language for page, get name of generated file and set attribute for menu
 item, matching current path (for example, this note is in section "Articles").
 
-<src lang="lisp">
+<src lang="emacs-lisp">
 (defun muse-mp-generate-menu ()
   (let* ((menu-lang (muse-mp-detect-language))
          (menu-struct (assoc menu-lang my-page-menu))
