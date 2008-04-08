@@ -43,97 +43,84 @@ the <em>Mercurial's</em> distribution into place, where Emacs could find it, and
 command into Emacs's initialization file<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>:</p>
 
 <pre class="src">
-(require 'mercurial)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">mercurial</span>)
 </pre>
 
 
 <h2><a name="sec2" id="sec2"></a>
 Work with package</h2>
 
-<p class="first">Принципы работы <em>mercurial.el</em> во многом аналогичны работе пакета VC (стоит отметить, что
-поддержка <em>Mercurial</em> имеется и в VC) и используют те же самые привязки клавиш, что и пакет
-VC.  <em>mercurial.el</em> &mdash; вспомогательный режим, который добавляет некоторое количество команд
-для выполнения основных задач при работе с репозиториями.</p>
+<p><em>Mercurial.el</em> use almost same principles as the VC package (i need to mention, that VC also
+support work with <em>Mercurial</em>) and use almost same key bindings as VC does.  <em>mercurial.el</em> &mdash;
+minor mode, that add some number of commands to perform base tasks with repository.</p>
 
-<p>Часть команд пакета имеет глобальные привязки клавиш (по умолчанию это <code>C-c h</code>, но может
-быть и изменено в настройке), а часть команд доступна только внутри буфера, в котором
-включен режим <code>hg-mode</code>.  При этом, для многих команд можно также задать префиксный
-аргумент, который позволит задать дополнительные параметры в интерактивном режиме.
-Справку по командам и привязкам клавиш пакета можно получить с помощью команды
-<code>hg-help-overview</code> (<code>C-c h h</code>).</p>
+<p>Some of commands also has global key bindings (by default this is <code>C-c h</code>, but it could be
+changed by user), and other commands available only inside buffer for which <code>hg-mode</code> is
+enabled.  For some commands user can use prefix argument and this allow him to set
+additional parameters interactively.  User can get help on commands and key bindings
+provided by <em>mercurial.el</em> with <code>hg-help-overview</code> (<code>C-c h h</code>) command.</p>
 
-<p>Чтобы просмотреть изменения, сделанные в процессе работы, пользователь может использовать
-либо команду <code>hg-diff</code> (<code>C-x v =</code>), которая показывает изменения для текущего
-файла, либо команду <code>hg-diff-repo</code> (<code>C-c h =</code>), которая показывает изменения для
-всего репозитория.  Обе этих команды, открывают дополнительный буфер, в котором и
-отображаются изменения.  Чтобы закрыть этот буфер используйте клавишу <code>q</code>.</p>
+<p>To view changes user can use either the <code>hg-diff</code> (<code>C-x v =</code>) command, that show
+changes for current file, either the <code>hg-diff-repo</code> (<code>C-c h =</code>) command, that
+show changes for whole repository.  Both commands create additional buffer in which
+changes are displayed.  To close this buffer just press <code>q</code> key.</p>
 
-<p>Подтверждение изменений осуществляется командой <code>hg-commit-start</code>, которая имеет две
-привязки клавиш: локальную &mdash; 
-<code>C-x v n</code> и глобальную &mdash; 
-<code>C-c h c</code>.  При выполнении этой
-команды, <em>mercurial.el</em> создает новый буфер, в котором пользователь может ввести текст
-сообщения, которое будет записано в журнал изменений.  Кроме текста пользователя, в нижней
-части буфера отображается список файлов, изменения для которых будут подтверждены.  По
-умолчанию, это все файлы, но пользователь может изменить этот список путем перемещения
-курсора на имя файла и изменения признака выбора (жирный шрифт) с помощью клавиш <code>SPC</code> или
-<code>RET</code>, или с помощью средней кнопки мыши.  На рисунке можно увидеть пример работы с этим
-буфером, при подтверждении изменений.</p>
+<p>Committing of changes is performed with <code>hg-commit-start</code> command, that has two key
+bindings: local &mdash; 
+<code>C-x v n</code>, and global &mdash; 
+<code>C-c h c</code>.  During execution of this command
+<em>mercurial.el</em> creates a new buffer, in which user can enter commit message, that will
+written to log.  In addition to user's commit message, in this buffer also displayed list
+of files for which changes will committed.  By default commit will affect all files, but
+user can change this list by moving cursor to file and switch selection (shown as a bold
+face) with <code>SPC</code> or <code>RET</code> keys (or with middle mouse button).  On the picture below you can
+see work with this buffer.</p>
 
 <p class="image"><img src="mercurial-el.png" alt=""></p>
 
-<p>В буфере, созданном при выполнении команды <code>hg-commit-start</code> включается отдельный режим,
-имеющий название <code>hg-commit-mode</code>.  Для него определено несколько сочетаний клавиш, которые
-могут быть использованы пользователем.  <code>C-c C-c</code>, так же как и во многих других пакетах,
-производит операцию подтверждения изменений в репозиторий, используя введенный
-пользователем текст.  Сочетание <code>C-c C-k</code> прерывает процесс подтверждения изменений.  А
-сочетание <code>C-x v =</code> позволяет выполнить просмотр подтверждаемых изменений.</p>
+<p>In buffer, created by <code>hg-commit-start</code> function, work special mode called <code>hg-commit-mode</code>.
+It use several special key bindings, that could be used by user.  As in many other modes
+<code>C-c C-c</code> key binding is used to initiate commit operation using user's text as a commit
+message.  The <code>C-c C-k</code> key binding aborts the commit process.  And <code>C-x v =</code>
+could be used to view changes in this commit.</p>
 
-<p>Для отмены сделанных изменений можно также воспользоваться одной из двух команд:
-<code>hg-revert-buffer</code> (<code>C-x v u</code>) откатывает изменения только для текущего файла, а команда
-<code>hg-revert</code> (<code>C-c h U</code>) проделывает то же самое для всех измененных файлов в репозитории.</p>
+<p>To revert made changes user can also use one of two commands: <code>hg-revert-buffer</code> (<code>C-x v u</code>)
+command cancel changes only for current file, and the <code>hg-revert</code> (<code>C-c h U</code>) command do this
+for all modified files in repository.</p>
 
-<p>Для добавления файла в репозиторий можно воспользоваться командой <code>hg-add</code> (<code>C-c h a</code>).  По
-умолчанию, она добавляет в репозиторий текущий файл, но если ей задать префиксный
-аргумент, то она запросит имя файла, который необходимо добавить в репозиторий.  Функция
-<code>hg-forget</code> (<code>C-c h f</code>) (она еще не реализована полностью) предназначена для отмены добавления
-файла в репозиторий, если вы еще не выполнили команду подтверждения изменений, что бывает
-полезно в некоторых случаях.</p>
+<p>To add a new file to repository you can use <code>hg-add</code> (<code>C-c h a</code>) command.  By default it add
+current file to repository, but if you give it prefix argument, then it will ask for name
+of file to add.  And the <code>hg-forget</code> (<code>C-c h f</code>) command (it not implement) could be used to
+cancel addition of new file (if you hasn't committed it yet).</p>
 
-<p>Чтобы посмотреть статус файлов в репозитории, можно воспользоваться командой <code>hg-status</code>
-(<code>C-c h s</code>), но в отличии от других пакетов, пользователю не разрешается выполнять
-какие либо операции с полученными данными.  Для просмотра истории изменений конкретного
-файла определена команда <code>hg-log</code> (<code>C-x v l</code>).  Аналогичная команда для просмотра истории
-изменений репозитория называется <code>hg-log-repo</code> (<code>C-c h l</code>).  Также, определена и команда
-<code>hg-annotate</code> (<code>C-x v a</code>), которая должна показывать файл, с указанием того, в какой версии
-что менялось, но пока эта функция полностью не реализована.</p>
+<p>To view status of files in repository user can use the <code>hg-status</code> (<code>C-c h s</code>) command, but in
+distinction from other packages, it doesn't allowed to perform commands with retrieved
+data.  To view history of changes for concrete file could be used the <code>hg-log</code> (<code>C-x v l</code>)
+command.  To view change log for whole repository exists separate command called
+<code>hg-log-repo</code> (<code>C-c h l</code>).  There is also the <code>hg-annotate</code> (<code>C-x v a</code>) command, that could be
+used to view annotated source code with version marks.</p>
 
-<p>Кроме этих базовых операций, пакет также предоставляет набор основных операций для работы
-с ветками и удаленными репозиториями.  Команда <code>hg-incoming</code> (<code>C-c h ,</code>) позволяет просмотреть
-список изменений в удаленном репозитории, которые отсутствуют в текущем репозитории, а
-команды <code>hg-pull</code> (<code>C-c h &lt;</code>) и hg-update (<code>C-c h u</code>), соответственно, скачать
-изменения, и применить их к текущему репозиторию.  Команды <code>hg-outgoing</code> (C-c h .) и <code>hg-push</code>
-(<code>C-c h &gt;</code>) позволяют просмотреть какие изменения присутствуют в текущем репозитории, но
-отсутствуют в удаленном, и поместить их туда (push).</p>
+<p>Besides this base operation, the <em>mercurial.el</em> package also provide base commands for
+working with branches and remote repositories.  The <code>hg-incoming</code> (<code>C-c h ,</code>) command allow
+user to view of changes existing in remote repository. The <code>hg-pull</code> (<code>C-c h &lt;</code>)
+and hg-update (<code>C-c h u</code>) commands perform downloading and applying changes to current
+repository.  There are also commands <code>hg-outgoing</code> (<code>C-c h .</code>) and <code>hg-push</code> (<code>C-c h &gt;</code>) that
+allow to view which changes are missed in remote repository and push them to it.</p>
 
 
 <h2><a name="sec3" id="sec3"></a>
 Customization</h2>
 
-<p class="first">Настройка пакета осуществляется с помощью стандартных средств Emacs.  Группа настройки
-называется <code>mercurial</code>.  Пользователь может, например, изменить префикс для глобальных
-привязок клавиш, используемых некоторыми командами (по умолчанию &mdash; 
-<code>C-c h</code>).</p>
+<p class="first">User can customize behaviour of package using standard Emacs customization routines.
+Corresponding customization group has name <code>mercurial</code>.  User can change, for example,
+prefix key for global key bindings (by default this is <code>C-c h</code>).</p>
 
-<p>Пользователь для настройки поведения пакета может воспользоваться несколькими хуками,
-которые будут вызываться в определенные моменты работы пакета.  <code>hg-commit-mode-hook</code> будет
-вызываться после создания буфера, отображаемого пользователю перед подтверждением
-изменений.  В свою очередь <code>hg-pre-commit-hook</code> вызывается после того, как пользователь
-введет сообщение для журнала изменений, и перед тем, как будет выполнено подтверждение
-изменений в репозитории.  <code>hg-log-mode-hook</code> вызывается после создания буфера, заполненного
-информацией из журнала изменений при вызове команд <code>hg-log-repo</code> и <code>hg-log</code>.  И конечно,
-пользователь может определить <code>hg-mode-hook</code>, который будет выполнен в процессе включения
-<code>hg-mode</code> для данного буфера.</p>
+<p>User can use several hooks for customize behaviour of different modes, used by
+<em>mercurial.el</em>.  <code>hg-commit-mode-hook</code> will called after creating a buffer, used for entering
+of commit message.  And <code>hg-pre-commit-hook</code> will called <em>after</em> entering of commit message
+and <em>before</em> performing actual commit.  <code>hg-log-mode-hook</code> called after creating a buffer that
+show log information (as result calling <code>hg-log-repo</code> and <code>hg-log</code> commands).  And user can
+also define <code>hg-mode-hook</code>, that will called when <code>hg-mode</code> will enabled for given buffer.</p>
 
 <hr>
 <p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Latest version of <em>mercurial.el</em> you can download from repository, link to which you can
