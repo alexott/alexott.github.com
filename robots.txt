@@ -11,3 +11,6 @@ Disallow: /~ott/header.tmpl
 Disallow: /~ott/footer.tmpl
 Disallow: /~ott/resume-ru.txt
 Disallow: /~ott/emacs/emacs-21-4-whats-new.html
+Disallow: /~ott/common/photos/cat/
+Disallow: /~ott/emacs
+Disallow: /~ott/linux/zsh/article.txt
