@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title>AOL Instant Messaging (AIM)</title>
+    <meta name="generator" content="muse.el">
+    <meta name="author" content="Alex Ott">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    
+    
+	 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../web.css">
+    <link rel="stylesheet" type="text/css" href="../print.css" media="print">
+  </head>
+  <body>
+    <div id="wrap">
+    <h1>AOL Instant Messaging (AIM)</h1>
+    <!-- Page published by Emacs Muse begins here -->
+<p>Support of AIM protocol for Emacs provided by <em>TNT</em> package. This package implements support
+for message exchanging and works with chat rooms.</p>
+
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Installation of package</a>
+</dt>
+<dt>
+<a href="#sec2">Working with <em>TNT</em></a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec3">Connecting, disconnecting and changing of user status</a>
+</dt>
+<dt>
+<a href="#sec4">Messaging</a>
+</dt>
+<dt>
+<a href="#sec5">Misc commands</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec6">Package customisation</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec7">Login customisation</a>
+</dt>
+<dt>
+<a href="#sec8">Audio settings</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+Installation of package</h2>
+
+<p class="first">You can download package from it's <a href="http://tnt.sourceforge.net/">home page</a>.  Installation of package is very simple &mdash;
+just unpack downloaded archive and setup Emacs to use sources.  You can do this by putting
+following commands into Emacs initialisation file:</p>
+
+<pre class="src">
+(add-to-list 'load-path <span style="color: #bc8f8f;">"path_to_tnt_dir"</span>)
+(require 'tnt)
+</pre>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Working with <em>TNT</em></h2>
+
+<p class="first">To work with AIM from Emacs you need to have account.  If you don't have one, then you can
+register it at <a href="http://www.aol.com/aim">AOL's site</a>.  The main work with this package go throught key bindings, that
+are very easy to remember.  All commands we can split into several groups, that are
+described in following subsections.</p>
+
+<h3><a name="sec3" id="sec3"></a>
+Connecting, disconnecting and changing of user status</h3>
+
+<p class="first">To connect to AIM services you need to execute command <code>tnt-open</code> (<code>C-x t o</code>).  For this you
+need to provide user name and password for your account, and if they accepted, then this
+command will report, that you connected to service.  To avoid entering of password each
+time, you can set it in variables <code>tnt-default-username</code> and <code>tnt-default-password</code>.<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup></p>
+
+<p>After connecting, user can do all standard things &mdash; receive and send messages, chatting,
+etc.</p>
+
+<p>To disconnect from AIM you need to run command <code>tnt-kill</code> (<code>C-x t q</code>).</p>
+
+<p>Also user can change it status from <em>Online</em> to <em>Away</em> (and back) with command <code>tnt-away-toggle</code>
+(or with <code>C-x t A</code>).  You can customize message, that will send to users, that try to send
+you messages when you has <em>Away</em> status.</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Messaging</h3>
+
+<p><em>TNT</em>  supports two type of messaging &mdash;  user-to-user messaging and chatting.</p>
+
+<p>For user-to-user communication there is command <code>tnt-im</code> (binded to <code>C-x t i</code>) that sends
+message to another user. You will asked user name with which you want communicate, and
+after connecting, new buffer will opened, where you can input your messages and read
+answers.  If user name is saved in your users list, then you can use completion during
+entering user's name.</p>
+
+<p>To start chatting you need to run command <code>tnt-join-chat</code> (or <code>C-x t j</code>).  You wil asked about
+name of chat room.  You can input name of existing chat room, or create new one. If chat
+room does not exists, then it will created.  As for user-to-user messaging, new buffer
+will created, where all things could be done.  To leave chat room you need to run command
+<code>tnt-leave-chat</code> (<code>C-x t l</code>).</p>
+
+<p>If you receive invitation to chat room, or message from another user, you can accept it
+with <code>tnt-accept</code> command (<code>C-x t a</code>) or reject it with <code>tnt-reject</code> command (<code>C-x t r</code>) &mdash; this
+can useful when you busy, or doesn't want to chat with some users.  If you receive several
+messages, they are stored in queue and you can move between them with commands
+<code>tnt-next-event</code> (<code>C-x t n</code>) &mdash; to get next message, and <code>tnt-prev-event</code> (<code>C-x t p</code>) &mdash; to get
+previous message.</p>
+
+
+<h3><a name="sec5" id="sec5"></a>
+Misc commands</h3>
+
+<p class="first">You can create list of users to input their names quickly.  To see current list of users
+you can use command <code>tnt-show-buddies</code> (<code>C-x t b</code>), and to edit it, use command
+<code>tnt-edit-buddies</code> (<code>C-x t B</code>).  Names from list of users, could be used for completing user
+names, when this need.</p>
+
+<p><em>TNT</em> can also work as AIM-to-email gateway.  This is very handy, if you want to receive
+messages from AIM on your email address.  You can do this with command <code>tnt-toggle-email</code>
+(<code>C-x t M</code>).  You also need to set two variables <code>tnt-email-to-pipe-to</code> and <code>tnt-email-binary</code>.</p>
+
+<p>If you have several accounts, you can switch between them with <code>tnt-switch-user</code> (<code>C-x t s</code>)
+command.  The command <code>tnt-mute</code> (<code>C-x t m</code>) switch on and off audio signals, that used by <em>TNT</em>
+to notify user about messages.</p>
+
+
+
+<h2><a name="sec6" id="sec6"></a>
+Package customisation</h2>
+
+<p class="first">You can customise <em>TNT</em> using standard Emacs customisation functions (and of course, with
+Emacs Lisp).  To make customisation you can use command <code>M-x tnt-customize</code>, or <code>M-x
+customize-group tnt</code>.  All settings, that user can modify described in file <code>README</code> that
+come with <em>TNT</em> package.</p>
+
+<h3><a name="sec7" id="sec7"></a>
+Login customisation</h3>
+
+<p><em>TNT</em> allow user to use several accounts simultaneously.  Name and password are stored in
+variables <code>tnt-default-username</code> and <code>tnt-default-password</code>.  If you has several accounts,
+then you can put it into variable <code>tnt-username-alist</code>, that is associative list.  But you
+should care, that these data stored in file as plain text, so your data could be read by
+other users, if you'll set improper access rights to file with settings.</p>
+
+
+<h3><a name="sec8" id="sec8"></a>
+Audio settings</h3>
+
+<p><em>TNT</em> allows user to customize audio signals, that used for different events.  For each of
+event exist variable with name <code>tnt-beep-on-...</code>, for example <code>tnt-beep-on-incoming-message</code>
+will be used for notification on new incoming messages.  Besides this, you could also
+specify which program will be used to play these files (variable <code>tnt-sound-exec</code>) and
+arguments, that will be passed to this program (variable <code>tnt-sound-exec-args</code>).</p>
+
+
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> You can also use several accounts. To get more detail information about this, see
+section about package customization.</p>
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+  </div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+	_uacct = "UA-78697-3";
+	urchinTracker();
+</script>
+  </body>
+</html>

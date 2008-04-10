@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title>Yahoo! Chat Messenger</title>
+    <meta name="generator" content="muse.el">
+    <meta name="author" content="Alex Ott">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    
+    
+	 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../web.css">
+    <link rel="stylesheet" type="text/css" href="../print.css" media="print">
+  </head>
+  <body>
+    <div id="wrap">
+    <h1>Yahoo! Chat Messenger</h1>
+    <!-- Page published by Emacs Muse begins here -->
+<p>There are two implementations of <em>Yahoo! Chat</em> protocol for Emacs.  First of them called
+<a href="http://www.nongnu.org/elgyach">El-Gyach</a> and second is called <a href="http://users.starpower.net/marti1/yod.el.html">yod.el</a>, but <em>El-Gyach</em> has more features then <em>yod.el</em>, so i'll
+describe it in more detail.</p>
+
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1"><em>El-Gyach</em>'s features</a>
+</dt>
+<dt>
+<a href="#sec2"><em>El-Gyach</em>'s installation</a>
+</dt>
+<dt>
+<a href="#sec3">Using the package</a>
+</dt>
+<dt>
+<a href="#sec4"><em>El-Gyach</em>'s commands</a>
+</dt>
+<dt>
+<a href="#sec5">Customisation of <em>El-Gyach</em></a>
+</dt>
+</dl>
+</div>
+
+
+<h2><em><a name="sec1" id="sec1"></a>El-Gyach</em>'s features</h2>
+
+<p><em>El-Gyach</em> implements following features:</p>
+
+<ul>
+<li>Spell checking;</li>
+<li>Words highlighting;</li>
+<li>Support of AES encryption;</li>
+<li>Names, command and text completion;</li>
+<li>Faces customisation;</li>
+<li>Working with different accounts simultaneously;</li>
+<li>Messages history;</li>
+<li>Ability to ignore messages from some users;</li>
+<li>Integration with other Emacs modules.</li>
+</ul>
+
+<p>More detail information you can find on sites, dedicated to <em>El-Gyach</em> development.</p>
+
+
+<h2><em><a name="sec2" id="sec2"></a>El-Gyach</em>'s installation</h2>
+
+<p class="first">To install <em>El-Gyach</em> you need to download it from <a href="http://savannah.nongnu.org/projects/elgyach">site</a>, unpack sources and compile it (to
+work with Yahoo servers, <em>El-Gyach</em> use module, written in С language). After compilation,
+put following text in your Emacs initialisation file:</p>
+
+<pre class="src">
+(add-to-list 'load-path <span style="color: #bc8f8f;">"path_to_elgyach"</span>)
+(autoload <span style="color: #bc8f8f;">"gyach"</span> <span style="color: #bc8f8f;">"gyach"</span> <span style="color: #bc8f8f;">"Autoload for El-Gyach"</span>)
+</pre>
+
+<p>After loading the package, you can setup it with Emacs's customisation commands &mdash; 
+<code>M-x
+customize-group gyach</code>. Here you can set username and password for your account, and also
+you can setup name of <code>elgyach</code> programm, if it installed in non-standard place.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Using the package</h2>
+
+<p class="first">To run <em>El-Gyach</em> you need to do command <code>M-x gyach</code>, that create process buffer. You can also
+use several <em>El-Gyach</em> processes simultaneously.  To do this, if you give prefix before run
+this command, as here <code>C-u M-x gyach</code>.  But you cannot login to more then one chat room when
+using same account &mdash; this is restriction of <em>Yahoo! Chat</em>.</p>
+
+
+<h2><em><a name="sec4" id="sec4"></a>El-Gyach</em>'s commands</h2>
+
+<p><em>El-Gyach</em> supports different commands, given in form <code>/commandname</code>.  Now
+available following commands:</p>
+
+<ul>
+<li><code>/ignore User</code> and <code>/unignore User</code> &mdash; to ignore messages from certain users, and to drop
+this ignoring;</li>
+<li><code>/highlight User</code> and <code>/unhighlight User</code> &mdash; to highlight messages from certain users, and
+to drop this highlighting;</li>
+<li><code>/version</code> &mdash; print out version number of <em>El-Gyach</em>.</li>
+</ul>
+
+
+<h2><a name="sec5" id="sec5"></a>
+Customisation of <em>El-Gyach</em></h2>
+
+<p class="first">The main customisation parameters are username and password for <em>Yahoo! Chat</em> account.
+These parameters are stored in variables <code>gyach-yahoo-username</code> and <code>gyach-yahoo-password</code>. To
+make precise customisation of <em>El-Gyach</em> buffers you can use lisp code, that you can call
+from <code>gyach-mode-hook</code>.</p>
+
+<p><em>El-Gyach</em> легко расширяется. При каждом вызове команды вида <code>/КОМАНДА</code>, будет вызываться
+функция <code>gyach-custom-КОМАНДА</code>. Таким образом, вы можете добавить свою функциональность с
+помощью небольшого объема кода.</p>
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+  </div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+	_uacct = "UA-78697-3";
+	urchinTracker();
+</script>
+  </body>
+</html>
