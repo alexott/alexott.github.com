@@ -36,7 +36,7 @@ Exmap's distribution contain also  =gexmap= utility, that used for graphical rep
 of data, collected by kernel module.  Example of work with =gexmap= you can see on
 screenshot below.
 
-[[exmap.png]]
+[[../../../common/writings/prog-checking/exmap.png]]
 
 
 As you can see on picture, information displayed in several windows:

@@ -50,7 +50,7 @@ user can change this list by moving cursor to file and switch selection (shown a
 face) with =SPC= or =RET= keys (or with middle mouse button).  On the picture below you can
 see work with this buffer.
 
-[[mercurial-el.png]]
+[[../../../common/writings/emacs-vcs/mercurial-el.png]]
 
 In buffer, created by =hg-commit-start= function, work special mode called =hg-commit-mode=.
 It use several special key bindings, that could be used by user.  As in many other modes

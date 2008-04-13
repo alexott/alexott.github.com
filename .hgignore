@@ -84,3 +84,10 @@ syntax: regexp
 ^en/writings/emacs-im/EmacsICQ\.html$
 ^en/writings/emacs-im/EmacsErc\.html$
 ^en/writings/emacs-im/EmacsAIM\.html$
+^ru/writings/prog-checking/index\.html$
+^ru/writings/prog-checking/Valgrind\.html$
+^ru/writings/prog-checking/LeakTracer\.html$
+^ru/writings/prog-checking/GooglePT\.html$
+^ru/writings/prog-checking/Exmap\.html$
+^ru/writings/prog-checking/ElectricFence\.html$
+^ru/writings/prog-checking/DMalloc\.html$

@@ -203,7 +203,7 @@ LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 HEAPPROFILE=gpt-heapprofile.log ./your-
 
 так и в графическом виде (это только часть графика, выводимого =pprof=):
 
-[[gpt-cpuprof.png]]
+[[../../../common/writings/prog-checking/gpt-cpuprof.png]]
 
 При выводе результатов в виде текста, утилита выдает список функций, для каждой из которых
 указывается следующая информация (в колонке с соответствующим номером):

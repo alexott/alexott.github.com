@@ -23,11 +23,11 @@ describe the systems-specific packages, that implements the second approach.
 
  - Generic packages
   - Work with VC
-  - [[EmacsDVC][Work with DVC]]
+  - [[./EmacsDVC][Work with DVC]]
  - System-specific packages
   - PCL-CVS package
   - PSVN
-  - [[EmacsMercurial][Mercurial's support]]
+  - [[./EmacsMercurial][Mercurial's support]]
   - Work with perforce
   - ....
  

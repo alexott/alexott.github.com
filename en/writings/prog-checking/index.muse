@@ -15,22 +15,19 @@ their principles of work based on analysis of executed code.  I need to mention,
 exists tools for performing statical analysis of source code, but this is theme for other
 article. In this article will described following tools & libraries:
 
- [[Valgrind]] :: very powerful tool, that not only helps in finding of memory leaks, but also
+ [[./Valgrind]] :: very powerful tool, that not only helps in finding of memory leaks, but also
  allow to find synchronisation errors in multi-threading programs, and analyse performance
  of programs
 
- [[GooglePT][Google Performance Tools]] :: toolkit, containing utilities, that allow to perform
+ [[./GooglePT][Google Performance Tools]] :: toolkit, containing utilities, that allow to perform
  program performance profiling, analyse memory consumption, and find memory leaks
 
- [[Exmap][Exmap]] :: special utility for Linux, that allow to collect information about program's
+ [[./Exmap][Exmap]]:: special utility for Linux, that allow to collect information about program's
  real memory consumption
 
- [[DMalloc][dmalloc]] :: library for finding errors of work with memory
+ [[./DMalloc][dmalloc]]:: library for finding errors of work with memory
 
- [[ElectricFence][Electric Fence]] :: library for finding errors of work with memory
+ [[./ElectricFence][Electric Fence]]:: library for finding errors of work with memory
 
 to be continued ....
-
---------------------------
-          [[../index][Back to main page]]
 
