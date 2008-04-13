@@ -1,0 +1,71 @@
+#title Yahoo! Chat Messenger
+
+There are two implementations of *Yahoo! Chat* protocol for Emacs.  First of them called
+[[http://www.nongnu.org/elgyach][El-Gyach]] and second is called [[http://users.starpower.net/marti1/yod.el.html][yod.el]], but *El-Gyach* has more features then *yod.el*, so i'll
+describe it in more detail.
+
+<contents>
+
+* *El-Gyach*'s features
+        
+*El-Gyach* implements following features:
+
+ - Spell checking;
+ - Words highlighting;
+ - Support of AES encryption;
+ - Names, command and text completion;
+ - Faces customisation;
+ - Working with different accounts simultaneously;
+ - Messages history;
+ - Ability to ignore messages from some users;
+ - Integration with other Emacs modules.
+
+More detail information you can find on sites, dedicated to *El-Gyach* development.
+        
+* El-Gyach's installation
+        
+To install *El-Gyach* you need to download it from [[http://savannah.nongnu.org/projects/elgyach][site]], unpack sources and compile it (to
+work with Yahoo servers, *El-Gyach* use module, written in С language). After compilation,
+put following text in your Emacs initialisation file:
+
+<src lang="elisp">
+(add-to-list 'load-path "path_to_elgyach")
+(autoload "gyach" "gyach" "Autoload for El-Gyach")
+</src>
+
+After loading the package, you can setup it with Emacs's customisation commands -- =M-x
+customize-group gyach=. Here you can set username and password for your account, and also
+you can setup name of =elgyach= programm, if it installed in non-standard place.
+
+* Using the package
+        
+To run *El-Gyach* you need to do command =M-x gyach=, that create process buffer. You can also
+use several *El-Gyach* processes simultaneously.  To do this, if you give prefix before run
+this command, as here =C-u M-x gyach=.  But you cannot login to more then one chat room when
+using same account -- this is restriction of *Yahoo! Chat*.
+
+* *El-Gyach*'s commands
+        
+*El-Gyach* supports different commands, given in form =/commandname=.  Now
+available following commands:
+              
+ - =/ignore User= and =/unignore User= -- to ignore messages from certain users, and to drop
+   this ignoring;
+ - =/highlight User= and =/unhighlight User= -- to highlight messages from certain users, and
+   to drop this highlighting;
+ - =/version= -- print out version number of *El-Gyach*.
+
+* Customisation of *El-Gyach*
+        
+The main customisation parameters are username and password for *Yahoo! Chat* account.
+These parameters are stored in variables =gyach-yahoo-username= and =gyach-yahoo-password=. To
+make precise customisation of *El-Gyach* buffers you can use lisp code, that you can call
+from =gyach-mode-hook=.
+
+*El-Gyach* легко расширяется. При каждом вызове команды вида =/КОМАНДА=, будет вызываться
+функция =gyach-custom-КОМАНДА=. Таким образом, вы можете добавить свою функциональность с
+помощью небольшого объема кода.
+
+--------------------------
+          [[./index][Back to main page]]
+

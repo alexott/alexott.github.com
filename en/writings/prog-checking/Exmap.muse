@@ -1,0 +1,85 @@
+#title Work with Exmap
+#keywords bugs finding, exmap, article, memory leaks, linux
+
+<contents>
+
+* Introduction
+
+[[http://www.berthels.co.uk/exmap][Exmap]] is utility that allow user to get information about real executed program's memory
+consumption.  To obtain this information a special module for Linux kernel is used.
+Information collected by kernel module may be obtained by user via user-space utilities.
+
+For executable files, containing debug information, module can obtain information with
+symbol-level details, and for all other files(without debug information), information
+provided with section-level details.
+
+For analysis of collected data there are several programs.  In Exmap's distribution there
+is =gexmap= utility, that provide access to information via graphical user interface.
+Besides this, there is also =exmap-console= tool, that allow to get information with
+command-line utilities, and allow to get access to information on remote host.
+
+* Installation 
+
+In some Linux distributions this package could be installed from central repositories, but
+for all others, user need to build it yourself.  To do this, user need to download source
+codes from [[http://www.berthels.co.uk/exmap][exmap]] site, unpack them and execute two commands:
+
+ =make= :: to build kernel module and =gexmap= tool
+ =sudo insmod kernel/exmap.ko= ::  to load kernel module
+
+After execution of these commands, user can start to use user-level utilities to get
+information about memory consumption.
+
+* gexmap
+
+Exmap's distribution contain also  =gexmap= utility, that used for graphical representation
+of data, collected by kernel module.  Example of work with =gexmap= you can see on
+screenshot below.
+
+[[exmap.png]]
+
+
+As you can see on picture, information displayed in several windows:
+ - in first window displayed summary information for each of executed processes
+ - in second window you can see more detailed information about memory consumption in one
+   of component of selected (in first window) program -- memory allocation on heap,
+   library loaded by program, etc.
+ - in next window displayed information about ELF segments for selected component
+ - in the last window, displayed information for each object in selected segment of ELF
+   file
+
+So, user can get information about memory consumption for all program, or for selected
+components and objects.
+
+* exmap-console
+
+Usage of graphical user interface not always convenient for developer.  This was main
+reason for development of separate utility, called [[http://labs.o-hand.com/exmap-console/][exmap-console]], that implements
+command-line utility for retrieving information from kernel module, and also some programs
+for access this information on remote servers.
+
+Installation of this package is pretty simple -- you need to download source code from
+[[http://labs.o-hand.com/sources/exmap-console/][project's home page]], unpack them and execute standard build sequence (=./configure ; make ;
+make install=) to build & install this program.
+
+After building of package user can use several commands:
+
+ =exmap= :: command-line utility, that accesses to kernel module and prints information in
+   text form.  This program can also be used in interactive mode.  Besides this, =exmap=
+   could be used to access to information on remote server, that executes the =exmapserver=
+   tool.
+ 
+ =exmapserver= :: provide remote access to information collected by kernel module.
+
+ =exmapd= :: is used to run =exmap= periodically and stores collected information in given
+   directory.
+
+Detailed information about work with these utilities you can find in manual pages,
+distributed together with source code.
+
+--------------------------
+          [[./index][Back to main page]]
+
+;  LocalWords:  командно-строковые exmap-console gexmap программы-анализаторы
+;  LocalWords:  sudo insmod kernel exmap ko ELF heap exmapserver exmapd install
+;  LocalWords:  командно-строковую configure командно-строковая Exmap's

@@ -1,0 +1,110 @@
+#title Use Emacs to work with Mercurial
+#keywords emacs, version control, mercurial, hg
+
+<contents>
+
+In Emacs support of *Mercurial* implemented by several packages, providing different levels
+of support.  In *Mercurial's* distribution exists package *mercurial.el*, that implement
+*native* support, and described in this document.  Another package, implementing *native*
+support is [[http://disi.unitn.it/~griggio/ahg.html][aHg]], and it also described here.
+
+There is also support for *Mercurial* in the *DVC* & *VC* packages, that implement a *common*
+approach for different version control systems.  These packages are described in
+corresponding sections of this article.
+
+* Mercurial.el
+
+** Installation 
+
+To install the package you need to copy the file =mercurial.el= from =contrib= directory in
+the *Mercurial's* distribution into place, where Emacs could find it, and put following
+command into Emacs's initialization file[1]:
+
+<src lang="emacs-lisp">
+(require 'mercurial)
+</src>
+
+** Work with package
+
+*Mercurial.el* use almost same principles as the VC package (i need to mention, that VC also
+support work with *Mercurial*) and use almost same key bindings as VC does.  *mercurial.el* --
+minor mode, that add some number of commands to perform base tasks with repository.
+
+Some of commands also has global key bindings (by default this is =C-c h=, but it could be
+changed by user), and other commands available only inside buffer for which =hg-mode= is
+enabled.  For some commands user can use prefix argument and this allow him to set
+additional parameters interactively.  User can get help on commands and key bindings
+provided by *mercurial.el* with =hg-help-overview= (=C-c h h=) command.
+
+To view changes user can use either the =hg-diff= (<code>C-x v =</code>) command, that show
+changes for current file, either the =hg-diff-repo= (<code>C-c h =</code>) command, that
+show changes for whole repository.  Both commands create additional buffer in which
+changes are displayed.  To close this buffer just press =q= key.
+
+Committing of changes is performed with =hg-commit-start= command, that has two key
+bindings: local -- =C-x v n=, and global -- =C-c h c=.  During execution of this command
+*mercurial.el* creates a new buffer, in which user can enter commit message, that will
+written to log.  In addition to user's commit message, in this buffer also displayed list
+of files for which changes will committed.  By default commit will affect all files, but
+user can change this list by moving cursor to file and switch selection (shown as a bold
+face) with =SPC= or =RET= keys (or with middle mouse button).  On the picture below you can
+see work with this buffer.
+
+[[mercurial-el.png]]
+
+In buffer, created by =hg-commit-start= function, work special mode called =hg-commit-mode=.
+It use several special key bindings, that could be used by user.  As in many other modes
+=C-c C-c= key binding is used to initiate commit operation using user's text as a commit
+message.  The =C-c C-k= key binding aborts the commit process.  And <code>C-x v =</code>
+could be used to view changes in this commit.
+
+To revert made changes user can also use one of two commands: =hg-revert-buffer= (=C-x v u=)
+command cancel changes only for current file, and the =hg-revert= (=C-c h U=) command do this
+for all modified files in repository.
+
+To add a new file to repository you can use =hg-add= (=C-c h a=) command.  By default it add
+current file to repository, but if you give it prefix argument, then it will ask for name
+of file to add.  And the =hg-forget= (=C-c h f=) command (it not implement) could be used to
+cancel addition of new file (if you hasn't committed it yet).
+
+To view status of files in repository user can use the =hg-status= (=C-c h s=) command, but in
+distinction from other packages, it doesn't allowed to perform commands with retrieved
+data.  To view history of changes for concrete file could be used the =hg-log= (=C-x v l=)
+command.  To view change log for whole repository exists separate command called
+=hg-log-repo= (=C-c h l=).  There is also the =hg-annotate= (=C-x v a=) command, that could be
+used to view annotated source code with version marks.
+
+Besides this base operation, the *mercurial.el* package also provide base commands for
+working with branches and remote repositories.  The =hg-incoming= (=C-c h ,=) command allow
+user to view of changes existing in remote repository. The =hg-pull= (<code>C-c h <</code>)
+and hg-update (=C-c h u=) commands perform downloading and applying changes to current
+repository.  There are also commands =hg-outgoing= (=C-c h .=) and =hg-push= (=C-c h >=) that
+allow to view which changes are missed in remote repository and push them to it.
+
+** Customization
+
+User can customize behaviour of package using standard Emacs customization routines.
+Corresponding customization group has name =mercurial=.  User can change, for example,
+prefix key for global key bindings (by default this is =C-c h=).
+
+User can use several hooks for customize behaviour of different modes, used by
+*mercurial.el*.  =hg-commit-mode-hook= will called after creating a buffer, used for entering
+of commit message.  And =hg-pre-commit-hook= will called *after* entering of commit message
+and *before* performing actual commit.  =hg-log-mode-hook= called after creating a buffer that
+show log information (as result calling =hg-log-repo= and =hg-log= commands).  And user can
+also define =hg-mode-hook=, that will called when =hg-mode= will enabled for given buffer.
+
+* aHg
+
+http://wxglade.sf.net/extra/ahg.html
+
+--------------------------
+          [[./index][Back to main page]]
+
+Footnotes: 
+[1] Latest version of *mercurial.el* you can download from repository, link to which you can
+    find at [[http://www.emacswiki.org/cgi-bin/wiki/MercurialMode][Mercurial's page on Emacs WiKi]].
+
+;  LocalWords:  EMACS LocalWords mercurial mercurial.el VC репозитория contrib
+;  LocalWords:  репозиторию Mercurial's DVC el hg pre repo
+

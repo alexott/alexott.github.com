@@ -1,0 +1,111 @@
+#title AOL Instant Messaging (AIM)
+
+Support of AIM protocol for Emacs provided by *TNT* package. This package implements support
+for message exchanging and works with chat rooms.
+
+<contents>
+
+* Installation of package
+
+You can download package from it's [[http://tnt.sourceforge.net/][home page]].  Installation of package is very simple --
+just unpack downloaded archive and setup Emacs to use sources.  You can do this by putting
+following commands into Emacs initialisation file:
+
+<src lang="elisp">
+(add-to-list 'load-path "path_to_tnt_dir") 
+(require 'tnt)
+</src>
+
+* Working with *TNT*
+        
+To work with AIM from Emacs you need to have account.  If you don't have one, then you can
+register it at [[http://www.aol.com/aim][AOL's site]].  The main work with this package go throught key bindings, that
+are very easy to remember.  All commands we can split into several groups, that are
+described in following subsections.
+
+** Connecting, disconnecting and changing of user status
+          
+To connect to AIM services you need to execute command =tnt-open= (=C-x t o=).  For this you
+need to provide user name and password for your account, and if they accepted, then this
+command will report, that you connected to service.  To avoid entering of password each
+time, you can set it in variables =tnt-default-username= and =tnt-default-password=.[1]
+
+After connecting, user can do all standard things -- receive and send messages, chatting,
+etc.
+
+To disconnect from AIM you need to run command =tnt-kill= (=C-x t q=).
+
+Also user can change it status from *Online* to *Away* (and back) with command =tnt-away-toggle=
+(or with =C-x t A=).  You can customize message, that will send to users, that try to send
+you messages when you has *Away* status.
+
+** Messaging
+          
+*TNT*  supports two type of messaging --  user-to-user messaging and chatting.
+
+For user-to-user communication there is command =tnt-im= (binded to =C-x t i=) that sends
+message to another user. You will asked user name with which you want communicate, and
+after connecting, new buffer will opened, where you can input your messages and read
+answers.  If user name is saved in your users list, then you can use completion during
+entering user's name.
+
+To start chatting you need to run command =tnt-join-chat= (or =C-x t j=).  You wil asked about
+name of chat room.  You can input name of existing chat room, or create new one. If chat
+room does not exists, then it will created.  As for user-to-user messaging, new buffer
+will created, where all things could be done.  To leave chat room you need to run command
+=tnt-leave-chat= (=C-x t l=).
+
+If you receive invitation to chat room, or message from another user, you can accept it
+with =tnt-accept= command (=C-x t a=) or reject it with =tnt-reject= command (=C-x t r=) -- this
+can useful when you busy, or doesn't want to chat with some users.  If you receive several
+messages, they are stored in queue and you can move between them with commands
+=tnt-next-event= (=C-x t n=) -- to get next message, and =tnt-prev-event= (=C-x t p=) -- to get
+previous message.
+
+** Misc commands
+          
+You can create list of users to input their names quickly.  To see current list of users
+you can use command =tnt-show-buddies= (=C-x t b=), and to edit it, use command
+=tnt-edit-buddies= (=C-x t B=).  Names from list of users, could be used for completing user
+names, when this need.
+          
+*TNT* can also work as AIM-to-email gateway.  This is very handy, if you want to receive
+messages from AIM on your email address.  You can do this with command =tnt-toggle-email=
+(=C-x t M=).  You also need to set two variables =tnt-email-to-pipe-to= and =tnt-email-binary=.
+
+If you have several accounts, you can switch between them with =tnt-switch-user= (=C-x t s=)
+command.  The command =tnt-mute= (=C-x t m=) switch on and off audio signals, that used by *TNT*
+to notify user about messages.
+
+* Package customisation
+        
+You can customise *TNT* using standard Emacs customisation functions (and of course, with
+Emacs Lisp).  To make customisation you can use command =M-x tnt-customize=, or =M-x
+customize-group tnt=.  All settings, that user can modify described in file =README= that
+come with *TNT* package.
+
+** Login customisation
+          
+*TNT* allow user to use several accounts simultaneously.  Name and password are stored in
+variables =tnt-default-username= and =tnt-default-password=.  If you has several accounts,
+then you can put it into variable =tnt-username-alist=, that is associative list.  But you
+should care, that these data stored in file as plain text, so your data could be read by
+other users, if you'll set improper access rights to file with settings.
+
+** Audio settings
+          
+*TNT* allows user to customize audio signals, that used for different events.  For each of
+event exist variable with name =tnt-beep-on-...=, for example =tnt-beep-on-incoming-message=
+will be used for notification on new incoming messages.  Besides this, you could also
+specify which program will be used to play these files (variable =tnt-sound-exec=) and
+arguments, that will be passed to this program (variable =tnt-sound-exec-args=).
+
+--------------------------
+          [[./index][Back to main page]]
+
+;  LocalWords:  keybinding tnt alist username README elisp
+
+Footnotes: 
+[1] You can also use several accounts. To get more detail information about this, see
+    section about package customization.
+

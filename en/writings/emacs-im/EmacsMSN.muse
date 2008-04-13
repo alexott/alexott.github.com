@@ -1,0 +1,10 @@
+#title Emacs & MSN
+#keywords emacs, msn
+
+Судя по информации в Internet, кроме вышеперечисленных модулей, также уществует и
+рудиментарная поддержка служб мгновенного обмена сообщениями MSN.  Реализация этого
+сервиса доступна с [[http://www.geocities.co.jp/SiliconValley-SanJose/7474/EmacsLisp.html][http://www.geocities.co.jp/SiliconValley-SanJose/7474/EmacsLisp.html]],
+но страницы написаны на японском языке, и поэтому информации не так уж и много, хотя по
+скриншоту видно, что клиент работает.
+
+

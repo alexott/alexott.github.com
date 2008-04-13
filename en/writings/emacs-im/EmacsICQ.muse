@@ -1,0 +1,23 @@
+#title Support of ICQ protocol
+
+ICQ is very popular tool for instant messaging.  It used mostly by Windows users and also
+could used from Emacs.  Now exists only one client for this protocol called [[http://emchat.org][emchat]], but
+now it works only under XEmacs.  This implementation provides following functions:
+
+ - support of different ICQ protocols, including protocol version  8
+ - registration  of new users and changing password
+ - sending messages and URLs
+ - users authorisation, changing of user's information and synchronisation of users list
+ - obtaining users list from micq and licq configurations
+ - customization of key bindings
+ - extensible with Emacs Lisp functions
+
+Current implementation does not support chats and file transfer. 
+
+As, i don't use XEmacs, it hadn't tested this package, but installation and using of
+package, described in detail in documentation. This package is in very active development,
+so i think, that in near future it will implement all missing features.
+
+--------------------------
+          [[./index][Back to main page]]
+

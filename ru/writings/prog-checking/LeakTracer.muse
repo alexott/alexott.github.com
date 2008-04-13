@@ -1,0 +1,16 @@
+#title Поиск утечек памяти с помощью leaktracer
+#keywords bugs finding, leaktracer, article, поиск ошибок, memory leaks, утечки памяти
+
+<contents>
+
+* Устновка
+
+
+* Использование
+
+
+
+--------------------------
+          [[./index][На главную страницу]]
+
+;  LocalWords:  leaktracer LocalWords

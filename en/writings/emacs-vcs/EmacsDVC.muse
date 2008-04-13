@@ -1,0 +1,236 @@
+#title Using DVC with Emacs
+#keywords emacs, dvc, version control, git, darcs, bazaar, mercurial, hg, monotone
+
+<contents>
+
+As distributed version control systems (DVCS) become widely used, Emacs also start to
+support them.  To support of concrete DVCS implementations was created separate Emacs
+packages, that implements commands, that closely reflect concrete system, and often these
+packages had used different key bindings, and user interfaces, according ideology of DVCS.
+
+As was mentioned earlier, there is VC package, that was created for supporting of
+different version control systems (VCS) and providing uniform interface for all of them,
+including some of DVCS.  *DVC* package has same goal as VC, but intended for support of
+distributed VCS.  Some of *DVC* code is based on the code from the *Xtla* package, and
+developed by same developers.  You can get more information about it from [[http://download.gna.org/dvc/][project's site]].
+
+* Architecture of DVC and supported systems
+
+*DVC* has multilayer architecture.  At the top layer are functions, that provide automatic
+version control system detection, and perform functions, common for all DVCS.  One layer
+below, are defined functions, specific for concrete version control system.  And at the
+lowest level, are defined functions, providing common framework for all supported DVCS.
+
+Now, *DVC* support following version control systems:
+
+|| name in *DVC*|| name of VCS 
+| xhg | mercurial (aka hg)
+| xgit | git 
+| baz | GNU Arch (tla) and Bazaar 1.x 
+| bzr | Bazaar-NG 
+| xmtn | Monotone 
+| xdarcs | Darcs 
+
+Not all supported VCS has full support in *DVC*.  You can find list of supported functions
+for each of system on [[http://download.gna.org/dvc/][the site]] of project.
+
+* Installation
+
+Installation of package is quite simple -- you need to download archive from site, unpack
+it and setup it with standard commands sequence:
+
+<src lang="sh">
+./configure
+make
+make install
+</src>
+
+To be able to use functions, provided by package, you need to add following lines to Emacs
+initialization file:
+
+<src lang="emacs-lisp">
+(add-to-list 'load-path "path_to_installed_package")
+(require 'dvc-autoloads)
+</src>
+
+that will perform registration of autoloads for parts of package, After executing these
+commands, you can start to work with package, or perform initial customization of it (as
+this described [[#dvc-customize][later]], but usually customization is not required, as package define
+reasonable default values.
+
+* Starting to work with package
+
+User can work with *DVC* using common knowledge about commands of corresponding version
+control system -- for all basic VCS's commands *DVC* provide corresponding functions, those
+names started from =dvc-= prefix[1].
+
+Main command, that will be usually used by user is =dvc-status= (it also available through
+=C-x V s= keybinding).  During execution it creates buffer with a list of modified files,
+that looks much like the buffer, created by package *PCL-CVS*.  Name of the buffer depends
+from the name of used version control system and looks like =*VCS-status*=, where =VCS= will
+replaced with name of backend for corresponding VCS (names of backends listed in table
+above).
+
+After getting buffer with repository's status, user can execute different operations in
+it.  For this buffer will automatically set =dvc-diff= major mode, for which defined some
+number of commands.  Interface and control keys for this mode very close to interface and
+keys that used in *PCL-CVS* package, so if you had worked with it, then you can easily
+switch to work with *DVC*[2].  Some operations also available for execution via menus.  *DVC*
+add several menus -- =DVC-Diff=, =DVC-Buffers=, and dedicated menu for backend of concrete
+VCS, that list commands specific for this backend. =DVC-Buffers= contain list of opened
+buffers, related to *DVC* and could be used for work with these buffers. =DVC-Diff= menu could
+be used for access to commands, common for all VCS -- getting changes, addition and
+deletion of files, etc.
+
+As in *PCL-CVS*, some commands could be executed not only for concrete files, but for group
+of selected files.  For setting mark to file you can use =m= key, and for removing it -- =u=
+key.  Besides this, you can use =backspace= key for removing mark from previous file.
+
+Usually users use only limited set of operations -- look for made changes and commit or
+revert them, add or remove files, look into change log, etc.  For all of these operations
+*DVC* provide corresponding commands.
+
+You can view content of a file with =dvc-diff-jump-to-change= function (key =RET=).  This
+function opens the file and move cursor to first modified line.  Another function for
+viewing source is =diff-goto-source= (=o= key or middle mouse button).  With the function
+=dvc-dired-jump= (=C-x C-j=) you can also open *Dired* buffer and move to the selected file.
+
+User can revert changes with the command =dvc-revert-files= (keys =U= or =C-x V f R=).  But
+committing of changes could be done by one of two commands: =dvc-log-edit= or
+=dvc-add-log-entry=. =dvc-log-edit= (key =c= or =C-x V c=) opens buffer in which you could enter
+commit message, and after this, run function =dvc-log-edit-done= (it bind to keys =C-c C-c=)
+to do actual commit.  Second command -- =dvc-add-log-entry= (=t= or =C-x V a=) differ from first
+only in the style in which commit messages will presented (like entries in =ChangeLog=
+files).  When you stay in status buffer you can also save changes as a file.  You can do
+this with function =dvc-save-diff= (keybinding =W s=).
+
+There are several functions, that could be used to view changes.  To view changes from the
+=*VCS-status*= buffer you can use functions =dvc-diff-diff= (<code>=</code> key) and
+=dvc-diff-ediff= (=e= key).  Second function differ from first only that it run *ediff* instead
+of external *diff*.  To quickly switch between buffer containing diffs and corresponding
+element in the status buffer, you could use function =dvc-diff-diff-or-list= (=j= key) -- it
+works for both buffers.  And with function =dvc-diff-view-source= (=v= key) you can open
+separate buffer with a file and view modified part of the file in this buffer.  To see
+content of buffer with diffs without switching to it, you can use following functions --
+=dvc-diff-scroll-down-or-diff= (<code>M-=</code>) and =dvc-diff-scroll-up-or-diff= (=M-RET=),
+that scroll buffer with diffs up and down.
+
+Besides these functions, exists 3 functions, that could be executed outside of
+=*VCS-status*= buffer and has global key bindings.  =dvc-diff= function (bind to <code>C-x V
+=</code>) display changes between current and previous state of repository.  =dvc-file-diff=
+(=C-x V d=) and =dvc-file-ediff= (=C-x V e=) functions could be used to display changes for
+concrete file, using buffer (with output of external *diff*) or *ediff*.
+
+To see log of changes you can use several functions, that defined both for status buffer,
+and globally.  The =dvc-log= (=L= or =C-x V L=) function show list of changes (in short form)
+for file of project.  For current file in status buffer you can see change log with
+function =dvc-diff-log= (=l= key).  Full change log you can see with function =dvc-changelog=
+(=C-x V l=).  All these functions accept optional prefix parameter, that define how many
+last changes you want to see (by default, these functions show all changes).
+
+* Working with files
+
+Users often perform operations with files -- add them, delete, etc.  *DVC* provide several
+functions for these tasks -- =dvc-add-files= (=a= or =C-x V f a=) function add current (or
+marked) file(s) to repository. To remove marked files from repository user can use
+function =dvc-remove-files= (keys =d=, =r=, or =C-x V f D=).  There is also additional function
+for removing files -- =dvc-purge-files= (=C-x V f X=), that remove files from disk without
+leaving a backups.  As most of modern version control systems provide commands for
+renaming files, so *DVC* also support this functionality with function =dvc-rename= (=C-x V f
+M=).
+
+To work with files, that already registered in VCS, but doesn't shown in status buffer,
+you can use function =dvc-inventory= (=C-x V i=), that display list of files known by VCS.  In
+this buffer user can use same commands and key bindings, as in the status buffer.
+
+User can do some manipulations on list of objects (files and directories) in repository.
+Usually, in each of VCS exists list of ignored files, that could be edited by user[3].
+For quick manipulations with this list there are several functions.  =dvc-ignore-files= (=# i=
+or just =i=) function put current (or marked) file(s) into list of ignored objects.
+=dvc-ignore-file-extensions= (=# I= or =M-I=) function also modify this list, but put into it
+not full file names, but only their extensions.  And if you want to modify this list other
+way -- remove file from list, or add complex regular expression, then you can use function
+=dvc-edit-ignore-files= (=# e=), that open buffer with list of ignored objects, and allow you
+to edit it (please mention, that syntax of this file depends on used version control
+system).
+
+If you want to create new repository in current directory, you can use function =dvc-init=
+(=C-x V I=) that will ask you about which DVCS you want use for it, and after that perform
+corresponding command for initialization of repository.
+    
+* Branches and external repositories 
+
+Work with different repositories and branches is very actual task for user of distributed
+VCS, so *DVC* provide number of functions for performing these tasks.  For all supported VCS
+exists common set of commands, providing basic functionality.  And, as *DVC* project is
+successor of *Xtla* project, then for work with *GNU Arch* & *Bazaar* exists more functions --
+bookmarks for repositories, etc.  Backends for other VCSs could also provide additional
+functions, specific to concrete VCS.
+
+Following commands are common for all supported DVCS:
+
+|| Function  || Key binding || Description
+| =dvc-missing= | =M m= or =C-x V m= | show changes in remote repository, not applied to current repository
+| =dvc-merge= | =M M= or =C-x V M= | download and apply changes from remote repository 
+| =dvc-pull= | =M f= | download changes from remote repository (not apply them)
+| =dvc-update= | =M u= or =C-x V u= | apply downloaded changes 
+| =dvc-submit-patch= | =C-x V p= | send changes to given e-mail address
+| =dvc-bookmarks= | =C-x V b= | open buffer with bookmarks to remote repositories
+| =dvc-clone= | =C-x V C= | clone repository from external one
+
+Using these commands you can perform most of the tasks affecting other repositories.
+  
+* Other commands
+
+To leave status buffer you can use function =dvc-buffer-quit= (=q= key).  And to update
+content of status buffer (it doesn't performed automatically) you need to execute
+=dvc-generic-refresh= (=g= key) function.
+
+To get help on *DVC* usage you can use standard Emacs features -- when you are in status
+buffer, press =C-h m= and you get description of current major and minor modes, together
+with list of key bindings and names of corresponding commands.  List of global key
+bindings you can get if you invoke =C-x V C-h=.  Besides this, package provide number of
+tips, that you can open with =dvc-tips-next-tip= function, and than use =n= and =p= keys to
+navigate between next and previous tip.
+
+During it work *DVC* opens number of auxiliary buffers.  To make movement between them more
+easy *DVC* define number of functions.  When you view several buffers with nested changes,
+you can use =dvc-diff-master-buffer= (=^= key) function to move to the main buffer, containing
+changes. For each buffer *DVC* set special variable, that points to the partner buffer, that
+also used for perform same task.  This allow quickly switch between these buffers with
+=dvc-buffer-pop-to-partner-buffer= (=h= key) function.
+
+You can use same approach to view buffers used by *DVD* internally.  The
+=dvc-open-internal-log-buffer= (=B L=) function opens buffer, that contain all commands,
+executed by package.  And with =dvc-show-process-buffer= (=B p=) function you can see results
+of execution of external commands, executed by package to perform all operations.
+
+#dvc-customize
+* Package customization
+
+Package customization could be done with standard Emacs customization routines.
+Corresponding customization group is called =dvc=.
+
+Some modes, implemented by *DVC* provide to user ability to set buffer parameters from
+hooks.  For example, the =dvc-status= function run =dvc-diff-mode-hook= (if it defined) after
+it finish initialization of status buffer.
+
+--------------------------
+          [[./index][Back to main page]]
+
+Footnotes: 
+[1] Besides this, each of backends, implementing support for concrete VCS, define their
+    own set of functions, corresponding to commands of given VCS.  For example, backend,
+    implementing support for *Mercurial* define functions with prefix =xhg-=, and these
+    functions could be directly used by user, if there are no corresponding functions with
+    =dvc-= prefix.
+
+[2] I want to mention that many commands also available outside the =*VCS-status*= buffer.
+    To execute them you can add global prefix =C-x V= to their local key binding.  In this
+    text I'll mark them as a *global*.
+
+[3] User can also see ignored files if variable =dvc-status-display-ignored= will has
+    non-=nil= value.
+
+;  LocalWords:  Dired goto dvc changelog XTLA Xtla VCS's CVS PCL VCS autoloads
+;  LocalWords:  ChangeLog keybinding hg NG

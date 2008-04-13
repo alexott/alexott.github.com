@@ -1,0 +1,34 @@
+#title Emacs and interactive messaging tools
+
+; * Introduction
+
+Besides support of *non-interactive* messaging tools, such as E-Mail and Usenet news, Emacs
+also has support for almost all interactive messaging tools:
+
+ - Instant Messaging protocols.  This includes support for ICQ, Yahoo! Chat, AIM (AOL Instant
+   Messaging), Jabber and MSN protocols;
+ - Internet Relay Chat (IRC) protocol.
+
+For each protocol, usially exists few implementations, that differs in degree of support
+and functionality. Some of these implementations, already not supported, so I'll describe
+only supported implementations, if their exists. 
+
+IRC is very popular among Unix users, that often use Emacs, and this lead to creation of
+several packages, implementing support for this protocol.  Now most powerful and actively
+developed package is *Erc*, but there are also several alternative implementation -- *Zenirc*
+& *Rcirc*.  *Zenirc* has many features, but almost not supported now (you can download it from
+[[ftp://ftp.splode.com/pub/zenirc][ftp://ftp.splode.com/pub/zenirc]] if you want).  And *Rcirc* package implements simple IRC
+client and included into GNU Emacs 22.
+
+In this article I'll describe packages that provide support for:
+ - Instant messaging protocols
+  - [[./EmacsICQ][ICQ]]
+  - [[./EmacsYahooChat][Yahoo! Chat]]
+  - [[./EmacsAIM][AOL Instant Messaging (AIM)]]
+;  - [[./EmacsJabber][Jabber]]
+;  - [[./EmacsMSN][MSN]]
+ - IRC protocol
+;  - [[./EmacsErc][Erc]] -- very powerful IRC client
+;  - [[./EmacsRcirc][rcirc]] -- simple IRC client 
+
+;  LocalWords:  IRC LocalWords

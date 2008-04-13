@@ -1,0 +1,36 @@
+#title Finding memory leaks and other bugs in programs
+#keywords valgrind, bugs finding, google performance tools, dmalloc, efence, article, memory leaks, profiling, find bug
+
+As software becomes more complex, are increasing number of issues related to work with
+memory -- memory leaks, writing behind boundaries of memory blocks, etc.  I tried to
+describe some tools and libraries, that could be useful for finding and fixing such bugs.
+
+This article is written mostly for programmers, who are working on Unix-like operating
+systems (but some of tools also could work under MS Windows).  Some of described tools can
+work on several OSes, and different processors, but others could work only on specific
+combinations of hardware and OSes.
+
+Tools, described in this article, are used to perform analysis of existing programs, and
+their principles of work based on analysis of executed code.  I need to mention, that also
+exists tools for performing statical analysis of source code, but this is theme for other
+article. In this article will described following tools & libraries:
+
+ [[Valgrind]] :: very powerful tool, that not only helps in finding of memory leaks, but also
+ allow to find synchronisation errors in multi-threading programs, and analyse performance
+ of programs
+
+ [[GooglePT][Google Performance Tools]] :: toolkit, containing utilities, that allow to perform
+ program performance profiling, analyse memory consumption, and find memory leaks
+
+ [[Exmap][Exmap]] :: special utility for Linux, that allow to collect information about program's
+ real memory consumption
+
+ [[DMalloc][dmalloc]] :: library for finding errors of work with memory
+
+ [[ElectricFence][Electric Fence]] :: library for finding errors of work with memory
+
+to be continued ....
+
+--------------------------
+          [[../index][Back to main page]]
+

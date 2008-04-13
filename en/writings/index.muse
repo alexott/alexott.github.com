@@ -6,8 +6,8 @@ Russian, but i also translate some of them to English.
 
 * Articles about Emacs
 
- - [[emacs-vcs/][Article about using Emacs for work with version control systems]] 
-; ([[emacs-vcs/emacs-vcs.ru.pdf][PDF]])
+ - [[emacs-vcs/index][Article about using Emacs for work with version control systems]]
+ - [[emacs-im/index][Article about using Emacs for interactive messaging]] 
 
 ; *** Programming 
 ; - [[prog-checking/][Статья про поиск ошибок работы с памятью]] -- утечек памяти, доступ за пределами
