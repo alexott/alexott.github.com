@@ -14,6 +14,19 @@ body {
     color:#404040;
 }
 
+td {
+    font:83% Verdana,Tahoma,Arial,sans-serif;
+    background:#f4f4f4 url(bg.gif) top center repeat-y;
+    color:#404040;
+}
+
+th {
+    font:83% Verdana,Tahoma,Arial,sans-serif;
+    background:#f4f4f4 url(bg.gif) top center repeat-y;
+    color:#404040;
+    font-weight: bold;
+}
+
 #wrap {
     background:#ffffff;
     color:#404040;
