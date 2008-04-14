@@ -91,3 +91,11 @@ syntax: regexp
 ^ru/writings/prog-checking/Exmap\.html$
 ^ru/writings/prog-checking/ElectricFence\.html$
 ^ru/writings/prog-checking/DMalloc\.html$
+^ru/writings/emacs-im/index\.html$
+^ru/writings/emacs-im/EmacsYahoo\.html$
+^ru/writings/emacs-im/EmacsRcirc\.html$
+^ru/writings/emacs-im/EmacsMSN\.html$
+^ru/writings/emacs-im/EmacsJabber\.html$
+^ru/writings/emacs-im/EmacsICQ\.html$
+^ru/writings/emacs-im/EmacsERC\.html$
+^ru/writings/emacs-im/EmacsAIM\.html$
