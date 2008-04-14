@@ -13,6 +13,7 @@ I wrote (and continue to write) series of articles about using Emacs to perform 
 tasks (many of articles in Russian, and here listed only some translated articles):
 
  - [[../writings/emacs-vcs/][Article about using Emacs with version control systems]] 
+ - Small article about [[../writings/EmacsMuseMyPage][how this site was created with Emacs Muse]]
 
 You can also find [[../writings/][other my articles]].
 

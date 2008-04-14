@@ -8,11 +8,13 @@ Russian, but i also translate some of them to English.
 
  - [[emacs-vcs/index][Article about using Emacs for work with version control systems]]
  - [[emacs-im/index][Article about using Emacs for interactive messaging]] 
+ - Small article about [[./EmacsMuseMyPage][how this site was created with Emacs Muse]]
 
-; *** Programming 
-; - [[prog-checking/][Статья про поиск ошибок работы с памятью]] -- утечек памяти, доступ за пределами
-;   выделенных участков памяти и т.п.  В статье описываются такие средства как Valgrind,
-;   Google Performance Tools и другие.
+*** Programming 
+
+ - [[prog-checking/][Article about finding errors of work with memory]] -- memory leaks, access behind memory
+   boundaries, etc.  In this article I describe Valgrind, Google Performance Tools and
+   other utilities and libraries.
 
 * Information security and content filtering
 

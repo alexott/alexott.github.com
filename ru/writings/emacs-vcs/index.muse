@@ -1,4 +1,4 @@
-#title Использование Emacs совместно с системами контроля версий
+#title Использование Emacs с системами контроля версий
 #keywords emacs, version control system, cvs, vcs, mercurial, bazaar, vc, dvc, subversion, svn, psvn, pcl-cvs, darcs, monotone
 
 ; <contents>
