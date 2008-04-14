@@ -82,3 +82,4 @@
 обрабатывающих конкретные события. Смотрите раздел "Hacking and Tweaking" по пакету.
 
 
+<div id="rule">[[./index][Back to main page]]</div>

@@ -115,3 +115,15 @@ syntax: regexp
 ^ru/writings/emacs-vcs/EmacsGit\.html$
 ^ru/writings/emacs-vcs/EmacsDarcs\.html$
 ^ru/writings/emacs-vcs/EmacsClearCase\.html$
+^en/writings/emacs-vcs/EmacsVSS\.html$
+^en/writings/emacs-vcs/EmacsVC\.html$
+^en/writings/emacs-vcs/EmacsStarTeam\.html$
+^en/writings/emacs-vcs/EmacsPerforce\.html$
+^en/writings/emacs-vcs/EmacsPSVN\.html$
+^en/writings/emacs-vcs/EmacsPCLCVS\.html$
+^en/writings/emacs-vcs/EmacsMonotone\.html$
+^en/writings/emacs-vcs/EmacsGit\.html$
+^en/writings/emacs-vcs/EmacsDarcs\.html$
+^en/writings/emacs-vcs/EmacsClearCase\.html$
+^en/writings/emacs-vcs/EmacsBitkeeper\.html$
+^en/writings/emacs-vcs/EmacsAegis\.html$

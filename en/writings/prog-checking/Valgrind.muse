@@ -450,9 +450,7 @@ different tasks.
 
 [[../../../common/writings/prog-checking/kcachegrind-callgrind.png]]
 
---------------------------
-        [[./index][Back to main page]]
-
+<div id="rule">[[./index][Back to main page]]</div>
 
 Footnotes: 
 [1] Good description of Valgrind's architecture and principles of work you can find in

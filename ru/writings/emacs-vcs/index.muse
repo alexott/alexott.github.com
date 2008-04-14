@@ -1,7 +1,7 @@
 #title Использование Emacs совместно с системами контроля версий
 #keywords emacs, version control system, cvs, vcs, mercurial, bazaar, vc, dvc, subversion, svn, psvn, pcl-cvs, darcs, monotone
 
-<contents>
+; <contents>
 
 * Введение
 
@@ -27,14 +27,25 @@ Emacs, как средство разработки программ, и дру�
 
 * Описания пакетов 
 
- - Унифицированный доступ
-  - Работа с VC
-  - [[EmacsDVC][Работа с DVC]]
+ - Пакеты, обеспечивающие унифицированный стиль работы с разными системами контроля версий 
+  - [[./EmacsVC][Работа с VC]]
+  - [[./EmacsDVC][Работа с DVC]]
  - Пакеты, поддерживающие конкретные системы контроля версий
-  - Пакет PCL-CVS
-  - Пакет PSVN
-  - [[EmacsMercurial][Поддержка Mercurial]]
-  - Работа с perforce
+  - [[./EmacsPCLCVS][Пакет PCL-CVS]]
+  - [[./EmacsPSVN][Пакет PSVN]]
+  - [[./EmacsMercurial][Поддержка Mercurial]]
+  - [[./EmacsDarcs][Работа с Darcs]]
+  - [[./EmacsGit][Поддержка Git]]
+  - [[./EmacsPerforce][Работа с Perforce]]
+  - [[./EmacsAegis][Aegis]]
+  - [[./EmacsMonotone][Monotone]]
+  - [[./EmacsVSS][Visual SourceSafe]]
+  - [[./EmacsXtla][Пакет Xtla]]
+  - [[./EmacsBitkeeper][Emacs & Bitkeeper]]
+  - [[./EmacsClearCase][ClearCase]]
+;  - [[./EmacsStarTeam]
+;  - [[./]
+
 
 * Дополнительная информация
 
@@ -43,7 +54,4 @@ Emacs, как средство разработки программ, и дру�
 контроля версий вы можете найти на сайтах [[http://better-scm.berlios.de/comparison/]],
 [[http://wiki.gnuarch.org/moin.cgi/SubVersionAndCvsComparison]] и
 [[http://www.a-a-p.org/tools_version.html]].
-
---------------------------
-          [[../index][На главную страницу]]
 

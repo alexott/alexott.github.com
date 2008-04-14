@@ -22,14 +22,22 @@ the *VC* and DVC packages, that implement the first approach, and in next sectio
 describe the systems-specific packages, that implements the second approach.
 
  - Generic packages
-  - Work with VC
+  - [[./EmacsVC][Work with VC]]
   - [[./EmacsDVC][Work with DVC]]
  - System-specific packages
-  - PCL-CVS package
-  - PSVN
+  - [[./EmacsPCLCVS][PCL-CVS Package]]
+  - [[./EmacsPSVN][PSvn Package]]
   - [[./EmacsMercurial][Mercurial's support]]
-  - Work with perforce
-  - ....
+  - [[./EmacsDarcs][Work with Darcs]]
+  - [[./EmacsGit][Support for Git]]
+  - [[./EmacsPerforce][Work with Perforce]]
+  - [[./EmacsAegis][Aegis]]
+  - [[./EmacsMonotone][Monotone]]
+  - [[./EmacsVSS][Visual SourceSafe]]
+  - [[./EmacsBitkeeper][Emacs & Bitkeeper]]
+  - [[./EmacsClearCase][ClearCase]]
+;  - [[./EmacsXtla][Xtla Package]]
+;  - [[./EmacsStarTeam]
  
 * Additional information
     
@@ -38,8 +46,5 @@ systems you can find at [[http://directory.google.com/Top/Computers/Systems/Appl
 version control systems at http://better-scm.berlios.de/comparison/,
 http://wiki.gnuarch.org/moin.cgi/SubVersionAndCvsComparison and
 http://www.a-a-p.org/tools_version.html.
-
---------------------------
-          [[../index][Back to main page]]
 
 ;  LocalWords:  DVC VC LocalWords el xtla CVS PCL PSVN

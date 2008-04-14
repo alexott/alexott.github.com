@@ -77,8 +77,7 @@ After building of package user can use several commands:
 Detailed information about work with these utilities you can find in manual pages,
 distributed together with source code.
 
---------------------------
-          [[./index][Back to main page]]
+<div id="rule">[[./index][Back to main page]]</div>
 
 ;  LocalWords:  командно-строковые exmap-console gexmap программы-анализаторы
 ;  LocalWords:  sudo insmod kernel exmap ko ELF heap exmapserver exmapd install

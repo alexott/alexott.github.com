@@ -10,7 +10,6 @@
 
 
 
---------------------------
-          [[./index][На главную страницу]]
+<div id="rule">[[./index][На главную страницу]]</div>
 
 ;  LocalWords:  leaktracer LocalWords

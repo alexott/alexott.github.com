@@ -98,8 +98,8 @@ also define =hg-mode-hook=, that will called when =hg-mode= will enabled for giv
 
 http://wxglade.sf.net/extra/ahg.html
 
---------------------------
-          [[./index][Back to main page]]
+
+<div id="rule">[[./index][Back to main page]]</div>
 
 Footnotes: 
 [1] Latest version of *mercurial.el* you can download from repository, link to which you can

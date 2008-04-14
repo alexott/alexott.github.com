@@ -18,6 +18,5 @@ As, i don't use XEmacs, it hadn't tested this package, but installation and usin
 package, described in detail in documentation. This package is in very active development,
 so i think, that in near future it will implement all missing features.
 
---------------------------
-          [[./index][Back to main page]]
+<div id="rule">[[./index][Back to main page]]</div>
 

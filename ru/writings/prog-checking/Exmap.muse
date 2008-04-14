@@ -78,8 +78,7 @@
 Подробную информацию об использовании этих программ вы можете найти в справочных
 страницах, которые поставляются в составе пакета.
 
---------------------------
-          [[./index][На главную страницу]]
+<div id="rule">[[./index][На главную страницу]]</div>
 
 ;  LocalWords:  командно-строковые exmap-console gexmap программы-анализаторы
 ;  LocalWords:  sudo insmod kernel exmap ko ELF heap exmapserver exmapd install

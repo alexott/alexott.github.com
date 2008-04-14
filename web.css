@@ -259,12 +259,12 @@ ul.avmenu ul ul a {
 
 #content h2,#contentwide h2, #contentwide2 h2 {
     font-size:1.3em;
-    margin:0 0 6px;
+    margin:4px 0 10px;
 }
 
 #content h3,#contentwide h3, #contentwide2 h3 {
     font-size:1.2em;
-    margin:0 0 5px;
+    margin:5px 0 5px;
 }
 
 #content h4,#contentwide h4, #contentwide2 h4 {
@@ -294,6 +294,17 @@ ul.avmenu ul ul a {
 #content ul ul, #contentwide ul ul, #contentwide2 ul ul, #content ol ol, #contentwide ol ol, #contentwide2 ol ol {
     margin:5px 0 0 16px;
     padding:0;
+}
+
+#rule {
+    clear:both;
+    margin:0 auto;
+    padding:10px 0; 
+    border-top:2px solid #e0e0e0;
+    text-align:center;
+    color:#808080;
+    background:#ffffff;
+    font:83% Verdana,Tahoma,Arial,sans-serif;
 }
 
 /***** Footer *****/

@@ -215,8 +215,7 @@ Some modes, implemented by *DVC* provide to user ability to set buffer parameter
 hooks.  For example, the =dvc-status= function run =dvc-diff-mode-hook= (if it defined) after
 it finish initialization of status buffer.
 
---------------------------
-          [[./index][Back to main page]]
+<div id="rule">[[./index][Back to main page]]</div>
 
 Footnotes: 
 [1] Besides this, each of backends, implementing support for concrete VCS, define their

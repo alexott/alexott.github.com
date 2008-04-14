@@ -100,8 +100,7 @@ will be used for notification on new incoming messages.  Besides this, you could
 specify which program will be used to play these files (variable =tnt-sound-exec=) and
 arguments, that will be passed to this program (variable =tnt-sound-exec-args=).
 
---------------------------
-          [[./index][Back to main page]]
+<div id="rule">[[./index][Back to main page]]</div>
 
 ;  LocalWords:  keybinding tnt alist username README elisp
 

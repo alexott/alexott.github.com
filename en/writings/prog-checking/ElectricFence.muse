@@ -119,8 +119,7 @@ Program terminated with signal 4, Illegal instruction.
 использовании стандартных настроек, а затем, включается режим =EF_PROTECT_BELOW= и все
 проверки выполняются снова.
 
---------------------------
-          [[./index][Back to main page]]
+<div id="rule">[[./index][Back to main page]]</div>
 
 Footnotes: 
 [1] Работа библиотеки была протестирована на Linux, Solaris, AIX, HP-UX и еще некоторых

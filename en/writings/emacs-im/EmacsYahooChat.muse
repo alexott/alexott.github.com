@@ -62,10 +62,8 @@ These parameters are stored in variables =gyach-yahoo-username= and =gyach-yahoo
 make precise customisation of *El-Gyach* buffers you can use lisp code, that you can call
 from =gyach-mode-hook=.
 
-*El-Gyach* легко расширяется. При каждом вызове команды вида =/КОМАНДА=, будет вызываться
-функция =gyach-custom-КОМАНДА=. Таким образом, вы можете добавить свою функциональность с
-помощью небольшого объема кода.
+User can easily extend *El-Gyach*.  At each call for command, that looks like =/COMMAND=,
+package will call function with name =gyach-custom-COMMAND=.  So you can write any new
+functionality with small piece of code.
 
---------------------------
-          [[./index][Back to main page]]
-
+<div id="rule">[[./index][Back to main page]]</div>

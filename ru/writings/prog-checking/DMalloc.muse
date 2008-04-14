@@ -123,9 +123,7 @@ eval `dmalloc -d 0 -l log_file -p log-non-free -p check-fence -p check-funcs`
 1204542469: 3:          20      2          10      1  Total of 2
 </example>
 
-
---------------------------
-          [[./index][На главную страницу]]
+<div id="rule">[[./index][На главную страницу]]</div>
 
 Footnotes: 
 [1] Библиотека может использоваться для выявления проблем и в многопоточных программах. 

@@ -125,8 +125,7 @@ eval `dmalloc -d 0 -l log_file -p log-non-free -p check-fence -p check-funcs`
 1204542469: 3:          20      2          10      1  Total of 2
 </example>
 
---------------------------
-          [[./index][Back to main page]]
+<div id="rule">[[./index][Back to main page]]</div>
 
 Footnotes: 
 [1] Library could be also used for analyse multi-threaded programs.
