@@ -23,7 +23,7 @@ lowest level, are defined functions, providing common framework for all supporte
 
 Now, *DVC* support following version control systems:
 
-|| name in *DVC*|| name of VCS 
+|| name in *DVC* || name of VCS 
 | xhg | mercurial (aka hg)
 | xgit | git 
 | baz | GNU Arch (tla) and Bazaar 1.x 
@@ -218,8 +218,8 @@ it finish initialization of status buffer.
 <div id="rule">[[./index][Back to main page]]</div>
 
 Footnotes: 
-[1] Besides this, each of backends, implementing support for concrete VCS, define their
-    own set of functions, corresponding to commands of given VCS.  For example, backend,
+[1] Besides this, each backend, implementing support for concrete VCS, define their own
+    set of functions, corresponding to commands of given VCS.  For example, backend,
     implementing support for *Mercurial* define functions with prefix =xhg-=, and these
     functions could be directly used by user, if there are no corresponding functions with
     =dvc-= prefix.
