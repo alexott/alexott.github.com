@@ -1,4 +1,4 @@
-#title Usage of Emacs to work with Mercurial
+#title How to use Emacs to work with Mercurial
 #keywords emacs, version control, mercurial, hg
 
 <contents>
