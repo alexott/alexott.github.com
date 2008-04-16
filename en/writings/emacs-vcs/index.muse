@@ -8,34 +8,34 @@ approaches for work with these systems within Emacs.  The first approach -- via 
 interface, provided by *VC* and *DVC* modules, that supports different systems.  The second
 approach -- by using modules written for concrete version control systems.
     
-The main advantage of first approach -- work with different systems, through uniform set
-of operations, and usage of different systems depends on package configuration. But when
-using uniform set of operations, user has no access to system-specific commands, so it can
-lose some functionality. 
+The main advantage of first approach -- it allow to work with different systems, through
+uniform set of operations, and usage of different systems depends on package
+configuration.  But when using uniform set of operations, user has no access to
+system-specific commands, so it can lose some functionality.
 
 Usage of packages, that implements systems-specific support, allow user to use all
 functionality of concrete system.  The main drawback of this approach is that packages
 provide non-uniform set of operations, functions and key bindings.
     
-In this article, we'll examine both approaches. In first part of article, I'll describe
+In this article, we'll examine both approaches.  In first part of article, I'll describe
 the *VC* and DVC packages, that implement the first approach, and in next sections I'll
 describe the systems-specific packages, that implements the second approach.
 
  - Generic packages
-  - [[./EmacsVC][Work with VC]]
   - [[./EmacsDVC][Work with DVC]]
  - System-specific packages
-  - [[./EmacsPCLCVS][PCL-CVS Package]]
-  - [[./EmacsPSVN][PSvn Package]]
   - [[./EmacsMercurial][Mercurial's support]]
-  - [[./EmacsDarcs][Work with Darcs]]
-  - [[./EmacsGit][Support for Git]]
-  - [[./EmacsPerforce][Work with Perforce]]
-  - [[./EmacsAegis][Aegis]]
-  - [[./EmacsMonotone][Monotone]]
-  - [[./EmacsVSS][Visual SourceSafe]]
-  - [[./EmacsBitkeeper][Emacs & Bitkeeper]]
-  - [[./EmacsClearCase][ClearCase]]
+  - [[./EmacsGit][Work with Git]]
+;  - [[./EmacsVC][Work with VC]]
+;  - [[./EmacsPCLCVS][PCL-CVS Package]]
+;  - [[./EmacsPSVN][PSvn Package]]
+;  - [[./EmacsDarcs][Work with Darcs]]
+;  - [[./EmacsPerforce][Work with Perforce]]
+;  - [[./EmacsAegis][Aegis]]
+;  - [[./EmacsMonotone][Monotone]]
+;  - [[./EmacsVSS][Visual SourceSafe]]
+;  - [[./EmacsBitkeeper][Emacs & Bitkeeper]]
+;  - [[./EmacsClearCase][ClearCase]]
 ;  - [[./EmacsXtla][Xtla Package]]
 ;  - [[./EmacsStarTeam]
  

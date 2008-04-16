@@ -1,119 +1,112 @@
-#title Работа с Git
+#title Work with Git
 #keywords emacs, git
 
 <contents>
 
-Появление и популярность системы контроля версий *Git* связана с разработкой операционной
-системы *Linux*.  Первоначально данная система разрабатывалась для обеспечения работы над
-ядром операционной системы, но затем она стала применяться и в других проектах с открытым
-исходным кодом. Поскольку над такими проектами работают люди из разных точек земного шара,
-то и сама система контроля версий имеет идеологию, позволяющую работу в децентрализованной
-среде[1].
+Creation and popularity of *Git* closely related to development of Linux.  At first it was
+used to provide support of Linux kernel development, but now it's used in the many other
+open source projects.  As on these projects, are working many peoples over Earth, this
+version control system support distributed style of work[1].
 
-Поддержка *Git* может осуществляться несколькими способами -- используя модуль *vc-git.el* для
-пакета *VC*, и используя пакет *git.el*.  Первый пакет обеспечивает работу через стандартные
-интерфейсы пакета *VC*, в то время как пакет *git.el* реализует интерфейс, подобный интерфейсу
-*PCL-CVS*, позволяя использовать все возможности *Git*.  Далее в статье речь пойдет о пакете
-*git.el*.
+We can work with *Git* using several packages -- either use modules for *VC* и *DVC* packages,
+or use packages *git.el* or *emacs-git*.  In first case we work with *Git* through standard
+interfaces of *VC* & *DVC*. And *git.el* and *emacs-git* packages implement interfaces, that allow
+user to use full functionality of *Git*.  In this part I'll describe these two packages.
 
-* Пакет git.el
+* The git.el package
 
-** Установка пакета
+** Installation of package
 
-Установка *git.el* и *vc-git.el* очень проста -- они оба идут в составе дистрибутива *Git* и
-находятся в подкаталоге =contrib/emacs/=.  Для компиляции пакета достаточно выполнить
-команду *make*, которая также может использоваться для установки пакетов (по умолчанию,
-пакеты ставятся в каталог =$HOME/share/emacs/site-lisp=, но вы можете изменить это значение
-передав параметр =emacslispdir= команде *make* или просто скопировать нужные файлы в каталог,
-где Emacs сможет найти их.
+Installation of *git.el* is very simple -- it comes in the *Git's* distribution in
+=contrib/emacs/= subdirectory.  To compile package you need just run =make= command, that
+could also be used to install the package (by default, package is installed into
+=$HOME/share/emacs/site-lisp=, but you can change this behaviour by passing =emacslispdir=
+parameter to =make=, or just copy all files to the directory, where Emacs can find them).
 
-Для использования пакета *git.el*, вам нужно поместить в ваш файл инициализации следующую
-команду:
+To use *git.el*, you need to put following line into your initialization file:
 
 <src lang="emacs-lisp">
 (require 'git)
 </src>
 
-после выполнения которой вам станут доступны все команды пакета.
+and after executing it, you'll get all commands, provided by this package.
 
-** Работа с пакетом git.el
+** Work with git.el
 
-Использование пакета всегда начинается с выполнения команды =git-status=, которая запросит у
-вас имя каталога в котором необходимо искать дерево *Git*, и выполнит анализ состояния этого
-дерева.  После анализа, будет открыт буфер с именем =*git-status*=, в котором можно будет
-выполнять действия с файлами проекта.  Пример вывода в буфера вы можете видеть на рисунке
-ниже (в нижней части рисунка вы можете видеть вывод команды =diff=.  Для данного буфера
-определен специальный режим -- =git-status-mode=, для которого определенно некоторое
-количество команд (и соответствующих им комбинаций клавиш, многие из которых совпадают с
-аналогичными клавишами режима *PCL-CVS*, что облегчает переход на использование *Git*).  Все
-команды работают только в данном буфере и не могут использоваться вне его.
+Work with package always starts with execution of =git-status= command, that ask user about
+directory name in which it will search for *Git* repository, and after that, perform
+analysis of repository state.  After analysis of repository state, package creates
+=*git-status*= buffer, that will used to perform commands on files. Example of work with
+this buffer you can see on picture below (at the bottom of picture you can see output of
+=diff= command).  In this buffer enabled =git-status-mode=, that defines some set of commands
+(and corresponding key bindings, many of them match the key bindings of *PCL-CVS* package.
+This make transition to *Git* more easy).  All commands available only in this buffer, and
+couldn't be used outside of it.
     
 [[../../../common/writings/emacs-vcs/git-status.png]]
      
-Навигация по списку файлов, отображаемому после выполнения команды =git-status= может
-осуществляться как с помощью клавиш курсора, так и с помощью команд =git-next-file= (клавиши
-=n= и =SPC=) и =git-prev-file= (клавиша =p=).  Для большинства команд можно задать числовой
-аргумент, который позволит изменить поведение команды.  Числовой аргумент вводится путем
-набора цифр, а затем вызова нужной команды.  Вы также можете использовать отрицательные
-аргументы, добавив знак минус перед набираемыми цифрами.
+User can navigate in buffer with arrow keys, or with commands =git-next-file= (keys =n= and
+=SPC=) and =git-prev-file= (=p= key).  For many commands user can specify numeric prefix (as for
+many Emacs commands), that will change behaviour of command.
 
-По умолчанию, все команды выполняются над файлом, на котором стоит курсор, но также
-существуют команды для отметки нескольких файлов, над которыми могут выполняться операции.
-Сюда можно отнести следущие команды и комбинации клавиш: клавиша =m= (команда =git-mark-file=)
-отмечает один файл и перемещает курсор вниз, а с помощью клавиши =M= (команда =git-mark-all=)
-вы можете отметить все файлы.  Для снятия пометки с одного файла вы можете использовать
-клавиши =u= (=git-unmark-file=) или =DEL= (=git-unmark-file-up=), только стоит отметить, что
-первая команда перемещает курсор вниз, а вторая -- вверх.  Для снятия пометок со всех
-файлов вы можете использовать команду =git-unmark-all= (сочетание клавиш =M-DEL=).  Для
-инверсии пометок можно использовать команду =git-toggle-all-marks= (клавиша =T=).
+By default, all commands are executed on file, where cursor is located.  But user can also
+select several files and commands will executed on selected files.  Selection is performed
+with following commands and key bindings: =m= key (=git-mark-file=) mark current file and move
+cursor one line below, =M= key (=git-mark-all=) marks all files in this buffer.  To remove
+selection mark you can use =u= key (=git-unmark-file=) or =DEL= key (=git-unmark-file-up=), but
+first command after removing of selection move cursor one string bellow, but the second,
+to one string upper.  To remove selection mark from all files you can use =git-unmark-all=
+command (=M-DEL= key binding).  To inverse selection you can use =git-toggle-all-marks=
+command(=T= key).
 
-Практически также как и в *PCL-CVS*, открыть текущий файл можно с помощью команды
-=git-find-file= (клавиша =RET= или =f=).  Открыть файл для просмотра можно с помощью клавиши =v=
-(команда =git-view-file=).  В том случае, если при слиянии версий в файле возникли
-конфликты, то вы можете вызвать команду разрешения конфликтов -- =git-resolve-file= (клавиша
-=R=).
+As in the *PCL-CVS*, you can open current file with the =git-find-file= command (key =RET= or
+=f=).  To open file to view you can use =v= key (=git-view-file=).  In case, if you've got
+conflicts during merging, you can run conflict resolving command -- =git-resolve-file= (=R=
+key).
 
-Добавление новых файлов в проект осуществляется с помощью команды =git-add-file= (клавиша
-=), а удаление -- командой =git-remove-file= (клавиша =r=).  Для того, чтобы избавиться от
-ненужных файлов, вы можете поместить их в список игнорируемых файлов с помощью команды
-=git-ignore-file= (=i=).  Подтверждение изменений осуществляется с помощью команды
-=git-commit-file= (клавиша =c=), а отмена изменений в отмеченных файлах -- с помощью команды
-=git-revert-file= (=U=).  Сообщения, которые вводятся при подтверждении изменений, можно
-просмотреть с помощью команды =git-log-file= (клавиша =l=).
+You can add new files to repository with =git-add-file= command (=a= key), and remove with
+=git-remove-file= command (=r= key).  To get reed from not needed files existing in directory,
+but not registered in repository, you can put them into list of ignored files.  This could
+be done with =git-ignore-file= command (=i=).  
+
+Committing of changes is performed with =git-commit-file= command (=c= key), and reverting of
+changes -- with =git-revert-file= command (=U= key).  User can view change log for repository
+with =git-log-file= command (=l= key).
     
-Клавиша =d= является префиксом для команд, связанных с отображением изменений.  Самой важной
-командой является команда =git-diff-file=, которую можно вызвать нажав <code>=</code> или
-<code>d =</code>.  Команда =git-diff-file-base= (=d b=) позволяет выполнить поиск изменений
-относительно базового файла.  Команда =git-diff-file-idiff= (=d e=) позволяет выполнить
-интерактивный просмотр изменений в текущем файле. А команда =git-find-file-imerge= (=d E=),
-позволяет открыть текущий файл в режиме интерактивного применения изменений.  Остальные
-команды позволяют выполнить просмотр изменений относительно основной ветки --
-=git-diff-file-merge-head= (=d h=), относительно версий файлов пользователя до слияния веток
--- =git-diff-file-mine= (=d m=), и т.п.  Полный список команд вы можете получить из справки.
-    
-К прочим командам можно отнести команды обновления статуса буфера =git-refresh-status=
-(клавиша =g=), выхода из данного буфера используется команда =git-status-quit= (клавиша =q=),
-удаления из списка обработанных файлов =git-remove-handled= (клавиша =x=) и получения справки
-о работе в данном буфере -- =git-help= (клавиши =h= или =?=).
+The =d= key is prefix key for all commands, related to work with changes.  Most important
+command among them is the =git-diff-file= command, that you can call with <code>=</code> or
+<code>d =</code> keys.  The =git-diff-file-base= command (=d b=) allow to find differences
+between current and base file.  With =git-diff-file-idiff= command (=d e=) you can
+interactively view for changes in current file. And the =git-find-file-imerge= command (=d E=)
+allows user to open current file for interactive application of changes.  Other commands
+allow to view changes relative to main branch -- =git-diff-file-merge-head= command (=d h=),
+relative to versions of files before merges -- =git-diff-file-mine= command (=d m=), etc.
+Full list of commands you can get from help for this mode.
 
-** Настройка пакета
+Other command allow to refresh status buffer -- =git-refresh-status= command (=g= key), resign
+from the buffer -- =git-status-quit= (=q=), remove processed files from list --
+=git-remove-handled= command (=x=) and get help about mode -- =git-help= (=h= or =?= keys).
 
-Настройка пакета осуществляется с помощью стандартных средств настройки Emacs.  Группа
-настройки называется =git= и позволяет задать и параметры *Git* и настройки начертаний,
-используемых при отображении данных.
+** Customization
 
-* Пакет emacs-git
+You can customize package with standard customization routines of Emacs.  Corresponding
+customization group has name =git= and allow to specify different *Git* settings and faces
+used for display data.
 
-** Установка
+; * Пакет emacs-git
 
-
-** Работа с пакетом
+; ** Установка
 
 
-** Настройка
+; ** Работа с пакетом
 
-<div id="rule">[[./index][На главную страницу]]</div>
+
+; ** Настройка
+
+; * Minor modes for Git
+
+<div id="rule">[[./index][To main page]]</div>
 
 Footnotes: 
-[1] Хотя существует возможность использования данной системы и в централизованной среде
+[1] Although we can use it for work in centralized environment
 

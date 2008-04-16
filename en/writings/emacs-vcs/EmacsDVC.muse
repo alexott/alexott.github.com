@@ -4,26 +4,27 @@
 <contents>
 
 As distributed version control systems (DVCS) become widely used, Emacs also start to
-support them.  To support of concrete DVCS implementations was created separate Emacs
-packages, that implements commands, that closely reflect concrete system, and often these
-packages had used different key bindings, and user interfaces, according ideology of DVCS.
+support them.  To support concrete DVCS implementations separate Emacs packages was
+created.  They implement commands, that closely reflect ideology of concrete system, and
+often these packages use different key bindings and user interface, that match ideology of
+DVCS.
 
-As was mentioned earlier, there is VC package, that was created for supporting of
-different version control systems (VCS) and providing uniform interface for all of them,
-including some of DVCS.  *DVC* package has same goal as VC, but intended for support of
+As was mentioned earlier, in Emacs exists *VC* package, that was created to support
+different version control systems (VCS) and provide uniform interface for all of them,
+including some of DVCS.  *DVC* package has same goal as VC, but intended to support
 distributed VCS.  Some of *DVC* code is based on the code from the *Xtla* package, and
-developed by same developers.  You can get more information about it from [[http://download.gna.org/dvc/][project's site]].
+developed by same developers.  You can get more information about *DVC* from [[http://download.gna.org/dvc/][project's site]].
 
 * Architecture of DVC and supported systems
 
 *DVC* has multilayer architecture.  At the top layer are functions, that provide automatic
-version control system detection, and perform functions, common for all DVCS.  One layer
+version control system detection, and implement functions, common for all DVCS.  One layer
 below, are defined functions, specific for concrete version control system.  And at the
 lowest level, are defined functions, providing common framework for all supported DVCS.
 
 Now, *DVC* support following version control systems:
 
-|| name in *DVC*|| name of VCS 
+|| name in *DVC* || name of VCS 
 | xhg | mercurial (aka hg)
 | xgit | git 
 | baz | GNU Arch (tla) and Bazaar 1.x 
@@ -32,7 +33,7 @@ Now, *DVC* support following version control systems:
 | xdarcs | Darcs 
 
 Not all supported VCS has full support in *DVC*.  You can find list of supported functions
-for each of system on [[http://download.gna.org/dvc/][the site]] of project.
+for each of system on [[http://download.gna.org/dvc/][project's site]].
 
 * Installation
 

@@ -104,9 +104,9 @@
 пользователь может определить =hg-mode-hook=, который будет выполнен в процессе включения
 =hg-mode= для данного буфера.
 
-* aHg
+; * aHg
 
-http://wxglade.sf.net/extra/ahg.html
+; http://wxglade.sf.net/extra/ahg.html
 
 
 <div id="rule">[[./index][На главную страницу]]</div>

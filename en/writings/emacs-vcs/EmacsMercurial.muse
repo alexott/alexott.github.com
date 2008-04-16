@@ -8,8 +8,8 @@ of support.  In *Mercurial's* distribution exists package *mercurial.el*, that i
 *native* support, and described in this document.  Another package, implementing *native*
 support is [[http://disi.unitn.it/~griggio/ahg.html][aHg]], and it also described here.
 
-There is also support for *Mercurial* in the *DVC* & *VC* packages, that implement a *common*
-approach for different version control systems.  These packages are described in
+There is also support for *Mercurial* in the [[./EmacsDVC][DVC]] & *VC* packages, each of that implements a
+*common* approach for different version control systems.  These packages are described in
 corresponding sections of this article.
 
 * Mercurial.el
@@ -94,9 +94,9 @@ and *before* performing actual commit.  =hg-log-mode-hook= called after creating
 show log information (as result calling =hg-log-repo= and =hg-log= commands).  And user can
 also define =hg-mode-hook=, that will called when =hg-mode= will enabled for given buffer.
 
-* aHg
+; * aHg
 
-http://wxglade.sf.net/extra/ahg.html
+; http://wxglade.sf.net/extra/ahg.html
 
 
 <div id="rule">[[./index][Back to main page]]</div>
