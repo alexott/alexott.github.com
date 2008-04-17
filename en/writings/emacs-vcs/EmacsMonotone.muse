@@ -1,19 +1,19 @@
-#title Поддержка Monotone
+#title Support of Monotone
 #keywords monotone, emacs
 
 <contents>
 
-*Monotone* -- распределённая система контроля версий по концепции схожая с *GNU Arch* и *Darcs*.
-Работа с *Monotone* из Emacs обеспечивается пакетом *monotone.el*, который идёт в составе
-дистрибутива *Monotone*.  Также достаточно полная поддержка *Monotone* обеспечивается
-специальным модулем из пакета *DVC*, который описан в разделе [[./EmacsDVC][Работа с DVC]].
+[[http://monotone.ca/][Monotone]] -- distributed version control system, using same concepts like other distributed
+VCS, like *GNU Arch*, *Darcs* and other.  Work with *Monotone* from Emacs implemented by
+*monotone.el* package, that come together with *Monotone* distribution.  There is also support
+for *Monotone* in *DVC* package, that described in the section [[./EmacsDVC][Work with DVC]].
 
-* Установка пакета *monotone.el*
+* Installation of monotone.el
 
-Пакет *monotone.el* идёт в поставке *Monotone*.  Вы можете найти его в подкаталоге =contrib=
-дистрибутива *Monotone*.  Пакет тестировался только с GNU Emacs версии 22.1, но наверное
-будет работать и с другими версиями Emacs Для работы с данным пакетом поместите его туда,
-где его найдёт Emacs и поместите в файл инициализации следующие команды:
+You can find *monotone.el* in Monotone's distribution.  It located in =contrib= directory of
+distribution. This package was tested with GNU Emacs 22.1, but it should works with other
+Emacs's versions.  To work with it you need to place file to location, where Emacs find
+it, and add following commands to initialization file:
     
 <src lang="emacs-lisp">
 (require 'monotone)
@@ -21,70 +21,70 @@
 (setq monotone-passwd-remember t)
 </src>
 
-первая строка загружает сам пакет, вторая строка устанавливает префикс для команд
-выполняемых с клавиатуры, а третья строка заставляет пакет запоминать введённые
-пользователем пароли.
+First line of code loads package, second sets prefix for key bindings, and third -- force
+package to remember passwords entered by user[1]
 
-* Использование пакета
+* Work with package
 
-Доступ к командам пакета может осуществляться разными способами -- через меню, с
-использованием клавиатурных сочетаний и используя именованные команды (все команды имеют
-префикс =monotone=).  Префикс для клавиатурных сочетаний по умолчанию не определён, поэтому
-его нужно установить при инициализации пакета с помощью функции
-=monotone-set-vc-prefix-key=, в моем примере файла инициализации она привязывается к
-префиксу =C-x v=, и далее по тексту будет использоваться именно этот префикс.  Команды
-*Monotone* выполняются в буфере с именем =*monotone*=.
+Commands, implemented by package, are accessible via menu, key bindings and by their
+direct call via =M-x= (all implemented commands have prefix =monotone=).  By default prefix
+for key bindings is not defined, so you need to set it during package initialization.
+This could be done with =monotone-set-vc-prefix-key= function, and in the example above, it
+set to =C-x v=, and in the text below, this prefix always will used.  All commands are
+executed in the buffer called =*monotone*=.
 
-Регистрация файла в системе контроля версий производится с помощью команды
-=monotone-vc-register= (сочетание клавиш =C-x v i=).  Изменения затем надо будет подтвердить с
-помощью команды =monotone-vc-commit= для вызова которой можно использовать как сочетание
-=C-x v q=, так и =C-x v C-q=.
+Registration of file in repository is performed with =monotone-vc-register= command (=C-x v
+i=).  You can commit changes with =monotone-vc-commit= command, that bound to =C-x v q= or =C-x
+v C-q=.
 
-Работа с удалёнными серверами осуществляется с помощью трёх команд: команда =monotone-pull=
-(сочетание =C-x v p=) -- вытягивает изменения с сервера; команда =monotone-push= (сочетание
-=C-x v P=) -- помещает изменения на сервер; а команда =monotone-sync= -- синхронизирует
-текущую базу данных с сервером.
+Work with remote repositories is performed with following commands: the =monotone-pull=
+command (=C-x v p=) -- fetches changes from server, the =monotone-push= command (=C-x v P=) --
+push changes to server, and the =monotone-sync= command sync current repository with remote
+one.
 
-Пользователь может получить список сделанных изменений с помощью команды =monotone-vc-diff=,
-которая привязана к <code>C-x v =</code>.  Если этой команде передать аргумент, то просмотр изменений
-будет сделан для всего проекта.
+User can obtain list changes for file with =monotone-vc-diff= command, that bound to
+<code>C-x v =</code>.  If you pass a numerical argument to this command, then changes will
+shown for repository, instead of single file.
 
-Получить информацию о зарегистрированных объектах можно с помощью нескольких команд.  В
-первую очередь это команда =monotone-vc-status= (сочетание клавиш =C-x v s=), которая выдаёт
-информацию о текущей ветке проекта.  С помощью команды =monotone-vc-print-log= (сочетание
-=C-x v l=) можно получить лог для текущего буфера (а при задании аргумента для этой команды,
-можно получить лог для всего проекта).  А получить идентификатор текущего объекта можно с
-помощью команды =monotone-grab-id= (сочетание клавиш =C-x v 6=) -- данная команда сохраняет
-идентификатор объекта в буфере удаления (kill buffer), откуда вы её может вставить с
-помощью стандартных команд.
-    
-В пакете определена одна команда общего назначения -- =monotone= (она привязана к сочетанию
-клавиш =C-x v x=), которая позволяет выполнить любую команду *Monotone* введённую в
-мини-буфере.
+There are several commands to retrieve information about registered objects.  The main
+command is =monotone-vc-status= (=C-x v s=), that outputs information about current branch.
+With the =monotone-vc-print-log= command (=C-x v l=) you can obtain log for current file (and
+if you give a numerical argument, then log will obtained for whole project).  You can also
+retrieve identifier of current object with =monotone-grab-id= command (=C-x v 6=) -- this
+command stores object's identifier in the kill ring, from which you can paste with
+standard Emacs commands (for example, with =C-y=).
 
-* Настройка пакета
+There is also one general purpose command -- =monotone= (it bound to =C-x v x=), that allows
+to execute any command of *Monotone*, entered in the mini-buffer.
 
-Настройка пакета осуществляется путём установки некоторого количества переменных.  Одну из
-переменных вы уже видели, это переменная =monotone-passwd-remember=, которая заставляет
-пакет запоминать введённые пользователем пароли.  В том случае, если эта переменная
-установлена, пароли будут сохраняться в переменной =monotone-passwd-alist=.  Кроме этого,
-используя переменную =monotone-program= вы можете указать имя исполняемого файла *Monotone*.
+* Customization of package
 
-Адреса удалённого сервера и коллекций на нем задаются переменными =monotone-server= и
-=monotone-collection=.  Список уже использованных серверов и коллекций хранится в
-соответствующих переменных: =monotone-server-hist= и =monotone-collection-hist=.
-    
-Кроме перечисленных выше переменных, существуют и другие переменные, изменять которые
-пользователь скорее всего не будет, но знать которые желательно.  Истинное значение
-переменной =monotone-cmd-show= приводит к показу результатов выполнения команд *Monotone*.  С
-помощью переменной =monotone-program-args-always= можно задать аргументы командной строки,
-которые всегда будут передаваться при запуске *Monotone*.  Если значение переменной
-=monotone-msg= не равно =nil=, то в буфер =*Messages*= будут выводиться сообщения пакета
-*monotone.el*, что может быть полезным при отладке.
+You can customize package by setting some variables.  One of these variables, we already
+used -- the =monotone-passwd-remember= variable, that caches passwords, entered by user.  If
+this variable has non-=nil= value, then all passwords will be stored in
+=monotone-passwd-alist= variable.  There is also =monotone-program= variable, that keeps name
+of the Monotone's executable.
 
-Тонкую настройку работы пакета можно осуществить, используя два хука --
-=monotone-output-mode-hook= и =monotone-commit-mode-hook=.  Первый хук будет вызываться при
-выводе данных, а второй -- при входе в режим редактирования сообщений при подтверждении
-данных в репозиторий.
+Address and remote server, and names of collections user can set in =monotone-server= and
+=monotone-collection= variables.  Already used servers and collections are stored in
+=monotone-server-hist= and =monotone-collection-hist= variables.
 
-<div id="rule">[[./index][На главную страницу]]</div>
+There are also other variables, that are usually not changed by user, but it's better to
+know what information they keep.  If you set value of =monotone-cmd-show= variable to =t=,
+then results of execution of *Monotone* commands will shown.  With
+=monotone-program-args-always= variable you can set command-line options, that will always
+passed to *Monotone*.  If variable =monotone-msg= has non-=nil= value, then all messages from
+*monotone.el* will printed to the =*Messages*= buffer (this is very useful for debugging).
+
+There are also two hooks, that allow to perform fine-grained customization --
+=monotone-output-mode-hook= and =monotone-commit-mode-hook=.  First of them will called, when
+data will printed, and second, when buffer for entering of commit messages will created.
+
+<div id="rule">[[./index][To main page]]/div>
+
+;  LocalWords:  el emacs contrib
+
+Footnotes: 
+[1] Passwords are stored only for the current sessions, and if you restart Emacs, then
+    package will again ask you about passwords.
+
