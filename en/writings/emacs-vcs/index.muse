@@ -26,10 +26,10 @@ describe the systems-specific packages, that implements the second approach.
  - System-specific packages
   - [[./EmacsMercurial][Mercurial's support]]
   - [[./EmacsGit][Work with Git]]
+  - [[./EmacsDarcs][Work with Darcs]]
 ;  - [[./EmacsVC][Work with VC]]
 ;  - [[./EmacsPCLCVS][PCL-CVS Package]]
 ;  - [[./EmacsPSVN][PSvn Package]]
-;  - [[./EmacsDarcs][Work with Darcs]]
 ;  - [[./EmacsPerforce][Work with Perforce]]
 ;  - [[./EmacsAegis][Aegis]]
 ;  - [[./EmacsMonotone][Monotone]]

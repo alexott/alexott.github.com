@@ -1,78 +1,73 @@
-#title Работа с Darcs
+#title Work with Darcs
 #keywords emacs, darcs
 
 <contents>
 
-Работа с системой контроля версий *Darcs* обеспечивается несколькими пакетами, которые
-несколько отличаются друг от друга по функциональности.  Это пакет *darcs*, доступный с ???
-и пакет *darcsum*, который вы можете загрузить со [[http://www.newartisans.com/johnw/Emacs/darcsum.el][страницы автора]].  Кроме этого, существует
-модуль поддержки *Darcs* для пакета *VC*, о котором вы можете прочитать в разделе [[./EmacsVC][Работа с VC]].
-Также ведется разработка модуля для пакета *dvc*, который описан в разделе [[./EmacsDVC][Работа с DVC]].
+User can use several packages to work with *Darcs*.  The *darcsum* package (available from
+[[http://www.newartisans.com/johnw/Emacs/darcsum.el][author's site]]) implements native support for *Darcs*, reflecting it ideology.  Besides this,
+there are also *Darcs* support modules for *VC* (described in [[./EmacsVC][Work with VC]]) and for *DVC*
+(described in [[./EmacsDVC][Work DVC]]) packages.
 
-Пакет *darcsum* имеет больше возможностей чем пакет *darcs*, и поэтому в дальнейшем наш
-рассказ будет вестись о нем.  Пакет предоставляет пользователю для работы интерфейс, во
-многом сходный с уже привычным интерфейсом пакета *PCL-CVS*.  Имеются только некоторые
-отличия, обусловленные самой архитектурой системы *Darcs*.
+In this part I'll describe the *darcsum* package.  Package implements user interface,
+similar to interface of *PCL-CVS* package.  There are also some distinctions in work due
+differences between *CVS* and *Darcs*.
 
-* Установка пакета
+* Installation
 
-Установка пакета не отличается от установки других пакетов для Emacs -- вам лишь
-необходимо загрузить с [[http://www.newartisans.com/johnw/emacs.html][сайта]] последнюю версию пакета, поместить ее туда, где ее найдет
-Emacs, и прописать загрузку пакета в вашем файле инициализации, например, с помощью такой
-вот команды:
+To install package you need download it from [[http://www.newartisans.com/johnw/emacs.html][site]], and put it to place, where Emacs can
+find it.  And after this, you need to add following string to initialization file:
 
 <src lang="emacs-lisp">
 (require 'darcsum)
 </src>
 
-* Использование пакета *darcsum*
+* Work with *darcsum*
 
-Вся работа с пакетом происходит в буфере =*darcs*=, который создается командой =M-x
-darcsum-whatsnew=.  Пример окна создаваемого этой командой вы можете видеть на рисунке
-ниже.  Многие команды, доступные в данном буфере, совпадают по действию с командами пакета
-*PCL-CVS*.  Команды могут выполняться над текущими изменениями, или над отмеченными.
-Пометка и ее снятие производится с помощью клавиши =m=, которая выполняет команду
-=darcsum-toggle-mark=.  Перемещение между файлами и изменениями в буфере производится с
-помощью команд =darcsum-next-line= (клавиша =n=), и =darcsum-previous-line= (клавиша =p=), или с
-помощью клавиш управления курсором.
+All work with package is performed in the =*darcs*= buffer, that is created by =M-x
+darcsum-whatsnew= command.  On the picture below you can see example of work with this
+buffer.  Many commands, available in this buffer, is coincide with commands of *PCL-CVS*
+package.  Commands could be performed on current change (at point where cursor is
+located), or on all marked changes[1].  You can mark file (or remove mark from marked
+file) with =m= key, which call the =darcsum-toggle-mark= function.  User can move between
+changes with arrow keys, or with =darcsum-next-line= (=n=) and =darcsum-previous-line= (=p=)
+functions.
 
 [[../../../common/writings/emacs-vcs/darcs.png]]
 
-Работа с изменениями производится по следующему сценарию: после получения списка
-измененных файлов, вам нужно отобразить конкретные изменения внесенные в файлы, выбрать
-нужные изменения, и затем выполнять над ними необходимые команды.  Отображение изменений
-внесенных в файл производится с помощью команды =darcsum-toggle=, которая привязана к
-клавише =RET=.
+Usually user work using following scenario: after obtaining of changes, you preview
+concrete changes, mark needed, and then perform commands on them.  You can view changes
+with =darcsum-toggle= command, that bound to =RET= key.
 
-Выбранные изменения могут быть сохранены с помощью команды =darcsum-record= (клавиши =c= или
-=R=), после выполнения которой появится буфер в котором пользователь может ввести имя для
-данного изменения (первая строка буфера) и длинное описание данного изменения (следующие
-за первой строки).  После ввода описания, с помощью сочетания клавиш =C-c C-c=, изменения
-будут сохранены.
+You can commit selected changes in repository with the =darcsum-record= command (=c= or =R=
+keys).  When you execute this command, a new buffer will created, where you can enter
+short (first line of buffer) and long (all other strings) description for this change.
+After you enter this information, you can confirm changes with =C-c C-c= key binding.
 
-Изменения могут быть удалены из буфера =*darcs*= с помощью команды =darcsum-remove= (клавиша
-=r=), или перемещены в другой буфер *darcsum*, с помощью команды =darcsum-move= (клавиша =M=).
-Откат к предыдущей версии данных производится с помощью команды =darcsum-revert=, которая
-привязана к клавише =U=.
+You can remove changes from =*darcs*= buffer with =darcsum-remove= command (=r= key), or move
+them to another *darcsum* buffer with =darcsum-move= command (=M= key).  You can also undo
+changes with =darcsum-revert= command, that bound to =U= key.
 
-Для более удобного просмотра изменений, пакет *darcsum* определяет набор команд, которые
-позволяют просмотреть результат выполнения команды =diff= (или ее аналогов) -- команда
-=darcsum-diff= (клавиша <code>=</code>), просмотреть изменения с помощью пакета *Ediff* --
-команда =darcsum-ediff= (клавиша e), или даже выполнить трехстороннее слияние изменений с
-помощью команды =darcsum-ediff-merge= (клавиша =E=).
+There are several commands, that could be used to view and apply changes: =darcsum-diff=
+(<code>=</code> key) show result of =diff= command, =darcsum-ediff= (=e= key) show changes with
+*Ediff*, and =darcsum-ediff-merge= (=E=) allow to perform three-way merge of changes with *Ediff*.
 
-Чтобы обновить содержимое буфера, используется команда =darcsum-redo=, которая заново
-выполняет команду =darcs whatsnew=.  Для окончания работы с изменениями, используется
-команда =darcsum-quit=, которая привязана к клавише =q=.
-* Настройка
+To update buffer with changes, you can use =darcsum-redo= function, that will execute =darcs
+whatsnew= command and display changes in buffer.  To finish work with package, you can use
+=darcsum-quit= function, bound to =q= key.
 
-Настройка пакета производится с помощью стандартных возможностей Emacs.  Просто выполните
-команду =M-x customize-group darcsum=, и перед вами появится окно настройки.  Вы можете
-задать имя для исполняемого файла =darcs=, а также изменить начертания шрифтов, которыми
-отображаются данные в буфере =*darcs*=.
+* Customization
 
-Кроме настройки переменных и параметров начертаний, пакет предоставляет хук
-=darcsum-mode-hook=, в который вы можете поместить нужные вам команды, которые будут
-выполнены после выполнения хуков для режима =text=, от которого унаследован =darcsum-mode=.
+You can customize package using standard functions of Emacs.  Simply run =M-x
+customize-group darcsum=, and you can see all settings.  You can specify location of =darcs=
+executable, and faces, that are used to display data in =*darcs*= buffer.
 
-<div id="rule">[[./index][На главную страницу]]</div>
+You can also make customization using the =darcsum-mode-hook=, that will called when
+=darcsum-mode= will set for buffer.
+
+<div id="rule">[[./index][Back to main page]]</div>
+
+Footnotes: 
+[1] *Darcs* can operate not only on changed files, but also on specific change, allow to do
+    partial commit of change.
+
+;  LocalWords:  Darcs VC DVC darcsum RET Ediff darcs ediff
