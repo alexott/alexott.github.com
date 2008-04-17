@@ -80,7 +80,7 @@ There are also two hooks, that allow to perform fine-grained customization --
 =monotone-output-mode-hook= and =monotone-commit-mode-hook=.  First of them will called, when
 data will printed, and second, when buffer for entering of commit messages will created.
 
-<div id="rule">[[./index][To main page]]/div>
+<div id="rule">[[./index][To main page]]</div>
 
 ;  LocalWords:  el emacs contrib
 
