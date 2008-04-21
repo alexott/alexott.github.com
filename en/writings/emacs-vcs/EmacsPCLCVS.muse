@@ -3,70 +3,63 @@
 
 <contents>
 
-Пакет *PCL-CVS* предоставляет пользователю эффективные средства с системой контроля версий
-*CVS*, которая широко распространена в мире свободного программного обеспечения.  Кроме
-стандартных возможностей, которые реализованы пакетом *VC*, данный пакет предоставляет
-следующие возможности:
- - просмотр состояния файлов для выбранного проекта;
- - работа с изменениями для данного проекта;
- - работа со всеми, или выбранными объектами вашего проекта.
+The *PCL-CVS* package provides to user very effective way to work with the *CVS*, that widely
+used for software development, especially for open source projects[1].  Besides standard
+features, provided, the *VC* package, this package implements following:
+ - view state of files for given project;
+ - work with changes in given project;
+ - work with all, or selected, objects of your project;
+ - very handy user interface for performing all of these tasks.
 
-Данный пакет является частью поставки GNU Emacs начиная с версии 21, а также доступен в
-виде пакета для XEmacs.  Для других версий Emacs вы можете найти исходные тексты по адресу
+This package is included into GNU Emacs's distribution starting with version 21.  It also
+available as a package for XEmacs.  For other Emacs's versions you can find source code at
 [[ftp://flint.cs.yale.edu/pub/monnier/pcl-cvs][ftp://flint.cs.yale.edu/pub/monnier/pcl-cvs]].
 
-* Основные понятия и принципы работы
+* Basic concepts and principles
 
-Вся работа с пакетом осуществляется в специальном буфере, создаваемом командами *PCL-CVS*.
-Этот буфер называется =*cvs*=, и в нем отображается состояние файлов, находящихся в
-выбранном каталоге, который содержит ваш проект.  Пакет работает только с проектами, уже
-извлеченными из репозитория, так что вам нужно это сделать перед выполнением команд
-*PCL-CVS*.
+All work with package is performed in special buffer, created by *PCL-CVS* commands.  This
+buffer is called =*cvs*=, and used to display files, their statuses and other information.
+Commands of package work only with existing directories, so you need to fetch data from a
+repository before running any *PCL-CVS* command.
 
-В процессе работы вы можете перемещаться по созданному буферу и выполнять разные команды с
-выбранными файлами, или файлами на которых находится курсор.
+During work you can navigate in buffer and perform different commands on selected (or file
+where cursor is placed) files.  For each file in project some status is assigned, and list
+of available commands depends on this status.
 
-При работе с файлами в проекте, каждому из файлов присваивается определенный статус, и
-список доступных команд может зависеть от статуса файла.
+Information in buffer is separated between several columns:
+ - number of latest revision in repository and additional file status (optional);
+ - =*= sign for marked files;
+ - file status, described bellow;
+ - version number for file (optional);
+ - file name.
 
-Данные в буфере отображаются в несколько колонок:
- - номер последней версии в репозитории, и кроме этого дополнительный статус файла
-   (необязательно);
- - звездочка, показывающая пометку для отмеченного файла;
- - статус файла, расшифровка которого будет приведена ниже;
- - версия файла, находящегося в выбранном каталоге (необязательно);
- - имя файла.
-
-Поле статуса может содержать следующие значения:
+File status can has one of following values:
       
- *Added* :: файл был добавлен, но изменения еще не были подтверждены в репозиторий;
- *Removed* :: файл был удален, но изменения еще не были подтверждены в репозиторий;
- *Modified* :: данный файл был изменен.  Для этого статуса может быть показан дополнительный
-   статус *merged*, который обозначает что были внесены изменения в репозиторий, и они были
-   совмещены с вашими изменениями безо всяких конфликтов;
- *Conflict* :: был обнаружен конфликт между вашими изменениями в проекте, и изменениями в
-   репозитории. Обе версии изменений записываются в файл, но при этом сохраняется
-   оригинальный файл, который именуется как =.#FILE.VERSION=.  Конфликты также могут
-   возникать по другим причинам, которые вы можете узнать посмотрев на дополнительный
-   статус данного файла. Дополнительный статус может иметь следующие значения: *removed* --
-   вы удалили файл, но кто-то внес в репозиторий новую версию; *added* -- вы добавили файл,
-   но кто-то тоже добавил файл в репозиторий; *modified* -- вы изменили файл, но кто-то
-   другой удалил этот файл из репозитория.
- *Unknown* :: файл не зарегистрирован, и не входит в список игнорируемых файлов;
- *Up-to-date* :: файл соответствует версии в репозитории.  Поле дополнительного статуса
-   может сообщить дополнительную информацию о файле: *added* -- вы только что добавили файл
-   в репозиторий; *updated* -- файл был обновлен в соответствии с данными репозитория;
-   *patched* -- аналогично статусу *updated*, но обновление происходило более эффективным
-   методом, это происходит в тех случаях, если вы изменяли файл; *commited* -- вы
-   подтвердили изменения в репозиторий;
- *Need-Update* :: репозиторий содержит более свежую версию, или файл был добавлен в
-   репозиторий и у вас его еще нет;
- *Need-Merge* :: вы внесли изменения в файл, и кто-то также внес изменения в файл в
-   репозитории, так что необходимо совместить эти изменения;
- *Missing* :: файл был внезапно удален из вашего каталога, но для него не была выполнена
-   команда =cvs remove=.
+ *Added* :: file was added, but not yet committed to repository;
+ *Removed* :: file was deleted, but not yet committed to repository;
+ *Modified* :: file was changed.  For this status, could be displayed additional status --
+   *merged*, that means, that new changes from repository was merged with your changes
+   without any conflicts;
+ *Conflict* :: during merging of changes, a conflict was detected.  Both versions of changes
+   are written to the file, and content of original file is stored as =.#FILE.VERSION=.
+   Besides conflicts due the different content of change, there are other types of
+   conflicts, displayed as additional status: *removed* -- you removed file, but somebody
+   change it in repository; *added* -- you added file, but somebody also add and commit it;
+   *modified* -- you changed the file, but somebody removes it from repository;
+ *Unknown* :: file is not registered in repository, and also not listed as ignored file;
+ *Up-to-date* :: file matches the version in repository.  Additional status field provide
+   more information about it: *added* -- you just added it to repository; *updated* -- file
+   was updated from repository; *patched* -- similar to *updated*, but the changes from
+   repository was merged with your changes; *committed* -- you just committed changes to
+   repository;
+ *Need-Update* :: repository has more up to date version of file, or file was added to
+   repository, but not fetched to your copy;
+ *Need-Merge* :: you changed file, and there are other changes in repository, so you have to
+   merge with them;
+ *Missing* :: file was removed from disk, but the =cvs remove= command for it wasn't
+   performed.
 
-* Основные команды и привязки клавиш
+* Main commands and key bindings
 
 Команды, предоставляемые пакетом *PCL-CVS* имеют префикс =cvs-= и имена, аналогичные
 подкомандам команды *CVS*.  Для выполнения части команд необходимо наличие буфера =*cvs*=,
@@ -91,7 +84,7 @@
 По умолчанию, эти команды выполняются рекурсивно, но вы    можете изменить это поведение,
 используя флаг =-l=    для команд *CVS*.
 
-* Команды перемещения в буфере и пометки файлов
+* Navigation and files selection
 
 Для перемещения по буферу =*cvs*= используются команды =cvs-mode-next-line= (клавиша =n=) -- для
 перемещения на следующую строку и =cvs-mode-previous-line= (клавиша =p=), которая приводит к
@@ -106,7 +99,7 @@
 =cvs-mode-mark-matching-files= (клавиша =%=), или которые имеют определенный статус -- команда
 =cvs-mode-mark-on-state= (клавиша =S=).
 
-* Добавление, удаление, редактирование и обновление файлов
+* Work with files
 
 Добавление файлов производится очень простым способом -- просто отметьте все нужные файлы
 (обычно они имеют статус *Unknown*), и нажмите на клавишу a (команда =cvs-mode-add=).  Статус
@@ -132,7 +125,7 @@
 мешающие файлы в список игнорируемых объектов.
 
 #changes
-* Работа с изменениями
+* Work with changes
 
 Для подтверждения изменений в репозиторий вам нужно лишь выбрать файлы, изменения для
 которых вы хотите подтвердить, а зачем нажать =c= (=cvs-mode-commit=) или =C=
@@ -174,7 +167,7 @@
 файлах, то их содержимое не будет использоваться при работе, и после завершения работы,
 все изменения сделанные *CVS*, будут затерты.
 
-* Получение информации о файлах и прочие команды
+* Getting information about files, and other commands
 
 Для получения информации о файлах может использоваться две команды.  Команда =cvs-mode-log=
 (клавиша =l=) выполняет команду =cvs log= для выбранных файлов и результат отображается в
@@ -208,3 +201,8 @@
 отображения информации в буферах данного режима.
 
 <div id="rule">[[./index][Back to main page]]</div>
+
+Footnotes: 
+[1] This situation is started to change.  Many new free version control systems was
+    developed and used -- Subversion, Git, Darcs, Mercurial, etc.
+
