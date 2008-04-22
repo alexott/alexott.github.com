@@ -448,7 +448,9 @@ different tasks.
    through source code.  Kcachegrind allow to display data in different forms -- as
    tables, maps & functions call graph. Example of interface you can see on picture below.
 
+<div id="screenshot">
 [[../../../common/writings/prog-checking/kcachegrind-callgrind.png]]
+</div>
 
 <div id="rule">[[./index][Back to main page]]</div>
 

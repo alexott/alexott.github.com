@@ -36,8 +36,9 @@ Exmap's distribution contain also  =gexmap= utility, that used for graphical rep
 of data, collected by kernel module.  Example of work with =gexmap= you can see on
 screenshot below.
 
+<div id="screenshot">
 [[../../../common/writings/prog-checking/exmap.png]]
-
+</div>
 
 As you can see on picture, information displayed in several windows:
  - in first window displayed summary information for each of executed processes

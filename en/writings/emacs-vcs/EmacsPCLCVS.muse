@@ -19,8 +19,8 @@ available as a package for XEmacs.  For other Emacs's versions you can find sour
 
 All work with package is performed in special buffer, created by *PCL-CVS* commands.  This
 buffer is called =*cvs*=, and used to display files, their statuses and other information.
-Commands of package work only with existing directories, so you need to fetch data from a
-repository before running any *PCL-CVS* command.
+Some of package commands work only with existing directories, so you need to fetch data
+from a repository before running any *PCL-CVS* command.
 
 During work you can navigate in buffer and perform different commands on selected (or file
 where cursor is placed) files.  For each file in project some status is assigned, and list
@@ -61,68 +61,63 @@ File status can has one of following values:
 
 * Main commands and key bindings
 
-Команды, предоставляемые пакетом *PCL-CVS* имеют префикс =cvs-= и имена, аналогичные
-подкомандам команды *CVS*.  Для выполнения части команд необходимо наличие буфера =*cvs*=,
-который создается следующими командами (команды выполняются с помощью сочетания M-x или
-через меню =Tools=):
+Many of commands, implemented by the *PCL-CVS* package has the =cvs-= prefix and names,
+similar to names of *CVS* commands.  Some commands could be executed only in the =*cvs*=
+buffer, that could be created one of following commands (commands usually run via =M-x= key
+binding, either via =Tools= menu):
       
- =cvs-update= :: выполняет =cvs update= для указанного вами каталога;
- =cvs-examine= :: выполняет команду =cvs -n update=, которая только проверяет что необходимо
-   сделать, не внося никаких изменений;
- =cvs-status= :: выполняет команду =cvs status= для указанного вами каталога;
- =cvs-checkout= :: выполняет команду =cvs checkout= для указанного вами модуля;
- =cvs-quickdir= :: создает буфер =*cvs*= считывая данные из файлов =CVS/Entries=.  Эта команда
-   аналогична =cvs-examine=, но не осуществляет доступа к репозиторию, что иногда очень
-   полезно.
+ =cvs-update= :: run =cvs update= on specified directory;
+ =cvs-examine= :: run =cvs -n update= command, that just check state of directory without
+   changing directory;
+ =cvs-status= :: run =cvs status= command on specified directory;
+ =cvs-checkout= :: run =cvs checkout= command for specified module;
+ =cvs-quickdir= :: creates the =*cvs*= buffer, using data from =CVS/Entries= files.  This
+   command is similar to the =cvs-examine= command, but it doesn't require access to
+   repository.
 
-Эти команды могут выполняться также и из буфера =*cvs*= -- вы можете использовать =M-u= для
-выполнения =cvs-update=, =M-e= для =cvs-examine= и =M-s= для =cvs-status=.  Кроме этого, вы можете
-использовать соответствующие команды только для выбранных файлов -- =O= (=cvs-mode-update=)
-для обновления файлов, =e= (=cvs-mode-examine=) для обновления информации о файлах и =s=
-(=cvs-mode-status=) для получения информации о выбранных файлах.
+These commands could be also executed in the =*cvs*= buffer -- you can use =M-u= for
+=cvs-update=, =M-e= for =cvs-examine=, and =M-s= for =cvs-status=.  You can also perform
+corresponding commands on selected files -- =O= (=cvs-mode-update=) to update files, =e=
+(=cvs-mode-examine=) to update information about files, and  =s= (=cvs-mode-status=) to get
+status information for selected files.
 
-По умолчанию, эти команды выполняются рекурсивно, но вы    можете изменить это поведение,
-используя флаг =-l=    для команд *CVS*.
+By default, all these commands are performed recursively, but you can change this
+behaviour if you pass the =-l= option to *CVS*.
 
 * Navigation and files selection
 
-Для перемещения по буферу =*cvs*= используются команды =cvs-mode-next-line= (клавиша =n=) -- для
-перемещения на следующую строку и =cvs-mode-previous-line= (клавиша =p=), которая приводит к
-переходу на предыдущую строку.
+To navigation inside the =*cvs*= buffer user can use following commands: =cvs-mode-next-line=
+(=n= key) -- to move to the next line, and =cvs-mode-previous-line= (=p= key) that move to
+previous line.
 
-Для работы с пометками используются множество разных команд. Для пометки одного файла
-используется команда =cvs-mode-mark= (клавиша =m=), а для снятия пометки -- команда
-=cvs-mode-unmark= (клавиша =u=).  Для пометки всех файлов используется клавиша =M= (команда
-=cvs-mode-mark-all-files=), а противоположной ей командой является
-=cvs-mode-unmark-all-files=, которая привязана к сочетанию клавиш =M-DEL=.  Вы также можете
-пометить файлы, имена которых подпадают под заданное регулярное выражение -- команда
-=cvs-mode-mark-matching-files= (клавиша =%=), или которые имеют определенный статус -- команда
-=cvs-mode-mark-on-state= (клавиша =S=).
+There are several commands to work with marks.  To mark one file, you can use the
+=cvs-mode-mark= command (=m= key). To remove mark from file there is the =cvs-mode-unmark=
+command (=u= key).  To mark all files user can use =M= key (=cvs-mode-mark-all-files= command),
+and to remove selection from all files, user can execute =cvs-mode-unmark-all-files=
+command, that bound to =M-DEL=.  You can also use the =cvs-mode-mark-matching-files= command
+(=%= key) to mark files, which names matches given regular expressions.  There is also
+=cvs-mode-mark-on-state= command (=S= key), that mark files with given status.
 
 * Work with files
 
-Добавление файлов производится очень простым способом -- просто отметьте все нужные файлы
-(обычно они имеют статус *Unknown*), и нажмите на клавишу a (команда =cvs-mode-add=).  Статус
-файлов будет изменен на *Added*, и затем вы должны подтвердить изменения в репозиторий
-(см. раздел [[#changes][Работа с изменениями]]).  Вы также можете использовать эту команду и для файлов
-со статусом *Removed*, что приведет к их восстановлению.
+Addition of files is very simple -- just mark all needed files (usually they have *Unknown*
+status), and press =a= key (=cvs-mode-add= command).  Status of files will changed to *Added*,
+and you will need to commit these changes to repository (see section [[#changes][Work with changes]]).
+You can also use this command for files with *Removed* status -- this restore them.
 
-Удаление файлов производится аналогичным образом -- вы помечаете файлы, и выполняете
-команду =cvs-mode-remove-file= (клавиша =r=).  При выполнении этой команды у вас будет
-запрошено подтверждение, и затем файлы будут удалены из каталога.  В том случае, если
-файлы находятся под контролем *CVS*, то для них также будет выполнена команда =cvs remove=.
-Как и в предыдущем случае, вам также нужно будет подтвердить изменения в репозиторий.
+To delete files you need to perform almost same sequence -- you need to mark files, and to
+execute the =cvs-mode-remove-file= command (=r= key).  You will asked for confirmation, and if
+you answer *yes*, then files will removed from your directory.  If files are registered in
+*CVS*, then the =cvs remove= command also will performed.  You also need to commit these
+changes to repository.
 
-Обновление файлов производится с помощью команды =cvs-mode-update=, которая привязана к
-клавише =O=.  Это заставляет выполнить команду =cvs update= для файлов имеющих статус
-*Need-update*.
+To update files you can run the =cvs-mode-update= command, that bound to =O= key.  This will
+execute =cvs update= command for all files with *Need-update* status.
 
-Иногда, вам требуется хранить в каталогах проекта, файлы, не зарегистрированные в
-репозитории.  Такие файлы обычно отображаются со статусом *Unknown*, но вы можете сообщить
-*CVS*, что эти файлы необходимо игнорировать при выполнении команд, просто перечислив их в
-файле =.cvsignore=.  Для помещения выбранного файла в этот файл, используется команда
-=cvs-mode-ignore=, которая привязана к клавише =i=.  Используя ее, вы можете быстро поместить
-мешающие файлы в список игнорируемых объектов.
+Sometimes, you need to keep some files, not registered in repository.  Such files are
+displayed with *Unknown* status, but you can say *CVS* to ignore that files, just list them in
+the =.cvsignore= file.  To put selected files into this file, you can use the
+=cvs-mode-ignore= command, that bound to =i= key.
 
 #changes
 * Work with changes
@@ -195,10 +190,9 @@ File status can has one of following values:
 
 * Customization
 
-Выполнение команд *PCL-CVS* зависит от значения некоторых переменных, настройку которых
-легче всего осуществить с помощью команды =M-x customize-group pcl-cvs=.  В эти настройки
-входит как настройка самих переменных, так и свойств начертаний, который используются для
-отображения информации в буферах данного режима.
+Behaviour of *PCL-CVS* functions depends on values of several variables, that you can
+customize with =M-x customize-group pcl-cvs= command.  You can customize values of
+variables, faces, used to display information, etc.
 
 <div id="rule">[[./index][Back to main page]]</div>
 

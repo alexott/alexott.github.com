@@ -43,7 +43,9 @@ this buffer you can see on picture below (at the bottom of picture you can see o
 This make transition to *Git* more easy).  All commands available only in this buffer, and
 couldn't be used outside of it.
     
+<div id="screenshot">
 [[../../../common/writings/emacs-vcs/git-status.png]]
+</div>
      
 User can navigate in buffer with arrow keys, or with commands =git-next-file= (keys =n= and
 =SPC=) and =git-prev-file= (=p= key).  For many commands user can specify numeric prefix (as for

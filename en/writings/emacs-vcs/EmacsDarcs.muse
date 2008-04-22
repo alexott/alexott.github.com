@@ -32,7 +32,9 @@ file) with =m= key, which call the =darcsum-toggle-mark= function.  User can mov
 changes with arrow keys, or with =darcsum-next-line= (=n=) and =darcsum-previous-line= (=p=)
 functions.
 
+<div id="screenshot">
 [[../../../common/writings/emacs-vcs/darcs.png]]
+</div>
 
 Usually user work using following scenario: after obtaining of changes, you preview
 concrete changes, mark needed, and then perform commands on them.  You can view changes
