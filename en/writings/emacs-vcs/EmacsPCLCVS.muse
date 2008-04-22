@@ -122,71 +122,56 @@ the =.cvsignore= file.  To put selected files into this file, you can use the
 #changes
 * Work with changes
 
-Для подтверждения изменений в репозиторий вам нужно лишь выбрать файлы, изменения для
-которых вы хотите подтвердить, а зачем нажать =c= (=cvs-mode-commit=) или =C=
-(=cvs-mode-commit-setup=).  Это приведет к возникновению нового буфера с именем
-=*cvs-commit*=, в котором вы можете ввести описание вносимых изменений.  После ввода
-сообщения, вам необходимо лишь нажать =C-c C-c= и изменения будут внесены в репозиторий.  Вы
-можете прервать этот процесс в любое время, просто не выполняя команду =C-c C-c=.  Разница
-между командами =c= и =C= заключается в том, как они относятся к содержимому буфера
-=*cvs-commit*=.  Первая команда сохраняет предыдущее содержимое буфера, в то время как
-вторая команда создает буфер заново.
+To commit changes to repository you just need to select needed files, and than press =c= key
+(=cvs-mode-commit=) or =C= key (=cvs-mode-commit-setup=).  They will create a new buffer, called
+=*cvs-commit*=, in which you can enter your commit message.  After you enter message, you
+need to press =C-c C-c=, and changes will committed to repository.  You can abort this
+procedure, if you want, just simply not executing =C-c C-c=.  Difference between =c= and =C= is
+that first command preserve old content of =*cvs-commit*= buffer, but second -- not.
 
-Если вы изменили файл, но не хотите вносить данные изменения в репозиторий, то вы можете
-использовать команду =cvs-mode-undo-local-changes=, которая привязана к клавише =U=.  Эта
-команда удаляет файл с вашими изменениями, и получает последнюю версию из репозитория.
+If you change file, but doesn't want put changes into repository, then you can revert them
+by using the =cvs-mode-undo-local-changes= command, that bound to =U= key.  This command
+remove modified file, and retrieve latest version from repository.
 
-Вы можете просмотреть изменения внесенные в файл с помощью нескольких команд.  Наиболее
-часто используемой командой является =cvs-mode-diff=, которая вызывается с помощью клавиши
-<code>=</code> или сочетания <code>d =</code>.  Эта команда показывает между измененным
-файлом и его базовой версией.  Кроме этого, также определен набор команд, которые
-выполняют следующие действия:
+You can view what was changed using one of several commands.  Most often used command is
+=cvs-mode-diff=, that bound to <code>=</code> key (and also to <code>d =</code>).  This
+command show differences between modified file and it version in repository.  There are
+also several commands to display changes:
       
- =cvs-mode-diff-head= (=d h=) :: показывает изменения между выбранными файлами и головной
-   (HEAD) версией соответствующего файла данной ветви разработки;
- =cvs-mode-diff-repository= (=d r=) :: показывает изменения между базовой и головной версиями
-   выбранных файлов в текущей ветке разработки;
- =cvs-mode-diff-backup= (=d b=) :: показывает изменения между резервной версией файла и
-   файлом. Эта команда особенно полезна в случаях возникновения конфликтов при слиянии
-   изменений между файлами;
- =cvs-mode-diff-vendor= (=d v=) :: показывает изменения между выбранными файлами и головной
-   версией в ветви производителя (vendor branch);
- =cvs-mode-diff-yesterday= (=d y=) :: показывает изменения между выбранными файлами и
-   вчерашней головной версией файлов.
+ =cvs-mode-diff-head= (=d h=) :: show difference between selected files and head version of
+   corresponding files;
+ =cvs-mode-diff-repository= (=d r=) :: show differences between repository version of file in
+   current branch and its head version;
+ =cvs-mode-diff-backup= (=d b=) :: show differences between backup version of file and current
+   version.  It's very useful when you resolve conflicts in files;
+ =cvs-mode-diff-vendor= (=d v=) :: show differences between selected files and its versions in
+   vendor branch;
+ =cvs-mode-diff-yesterday= (=d y=) :: show differences between selected files, and their
+   yesterdays copies.
 
-Также, для работы с изменениями вы можете использовать утилиты *Ediff* и *Emerge*.  Команда
-=cvs-mode-idiff= (привязана к сочетанию клавиш =d e=) запускает *Ediff* или *Emerge* (зависит от
-выбранных настроек), что позволяет вам интерактивно работать с изменениями.  При
-использовании команды =cvs-mode-imerge= (сочетание клавиш =d E=) вы можете выполнить
-трехстороннее интерактивное слияние изменений, но если уже существует конфликт в выбранных
-файлах, то их содержимое не будет использоваться при работе, и после завершения работы,
-все изменения сделанные *CVS*, будут затерты.
+To work with changes you can also use *Ediff* and *Emerge*.  The =cvs-mode-idiff= command (=d e=)
+run *Ediff* or *Emerge* (depending on current settings), that allow you interactively work
+with changes.  If you run the =cvs-mode-imerge= command (=d E=), then you can perform
+interactive 3-way merge of changes.
 
 * Getting information about files, and other commands
 
-Для получения информации о файлах может использоваться две команды.  Команда =cvs-mode-log=
-(клавиша =l=) выполняет команду =cvs log= для выбранных файлов и результат отображается в
-буфере =*cvs-info*=. А команда =cvs-mode-status= (клавиша =s=) выполняет =cvs status= для
-выбранных файлов и результат отображается в буфере =*cvs-info*=.
+To retrieve information about files you can use two commands.  The =cvs-mode-log= command (=l=
+key) performs =cvs log= for selected files, and result is displayed in the =*cvs-info*=
+buffer.  And the =cvs-mode-status= command (=s= key) performs =cvs status= for selected files
+and also displays data in the =*cvs-info*= buffer.
 
-Команда =cvs-mode-tag= (клавиша =t=) позволяет вам установить тег на выбранные файлы. По
-умолчанию, данная команда применяется только к каталогам, но это поведение зависит от
-настроек клиента.
+With =cvs-mode-tag= command (=t=) you can set a tag to selected files.  By default, this
+command applied only to directories, but this behaviour from the client's settings.
 
-Иногда вам может понадобиться, чтобы в буфере =*cvs*= не отображались некоторые записи.  Вы
-можете сделать это двумя способами -- использовать команду =cvs-mode-remove-handled=
-(клавиша =x=), которая удаляет из буфера уже обработанные записи, например, файлы со
-статусом *Up-to-date*, или использовать команду =cvs-mode-acknowledge= (она привязана к
-сочетанию =C-k=), которая просто удаляет нужные строки.  Обработанные записи могут удаляться
-автоматически, в том случае, если переменная =cvs-auto-remove-handled= имеет значение не
-равное =nil=.
+Sometimes you doesn't want to display some lines in the =*cvs*= buffer.  You can do this
+with either =cvs-mode-remove-handled= command (=x=), that deletes from buffer already
+processed line (for example, files with *Up-to-date* status), or with =cvs-mode-acknowledge=
+command (it bound to =C-k=), that simply deletes lines.  Processed files can be deleted
+automatically if the =cvs-auto-remove-handled= variable has non-=nil= value.
 
-Чтобы обновить содержимое буфера =*cvs*=, вы можете использовать команду
-=cvs-mode-revert-buffer=, которая привязана к клавише =g=.  А для выхода из буфера =*cvs*=
-используется команда =cvs-mode-quit=, которая привязана к клавише =q=.
-
-Режим *PCL-CVS* также определяет несколько дополнительных режимов -- для редактирования
-сообщений для журнала изменений, а также режим для просмотра журнала изменений.
+To refresh =*cvs*= buffer, you can use =cvs-mode-revert-buffer= command, that bound to =g= key.
+And to leave this buffer, you can use =cvs-mode-quit= command (=q= key).
 
 * Customization
 
