@@ -1,129 +1,113 @@
-#title Пакет PSVN
+#title PSVN Package
 #keywords emacs, svn, subversion, psvn
 
 <contents>
 
-Пакет *PSVN* является для *Subversion* тем же, что и *PCL-CVS* для *CVS*.  Пакет дает пользователю
-доступ ко всем основным возможностям, предоставляемым системой *Subversion*.
+The *PSVN* package provide same functionality for *Subversion*, as the *PCL-CVS* for *CVS*.  This
+package provide user access to all features of *Subversion*.
 
-* Установка пакета
+* Installation of package
 
-Установка пакета проста -- загрузите с [[http://www.xsteve.at/prg/emacs/psvn.el][сайта]] последнюю версию пакета, поместите его в
-доступный для Emacs каталог, и поместите в файл инициализации следующую команду:
+Installation of package is pretty simple -- download latest version from [[http://www.xsteve.at/prg/emacs/psvn.el][site]], put it to
+place, where Emacs can find it, and add following line to initialization file:
     
 <src lang="emacs-lisp">
 (require 'psvn)
 </src>
 
-* Работа с пакетом
+* Work with package
 
-Работа с пакетом по принципам, совершенно аналогична работе с пакетом *PCL-CVS* -- вся
-работа производится в буфере, создаваемом командами пакета.  В настоящее время этот буфер
-создается лишь одной командой -- =svn-status=, реализация других команд, производится в
-настоящее время.  Буфер, создаваемый в процессе работы данной команды, называется
-=*svn-status*=.  Пример буфера, создаваемого командой =svn-status=, вы можете увидеть на
-рисунке ниже.  Команды, выполняемые пользователем применяются либо к текущему файлу, либо
-к помеченным файлам.
+The *PSVN* package use almost same principles as the *PCL-CVS* package -- all work is
+performed in special buffer.  Currently this buffer is created only by =svn-status=
+function.  Buffer, that created by =svn-status= function has name =*svn-status*=.  Example of
+this buffer, you can see on the picture below.
 
 <div id="screenshot">
 [[../../../common/writings/emacs-vcs/svn-status.png]]
 </div>
 
-Как вы можете видеть на рисунке, информация выдается в виде таблицы.  В первой колонке
-отображается статус объекта, во второй колонке -- рабочей версия данного объекта, в
-третьей -- номер версии в которой вносились последние изменения, а в четвертой -- имя
-пользователя, который вносил эти изменения, и в последней -- имя объекта.  Расшифровку
-статусов вы можете найти в описании команды =svn status -v=.
+As you can see on picture, information is displayed as a table.  In first column the
+status of object is displayed.  In second column -- version number for given object, in
+the third -- number of version, when file was changed, in the fourth column -- name of
+user, who had changed this object, and in the last column -- object's name.  List of
+available statuses and their descriptions you can find in the output of =svn status -v=
+command.
 
-Пользователь может выполнять команды, используя предопределенные привязки клавиш, либо
-может использовать меню =SVN=, появляющееся при работе с буфером =*svn-status*=.
+Functions, that are performed by user is applied to current file, or to marked files.  User
+can execute functions using key bindings, or using menu, called =SVN=, that displayed in the
+=*svn-status*= buffer.
 
-* Навигация и работа с пометками
+** Navigation and work with marks
 
-Команды навигации по буферу =*svn-status*= аналогичны командам других пакетов для работы с
-системами контроля версий -- вы можете использовать либо клавишу управления курсором, либо
-команду =svn-status-previous-line= (привязана к клавише =C-p=) для перемещения на предыдущую
-строку, и команду =svn-status-next-line= (привязана к клавише =C-n=) для перехода на следующую
-строку.  Эти привязки несколько отличаются от других режимов, которые для аналогичных
-команд используют клавиши =n= и =p=.
+User can navigate in =*svn-status*= buffer with almost same functions as in packages for
+other VCS -- he can use either arrow keys, either functions: =svn-status-previous-line=
+(bound to =C-p=) to move to previous line, and =svn-status-next-line= (bound to =C-n=) to move
+to the next line.  This is slightly different from other packages, that use =n= and =p= for
+these actions.
 
-Для установки пометок на файлы *PSVN* использует те же самые клавиши, что и остальные режимы
--- для пометки объекта используется клавиша =m= (команда =svn-status-set-user-mark=), а для
-снятия пометки -- клавиша =u= (команда =svn-status-unset-user-mark=).  Кроме этого для снятия
-всех установленных пометок используется команда =svn-status-unset-all-usermarks= (сочетания
-клавиш =M-DEL= или =* !=), а для снятия пометки с файла, находящегося перед курсором, может
-использоваться команда =svn-status-unset-user-mark-backwards=, привязанная к клавише =DEL=.
+To set marks to objects *PSVN* use same key bindings as other packages -- to mark object the
+=m= key (=svn-status-set-user-mark=) is used, and to remove mark the =u= key
+(=svn-status-unset-user-mark=) is used.  Besides this, to remove all marks, user can use the
+=svn-status-unset-all-usermarks= function (=M-DEL= or =* != key bindings), and to remove a mark
+from an object, that located before cursor, user can use
+=svn-status-unset-user-mark-backwards= function, that bound to =DEL= key.
 
-Также определены команды для пометки файлов с разным статусом.  Так, для пометки
-измененных файлов может использоваться команда =svn-status-mark-modified= (сочетание
-клавиш =* M=), для пометки добавленных файлов команда =svn-status-mark-added= (сочетание
-клавиш =* A=), а для пометки файлов не находящихся под контролем *Subversion*, команда
-=svn-status-mark-unknown= (сочетание клавиш =* ?=).
+User can also mark files with concrete status.  To mark modified files user can use
+=svn-status-mark-modified= function (=* M=), to mark added files -- =svn-status-mark-added=
+function (=* A=), and to mark not registered files -- =svn-status-mark-unknown= function (=* ?=).
 
-* Добавление, удаление и обновление файлов
+** Work with files
 
-Добавление файлов в репозиторий можно производить с помощью нескольких команд.  Базовой
-командой является =svn-status-add-file= (она привязана к клавише =a=), которая добавляет
-текущий файл в репозиторий (или выбранные файлы).  В качестве дополнения к ней, пакет *PSVN*
-определяет команду =svn-status-add-file-recursively= (клавиша =A=), которая рекурсивно
-добавляет файлы в репозиторий и команду =svn-status-make-directory= (клавиша =+=), которая
-создает новый каталог в репозитории.  Не забудьте, что удаление файлов производится только
-в вашей рабочей копии репозитория, так что изменения будут внесены только после явного
-подтверждения.
+User can add files to repository using several functions.  Most often used function is
+=svn-status-add-file= (it bound to =a=), that add file(s) (current one or several marked) to
+repository.  There are also =svn-status-add-file-recursively= function (=A= key), that add
+files recursively, and =svn-status-make-directory= function (=+= key), that creates directory
+in repository.  Don't forget, that addition of files is performed only in your directory,
+and files will added to repository only after explicit commit.
 
-Удаление файлов производится командой =svn-status-rm= (клавиша =D= или сочетание =C-d=), что
-запускает команду =svn rm=.  Поскольку *Subversion* поддерживает явное переименование файлов с
-сохранением истории файла, то и пакет *PSVN* имеет в своем арсенале соответствующую команду
-=svn-status-mv=, которая привязана к клавише =R=.  Как и в предыдущем случае, вам после
-выполнения данных команд необходимо подтвердить внесенные изменения.
+Deletion of files is performed with =svn-status-rm= function (=D= key or =C-d=), that executes
+=svn rm= command.  As *Subversion* supports renaming of files with preserving of history, and
+*PSVN* also has function to perform this operation.  This function is called =svn-status-mv=
+and bound to =R= key.  User also must explicitly commit its changes to repository.
 
-Вы можете выполнить обновление вашего рабочего каталога из репозитория, что часто бывает
-удобно при одновременной работе нескольких разработчиков над одним проектов.  Обновление
-производится с помощью команды =svn-status-update-cmd= (клавиша =U=), которая запускает
-команду =svn update=.  Кроме этого, вы можете вытянуть нужную версию файла с помощью команды
-=svn-status-get-specific-revision= (клавиша =~=).  При работе этой команды создается файл
-=F.~REVISION~=, который и содержит нужную версию файла.  А также вы можете просмотреть
-состояние и родительского каталога, с помощью команды =svn-status-examine-parent=, которая
-привязана к клавише =^=.
+You can use update your work directory from repository with =svn-status-update-cmd= function
+(=U= key), that executes =svn update= command.  You can also fetch concrete version of file
+with =svn-status-get-specific-revision= function (=~= key).  After execution of this command,
+file with name =F.~REVISION~= will created, and it will contain data for concrete version.
+You can obtain state of parent directory with the =svn-status-examine-parent= function, that
+bound to =^= key.
 
-Вы можете просматривать и редактировать файлы непосредственно из буфера =*svn-status*=.  Это
-возможно с помощью команд =svn-status-find-files= (клавиша =f=), которая открывает файл
-непосредственно в том же окне, которое и содержит буфер =*svn-status*=.  Для открытия файла
-в другом окне может использоваться команда =svn-status-find-file-other-window= (клавиша =o=),
-вы можете просматривать, а не редактировать файл с помощью команды
-=svn-status-view-file-other-window= (клавиша =v=), что бывает очень полезно, если вы хотите
-лишь посмотреть на файл, не редактируя его.  Клавиша =RET= (команда
-=svn-status-find-file-or-examine-directory=) играет двоякую роль -- она либо открывает файл,
-либо отображает состояние файлов в соответствующем каталоге.
+You can view and edit files directly from =*svn-status*= buffer.  To open file in the same
+windows as =*svn-status*= buffer you can use =svn-status-find-files= function (=f= key).  And to
+open file in other window, you can use =svn-status-find-file-other-window= function (=o= key).
+You can also view file with =svn-status-view-file-other-window= function (=v= key), that is
+very handy when you don't want to change file.  The =RET= key
+(=svn-status-find-file-or-examine-directory=) performs two operations -- it either opens
+file, or displays state of files in given directory.
 
-Хочу заметить, что в настоящее время *PSVN* не поддерживает команды импорта данных в архив,
-и получения данных из репозитория.  Но работа над поддержкой этих функций ведется, и может
-быть они будут реализованы в будущих версиях.
+; TODO: add description of checkout 
 
-* Работа с изменениями
+** Work with changes
 
-Как уже упоминалось выше, вы должны подтвердить изменения в репозиторий.  Подтверждение
-выполняется с помощью команды =svn-status-commit-file= (клавиша =c=).  После подтверждения,
-ваши изменения будут видны всем людям, работающим с репозиторием.
+As was mentioned above, after performing almost all operations you need explicitly commit
+changes to repository.  You can do this with =svn-status-commit-file= function (=c= key).
+After you perform this operation, your changes will available to all users, who are
+working with this repository.
 
-Кроме подтверждения изменений, иногда необходимо отменить внесенные изменения.  Для этого
-используется команда =svn-status-revert=, которая привязана к клавише =r=.  *Subversion*
-поддерживает возможность явного удаления статуса наличия конфликтов с файлов, которые
-имеют такой статус.  Для удаления статуса конфликта *PSVN* предоставляет команду
-=svn-status-resolved= (клавиша =V=), которая запускает команду =svn resolved=.
+You can also remove changes, that you did in files.  This operation is performed with
+=svn-status-revert= function, that bound to =r= key.  *Subversion* supports removing of *conflict*
+state from files, that has this status.  To do this, you can use =svn-status-resolved=
+function (=V= key), that executes =svn resolved= command.
 
-Также как и другие пакеты для работы с системами контроля версий, *PSVN* предоставляет
-возможность получения списка изменений для выбранных файлов по сравнению с базовой
-версией.  Для этого определено несколько команд.  Команда =svn-status-show-svn-diff=
-(клавиша <code>=</code>), выполняет сравнение с головной версией в репозитории (если она
-новее чем базовая) или с базовой версией текущего файла.  Команда
-=svn-status-show-svn-diff-for-marked-files= (сочетание <code>C-=</code>) может выполнить
-сравнение сразу нескольких выбранных файлов с их базовыми версиями.  А команда
-=svn-status-ediff-with-revision= (клавиша =E=) использует для сравнения пакет *Ediff*.  Все эти
-команды могут выполнять сравнение с произвольной версией, если им будет задан префиксный
-аргумент перед их выполнением.
+As in many other packages that works with VCS, *PSVN* implements functions that allow to get
+list of changes in files between current and base versions.  The =svn-status-show-svn-diff=
+function (<code>=</code> key), displays differences between modified file and its version
+in repository.  The =svn-status-show-svn-diff-for-marked-files= function (<code>C-=</code>)
+performs this operation for all marked files.  And the =svn-status-ediff-with-revision=
+function (=E= key) uses *Ediff* to perform this operation.  All these functions support
+comparison with arbitrary version, if they'll get prefix argument before they execution.
 
-* Работа с метаданными (properties)
+** Work with meta-data (properties)
 
 Система контроля версий *Subversion* позволяет пользователю привязывать различные метаданные
 к файлам и версиям.  Кроме этого, существуют метаданные, не привязанные к конкретной
@@ -155,7 +139,7 @@
 =svn-status-property-set-keyword-list= (сочетание =P k=) позволяет отредактировать список
 ключевых слов связанных с данным объектом.
 
-* Получение информации и прочие команды
+** Information retrieving and other functions
 
 Для получения информации о текущем файле может использоваться команда =svn-status-info=,
 которая привязана к клавише =i=.  При ее использовании, в буфере =*svn-process*= будет
@@ -178,7 +162,7 @@
 Для выхода из буфера =*svn-status*= и его удаления используется команда
 =svn-status-bury-buffer=, которая привязана к клавише =q=, также как и в других пакетах.
 
-* Настройка
+* Customization
 
 Стандартные средства Emacs позволяют пользователю настроить только параметры начертаний,
 которые используются для отображения данных в буфере.  Остальные настройки нужно задавать

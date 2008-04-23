@@ -17,14 +17,14 @@ available as a package for XEmacs.  For other Emacs's versions you can find sour
 
 * Basic concepts and principles
 
-All work with package is performed in special buffer, created by *PCL-CVS* commands.  This
+All work with package is performed in special buffer, created by *PCL-CVS* functions.  This
 buffer is called =*cvs*=, and used to display files, their statuses and other information.
-Some of package commands work only with existing directories, so you need to fetch data
-from a repository before running any *PCL-CVS* command.
+Some of package's functions work only with existing directories, so you need to fetch data
+from a repository before running any *PCL-CVS* function.
 
-During work you can navigate in buffer and perform different commands on selected (or file
+During work you can navigate in buffer and perform different functions on selected (or file
 where cursor is placed) files.  For each file in project some status is assigned, and list
-of available commands depends on this status.
+of available functions depends on this status.
 
 Information in buffer is separated between several columns:
  - number of latest revision in repository and additional file status (optional);
@@ -59,11 +59,11 @@ File status can has one of following values:
  *Missing* :: file was removed from disk, but the =cvs remove= command for it wasn't
    performed.
 
-* Main commands and key bindings
+* Main functions and key bindings
 
-Many of commands, implemented by the *PCL-CVS* package has the =cvs-= prefix and names,
-similar to names of *CVS* commands.  Some commands could be executed only in the =*cvs*=
-buffer, that could be created one of following commands (commands usually run via =M-x= key
+Many of functions, implemented by the *PCL-CVS* package has the =cvs-= prefix and names,
+similar to names of *CVS* commands.  Some functions could be executed only in the =*cvs*=
+buffer, that could be created one of following functions (functions usually run via =M-x= key
 binding, either via =Tools= menu):
       
  =cvs-update= :: run =cvs update= on specified directory;
@@ -72,52 +72,52 @@ binding, either via =Tools= menu):
  =cvs-status= :: run =cvs status= command on specified directory;
  =cvs-checkout= :: run =cvs checkout= command for specified module;
  =cvs-quickdir= :: creates the =*cvs*= buffer, using data from =CVS/Entries= files.  This
-   command is similar to the =cvs-examine= command, but it doesn't require access to
+   function is similar to the =cvs-examine= function, but it doesn't require access to
    repository.
 
-These commands could be also executed in the =*cvs*= buffer -- you can use =M-u= for
+These functions could be also executed in the =*cvs*= buffer -- you can use =M-u= for
 =cvs-update=, =M-e= for =cvs-examine=, and =M-s= for =cvs-status=.  You can also perform
 corresponding commands on selected files -- =O= (=cvs-mode-update=) to update files, =e=
 (=cvs-mode-examine=) to update information about files, and  =s= (=cvs-mode-status=) to get
 status information for selected files.
 
-By default, all these commands are performed recursively, but you can change this
+By default, all these functions are performed recursively, but you can change this
 behaviour if you pass the =-l= option to *CVS*.
 
 * Navigation and files selection
 
-To navigation inside the =*cvs*= buffer user can use following commands: =cvs-mode-next-line=
+To navigation inside the =*cvs*= buffer user can use following functions: =cvs-mode-next-line=
 (=n= key) -- to move to the next line, and =cvs-mode-previous-line= (=p= key) that move to
 previous line.
 
-There are several commands to work with marks.  To mark one file, you can use the
-=cvs-mode-mark= command (=m= key). To remove mark from file there is the =cvs-mode-unmark=
-command (=u= key).  To mark all files user can use =M= key (=cvs-mode-mark-all-files= command),
+There are several functions to work with marks.  To mark one file, you can use the
+=cvs-mode-mark= function (=m= key). To remove mark from file there is the =cvs-mode-unmark=
+function (=u= key).  To mark all files user can use =M= key (=cvs-mode-mark-all-files= function),
 and to remove selection from all files, user can execute =cvs-mode-unmark-all-files=
-command, that bound to =M-DEL=.  You can also use the =cvs-mode-mark-matching-files= command
+function, that bound to =M-DEL=.  You can also use the =cvs-mode-mark-matching-files= function
 (=%= key) to mark files, which names matches given regular expressions.  There is also
-=cvs-mode-mark-on-state= command (=S= key), that mark files with given status.
+=cvs-mode-mark-on-state= function (=S= key), that mark files with given status.
 
 * Work with files
 
 Addition of files is very simple -- just mark all needed files (usually they have *Unknown*
-status), and press =a= key (=cvs-mode-add= command).  Status of files will changed to *Added*,
+status), and press =a= key (=cvs-mode-add= function).  Status of files will changed to *Added*,
 and you will need to commit these changes to repository (see section [[#changes][Work with changes]]).
-You can also use this command for files with *Removed* status -- this restore them.
+You can also use this function for files with *Removed* status -- this restore them.
 
 To delete files you need to perform almost same sequence -- you need to mark files, and to
-execute the =cvs-mode-remove-file= command (=r= key).  You will asked for confirmation, and if
+execute the =cvs-mode-remove-file= function (=r= key).  You will asked for confirmation, and if
 you answer *yes*, then files will removed from your directory.  If files are registered in
 *CVS*, then the =cvs remove= command also will performed.  You also need to commit these
 changes to repository.
 
-To update files you can run the =cvs-mode-update= command, that bound to =O= key.  This will
+To update files you can run the =cvs-mode-update= function, that bound to =O= key.  This will
 execute =cvs update= command for all files with *Need-update* status.
 
 Sometimes, you need to keep some files, not registered in repository.  Such files are
 displayed with *Unknown* status, but you can say *CVS* to ignore that files, just list them in
 the =.cvsignore= file.  To put selected files into this file, you can use the
-=cvs-mode-ignore= command, that bound to =i= key.
+=cvs-mode-ignore= function, that bound to =i= key.
 
 #changes
 * Work with changes
@@ -127,16 +127,16 @@ To commit changes to repository you just need to select needed files, and than p
 =*cvs-commit*=, in which you can enter your commit message.  After you enter message, you
 need to press =C-c C-c=, and changes will committed to repository.  You can abort this
 procedure, if you want, just simply not executing =C-c C-c=.  Difference between =c= and =C= is
-that first command preserve old content of =*cvs-commit*= buffer, but second -- not.
+that first function preserve old content of =*cvs-commit*= buffer, but second -- not.
 
 If you change file, but doesn't want put changes into repository, then you can revert them
-by using the =cvs-mode-undo-local-changes= command, that bound to =U= key.  This command
+by using the =cvs-mode-undo-local-changes= function, that bound to =U= key.  This function
 remove modified file, and retrieve latest version from repository.
 
-You can view what was changed using one of several commands.  Most often used command is
+You can view what was changed using one of several functions.  Most often used function is
 =cvs-mode-diff=, that bound to <code>=</code> key (and also to <code>d =</code>).  This
-command show differences between modified file and it version in repository.  There are
-also several commands to display changes:
+function show differences between modified file and it version in repository.  There are
+also several functions to display changes:
       
  =cvs-mode-diff-head= (=d h=) :: show difference between selected files and head version of
    corresponding files;
@@ -149,34 +149,34 @@ also several commands to display changes:
  =cvs-mode-diff-yesterday= (=d y=) :: show differences between selected files, and their
    yesterdays copies.
 
-To work with changes you can also use *Ediff* and *Emerge*.  The =cvs-mode-idiff= command (=d e=)
+To work with changes you can also use *Ediff* and *Emerge*.  The =cvs-mode-idiff= function (=d e=)
 run *Ediff* or *Emerge* (depending on current settings), that allow you interactively work
-with changes.  If you run the =cvs-mode-imerge= command (=d E=), then you can perform
+with changes.  If you run the =cvs-mode-imerge= function (=d E=), then you can perform
 interactive 3-way merge of changes.
 
-* Getting information about files, and other commands
+* Getting information about files, and other functions
 
-To retrieve information about files you can use two commands.  The =cvs-mode-log= command (=l=
+To retrieve information about files you can use two functions.  The =cvs-mode-log= function (=l=
 key) performs =cvs log= for selected files, and result is displayed in the =*cvs-info*=
-buffer.  And the =cvs-mode-status= command (=s= key) performs =cvs status= for selected files
+buffer.  And the =cvs-mode-status= function (=s= key) performs =cvs status= for selected files
 and also displays data in the =*cvs-info*= buffer.
 
-With =cvs-mode-tag= command (=t=) you can set a tag to selected files.  By default, this
-command applied only to directories, but this behaviour from the client's settings.
+With =cvs-mode-tag= function (=t=) you can set a tag to selected files.  By default, this
+function applied only to directories, but this behaviour from the client's settings.
 
 Sometimes you doesn't want to display some lines in the =*cvs*= buffer.  You can do this
-with either =cvs-mode-remove-handled= command (=x=), that deletes from buffer already
+with either =cvs-mode-remove-handled= function (=x=), that deletes from buffer already
 processed line (for example, files with *Up-to-date* status), or with =cvs-mode-acknowledge=
-command (it bound to =C-k=), that simply deletes lines.  Processed files can be deleted
+function (it bound to =C-k=), that simply deletes lines.  Processed files can be deleted
 automatically if the =cvs-auto-remove-handled= variable has non-=nil= value.
 
-To refresh =*cvs*= buffer, you can use =cvs-mode-revert-buffer= command, that bound to =g= key.
-And to leave this buffer, you can use =cvs-mode-quit= command (=q= key).
+To refresh =*cvs*= buffer, you can use =cvs-mode-revert-buffer= function, that bound to =g= key.
+And to leave this buffer, you can use =cvs-mode-quit= function (=q= key).
 
 * Customization
 
 Behaviour of *PCL-CVS* functions depends on values of several variables, that you can
-customize with =M-x customize-group pcl-cvs= command.  You can customize values of
+customize with =M-x customize-group pcl-cvs= function.  You can customize values of
 variables, faces, used to display information, etc.
 
 <div id="rule">[[./index][Back to main page]]</div>
