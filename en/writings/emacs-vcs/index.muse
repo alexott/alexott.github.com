@@ -25,12 +25,12 @@ describe the systems-specific packages, that implements the second approach.
   - [[./EmacsDVC][Work with DVC]]
  - System-specific packages
   - [[./EmacsPCLCVS][PCL-CVS Package]]
+  - [[./EmacsPSVN][PSVN Package]]
   - [[./EmacsMercurial][Mercurial's support]]
   - [[./EmacsGit][Work with Git]]
   - [[./EmacsDarcs][Work with Darcs]]
   - [[./EmacsMonotone][Support of Monotone]]
 ;  - [[./EmacsVC][Work with VC]]
-;  - [[./EmacsPSVN][PSvn Package]]
 ;  - [[./EmacsPerforce][Work with Perforce]]
 ;  - [[./EmacsAegis][Aegis]]
 ;  - [[./EmacsVSS][Visual SourceSafe]]

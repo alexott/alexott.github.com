@@ -107,71 +107,67 @@ performs this operation for all marked files.  And the =svn-status-ediff-with-re
 function (=E= key) uses *Ediff* to perform this operation.  All these functions support
 comparison with arbitrary version, if they'll get prefix argument before they execution.
 
-** Work with meta-data (properties)
+** Work with metadata (properties)
 
-Система контроля версий *Subversion* позволяет пользователю привязывать различные метаданные
-к файлам и версиям.  Кроме этого, существуют метаданные, не привязанные к конкретной
-версии.  Изменения в метаданных распространяются вместе с изменениями, внесенными в
-обычные файлы.  Подробнее о метаданных и работе с ними вы можете прочитать в книге
-"Version Control with Subversion", которая доступна на сайте данной системы.
+*Subversion* allows users to add metadata (properties) to the files and concrete versions.
+Changes in metadata is propagated together with other changes, introduced in files.  More
+detailed information about metadata you can find at [[http://svnbook.red-bean.com/][Version Control with Subversion]] book.
+The *PSVN* package provides number of functions to work with metadata.  These commands
+accessible via direct call of functions, and also via key bindings.  The =P= key is used as
+a prefix key for all these key bindings.
 
-Пакет *PSVN* предоставляет набор команд для работы с метаданными.  Эти команды доступны как
-обычным способом, так и через привязки к клавишам. В качестве префиксной клавиши
-используется клавиша =P=.
+All available functions we can split into two groups: first one is used for work with any
+metadata, and second -- to work with concrete properties.
 
-Доступные команды можно разделить на две группы -- первая группа используется для работы с
-произвольными метаданными, а вторая группа -- для работы с конкретными записями.
+The first group includes following functions:
+ - =svn-status-property-parse= function (=P p=) is used to parse metadata record
+ - =svn-status-property-set= (=P s=) is used to set value to concrete property
+ - =svn-status-property-delete= (=P d=) removes selected property
+ - =svn-status-property-list= function (=P l=) displays list of properties, defined for given
+   object
+ - =svn-status-property-edit-one-entry= (=P e=) allows user to change metadata interactively.
 
-К первой группе относятся команды: =svn-status-property-parse= (сочетание =P p=) используется
-для разбора записи, =svn-status-property-set= (сочетание =P s=) задает значение для конкретной
-записи, =svn-status-property-delete= (сочетание =P d=) удаляет выбранную запись,
-=svn-status-property-list= (сочетание =P l=) отображает список определенных для данного
-объекта записей, =svn-status-property-edit-one-entry= (сочетание =P e=) позволяет изменить
-запись.
-
-Во вторую группу входят следующие команды: =svn-status-property-edit-svn-ignore= (сочетание
-=P TAB=) позволяет вам отредактировать список файлов, которые не будут учитываться при
-*Subversion*, =svn-status-property-ignore-file= (сочетание =P i=) вносит текущий файл в список
-игнорируемых объектов, =svn-status-property-ignore-file-extension= (сочетание =P I=) позволяет
-пополнить список игнорируемых объектов шаблоном для выборки всех файлов с расширением как
-у текущего, =svn-status-property-set-eol-style= (сочетание =P y=) позволяет задать какой стиль
-обозначения перевода строк используется для данного объекта,
-=svn-status-property-set-keyword-list= (сочетание =P k=) позволяет отредактировать список
-ключевых слов связанных с данным объектом.
+Into second group are included following functions:
+ - =svn-status-property-edit-svn-ignore= (=P TAB=) allows user to edit list of files, ignored
+   by *Subversion*
+ - =svn-status-property-ignore-file= (=P i=) put current file (or marked files) into list of
+   ignored objects
+ - =svn-status-property-ignore-file-extension= (=P I=) add regular expression to list of
+   ignored files, that allows to ignore all files with same extensions as for current file
+ - =svn-status-property-set-eol-style= (=P y=) set 'end of line' style for given objects
+ - =svn-status-property-set-keyword-list= (=P k=) allows to edit keywords list for given
+   objects
 
 ** Information retrieving and other functions
 
-Для получения информации о текущем файле может использоваться команда =svn-status-info=,
-которая привязана к клавише =i=.  При ее использовании, в буфере =*svn-process*= будет
-отображен результат выполнения команды =svn info=.  Информация может показаться слишком
-подробной, и для ее обработки может быть использована команда =svn-status-parse-info=
-(клавиша =I=), которая разбирает результат предыдущей команды, и приводит его к более
-компактному виду.  Для получения информации об авторе и версии для указанного файла, может
-использоваться команда =svn-status-blame= (клавиша =b=), а для просмотра логов для выбранных
-файлов, используется команда =svn-status-show-svn-log= (клавиша =l=).
+To get information about current object user can use =svn-status-info= function, that bound
+to =i= key.  After its execution, buffer called =*svn-process*= will contain result of
+execution of =svn info= command.  If this information could contain too many details, then
+user can use =svn-status-parse-info= function (=I= key), that analyze this information and
+makes it more compact.  To get information about author and version of file, user can use
+=svn-status-blame= function (=b= key), and to view log for selected files, there is
+=svn-status-show-svn-log= function (=l= key).
 
-Обновить содержимое буфера =*svn-status*= вы можете с помощью команды =svn-status-update=
-(клавиша =g=), а посмотреть на вывод команды =svn= вы можете использовав клавишу =s= (команда
-=svn-status-show-process-buffer=).  Вы также можете управлять тем, объекты с каким статусом
-будут отображаться в буфере =*svn-status*=.  Для скрытия не изменявшихся файлов используется
-команда =svn-status-toggle-hide-unmodified= (клавиша =_=), а для скрытия незарегистрированных
-файлов -- команда =svn-status-toggle-hide-unknown= (клавиша =?=).  Обе эти команды являются
-переключателями, и могут использоваться как для отключения показа файлов, так и для
-включения показа.
+To update content of =*svn-status*= buffer you can use =svn-status-update= function (=g= key).
+To see output of =svn= process you can press =s= key (=svn-status-show-process-buffer=).  
 
-Для выхода из буфера =*svn-status*= и его удаления используется команда
-=svn-status-bury-buffer=, которая привязана к клавише =q=, также как и в других пакетах.
+You can also control, which files will displayed in the =*svn-status*= buffer (by default
+all files are shown).  To hide not modified files the =svn-status-toggle-hide-unmodified=
+function (=_= key) could be used, and to hide all unknown files exists
+=svn-status-toggle-hide-unknown= function (=?= key).  Both these commands works like switches,
+and could be used to switch between displaying and hiding.
+
+To leave the =*svn-status*= buffer, and kill it you can use =svn-status-bury-buffer= function,
+that bound to =q= key.
 
 * Customization
 
-Стандартные средства Emacs позволяют пользователю настроить только параметры начертаний,
-которые используются для отображения данных в буфере.  Остальные настройки нужно задавать
-с помощью команд Emacs Lisp.  Но большая часть этих настроек имеет нормальные значения по
-умолчанию, так что вам скорее всего не понадобиться изменять эти значения.
+User can change behaviour of package using standard Emacs customization routines.
+Corresponding customization groups is called =psvn=.  *PSVN* also use several hooks, that
+could be used to customize parameters of new buffers, or functions.  The
+=svn-log-edit-mode-hook= hook is called when some buffer enters into =svn-log-edit= mode, and
+=svn-log-view-mode-hook= is called, when buffer enters into =svn-log-view= mode.
 
-*PSVN* также предоставляет несколько хуков, которые могут использоваться для задания
-параметров создаваемых буферов, или выполнения дополнительных команд.  Хук
-=svn-log-edit-mode-hook= выполняется когда пакет входит в режим =svn-log-edit=, а
-=svn-log-view-mode-hook= выполняется при вхождении в режим =svn-log-view=.
+<div id="rule">[[./index][Back to main page]]</div>
 
-<div id="rule">[[./index][На главную страницу]]</div>
+;  LocalWords:  metadata
