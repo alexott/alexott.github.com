@@ -1,22 +1,21 @@
-#title Интеграция с Microsoft &VSS;
+#title Work with Microsoft VSS
 #keywords emacs, vss, source safe
 
 <contents>
 
-Microsoft *Visual SourceSafe* является часто используемой системой контролей версий, в
-проектах по созданию программного обеспечения для операционных систем фирмы Microsoft.
-Кроме реализации этой системы для Microsoft Windows, существуют и реализации для других
-операционных систем.  Подробнее об этой системе вы можете прочитать на странице на
-[[http://www.microsoft.com/ssafe/][сайте Microsoft]].
+Microsoft *Visual SourceSafe* is often used as a version control system in projects,
+developed under Microsoft Windows.  Besides implementation for MS Windows, there are also
+implementations for other operating systems -- you can read about them on the
+[[http://msdn2.microsoft.com/en-us/vstudio/aa718670.aspx][Microsoft's site]].
 
-Интеграция Emacs с *Visual SourceSafe* обеспечивается пакетом *source-safe.el*.  Он позволяет
-работать с данной системой контроля версий не покидая Emacs.  В следующих разделах будет
-рассказано о установке, настройке и работе с пакетом.
+We can work with *Visual SourceSafe* from Emacs by using the *source-safe.el* package.  It
+implements all necessary commands, that could be performed without switching out of Emacs.
 
-* Установка пакета source-safe.el
+* Installation of source-safe.el package
 
-Для установки пакета вам нужно скачать его со [[http://emacs.seanm.ca/cvs/lisp/source-safe.el][страницы автора]].  Поместите скачанный файл
-туда, где его найдет Emacs и используйте команды
+Installation of package is very simple -- you need to download it from [[http://emacs.seanm.ca/lisp/source-safe.el][author's page]],
+unpack and put it to place, where Emacs could find it.  To use it, add following commands
+to initialization file:
 
 <src lang="emacs-lisp">
 (setq ss-program "S:\\WinNT\\SS.exe"
@@ -24,64 +23,62 @@ Microsoft *Visual SourceSafe* является часто используемо
 (require 'source-safe)
 </src>
 
-для его загрузки.  Первые две строки задают расположение исполняемого модуля *Visual
-SourceSafe* и пути к каталогам проектов, а третья строка загружает пакет.
+First two lines specify place of *Visual SourceSafe* executable and paths to the projects
+directories.  And third line loads the package.
 
-* Работа с пакетом
+* Work with package
 
-Получение данных из репозитория осуществляется с помощью нескольких команд.  Команда
-=ss-get= извлекает самую последнюю версию текущего файла из репозитория.  В том случае, если
-она запускается из буфера *Dired*, то обновляется весь текущий каталог и все его
-подкаталоги.  Для извлечения текущего файла из репозитория также может использоваться
-команда =ss-checkout=.  Команда =ss-lock= позволяет извлечь текущий файл из репозитория, но
-при этом не заменяет текущую копию данного файла.
+Retrieving of data from repository could be performed by several functions.  The =ss-get=
+function retrieve latest version of current file from repository.  If you'll run this
+function from *Dired*, it updates all files in current directory and its sub-directories.
+You can also use =ss-checkout= function to retrieve current file from repository.  With
+=ss-lock= function you can lock current file in repository, doesn't changing its content.
 
-Получить список внесенных изменений пользователь может с помощью команды =ss-diff=.
-Сравнение производится с помощью команды, заданной переменной =ss-diff-program=.  В том
-случае, если задан параметр =non-interactive-p=, то результат выполнения команды
-отображается в новом буфере, иначе для работы с изменениями, используется *Ediff*.
-Подтверждение изменений в репозиторий производится с помощью команды =ss-checkin=.
-    
-Пользователь может создать собственную ветку разработки с помощью команды =ss-branch=.  По
-завершении работы с ответвленным файлом, можно слить изменения, используя функцию
-=ss-merge=, которая обеспечивает трех-стороннее слияние изменений в базовую ветвь.  Удалить
-неиспользуемую ветвь можно с помощью команды =ss-unbranch=, при этом удаляются все внесенные
-в нее изменения.
+User can view list of changes with =ss-diff= function.  To produce list of changes this
+function uses command, specified by =ss-diff-program= variable.  If this function gets
+=non-interactive-p= parameter, then all changes are displayed in new buffer.  But without
+this parameter, work with changes is performed with *Ediff*.  User can commit changes with
+=ss-checkin= function.
 
-Для получения информации, пользователь может использовать несколько команд -- команда
-=ss-history= отображает историю изменений для текущего файла, команда =ss-status= показывает
-статус текущего файла в репозитории *Visual SourceSafe*, а команда =ss-locate= позволяет найти
-расположение текущего файла в репозитории *Visual SourceSafe*.
-    
-К остальным командам пакета относятся команды =ss-help=, которая показывает краткое описание
-основных команд и переменных пакета, и =ss-submit-bug-report=, которая позволяет отправить
-разработчикам пакета сообщение о найденной ошибке.
+To create a new branch user can use the =ss-branch= function.  There is also opposite
+function -- =ss-unbranch=, that could be used to delete concrete branch and drop all made
+changes.  If user wants to put changes from concrete branch to main development tree, he
+can use =ss-merge= function, that performs three-way merge of changes from given branch.
 
-* Настройка пакета
+The package defines several functions, that could be used to retrieve information about
+files -- =ss-history= function displays change log for current file, =ss-status= function
+displays information about status of current file in *Visual SourceSafe's* repository, and
+=ss-locate= function shows location of current file in *Visual SourceSafe's* repository.
 
-Настройка пакета производится с помощью переопределения соответствующих переменных.
-Основными переменными настройки являются переменная =ss-program=, которая задает путь к
-исполняемому модулю *Visual SourceSafe* и переменная =ss-project-dirs=, которая задает связи
-между каталогами на диске и именами проектов.
+Other functions, defined by package are: =ss-help= function, that displays short list of
+available functions and their descriptions, and =ss-submit-bug-report= function, that could
+be used to send bug report to developers.
 
-Пользователь также может настроить поведение пакета с помощью других переменных:
+* Customization
 
- =ss-username= :: задает имя пользователя, если значение не задано, то будет использоваться
-   имя текущего пользователя;
- =ss-password= :: задает пароль пользователя, если значение не задано, то пароль будет
-   запрошен при первом доступе к репозиторию;
- =ss-database-alist= :: список, связывающий именя файлов с базами данных *Visual SourceSafe*.
-   Эта переменная используется в том случае, если вы одновременно используете несколько
-   баз *Visual SourceSafe*;
- =ss-update-email-to=, =ss-update-email-subject= и =ss-update-email-body= :: определяют адрес
-   куда будут отраправляться сообщения о подтверждении данных в репозиторий, а также
-   заголовок сообщения и его тело;
- =ss-multiple-checkouts-enabled= :: определяет, можно ли использовать множественное
-   получение данных из репозитория;
- =ss-confirm-updates= :: определяет, нужно ли требовать подтверждения при выполенении
-   команды =UPDATE= или нет.
+User can customize behaviour of package by defining number of variables.  Most important
+among them are:
+ =ss-program= :: specify path to the *Visual SourceSafe's* executable;
+ =ss-project-dirs= :: defines mapping between directories on disk and names of the projects.
 
-Пакет также определяет два хука -- =ss-before-update-hooks= и =ss-after-update-hooks=, которые
-вызываются до и после выполнения команды =UPDATE= систему *Visual SourceSafe*.
+There are also other variables, that could be customized by user:
+
+ =ss-username= :: specify user's name.  If this variable is not set, then name of the
+   current user is used;
+ =ss-password= :: specify user's password.  If this variable is not set, then password is
+   asked on first access to repository;
+ =ss-database-alist= :: defines map of file names and  *Visual SourceSafe's* databases.  This
+   variable is used when user works with several repositories;
+ =ss-update-email-to=, =ss-update-email-subject= and =ss-update-email-body= :: specify e-mail
+   address, subject & body of e-mail message, that will send when user commits changes to repository;
+ =ss-multiple-checkouts-enabled= :: defines, can user perform several checkout commands at
+   once, or no;
+ =ss-confirm-updates= :: defines, should we ask confirmation when executing =UPDATE= command,
+   or no.
+
+There is also two hooks -- =ss-before-update-hooks= and =ss-after-update-hooks=, that always
+will called before and after =UPDATE= command.
   
-<div id="rule">[[./index][На главную страницу]]</div>
+<div id="rule">[[./index][Back to main page]]</div>
+
+;  LocalWords:  VSS el

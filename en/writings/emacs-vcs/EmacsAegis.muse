@@ -1,22 +1,24 @@
-#title Работа с Aegis
-#keywords emacs, aegis
+#title Work with Aegis
+#keywords emacs, aegis, aegis-mode
 
 <contents>
 
-*Aegis* -- система управления конфигурациями, разработанная Peter Miller.  Система *Aegis*
-имеет много интересных возможностей, что делает ее привлекательной для использования.
-Одной из таких особенностей является то, что пользователи системы могут иметь разные роли
--- разработчики, интеграторы и т.п.  Как и многие другие системы, *Aegis* поддерживает
-атомарную работу с данными, и наборы изменений.  Для разработчиков ПО данная система
-интересна наличием возможностей для автоматической пересборки программ при подтверждении
-данных, и отказом в приеме, при сбое тестов.
+*Aegis* -- system for configurations management, developed by Peter Miller.  This system has
+many very interesting features and used by many projects.  One of the interest feature of
+this system is, that users could have different roles -- developer, integrator,
+administrator, etc. and corresponding access levels.  Also *Aegis* supports atomic commits
+and change sets.  Another interesting feature, very useful for software developers --
+ability to automatic rebuilding of software and execution of tests after commit, and
+rejecting of commit if rebuild and/or tests fail.  More detailed information on *Aegis* you
+can find at [[http://aegis.sourceforge.net][Aegis's site]].
 
 Интеграцию *Aegis* с Emacs осуществляется с помощью пакета *aegis-mode*.  Для *Aegis*, в отличии
 от многих других пакетов, не существует модуля к пакету *VC*, скорее всего это произошло
 из-за сильных различий в подходах между *RCS*, на идеологии которого строится пакет *VC* и
-*Aegis*.
+*Aegis*.  Пакет *aegis-mode* в достаточной мере отражает идеологию *Aegis*, так что вам
+необходимо это знание для успешного использования пакета.
 
-* Установка пакета
+* Installation
 
 Вы можете скачать *aegis-mode* с [[http://acsys.anu.edu.au/~tpot/aegis-mode/][сайта автора]].  Просто разверните пакет туда, где его найдет
 Emacs, и вставьте команду загрузки в ваш файл инициализации.  Например, вот так:
@@ -29,7 +31,7 @@ Emacs, и вставьте команду загрузки в ваш файл и
 загрузку пакета.  Стоит отметить, что однажды включив *aegis-mode*, вы не можете его
 отключить, не прибегнув к перезапуску Emacs.
 
-* Работа с пакетом
+* Work with package
 
 Пользователи в *Aegis* могут иметь разные роли, и модуль интеграции с Emacs пытается
 поддерживать то же разделение на роли, что и *Aegis*. Пользователь может изменить роль, в
@@ -46,7 +48,7 @@ Emacs, и вставьте команду загрузки в ваш файл и
 соответствующей команды *Aegis*.  Так что работа с пакетом почти не отличается от обычной
 работы с *Aegis* в командной строке.
 
-* Настройка
+* Customization
 
 Пользователь может настроить работу *aegis-mode* с помощью большого количества переменных и
 хуков, определенных в файле =aegis-vars.el=.  Я коснусь лишь самых важных из них, а более
@@ -64,10 +66,4 @@ Emacs, и вставьте команду загрузки в ваш файл и
 пользователю при загрузке пакета, определяется содержимым переменной
 =aegis-mode-default-hat=.
 
-* Дополнительная информация
-
-Более подробную информацию об *Aegis* вы можете получить на [[http://aegis.sourceforge.net][сайте Aegis]].  Пакет *aegis-mode* в
-достаточной мере отражает идеологию *Aegis*, так что вам необходимо это знание для успешного
-использования пакета.
-
-<div id="rule">[[./index][На главную страницу]]</div>
+<div id="rule">[[./index][Back to main page]]</div>

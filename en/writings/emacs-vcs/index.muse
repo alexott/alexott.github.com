@@ -1,7 +1,8 @@
 #title Using Emacs with version control systems
 #keywords emacs, dvc, version control, git, darcs, bazaar, mercurial, hg, cvs, xtla, subversion, svn
 
-***Not finished yet. Work in progress***
+***Not finished yet. Work in progress. Some parts of this article was written 2 years ago,
+and will updated in near future***
 
 Emacs, as programming tool can work with different version control systems.  There are two
 approaches for work with these systems within Emacs.  The first approach -- via common
@@ -30,13 +31,12 @@ describe the systems-specific packages, that implements the second approach.
   - [[./EmacsGit][Work with Git]]
   - [[./EmacsDarcs][Work with Darcs]]
   - [[./EmacsMonotone][Support of Monotone]]
+  - [[./EmacsVSS][Work with Visual SourceSafe]]
 ;  - [[./EmacsVC][Work with VC]]
 ;  - [[./EmacsPerforce][Work with Perforce]]
 ;  - [[./EmacsAegis][Aegis]]
-;  - [[./EmacsVSS][Visual SourceSafe]]
 ;  - [[./EmacsBitkeeper][Emacs & Bitkeeper]]
 ;  - [[./EmacsClearCase][ClearCase]]
-;  - [[./EmacsXtla][Xtla Package]]
 ;  - [[./EmacsStarTeam]
  
 * Additional information

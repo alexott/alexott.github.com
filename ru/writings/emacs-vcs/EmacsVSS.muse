@@ -82,6 +82,6 @@ SourceSafe* и пути к каталогам проектов, а третья 
    команды =UPDATE= или нет.
 
 Пакет также определяет два хука -- =ss-before-update-hooks= и =ss-after-update-hooks=, которые
-вызываются до и после выполнения команды =UPDATE= систему *Visual SourceSafe*.
+вызываются до и после выполнения команды =UPDATE= системы *Visual SourceSafe*.
   
 <div id="rule">[[./index][На главную страницу]]</div>
