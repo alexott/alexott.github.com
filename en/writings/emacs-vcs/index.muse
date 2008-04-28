@@ -31,11 +31,11 @@ describe the systems-specific packages, that implements the second approach.
   - [[./EmacsGit][Work with Git]]
   - [[./EmacsDarcs][Work with Darcs]]
   - [[./EmacsMonotone][Support of Monotone]]
+  - [[./EmacsAegis][Work with Aegis]]
   - [[./EmacsVSS][Work with Visual SourceSafe]]
+  - [[./EmacsBitkeeper][Emacs & Bitkeeper]]
 ;  - [[./EmacsVC][Work with VC]]
 ;  - [[./EmacsPerforce][Work with Perforce]]
-;  - [[./EmacsAegis][Aegis]]
-;  - [[./EmacsBitkeeper][Emacs & Bitkeeper]]
 ;  - [[./EmacsClearCase][ClearCase]]
 ;  - [[./EmacsStarTeam]
  

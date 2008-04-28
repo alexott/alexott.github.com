@@ -1,98 +1,83 @@
-#title Поддержка BitKeeper
+#title BitKeeper's Support
 #keywords emacs, bitkeeper
 
 <contents>
 
-*BitKeeper* -- это коммерческая реализация системы контроля версий.  Однако ее можно
-использовать и в свободных проектах, без уплаты каких-либо отчислений.  Наиболее
-масштабным проектом с открытым исходным кодом, использующим данную систему, являлась
-разработка ядра Linux (сейчас для этого используется *Git*).
+*BitKeeper* is commercial implementation of version control system.  However, users can use
+it for development of open source projects without any fee.  Most well-know project, that
+had used *BitKeeper* was development of Linux kernel (but now it use *Git* for development).
 
-* Установка пакета
+Work with *BitKeeper* from Emacs is provided by *bk* package.
 
-Для установки пакета *bk* вам нужно получить его копию с
-http://www.emacswiki.org/elisp/bk.el, или использовать репозиторий *BitKeeper* по адресу
-=bk://bk-emacs.bkbits.net/emacs=.  Полученный файл необходимо поместить в доступное для
-Emacs место и выполнить команду загрузки.  Для работы пакета необходимо наличие библиотеки
-*x-migrant*, но если ее у вас нет, то вы можете закомментировать ее загрузку в исходном коде
-пакета.
+* Installation
 
-* Использование пакета
+To install *bk* package you need to download it from http://www.emacswiki.org/elisp/bk.el,
+or obtain sources from *BitKeeper's* repository at =bk://bk-emacs.bkbits.net/emacs=.  This
+source file you need to put to place, where Emacs can find it, and add loading of package
+to the initialization file.  You also have to install *x-migrant* package, that is required
+for work of *bk* package.
 
-По большей части, работа с пакетом *bk* похожа на работу с пакетом *VC*.  Так, что если вы
-знакомы с ним, то привязки клавиш и принципы работы, будут вам знакомы.
+* Work with package
 
-Команды пакета могут выполняться через стандартный механизм выполнения команд доступный
-через сочетание клавиш =M-x=, через глобальные и локальные привязки клавиш, а также через
-меню =BitKeeper=, доступное при работе в режиме *bk-mode*.
+Work with *bk* package is similar to work with [[./EmacsVC][VC]].  Functions could be executed either via
+=M-x= and name of function, global and local key bindings, or via =BitKeeper= menu, that
+available when you work in *bk-mode*.
 
-Для привязки клавиш данный пакет использует два префикса.  =C-x v= -- это префикс
-используемый пакетом *VC*, и так что команды пакета *bk* перекрывают часть команд *VC*
-применимых к конкретным файлам.  =C-c b= является глобальным префиксом, и с его помощью
-применяются команды, которые применимы не только к конкретным файлам.
+Package uses two prefix keys to work.  The =C-x v= prefix is used by *VC* package, so
+functions from *bk* package overlap some of *VC* functions, that provides work with files.
+The =C-c b= prefix is global, and used for functions, that could be applied not only to
+files.  You need to remember, that only some functions available via global key bindings
+(only with =C-x v= or =C-c b= prefixes).  All other functions available only when you work
+with files, registered in *BitKeeper*.
 
-Следует помнить что только часть команд доступна через глобальные привязки клавиш.  Обычно
-это команды, привязки которых начинаются с префиксов =C-x v= или =C-c b=.  Остальные команды
-доступны только при работе с файлами, которые зарегистрированы в системе *BitKeeper*.
+When you work with files, that registered in *BitKeeper*, in status line you can see
+information about license: *BKL,* when you use standard commercial license, and *BKCL*, when
+you use community license.  To get more detailed information on licenses you can use =M-x
+bk-help licensing=.
 
-При работе с файлами, которые находятся под контролем *BitKeeper*, в строке состояния может
-отображаться либо значение *BKL*, для случая, когда репозиторий лицензирован в терминах *BKL*,
-или *BKCL*, когда используется лицензия *BKCL*.  Для получения более подробной информации об
-этом, просто наберите =M-x bk-help licensing=.
+User can register new file in repository with =bk-register= function, that bound to =C-x v i=.
+Work with already registered files is very similar to work with *VC* package.  Obtaining
+file from repository for editing, and releasing of it after editing is performed with
+=vc-toggle-read-only= function (=C-x C-q=).  With =vc-revert-buffer= function (=C-x v u=) you can
+revert changes in file, and start to work with version from repository.
 
-Регистрация файлов в репозитории производится с помощью команды =bk-register= привязанной к
-сочетанию клавиш =C-x v i=.  Работа с зарегистрированными файлами по принципу похожа на
-работу с файлами в пакете *VC*.  Получение файла из репозитория для редактирования, и
-освобождение его и помещение в репозиторий производится с помощью команды
-=vc-toggle-read-only= (сочетание =C-x C-q=).  Вы также можете отменить сделанные вами
-изменения и вернуться к версии в репозитории с помощью =vc-revert-buffer= (сочетание клавиш
-=C-x v u=).
+You can see information about concrete file's revision with =bk-print-revision-summary=
+function (=C-x v l=).  To view revision history in a graphical form, you can execute
+=bk-revtool= function (=C-c b r=), and it runs graphical revisions browser, that come in
+*BitKeeper's* distribution.  User can also view concrete file's revision with =bk-print-rev=
+function (=C-x v ~=), or display annotated file with =bk-annotate= function, that bound to =C-x
+v g=.  To view files the =view-mode= is used.
 
-Просмотр информации о конкретной ревизии файла производится с помощью команды
-=bk-print-revision-summary= (сочетание =C-x v l=).  Для просмотра истории ревизий в
-графическом виде, пользователь может использовать команду =bk-revtool= (она привязана к =C-c
-b r=), которая запускает графический браузер ревизий из поставки *BitKeeper*.  Пользователь
-может также просмотреть конкретную ревизию файла с помощью команды =bk-print-rev= (сочетание
-клавиш =C-x v ~=), или аннотированную версию файла, используя команду =bk-annotate=,
-привязанную к сочетанию клавиш =C-x v g=.  Просмотр осуществляется с использованием
-=view-mode=.
+Work with changes in *BitKeeper* is based on concept of changesets.  To support work with
+changesets, the *bk* package defines several functions.  To make changes and create new
+changeset exists =bk-citool= function, that bound to =C-c b c=.  This command runs graphical
+utility from *BitKeeper's* distribution, that is used to commit changes to repository.
 
-Работа с изменениями в *BitKeeper* основана на концепции набора изменений (changeset).  Для
-работы с наборами изменений, пакет *bk* определяет несколько команд.  Для внесения
-изменений, и создания набора изменений, используется команда =bk-citool=, которая привязана
-к сочетанию клавиш =C-c b c=.  Данная команда запускает графическую утилиту из состава
-*BitKeeper* для подтверждения изменений в репозиторий.
+To exchange of changesets between repositories, *bk* defines two functions.  =bk-push=
+function (=C-c b .=) is used to transfer changeset to the parent repository.  And =bk-pull=
+function (=C-c b ,=) is used to retrieve new changesets from parent repository.  Both these
+functions has global key bindings, so you can execute them from any place.
 
-Для обмена наборами изменений между разными репозиториями, пакет *bk* определяет две
-команды.  Команда =bk-push= (она привязана к =C-c b .=) используется для передачи набора
-изменений в родительский репозиторий.  А команда =bk-pull= (сочетание =C-c b ,=) используется
-для втягивания наборов изменений, имеющихся в родительском репозитории.  Обе эти команды
-имеют глобальные привязки клавиш, так что ими можно пользоваться из любого места.
+To get list of changes between your file and version in repository, user can use =bk-diffs=
+function, that bound to <code>C-x v =</code>.  And to get changes for all files in
+directory and subdirectories you can use =bk-recursive-diffs= function (<code>C-c b
+=</code>).  There is also =bk-interesting-diffs= function (=C-c b i=) that recursively compare
+files matched some condition -- files that are locked and modified by users, and also
+files, that was added, but not yet committed to repository.  To display list of locked and
+modified files (and also all added files) exists =bk-sfiles= function (=C-c b s=).
 
-Для получения изменений между вашим файлом и файлом в репозитории, может использоваться
-команда =bk-diffs=, которая привязана к сочетанию клавиш <code>C-x v =</code>.  А для
-рекурсивного выполнения сравнения файлов в каталоге, с их версиями в репозитории,
-используется команда =bk-recursive-diffs= (сочетание <code>C-c b =</code>).  Команда
-=bk-interesting-diffs= (сочетание =C-c b i=) рекурсивно выполняет сравнение для некоторых
-файлов.  К этим файлам относятся, те которые заблокированы и изменены, или те, которые
-были помещены в репозиторий, но еще не были подтверждены в набор изменений.
+To get short description of package and main commands, user can use =bk-help-overview=
+function (=C-c b h=).  User can also get help on *BitKeeper* with following functions: =bk-help=
+(=C-c b m=) shows manual page for *BitKeeper*, =bk-apropos= (=C-c b a=) makes search in
+*BitKeeper's* documentation, and =bk-helptool= function runs graphical help utility from
+*BitKeeper's* distribution.
 
-Для показа списка файлов, которые были заблокированы и изменены, или которые были помещены
-в репозиторий, но еще не были подтверждены в набор изменений, используется команда
-=bk-sfiles= (сочетание клавиш =C-c b s=).
+* Customization
 
-Для получения короткого описания пакета и основных команд работы с ним, пользователь может
-использовать команду =bk-help-overview= (сочетание клавиш =C-c b h=).  Пользователь также
-может получать справку по работе с *BitKeeper* с помощью следующих команд: команда =bk-help=
-(сочетание =C-c b m=) отображает справочную страницу *BitKeeper*, команда =bk-apropos=
-(сочетание =C-c b a=) осуществляет поиск по документации *BitKeeper*, а команда =bk-helptool=
-запускает графическое средство для работы со справочной системой *BitKeeper*.
+User can use standard Emacs customization routines to change behaviour of package.  With
+=M-x customize-group bk= function, user can set path to *BitKeeper's* executable files,
+command line options, and prefixes for key bindings.
 
-* Настраиваем пакет
+<div id="rule">[[./index][Back to main page]]</div>
 
-Для настройки пакета *bk* можно использовать стандартный механизм настройки Emacs.  С
-помощью команды =M-x customize-group bk=, пользователь может задать пути к исполняемым
-файлам *BitKeeper*, аргументы для этих команд, а также сочетание клавиш, которое будет
-использоваться в качестве префикса для команд пакета.
-
-<div id="rule">[[./index][На главную страницу]]</div>
+;  LocalWords:  changesets changeset

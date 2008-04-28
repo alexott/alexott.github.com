@@ -12,58 +12,54 @@ ability to automatic rebuilding of software and execution of tests after commit,
 rejecting of commit if rebuild and/or tests fail.  More detailed information on *Aegis* you
 can find at [[http://aegis.sourceforge.net][Aegis's site]].
 
-Интеграцию *Aegis* с Emacs осуществляется с помощью пакета *aegis-mode*.  Для *Aegis*, в отличии
-от многих других пакетов, не существует модуля к пакету *VC*, скорее всего это произошло
-из-за сильных различий в подходах между *RCS*, на идеологии которого строится пакет *VC* и
-*Aegis*.  Пакет *aegis-mode* в достаточной мере отражает идеологию *Aegis*, так что вам
-необходимо это знание для успешного использования пакета.
+Integration of *Aegis* and Emacs is performed by *aegis-mode* package.  There is one major
+difference between *Aegis* and other systems -- there is no *VC* module for it, as *Aegis* has
+to many ideological differences with *RCS*, those ideology is a basis for for *VC* package.
+The *aegis-mode* package reflects ideology of *Aegis*, so you need to read documentation for
+it to use this package.
 
 * Installation
 
-Вы можете скачать *aegis-mode* с [[http://acsys.anu.edu.au/~tpot/aegis-mode/][сайта автора]].  Просто разверните пакет туда, где его найдет
-Emacs, и вставьте команду загрузки в ваш файл инициализации.  Например, вот так:
+You can download  *aegis-mode* from [[http://acsys.anu.edu.au/~tpot/aegis-mode/][author's site]].  Just put file to place, where it could
+be found by Emacs, and add following line to initialization file:
 
 <src lang="emacs-lisp">
 (autoload 'aegis-mode "aegis-mode" "Mode for using aegis" t)
 </src>
 
-И потом вы можете в любой момент выполнить команду =M-x aegis-mode=, которая выполнит
-загрузку пакета.  Стоит отметить, что однажды включив *aegis-mode*, вы не можете его
-отключить, не прибегнув к перезапуску Emacs.
+And you can execute =M-x aegis-mode= function at any time, and it loads package.  But I need
+to mention, that if you enable *aegis-mode*, then you will not able to disable it, until you
+finish Emacs.
 
 * Work with package
 
-Пользователи в *Aegis* могут иметь разные роли, и модуль интеграции с Emacs пытается
-поддерживать то же разделение на роли, что и *Aegis*. Пользователь может изменить роль, в
-которой он работает, используя меню =Aegis= или выполняя команды =aegis-become-...=.  В
-настоящее время *aegis-mode* поддерживает четыре роли: администратор, разработчик,
-интегратор и пользователь проверяющий изменения, и рассказ соответственно пойдет, опираясь
-на эти роли.
+In *Aegis* users could play different roles, and *aegis-mode* also supports this concept.
+User can change its role by using command from =Aegis= menu, or by executing command
+=aegis-become-...= (and add corresponding role instead of =...=).  Currently *aegis-mode*
+supports four roles: administrator, developer, code integrator and reviewer.
 
-После загрузки пакета, команды определенные в нем, доступны через сочетание клавиш =M-x=,
-или через меню =Aegis=.  В зависимости от роли пользователя, меню может менять список
-отображаемых команд.
+After package is loaded, all functions are available either via =M-x= key binding and
+specification of functions name, or via =Aegis= menu.  List of commands in menu depends on
+the current user's role .
 
-Команды, доступные пользователю имеют префикс =aegis-= за которым следует имя
-соответствующей команды *Aegis*.  Так что работа с пакетом почти не отличается от обычной
-работы с *Aegis* в командной строке.
+All functions, has special prefix =aegis-=, after which you could specify name of needed
+command of *Aegis*.  So work with package doesn't differ from work with *Aegis* in command
+line.
 
 * Customization
 
-Пользователь может настроить работу *aegis-mode* с помощью большого количества переменных и
-хуков, определенных в файле =aegis-vars.el=.  Я коснусь лишь самых важных из них, а более
-подробную информацию вы можете найти в указанном файле.
+User can customize behaviour of *aegis-mode* by setting big number of variables and hooks,
+defined in file =aegis-vars.el=.  I'll mention only most important variables, and
+descriptions of other you can find in file =aegis-vars.el=.
 
-Для каждой из команд *Aegis* пользователь может указать ключи командной строки, который
-будут использоваться при выполнении указанной команды.  Эти ключи хранятся в переменных
-имеющих вид =aegis-mode-команда-flags=.  Так что вы можете изменять соответствующие
-переменные, если вам необходимо передать дополнительные ключи какой-то из команд.
+For each of command of *Aegis* user can specify command line options, that will passed when
+corresponding commands will executed.  These options are stored in variables with names
+like =aegis-mode-COMMAND-flags=.  So, if you need to pass additional options to some
+command, you can set them in corresponding variable.
 
-Для выполнения определенных команд при переключении между ролями пользователей, пакет
-использует набор хуков, имена которых имеют вид =aegis-mode-become-имяроли-hook=.  С помощью
-этих хуков, пользователь может задать дополнительную фукнциональность, которая ему
-требуется при переключении между ролями.  Роль, которая будет присвоена текущему
-пользователю при загрузке пакета, определяется содержимым переменной
-=aegis-mode-default-hat=.
+To execute commands when user switch to other role, package provides some number of hooks,
+that named like =aegis-mode-become-ROLE_NAME-hook=.  By defining these hooks, user can add
+code, that will executed when user will switch to given role.  Role, that will set after
+loading of package is specified by =aegis-mode-default-hat= variable.
 
 <div id="rule">[[./index][Back to main page]]</div>
