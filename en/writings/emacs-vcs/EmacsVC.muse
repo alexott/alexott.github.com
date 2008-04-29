@@ -1,5 +1,5 @@
-#title Пакет VC
-#keywords emacs, vc, cvs, subversion, rcs, version control, контроль версий, емакс
+#title VC package
+#keywords emacs, vc, cvs, subversion, rcs, version control, hg, mercurial, darcs
 
 <contents>
 
