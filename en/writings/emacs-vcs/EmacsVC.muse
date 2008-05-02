@@ -3,91 +3,80 @@
 
 <contents>
 
-Пакет *VC* предоставляет пользователю унифицированный интерфейс к различным системам
-контроля версий.  В настоящее время существуют интерфейсы к системам *rcs*, *CVS*, *MetaCVS*,
-*Subversion*, *GNU Arch*, *sccs*, *Darcs*, *SourceSafe*, *ClearCase*, *Git* и *Mercurial* (некоторые из
-них доступны только в версии GNU Emacs 22.0, репозитории GNU Emacs или с сайтов авторов).
-К тому же не все модули имеют поддержку всех команд, которые предоставляются пакетом *VC*,
-например, модуль *vc-arch* не поддерживает команду =vc-cancel-version=, а также некоторые
-другие.
+The *VC* package provides to user ability to work with different version control systems
+(VCS) via unified user interfaces.  Now it supports following VCS (via VCS-specific
+modules): *rcs*, *CVS*, *MetaCVS*, *Subversion*, *GNU Arch*, *sccs*, *Darcs*, *SourceSafe*, *ClearCase*, *Git*
+and *Mercurial* (some of them available only in GNU Emacs 22.0, development repository of
+GNU Emacs or at author's sites)[1].
 
 * Basic concepts and approaches
-    
-На развитие пакета *VC* очень сильное влияние оказала система контроля версий *rcs*, поэтому
-некоторые концепции напрямую связаны с принципами использования данного пакета.
-    
-Когда файл находится под контролем системы контроля версий, то говорят, что файл
-"зарегистрирован" в системе контроля версий.  Каждому файлу соответствует "главный" файл,
-который содержит данные и историю изменений.  "Главному" файлу может соответствовать
-"рабочий" файл, в который можно вносить изменения.  В некоторых системах контроля версий,
-вы должны "блокировать" рабочий файл, перед внесением изменений.  В других системах
-контроля версий, вы можете вносить изменения в собственные рабочие версии файлов, и должны
-явно подтверждать изменения в центральный репозиторий.  Для систем контроля версий, в
-которых требуются блокировка файлов, для внесения изменений необходимо перевести файл из
-состояния "только для чтения", в режим доступности для записи.  Кроме того, в таких
-системах контроля версий обычно только один пользователь может одновременно вносить
-изменения в файлы, а остальные пользователи должны ожидать окончания работы данного
-пользователя.  Это в первую очередь касается системы контроля версий *rcs*.
-    
-При работе с пакетом *VC* некоторая информация отображается в строке состояния.  Информация
-представляется в следующем виде -- сначала идет сокращенное название системы контроля
-версий, контролирующей данный файл, затем идет символ, описывающий состояние файла, а
-затем отображается номер версии данного файла.  Если символ, описывающий состояние файла
-равен =-=, то файл не заблокирован или не изменен, а если он заблокирован или изменен, то
-будет использоваться символ =:=.  В том случае, если файл был заблокирован другим
-пользователем, то поле статуса будет выглядеть как =:user:=.
+
+Design of *VC* package took many things from the design of *rcs* version control system.  So
+many concepts tightly coupled with concepts of this VCS.
+
+When file is under control of VCS, then we say that it "registered" in VCS.  For each file
+exists "main" file, that contain data and history of changes.  For each "main" file could
+exists "work" file, that could be modified.  In some VCS you need to block work file
+before add any change.  In other VCS you can add changes to your copy of work file, and
+than explicitly commit changes to repository.  For systems, that require explicit locking
+of files, to add a change to a file, you need to switch file from read-only state to
+read-write state.  And usually, in such systems, only one user can make changes into
+locked files, and other users should wait until that user finish modification of files and
+remove block on file(s).
+
+When you work with *VC* some information about its state is displayed in status line.
+Information is represented in following form: at first is short name of VCS, used for
+current file, next is displayed symbol, describing file's state, and then file's version
+number is displayed.  If state symbol is equal to =-=, then file is not blocked or changed.
+If file is blocked or modified, then symbol is changed to =:=.  If file is blocked by other
+user, then status field will displayed as =:user:=.
 
 * Work with package
 
 ** Basic work sequence
- 
-Основной командой в пакете *VC* является =vc-next-action= (=C-x v v=), которая выполняет
-следующую логическую команду для данной системы контроля версий.  В зависимости от
-используемой системы контроля версий, порядок команд в цепочке действий может отличаться.
-Для систем, которые требуют блокировки файла (это *rcs*, *sccs*, и *CVS* при соответствующей
-настройке), порядок действий следующий:
- - если файл не зарегистрирован, то он регистрируется;
- - если файл зарегистрирован и не заблокирован, то команда вытягивает свежий файл, и
-   блокирует его;
- - если файл был заблокирован пользователем, но не изменялся, то выполняется обновление
-   буфера до новой версии;
- - если файл изменялся, то эта команда приводит к появлению буфера для ввода описания
-   изменения, а затем подтверждает изменения;
- - если файл был заблокирован кем-то другим, то *VC* старается получить блокировку.
+
+The main function of *VC* package is =vc-next-action= (=C-x v v=), that performs next logical
+command of version control system.  Depending on used VCS, order of commands in this
+sequence could differ.  For systems, that require blocking of file (*rcs*, *sccs*, and *CVS*
+with corresponding setup), order of executions is following:
+ - if file is not registered in VCS, then register it;
+ - if file is registered, but not blocked, then fetch latest version from repository and
+   block it;
+ - if file was blocked by current user, but not changed, then it fetches new version and
+   updates buffer;
+ - if file was changed, then display a new buffer to enter comment about change, and
+   commit changes;
+ - if file was blocked by other user, then *VC* tries to block it.
       
-Для систем не поддерживающих концепцию блокировок, порядок выполнения действия следующий:
- - если файл не зарегистрирован, то он регистрируется, но изменения не подтверждаются;
- - если файл уже был добавлен, но не подтвержден, то это изменение подтверждается;
- - если файл был изменен, а "главный" файл нет, то ваши изменения подтверждаются после
-   ввода описания изменений;
- - если файл в репозитории был изменен, то пользователю выдадут запрос на слияние
-   изменений в ваш рабочий файл.
-      
-Пользователь может задавать префиксные аргументы для команды =vc-next-action=.
-Использование префиксного аргумента изменяет поведение команды, что позволяет изменять
-номер версии под которой файл будет зарегистрирован, номер версии, которую необходимо
-получить, или изменить имя используемой системы контроля версий, что часто полезно, если
-файл был зарегистрирован в нескольких системах контроля версий.  Ввод описания изменения
-производится в специальном буфере, который называется =*VC-Log*=.  В нем вы можете ввести
-сообщение, и подтвердить изменения используя сочетание клавиш =C-c C-c=, находясь в этом
-буфере.  Чтобы не подтверждать изменения, просто покиньте это буфер без использования =C-c
-C-c=.  А если вы хотите использовать одно и то же сообщение для нескольких файлов, то вы
-можете воспользоваться сочетаниями клавиш =M-n=, =M-p=, =M-s= и =M-r=, которые работают так же как
-и в мини-буфере, позволяя перемещаться по истории сообщений.
+For systems, that doesn't support explicit blocking, order of execution is slightly different:
+ - if file is not registered in VCS, then register it, but doesn't commit it;
+ - if file already was added, but not committed, then commit it;
+ - if file was changed, then display a new buffer to enter comment about change, and
+   commit changes;
+ - if file was changed in repository, then ask user, and perform merging of changes in
+   your copy of work file.
+
+User can pass prefix argument to =vc-next-action= function.  Passing of this argument allow
+user to change behaviour of function -- for example, user can set version number for new
+file, or for file, that will fetched from repository, or change version control system (if
+file was registered in different VCS).  
+
+Entering of commit message is performed in special buffer with name =*VC-Log*=.  User can
+enter message, and commit changes by pressing =C-c C-c=.  If you doesn't want to commit
+changes, just leave this buffer without pressing =C-c C-c=.  And if you want use same commit
+message for several files, then you can use =M-n=, =M-p=, =M-s= and =M-r= key bindings, that allow
+you to navigate in messages history.
 
 ** Work with changes
 
-Пакет *VC* позволяет пользователю просматривать изменения внесенные в процессе работы с
-файлами.  Для получения списка изменений между вашей рабочей версией и последней
-подтвержденной версией, пользователь может воспользоваться командой =vc-diff= (сочетание
-клавиш <code>C-x v =</code>).  При использовании данной команды с префиксным аргументом,
-пользователь может получить список изменений между двумя произвольными версиями.  Команда
-=vc-version-other-window= (сочетание =C-x v ~=) позволяет получить произвольную версию файла,
-и показать ее в отдельном буфере.  А некоторые версии систем контроля версий позволяют
-получать аннотированные версии файлов, находящихся под управлением системы контроля
-версий.  Эту задачу реализует команда =vc-annotate=, которая запускается сочетанием =C-x v g=.
-Аннотированная версия позволяет понять как вносились изменения, и просматривать изменения
-внесенные в конкретных версиях.
+User can use *VC* to view changes, that he did during work with files.  To get list of
+changes between work copy and latest committed version, user can use =vc-diff= function
+(<code>C-x v =</code>).  If user runs this function with prefix argument, then he can
+obtain list of changes between any two versions. The =vc-version-other-window= function (=C-x
+v ~=) allows to get from repository any version of file, and show it in separate buffer.
+In some VCS you can obtain annotated versions of files, and *VC* also support this feature
+with =vc-annotate= function, that bound to =C-x v g=.  With annotated version you can see who
+make concrete changes, in which version they was made, etc.
 
 Вы можете отменить внесенные изменения с помощью команд, определенных пакетом.  Пакет
 определяет две команды отмены изменений -- =vc-revert-buffer= (сочетание =C-x v u=), которая
@@ -232,3 +221,10 @@ GNU Emacs or XEmacs distributions.  You can find them on the author's sites:
  - *vc-clearcase* -- http://www.fukt.hk-r.se/~flognat/vc/
 
 <div id="rule">[[./index][Back to main page]]</div>
+
+;  LocalWords:  VCS rcs CVS MetaCVS
+
+Footnotes: 
+[1] Some modules lacks implementation of some commands, provided by *VC*.  For example,
+    *vc-arch* doesn't support =vc-cancel-version= function, and some other, not so important.
+
