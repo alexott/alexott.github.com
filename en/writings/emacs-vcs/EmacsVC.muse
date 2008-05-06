@@ -105,25 +105,25 @@ User can also get information about current file by using =vc-print-log= functio
 bound to =C-x v l=.  This command shows history of changes together with text of comments
 for each of change.
 
-** Use VC together with с Dired
- 
-Команды описанные в предыдущих разделах в первую очередь предназначены для работы с
-отдельными файлами.  Но для больших проектов, часто необходимо работать с множеством
-файлов -- просматривать какие файлы изменились, список изменений и т.п.  Для реализации
-этих действий, пакет *VC* поддерживает специальный режим -- =vc-dired-mode=.  Для создания
-буфера, использующего такой режим, используется команда =vc-directory= (сочетание =C-x v d=).
-Буфер созданный такой командой почти не отличается от обычного буфера *Dired*.  В буфер
-помещается рекурсивный список файлов, зарегистрированных в системе контроля версий.  
+** Use VC together with Dired
 
-При работе с буфером *Dired*, данные могут отображаться в сокращенном или полном режиме.  В
-сокращенном режиме показываются только измененные или не обновленные файлы.  В полном
-режиме, показываются все файлы зарегистрированные в системе контроля версий.  Пользователь
-может переключаться между полным и сокращенным режимом с помощью сочетания клавиш =v t=.
-При показе данных в буфере, отображается имя пользователя (для систем поддерживающих
-блокировки) или статус файла (для остальных систем).  В буфере с =vc-dired-mode= действуют
-все команды *Dired*, за исключением команды =v=, которая используется в качестве префиксной
-для команд пакета *VC*.  Команды *VC* те же самые, что и описанные в прочих разделах, только
-не используется префикс =C-x=, и они могут выполняться к множеству помеченных файлов.
+Functions, that was described before, was designed to work with separate files.  But for
+big projects it's often need to work with sets of files -- see which files was modified,
+display list of changes for whole project, etc.  To allow user to do this, *VC* package
+implements special mode -- =vc-dired-mode=.  To create a buffer, that work in this mode,
+user could use =vc-directory= function (=C-x v d=).  The buffer, created by this command, has
+almost no differs from usual *Dired's* buffer.  In this buffer user can see recursive list
+of files, registered in VCS.
+
+During work with *Dired's* buffer we can display data in short or full mode.  In short
+display mode, in buffer are displayed only modified or not updated files.  In full display
+mode, in buffer are displayed all files registered in VCS.  User can switch between short
+and full display modes with =v t= key binding.  In buffer also displayed information about
+user, who had blocked file (for systems, that support this feature) or file status (for
+all other systems).  In the buffer with =vc-dired-mode= work all *Dired's* functions and keys,
+except =v= key, that is used as prefix key for all *VC* functions.  For user available all *VC*
+functions, as described in other section, but they doesn't use =C-x= prefix, and could be
+applied for file sets.
 
 ** Work with branches
 
@@ -197,11 +197,10 @@ for each of change.
 
 * Customization
 
-Используя стандартные средства настройки Emacs пользователь может настроить поведение
-выполняемых команд.  Для этого необходимо лишь выполнить =M-x customize-group vc=.  Часть
-опций применяется ко всем поддерживаемым системам контроля версий, часть применяется
-только к конкретным реализациям.  Полное описание основных переменных, используемых для
-настройки пакета *VC* вы можете найти в руководстве по GNU Emacs.
+User can customize behaviour of *VC* package using standard Emacs's customization routines.
+He just need to execute =M-x customize-group vc= to do this.  Some of options, applicable
+for all supported VCSs, but some are applicable only to concrete backends.  Full
+description of customization variables you can find in *VC's* manual.
 
 * Additional information 
 
