@@ -78,40 +78,34 @@ In some VCS you can obtain annotated versions of files, and *VC* also support th
 with =vc-annotate= function, that bound to =C-x v g=.  With annotated version you can see who
 make concrete changes, in which version they was made, etc.
 
-Вы можете отменить внесенные изменения с помощью команд, определенных пакетом.  Пакет
-определяет две команды отмены изменений -- =vc-revert-buffer= (сочетание =C-x v u=), которая
-возвращает файл связанный с буфером к версии, на которой он был основан, а команда
-=vc-cancel-version= (сочетание =C-x v c=) отменяет последнее подтвержденное изменение.  Для
-последней команды, вы можете не откатывать изменения для текущего буфера, так что вы
-можете внести новые изменения, основанные на промежуточных результатах.  После выполнения
-команды =vc-revert-buffer= файл остается не заблокированным, так что для внесения изменений,
-вас необходимо снова заблокировать его.
+User can cancel with =vc-revert-buffer= function (=C-x v u=), that remove changes and return
+current file to actual version from repository.  After execution of =vc-revert-buffer= file
+is not blocked, so you need to block it to make new changes.
 
 ** Work with files
  
-Регистрация файла в системе контроля версий производится с помощью команды =vc-register=
-(сочетание клавиш C-x v i).  Выбор системы контроля версий в которой файл будет
-зарегистрирован, зависит от нескольких параметров.  Если в данном каталоге есть файлы,
-зарегистрированные в какой-либо системе контроля версий, то используется именно она.  Если
-в каталоге находятся файлы зарегистрированные в нескольких системах контроля версий, то
-используется та, которая находится первой в списке =vc-handled-backends=.  А если нет ни
-одного зарегистрированного файла в данном каталоге, то используется первая запись из
-списка =vc-handled-backends=.  Так что вы зарегистрируете файл в *CVS* в пустом каталоге
-только явно указав использовать эту систему контроля версий.  
+Registration of file in repository is performed with =vc-register= function (=C-x v i=).
+Selection of version control systems depends on several parameters.  If in the directory
+there are files, already registered in some VCSs, then file will registered in this
+system.  If in directory there are files, registered in several VCSs, then file will
+registered in system, that is first in the list =vc-handled-backends=.  And if there are no
+registered files in directory, then *VC* take first name from =vc-handled-backends= list.  For
+example, you can register file in *CVS* only if you explicitly specify name of VCS. By
+default, new file gets version number equal 1.1.  You can set another version number if
+you supply prefix argument to =vc-register= function.  If =vc-initial-comment= variable has
+non-=nil= value, then this function also ask user for comment, that will used as description
+of this file.
 
-По умолчанию, новый файл получает номер версии равный 1.1.  Вы можете использовать другое
-число, если вы используете числовой аргумент при выполнении данной команды.  В том случае,
-если переменная =vc-initial-comment= имеет не пустое значение, то данная команда запросит у
-пользователя комментарий, который будет использован для описания файла.  Пакет *VC*
-поддерживает переименование зарегистрированных файлов.  Для этой цели вы можете
-использовать команду =vc-rename-file=, которая переименовывает рабочий файл, а также
-"главный" файл.  К тому же эта команда, обновляет все снимки, чтобы они ссылались на новое
-имя файла.  Но вы не можете использовать эту команду для заблокированных файлов.  Для
-получения информации о текущем файле вы можете использовать команду =vc-print-log=, которая
-привязана к сочетанию клавиш =C-x v l=.  Данная команда отображает историю изменений,
-включая текст комментариев к этим изменениям.
+The  *VC* package also supports renaming of registered files.  To do this you can use
+=vc-rename-file= function, that renames you working file, and also "main" file.  This
+function also update all snapshots, so they will point to the correct file name. But you
+couldn't use this function for blocked files.
 
-** Use *VC* together with с Dired
+User can also get information about current file by using =vc-print-log= function, that
+bound to =C-x v l=.  This command shows history of changes together with text of comments
+for each of change.
+
+** Use VC together with с Dired
  
 Команды описанные в предыдущих разделах в первую очередь предназначены для работы с
 отдельными файлами.  Но для больших проектов, часто необходимо работать с множеством
@@ -222,7 +216,7 @@ GNU Emacs or XEmacs distributions.  You can find them on the author's sites:
 
 <div id="rule">[[./index][Back to main page]]</div>
 
-;  LocalWords:  VCS rcs CVS MetaCVS
+;  LocalWords:  VCS rcs CVS MetaCVS VCSs
 
 Footnotes: 
 [1] Some modules lacks implementation of some commands, provided by *VC*.  For example,
