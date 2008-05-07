@@ -127,27 +127,25 @@ applied for file sets.
 
 ** Work with branches
 
-Как и другие пакеты для интеграции с системами контроля версий, пакет *VC* поддерживает
-работу с разными ветвями версий.  Пакет поддерживает создание ветвей, переключение между
-ними, а также слияние изменений между разными ветвями.  Для переключения на другую ветвь
-разработки пользователю необходимо лишь задать префиксный аргумент для команды
-=vc-next-action=.  Пользователь может указывать не конкретную версию, а лишь номер ветви.
-Следующая работа будет производиться именно в этой ветви.  Создание новой версии
-производится аналогичным образом -- необходимо лишь при подтверждении изменений с помощью
-команды =vc-next-action= указать новый номер версии используя префиксный аргумент.  Если
-пользователь укажет номер для не существующей ветви, то она будет создана.  После создания
-ветви, все остальные действия будут производиться в рамках этой ветви.  Для работы с
-другой веткой, пользователь должен явно переключиться на нее.  
+Like other packages, that allows to work with VCS, the *VC* package also supports work with
+different branches of one project.  Package supports creation of branches, switching
+between them, and also merging of changes between different branches.  To switch to other
+branch you just need to supply prefix argument to the =vc-next-action= function.  User may
+use branch version instead of concrete version of file.  Next operations will performed on
+selected branch.  Creation of new branch is performed similar way -- when you commit data
+with =vc-next-action=, you just need to supply prefix argument and version number.  If you
+supply non-existing branch number, then it will created.  After creation of the branch,
+all work will performed in it, and user will need to explicitly switch to other branch, if
+he need this.
 
-Для слияния изменений используется команда =vc-merge=, которая привязана к сочетанию клавиш
-=C-x v m=.  Данная команда запрашивает у вас откуда необходимо брать изменения, и применяет
-их к вашей рабочей версии.  Если вы ничего не ввели в ответ на запрос, то будут взяты
-изменения из ветви с которой вы работаете, если они были подтверждены за время работы с
-вашим файлом.  Если во время работы возникают конфликты, то пакет оповещает пользователя
-об этом, и помечает конфликты в файле, или даже может запустить *Ediff* для их разрешения.
-Вы можете воспользоваться командой =vc-resolve-conflicts= для разрешения возникших
-конфликтов.  Она запускает новую сессию *Ediff*, где вы можете просматривать возникшие
-конфликты, и применять или отвергать предлагаемые изменения.
+To merge changes from another branch you can use =vc-merge= function, that bound to =C-x v m=.
+This command will ask you about branch from which you want merge changes, and apply them
+to your current brunch.  If you doesn't specify branch version, then changes will taken
+from repository, from your current branch, if somebody commit them during your work.  If
+during merge arise some conflicts, then package will notify you, and mark them in the
+file, or run *Ediff* to resolve them.  You can also use =vc-resolve-conflicts= function to
+resolve existing conflicts.  This function run new *Ediff* session, where you can see all
+conflicts, and accept or cancel proposed solutions.
 
 ** Work with remote repositories
 
