@@ -1,0 +1,8 @@
+#title Microsoft Excel
+#keywords ms excel, file format
+
+MS Excel
+
+<div id="rule">[[./index][На главную страницу]]</div>
+
+

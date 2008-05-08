@@ -9,5 +9,5 @@ FILE=sitemap.xml
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' > $FILE
 echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> $FILE
-find . -name \*.html| xargs ls -ls |awk '{print "<url><loc>" $9 "</loc>\n<lastmod>" $7 "</lastmod></url>"}'|sed -e 's|\.\/|http://xtalk.msk.su/~ott/|' >> $FILE
+find . -name \*.html -o -name \*.pdf| xargs ls -ls |awk '{print "<url><loc>" $9 "</loc>\n<lastmod>" $7 "</lastmod></url>"}'|sed -e 's|\.\/|http://xtalk.msk.su/~ott/|' >> $FILE
 echo '</urlset>' >> $FILE

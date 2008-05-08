@@ -1,0 +1,7 @@
+#title Microsoft Project
+#keywords ms project, file format
+
+Описание формата файлов MS Project
+
+<div id="rule">[[./index][На главную страницу]]</div>
+

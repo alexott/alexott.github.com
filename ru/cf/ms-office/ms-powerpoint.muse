@@ -1,0 +1,8 @@
+#title Microsoft PowerPoint
+#keywords ms powerpoint, file format
+
+MS PowerPoint
+
+<div id="rule">[[./index][На главную страницу]]</div>
+
+

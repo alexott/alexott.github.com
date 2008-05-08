@@ -23,6 +23,7 @@ the *VC* and DVC packages, that implement the first approach, and in next sectio
 describe the systems-specific packages, that implements the second approach.
 
  - Generic packages
+  - [[./EmacsVC][Work with VC]]
   - [[./EmacsDVC][Work with DVC]]
  - System-specific packages
   - [[./EmacsPCLCVS][PCL-CVS Package]]
@@ -34,7 +35,6 @@ describe the systems-specific packages, that implements the second approach.
   - [[./EmacsAegis][Work with Aegis]]
   - [[./EmacsVSS][Work with Visual SourceSafe]]
   - [[./EmacsBitkeeper][Emacs & Bitkeeper]]
-;  - [[./EmacsVC][Work with VC]]
 ;  - [[./EmacsPerforce][Work with Perforce]]
 ;  - [[./EmacsClearCase][ClearCase]]
 ;  - [[./EmacsStarTeam]

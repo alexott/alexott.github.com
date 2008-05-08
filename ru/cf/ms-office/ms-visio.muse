@@ -1,0 +1,8 @@
+#title Microsoft Visio
+#keywords ms visio, file format
+
+MS Vision
+
+<div id="rule">[[./index][На главную страницу]]</div>
+
+

@@ -149,49 +149,44 @@ conflicts, and accept or cancel proposed solutions.
 
 ** Work with remote repositories
 
-Некоторые системы контроля версий поддерживают концепцию центрального репозитория, который
-хранит "главные" файлы, а также историю изменений.  Репозиторий может быть локальным, или
-располагаться на удаленном сервере.  *VC* автоматически распознает тот случай, когда
-репозиторий располагается на удаленном сервере, и принимает некоторые действия, которые
-позволяют более комфортно работать с данными, особенно в тех случаях, когда связь является
-медленной и нестабильной.  При первом редактировании файла, создается локальная копия
-изменяемого файла.  Это позволяет выполнять команды получения списка изменений, или отмены
-внесенных изменений, без какого-либо сетевого взаимодействия.  Создаваемая копия файла
-имеет имя =FILE.~VERSION.~=.  При подтверждении изменений в репозиторий, локальная копия
-удаляется.  Пользователи также могут создавать резервные копии вручную, используя команду
-=vc-version-other-window=, разница между резервными копиями созданными автоматически и
-вручную, лишь в лишнем знаке точка перед знаком =~=.  Многие команды *VC* могут использовать
-любую из резервных копий.
+Some of VCS supports "central repository" concept, that is used to keep "main" versions of
+file, together with history of changes.  Repository could be local, or located on remote
+server.  *VC* automatically detects cases, when repository is located on remote server, and
+does some things, that allow to effectively work with data, especially if connection to
+server is very slow or unstable.  When user make a first change in file, the local copy of
+original file is created.  This allow to execute functions for getting reverting changes
+without establishing network connection.  File with original version has name
+=FILE.~VERSION.~=.  When you commit changes to repository, local copy of original file will
+deleted.  User can also manually create reserve copy of file using =vc-version-other-window=
+function.  Difference between these two copies is that automatic copy has additional =.=
+char before =~=.  Many *VC* functions can use both copies of file if their exists.
     
 ** Work with snapshots
 
-"Снимок" (snapshot) -- это именованный набор версий файлов, который может рассматриваться
-как отдельная единица.  Некоторые системы контроля версий сами поддерживают концепцию
-"снимков", тогда пакет *VC* использует эти возможности.  Для прочих систем контроля версий,
-пакет *VC* сам реализует поддержку "снимков".  В этом случае, эти "снимки" видны только при
-использовании пакета *VC*.  Для работы со "снимками" пакет *VC* определяет две команды.
-Команда =vc-create-snapshot= (сочетание =C-x v s=) создает "снимок" на базе версий файлов
-находящихся в текущем каталоге, или ниже.  Команда =vc-retrieve-snapshot= (сочетание клавиш
-=C-x v r=) позволяет пользователю получить "снимок" с заданным именем.  Многие команды
-пакета *VC* позволяют использовать имена "снимков" в качестве аргументов вместо номеров
-версий файлов.  Это особенно полезно просмотре списка изменений между релизами программ.
+Snapshot is named set of files with concrete versions, that could be used as separate
+object.  Some VCSs support this concept internally, so *VC* just use existing functionality.
+For all other systems, *VC* implements this functionality, so snapshots will visible only if
+*VC* package is used.  To work with snapshots *VC* package provides two functions.  The
+=vc-create-snapshot= function (=C-x v s=) create a new snapshot using versions of files
+existing in current directory (and all sub-directories).  The =vc-retrieve-snapshot=
+function (=C-x v r=) allows user to retrieve snapshot with given name.  Many *VC's* functions
+allow user to use snapshot's names as argument, instead of using version numbers.  This is
+especially useful when you look list of changes between two releases of program.
 
 ** Other functions
 
-Обычно, для файлов находящихся под управлением системы контроля версий, для каждого файла
-ведется отдельный список изменений.  Но в проектах GNU списки изменений ведутся для всего
-проекта, или для отдельных каталогов.  Для организации взаимодействия между этими двумя
-подходами, пакет *VC* определяет отдельную команду =vc-update-change-log= (она привязана к
-сочетанию =C-x v a=), которая обновляет общий список изменений на основании списка изменений
-для отдельных файлов.  При использовании префиксов, данная команда позволяет обновить
-общий список изменений, только изменениями для отдельных файлов.  Вы можете вставлять в
-файлы специальные идентификационные заголовки.  Эти заголовки зависят от конкретной
-используемой системы контроля версий, и в некоторых системах, они используются для
-служебных целей.  Для вставки такого заголовка, вы можете использовать команду
-=vc-insert-headers= (сочетание клавиш =C-x v h=).  *VC* автоматически выбирает заголовок
-подходящий для системы контроля версий.  Заголовки хранятся в переменных вида
-=vc-BACKEND-header=, так что вы можете изменять их значения, для вставки собственных
-заголовков.
+Usually for files, registered in some VCS history of changes is kept for each file
+separately.  But in GNU projects, usually change logs are kept for whole project or on per
+directory basis.  To allow to work with such change logs, *VC* package implements
+=vc-update-change-log= function (=C-x v a=), that updates common change log with change logs
+for all modified files.  When this command gets a prefix argument, then it can update
+common change log with entries from concrete files.
+
+You can also insert special headers into your files.  These headers depends on concrete
+VCS, and in some VCSs could be used for auxiliary goals.  To insert such header, you can
+use =vc-insert-headers= function (=C-x v h=).  *VC* automatically selects header, suitable for
+current VCS.  All headers are kept in =vc-BACKEND-header= variables, so you can modify them
+to allow insertion of your own headers.
 
 * Customization
 
@@ -213,7 +208,7 @@ GNU Emacs or XEmacs distributions.  You can find them on the author's sites:
 
 <div id="rule">[[./index][Back to main page]]</div>
 
-;  LocalWords:  VCS rcs CVS MetaCVS VCSs
+;  LocalWords:  VCS rcs CVS MetaCVS VCSs VC
 
 Footnotes: 
 [1] Some modules lacks implementation of some commands, provided by *VC*.  For example,
