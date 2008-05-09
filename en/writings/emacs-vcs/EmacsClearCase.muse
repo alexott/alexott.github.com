@@ -35,156 +35,141 @@ The *clearcase* package tries to keep compatibility with *VC* package in key bin
 interface, that is implemented by package, is more powerful and better reflects ideology
 of *ClearCase* than backend for *VC* package.
 
-Работа с пакетом может осуществляться через выполнение команд напрямую, используя привязки
-клавиш, или через меню =ClearCase=, которое появляется при редактировании файлов с
-использованием вспомогательного режима *ClearCase*.  Кроме выполнения действий прямо из
-Emacs, пользователь может использовать и внешние программы из состава *ClearCase*.  Сюда
-относятся утилиты для просмотра дерева версий и работы с проектами, а также менеджер
-слияний, и прочие утилиты.
+Besides functions and key bindings user can use =ClearCase= menu, that is added to menu bar
+when he edit files with *ClearCase* minor-mode enabled.  User can perform all basic commands
+directly from Emacs, and also can run external utilities from  *ClearCase* distribution.
 
-Многие операции пакет позволяет производить используя режим *Dired*.  Сюда относятся
-операции просмотр дерева версий, массовая работа с файлами -- извлечение и помещение их в
-репозиторий.  Для обработки каталогов, находящихся под управлением *ClearCase*, при
-использовании Dired, пакет *clearcase* определяет специальный режим -- =clearcase-dired-mode=.
-Кроме этого, пакет определяет еще несколько вспомогательных режимов, например, режим для
-редактирования комментариев.
-    
-Для своих привязок клавиш, пакет *clearcase* использует префиксное сочетание клавиш =C-x v=.
-Для того, чтобы команды *clearcase* не пересекались с командами пакета *VC*, пакет *clearcase*
-удаляет неиспользуемые привязки, при работе с данными, находящимися под контролем
-*ClearCase*.
+Many operations could be performed in the *Dired* mode -- view tree of files versions, work
+with several files (checking them in and out), etc.  To work with directories, that are
+registered in *ClearCase* the *clearcase* package defines special mode --
+=clearcase-dired-mode=.
 
-Команды работы с данными можно разделить на несколько логических групп -- работа с
-файлами, работа с изменениями, использование внешних утилит *ClearCase*, получение
-информации, и прочие команды.  Практически для каждой команды, которая работает с текущим
-буфером (они оканчиваются на суффикс =-current-buffer=) существует аналогичная команда,
-которая работает с текущим файлом в буфере *Dired*.  Такие команды имеют суффикс
-=-dired-file=.
+For all key bindings the *clearcase* package use prefix key =C-x v=.  To avoid problems with
+*VC's* key bindings, the *clearcase* package removes needless key bindings, when you work with
+files, registered in *ClearCase*.
+
+All functions we can split into several logical groups -- work with files, work with
+changes, work with external utilities, and other functions.  For almost any function, that
+works with current file (they have suffix =-current-buffer=) there is also function that
+provides work with file from *Dired* buffer (such functions have suffix =-dired-file=).
+Usually both variants has same key bindings, that call appropriate function, depending on
+places in which they was pressed -- current file, or *Dired* buffer.
 
 ** Work with files and versions
 
-Пакет *clearcase* старается в своей работе поддерживать логику операций, которые
-предоставляются пакетом *VC*.  Для этого, определены команды
-=clearcase-next-action-current-buffer= и =clearcase-next-action-dired-files=, которые
-выполняют следующую операцию в цепочке действий над текущим буфером, или над выбранными
-файлами.  Изменение состояния текущего буфера производится с помощью команды
-=clearcase-toggle-read-only= (сочетание клавиш =C-x C-q=), что приводит к переводу его либо в
-состояние доступности для внесения изменений, либо в состояние доступности только для
-чтения.
+The *clearcase* package tries to keep work logic of *VC* package as much as possible.  It
+defines two functions -- =clearcase-next-action-current-buffer= (=C-x v v=) and
+=clearcase-next-action-dired-files= (same key binding, but in *Dired* mode), that performs
+following operation on current file (or selected files).  To change state of current file
+you can use =clearcase-toggle-read-only= function (=C-x C-q=), that either allow modification
+of file, either switch it to read-only state.
 
-Пакет поддерживает массовое выполнение операций получения данных из репозитория и
-подтверждения данных в репозиторий.  Для получения данных из репозитория могут
-использоваться команды =clearcase-checkout-current-buffer=, =clearcase-checkout-dired-files= и
-=clearcase-dired-checkout-current-dir=, которые приводят к получению версий из репозитория
-для текущего буфера, отмеченных файлов и текущего каталога.  А задачи по подтверждению
-данных производятся с помощью команд, имеющих аналогичные имена --
-=clearcase-checkin-current-buffer=, =clearcase-checkin-dired-files= и
-=clearcase-dired-checkin-current-dir=.  Отмена получения данных производится с помощью
-команд =clearcase-uncheckout-current-buffer= (она привязана к сочетаниям =C-x v c= и =C-x v
-u=), =clearcase-uncheckout-dired-files= (она имеет те же привязки, что и предыдущая команда,
-но они определены только при работе в режиме =clearcase-dired-mode=) и команды
-=clearcase-dired-uncheckout-current-dir=.
+The package allows user to perform bulk operations of getting data from repository and
+committing them back.  To retrieve data from repository user can use following functions:
+=clearcase-checkout-current-buffer=, =clearcase-checkout-dired-files= and
+=clearcase-dired-checkout-current-dir=, that retrieve actual versions for current file,
+selected files and current directory.  And to commit data back to repository there are
+functions with similar names -- =clearcase-checkin-current-buffer=,
+=clearcase-checkin-dired-files= and =clearcase-dired-checkin-current-dir=.  To cancel changes
+user can use either =clearcase-uncheckout-current-buffer= function (it bound to =C-x v c= or
+=C-x v u=), or =clearcase-uncheckout-dired-files= function (it has same key bindings, but work
+only in =clearcase-dired-mode=), or =clearcase-dired-uncheckout-current-dir= function.
 
-Регистрация файлов в системе контроля версий *ClearCase* производится с помощью команды
-=clearcase-mkelem-current-buffer= (сочетание клавиш =C-x v i=), которая регистрирует текущий
-буфер, или с помощью команды =clearcase-mkelem-dired-files=, которая регистрирует выбранные
-файлы.
+To register files in the *ClearCase* user can use either =clearcase-mkelem-current-buffer=
+function (=C-x v i=), that register current file, or =clearcase-mkelem-dired-files= function,
+that register selected files.
 
-Обновление данных в текущем буфере, каталоге или файлах в буфере *Dired* производится с
-помощью команд =clearcase-update-current-buffer=, =clearcase-update-default-directory=,
-=clearcase-update-dired-files= и =clearcase-update-view=.  А получить конкретную версию файла
-можно с помощью команды =clearcase-version-other-window=, которая привязана к сочетанию
-клавиш =C-x v ~=.
+To update data from repository we can use =clearcase-update-current-buffer=,
+=clearcase-update-default-directory=, =clearcase-update-dired-files= or =clearcase-update-view=
+functions, that update corresponding object -- current file, selected files, directory or
+view.  And we can also can get concrete file version with =clearcase-version-other-window=
+function, that bound to =C-x v ~=.
 
-Создание новой ветки производится с помощью команды =clearcase-mkbrtype=, которая привязана
-к сочетанию клавиш =C-x v m=.
+We also can create a new branch with =clearcase-mkbrtype= function, that bound to =C-x v m=.
+Other branch manipulations are performed the same way as in [[./EmacsVC#branches][VC]].
 
 ** Work with changes
 
-Команды работы с изменениями можно разделить на две группы.  Первая группа для получения
-списков изменений использует команду =diff= (они имеют название начинающееся с
-=clearcase-diff=), а вторая группа команд, для этого использует пакет *ediff* (для них
-используется префикс =clearcase-ediff=).  Ниже перечислены только команды первой группы,
-команды второй группы имеют аналогичные имена, с учетом вышеуказанных отличий.
- - =clearcase-diff-pred-current-buffer= (сочетание клавиш <code>C-x v =</code>) и
-   =clearcase-diff-pred-dired-file= -- сравнивает текущий буфер или отмеченные файлы с их
-   предыдущими версиями;
- - =clearcase-diff-branch-base-current-buffer= и =clearcase-diff-branch-base-dired-file= --
-   сравнивают текущий буфер или отмеченные файлы с базовыми версиями их ветки;
- - =clearcase-diff-named-version-current-buffer= и =clearcase-diff-named-version-dired-file=
-   -- сравнивают текущий буфер или отмеченные файлы с указанной версией.
+All functions, that implement work with changes we can split into two groups.  First group
+use usual =diff= to get changes between versions (their names started with =clearcase-diff=),
+while second group use *ediff* package (and their names start with =clearcase-ediff=).  I
+describe only functionss from first group, as there are no differences between them, except
+the names.
+ - =clearcase-diff-pred-current-buffer= (<code>C-x v =</code>) and
+   =clearcase-diff-pred-dired-file= functions compare current file (or selected files)
+   with their previous versions;
+ - =clearcase-diff-branch-base-current-buffer= and =clearcase-diff-branch-base-dired-file=
+   compare current file (or selected files) with their base versions in the current
+   branch;
+ - =clearcase-diff-named-version-current-buffer= and =clearcase-diff-named-version-dired-file=
+   compare current file (or selected files) with concrete named version of files.
 
 ** Obtaining an information
 
-Для получения описания файлов используются две команды.  Команда
-=clearcase-describe-current-buffer= (сочетание клавиш =C-x v ?=)  используется для получения
-описания файла в текущем буфере, а команда =clearcase-describe-dired-file= используется для
-получения описания файлов, выбранных в буфере dired.
+To get information about files we can use several functions.  The
+=clearcase-describe-current-buffer= function (=C-x v ?=) could be used to get description of
+current file, while =clearcase-describe-dired-file= is used to get information about
+selected files.
 
-Пользователи также могут получить аннотированную версию текущего буфера или отмеченных
-файлов с помощью команд =clearcase-annotate-current-buffer= (сочетание клавиш =C-x v g=) и
-=clearcase-annotate-dired-file=.  А для получения истории текущего буфера или файла в буфере
-dired используются команды =clearcase-list-history-current-buffer= (привязанная к =C-x v l=) и
+User can also get annotated copy of file(s) with =clearcase-annotate-current-buffer= (=C-x v
+g=) or =clearcase-annotate-dired-file= functions.  And to get history of changes, he can use
+functions =clearcase-list-history-current-buffer= (=C-x v l=) or
 =clearcase-list-history-dired-file=.
 
-Пакет *clearcase* поддерживает работу со свойствами файлов *ClearCase*, которые связываются с
-зарегистрированными файлами.  Пользователь может просматривать эти свойства с помощью
-команды =clearcase-fprop-display-properties=, а также вставлять их в текущий буфер с помощью
-команды =clearcase-fprop-dump-to-current-buffer=.
+User can also use *clearcase* package to work with *ClearCase* file's properties, that could
+be assigned to each registered file.  User can view them with
+=clearcase-fprop-display-properties= function, and insert them into current buffer with
+=clearcase-fprop-dump-to-current-buffer= function.
 
 ** Work with *ClearCase's* external tools
 
-Пакет *clearcase* позволяет использовать множество утилит, входящих в состав *ClearCase*, не
-покидая удобную среду Emacs:
- - =clearcase-gui-clearexplorer= -- запускает =ClearExplorer=
+User can use *clearcase* package to run many utilities from *ClearCase's* distribution without
+leaving Emacs:
+ - =clearcase-gui-clearexplorer= -- runs =ClearExplorer=
  - =clearcase-gui-deliver= 
- - =clearcase-gui-merge-manager= -- запускает менеджер слияний;
- - =clearcase-gui-project-explorer= -- запускает утилиту работы с проектами;
+ - =clearcase-gui-merge-manager= -- runs merge manager;
+ - =clearcase-gui-project-explorer= -- runs utility that works with projects
  - =clearcase-gui-rebase= 
  - =clearcase-gui-snapshot-view-updater= 
- - =clearcase-gui-vtree-browser-current-buffer= -- запускает браузер дерева проекта для
-   текущего буфера;
- - =clearcase-gui-vtree-browser-dired-file= -- запускает браузер дерева проекта для файла в
-   *Dired*.
+ - =clearcase-gui-vtree-browser-current-buffer= -- runs project tree browser for current buffer;
+ - =clearcase-gui-vtree-browser-dired-file= -- runs project tree browser for selected files.
 
-Пакет также определяет набор команд для просмотра изменений с помощью внешних утилит:
- - =clearcase-gui-diff-branch-base-current-buffer= -- использует графический интерфейс для
-   сравнения данных в текущем буфере;
- - =clearcase-gui-diff-branch-base-dired-file= -- использует графический интерфейс для
-   сравнения выбранных версий с их базовыми версиями;
- - =clearcase-gui-diff-pred-current-buffer= -- использует графический интерфейс для
-   сравнения текущего буфера с предыдущей версией;
- - =clearcase-gui-diff-pred-dired-file= -- использует графический интерфейс для сравнения
-   выбранных версий с их базовыми версиями.
+It also allows to use external utilities with graphical interface to view changes in
+files:
+ - =clearcase-gui-diff-branch-base-current-buffer= -- show difference between current file
+   and its base version;
+ - =clearcase-gui-diff-branch-base-dired-file= -- show difference between selected files and
+   their base versions;
+ - =clearcase-gui-diff-pred-current-buffer= -- show difference between current file and its
+   previous version;
+ - =clearcase-gui-diff-pred-dired-file= -- show difference between selected files and their
+   previous versions.
 
 ** Other functions
 
-Редактирование конфигурации *ClearCase* производится с помощью команд, которые начинаются с
-=clearcase-edcs=.  Для редактирования конфигурации определен специальный режим --
-=clearcase-edcs-mode=, который включается одноименной командой.  Редактирование конфигурации
-производится с помощью команды =clearcase-edcs-edit=, которая привязана к сочетанию клавиш
-=C-x v e=.  Для сохранения изменений используется команда =clearcase-edcs-save=.  Для
-завершения работы с конфигурацией *ClearCase* используется команда =clearcase-edcs-finish=.
+User can edit *ClearCase* configuration with functions, those names starts with
+=clearcase-edcs=.  For editing configurations, there is a special mode --
+=clearcase-edcs-mode=, that could be enabled by function with the same name.  User can edit
+configuration with =clearcase-edcs-edit= function (=C-x v e=), and save changes with
+=clearcase-edcs-save=.  To finish work with configuration there is special function --
+=clearcase-edcs-finish=.
 
-Пакет *clearcase* обеспечивает возможность отслеживания состояния самого себя с помощью
-трассировки выполняемых команд. Для включения и выключения трассировки используются
-команды =clearcase-enable-tracing= и =clearcase-disable-tracing=.  Кроме этого, пользователь
-может получить данные о внутреннем состоянии пакета с помощью команды =clearcase-dump=.  Но
-эти возможности в основном нужны в тех случаях, когда пакет работает не так как нужно.
-Если вы нашли ошибку в работе пакета, то вы можете сообщить о ней используя команду
-=clearcase-submit-bug-report=, которая соберет данные о значениях переменных, версии Emacs и
-прочую информацию, необходимую для воссоздания ошибки и ее исправления.
-
-Команды =clearcase-integrate= и =clearcase-unintegrate= явно устанавливают или удаляют хуки и
-команды, которые обеспечивают интеграцию с системой контроля версий *ClearCase*.
+If there are some problems with package, then user can trace state of package with special
+functions.  To enable tracing user can use =clearcase-enable-tracing= function, and to
+disable -- =clearcase-disable-tracing= function.  User can also get data about package's
+internal state with =clearcase-dump= function.  But this is happen not so often. And if you
+find a bug in package, then you can set bug report with =clearcase-submit-bug-report=
+function, that collects all needed data (values of variables, version of Emacs, etc.) and
+prepare it to sending.
 
 * Customization
 
-Также как и другие пакеты, пакет *clearcase* поддерживает стандартный механизм настройки
-Emacs.  Для настройки надо всего лишь выполнить команду =M-x customize-group clearcase=.
-С его помощью пользователь может задать множество параметров, например, что использовать в
-качестве программы =diff=, а также другие параметры.  Надо лишь внимательно читать описания
-переменных и сопоставлять их с концепциями *ClearCase*.
+As for many other packages, the *clearcase* package supports customization via standard
+Emacs routines.  User just need to execute =M-x customize-group clearcase= to do this.  He
+can set many parameters, for example, which program will be used as =diff=, etc.  User can
+also set (and remove) special hooks with =clearcase-integrate= and =clearcase-unintegrate=
+functions.
+
 
 <div id="rule">[[./index][Back to main page]]</div>
 

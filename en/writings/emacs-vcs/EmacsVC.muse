@@ -125,6 +125,7 @@ except =v= key, that is used as prefix key for all *VC* functions.  For user ava
 functions, as described in other section, but they doesn't use =C-x= prefix, and could be
 applied for file sets.
 
+#branches
 ** Work with branches
 
 Like other packages, that allows to work with VCS, the *VC* package also supports work with
