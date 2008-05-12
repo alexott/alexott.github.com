@@ -1,223 +1,197 @@
 #title Integration with  Perforce
-#keywords emacs, perforce
+#keywords emacs, perforce, p4
 
 <contents>
 
-*Perforce* -- достаточно популярная система контроля версий, используемая во многих проектах
-по разработке коммерческого программного обеспечения.  Ссылки на ресурсы об использовании
-*Perforce* вы можете найти в разделе [[#addinfo][Дополнительная информация]].  Поддержка *Perforce* в Emacs
-осуществляется с помощью пакета *p4*.
+*Perforce* -- popular version control system that is often used in development of commercial
+software.  Links to information about this system you can find at section
+"[[#addinfo][Additional information]]".  Users can work with this system from Emacs if they install *p4*
+package.
 
 * Installation
 
-Для установки пакета вам нужно скачать исходный текст с [[http://p4el.sourceforge.net][сайта проекта]].  Поместите пакет в
-место, где его найдет Emacs, и поместите следующую команду в файл инициализации Emacs:
+To install this package you need to download it from  [[http://p4el.sourceforge.net][project's site]] and put it to place,
+where Emacs can find it.  And after this, you can load it with following command:
 
 <src lang="emacs-lisp">
 (require 'p4)
 </src>
 
-Пакет может работать как с GNU Emacs, так и с XEmacs.  Для работы пакета необходимо
-наличие *Ediff*, и еще нескольких пакетов, которые обычно идут в составе Emacs.
+This package can work with GNU Emacs and XEmacs.  All components (*Ediff*, etc.), that are
+needed to its work come together with Emacs's distribution, so you doesn't need to install
+anything else.
 
 * Work with package
 
-Работу с пакетом можно логически разделить на несколько групп действий -- работа с
-репозиторием, получение информации о файлах, работа с файлами и ветками, работа с
-изменениями, настройка параметров и прочие команды.  Более подробно, каждая из групп
-действий будет рассмотрена в следующих разделах.
+All functions, implemented by this package we can split into several groups -- work with
+repository, obtaining information about files, work with files and branches, work with
+changes, etc.  All these topics will described in following sections.
 
-Команды выполняются через стандартные средства выполнения команд Emacs, используя привязки
-клавиш или используя меню =P4=, которое появляется после загрузки пакета, и в котором
-перечислены практически все команды предоставляемые пакетом.  Для некоторых команд пакета,
-пользователь может задать дополнительные аргументы, используя сочетание клавиш =C-u=.
+User can execute functions via key bindings, calling they by name, or using the =P4= menu,
+that will available after loading of package.  This menu contains almost all functions,
+implemented by package.  Some of functions also accept additional arguments, that could
+passed via as standard prefix arguments (via =C-u= key binding).
 
-** Work with repository, files, tasks and branches
+** Work with repository, files, jobs and branches
 
-Синхронизация локальных файлов с репозиторием производится с помощью команды =p4-get=
-(сочетание =C-x p G=).  Команда позволяет синхронизировать как отдельные файлы, так и все
-файлы клиента.  Пользователь может указать номер версии, с которой будет
-синхронизироваться клиент.
+Synchronisation of local files with repository is performed by =p4-get= function (=C-x p G=).
+This function can synchronise individual files, and whole directory content.  User can
+pass version number to which files will updated.
 
-После получения файлов из репозитория пользователь может открыть его для изменения с
-помощью команды =p4-edit= (сочетание клавиш =C-x p e=).  При выполнении данной команды, сервер
-уведомляется что файл открывается для изменения и файл переводится из состояния только для
-чтения, в состояние доступное для изменения.  Пользователь может указать номер изменения,
-к которому будут относиться новые изменения, а также тип файла.  Можно открыть файл с
-новыми параметрами (тип файла или номер изменения), для этого в пакете *p4* определена
-команда =p4-reopen= (=C-x p E=).  Кроме этого, пользователь может открыть файл напрямую в
-репозитории, с помощью команды =p4-depot-find-file=, которая привязана к сочетанию клавиш
-=C-x p C-f=.
+After retrieving files from repository, user can start change them.  To open file for
+modification, user can use =p4-edit= function (=C-x p e=) -- it change state of file from
+read-only and allows to edit it.  User can specify changeset number for new changes and also,
+specify type of file.  User can also open already opened file with new parameters with
+=p4-reopen= function (=C-x p E=).  And, user can also open file directly in repository, with
+=p4-depot-find-file= function, that bound to =C-x p C-f=.
 
-Добавление файла в репозиторий производится с помощью команды =p4-add= (сочетание =C-x p a=).
-С помощью аргументов, пользователь может указать тип файла -- текстовый или двоичный, а
-также связать новый файл с указанным отложенным изменением.  Если тип файла не был указан
-явно, то он определяется автоматически.  Удаление файла из репозитория производится с
-помощью команды =p4-delete= (сочетание клавиш =C-x p x=).  Файл удаляется как из репозитория,
-так и у клиента.  Если файл уже открыт, то он пере-открывается для удаления и помещается в
-указанное неподтвержденное изменение.  Переименование файла производится с помощью команды
-=p4-rename= (=C-x p m=).  Данная команда поддерживает использование шаблонных символов, так
-что можно одновременно переименовывать множество файлов.
+Addition of files is performed with =p4-add= function (=C-x p a=).  By passing additional
+arguments, user can specify file type (binary or text), and link this addition to concrete
+changeset.  If file type was not specified, then *Perforce* try to detect it automatically.
+To delete file from repository, user can use =p4-delete= function (=C-x p x=).  After
+execution of this function file is deleted from repository and from client's machine.  If
+file was already opened, then it re-opened to deletion and assigned to next unconfirmed
+changeset.  User can also rename file with =p4-rename= function (=C-x p m=), that also
+supports usage of globs, so user can rename bunch of files with one function.
 
-Работа с заданиями (jobs) в *Perforce* реализуется пакетом *p4* с помощью нескольких команд.
-Команда =p4-jobs= (=C-x p J=) используется для получения списка всех заданий определенных в
-системе.  С помощью аргументов пользователь может сужать список заданий, список
-поддерживаемых аргументов вы можете найти в документации на пакет *p4*.  Создание и
-изменение заданий производится с помощью команды =p4-job= (сочетание клавиш =C-x p j=).  С
-помощью префиксных аргументов, данная команда может удалять задания, а также изменять их.
-А команда =p4-fix= (сочетание =C-x p X=) используется для связывания задания с номером
-изменения.  Связанные с изменениями задания закрываются в том случае, если изменения
-подтверждаются.
+*P4* supports work with jobs, existing in *Perforce* -- package implements several functions
+for this task.  The =p4-jobs= function (=C-x p J=) is used to get list of all tasks, defined
+in VCS.  By specifying additional arguments, user can narrow list of tasks (list of
+supported arguments you can find in documentation for *p4* package).  Creation and
+modification of job is performed with =p4-job= function (=C-x p j=).  User can also use it to
+delete job, if he specify prefix argument.  And to link job with changeset number, user
+can use =p4-fix= function (=C-x p X=).
 
-Спецификации веток могут редактироваться с помощью команды =p4-branch=, которая привязана к
-сочетанию клавиш =C-x p B=.  Пользователь может выполнить слияние изменений между ветками с
-помощью команды =p4-integ= (=C-x p I=).  Можно выполнять слияние как между отдельными файлами,
-так и между полными ветками.  С помощью аргументов, пользователь может указать в какое
-изменение будет производиться слияние.
+To change branch specification there is =p4-branch= function, that bound to =C-x p B=.  User
+can perform merging of changes between branches with =p4-integ= function (=C-x p I=), that
+allows to perform merging between concrete files, and whole branches.  By specifying
+prefix argument, user can select to which changeset this merging will applied.
 
-Пакет также поддерживает работу с метками.  Для получения списка пометок используется
-команда =p4-labels= (=C-x p L=).  Редактирование спецификации метки производится с помощью
-команды =p4-label= (сочетание клавиш =C-x p L=), а синхронизация меток с клиентом производится
-с помощью команды =p4-labelsync= (сочетание клавиш =C-x p l=).
+The package also supports work with labels.  To get list of labels the =p4-labels= function
+(=C-x p L=) could be used.  Modification of label's specification is performed with =p4-label=
+function (=C-x p L=), and to synchronize labels the =p4-labelsync= function (=C-x p l=) is
+defined.
 
 ** Work with changes
 
-Работа с изменениями является важной частью использования системы контроля версий.  Для
-поддержки этого, пакет *p4* имеет в своем составе множество команд -- для просмотра
-изменений, подтверждения или отмены изменений.
+Work with changes is important part of all version control systems.  The *p4* implements
+many functions related to work with changes.
 
-Получить список изменений, внесенных пользователем можно получить с помощью команды
-=p4-changes=, которая привязана к =C-x p C=.  Эта команда выдает список отложенных и
-подтвержденных изменений для указанного файла.  Если не было передано никаких аргументов,
-то данная команда выдает список изменений для файлов в текущем каталоге, и каталогах
-лежащих ниже.  Список файлов, которые открыты для отложенного изменения, пользователь
-может получить с помощью команды =p4-opened= (сочетание клавиш =C-x p o=).
+To retrieve list of changes, user can use =p4-changes= function, that bound to =C-x p C=.
+This function displays list of delayed and confirmed changes for given file.  If user
+executes this function without any arguments, then this function displays list of changes
+for files in current directory and all sub-directories.  To get list of files, that are
+opened for delayed change, user can use =p4-opened= function (=C-x p o=).
 
-Детальный список изменений, внесенных пользователем можно получить с помощью нескольких
-команд, однако основной командой является команда =p4-diff= (сочетание клавиш <code>C-x p
-=</code>) -- с ее помощью можно получить список изменений между текущим файлом и версией в
-репозитории.  Однако изменения для текущего файла выдаются только в том случае, если этот
-файл был открыт для редактирования.  Если текущий файл не открыт для изменения, то
-выдается список изменений для всех открытых файлов и их соответствующих версий в
-репозитории.  Кроме этого, задавая ключи командной строки для команды diff, можно изменять
-выдаваемые данные для получения данных от открытых файлов, файлов отсутствующих клиентов и
-т.д.
+Detailed list of changes could be retrieved with =p4-diff= function (<code>C-x p =</code>)
+-- it displays list of changes between current file and its version in repository.  But
+changes for current file are displayed only if this file was opened for editing.  If
+current file wasn't opened for editing, then this function displays list of changes for all
+opened files and their versions in repository.  And by specifying command line arguments
+for =diff=, user can display only data for new files, for opened files, etc.
 
-Кроме указанной выше команды, существует еще несколько команд для получения детального
-списка изменений.  Для сравнения двух файлов в репозитории можно использовать команду
-=p4-diff2= (сочетание клавиш =C-x p d=).  Команда =p4-diff-head= выдает изменения между файлами
-текущего клиента и самыми последними версиями в репозитории.  Для сравнения файлов можно
-использовать пакет *Ediff*, что и делают две команды -- =p4-ediff= и =p4-ediff2=.  Первая
-команда выполняет сравнение текущего файла с его базовой версией, а вторая команда
-сравнивает между собой два файла в репозитории.
+Besides =p4-diff= function, there are several additional functions, that could be used to
+get detailed list of changes.  To compare to files in repository, user can use =p4-diff2=
+function (=C-x p d=).  The =p4-diff-head= function displays changes between current file and
+its latest version in repository.  There are also functions, that perform same operations
+as their counterparts, but use *Ediff* to display changes -- =p4-ediff= & =p4-ediff2=.
 
-Подтверждение изменения осуществляется с помощью команды =p4-submit= (сочетание клавиш =C-x
-p S=).  При выполнении этой команды, отложенное изменение и связанные с ним файлы вносятся
-в репозиторий.  В том случае, если перед подтверждением программа не смогла заблокировать
-все файлы, затрагиваемые изменением, то процесс прекращается и подтверждения не
-происходит.  Пользователь может оповещать других пользователей о вносимых изменениях.  Для
-этого может использоваться команда =p4-notify= (сочетание клавиш =C-x p n=), которая
-выполняется пользователем.  Но кроме этого, может использоваться автоматическое оповещение
-пользователей при каждом подтверждении изменений.  Список пользователей, которые будут
-оповещены при изменении, задается с помощью команды =p4-set-notify-list=.  Оповещение
-пользователей производится с помощью электронной почты, так что вы должны задать
-корректный путь к программе sendmail.
+To commit changes to repository, user can use =p4-submit= function (=C-x p S=) -- it commits
+delayed changeset and all files in it.  If program couldn't lock before commit all files,
+related to changeset, then commit process is canceled.  User can notify other users about
+modification he did.  To do this, he can use =p4-notify= function (=C-x p n=) to perform
+manual notification.  But he also able to perform automatic notification of users on each
+commit.  List of users, that will be notified on each commit, is specified by
+=p4-set-notify-list= function.  All notifications are performed via e-mail, so you need to
+set correct path to =sendmail= program.
 
-Отмена изменений в текущем файле производится с помощью команды =p4-revert=, которая
-привязана к сочетанию клавиш =C-x p r=.  Если аргумент =SHOW-OUTPUT= имеет истинное значение,
-то результаты выполнения команды будут отображены в буфере =*P4 Output*=.  Для обновления
-изменений в не-открытых файлах используется команда =p4-refresh= (=C-x p R=), так что вам
-нужно использовать обе команды, если у вас есть открытые и не-открытые файлы в одном
-каталоге и вы хотите обновить их из репозитория.
+To cancel changes in current file user can use =p4-revert= function, that bound to =C-x p r=.
+If =SHOW-OUTPUT= argument has true value, then results of execution of this function are
+displayed in the =*P4 Output*= buffer.  To update not opened files from repository, user can
+use =p4-refresh= function (=C-x p R=), so you will need to use both these functions to update
+opened and not opened files from repository.
 
 ** Obtaining an information
 
-Для получения информации о конкретном изменении, может использоваться команда =p4-describe=
-(она привязана к сочетанию клавиш =C-x p D=).  Она отображает описание изменения, его номер,
-имя пользователя, дату и прочую информацию, включающую в себя список файлов, список
-конкретных изменений и т.п.
+To obtain information about concrete changeset user can use =p4-describe= function (=C-x p
+D=).  It displays description of changeset, its number, user name, date when it was
+created, and other information, also including list of files, detailed list of changes,
+etc.
 
-Просмотр истории изменений для текущего файла может быть выполнен с помощью команды
-=p4-filelog= (сочетание клавиш =C-x p f=).  Информация отображается в порядке убывания
-времени, вплоть до самого начала истории файла, когда он был добавлен в репозиторий.
+To view history of changes for current file the =p4-filelog= function (=C-x p f=) could be
+used.  This information shown in decreasing order, until the time when file was added to
+repository.
 
-Чтобы получить файл из репозитория вместе с историей изменения, пользователь может
-использовать команду =p4-print-with-rev-history= (сочетание =C-x p V=).  Для получения только
-самого файла, без истории, пользователь может использовать команду =p4-print= (=C-x p p=).
-Эти две команды не затрагивают список файлов полученных данным клиентом.
+To get file from repository together with history of changes, user can use
+=p4-print-with-rev-history= function (=C-x p V=).  To get only file without history, user can
+use another function -- =p4-print= (=C-x p p=).  Both these function doesn't change list of
+files retrieved by current user.
 
-Для получения информации о клиенте и сервере может использоваться команда =p4-info=
-(сочетание =C-x p i=), которая выдает информацию о клиенте -- имя пользователя, название
-клиента и каталог, а также некоторую информацию о сервере.
+To get information about *Perforce's* client and server the =p4-info= function (=C-x p i=) could
+be used.  It displays information about client -- user name, name of the client, and work
+directory, and also some information about current server.
 
-Чтобы узнать как соотносятся между собой имена локальных файлов и имена соответствующих
-файлов в репозитории, пользователь может использовать команду =p4-where=, которая привязана
-к =C-x p w=.  А список версий, которые были в последний раз получены, пользователь может
-получить с помощью команды =p4-have= (=C-x p H=).  Получить список файлов в репозитории можно
-с помощью команды =p4-files= (сочетание клавиш =C-x p F=).  Пользователь может получить список
-всех файлов, или только файлов, совпадающих с заданной маской.
+To find information about relation between local files and files in repository, user can
+use  =p4-where= function (=C-x p w=).   To display list of versions, that was fetched from
+repository in last synchronisation, user can use  =p4-have= function (=C-x p H=).  
 
-** Administer the repository
+There is also function =p4-files= (=C-x p F=) that could be used to retrieve a list of files
+from repository.  User can retrieve full list of files, or only list of files matching
+given mask.
 
-Пакет *p4* позволяет управлять репозиторием *Perforce* не покидая Emacs.  Сюда относятся
-команды управления пользователями, группами пользователей и клиентами.
+** Repository's administration
 
-Создание нового пользователя производится с помощью команды =p4-user= (сочетание клавиш =C-x
-p u=).  Эта же команда используется для редактирования спецификации уже существующего
-пользователя.  Спецификация сохраняется во временный и файл и для ее редактирования
-запускается редактор, определенный переменной среды =EDITOR=.  В спецификацию пользователя
-входят его имя, полное имя, уровень доступа и другие параметры.  Обычно, спецификация
-пользователя создается автоматически при запуске любой команды, которая может обновить
-репозиторий.  Список существующих пользователей можно получить с помощью команды =p4-users=
-(сочетание =C-x p U=).
+The *p4* allows user to administer *Perforce's* repository without leaving Emacs.  This
+includes administration of users, groups, and also clients.
 
-Аналогичным образом организована и работа с группами пользователей.  Для получения списков
-уже существующих групп, может использоваться команда =p4-groups=, а для создания группы
-пользователей используется команда =p4-group=.  Но для создания группы пользователей,
-текущий пользователь должен обладать специальными правами.
+Creation of new user is performed with =p4-user= function (=C-x p u=).  The same function could
+be used to change specification for existing user.  This specification is stored in
+temporary file, and editor, specified by =EDITOR= environment variable, is invoked on it.
+User's data includes name of user, its full name, access level and other parameters.
+Usually user's specification is created automatically on execution of every function, that
+can update repository.  List of existing users could be retrieved with =p4-users= function
+(=C-x p U=).
 
-Редактирование спецификации клиента производится с помощью команды =p4-client=, которая
-привязана к сочетанию клавиш =C-x p c=.  В спецификацию клиента входят его имя, описание,
-список файлов, которые будут видны в репозитории, и другие параметры.  По умолчанию, новые
-клиенты создаются с возможностью просмотра всех файлов в репозитории.
+To list groups of users on the =p4-groups= could be used, and to create or modify groups
+user can use =p4-group= function.  But to create group of users, current user should have
+special access rights.
+
+Editing of client's specification is performed with =p4-client= function (=C-x p c=).
+Client's specification includes its name, description, list of files, that will available
+in repository, and other parameters.  By default, new clients are created with ability to
+see all files in repository.
 
 ** Other functions
 
-Сочетание клавиш =C-x p h= запускает команду =p4-help=, которая может использоваться для
-получения справочной информации о работе с пакетом, или о работе с конкретной командой.
-Описание привязок клавиш, предоставляемых пакетом *p4*, можно получить с помощью команды
-=p4-describe-bindings= (сочетание клавиш =C-x p ?=).
+The =C-x p h= key bindings runs =p4-help= function, that could be used to getting help about
+whole package or concrete function.  All key bindings, provided by *p4* package, could be
+listed with =p4-describe-bindings= function (=C-x p ?=).
 
-Номер используемой версии пакета *p4* пользователь может получить с помощью команды
-=p4-emacs-version=, которая привязана к сочетанию клавиш =C-x p v=.  В том случае, если вы
-нашли ошибку в работе пакета, то вы можете сообщить о ней с помощью команды =p4-bug-report=
-(сочетание клавиш =C-x p b=).
+Version number of *p4* package could be retrieved with =p4-emacs-version= function (=C-x p v=).
+And if you find a bug in this package, you can use =p4-bug-report= function (=C-x p b=) to
+submit bug report.
 
-В том случае, если сервер *Perforce* недоступен или вы работаете отключившись от сети, то вы
-можете отключить проверку версий, при открытии файлов.  Включение и отключение этой
-проверки пользователь может выполнить с помощью команды =p4-toggle-vc-mode= (сочетание
-клавиш =C-x p t=).
+If *Perforce* server is not available you can disable checking of file versions when opening
+them.  This could be performed with =p4-toggle-vc-mode= function (=C-x p t=).
 
 * Customization
 
-Для работы с пакетом *p4*, ну и конечно с *Perforce*, необходимо установить значения
-переменных среды =P4CLIENT=, =P4USER= и =P4PORT=.  Однако вы можете задать нужные значения и с
-помощью команд пакета.  Для этого используются команды =p4-set-client= (сочетание клавиш
-=C-x p s=) и =p4-set-p4-port= (сочетание =C-x p P=).  Получить название клиента, который
-используется для доступа к репозиторий можно с помощью команды =p4-get-client-name=
-(сочетание =C-x p g=).
+To work with *p4* (and *Perforce*) you need to set some environment variables -- =P4CLIENT=,
+=P4USER= and =P4PORT=.  You can use special functions to do this: =p4-set-client= (=C-x p s=) and
+=p4-set-p4-port= (=C-x p P=).  You can get client's name, that currently used to work with
+repository, with =p4-get-client-name= function (=C-x p g=).
 
-Используя стандартные средства настройки Emacs пользователь может настроить различные
-параметры пакета, такие как путь к исполняемым файлам *Perforce*, переменные, влияющие на
-вывод результатов и многое другое.  Группа настройки имеет тоже название что и сам пакет
--- *p4*.
+With standard Emacs's customization routines user can set different parameters of the
+package -- path to executable files, variables, controlling output, etc.  Corresponding
+customization group has same name as package -- *p4*.
 
 #addinfo
 * Additional information
 
-Полное описание команд пакета *p4* вы можете найти на [[http://p4el.sf.net][сайте проекта]].  А информацию о
-*Perforce* и его использовании вы сможете найти на [[http://www.perforce.com][сайте компании]].  Кроме этой информации, в
-интернете существует достаточное количество описаний, которые могут помочь начинающему
-пользователю в освоении этой системы контроля версий.
+Full description of functions and key bindings of *p4* package you can find at the
+[[http://p4el.sf.net][project's site]].  Additional information about *Perforce* could be found at [[http://www.perforce.com][company's site]].
+Besides it, there are many descriptions of this package in Internet.
 
 <div id="rule">[[./index][Back to main page]]</div>
+
+;  LocalWords:  VCS

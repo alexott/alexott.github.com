@@ -93,8 +93,6 @@
 
 * Technical skills and competences
 
-I work with computers since 1989 using different types of hardware and operating systems.
-
 ** Programming languages and software development skills
 
  - C and C++ – more than 10 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)

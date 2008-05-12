@@ -36,8 +36,7 @@ describe the systems-specific packages, that implements the second approach.
   - [[./EmacsVSS][Work with Visual SourceSafe]]
   - [[./EmacsBitkeeper][Emacs & Bitkeeper]]
   - [[./EmacsClearCase][Work with ClearCase]]
-;  - [[./EmacsPerforce][Work with Perforce]]
-;  - [[./EmacsStarTeam]
+  - [[./EmacsPerforce][Work with Perforce]]
  
 * Additional information
     
