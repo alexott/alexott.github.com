@@ -17,14 +17,14 @@ source code, but this is theme for other article. In this article I'll describe 
 tools & libraries:
 
  [[./Valgrind][Valgrind]] :: very powerful tool, that not only helps in finding of memory leaks, but also
- allow to find synchronisation errors in multi-threading programs, and analyse performance
- of programs
+   allow to find synchronisation errors in multi-threading programs, and analyse
+   performance of programs
 
-; [[./GooglePT][Google Performance Tools]] :: toolkit, containing utilities, that allow to perform
-; program performance profiling, analyse memory consumption, and find memory leaks
+ [[./GooglePT][Google Performance Tools]] :: set of utilities, that allows to perform profiling of program
+   performance, analyse memory consumption, and find memory leaks
 
  [[./Exmap][Exmap]] :: special utility for Linux, that allow to collect information about program's
- real memory consumption
+   real memory consumption
 
  [[./DMalloc][Dmalloc]] :: library for finding errors of work with memory
 

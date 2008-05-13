@@ -1,24 +1,22 @@
-#title Usage of Google performance tools
-#keywords memory leaks, performance analysis, google performance tools, GPT
+#title Use of Google performance tools
+#keywords memory leak, performance analysis, google performance tools, GPT
 
 <contents>
 
-* Introduction
 
-[[http://code.google.com/p/google-perftools/][Google Performance Tools]] (GPT) -- набор утилит, которые позволяют проводить анализ
-производительности программ, а также анализировать выделение памяти программами и
-производить поиск утечек памяти.
+[[http://code.google.com/p/google-perftools/][Google Performance Tools]] (GPT) -- is a set of tools, that allow to make performance
+analysis, analyse memory allocation and find memory leaks.
 
-* Установка
+* Installation
 
-GPT может работать практически на всех Unix-совместимых операционных системах -- Linux,
-FreeBSD, Solaris, Mac OS X (Darwin), включая поддержку разных процессоров[1] -- x86,
-x86_64 и PowerPC.  Кроме того, =tcmalloc= можно скомпилировать также и для MS Windows, что
-позволит искать утечки памяти в программах, разработанных для этой ОС.
+GPT works on almost all Unix-like operating systems -- Linux, FreeBSD, Solaris, Mac OS X
+(Darwin), including support for different processors[1] -- x86, x86_64 & PowerPC.  Besides
+this, user can compile =tcmalloc= on MS Windows and perform memory allocation analysis and
+memory leaks detection for programs, that works under MS Windows.
 
-Установка на Unix-совместимые системы достаточна проста -- пакет использует стандартную
-инфраструктуру autotools, так что вам для установки необходимо лишь скачать исходные
-тексты с [[http://code.google.com/p/google-perftools/][сайта проекта]] и выполнить последовательность команд:
+Installation on Unix-like systems is very easy -- package use standard autotools
+infrastructure, so you just need to download sources from [[http://code.google.com/p/google-perftools/][project's site]] and perform
+following commands:
 
 <src lang="sh">
 ./configure 
@@ -26,39 +24,35 @@ make
 make install
 </src>
 
-которые выполнят настройку, сборку и установку пакета.  Вы можете установить пакет в
-нужное вам место, задав аргументы команде =./configure=.[2]
+that will configure sources, build and install programs and libraries.  You can install
+package to any destination, using command-line options to =./configure=.[2]
 
-* Основы работы с GPT
+* Basics of work with GPT
 
-Google Performance Tools состоят из двух библиотек[3]:
+Google Performance Tools consists from two libraries[3]:
 
- tcmalloc (Thread-Caching Malloc) :: tcmalloc -- очень быстрая реализация malloc (быстрее
- чем malloc в glibc 2.3).  С помощью данной библиотеки можно анализировать выделение
- памяти в программе, а также производить поиск утечек памяти.  Про внутреннее устройство
- tcmalloc можно прочитать на [[http://google-perftools.googlecode.com/svn/trunk/doc/tcmalloc.html][сайте проекта]].
+ **tcmalloc** (Thread-Caching Malloc) :: tcmalloc -- very quick implementation of =malloc=
+ function (much faster than =malloc= in glibc 2.3).  This library is used to analyse memory
+ consumption and search for memory leaks.  On the [[http://google-perftools.googlecode.com/svn/trunk/doc/tcmalloc.html][project's site]] you can read about
+ internal structure of tcmalloc.
 
- profiler :: данная библиотека реализует анализ производительности выполняемого кода.
+ **profiler** :: this library implements performance analysis of executable code.
 
-Использовать эти библиотеки можно двумя способами -- указав имя библиотеки при линковке
-вашего кода (используя флаг =-l=), или загрузив ее с помощью =LD_PRELOAD=.  Разработчики
-рекомендуют по возможности использовать первый метод, а второй метод использовать только
-если вы не имеете доступа к исходному коду.
+User can use these libraries any of two ways -- either supply library name during linking
+of code (using =-l= flag), or by loading it with =LD_PRELOAD=.  Package's developers recommend
+to use first way, and use second only if you doesn't have access to source code.
 
-Стоит отметить, что подключение библиотек не означает автоматического выполнения функций
-профилирования процессора или памяти.  Включение этих функций определяется наличием
-определенных переменных среды, которые будут описаны в соответствующих разделах.  В
-процессе работы библиотеки могут создавать текстовые файлы, которые содержат собранную
-информацию.  Для преобразования этой информации в более удобную для анализа форму, в
-поставку пакета входит программа =pprof=, краткое описание которой вы найдете в одном из
-следующих разделов.
+I need to mention, that loading (or linking) of libraries doesn't enable profiling
+functions automatically.  To enable these functions, you need to set some environment
+variables, that are described below.  During some operations, libraries can create text
+files, that will hold collected information.  To analyze these data, there is =pprof=
+utility, that also described below.
 
-Разработчик может также использовать функции GPT в своих программах для того, чтобы
-выполнять проверку только определенных частей программ, или для запрещения "известных"
-утечек памяти.  Про использование каждой из компонент GPT можно прочитать в
-соответствующем разделе [[http://google-perftools.googlecode.com/svn/trunk/doc/index.html][документации данного пакета]].
+Developers also can use functions from GPT in their programs to enable or disable checks
+in some places of programs.  Information about these functions you can find in
+[[http://google-perftools.googlecode.com/svn/trunk/doc/index.html][package's documentation]].
 
-* Поиск утечек памяти
+* Finding memory leaks
 
 Поиск утечек памяти с помощью =tcmalloc= очень прост -- надо слинковать программу с этой
 библиотекой, и запустить ее вот так:
@@ -144,7 +138,7 @@ HeapChecker: crashing because of leaks
 Дополнительную информацию о библиотеке и об использовании режимов =as-is= и =local= можно
 найти в [[http://google-perftools.googlecode.com/svn/trunk/doc/heap_checker.html][данном документе]].
 
-* Анализ потребления памяти
+* Analyse memory consumption
 
 Кроме нахождения утечек памяти, библиотека =tcmalloc= позволяет производить анализ
 потребления памяти программами.  Для выполнения данной задачи, библиотека отслеживает все
@@ -174,7 +168,7 @@ LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 HEAPPROFILE=gpt-heapprofile.log ./your-
 Описание дополнительных переменных среды, а также примеры анализа данных, собранных
 библиотекой, вы сможете найти в [[http://google-perftools.googlecode.com/svn/trunk/doc/heapprofile.html][документации]].
 
-* Анализ производительности программ
+* Performance analysis
 
 Использование профайлера очень просто -- надо лишь слинковать программу с библиотекой
 =profiler=, и указать имя файла куда будут выводиться собранные данные в переменной среды
@@ -229,7 +223,7 @@ LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 HEAPPROFILE=gpt-heapprofile.log ./your-
 Более подробно об использовании cpu profiler и об анализе собранных результатов вы можете
 прочитать на [[http://google-perftools.googlecode.com/svn/trunk/doc/cpuprofile.html][сайте проекта]], а про использование утилиты pprof читайте в следующем разделе.
 
-* Утилита pprof
+* The pprof utility
 
 Утилита =pprof= предназначена для анализа данных, собранных во время сбора сведений о
 потреблении памяти или производительности программы.  В общем, командная строка для
