@@ -1,8 +1,7 @@
-#title Use of Google performance tools
+#title Work with Google performance tools
 #keywords memory leak, performance analysis, google performance tools, GPT
 
 <contents>
-
 
 [[http://code.google.com/p/google-perftools/][Google Performance Tools]] (GPT) -- is a set of tools, that allow to make performance
 analysis, analyse memory allocation and find memory leaks.
@@ -54,21 +53,20 @@ in some places of programs.  Information about these functions you can find in
 
 * Finding memory leaks
 
-Поиск утечек памяти с помощью =tcmalloc= очень прост -- надо слинковать программу с этой
-библиотекой, и запустить ее вот так:
+Searching for memory leaks with =tcmalloc= is very simple -- you need to link program with
+this library, and run it as in following example:
 
 <example>
 # HEAPCHECK=normal ./your-program
 </example>
 
-или вот так (без линковки):
+or as in this example (with linking):
 
 <example>
 # LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 HEAPCHECK=normal ./your-program
 </example>
 
-и после выполнения программы, она выдаст отчет о найденных утечках памяти, например вот
-так: 
+and after program's finish you get a report about found memory leaks.  For example:
 
 <example>
 # LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 HEAPCHECK=normal ./test-hashes 1000000
@@ -82,7 +80,8 @@ HeapChecker: Ignoring 32 reachable objects of 1679 bytes
 HeapChecker: Heap memory leaks of 1000 bytes and/or 1 allocations detected by check "_main_".
 
 HeapChecker: To investigate leaks manually use e.g.
-cd /home/ott/projects/cpp-tests; /usr/bin/pprof ./test-hashes "/tmp/test-hashes.2977._main_-end.heap"  \ 
+cd /home/ott/projects/cpp-tests; /usr/bin/pprof ./test-hashes \
+  "/tmp/test-hashes.2977._main_-end.heap"  \ 
   --inuse_objects --lines --edgefraction=1e-10 --nodefraction=1e-10 --gv 2>/dev/null
 
 HeapChecker: Below is this pprof's output:
@@ -93,187 +92,172 @@ HeapChecker: Below is this pprof's output:
 
 
 HeapChecker: crashing because of leaks
-[1]    2977 segmentation fault (core dumped)  LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 HEAPCHECK=normal ./test-hashes 
+[1]    2977 segmentation fault (core dumped)  LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 
+           HEAPCHECK=normal ./test-hashes 
 </example>
 
-Заметьте, что при поиске утечек памяти отчет выводится сразу (вы можете изменить параметры
-анализа, поскольку данные записываются во временный файл).  Пользователь также может с
-помощью дополнительных переменных среды изменить поведение библиотеки и получить
-дополнительные данные о работе программы (но об этом ниже).
+Please mention, that when you search for memory leaks, you get report immediately (you can
+change some parameters, as some data are written to temporary file).  User can also
+specify additional environment variables that could change library's behaviour and/or get
+additional information about program's work (this is described below).
 
-Переменная среды =HEAPCHECK= указывает уровень проверок, которые будут применяться в
-процессе работы.  Определено 4 значения для данной переменной -- =minimal=, =normal=, =strict= и
-=draconian= -- от самых простых, до все более изощренных проверок, использование которых
-конечно влияет на скорость работы анализируемой программы.  Кроме этого, есть еще два
-режима: =as-is= -- когда пользователь с помощью опций может задать список выполняемых
-проверок, и =local= -- когда проверки выполняются только для кода, который явно отмечен для
-проверки (путем добавления вызовов функций GPT в исходный код программы).
+The =HEAPCHECK= environment variable sets level of checks, that will applied during
+execution.  This variable can has one of four values -- =minimal=, =normal=, =strict= and
+=draconian= -- from the simplest one to strictest, that could lead to slow execution of
+program.  Besides this, there are also two additional modes: =as-is= -- when user can
+specify which checks should be executed, and =local= -- when checks are performed only for
+code, that explicitly marked for checking (this is performed by adding calls to GPT's
+functions to source code).
 
-При нахождении утечки памяти (как в нашем примере) библиотека аварийно завершает
-программу, но при этом выдает на экран стек вызовов функций, приведших к появлению утечки
-памяти.  В нашем примере, утечка памяти происходит в функции =main=, на 106 строке кода в
-файле с исходным текстом (=test-hashes.cpp)=.
+After the finding of memory leak (as in our example above) library terminates program, and
+prints call stack for functions, that lead to this memory leak.  In our example, memory
+leak is in =main= function, at 106th line of code in file =test-hashes.cpp=.
 
-В процессе работы библиотека учитывает значения следующих переменных среды (эти переменные
-определены для всех уровней проверок):
+During its work, library also use following environment variables (if they set), that are
+defined for all checks levels:
 
- HEAP_CHECK_REPORT :: (true или false, по умолчанию: true), определяет -- выводить отчет
- на экран или нет
+ =HEAP_CHECK_REPORT= :: (*true* or *false*, by default: *true*), defines should report be printed
+   on screen or not;
 
- HEAP_CHECK_STRICT_CHECK :: (true или false, по умолчанию: true), определяет функцию,
- которая будет использоваться для проверок -- SameHeap или NoLeaks
+ =HEAP_CHECK_STRICT_CHECK= :: (*true* or *false*, by default: *true*), selects which function will
+   be used to checks -- =SameHeap= or =NoLeaks=;
 
- HEAP_CHECK_IDENTIFY_LEAKS :: (true или false, по умолчанию: false), позволяет получить
- адреса "потерянных" объектов
+ =HEAP_CHECK_IDENTIFY_LEAKS= :: (*true* or *false*, by default: *false*), allows to get addresses
+   of "leaked" objects;
 
- HEAP_CHECK_TEST_POINTER_ALIGNMENT :: (true или false, по умолчанию: false), проверяет все
- утечки памяти на предмет того, не могли ли они возникнуть из-за использования
- невыравненных указателей
+ =HEAP_CHECK_TEST_POINTER_ALIGNMENT= :: (*true* or *false*, by default: *false*), check is memory
+   leaks arise due non-aligned pointers or not;
  
- PPROF_PATH :: определяет путь к программе =pprof=
+ =PPROF_PATH= :: specify path to =pprof= utility;
 
- HEAP_CHECK_DUMP_DIRECTORY :: определяет путь для временных файлов. используемых при
- работе библиотеки.
+ =HEAP_CHECK_DUMP_DIRECTORY= :: specify path to directory, where temporary files will
+   created.
 
-Дополнительную информацию о библиотеке и об использовании режимов =as-is= и =local= можно
-найти в [[http://google-perftools.googlecode.com/svn/trunk/doc/heap_checker.html][данном документе]].
+Additional information about memory leaks checking and about =as-is= and =local= modes, you
+can find in [[http://google-perftools.googlecode.com/svn/trunk/doc/heap_checker.html][following document]].
 
 * Analyse memory consumption
 
-Кроме нахождения утечек памяти, библиотека =tcmalloc= позволяет производить анализ
-потребления памяти программами.  Для выполнения данной задачи, библиотека отслеживает все
-выделения и освобождения блоков памяти.  К отслеживаемым функциям выделения памяти
-относятся =malloc=, =calloc=, =realloc= и =new=.
+Besides finding memory leaks, the =tcmalloc= library can analyse program's memory
+consumption (memory profiling).  To perform this task library checks allocations and
+de-allocations of all memory blocks.  Library can check following memory allocation
+functions -- =malloc=, =calloc=, =realloc= and =new=.
 
-Процедура использования библиотеки для анализа потребления памяти сходна с процедурой
-поиска утечек памяти, но отличается именами переменных среды.  При работе в режиме анализа
-потребления памяти, библиотека выводит результаты в файл, указанный в переменной среды
-=HEAPPROFILE=, наличие которой и заставляет библиотеку работать в данном режиме.  Например:
+The procedure of memory consumption analysis is almost same as procedure for memory leaks
+searching, and differs only in names of environment variables.  All data collected by
+library are stored in file, specified by =HEAPPROFILE= environment variable.  For example:
 
 <example>
 LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 HEAPPROFILE=gpt-heapprofile.log ./your-program
 </example>
 
-Данные собранные в процессе работы библиотеки, после завершения работы становятся
-доступными для анализа с помощью утилиты =pprof=, описанной ниже.  Данные обработанные этой
-утилитой можно получить как в текстовом, так и в графическом виде.  Эти данные включают в
-себя данные об выделении памяти функциями программы и отношение между различными
-функциями, выделяющими память.
+All data, collected during library's work are available for analysis after program's
+execution is finished.  Analysis is performed with =pprof= utility, described below.  Data,
+processed by this utility could be obtained in text or graphical form.  These data
+includes statistic about memory allocations in program (and their functions), and also
+information about relationships between functions of program.
 
-С помощью дополнительных переменных среды можно изменять поведение библиотеки, и например,
-заставить ее также анализировать вызовы =mmap= в дополнение к стандартным функциям выделения
-памяти (это происходит если переменную среды =HEAP_PROFILE_MMAP= установить в значение
+By setting additional environment variables, we can change library's behaviour, for
+example, it can also analyse =mmap= calls in addition to analysis of standard memory
+allocation functions (this happen, if you set =HEAP_PROFILE_MMAP= environment variable to
 =true=).
 
-Описание дополнительных переменных среды, а также примеры анализа данных, собранных
-библиотекой, вы сможете найти в [[http://google-perftools.googlecode.com/svn/trunk/doc/heapprofile.html][документации]].
+Description of additional environment variables, and also examples of data analysis you
+can find at [[http://google-perftools.googlecode.com/svn/trunk/doc/heapprofile.html][documentation]].
 
 * Performance analysis
 
-Использование профайлера очень просто -- надо лишь слинковать программу с библиотекой
-=profiler=, и указать имя файла куда будут выводиться собранные данные в переменной среды
-=CPUPROFILE=, например вот так:
+To use profiler, you need just to link your program with =profiler= library, and specify
+file name for data in the =CPUPROFILE= environment variables, as here:
 
 <example>
 # CPUPROFILE=/tmp/cpuprofile.log ./your-program
 </example>
 
-или можно вот так (без линковки библиотеки) -- если вам нужно провести всего один анализ,
-или вы не имеете доступа к исходному коду программы:
+or without linking of the library:
 
 <example>
 # LD_PRELOAD=/usr/lib/libprofiler.so.0.0.0 CPUPROFILE=/tmp/cpuprofile.log ./your-program
 </example>
 
-Кроме =CPUPROFILE= вы можете использовать и другие переменные среды для управления
-поведением данной библиотеки, например, =CPUPROFILE_FREQUENCY= задает количество проверок,
-выполняемых библиотекой каждую секунду.
+Besides =CPUPROFILE= variable, you can set additional environment variables, that could be
+used to control library's behaviour.  For example, the =CPUPROFILE_FREQUENCY= variable could
+be used to set number of probes, performed by library every second.
 
-После выполнения программы, собранные результаты оказываются в указанном вами файле, и вы
-можете провести их анализ.  Для выполнения анализа используется программа =pprof=.  Данные
-можно получать, как в текстовом:
+After finish of program, collected results are stored in your file, and you can perform
+its analysis with =pprof= utility.  You can get analysed data either in text form:
 
 <example>
 23   2.4%  42.6%      309  32.4% std::less::operator
 </example>
 
-так и в графическом виде (это только часть графика, выводимого =pprof=):
+or in graphical form (this is only part of graph, generated by =pprof=):
 
 <div id="screenshot">
 [[../../../common/writings/prog-checking/gpt-cpuprof.png]]
 </div>
 
-При выводе результатов в виде текста, утилита выдает список функций, для каждой из которых
-указывается следующая информация (в колонке с соответствующим номером):
+When you get data in text form, then =pprof= utility prints list of functions, and for each
+function following information is specified (in corresponding column):
 
- 1. количество проверок, проведенных в данной функции
- 1. процентное отношение количества проверок для данной функции к общему количеству
-    проверок 
- 1. процентное отношение количества проверок, проведенных до этого времени к общему
-    количеству проверок
- 1. количество проверок, проведенных в данной функции и всех функций, вызванных из нее
- 1. процентное отношение количества проверок для данной функции и всех функций вызванных
-    из нее к общему количеству проверок
- 1. имя функции
+ 1. Number of checks in this function
+ 1. Percentage of checks in this function
+ 1. Percentage of checks in the functions printed so far
+ 1. Number of checks in this function and its callees
+ 1. Percentage of checks in this function and its callees
+ 1. Function name 
 
+When you get information in graphical form, then besides this information (function names,
+number of checks, etc.), you also get information about function's relationship.
 
-При выводе в виде графика, кроме этой информации, показываются еще и зависимости между
-вызовами функции.
+You can get more detailed information about cpu profiler and analysis of its data on the
+[[http://google-perftools.googlecode.com/svn/trunk/doc/cpuprofile.html][project's site]].
 
-Более подробно об использовании cpu profiler и об анализе собранных результатов вы можете
-прочитать на [[http://google-perftools.googlecode.com/svn/trunk/doc/cpuprofile.html][сайте проекта]], а про использование утилиты pprof читайте в следующем разделе.
+* The =pprof= utility
 
-* The pprof utility
-
-Утилита =pprof= предназначена для анализа данных, собранных во время сбора сведений о
-потреблении памяти или производительности программы.  В общем, командная строка для
-запуска этой утилиты выглядит следующим образом:
+The =pprof= utility is used to perform analysis of data, collected by cpu and memory
+profiling routines.  Command line is looks like:
 
 <example>
-pprof [необязательные опции] имя_программы имя_файла_с_результатами
+pprof [options] program_name results_file_name
 </example>
 
-Опции запуска утилиты можно разделить на общие, и специфичные для конкретных режимов
-работы.  Общие опции позволяют указать формат выводимой информации, и степень подробности
-выводимой информации -- опции =--addresses=, =--lines=, =--functions= (по умолчанию) или =--files=
-определят то, какой уровень подробности будет использоваться -- физический адрес, строка
-кода, функция или файл с исходным текстом.
+Some of options are common for all files, but other are specific for concrete mode.
+Common options allow to specify format and details level of output information -- the
+=--addresses=, =--lines=, =--functions= (by default) or =--files= options specify which details
+will printed -- physical address, line of code, function or file with source code.
 
-Утилита может выводить информацию как в текстовом (опция =--text=), так и в графическом виде
-(опции =--gif=, =--ps=, =--pdf= и другие).  Можно также заставить ее вывести результаты в виде
-аннотированного исходного кода (опция =--list=), или дизассемблированного машинного кода
-(опция =--disasm=).  Если утилита не получает опций, указывающий формат выводимой
-информации, то она переходит в режим интерактивной работы, где определены команды,
-соответствующие опциям командной строки (только без знаков =--=).
+Utility can output information either in text (=--text= option), or in graphical form
+(=--gif=, =--ps=, =--pdf= and other options).  You can also select output in form of annotated
+source code (=--list= option), or in form of disassembled machine code (=--disasm= option).
+If you doesn't specify output format, then utility starts to work in interactive mode,
+where you can use different commands, those names are match to command-line options
+(without =--= sign).
 
-При проведении анализа данных, собранных во время анализа потребления памяти, определены
-опции, которые позволяют отображать количество используемых и/или выделенных объектов
-(=--inuse_objects= или =--alloc_objects=), объем выделенной памяти (=--alloc_space=) или
-использовать байты в качестве единицы измерения, вместо мегабайт, по умолчанию (опция
-=--show_bytes=).
+When you analyse data, collected by memory profiler, you can use additional options, that
+allow to display counts of used and/or allocated objects (=--inuse_objects= and/or
+=--alloc_objects=), information about allocated memory (=--alloc_space=), and use bytes
+instead of megabytes in reports (=--show_bytes= option).
 
-При проведении анализа производительности программы, могут использоваться опции,
-определяющие подробность выводимой информации.  Например, можно исключить из вывода
-объекты, соответствующие заданному регулярному выражению (=--ignore=), или можно управлять
-степенью детализации выводимых графиков (опции =--nodefraction=, =--nodefraction= и
-=--edgefraction=).
+When you analyse data from cpu profiler, you can use options, controlling details level.
+For example, with =--ignore= option you can exclude objects, those names match specified
+regular expression.  There are also =--nodecount=, =--nodefraction= and =--edgefraction=
+options, that control details level for graphics.
 
-Полное описание утилиты =pprof= можно найти в справочной странице, поставляемой вместе с
-исходными текстами, и устанавливаемой вместе с утилитой.  А большее количество примеров
-можно найти на [[http://google-perftools.googlecode.com/svn/trunk/doc/index.html][страницах]], описывающих использование компонентов GPT.
+Full description of =pprof= utility you can find at manual page, that come in distribution.
+And more examples you can find in [[http://google-perftools.googlecode.com/svn/trunk/doc/index.html][documentation]], that describes GPT's components.
 
 <div id="rule">[[./index][Back to main page]]</div>
 
 Footnotes: 
-[1] Имеются правда некоторые особенности при сборке на 64-битных системах, о которых вы
-    можете прочитать в файле =INSTALL=, входящем в архив с исходными текстами системы.
+[1] There are some specific details when you use GPT 64-bit systems.  You can find their
+    description in the =INSTALL= file, in GPT's distribution.
 
-[2] Для установки пакета на MS Windows вам необходимо скачать с сайта проекта специальную
-    версию, которая содержит файлы проекта для сборки с помощью Visual C++.
-    Дополнительную информацию можно найти в файле =README.windows=, входящем в состав
-    исходных текстов.
+[2] To use package on MS Windows you need to download special distribution, that contains
+    project files for building with Visual C++.  Additional information you can also find
+    in =README.windows= file, that come together with source code.
 
-[3] Обе библиотеки могут без ограничений использоваться с многопотоковыми программами.
+[3] Both libraries could be used in multi-threaded programs without any restrictions.
 
 
 ;  LocalWords: pprof PRELOAD LD profile tcmalloc линковке Footnotes линковки ps

@@ -86,7 +86,8 @@ HeapChecker: Ignoring 32 reachable objects of 1679 bytes
 HeapChecker: Heap memory leaks of 1000 bytes and/or 1 allocations detected by check "_main_".
 
 HeapChecker: To investigate leaks manually use e.g.
-cd /home/ott/projects/cpp-tests; /usr/bin/pprof ./test-hashes "/tmp/test-hashes.2977._main_-end.heap"  \ 
+cd /home/ott/projects/cpp-tests; /usr/bin/pprof ./test-hashes \
+  "/tmp/test-hashes.2977._main_-end.heap"  \ 
   --inuse_objects --lines --edgefraction=1e-10 --nodefraction=1e-10 --gv 2>/dev/null
 
 HeapChecker: Below is this pprof's output:
@@ -97,7 +98,8 @@ HeapChecker: Below is this pprof's output:
 
 
 HeapChecker: crashing because of leaks
-[1]    2977 segmentation fault (core dumped)  LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 HEAPCHECK=normal ./test-hashes 
+[1]    2977 segmentation fault (core dumped)  LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 
+               HEAPCHECK=normal ./test-hashes 
 </example>
 
 Заметьте, что при поиске утечек памяти отчет выводится сразу (вы можете изменить параметры
@@ -121,22 +123,22 @@ HeapChecker: crashing because of leaks
 В процессе работы библиотека учитывает значения следующих переменных среды (эти переменные
 определены для всех уровней проверок):
 
- HEAP_CHECK_REPORT :: (true или false, по умолчанию: true), определяет -- выводить отчет
- на экран или нет
+ =HEAP_CHECK_REPORT= :: (true или false, по умолчанию: true), определяет -- выводить отчет
+ на экран или нет;
 
- HEAP_CHECK_STRICT_CHECK :: (true или false, по умолчанию: true), определяет функцию,
- которая будет использоваться для проверок -- SameHeap или NoLeaks
+ =HEAP_CHECK_STRICT_CHECK= :: (true или false, по умолчанию: true), определяет функцию,
+ которая будет использоваться для проверок -- =SameHeap= или =NoLeaks=;
 
- HEAP_CHECK_IDENTIFY_LEAKS :: (true или false, по умолчанию: false), позволяет получить
- адреса "потерянных" объектов
+ =HEAP_CHECK_IDENTIFY_LEAKS= :: (true или false, по умолчанию: false), позволяет получить
+ адреса "потерянных" объектов;
 
- HEAP_CHECK_TEST_POINTER_ALIGNMENT :: (true или false, по умолчанию: false), проверяет все
+ =HEAP_CHECK_TEST_POINTER_ALIGNMENT= :: (true или false, по умолчанию: false), проверяет все
  утечки памяти на предмет того, не могли ли они возникнуть из-за использования
- невыравненных указателей
+ невыравненных указателей;
  
- PPROF_PATH :: определяет путь к программе =pprof=
+ =PPROF_PATH= :: определяет путь к программе =pprof=;
 
- HEAP_CHECK_DUMP_DIRECTORY :: определяет путь для временных файлов. используемых при
+ =HEAP_CHECK_DUMP_DIRECTORY= :: определяет путь для временных файлов, используемых при
  работе библиотеки.
 
 Дополнительную информацию о библиотеке и об использовании режимов =as-is= и =local= можно
@@ -259,7 +261,7 @@ pprof [необязательные опции] имя_программы имя
 При проведении анализа производительности программы, могут использоваться опции,
 определяющие подробность выводимой информации.  Например, можно исключить из вывода
 объекты, соответствующие заданному регулярному выражению (=--ignore=), или можно управлять
-степенью детализации выводимых графиков (опции =--nodefraction=, =--nodefraction= и
+степенью детализации выводимых графиков (опции =--nodecount=, =--nodefraction= и
 =--edgefraction=).
 
 Полное описание утилиты =pprof= можно найти в справочной странице, поставляемой вместе с
