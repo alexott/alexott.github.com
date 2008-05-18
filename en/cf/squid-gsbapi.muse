@@ -44,8 +44,8 @@ User could specify following options in configuration file (it's installed into
 
  =black-url= (required) :: URL, that will substituted for sites, found in black list
 
- =malware-hash-file= : file where malware hash is stored. Default value --
- =PREFIX/var/squid-gsb/malware-hash.dat=
+ =malware-hash-file= :: file where malware hash is stored. Default value --
+   =PREFIX/var/squid-gsb/malware-hash.dat=
 
  =malware-url= (required) :: URL, that will substituted for sites, found in malware list
 
