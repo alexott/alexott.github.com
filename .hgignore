@@ -157,3 +157,4 @@ syntax: regexp
 ^ru/writings/emacs-tex/LatexSymbols\.html$
 ^ru/writings/emacs-tex/BibTeX\.html$
 ^ru/writings/emacs-tex/AUCTeX\.html$
+^ru/writings/emacs-tex/index\.html$
