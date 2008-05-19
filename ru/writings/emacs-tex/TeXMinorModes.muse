@@ -1,0 +1,31 @@
+#title Вспомогательные режимы для работы с TeX/LaTeX
+#keywords tex, latex, minor mode, emacs, xemacs, gnu emacs, вспомогательные режимы
+
+; <contents>
+
+#cdlatex
+* cdlatex
+
+#font-latex
+* font-latex
+
+#latex-toolbar
+* latex-toolbar
+
+#ltxsymb
+* ltxsymb
+
+#prosper
+* prosper
+
+#pbook
+* pbook
+
+#swiftex
+* swiftex
+
+#latex-doc
+* latex-doc
+
+
+<div id="rule">[[./index][На главную страницу]]</div>

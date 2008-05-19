@@ -1,0 +1,22 @@
+#title Пакет yatex
+#keywords yatex, tex, latex, emacs, gnu emacs, xemacs
+
+*yatex* (Yet Another TeX mode) -- еще один режим Emacs для редактирования файлов с разметкой
+TeX/LaTeX.
+
+* Установка пакета
+
+Пакет *yatex* доступен для загрузки с http://www.yatex.org. Разверните его, скомпилируйте с
+помощью *make*, и добавьте в свой файл инициализации Emacs следующие строки:
+
+<src lang="emacs-lisp">
+(add-to-list 'load-path "путь_к_yatex")
+(add-to-list 'auto-mode-alist (cons "\\.tex$" 'yatex-mode))
+(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
+</src>
+
+* Работа с пакетом
+
+
+
+<div id="rule">[[./index][На главную страницу]]</div>

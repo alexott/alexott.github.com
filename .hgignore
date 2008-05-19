@@ -145,3 +145,15 @@ syntax: regexp
 ^en/cf/ms-office/ms-access\.html$
 ^en/cf/ms-office/index\.html$
 ^en/cf/file-formats\.html$
+^ru/writings/emacs-tex/iTe\.html$
+^ru/writings/emacs-tex/YaTeX\.html$
+^ru/writings/emacs-tex/XSymbol\.html$
+^ru/writings/emacs-tex/WhizzyTeX\.html$
+^ru/writings/emacs-tex/UltraTeX\.html$
+^ru/writings/emacs-tex/TeXMode\.html$
+^ru/writings/emacs-tex/TeXMinorModes\.html$
+^ru/writings/emacs-tex/RefTeX\.html$
+^ru/writings/emacs-tex/PreviewLaTeX\.html$
+^ru/writings/emacs-tex/LatexSymbols\.html$
+^ru/writings/emacs-tex/BibTeX\.html$
+^ru/writings/emacs-tex/AUCTeX\.html$
