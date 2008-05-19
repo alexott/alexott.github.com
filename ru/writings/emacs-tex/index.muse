@@ -33,10 +33,10 @@ LaTeX, вы можете прочитать в следующих раздела
 
  [[./TeXMode][TeX-mode]] :: 1
  [[./AUCTeX][AUCTeX]] :: 1
- [[./UltraTeX][Ultra-TeX]] :: 1
- [[./YaTeX][yatex]] :: 1
  [[./RefTeX][RefTeX]] :: 1
  [[./BibTeX][bibtex]] :: 1
+; [[./UltraTeX][Ultra-TeX]] :: 1
+; [[./YaTeX][yatex]] :: 1
 
 * Пакеты для визуальной и интерактивной работы с TeX/LaTeX
 		
@@ -48,10 +48,10 @@ LaTeX, вы можете прочитать в следующих раздела
 XEmacs.
 		
  [[./PreviewLaTeX][preview-latex]] :: 1
- [[./XSymbol][X-Symbol]] :: 1
  [[./WhizzyTeX][WhizzyTeX]] :: 1
  [[./iTe][iTe]] :: 1
- [[./LatexSymbols][LaTeX Symbols]] :: 1
+; [[./XSymbol][X-Symbol]] :: 1
+; [[./LatexSymbols][LaTeX Symbols]] :: 1
 		
 * Вспомогательные режимы
 
@@ -59,11 +59,13 @@ XEmacs.
 TeX и LaTeX, которые реализуют дополнительные функции, очень удобные при работе с
 исходными текстами.  К данным режимам относятся:
 
- [[./TeXMinorModes#cdlatex][cdlatex]] :: 1
+ [[./TeXMinorModes#cdlatex][CDLaTeX]] :: 1
  [[./TeXMinorModes#font-latex][font-latex]] :: 1
- [[./TeXMinorModes#latex-toolbar][latex-toolbar]] :: 1
- [[./TeXMinorModes#ltxsymb][ltxsymb]] :: 1
  [[./TeXMinorModes#prosper][prosper]] :: 1
  [[./TeXMinorModes#pbook][pbook]] :: 1
  [[./TeXMinorModes#swiftex][swiftex]] :: 1
  [[./TeXMinorModes#latex-doc][latex-doc]] :: 1
+ [[./TeXMinorModes#latex-toolbar][latex-toolbar]] :: 1
+ [[./TeXMinorModes#ltxsymb][ltxsymb]] :: 1
+; [[./TeXMinorModes#talcum][Talcum]] :: вспомогательный режим, обеспечивающий дополнительные возможности по
+;   редактированию исходных текстов LaTeX.

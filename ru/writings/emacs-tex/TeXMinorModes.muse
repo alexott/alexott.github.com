@@ -9,12 +9,6 @@
 #font-latex
 * font-latex
 
-#latex-toolbar
-* latex-toolbar
-
-#ltxsymb
-* ltxsymb
-
 #prosper
 * prosper
 
@@ -27,5 +21,14 @@
 #latex-doc
 * latex-doc
 
+#latex-toolbar
+* latex-toolbar
+
+#ltxsymb
+* ltxsymb
+
+; #talcum
+; * talcum
+; http://www.emacswiki.org/cgi-bin/wiki/Talcum
 
 <div id="rule">[[./index][На главную страницу]]</div>
