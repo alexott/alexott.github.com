@@ -31,10 +31,11 @@ LaTeX, вы можете прочитать в следующих раздела
 Данные режимы обеспечивают основной функционал при работе с TeX/LaTeX, и его
 сопутствующими режимами -- bibtex, и т.п.  К основным режимам относятся следующие:
 
- [[./TeXMode][TeX-mode]] :: 1
- [[./AUCTeX][AUCTeX]] :: 1
- [[./RefTeX][RefTeX]] :: 1
- [[./BibTeX][bibtex]] :: 1
+ [[./TeXMode][TeX-mode]] :: базовый режим для редактирования текстов в форматах TeX/LaTeX и др.
+ [[./AUCTeX][AUCTeX]] :: пакет для редактирования текстов в TeX/LaTeX и др. с большим количеством
+   возможностей, отсутствующих в других пакетах
+ [[./RefTeX][RefTeX]] :: вспомогательный режим для работы с ссылками, оглавлениями, индексами и т.п.
+ [[./BibTeX][bibtex-mode]] :: режим для работы с файлами BibTeX
 ; [[./UltraTeX][Ultra-TeX]] :: 1
 ; [[./YaTeX][yatex]] :: 1
 
@@ -47,9 +48,9 @@ LaTeX, вы можете прочитать в следующих раздела
 из этих пакетов работают с обеими версиями Emacs, а некоторые только с GNU Emacs или
 XEmacs.
 		
- [[./PreviewLaTeX][preview-latex]] :: 1
- [[./WhizzyTeX][WhizzyTeX]] :: 1
- [[./iTe][iTe]] :: 1
+ [[./PreviewLaTeX][Preview-LaTeX]]:: пакет, обеспечивающий показ формул и рисунков при редактировании исходного текста
+ [[./WhizzyTeX][WhizzyTeX]] :: обеспечивает наращиваемый (incremental) просмотр результатов редактирования
+ [[./iTe][iTe]] :: обеспечивает интерактивное создание и редактирование документов TeX/LaTeX
 ; [[./XSymbol][X-Symbol]] :: 1
 ; [[./LatexSymbols][LaTeX Symbols]] :: 1
 		
@@ -59,13 +60,13 @@ XEmacs.
 TeX и LaTeX, которые реализуют дополнительные функции, очень удобные при работе с
 исходными текстами.  К данным режимам относятся:
 
- [[./TeXMinorModes#cdlatex][CDLaTeX]] :: 1
- [[./TeXMinorModes#font-latex][font-latex]] :: 1
- [[./TeXMinorModes#prosper][prosper]] :: 1
- [[./TeXMinorModes#pbook][pbook]] :: 1
- [[./TeXMinorModes#swiftex][swiftex]] :: 1
- [[./TeXMinorModes#latex-doc][latex-doc]] :: 1
- [[./TeXMinorModes#latex-toolbar][latex-toolbar]] :: 1
- [[./TeXMinorModes#ltxsymb][ltxsymb]] :: 1
+;  [[./TeXMinorModes#cdlatex][CDLaTeX]] :: 1
+;  [[./TeXMinorModes#font-latex][font-latex]] :: 1
+;  [[./TeXMinorModes#prosper][prosper]] :: 1
+;  [[./TeXMinorModes#pbook][pbook]] :: 1
+;  [[./TeXMinorModes#swiftex][swiftex]] :: 1
+;  [[./TeXMinorModes#latex-doc][latex-doc]] :: 1
+;  [[./TeXMinorModes#latex-toolbar][latex-toolbar]] :: 1
+;  [[./TeXMinorModes#ltxsymb][ltxsymb]] :: 1
 ; [[./TeXMinorModes#talcum][Talcum]] :: вспомогательный режим, обеспечивающий дополнительные возможности по
 ;   редактированию исходных текстов LaTeX.
