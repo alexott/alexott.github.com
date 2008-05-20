@@ -27,7 +27,7 @@ information security.
 
 * Publications on information security and content filtering
 
- - [[../writings/cf/][Article about modern trends in content filtering]] ([[../writings/cf/cf-trends.en.pdf][PDF]])
+ - [[../writings/cf/index][Article about modern trends in content filtering]]
 
 
 ;  LocalWords:  Webwasher LocalWords

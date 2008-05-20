@@ -18,6 +18,6 @@ Russian, but i also translate some of them to English.
 
 * Information security and content filtering
 
- - [[cf/][Article about modern trends in content filtering]] ([[cf/cf-trends.en.pdf][PDF]])
+ - [[cf/index][Article about modern trends in content filtering]]
   
 

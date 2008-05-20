@@ -1,5 +1,5 @@
 #title Современные тенденции в области контентной фильтрации
-#keywords статья, article, content filtering, data information leakage, trends, контентная фильтрация, предотвращение утечки данных, web filtering, voip filtering, mail filtering, im filtering, instant messaging filtering, UTM
+#keywords статья, article, content filtering, data information leakage, trends, контентная фильтрация, предотвращение утечки данных, web filtering, voip filtering, mail filtering, im filtering, instant messaging filtering, UTM, data leakage prevention
 
 <contents>
 
