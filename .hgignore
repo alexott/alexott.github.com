@@ -158,3 +158,9 @@ syntax: regexp
 ^ru/writings/emacs-tex/BibTeX\.html$
 ^ru/writings/emacs-tex/AUCTeX\.html$
 ^ru/writings/emacs-tex/index\.html$
+^ru/writings/emacs-22/index\.html$
+^ru/writings/gnus-spam/index\.html$
+^ru/writings/zsh/index\.html$
+^ru/writings/linux-s55-bluetooth-gprs/index\.html$
+^ru/writings/altlinux-gnus/index\.html$
+^ru/writings/altlinux-emacs/index\.html$

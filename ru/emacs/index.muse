@@ -12,11 +12,11 @@ Emacs активно используется мной уже более 10 ле
 Я написал (и продолжаю писать) серию статей посвященную использованию редактора Emacs для
 выполнения различных задач.
 
- - [[../writings/emacs-22/emacs-22-1-whats-new.ru.html][Статья с обзором новых возможностей GNU Emacs 22]] ([[../writings/emacs-22/emacs-22-1-whats-new.ru.pdf][PDF]])
- - [[../writings/altlinux-emacs/altlinux-emacs.html][Статья]] для руководства пользователя дистрибутивов [[http://www.altlinux.ru][ALTLinux]] ([[../writings/altlinux-emacs/altlinux-emacs.pdf][PDF]])
+ - [[../writings/emacs-22/][Статья с обзором новых возможностей GNU Emacs 22]]
+ - [[../writings/altlinux-emacs/altlinux-emacs.html][Статья]] для руководства пользователя дистрибутивов [[http://www.altlinux.ru][ALTLinux]]
  - [[../writings/altlinux-gnus/altlinux-gnus.html][Статья]] про использование Emacs для работы с почтой и новостями, также для руководства
-   пользователя дистрибутивов ALTLinux ([[../writings/altlinux-gnus/altlinux-gnus.pdf][PDF]])
- - [[../writings/gnus-spam/gnus-spam.ru.html][Рассказ отлов спама с помощью Gnus'а]] ([[../writings/gnus-spam/gnus-spam.ru.pdf][PDF]])
+   пользователя дистрибутивов ALTLinux 
+ - [[../writings/gnus-spam/][Рассказ отлов спама с помощью Gnus'а]]
  - [[../writings/emacs-im/][Рассказ про использование средств обмена сообщениями (ICQ, Jabber, IRC, ...) в Emacs]]
  - [[../writings/emacs-vcs/][Рассказ про использование Emacs с системами контроля версий]] 
  - [[../writings/emacs-tex/][Рассказ про использование Emacs для работы с TeX/LaTeX]]
