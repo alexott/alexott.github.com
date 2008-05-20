@@ -165,3 +165,4 @@ syntax: regexp
 ^ru/writings/altlinux-gnus/index\.html$
 ^ru/writings/altlinux-emacs/index\.html$
 ^ru/writings/cf/index\.html$
+^en/writings/cf/index\.html$
