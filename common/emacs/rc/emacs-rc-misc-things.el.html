@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-misc-things.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #00008b;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-misc-things.el --- 
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2003 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+
+<span class="comment-delimiter">;; </span><span class="comment">load path
+</span>(add-to-list 'load-path <span class="string">"~/emacs/misc"</span>)
+(add-to-list 'load-path <span class="string">"~/emacs/programming"</span>)
+
+<span class="comment-delimiter">;;</span><span class="comment">
+</span>(add-to-list 'file-coding-system-alist (cons <span class="string">"spam-stat.el"</span>  'utf-8))
+(add-to-list 'file-coding-system-alist (cons <span class="string">"\\.bbdb"</span>  'utf-8))
+(add-to-list 'file-coding-system-alist (cons <span class="string">"/clusterfs/"</span>  'koi8-r))
+
+<span class="comment-delimiter">;; </span><span class="comment">for dired
+</span><span class="comment-delimiter">;;</span><span class="comment">(setenv "LC_TIME" "C")
+</span>(setenv <span class="string">"TEXINPUTS"</span> (concat (getenv <span class="string">"TEXINPUTS"</span>) <span class="string">":/home/ott/tex/styles//"</span>))
+
+<span class="comment-delimiter">;;</span><span class="comment">============================================================
+</span><span class="comment-delimiter">;; </span><span class="comment">iswitchb
+</span><span class="comment-delimiter">;;</span><span class="comment">============================================================
+</span>(<span class="keyword">require</span> '<span class="constant">iswitchb</span>)  
+(iswitchb-mode 1)
+<span class="comment-delimiter">;;</span><span class="comment">(require 'filecache)
+</span><span class="comment-delimiter">;;</span><span class="comment">(load "iswitchb-fc")
+</span>(add-to-list 'iswitchb-buffer-ignore <span class="string">"^ "</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*ECB"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*Backtrace"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*Quail Com"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*Buffer"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*Help"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*fsm-debug"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*Completions"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\.cvsignore"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*cvs-commit"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*info\\*"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*sent reply"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\.newsrc-dribble"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*Calendar\\*"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*reg group-leader\\*"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"^[tT][aA][gG][sS]$"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*sent mail"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*sent wide reply"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*trace of SMTP"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*Compile-Log\\*"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*semantic"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*Calc"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*Article\\*"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\.bbdb"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"irc\\."</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*Customize"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*Shell Command"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*svn"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\*w3m\\*"</span>)
+(add-to-list 'iswitchb-buffer-ignore <span class="string">"\\.hgignore"</span>)
+<span class="comment-delimiter">;;</span><span class="comment">(add-to-list 'iswitchb-buffer-ignore "")
+</span><span class="comment-delimiter">;;</span><span class="comment">(add-to-list 'iswitchb-buffer-ignore "")
+</span>
+
+<span class="comment-delimiter">;; </span><span class="comment">misc variables
+</span>(setq auto-compression-mode t)
+(setq safe-local-variable-values (quote ((prompt-to-byte-compile) (c-indentation-style . k&amp;r) (indent-tabs-mode . 1) (folded-file . t))))
+(setq text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
+(setq user-full-name <span class="string">"Alex Ott"</span>)
+
+<span class="comment-delimiter">;; </span><span class="comment">Hide/Show mode
+</span>(<span class="keyword">require</span> '<span class="constant">hideshow</span>)
+
+<span class="comment-delimiter">;; </span><span class="comment">twitter
+</span>(load <span class="string">"~/emacs/misc/twit.el"</span>)
+(setq twit-user <span class="string">"alexott"</span>)
+(setq twit-pass <span class="string">"qwaszx"</span>)
+
+
+<span class="comment-delimiter">;; </span><span class="comment">boxquote
+</span><span class="comment-delimiter">;; </span><span class="comment">(require 'boxquote)
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b y")   'boxquote-yank)
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b r")   'boxquote-region)         
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b u")   'boxquote-unbox-region)
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b t")   'boxquote-title)          
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b i")   'boxquote-insert-file) 
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b k")   'boxquote-kill) 
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b s")   'boxquote-shell-command)
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b b")   'boxquote-buffer)
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b p")   'boxquote-paragraph) 
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b n")   'boxquote-narrow-to-boxquote)
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b w")   'boxquote-where-is) 
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b d f") 'boxquote-describe-function)
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b d k") 'boxquote-describe-key)
+</span><span class="comment-delimiter">;; </span><span class="comment">(global-set-key (kbd "C-c b d v") 'boxquote-describe-variable)
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">table
+</span>(<span class="keyword">require</span> '<span class="constant">table</span>)
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-misc-things.el ends here
+</span>
+</pre>
+  </body>
+</html>

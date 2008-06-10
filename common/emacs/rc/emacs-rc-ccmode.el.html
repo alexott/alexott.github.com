@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-ccmode.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .builtin {
+        /* font-lock-builtin-face */
+        color: #006400;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #00008b;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .negation-char {
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-ccmode.el --- 
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2003 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+(<span class="keyword">require</span> '<span class="constant">cc-mode</span>)
+(<span class="keyword">require</span> '<span class="constant">imenu</span>)
+
+<span class="comment-delimiter">;; </span><span class="comment">customisation of cc-mode
+</span>(<span class="keyword">defun</span> <span class="function-name">my-c-mode-common-hook</span> ()
+  <span class="comment-delimiter">;; </span><span class="comment">style customization
+</span>  (c-set-offset 'member-init-intro '++)
+  (setq tab-width 4)
+  (setq indent-tabs-mode t)
+  (c-set-offset 'substatement-open 0)
+  (c-set-style <span class="string">"bsd"</span>)
+  (setq c-basic-offset 4)
+  (c-toggle-auto-hungry-state 0)
+  <span class="comment-delimiter">;; </span><span class="comment">minor modes
+</span>  (auto-fill-mode 1)
+  (hs-minor-mode 1)
+  <span class="comment-delimiter">;; </span><span class="comment">local keys
+</span>  (local-set-key [delete]  'delete-char)
+  (local-set-key [return] 'newline-and-indent)
+  (define-key c-mode-base-map <span class="string">"\C-m"</span> 'newline-and-indent)
+  (local-set-key <span class="string">"\C-c:"</span> 'uncomment-region)
+  (local-set-key <span class="string">"\C-c;"</span> 'comment-region)
+  )
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+
+(<span class="keyword">require</span> '<span class="constant">info-look</span>)
+(info-lookup-add-help
+ <span class="builtin">:mode</span> 'lisp-mode
+ <span class="builtin">:regexp</span> <span class="string">"[</span><span class="string"><span class="negation-char">^</span></span><span class="string">][()'\" \t\n]+"</span>
+ <span class="builtin">:ignore-case</span> t
+ <span class="builtin">:doc-spec</span> '((<span class="string">"(libc)Symbol Index"</span> nil nil nil)))
+
+(<span class="keyword">defun</span> <span class="function-name">fp-c-mode-routine</span> ()
+  (local-set-key <span class="string">"\M-q"</span> 'rebox-comment))
+(add-hook 'c-mode-hook 'fp-c-mode-routine)
+
+<span class="comment-delimiter">;;</span><span class="comment">
+</span>(autoload 'rebox-comment <span class="string">"rebox"</span> nil t)
+(autoload 'rebox-region <span class="string">"rebox"</span> nil t)
+
+(setq-default c-default-style (quote ((java-mode . <span class="string">"java"</span>) (other . <span class="string">"gnu"</span>))))
+
+(add-to-list 'auto-mode-alist '(<span class="string">"\\.ipp?$"</span> . c++-mode))
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-cmode.el ends here
+</span></pre>
+  </body>
+</html>

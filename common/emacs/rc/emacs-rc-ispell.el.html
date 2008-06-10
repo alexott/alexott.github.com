@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-ispell.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #666666;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-ispell.el --- 
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2003 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+<span class="comment-delimiter">;;</span><span class="comment">(require 'ispell)
+</span>(set-default 'ispell-skip-html t)
+
+(setq ispell-local-dictionary <span class="string">"english"</span>)
+<span class="comment-delimiter">;</span><span class="comment">(setq ispell-skip-html t)
+</span>
+(<span class="keyword">defun</span> <span class="function-name">turn-on-flyspell</span> ()
+  <span class="doc">"Force flyspell-mode on using a positive arg.  For use in hooks."</span>
+  (interactive)
+  (flyspell-mode 1))
+
+(autoload 'flyspell-mode <span class="string">"flyspell"</span> <span class="doc">"On-the-fly spelling checker."</span> t)
+(add-hook 'message-mode-hook 'turn-on-flyspell)
+(add-hook 'text-mode-hook 'turn-on-flyspell)
+(add-hook 'nxml-mode-hook 'turn-on-flyspell)
+(add-hook 'texinfo-mode-hook 'turn-on-flyspell)
+(add-hook 'TeX-mode-hook 'turn-on-flyspell)
+(add-hook 'muse-mode-hook 'turn-on-flyspell)
+
+(add-hook 'c-mode-common-hook 'flyspell-prog-mode)
+(add-hook 'lisp-mode-hook 'flyspell-prog-mode)
+(add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-ispell.el ends here
+</span></pre>
+  </body>
+</html>

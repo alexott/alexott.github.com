@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-python.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #666666;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-python.el --- 
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: Alex Ott &lt;<a href="mailto:alexott&#64;gmail.com">alexott&#64;gmail.com</a>&gt;
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+(<span class="keyword">defun</span> <span class="function-name">electric-pair</span> ()
+  <span class="doc">"Insert character pair without sournding spaces"</span>
+  (interactive)
+  (<span class="keyword">let</span> (parens-require-spaces)
+    (insert-pair)))
+
+(<span class="keyword">defun</span> <span class="function-name">my-python-mode-hook</span> ()
+  (setq tab-width 4)
+  (setq indent-tabs-mode t)
+  (auto-fill-mode 1)
+  (eldoc-mode 1)
+  (local-set-key [return] 'newline-and-indent)
+  (define-key c-mode-base-map <span class="string">"\C-m"</span> 'newline-and-indent)
+  (local-set-key <span class="string">"\C-c:"</span> 'uncomment-region)
+  (local-set-key <span class="string">"\C-c;"</span> 'comment-region)
+
+  (define-key python-mode-map <span class="string">"\""</span> 'electric-pair)
+  (define-key python-mode-map <span class="string">"\'"</span> 'electric-pair)
+  (define-key python-mode-map <span class="string">"("</span> 'electric-pair)
+  (define-key python-mode-map <span class="string">"["</span> 'electric-pair)
+  (define-key python-mode-map <span class="string">"{"</span> 'electric-pair)
+  )
+(add-hook 'python-mode-hook 'my-python-mode-hook)
+
+(add-hook 'python-mode-hook 'flyspell-prog-mode)
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-python.el ends here
+</span></pre>
+  </body>
+</html>

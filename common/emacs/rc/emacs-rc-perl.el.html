@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-perl.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #666666;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-perl.el --- 
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2003 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+<span class="comment-delimiter">;</span><span class="comment">(require 'cperl-mode)
+</span>(autoload 'perl-mode <span class="string">"cperl-mode"</span> <span class="doc">"alternate mode for editing Perl progs"</span> t)
+<span class="comment-delimiter">;; </span><span class="comment">(setq cperl-hairy t)
+</span>(<span class="keyword">defun</span> <span class="function-name">my-perl-mode-hook</span> ()
+       (setq tab-width 2
+             indent-tabs-mode nil)
+       (line-number-mode 1)
+       (column-number-mode 1)
+       (abbrev-mode 1)
+       (local-set-key [return] 'newline-and-indent)
+       (cperl-mode 1)
+       )
+(add-hook 'perl-mode-hook 'my-perl-mode-hook)
+
+(setq cperl-auto-newline-after-colon t)
+(setq cperl-autoindent-on-semi t)
+(setq cperl-extra-newline-before-brace nil)
+(setq cperl-indent-parens-as-block t)
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-perl.el ends here
+</span></pre>
+  </body>
+</html>

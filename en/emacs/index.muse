@@ -19,7 +19,13 @@ You can also find [[../writings/][other my articles]].
 
 * My configuration file
 
-*will uploaded some time later*
+You can download my configuration file for GNU Emacs [[../../common/emacs/alexott-emacs.tar.gz][as archive]], or you can [[../../common/emacs/_emacs.html][view it]] --
+most of settings, related to the concrete packages & topics, are moved to separate files,
+that you can view clicking on the link in =(load ...)= commands.  Besides this, you can view
+[[../../common/emacs/_gnus.html][.gnus]] file, that also contain links to files with configurations for some packages.
+
+*I want to mention, that this configuration is not "optimal", and many parts are not
+up-to-date. But now i haven't time to rewrite it*
 
 * Useful links
 

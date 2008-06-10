@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-desktop.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-desktop.el --- Load desktop settings
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2003 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+(<span class="keyword">when</span> (fboundp 'desktop-load-default)
+   (desktop-load-default)
+   (mapcar
+     (<span class="keyword">lambda</span> (symbol) 
+       (add-to-list 'desktop-globals-to-save symbol))
+     '((buffer-name-history      . 100)
+       (dired-regexp-history     . 20)
+       (extended-command-history . 100)
+       (file-name-history        . 500)
+       (grep-history             . 50)
+       (minibuffer-history       . 100)
+       (query-replace-history    . 60)
+       (read-expression-history  . 60)
+       (regexp-history           . 60)
+       (regexp-search-ring       . 20)
+       (search-ring              . 20)
+       (shell-command-history    . 50)))
+<span class="comment-delimiter">;;;    </span><span class="comment">(desktop-read)
+</span>   )
+
+(add-to-list 'desktop-locals-to-save 'buffer-file-coding-system)
+(add-to-list 'desktop-locals-to-save 'tab-width)
+
+(setq-default desktop-missing-file-warning nil)
+(setq-default desktop-path (quote (<span class="string">"~"</span>)))
+(setq-default desktop-save t)
+(setq-default desktop-save-mode t)
+
+(setq-default save-place t)
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-desktop.el ends here
+</span></pre>
+  </body>
+</html>

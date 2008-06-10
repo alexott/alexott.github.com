@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-local-flash.lan.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .builtin {
+        /* font-lock-builtin-face */
+        color: #006400;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;; </span><span class="comment">local settings for mac
+</span>
+
+(semantic-add-system-include <span class="string">"/usr/include/c++/4.0/"</span> 'c++-mode)
+
+<span class="comment-delimiter">;; </span><span class="comment">info
+</span>(add-to-list  'Info-directory-list <span class="string">"/opt/local/share/info"</span>)
+
+<span class="comment-delimiter">;;</span><span class="comment">
+</span>(set-file-name-coding-system 'utf-8)
+
+<span class="comment-delimiter">;; </span><span class="comment">auto-inserts
+</span>(add-to-list 'auto-insert-alist '(<span class="string">"\\.cpp$"</span> . [<span class="string">"insert-home.cpp"</span> auto-update-c-source-file]))
+(add-to-list 'auto-insert-alist '(<span class="string">"\\.h$"</span>   . [<span class="string">"insert-home.h"</span> auto-update-header-file]))
+(add-to-list 'auto-insert-alist '(<span class="string">"\\.c$"</span> . [<span class="string">"insert-home.cpp"</span> auto-update-c-source-file]))
+
+<span class="comment-delimiter">;;</span><span class="comment">
+</span>(custom-set-variables
+ '(aquamacs-customization-version-id 100 t)
+ '(custom-file <span class="string">"~/.emacs"</span>)
+ '(default-frame-alist nil)
+ '(pc-selection-mode nil nil (pc-select))
+ '(one-buffer-one-frame-mode nil nil (aquamacs-frame-setup))
+ '(cua-mode nil)
+ '(transient-mark-mode t)
+ '(aquamacs-styles-mode nil nil (color-theme))
+ '(mac-input-method-mode nil)
+ '(delete-selection-mode t)
+ '(smart-frame-positioning-mode nil)
+<span class="comment-delimiter">;; </span><span class="comment">'(default-input-method "russian-computer")
+</span>)
+
+(setq mac-command-modifier 'meta)
+(setq x-select-enable-clipboard t)
+(setq special-display-regexps (remove <span class="string">"[ ]?\\*[hH]elp.*"</span> special-display-regexps))
+
+(custom-set-faces
+  <span class="comment-delimiter">;; </span><span class="comment">custom-set-faces was added by Custom.
+</span>  <span class="comment-delimiter">;; </span><span class="comment">If you edit it by hand, you could mess it up, so be careful.
+</span>  <span class="comment-delimiter">;; </span><span class="comment">Your init file should contain only one such instance.
+</span>  <span class="comment-delimiter">;; </span><span class="comment">If there is more than one, they won't work right.
+</span> '(default ((t (<span class="builtin">:stipple</span> nil <span class="builtin">:background</span> <span class="string">"grey90"</span> <span class="builtin">:foreground</span> <span class="string">"Black"</span> <span class="builtin">:inverse-video</span> nil
+                         <span class="builtin">:box</span> nil <span class="builtin">:strike-through</span> nil <span class="builtin">:overline</span> nil <span class="builtin">:underline</span> nil <span class="builtin">:slant</span>
+                         normal <span class="builtin">:weight</span> normal <span class="builtin">:height</span> 160 <span class="builtin">:width</span> normal <span class="builtin">:family</span>
+                         <span class="string">"apple-monaco"</span>))))
+ '(font-lock-comment-face ((((class color) (min-colors 88) (background light))
+                            (<span class="builtin">:foreground</span> <span class="string">"gray50"</span>))))
+ '(org-hide ((((background light)) (<span class="builtin">:foreground</span> <span class="string">"grey90"</span>)))))
+
+(setq default-frame-alist '((background-color . <span class="string">"grey90"</span>) (left . 0) (width . 130) (height . 43)))
+(setq initial-frame-alist default-frame-alist)
+(setq special-display-frame-alist default-frame-alist)
+</pre>
+  </body>
+</html>

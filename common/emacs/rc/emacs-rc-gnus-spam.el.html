@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-gnus-spam.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #00008b;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #666666;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;; </span><span class="comment">-*- mode: lisp; -*-
+</span><span class="comment-delimiter">;; </span><span class="comment">spam splitting with gnus
+</span><span class="comment-delimiter">;; </span><span class="comment">Alex Ott &lt;<a href="mailto:alexott&#64;gmail.com">alexott&#64;gmail.com</a>&gt;
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Split mail with catch of spam
+</span>(setq spam-install-hooks t)
+(setq spam-use-stat t)
+(<span class="keyword">require</span> '<span class="constant">spam-stat</span>)
+(<span class="keyword">require</span> '<span class="constant">spam</span>)
+<span class="comment-delimiter">;</span><span class="comment">(spam-install-hooks-function)
+</span><span class="comment-delimiter">;; </span><span class="comment">
+</span>(<span class="keyword">when</span> (file-exists-p spam-stat-file)
+  (spam-stat-load))
+(setq spam-stat-split-fancy-spam-group <span class="string">"SPAM-new"</span>)
+
+(<span class="keyword">defun</span> <span class="function-name">my-spam-stat-learn</span> ()
+  <span class="doc">"Learn about my spam and non-spam"</span>
+  (interactive)
+  (<span class="keyword">let</span> ((starting (current-time-string)))
+    <span class="comment-delimiter">;; </span><span class="comment">LEARN SPAM
+</span>    (<span class="keyword">let</span> ((spam-groups '(<span class="string">"SPAM-new"</span> <span class="string">"SPAM"</span>)))
+      (mapc (<span class="keyword">lambda</span> (x)
+        (spam-stat-process-spam-directory
+         (format <span class="string">"~/Mail/%s"</span> x)))
+      spam-groups))
+    
+    <span class="comment-delimiter">;; </span><span class="comment">LEARN HAM
+</span>    (<span class="keyword">let</span> ((ham-groups '(<span class="string">"inbox"</span> <span class="string">"openfwtk"</span> <span class="string">"boost-devel"</span> <span class="string">"dg"</span> <span class="string">"emacs-devel"</span> <span class="string">"mzscheme"</span> <span class="string">"dvc"</span>)))
+      (mapc (<span class="keyword">lambda</span> (x)
+        (spam-stat-process-non-spam-directory
+         (format <span class="string">"~/Mail/%s"</span> x)))
+      ham-groups))
+
+    <span class="comment-delimiter">;; </span><span class="comment">TRIM DB and SAVE
+</span>    (spam-stat-reduce-size)
+    (spam-stat-save)
+
+    <span class="comment-delimiter">;; </span><span class="comment">PRINT MESSAGE ABOUT ELAPSED TIME
+</span>    (message <span class="string">"my-spam-stat-learn:  started at %s, ended at %s"</span>
+       starting (current-time-string))))
+
+</pre>
+  </body>
+</html>

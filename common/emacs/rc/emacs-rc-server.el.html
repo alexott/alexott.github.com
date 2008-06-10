@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-server.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #00008b;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-server.el --- working with server/client
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2003 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+(<span class="keyword">unless</span> (string-equal <span class="string">"root"</span> (getenv <span class="string">"USER"</span>))
+  <span class="comment-delimiter">;; </span><span class="comment">Only start server mode if I'm not root
+</span>  (<span class="keyword">require</span> '<span class="constant">server</span>)
+  (server-start))
+
+(setq oldframe (selected-frame))
+(<span class="keyword">defun</span> <span class="function-name">my-client-start-hook</span> ()
+  (<span class="keyword">let*</span> (
+  (wd (- (frame-parameter nil 'width) 10))
+  (hg (- (frame-parameter nil 'height) 5))
+  (fn (frame-parameter nil 'font))
+  (newframe (make-frame 
+       `((width . ,wd) 
+         (height . ,hg) 
+         (font . ,fn)))))
+<span class="comment-delimiter">;    </span><span class="comment">(setq oldframe (selected-frame))
+</span>    (select-frame newframe)
+    (setq server-window newframe))
+  )
+
+(<span class="keyword">defun</span> <span class="function-name">my-client-done-hook</span> ()
+    (delete-frame (selected-frame))
+    (select-frame oldframe)
+    (setq server-window oldframe)
+  )
+
+(custom-set-variables
+ '(server-done-hook (quote (delete-frame)))
+ '(server-window (quote switch-to-buffer-other-frame))
+)
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-server.el ends here
+</span></pre>
+  </body>
+</html>

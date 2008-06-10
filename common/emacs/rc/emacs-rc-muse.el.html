@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-muse.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .builtin {
+        /* font-lock-builtin-face */
+        color: #006400;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #00008b;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .negation-char {
+      }
+      .regexp-grouping-backslash {
+        /* font-lock-regexp-grouping-backslash */
+        font-weight: bold;
+      }
+      .regexp-grouping-construct {
+        /* font-lock-regexp-grouping-construct */
+        font-weight: bold;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-muse.el --- -*- coding: utf-8 -*-
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2006 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+(add-to-list 'load-path <span class="string">"~/emacs/muse"</span>)
+<span class="comment-delimiter">;;</span><span class="comment">(add-to-list 'load-path "~/emacs/planner")
+</span><span class="comment-delimiter">;;</span><span class="comment">(add-to-list 'load-path "~/emacs/remember")
+</span>
+(<span class="keyword">require</span> '<span class="constant">muse-mode</span>)     <span class="comment-delimiter">; </span><span class="comment">load authoring mode
+</span>(<span class="keyword">require</span> '<span class="constant">muse-html</span>)     <span class="comment-delimiter">; </span><span class="comment">load publishing styles I use
+</span>(<span class="keyword">require</span> '<span class="constant">muse-colors</span>)
+(<span class="keyword">require</span> '<span class="constant">muse-wiki</span>)
+(<span class="keyword">require</span> '<span class="constant">muse-latex</span>)
+(<span class="keyword">require</span> '<span class="constant">muse-texinfo</span>)
+(<span class="keyword">require</span> '<span class="constant">muse-docbook</span>)
+(<span class="keyword">require</span> '<span class="constant">muse-project</span>)
+
+(muse-derive-style <span class="string">"my-page-html"</span> <span class="string">"html"</span>
+                   <span class="builtin">:header</span> <span class="string">"~/projects/my-page-muse/header.tmpl"</span>
+                   <span class="builtin">:footer</span> <span class="string">"~/projects/my-page-muse/footer.tmpl"</span>)
+
+(muse-derive-style <span class="string">"my-page-pdf"</span> <span class="string">"pdf"</span>
+                   <span class="builtin">:header</span> <span class="string">"~/projects/my-page-muse/header.tex"</span>
+                   <span class="builtin">:footer</span> <span class="string">"~/projects/my-page-muse/footer.tex"</span>)
+
+(setq muse-project-alist
+      `((<span class="string">"personal-notes"</span>
+         (,@(muse-project-alist-dirs <span class="string">"~/projects/Muse"</span>) <span class="builtin">:default</span> <span class="string">"index"</span>)
+         ,@(muse-project-alist-styles <span class="string">"~/projects/Muse"</span>
+                                      <span class="string">"~/public_html/muse/personal"</span>
+                                      <span class="string">"html"</span>))
+        (<span class="string">"wfilter-muse"</span>     
+         (<span class="string">"~/projects/wfilter/Muse"</span> <span class="builtin">:default</span> <span class="string">"index"</span>)
+         (<span class="builtin">:base</span> <span class="string">"html"</span> <span class="builtin">:path</span> <span class="string">"~/public_html/muse/wfilter"</span>))
+        (<span class="string">"squid-gsb-muse"</span>     
+         (<span class="string">"~/projects/squid-gsb/Muse"</span> <span class="builtin">:default</span> <span class="string">"index"</span>)
+         (<span class="builtin">:base</span> <span class="string">"html"</span> <span class="builtin">:path</span> <span class="string">"~/public_html/muse/squid-gsb"</span>))
+        (<span class="string">"my-page-project"</span>
+         (,@(muse-project-alist-dirs <span class="string">"~/projects/my-page-muse"</span>) <span class="builtin">:default</span> <span class="string">"index"</span>)
+         ,@(muse-project-alist-styles <span class="string">"~/projects/my-page-muse"</span>
+                                      <span class="string">"~/projects/my-page-muse"</span>
+                                      <span class="string">"my-page-html"</span>)
+         (<span class="builtin">:base</span> <span class="string">"my-page-pdf"</span>
+                <span class="builtin">:path</span> <span class="string">"~/projects/my-page-muse/en"</span>
+                <span class="builtin">:include</span> <span class="string">"/alexott-cv-en[</span><span class="string"><span class="negation-char">^</span></span><span class="string">/]*$"</span>)
+         (<span class="builtin">:base</span> <span class="string">"my-page-pdf"</span>
+                <span class="builtin">:path</span> <span class="string">"~/projects/my-page-muse/ru"</span>
+                <span class="builtin">:include</span> <span class="string">"/alexott-cv-ru[</span><span class="string"><span class="negation-char">^</span></span><span class="string">/]*$"</span>))
+        ))
+
+(add-to-list 'auto-mode-alist '(<span class="string">"\\.muse$"</span> . muse-mode))
+
+<span class="comment-delimiter">;;</span><span class="comment">(add-to-list 'file-coding-system-alist (cons "/Muse/"  'utf-8))
+</span>(add-to-list 'file-coding-system-alist (cons <span class="string">"/my-page-muse/"</span>  'utf-8))
+(add-to-list 'file-coding-system-alist (cons <span class="string">"\\.muse$"</span>  'utf-8))
+
+(<span class="keyword">defun</span> <span class="function-name">muse-gen-relative-name</span> (name)
+  (concat
+   (file-name-directory (muse-wiki-resolve-project-page (muse-project)))
+   name))
+
+(custom-set-variables
+ '(muse-html-encoding-default (quote utf-8))
+ '(muse-html-meta-content-encoding (quote utf-8))
+ '(muse-html-charset-default <span class="string">"utf-8"</span>)
+ '(muse-file-extension <span class="string">"muse"</span>)
+ '(muse-mode-auto-p nil)
+ '(muse-wiki-allow-nonexistent-wikiword nil)
+ '(muse-wiki-use-wikiword nil)
+ '(muse-html-footer <span class="string">"~/emacs/muse/templates/footer.html"</span>)
+ '(muse-html-header <span class="string">"~/emacs/muse/templates/header.html"</span>)
+ '(muse-latex-footer <span class="string">"~/emacs/muse/templates/footer.tex"</span>)
+ '(muse-latex-header <span class="string">"~/emacs/muse/templates/header.tex"</span>)
+ '(muse-html-style-sheet
+   <span class="string">"&lt;link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"screen,projection\" href=\"web.css\"&gt;
+    &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"print.css\" media=\"print\"&gt;"</span>)
+ '(muse-ignored-extensions (quote (<span class="string">"bz2"</span> <span class="string">"gz"</span> <span class="string">"[Zz]"</span> <span class="string">"rej"</span> <span class="string">"orig"</span> <span class="string">"png"</span> <span class="string">"hgignore"</span> <span class="string">"gif"</span>
+                                   <span class="string">"css"</span> <span class="string">"jpg"</span> <span class="string">"html"</span> <span class="string">"sh"</span> <span class="string">"lftp"</span> <span class="string">"pdf"</span>)))
+)
+
+(<span class="keyword">defun</span> <span class="function-name">my-muse-mode-hook</span> ()
+  (setq auto-fill-mode t)
+  (footnote-mode 1)
+  )
+(add-hook 'muse-mode-hook 'my-muse-mode-hook)
+
+<span class="comment-delimiter">;;;;; </span><span class="comment">for my page
+</span>
+<span class="comment-delimiter">; </span><span class="comment">variable buffer-file-name - contain name of the current buffer
+</span>
+(setq my-page-menu '((<span class="string">"ru"</span> . (
+                               (<span class="string">"index.html"</span> . <span class="string">"&#1043;&#1083;&#1072;&#1074;&#1085;&#1072;&#1103;"</span>)
+                               (<span class="string">"cf/"</span> . <span class="string">"&#1048;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1086;&#1085;&#1085;&#1072;&#1103; &#1073;&#1077;&#1079;&#1086;&#1087;&#1072;&#1089;&#1085;&#1086;&#1089;&#1090;&#1100;"</span>)
+                               (<span class="string">"fp/"</span> . <span class="string">"&#1060;&#1091;&#1085;&#1082;&#1094;&#1080;&#1086;&#1085;&#1072;&#1083;&#1100;&#1085;&#1086;&#1077; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077;"</span>)
+                               (<span class="string">"scheme/"</span> . <span class="string">"Scheme"</span>)
+                               (<span class="string">"lisp/"</span> . <span class="string">"Lisp"</span>)
+                               (<span class="string">"cpp/"</span> . <span class="string">"C++"</span>)
+                               (<span class="string">"oss/"</span> . <span class="string">"Open Source Projects"</span>)
+                               (<span class="string">"emacs/"</span> . <span class="string">"Emacs"</span>)
+                               (<span class="string">"writings/"</span> . <span class="string">"&#1057;&#1090;&#1072;&#1090;&#1100;&#1080;"</span>)
+<span class="comment-delimiter">;;</span><span class="comment">                               ("" . "")
+</span>                               ))
+                     (<span class="string">"en"</span> . (
+                               (<span class="string">"index.html"</span> . <span class="string">"Main"</span>)
+                               (<span class="string">"cf/"</span> . <span class="string">"Information Security"</span>)
+                               (<span class="string">"fp/"</span> . <span class="string">"Functional programming"</span>)
+<span class="comment-delimiter">;;</span><span class="comment">                               ("lisp/" . "Lisp")
+</span>                               (<span class="string">"cpp/"</span> . <span class="string">"C++"</span>)
+                               (<span class="string">"oss/"</span> . <span class="string">"Open Source Projects"</span>)
+                               (<span class="string">"emacs/"</span> . <span class="string">"Emacs"</span>)
+                               (<span class="string">"writings/"</span> . <span class="string">"Articles"</span>)
+<span class="comment-delimiter">;;</span><span class="comment">                               ("" . "")
+</span>                               ))
+                     ))
+
+(<span class="keyword">defun</span> <span class="function-name">muse-mp-detect-language</span> ()
+  (<span class="keyword">let</span> ((lang <span class="string">"NN"</span>)
+        (cur-dir (file-name-directory (muse-current-file)))
+        )
+    (<span class="keyword">let</span> ((smatch (string-match <span class="string">"/</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">ru</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">|</span></span><span class="string">en</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">|</span></span><span class="string">de</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">/"</span> cur-dir)))
+      (<span class="keyword">when</span> smatch
+        (setq lang (substring cur-dir (+ smatch 1) (+ smatch 3)))))
+    lang))
+
+(<span class="keyword">defun</span> <span class="function-name">muse-mp-generate-menu</span> ()
+  (<span class="keyword">let*</span> ((menu-lang (muse-mp-detect-language))
+         (menu-struct (assoc menu-lang my-page-menu))
+         (menu-string <span class="string">""</span>)
+         (rel-dir (file-name-directory (muse-wiki-resolve-project-page (muse-project))))
+         (rel-path (<span class="keyword">if</span> (&gt; (length rel-dir) 2)  (substring rel-dir 3) <span class="string">""</span>))
+         (cur-path-muse (muse-current-file))
+         (cur-path-html (replace-regexp-in-string <span class="string">"\\.muse"</span> <span class="string">".html"</span> cur-path-muse))
+         )
+      (<span class="keyword">when</span> menu-struct
+        (<span class="keyword">let</span> ((menu-list (<span class="keyword">if</span> (not (null menu-struct)) (cdr menu-struct))))
+          (setq menu-string
+                (concat <span class="string">"&lt;ul class=\"avmenu\"&gt;"</span>
+                        (apply #'concat 
+                               (mapcar
+                                (<span class="keyword">lambda</span> (x)
+                                  (concat <span class="string">"&lt;li&gt;&lt;a href=\""</span> rel-path (car x)
+                                          (<span class="keyword">if</span> (string-match (concat <span class="string">"/"</span> menu-lang <span class="string">"/"</span> (car x))
+                                                            cur-path-html)
+                                              <span class="string">"\" class=\"current\""</span>
+                                            <span class="string">"\""</span>)
+                                          <span class="string">"&gt;"</span> (cdr x) <span class="string">"&lt;/a&gt;&lt;/li&gt;"</span>))
+                                menu-list))
+                        <span class="string">"&lt;/ul&gt;"</span>))))
+      menu-string))
+
+
+<span class="comment-delimiter">;;;;; </span><span class="comment">for docbook quick-conversion
+</span>
+(setq my-muse-docbook-replacements
+      '(
+        (<span class="string">"&lt;/?para&gt;"</span> . <span class="string">""</span>)
+        (<span class="string">"&lt;/?section&gt;"</span> . <span class="string">""</span>)
+        (<span class="string">"&lt;/?orderedlist&gt;"</span> . <span class="string">""</span>)
+        (<span class="string">"&lt;/?itemizedlist&gt;"</span> . <span class="string">""</span>)
+        (<span class="string">"&lt;/?glossdef&gt;"</span> . <span class="string">""</span>)
+        (<span class="string">"&lt;/?glossentry&gt;"</span> . <span class="string">""</span>)
+        (<span class="string">"&lt;/?glosslist&gt;"</span> . <span class="string">""</span>)
+        (<span class="string">"&amp;mdash;"</span> . <span class="string">" -- "</span>)
+        (<span class="string">"&amp;EMACS;"</span> . <span class="string">"Emacs"</span>)
+        (<span class="string">"&amp;GNUEMACS;"</span> . <span class="string">"GNU Emacs"</span>)
+        (<span class="string">"&amp;XEMACS;"</span> . <span class="string">"XEmacs"</span>)
+        (<span class="string">"&lt;quote&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/quote&gt;"</span> . <span class="string">"\"\\1\""</span>)
+        (<span class="string">"&lt;ulink\\s *url=\"</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">\"]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">\"&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/ulink&gt;"</span> . <span class="string">"[[\\1][\\2]]"</span>)
+        (<span class="string">"&lt;filename&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/filename&gt;"</span> . <span class="string">"=\\1="</span>)
+        (<span class="string">"&lt;command&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/command&gt;"</span> . <span class="string">"=\\1="</span>)
+        (<span class="string">"&lt;option&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/option&gt;"</span> . <span class="string">"=\\1="</span>)
+        (<span class="string">"&lt;varname&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/varname&gt;"</span> . <span class="string">"=\\1="</span>)
+        (<span class="string">"&lt;application&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/application&gt;"</span> . <span class="string">"*\\1*"</span>)
+        (<span class="string">"&lt;literal&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/literal&gt;"</span> . <span class="string">"=\\1="</span>)
+        (<span class="string">"&lt;keycap&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/keycap&gt;"</span> . <span class="string">"=\\1="</span>)
+        (<span class="string">"&lt;function&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/function&gt;"</span> . <span class="string">"=\\1="</span>)
+        (<span class="string">"^\\s *&lt;title[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&gt;]*&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/title&gt;"</span> . <span class="string">"* \\1"</span>)
+        (<span class="string">"&lt;acronym&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/acronym&gt;"</span> . <span class="string">"*\\1*"</span>)
+        (<span class="string">"&lt;keycombo&gt;\\s *&lt;keysym&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/keysym&gt;\\s *&lt;keysym&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/keysym&gt;\\s *&lt;/keycombo&gt;"</span> . <span class="string">"\\1-\\2"</span>)
+        (<span class="string">"&lt;keysym&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/keysym&gt;"</span> . <span class="string">"\\1"</span>)
+        (<span class="string">"&lt;computeroutput&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/computeroutput&gt;"</span> . <span class="string">"=\\1="</span>)
+        (<span class="string">"&lt;emphasis&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/emphasis&gt;"</span> . <span class="string">"*\\1*"</span>)
+        (<span class="string">"&lt;glossterm&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/glossterm&gt;"</span> . <span class="string">"\\1 :: "</span>)
+        <span class="comment-delimiter">;;  </span><span class="comment">        ("&lt;&gt;\\([</span><span class="comment"><span class="negation-char">^</span></span><span class="comment">&lt;]*\\)&lt;/&gt;" . "\\1")
+</span>        <span class="comment-delimiter">;;  </span><span class="comment">        ("&lt;&gt;\\([</span><span class="comment"><span class="negation-char">^</span></span><span class="comment">&lt;]*\\)&lt;/&gt;" . "\\1")
+</span>        (<span class="string">"&lt;screen&gt;"</span> . <span class="string">"&lt;src lang=\"emacs-lisp\"&gt;"</span>)
+        (<span class="string">"&lt;/screen&gt;"</span> . <span class="string">"&lt;/src&gt;"</span>)
+        (<span class="string">"&amp;lt;"</span> . <span class="string">"&lt;"</span>)                  <span class="comment-delimiter">;</span><span class="comment">
+</span>        (<span class="string">"&amp;gt;"</span> . <span class="string">"&gt;"</span>)
+        (<span class="string">"&amp;amp;"</span> . <span class="string">"&amp;"</span>)
+        (<span class="string">"^\\s *&lt;listitem&gt;"</span> . <span class="string">" - "</span>)
+        (<span class="string">"&amp;nbsp;"</span> . <span class="string">" "</span>)
+        (<span class="string">"&lt;/listitem&gt;"</span> . <span class="string">""</span>)
+        (<span class="string">"&amp;quot;"</span> . <span class="string">"\""</span>)                 
+        <span class="comment-delimiter">;; </span><span class="comment">       ("" . "")
+</span>        <span class="comment-delimiter">;; </span><span class="comment">       ("" . "")
+</span>        (<span class="string">"&amp;PSGML;"</span> . <span class="string">"*PSGML*"</span>)
+        (<span class="string">"&amp;NXML;"</span> . <span class="string">"*nXML*"</span>)
+        (<span class="string">"&amp;RCS;"</span> . <span class="string">"*RCS*"</span>)
+        (<span class="string">"&amp;VSS;"</span> . <span class="string">"*Visual SourceSafe*"</span>)
+        (<span class="string">"&amp;CVS;"</span> . <span class="string">"*CVS*"</span>)
+        (<span class="string">"&amp;MCVS;"</span> . <span class="string">"*MetaCVS*"</span>)
+        (<span class="string">"&amp;SCCS;"</span> . <span class="string">"*SCCS*"</span>)
+        (<span class="string">"&amp;GNUARCH;"</span> . <span class="string">"*GNU Arch*"</span>)
+        (<span class="string">"&amp;BAZAAR;"</span> . <span class="string">"*Bazaar*"</span>)
+        (<span class="string">"&amp;SUBVERSION;"</span> . <span class="string">"*Subversion*"</span>)
+        (<span class="string">"&amp;DARCS;"</span> . <span class="string">"*Darcs*"</span>)
+        (<span class="string">"&amp;CLEARCASE;"</span> . <span class="string">"*ClearCase*"</span>)
+        (<span class="string">"&amp;SOURCESAFE;"</span> . <span class="string">"*SourceSafe*"</span>)
+        (<span class="string">"&amp;BITKEEPER;"</span> . <span class="string">"*BitKeeper*"</span>)
+        (<span class="string">"&amp;AEGIS;"</span> . <span class="string">"*Aegis*"</span>)
+        (<span class="string">"&amp;PERFORCE;"</span> . <span class="string">"*Perforce*"</span>)
+        (<span class="string">"&amp;MONOTONE;"</span> . <span class="string">"*Monotone*"</span>)
+        (<span class="string">"&amp;GIT;"</span> . <span class="string">"*Git*"</span>)
+        (<span class="string">"&amp;DVC;"</span> . <span class="string">"*dvc*"</span>)
+        (<span class="string">"&amp;BAZAARNG;"</span> . <span class="string">"*Bazaar-NG*"</span>)
+        (<span class="string">"&amp;MERCURIAL;"</span> . <span class="string">"*Mercurial*"</span>)
+        (<span class="string">"&amp;MERCURIALEL;"</span> . <span class="string">"*mercurial.el*"</span>)
+        (<span class="string">"&amp;VC;"</span> . <span class="string">"*VC*"</span>)
+        (<span class="string">"&amp;DVC;"</span> . <span class="string">"*DVC*"</span>)
+        (<span class="string">"&amp;P4;"</span> . <span class="string">"*p4*"</span>)
+        (<span class="string">"&amp;BK;"</span> . <span class="string">"*bk*"</span>)
+        (<span class="string">"&amp;CLEARCASEEL;"</span> . <span class="string">"*clearcase*"</span>)
+        (<span class="string">"&amp;PCLCVS;"</span> . <span class="string">"*PCL-CVS*"</span>)
+        (<span class="string">"&amp;XTLA;"</span> . <span class="string">"*xtla*"</span>)
+        (<span class="string">"&amp;DARCSUM;"</span> . <span class="string">"*darcsum*"</span>)
+        (<span class="string">"&amp;PSVN;"</span> . <span class="string">"*PSVN*"</span>)
+        (<span class="string">"&amp;SSEL;"</span> . <span class="string">"*source-safe.el*"</span>)
+        (<span class="string">"&amp;AEGISMODE;"</span> . <span class="string">"*aegis-mode*"</span>)
+        (<span class="string">"&amp;MONOTONEEL;"</span> . <span class="string">"*monotone.el*"</span>)
+        (<span class="string">"&amp;GITEL;"</span> . <span class="string">"*git.el*"</span>)
+        (<span class="string">"&amp;ELGYACH;"</span> . <span class="string">"*ElGyach*"</span>)
+        (<span class="string">"&amp;TNT;"</span> . <span class="string">"*TNT*"</span>)
+        (<span class="string">"&amp;JABBEREL;"</span> . <span class="string">"*Jabber.el*"</span>)
+        (<span class="string">"&amp;ERC;"</span> . <span class="string">"*Erc*"</span>)
+        (<span class="string">"&amp;RCIRC;"</span> . <span class="string">"*Rcirc*"</span>)
+        (<span class="string">"&amp;EDIFF;"</span> . <span class="string">"*Ediff*"</span>)
+        (<span class="string">"&amp;EMERGE;"</span> . <span class="string">"*Emerge*"</span>)
+        (<span class="string">"&amp;GNUS;"</span> . <span class="string">"*Gnus*"</span>)
+        (<span class="string">"&amp;RMAIL;"</span> . <span class="string">"*Rmail*"</span>)
+        (<span class="string">"&amp;MAILCRYPT;"</span> . <span class="string">"*Mailcrypt*"</span>)
+        (<span class="string">"&amp;SUPERCITE;"</span> . <span class="string">"*Supercite*"</span>)
+        (<span class="string">"&amp;AUCTEX;"</span> . <span class="string">"*AUCTeX*"</span>)
+        (<span class="string">"&amp;TEXMODE;"</span> . <span class="string">"*TeX-mode*"</span>)
+        (<span class="string">"&amp;REFTEX;"</span> . <span class="string">"*RefTeX*"</span>)
+        (<span class="string">"&amp;PLATEX;"</span> . <span class="string">"*Preview-LaTeX*"</span>)
+        (<span class="string">"&amp;BIBTEXMODE;"</span> . <span class="string">"*bibtex*"</span>)
+        (<span class="string">"&amp;ITE;"</span> . <span class="string">"*iTe*"</span>)
+        (<span class="string">"&amp;YATEX;"</span> . <span class="string">"*yatex*"</span>)
+        (<span class="string">"&amp;XSYMBOL;"</span> . <span class="string">"*X-Symbol*"</span>)
+        (<span class="string">"&amp;LSYMBOLS;"</span> . <span class="string">"*latex-symbols*"</span>)
+        (<span class="string">"&amp;WHIZZYTEX;"</span> . <span class="string">"*WhizzyTeX*"</span>)
+        (<span class="string">"&amp;TEX;"</span> . <span class="string">"TeX"</span>)
+        (<span class="string">"&amp;LATEX;"</span> . <span class="string">"LaTeX"</span>)
+        ))
+
+(<span class="keyword">defun</span> <span class="function-name">my-muse-replace-text</span> (from to)
+  (<span class="keyword">save-excursion</span>
+    (<span class="keyword">while</span> (re-search-forward from nil t)
+      (<span class="keyword">save-restriction</span>
+        (narrow-to-region (match-beginning 0) (match-end 0))
+        (replace-match to t)))))
+
+(<span class="keyword">defun</span> <span class="function-name">my-muse-convert-docbook</span> ()
+  (interactive)
+  (mapcar (<span class="keyword">lambda</span> (x) (my-muse-replace-text (car x) (cdr x)))
+          my-muse-docbook-replacements))
+
+<span class="comment-delimiter">;; </span><span class="comment">------------------------------------------------------------------------------------------
+</span><span class="comment-delimiter">;; </span><span class="comment">implementation of additional tags
+</span>
+(add-to-list 'muse-publish-markup-tags '(<span class="string">"div"</span> t t t muse-publish-div-tag))
+(<span class="keyword">defalias</span> '<span class="function-name">muse-publish-div-tag</span> 'ignore)
+             
+(<span class="keyword">defun</span> <span class="function-name">muse-html-div-tag</span> (beg end attrs)
+  (<span class="keyword">let</span> ((id (cdr (assoc <span class="string">"id"</span> attrs)))
+        (style (cdr (assoc <span class="string">"style"</span> attrs))))
+    (<span class="keyword">when</span> (or id style)
+      (goto-char beg)
+      (<span class="keyword">if</span> (null id)
+          (muse-insert-markup <span class="string">"&lt;div style=\""</span> style <span class="string">"\"&gt;"</span>)
+        (muse-insert-markup <span class="string">"&lt;div id=\""</span> id <span class="string">"\"&gt;"</span>))
+      (<span class="keyword">save-excursion</span>
+        (goto-char end)
+        (muse-insert-markup <span class="string">"&lt;/div&gt;"</span>)))))
+
+(add-to-list 'muse-html-markup-tags '(<span class="string">"div"</span> t t t muse-html-div-tag))
+
+
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-muse.el ends here
+</span></pre>
+  </body>
+</html>

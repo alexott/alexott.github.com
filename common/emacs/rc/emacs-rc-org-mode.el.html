@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-org-mode.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #00008b;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-org-mode.el --- 
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2004 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+(add-to-list 'load-path <span class="string">"~/emacs/org-mode"</span>)
+(<span class="keyword">require</span> '<span class="constant">org-install</span>)
+(add-to-list 'auto-mode-alist '(<span class="string">"\\.org$"</span> . org-mode))
+(add-to-list 'file-coding-system-alist (cons <span class="string">"\\.org$"</span>  'utf-8))
+
+(define-key global-map <span class="string">"\C-cl"</span> 'org-store-link)
+(define-key global-map <span class="string">"\C-ca"</span> 'org-agenda)
+(add-hook 'org-mode-hook 'turn-on-font-lock)
+
+(custom-set-variables
+ '(org-startup-folded nil)
+ '(org-hide-leading-stars t)
+ '(org-agenda-files (quote (<span class="string">"~/projects/OrgMode/cf.org"</span>
+                            <span class="string">"~/projects/OrgMode/writings.org"</span>
+                            <span class="string">"~/projects/OrgMode/personal.org"</span>
+                            <span class="string">"~/projects/OrgMode/pinacolada.org"</span>)))
+)
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-org-mode.el ends here
+</span></pre>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-tiny-tools.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #00008b;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #666666;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-tiny-tools.el --- Working with tiny tools 
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2003 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Version: $Id: emacs-rc-tiny-tools.el,v 0.0 2003/11/20 07:49:34 ott Exp $
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: http://tiny-tools.sf.net
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+
+(add-to-list 'load-path <span class="string">"/jet/ott/reps/anon/emacs-stuff/tiny-tools/lisp/other"</span>)
+(add-to-list 'load-path <span class="string">"/jet/ott/reps/anon/emacs-stuff/tiny-tools/lisp/tiny"</span>)
+
+<span class="comment-delimiter">;; </span><span class="comment">Customizing tiny-perl
+</span><span class="comment-delimiter">;;</span><span class="comment">(require 'tinyperl)
+</span><span class="comment-delimiter">;;</span><span class="comment">(setq tinyperl-:pod-buffer-control 'many)
+</span><span class="comment-delimiter">;;</span><span class="comment">(setq tinyperl-:key-pageup-control nil)
+</span>
+<span class="comment-delimiter">;;</span><span class="comment">(add-hook 'tinydesk-:load-hook 'tinydesk-default-emacs-keybindings)
+</span><span class="comment-delimiter">;;</span><span class="comment">(require 'tinydesk)
+</span>
+<span class="comment-delimiter">;;</span><span class="comment">(require 'tinydiff)
+</span>(<span class="keyword">require</span> '<span class="constant">tinydired</span>)
+
+<span class="comment-delimiter">;; </span><span class="comment">Emacs lisp stuff
+</span>(<span class="keyword">require</span> '<span class="constant">tinylisp</span>)
+(<span class="keyword">require</span> '<span class="constant">eldoc</span>)
+
+<span class="comment-delimiter">;; </span><span class="comment">Tags
+</span>(setq tinytag-:database-dir <span class="string">"~/emacs/config"</span>)
+(autoload 'tinytag-install    <span class="string">"tinytag"</span> <span class="doc">""</span> t)
+(autoload 'tinytag-main       <span class="string">"tinytag"</span> <span class="doc">""</span> t)
+(autoload 'tinytag-main-mouse <span class="string">"tinytag"</span> <span class="doc">""</span> t)
+(add-hook 'c++-mode-hook      'tinytag-install)
+(add-hook 'c-mode-hook        'tinytag-install)
+(add-hook 'java-mode-hook     'tinytag-install)
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-tiny-tools.el ends here
+</span></pre>
+  </body>
+</html>

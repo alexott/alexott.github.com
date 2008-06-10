@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-scheme.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #00008b;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #666666;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+      .warning {
+        /* font-lock-warning-face */
+        color: #ff0000;
+        font-weight: bold;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-scheme.el --- 
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2003 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+(autoload 'run-scheme <span class="string">"cmuscheme"</span> <span class="doc">"Run an inferior Scheme"</span> t)
+(setq scheme-program-name <span class="string">"mzscheme"</span>)
+
+(<span class="keyword">require</span> '<span class="constant">quack</span>)
+(setq quack-remap-find-file-bindings-p nil)
+
+(<span class="keyword">defun</span> <span class="function-name">insert-balanced-comments</span> (arg)
+  <span class="doc">"Insert a set of balanced comments around the s-expression 
+containing the point.  If this command is invoked repeatedly
+</span><span class="doc"><span class="warning">(</span></span><span class="doc">without any other command occurring between invocations), the 
+comment progressively moves outward over enclosing expressions."</span>
+  (interactive <span class="string">"*p"</span>)
+  (<span class="keyword">save-excursion</span>
+    (<span class="keyword">when</span> (eq last-command this-command)
+      (<span class="keyword">when</span> (search-backward <span class="string">"#|"</span> nil t)
+        (<span class="keyword">save-excursion</span>
+          (delete-char 2)
+          (<span class="keyword">while</span> (and (&lt; (point) (point-max)) (not (looking-at <span class="string">" *|#"</span>)))
+            (forward-sexp))
+          (replace-match <span class="string">""</span>))))
+    (<span class="keyword">while</span> (&gt; arg 0)
+      (backward-char 1)
+      (<span class="keyword">cond</span> ((looking-at <span class="string">")"</span>) (incf arg))
+            ((looking-at <span class="string">"("</span>) (decf arg))))
+    (insert <span class="string">"#|"</span>)
+    (forward-sexp)
+    (insert <span class="string">"|#"</span>)))
+
+(<span class="keyword">defun</span> <span class="function-name">remove-balanced-comments</span> ()
+  <span class="doc">"Remove a set of balanced comments enclosing point."</span>
+  (interactive <span class="string">"*"</span>)
+  (<span class="keyword">save-excursion</span>
+    (<span class="keyword">when</span> (search-backward <span class="string">"#|"</span> nil t)
+      (delete-char 2)
+      (<span class="keyword">while</span> (and (&lt; (point) (point-max)) (not (looking-at <span class="string">" *|#"</span>)))
+  (forward-sexp))
+      (replace-match <span class="string">""</span>))))
+
+(add-hook 'inferior-scheme-mode-hook
+          '(<span class="keyword">lambda</span> ()
+             (split-window)))
+
+(<span class="keyword">defun</span> <span class="function-name">r5rs-call</span> ()
+  <span class="doc">"Calls r5rs info for current symbol"</span>
+  (interactive)
+  (<span class="keyword">ignore-errors</span>
+    (<span class="keyword">let</span> ((symbol (thing-at-point 'symbol)))
+      (info <span class="string">"(r5rs)"</span>)
+      (Info-index symbol))))
+
+(<span class="keyword">defun</span> <span class="function-name">my-scheme-mode-hook</span> ()
+  <span class="doc">"My customization of Scheme Mode"</span>
+  (local-set-key [return] 'newline-and-indent)
+  (define-key scheme-mode-map [(control c) (\;)] 'insert-balanced-comments)
+  (define-key scheme-mode-map [(control c) (:)] 'remove-balanced-comments)
+  (local-set-key <span class="string">"\C-c\C-c"</span> 'comment-region)
+  (define-key scheme-mode-map [f1] 'r5rs-call)
+)
+
+(add-hook 'scheme-mode-hook 'my-scheme-mode-hook)
+
+(add-to-list 'auto-mode-alist '(<span class="string">"\\.dsl$"</span> . scheme-mode))
+(add-to-list 'auto-mode-alist '(<span class="string">"\\.scm$"</span> . scheme-mode))
+
+<span class="comment-delimiter">;; </span><span class="comment">customize gca
+</span>(<span class="keyword">require</span> '<span class="constant">gca</span>)
+
+<span class="comment-delimiter">;; </span><span class="comment">C-c C-u: insert `(use module)' expression.
+</span>(define-key scheme-mode-map <span class="string">"\C-c\C-u"</span> 'gca-insert-use)
+
+(<span class="keyword">let</span> ((m (make-sparse-keymap)))
+  <span class="comment-delimiter">;; </span><span class="comment">C-c C-d h: search docs for a symbol at point.
+</span>  (define-key m <span class="string">"h"</span> 'gca-show-info)
+  <span class="comment-delimiter">;; </span><span class="comment">C-c C-d i: toggle `</span><span class="comment"><span class="constant">auto-info-mode</span></span><span class="comment">'.
+</span>  (define-key m <span class="string">"i"</span> 'auto-info-mode)
+  (define-key scheme-mode-map <span class="string">"\C-c\C-d"</span> m))
+
+<span class="comment-delimiter">;; </span><span class="comment">C-c C-,: show next result, if multiple candidates found after
+</span><span class="comment-delimiter">;;          </span><span class="comment">searching.
+</span>(define-key scheme-mode-map [(control c) (control ,)] 'gca-info-next)
+
+<span class="comment-delimiter">;; </span><span class="comment">C-.: complete a symbol showing candidates in other buffer.
+</span>(define-key scheme-mode-map [(control .)] 'gca-completion-current-word)
+
+<span class="comment-delimiter">;; </span><span class="comment">C-c C-.: insert code snippets from a template file
+</span><span class="comment-delimiter">;;          </span><span class="comment">(I haven't fully understood this feature yet, though)
+</span>(define-key scheme-mode-map [(control c) (control .)] 'gca-insert-template)
+(define-key c-mode-map [(control c) (control .)] 'gca-insert-template)
+
+<span class="comment-delimiter">;; </span><span class="comment">C-c C-t: insert a test case like `(test* "test name" expected input)'
+</span><span class="comment-delimiter">;;          </span><span class="comment">from the results in run-scheme buffer.
+</span>(define-key scheme-mode-map <span class="string">"\C-c\C-t"</span> 'gca-make-test)
+
+<span class="comment-delimiter">;; </span><span class="comment">C-c C-h: show history of run-scheme buffer.
+</span>(define-key scheme-mode-map <span class="string">"\C-c\C-h"</span> 'gca-show-history)
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-scheme.el ends here
+</span></pre>
+  </body>
+</html>

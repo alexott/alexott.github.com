@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-dict.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #666666;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-dict.el --- 
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2003 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+(add-to-list 'load-path <span class="string">"~/emacs/dict/"</span>)
+(autoload 'dictionary-search <span class="string">"dictionary"</span>
+  <span class="doc">"Ask for a word and search it in all dictionaries"</span> t)
+(autoload 'dictionary-match-words <span class="string">"dictionary"</span>
+  <span class="doc">"Ask for a word and search all matching words in the dictionaries"</span> t)
+(autoload 'dictionary-lookup-definition <span class="string">"dictionary"</span>
+  <span class="doc">"Unconditionally lookup the word at point."</span> t)
+(autoload 'dictionary <span class="string">"dictionary"</span>
+  <span class="doc">"Create a new dictionary buffer"</span> t)
+(autoload 'dictionary-mouse-popup-matching-words <span class="string">"dictionary"</span>
+  <span class="doc">"Display entries matching the word at the cursor"</span> t)
+(autoload 'dictionary-popup-matching-words <span class="string">"dictionary"</span>
+  <span class="doc">"Display entries matching the word at the point"</span> t)
+(autoload 'dictionary-tooltip-mode <span class="string">"dictionary"</span>
+  <span class="doc">"Display tooltips for the current word"</span> t)
+(autoload 'global-dictionary-tooltip-mode <span class="string">"dictionary"</span>
+  <span class="doc">"Enable/disable dictionary-tooltip-mode for all buffers"</span> t)
+
+<span class="comment-delimiter">;; </span><span class="comment">Key binding to invoke the dictionary client
+</span>(global-set-key <span class="string">"\C-cs"</span> 'dictionary-search)
+(global-set-key <span class="string">"\C-cm"</span> 'dictionary-match-words)
+<span class="comment-delimiter">;; </span><span class="comment">Popup menu for GNU Emacs 21, and XEmacs 21
+</span>(global-set-key [mouse-3] 'dictionary-mouse-popup-matching-words)
+
+<span class="comment-delimiter">;; </span><span class="comment">Tool-tip support for GNU Emacs 21
+</span>(setq dictionary-tooltip-dictionary <span class="string">"mueller7"</span>)
+(global-dictionary-tooltip-mode 0)
+    
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-dict.el ends here
+</span></pre>
+  </body>
+</html>

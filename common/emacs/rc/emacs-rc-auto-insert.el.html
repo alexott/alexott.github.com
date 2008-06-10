@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in css mode. -->
+<html>
+  <head>
+    <title>emacs-rc-auto-insert.el</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ebebeb;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #666666;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #666666;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #666666;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #008b00;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-auto-insert.el --- 
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2008 Alex Ott
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+</span><span class="comment-delimiter">;; </span><span class="comment">Version: $Id: emacs-rc-auto-insert.el,v 0.0 2008/03/10 14:12:35 ott Exp $
+</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
+</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+</span>
+<span class="comment-delimiter">;; </span><span class="comment">auto-insert stuff
+</span>(add-hook 'find-file-hooks 'auto-insert)
+(setq auto-insert-directory (concat (getenv <span class="string">"HOME"</span>) <span class="string">"/emacs/auto-insert/"</span>))
+(setq auto-insert 'other)
+(setq auto-insert-query nil)
+
+(setq auto-insert-alist '((<span class="string">"\\.muse$"</span> . [<span class="string">"insert.muse"</span>])
+                          (<span class="string">"\\.sh$"</span> . [<span class="string">"insert.sh"</span> auto-update-defaults])
+                          (<span class="string">"\\.lisp$"</span> . [<span class="string">"insert.lisp"</span> auto-update-defaults])
+                          (<span class="string">"\\.el$"</span> . [<span class="string">"insert.el"</span> auto-update-defaults])
+                          ))
+(add-to-list 'auto-insert-alist '(<span class="string">".*/projects/.*\\.cpp$"</span> . [<span class="string">"insert-home.cpp"</span> auto-update-c-source-file]))
+(add-to-list 'auto-insert-alist '(<span class="string">".*/projects/.*\\.h$"</span>   . [<span class="string">"insert-home.h"</span> auto-update-header-file]))
+(add-to-list 'auto-insert-alist '(<span class="string">".*/projects/.*\\.hpp$"</span>   . [<span class="string">"insert-home.h"</span> auto-update-header-file]))
+(add-to-list 'auto-insert-alist '(<span class="string">".*/projects/.*\\.c$"</span> . [<span class="string">"insert-home.cpp"</span> auto-update-c-source-file]))
+
+(<span class="keyword">defun</span> <span class="function-name">auto-replace-header-name</span> ()
+  (<span class="keyword">save-excursion</span>
+    (<span class="keyword">while</span> (search-forward <span class="string">"###"</span> nil t)
+      (<span class="keyword">save-restriction</span>
+        (narrow-to-region (match-beginning 0) (match-end 0))
+        (replace-match (upcase (file-name-nondirectory buffer-file-name)))
+        (subst-char-in-region (point-min) (point-max) ?. ?_)
+        (subst-char-in-region (point-min) (point-max) ?- ?_)
+        ))
+    )
+  )
+
+(<span class="keyword">defun</span> <span class="function-name">auto-replace-file-name</span> ()
+  (<span class="keyword">save-excursion</span>
+    <span class="comment-delimiter">;; </span><span class="comment">Replace @@@ with file name
+</span>    (<span class="keyword">while</span> (search-forward <span class="string">"(&gt;&gt;FILE&lt;&lt;)"</span> nil t)
+      (<span class="keyword">save-restriction</span>
+        (narrow-to-region (match-beginning 0) (match-end 0))
+        (replace-match (file-name-nondirectory buffer-file-name) t)
+        ))
+    )
+  )
+
+(<span class="keyword">defun</span> <span class="function-name">insert-today</span> ()
+  <span class="doc">"Insert today's date into buffer"</span>
+  (interactive)
+  (insert (format-time-string <span class="string">"%A, %B %e %Y"</span> (current-time))))
+
+(<span class="keyword">defun</span> <span class="function-name">auto-replace-date-time</span> ()
+  (<span class="keyword">save-excursion</span>
+    <span class="comment-delimiter">;; </span><span class="comment">replace DDDD with today's date
+</span>    (<span class="keyword">while</span> (search-forward <span class="string">"(&gt;&gt;DATE&lt;&lt;)"</span> nil t)
+      (<span class="keyword">save-restriction</span>
+        (narrow-to-region (match-beginning 0) (match-end 0))
+        (replace-match <span class="string">""</span> t)
+        (insert-today)
+        ))))
+
+(<span class="keyword">defun</span> <span class="function-name">auto-update-header-file</span> ()
+  (auto-replace-header-name)
+  (auto-replace-file-name)
+  )
+
+(<span class="keyword">defun</span> <span class="function-name">auto-update-c-source-file</span> ()
+  (<span class="keyword">save-excursion</span>
+    <span class="comment-delimiter">;; </span><span class="comment">Replace HHHH with file name sans suffix
+</span>    (<span class="keyword">while</span> (search-forward <span class="string">"HHHH"</span> nil t)
+      (<span class="keyword">save-restriction</span>
+        (narrow-to-region (match-beginning 0) (match-end 0))
+        (replace-match (concat (file-name-sans-extension (file-name-nondirectory buffer-file-name)) <span class="string">".h"</span>) t))))
+  (auto-replace-file-name)
+  (auto-replace-date-time))
+
+(<span class="keyword">defun</span> <span class="function-name">auto-update-defaults</span> ()
+  (auto-replace-file-name)
+  (auto-replace-date-time)
+  )
+
+<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-auto-insert.el ends here
+</span></pre>
+  </body>
+</html>
