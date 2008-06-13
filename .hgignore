@@ -166,3 +166,5 @@ syntax: regexp
 ^ru/writings/altlinux-emacs/index\.html$
 ^ru/writings/cf/index\.html$
 ^en/writings/cf/index\.html$
+^ru/writings/emacs-devenv/EmacsScheme\.html$
+^ru/writings/emacs-devenv/index\.html$
