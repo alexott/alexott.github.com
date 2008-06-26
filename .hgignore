@@ -168,3 +168,4 @@ syntax: regexp
 ^en/writings/cf/index\.html$
 ^ru/writings/emacs-devenv/EmacsScheme\.html$
 ^ru/writings/emacs-devenv/index\.html$
+^ru/cpp/BoostAsioProxy\.html$
