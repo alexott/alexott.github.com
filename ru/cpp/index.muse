@@ -33,4 +33,5 @@ regex, и заканчивая bind, lambda, fusion, spirit, asio и др.
 сопуствующим вопросам:
 
  - [[./BoostAsioNotes][Что такое Boost.Asio и зачем он нужен]]
+ - [[./BoostAsioProxy][Как написать простой HTTP прокси используя Boost.Asio]]
  - [[../writings/prog-checking][Статья про поиск ошибок работы с памятью]]
