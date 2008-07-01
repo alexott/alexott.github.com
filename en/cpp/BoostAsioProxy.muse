@@ -1,0 +1,114 @@
+#title How to write simple HTTP proxy with Boost.Asio
+#keywords boost, asio, boost.asio, http, proxy
+
+In this article I describe process of writing of simple cross-platform HTTP proxy.
+
+* What we need 
+
+To develop this example ([[../../common/asio-proxy-async/asio-proxy-async.tar.gz][here you can find source codes in archive]]) the Boost version 1.35
+was used.  To build example, you can use [[http://www.cmake.org][cmake]] (but you can also build sources manually).
+To configure and build you need to run following commands (on Unix-like OSes)[1]:
+
+<src lang="sh">
+> cmake .
+> make
+</src>
+
+and after compilation you'll get =proxy-asio-async= executable, that you can run from
+command line.  This program accepts only one argument -- number of threads, that will
+perform request processing (by default, this value is equal 2).  Port number on which
+requests will accepted is hardcoded in source code and equal to =10001=[2].
+
+* Architecture
+
+As in [[./BoostAsioNotes][previous examples]], our program consists from three parts:
+ - the =main= function, that parse command line, creates separate threads for *asio* services,
+   and =server= object, and then enters to request processing loop;
+ - =server= class, that accepts requests, and creates =connection= object, that implement all
+   logic of connection processing;
+ - =connection= class, that implement all logic, and pass data between client & web-server.
+
+The data processing is performed in asynchronous mode, and to distribute load between
+processors, we can use several independent *asio* services, that perform dispatching of
+calls (=asio::io_service=).
+
+*Note*: Most hard part of the development of asynchronous code is proper designing of data
+flow.  I'm usually draw a *state diagram* and then transform each state to separate
+procedure.  Existence of such diagram is very helpful for understanding of code by other
+developers.
+
+* Implementation
+
+The =main= function is pretty simple, so we'll not analyze it -- you can just look to its
+[[../../common/asio-proxy-async/proxy.cpp.html][source code]] and understand, what it does (all common definitions are in file [[../../common/asio-proxy-async/common.h.html][common.h]]).
+
+Implementation of server (the =server= class -- [[../../common/asio-proxy-async/proxy-server.hpp.html][proxy-server.hpp]] & [[../../common/asio-proxy-async/proxy-server.cpp.html][proxy-server.cpp]]) also
+not so much differ from previous examples -- changes was made only for way, that is used
+to select service, that will implement dispatching.  In our example new service is
+selected from circular list of services, that allow us to get some load balancing for
+requests.
+
+All data processing logic is implemented in =connection= class ([[../../common/asio-proxy-async/proxy-conn.hpp.html][proxy-conn.hpp]] &
+[[../../common/asio-proxy-async/proxy-conn.cpp.html][proxy-conn.cpp]]).  I want to say, that parsing of headers was done without any
+optimisation[3].
+
+Data processing is started from call to =start= function from =server= class, that accepts
+connection and creates new object of =connection= class.  This function initiates
+asynchronous reading of request headers from browser.
+
+Reading of request headers is performed in the =handle_browser_read_headers= function, that
+called when we get some part of data from browser.  I need to mention, that if we get not
+all headers (there is no empty string (=\r\n\r\n=)), then this function initiates new
+reading of headers, trying to get them all.
+
+After we get all headers, this function parse them and extract version of HTTP protocol,
+used method and address of web-server (some of these data will required to detect
+persistent connections).
+
+After headers parsing, this function calls =start_connect=, that parse address of
+web-server, and if we doesn't have opened connection to this server, then it initiates
+process of name resolution.  If we have opened connection, then we simply start data
+transfer with =start_write_to_server= function.
+
+The =handle_resolve= function is called after name resolution, and if we get address of
+server, then it initiates process of connection establishing.  Result of this process is
+handled by =handle_connect= function, that initiates process of data transfer to the server
+with =start_write_to_server= function, that forms correct headers, and pass these data to
+the server.
+
+After transferring data to server, in function =handle_server_write= we initiate reading of
+response (only headers first) from server.  Processing of headers is handled by
+=handle_server_read_headers= function, that similar to the =handle_browser_read_headers=, but
+also tries to understand -- should we close connection after data transfer or not.  After
+processing of headers, this function initiates process of sending data to browser.
+
+After sending of headers, we create a loop, that transfer body of response from server to
+browser.  In this loop we use two functions -- =handle_server_read_body= and
+=handle_browser_write=, each of them calls another function until we doesn't finish reading
+of data from server (either number of bytes, specified in headers) or doesn't get end of
+file.
+
+If we'll get end of file, then we pass rest of data to the browser and close connection,
+or if we use persistent connection, then we pass control to the  =start= function, that
+initiates reading of new headers from browser.
+
+That's all.  As I already mention above, main problem -- building of right data flow
+sequence.
+
+;  LocalWords:  lang asio http src cmake LocalWords
+
+Footnotes: 
+[1] If *cmake* can't find required libraries, you can specify their location with two
+    *cmake's* variables -- =CMAKE_INCLUDE_PATH= и =CMAKE_LIBRARY_PATH=, by running *cmake*
+    following way:
+
+<src lang="sh">
+> cmake . -DCMAKE_INCLUDE_PATH=~/exp/include -DCMAKE_LIBRARY_PATH=~/exp/lib
+</src>
+
+[2] I could also implement code, that allow to specify port number in command line, but I
+    was lazy, as this example was just a prototype to check some of my ideas.
+
+[3] There is also [[http://sourceforge.net/projects/cpp-netlib][cpp-netlib]] project, that has (development in progress) parsers for basic
+    protocols -- HTTP, SMTP и т.п.
+

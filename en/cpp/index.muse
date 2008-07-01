@@ -30,4 +30,6 @@ tips & tricks, etc.
 Beside this i also write articles dedicated to C & C++ programming, and auxiliary topics:
 
  - [[./BoostAsioNotes][What is Boost.Asio, and why we should use it]]
-; - [[../writings/prog-checking][Статья про поиск ошибок работы с памятью]]
+ - [[./BoostAsioProxy][How to write simple HTTP proxy with Boost.Asio]]
+ - [[../writings/prog-checking][Article about finding errors of work with memory]] -- memory leaks, access behind memory
+   boundaries, etc.
