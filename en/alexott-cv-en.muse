@@ -10,6 +10,13 @@
  - **Citizenship**: German, Russian
  - **Date of Birth**: 04 Jun 1974
 
+* Summary 
+ - Serious experience in products development for Data Leakage Prevention & Content
+   Filtering 
+ - Leader of software development projects (commercial & open-source)
+ - Software architect and developer using many different programming languages
+ - Business vision of problems and requirements
+
 * Work Experience
 
  - **Senior Developer** at *Secure Computing Corp.*<br>
