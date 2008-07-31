@@ -171,3 +171,5 @@ syntax: regexp
 ^ru/cpp/BoostAsioProxy\.html$
 ^en/cpp/BoostAsioProxy\.html$
 ^ru/writings/emacs-devenv/EmacsSLIME\.html$
+^ru/erlang/index\.html$
+^ru/erlang/ErlangHTTP\.html$

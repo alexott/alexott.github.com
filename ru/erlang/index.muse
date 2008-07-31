@@ -1,0 +1,26 @@
+#title Про Erlang
+#keywords erlang, эрланг, программирование, статьи
+
+Я давно знаком с Erlang'ом (где-то лет 5 наверное), но серьезно заниматься им стал только
+в последнее время.
+
+* Небольшие заметки про Erlang
+
+будут опубликованы в ближайшее время
+
+* Рекомендуемая литература 
+
+ - Самой популярной и доступной книгой про Erlang в настоящее время считается книга Joe
+   Armstrong [[http://www.pragprog.com/titles/jaerlang/programming-erlang][Programming Erlang: Software for a Concurrent World]].
+ - Также интересной является статья Joe Armstrong [[http://www.cs.chalmers.se/Cs/Grundutb/Kurser/ppxt/HT2007/general/languages/armstrong-erlang_history.pdf][History of Erlang]], которая описывает
+   историю создания языка, и требования, которые повлияли на его дизайн.
+
+* Ссылки
+
+ - [[http://erlang.org/][erlang.org]] -- основной сайт Erlang.  На нем можно найти дистрибутивы языка, необходимую
+   документацию, различные расширения не входящие в стандартную библиотеку и т.д.
+ - [[http://trapexit.org/][Trapexit]] -- сервер сообщества разработчиков использующих Erlang.  Содержит много
+   материалов -- документацию, готовые рецепты и т.п.  Также является аггрегатором блогов
+   разработчиков, использующих Erlang.
+
+;  LocalWords:  Erlang
