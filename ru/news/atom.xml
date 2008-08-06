@@ -4,7 +4,7 @@
 
   <title type="text">Alex Ott's Page. Новости сайта</title>
   <subtitle type="text">Новости</subtitle>
-  <updated>2008-08-04T16:10:52+02:00</updated>
+  <updated>2008-08-06T15:27:18+02:00</updated>
   <id>http://xtalk.msk.su/~ott/ru/news/</id>
   <link rel="alternate" type="text/html" hreflang="ru" href="http://xtalk.msk.su/~ott/ru/news/" />
   <link rel="self" type="application/atom+xml" href="http://xtalk.msk.su/~ott/ru/news/atom.xml" />
@@ -18,7 +18,7 @@
   <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/---Erlang.html"/>
   <id>http://xtalk.msk.su/~ott/ru/news/---Erlang.html</id>
   <updated>2008-08-04T00:00:00+02:00</updated>
-  <published>2008-08-04T16:10:52+02:00</published>
+  <published>2008-08-06T15:27:18+02:00</published>
   <author>
     <name>Alex Ott</name>
     <uri>http://xtalk.msk.su/~ott/ru/</uri>
@@ -28,7 +28,7 @@
     <div xmlns="http://www.w3.org/1999/xhtml">
 
 <p>
-Добавил на сайт [[../erlang/][раздел про программирование на Erlang]].  В этом разделе будут публиковаться
+Добавил на сайт <a href=":../erlang/">раздел про программирование на Erlang</a>.  В этом разделе будут публиковаться
 различные записки, связанные с программированием на Erlang 
 </p>
     </div>
@@ -41,7 +41,7 @@
   <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/---Emacs---Scheme.html"/>
   <id>http://xtalk.msk.su/~ott/ru/news/---Emacs---Scheme.html</id>
   <updated>2008-08-04T00:00:00+02:00</updated>
-  <published>2008-08-04T16:10:52+02:00</published>
+  <published>2008-08-06T15:27:18+02:00</published>
   <author>
     <name>Alex Ott</name>
     <uri>http://xtalk.msk.su/~ott/ru/</uri>
@@ -51,7 +51,7 @@
     <div xmlns="http://www.w3.org/1999/xhtml">
 
 <p>
-Выложено обновление для [[../writings/emacs-devenv/][статьи про использование Emacs для работы с языком Scheme]] --
+Выложено обновление для <a href=":../writings/emacs-devenv/">статьи про использование Emacs для работы с языком Scheme</a> --
 добавлено краткое описание настройки пакета SLIME для работы со Scheme.
 </p>
     </div>
@@ -64,7 +64,7 @@
   <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/------blorg.html"/>
   <id>http://xtalk.msk.su/~ott/ru/news/------blorg.html</id>
   <updated>2008-08-04T00:00:00+02:00</updated>
-  <published>2008-08-04T16:10:52+02:00</published>
+  <published>2008-08-06T15:27:18+02:00</published>
   <author>
     <name>Alex Ott</name>
     <uri>http://xtalk.msk.su/~ott/ru/</uri>
@@ -74,12 +74,35 @@
     <div xmlns="http://www.w3.org/1999/xhtml">
 
 <p>
-С помощью [[http://lumiere.ens.fr/~guerry/u/blorg.html][blorg]] прикрутил к сайту публикацию ленты новостей из файлов org-mode.  Так что
+С помощью <a href="http://lumiere.ens.fr/~guerry/u/blorg.html">blorg</a> прикрутил к сайту публикацию ленты новостей из файлов org-mode.  Так что
 можете подписаться и получать новости об обновлениях статей и т.п.  Ссылки на
 соответствующие ленты находятся на каждой странице сайта.
 </p>
 
 <a class="read-more" href="------blorghtml.html">Read more</a>
+    </div>
+  </summary>
+</entry>
+
+
+<entry>
+  <title>Драфт статьи про Emacs + Erlang</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/---Emacs---Erlang.html"/>
+  <id>http://xtalk.msk.su/~ott/ru/news/---Emacs---Erlang.html</id>
+  <updated>2008-08-06T00:00:00+02:00</updated>
+  <published>2008-08-06T15:27:18+02:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/ru/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="ru" xml:base="http://xtalk.msk.su/~ott/ru/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+выложил на сайт драфт <a href=":../writings/emacs-devenv/EmacsErlang.html">статьи про работу с Erlang в Emacs</a>.  В следующей вресии будет
+добавлено описание erlware-mode и distel.
+</p>
     </div>
   </summary>
 </entry>

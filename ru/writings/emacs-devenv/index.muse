@@ -1,5 +1,5 @@
 #title Emacs как рабочее место разработчика ПО
-#keywords Emacs, среда разработки, development environment, ide, C++, Java, Lisp, Scheme, GNU Emacs
+#keywords Emacs, среда разработки, development environment, ide, C++, Java, Lisp, Scheme, GNU Emacs, erlang, haskell, ocaml
 
 ***Это альфа версия статьи про использование Emacs для разработи ПО.  Статья будет
 дополняться по мере написания, но вы уже сейчас можете присылать свои замечания и
@@ -8,3 +8,4 @@
 *  Поддержка конкретных языков
 
  - [[EmacsScheme][Поддержка Scheme]]
+ - [[./EmacsErlang][Работа с Erlang]]
