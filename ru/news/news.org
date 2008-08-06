@@ -9,17 +9,11 @@
 #+KEYWORDS:    alex ott blog news articles emacs новости статьи емакс программирование
 #+HTML_CSS:    web.css
 
-* DONE Добавил раздел про Erlang                                   :site:erlang:
-  CLOSED: [2008-08-04 Mon 10:41]
+* DONE Драфт статьи про Emacs + Erlang                            :emacs:erlang:
+  CLOSED: [2008-08-06 Wed 15:27]
 
-Добавил на сайт [[../erlang/][раздел про программирование на Erlang]].  В этом разделе будут публиковаться
-различные записки, связанные с программированием на Erlang 
-
-* DONE Обновление статьи про Emacs + Scheme               :article:emacs:scheme:
-  CLOSED: [2008-08-04 Mon 12:20]
-
-Выложено обновление для [[../writings/emacs-devenv/][статьи про использование Emacs для работы с языком Scheme]] --
-добавлено краткое описание настройки пакета SLIME для работы со Scheme.
+выложил на сайт драфт [[../writings/emacs-devenv/EmacsErlang.html][статьи про работу с Erlang в Emacs]].  В следующей вресии будет
+добавлено описание erlware-mode и distel.
 
 * DONE Прикрутил к сайту ленту новостей через blorg                 :site:emacs:
   CLOSED: [2008-08-04 Mon 12:32]
@@ -35,8 +29,15 @@
 неправильно генерируются имена файлов при использовании только русского текста в
 заголовках.  Так что все это будет пофиксено после разбора со связкой blorg/org-mode.
 
-* DONE Драфт статьи про Emacs + Erlang                            :emacs:erlang:
-  CLOSED: [2008-08-06 Wed 15:27]
+* DONE Обновление статьи про Emacs + Scheme               :article:emacs:scheme:
+  CLOSED: [2008-08-04 Mon 12:20]
 
-выложил на сайт драфт [[../writings/emacs-devenv/EmacsErlang.html][статьи про работу с Erlang в Emacs]].  В следующей вресии будет
-добавлено описание erlware-mode и distel.
+Выложено обновление для [[../writings/emacs-devenv/][статьи про использование Emacs для работы с языком Scheme]] --
+добавлено краткое описание настройки пакета SLIME для работы со Scheme.
+
+* DONE Добавил раздел про Erlang                                   :site:erlang:
+  CLOSED: [2008-08-04 Mon 10:41]
+
+Добавил на сайт [[../erlang/][раздел про программирование на Erlang]].  В этом разделе будут публиковаться
+различные записки, связанные с программированием на Erlang 
+
