@@ -257,6 +257,10 @@ ul.avmenu ul ul a {
     line-height:1.3em;
 }
 
+.muse-table {
+font: 100% Verdana,Tahoma,Arial,sans-serif; 
+}
+
 #content h2,#contentwide h2, #contentwide2 h2 {
     font-size:1.4em;
     margin:4px 0 10px;

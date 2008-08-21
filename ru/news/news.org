@@ -9,6 +9,12 @@
 #+KEYWORDS:    alex ott blog news articles emacs новости статьи емакс программирование
 #+HTML_CSS:    web.css
 
+* DONE Вторая бета статьи про Emacs + Erlang                      :emacs:erlang:
+  CLOSED: [2008-08-21 Thu 15:09]
+
+Обновил статью про использование Emacs для работы с Erlang.  Добавились описания distel &
+erlware-mode... 
+
 * DONE Драфт статьи про Emacs + Erlang                            :emacs:erlang:
   CLOSED: [2008-08-06 Wed 15:27]
 
