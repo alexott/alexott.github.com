@@ -9,6 +9,12 @@
 #+KEYWORDS:    alex ott blog news articles emacs новости статьи емакс программирование
 #+HTML_CSS:    web.css
 
+* DONE Окончательная версия статьи про Emacs + Erlang             :emacs:erlang:
+  CLOSED: [2008-08-25 Mon 13:09]
+
+Закончил статью про [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsErlang.html][использование Emacs для разработки на языке Erlang]].  Замечания и
+предложения приветствуются
+
 * DONE Вторая бета статьи про Emacs + Erlang                      :emacs:erlang:
   CLOSED: [2008-08-21 Thu 15:09]
 
@@ -18,7 +24,7 @@ erlware-mode...
 * DONE Драфт статьи про Emacs + Erlang                            :emacs:erlang:
   CLOSED: [2008-08-06 Wed 15:27]
 
-выложил на сайт драфт [[../writings/emacs-devenv/EmacsErlang.html][статьи про работу с Erlang в Emacs]].  В следующей вресии будет
+выложил на сайт драфт [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsErlang.html][статьи про работу с Erlang в Emacs]]. В следующей вресии будет
 добавлено описание erlware-mode и distel.
 
 * DONE Прикрутил к сайту ленту новостей через blorg                 :site:emacs:
