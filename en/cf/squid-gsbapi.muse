@@ -10,11 +10,11 @@ This software is available in source form from [[../../common/cf/squid-gsb-0.1.t
 
 * How to build
 
-To build you need to obtain development snapshot of [[http://asio.sf.net][http://asio.sf.net]].  To compile
-project from scratch you need to run =bootstrap.sh= script and then run =configure= to
-configure package.  If Boost is installed in non-standard place, you could use
-=--with-boost-includes= & =--with-boost-libs= options to specify where located include files
-and libs for Boost.
+To build *squid-gsb* you need to have boost c++ libraries version 1.35 or higher (boost is
+available from http://www.boost.org).  To compile project from scratch you need to run
+=bootstrap.sh= script and then run =configure= to configure package.  If Boost is installed in
+non-standard place, you could use =--with-boost-includes= & =--with-boost-libs= options to
+specify where located include files and libs for Boost.
 
 It was successfully tested on Linux with kernel 2.6 (Ubuntu) and Mac OS X Tiger (10.4) on
 iMac.  Theoretically it should be compilable also on MS Windows, but i hadn't tried yet.
