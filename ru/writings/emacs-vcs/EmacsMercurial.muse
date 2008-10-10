@@ -106,49 +106,224 @@
 пользователь может определить =hg-mode-hook=, который будет выполнен в процессе включения
 =hg-mode= для данного буфера.
 
-* aHg
+* Пакет aHg
 
-http://wxglade.sf.net/extra/ahg.html
+Пакет [[http://disi.unitn.it/~griggio/ahg.html][aHg]], написанный Alberto Griggio, реализует простой, но достаточно мощный интерфейс
+для работы с Mercurial из Emacs.  Пакет реализует поддержку не только основных команд,
+используемых при работе с Mercurial (=commit=, =diff=, =log=, =status= и т.д.), но и работу с
+очередями.  Кроме того, пользователь может выполнить произвольную команду Mercurial из
+Emacs.
 
-** Download
+** Установка и настройка
 
-An hg repository can be found at http://freehg.org/u/agriggio/ahg
+Установка пакета проста -- необходимо скачать исходный текст (достаточно одного файла
+=ahg.el= из [[http://freehg.org/u/agriggio/ahg][репозитория]]), поместить указанный файл в каталог, где его найдет Emacs, и
+добавить в файл инициализации строку
+
+<src lang="emacs-lisp">
+(require 'ahg)
+</src>
+
+которая выполнит загрузку пакета при запуске Emacs.
+
+Настройка пакета производится с помощью стандартных средств Emacs (команда
+=customize-group=).  Группа настройки называется =ahg=.  Пользователь может выполнить
+настройку начертаний, используемых пакетом, задать различные опции, влияющие на выполнение
+команд, а также изменить глобальное префиксное сочетание клавиш, используемое для вызова
+команд *ahg* (по умолчанию это =C-c h g=). Однако стоит отметить, что значения по умолчанию
+достаточно разумны, и в первое время пользователю не потребуется что-то менять.
 
 
-** Installation
+** Использование пакета
 
-Put ``ahg.el`` in a directory where Emacs can find it (e.g. in
-``/usr/share/emacs/site-lisp``). Alternatively, you can explicitly add the
-directory of ``ahg.el`` to Emacs' ``load-path``, by adding this to your
-``.emacs`` file::
+Выполнение команд пакета может производиться различными способами -- используя привязки
+клавиш, прямое выполнение команд через =M-x команда=, а также через подменю =aHg= основного
+меню =Tools=, которое содержит основные команды, необходимые пользователю.  Многие команды
+создают отдельные буфера, в которых действуют специальные основные режимы, а также имеющие
+отдельные меню для выполнения основных действий.
 
-  (setq load-path (cons "/dir/of/ahg/" load-path))
+Также как и во многих других пакетах для работы с системами управления версиями, основная
+работа в *aHg* проводится из буфера статуса, который создается командой =ahg-status= (=C-c h g
+s=).  Пользователь может выполнить ее и используя пункт меню =Status= из меню =aHg=.  
 
-Then, simply add this to your ``.emacs``::
+Созданный буфер имеет название =*hg status: путь_к_проекту*=, так что вы можете одновременно
+работать с разными репозиториями.  В данном буфере действует режим =ahg-status-mode=,
+который определяет некоторое количество команд для работы с объектами в репозитории.
+Команды могут выполняться используя комбинации клавиш (многие из которых совпадают с
+клавишами, используемыми в других пакетах), или меню =aHg Status=, которое появляется при
+создании буфера.
 
-  (require 'ahg)
 
-** Quick Guide
+RET             ahg-status-visit-file
+SPC             ahg-status-toggle-mark
+!               ahg-status-do-command
+=               ahg-status-diff
+D               ahg-status-diff-all
+L               ahg-status-log
+U               ahg-status-undo
+a               ahg-status-add
+c               ahg-status-commit
+f               ahg-status-visit-file
+g               ahg-status-refresh
+h               ahg-command-help
+l               ahg-status-short-log
+m               ahg-status-mark
+o               ahg-status-visit-file-other-window
+q               ahg-buffer-quit
+r               ahg-status-remove
+u               ahg-status-unmark
 
-After the installation, an ``aHg`` menu appears as a child of the standard
-``Tools`` menu of Emacs. The available commands are:
+Q =             ahg-qdiff
+Q c             ahg-mq-convert-patch-to-changeset
+Q d             ahg-qdelete
+Q e             ahg-mq-edit-series
+Q g             ahg-qgoto
+Q l             ahg-mq-list-patches
+Q n             ahg-qnew
+Q p             ahg-qpop-all
+Q r             ahg-qrefresh
+Q t             ahg-qtop
 
-Status: 
-   Shows the status of the current working directory, much like the
-   ``cvs-examine`` command of PCL-CVS.
+s A             ahg-status-show-all
+s a             ahg-status-show-added
+s c             ahg-status-show-clean
+s d             ahg-status-show-deleted
+s i             ahg-status-show-ignored
+s m             ahg-status-show-modified
+s r             ahg-status-show-removed
+s u             ahg-status-show-unknown
+
+M-DEL           ahg-status-unmark-all
+
+
+
+
+This mode runs the hook `ahg-status-mode-hook', as the final step
+during initialization.
+
+
+========================================================
 
 Log Summary:
    Shows a table with a short change history of the current working
    directory.
 
+ahg-short-log mode:
+Major mode to display hg shortlog output.
+
+Commands:
+key             binding
+---             -------
+
+RET             ahg-short-log-view-details
+SPC             ahg-short-log-view-details
+!               ahg-do-command
+=               ahg-short-log-view-diff
+D               ahg-short-log-view-diff-with-other
+g               ahg-short-log
+h               ahg-command-help
+n               ahg-short-log-next
+p               ahg-short-log-previous
+q               ahg-buffer-quit
+r               ahg-short-log-goto-revision
+s               ahg-status
+
+
+
+
+This mode runs the hook `ahg-short-log-mode-hook', as the final step
+during initialization.
+
+=====================================================
 Detailed Log:
    Shows a more detailed change history of the current working directory.
+
+ahg-log mode:
+Major mode to display hg log output.
+
+Commands:
+key             binding
+---             -------
+
+TAB             ahg-log-next
+!               ahg-do-command
+=               ahg-log-view-diff
+D               ahg-log-view-diff-select-rev
+g               ahg-log
+h               ahg-command-help
+n               ahg-log-next
+p               ahg-log-previous
+q               ahg-buffer-quit
+s               ahg-status
+
+
+
+
+This mode runs the hook `ahg-log-mode-hook', as the final step
+during initialization.
+
+=====================================================
 
 Commit Current File:
    Commits the file you are currently visiting.
 
+======================================================
 View Changes of Current File:
    Displays changes of current file wrt. the tip of the repository.
+
+aHg Diff mode:
+Special Diff mode for aHg buffers.
+
+Commands:
+key             binding
+---             -------
+
+C-c             Prefix Command
+C-x             Prefix Command
+ESC             Prefix Command
+q               ahg-buffer-quit
+  (that binding is currently shadowed by another mode)
+
+C-x 4           Prefix Command
+
+C-c C-a         diff-apply-hunk
+C-c C-b         diff-refine-hunk
+C-c C-c         diff-goto-source
+C-c C-d         diff-unified->context
+C-c C-e         diff-ediff-patch
+C-c C-f         next-error-follow-minor-mode
+C-c C-n         diff-restrict-view
+C-c C-r         diff-reverse-direction
+C-c C-s         diff-split-hunk
+C-c C-t         diff-test-hunk
+C-c C-u         diff-context->unified
+C-c C-w         diff-ignore-whitespace-hunk
+
+M-TAB           diff-hunk-next
+M-RET           diff-goto-source
+M-K             diff-file-kill
+M-N             diff-file-next
+M-P             diff-file-prev
+M-k             diff-hunk-kill
+M-n             diff-hunk-next
+M-o             diff-goto-source
+M-p             diff-hunk-prev
+M-q             quit-window
+M-{             diff-file-prev
+M-}             diff-file-next
+ESC <backtab>   diff-hunk-prev
+ESC <mouse-2>   diff-goto-source
+
+C-x 4 A         diff-add-change-log-entries-other-window
+
+
+
+
+In addition to any hooks its parent mode `diff-mode' might have run,
+this mode runs the hook `ahg-diff-mode-hook', as the final step
+during initialization.
+
+======================================================
 
 Execute Hg Command:
    Lets you execute an arbitrary hg command. The focus goes to the minibuffer,
@@ -168,13 +343,6 @@ special buffers. Each of these has its own menu, with further available
 commands.
 
 
-** Customization
-
-There are some options that you can customize (e.g. global keybindings or
-fonts). To do so, use ``M-x customize-group RET ahg``.
-
-
-
 <div id="rule">[[./index][На главную страницу]]</div>
 
 Footnotes: 
@@ -182,6 +350,6 @@ Footnotes:
     который указана на [[http://www.emacswiki.org/cgi-bin/wiki/MercurialMode][странице Emacs WiKi, посвященной Mercurial]].
 
 
-;  LocalWords:  EMACS LocalWords mercurial MERCURIALEL VC репозитория
+;  LocalWords:  EMACS LocalWords mercurial MERCURIALEL VC репозитория aHg
 ;  LocalWords:  репозиторию
 
