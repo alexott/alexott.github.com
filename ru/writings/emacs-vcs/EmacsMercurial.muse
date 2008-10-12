@@ -133,6 +133,11 @@ Emacs.
 команд *ahg* (по умолчанию это =C-c h g=). Однако стоит отметить, что значения по умолчанию
 достаточно разумны, и в первое время пользователю не потребуется что-то менять.
 
+Для своей работы пакет может создавать новые буфера, в которых действуют специальные
+режимы, и пользователю предоставляется возможность настройки поведения пакета в этих
+буферах, используя различные хуки: =ahg-status-mode-hook= для буфера статуса,
+=ahg-log-mode-hook= и =ahg-short-log-mode-hook= для буферов просмотра журнала изменений, и
+=ahg-diff-mode-hook= для буфера, используемого для показа изменений в файле.
 
 ** Использование пакета
 
@@ -141,6 +146,8 @@ Emacs.
 меню =Tools=, которое содержит основные команды, необходимые пользователю.  Многие команды
 создают отдельные буфера, в которых действуют специальные основные режимы, а также имеющие
 отдельные меню для выполнения основных действий.
+
+** Работа с репозиторием, используя буфер статуса
 
 Также как и во многих других пакетах для работы с системами управления версиями, основная
 работа в *aHg* проводится из буфера статуса, который создается командой =ahg-status= (=C-c h g
@@ -153,56 +160,64 @@ s=).  Пользователь может выполнить ее и испол�
 клавишами, используемыми в других пакетах), или меню =aHg Status=, которое появляется при
 создании буфера.
 
+Операции в буфере статуса могут выполняться как с отдельными файлами, так и с группами
+отмеченных файлов.  Отметка на файл ставится клавишей =m= (команда =ahg-status-mark=), а
+снимается клавишей =u= (=ahg-status-unmark=).  Кроме того, пользователь может использовать
+клавишу =SPC= (=ahg-status-toggle-mark=) для переключения пометки на текущем файле.  А снять
+пометку со всех файлов можно с помощью сочетания клавиш =M-DEL= (=ahg-status-unmark-all=).
 
-RET             ahg-status-visit-file
-SPC             ahg-status-toggle-mark
-!               ahg-status-do-command
-=               ahg-status-diff
-D               ahg-status-diff-all
-L               ahg-status-log
-U               ahg-status-undo
-a               ahg-status-add
-c               ahg-status-commit
-f               ahg-status-visit-file
-g               ahg-status-refresh
-h               ahg-command-help
-l               ahg-status-short-log
-m               ahg-status-mark
-o               ahg-status-visit-file-other-window
-q               ahg-buffer-quit
-r               ahg-status-remove
-u               ahg-status-unmark
+Пользователь может управлять показом содержимого в буфере статуса.  Для этого определен
+достаточно большой набор команд, начинающихся с префисной клавиши =s=:
 
-Q =             ahg-qdiff
-Q c             ahg-mq-convert-patch-to-changeset
-Q d             ahg-qdelete
-Q e             ahg-mq-edit-series
-Q g             ahg-qgoto
-Q l             ahg-mq-list-patches
-Q n             ahg-qnew
-Q p             ahg-qpop-all
-Q r             ahg-qrefresh
-Q t             ahg-qtop
+||сочетание || команда || действие
+|s A |ahg-status-show-all | показать все файлы 
+|s a |ahg-status-show-added | показать только добавленные файлы
+|s c |ahg-status-show-clean | показать неизмененные файлы
+|s d |ahg-status-show-deleted | показать удаленные файлы
+|s i |ahg-status-show-ignored | показать игнорируемые файлы
+|s m |ahg-status-show-modified | показать измененные файлы
+|s r |ahg-status-show-removed | показать файлы, отмеченные для удаления
+|s u |ahg-status-show-unknown | показать неизвестные файлы
 
-s A             ahg-status-show-all
-s a             ahg-status-show-added
-s c             ahg-status-show-clean
-s d             ahg-status-show-deleted
-s i             ahg-status-show-ignored
-s m             ahg-status-show-modified
-s r             ahg-status-show-removed
-s u             ahg-status-show-unknown
+Подтверждение изменений текущего или отмеченных файлов производится с помощью клавиши =c=
+(=ahg-status-commit=), при этом создается новый буфер в котором пользователь может ввести
+описание изменения, и подтвердить свое решение нажав =C-c C-c=.  Для подтверждения изменений
+только для текущего файла, пользователь может также использовать команду
+=ahg-commit-cur-file= (=C-c h g c=).  Однако отмена сделанных изменений может быть выполнена
+только из буфера статуса с помощью команды =ahg-status-undo= (клавиша =U=).  
 
-M-DEL           ahg-status-unmark-all
+Добавление новых файлов в репозиторий производится с помощью команды =ahg-status-add=
+(клавиша =a=), а удалить файл можно с помощью клавиши =r= (=ahg-status-remove=).  При этом
+пользователь может просмотреть текущий файл в текущем окне нажав клавишу =RET= или =f=,
+которые вызывают команду =ahg-status-visit-file=.  А чтобы открыть файл в другом окне,
+предусмотрена команда =ahg-status-visit-file-other-window= (клавиша =o=).
+
+<code>=</code> ahg-status-diff
+D ahg-status-diff-all
+
+<code>C-c h g =</code>  ahg-diff-cur-file
+
+View Changes of Current File:
+   Displays changes of current file wrt. the tip of the repository.
 
 
-
-
-This mode runs the hook `ahg-status-mode-hook', as the final step
-during initialization.
+aHg Diff mode:
+Special Diff mode for aHg buffers.
 
 
 ========================================================
+
+*** Просмотр журнала изменений
+
+Буфер статуса:
+l ahg-status-short-log
+L ahg-status-log
+
+
+C-c h g l ahg-short-log
+C-c h g L ahg-log
+C-c h g C-l ahg-log-cur-file
+
 
 Log Summary:
    Shows a table with a short change history of the current working
@@ -215,24 +230,16 @@ Commands:
 key             binding
 ---             -------
 
-RET             ahg-short-log-view-details
-SPC             ahg-short-log-view-details
-!               ahg-do-command
-=               ahg-short-log-view-diff
-D               ahg-short-log-view-diff-with-other
-g               ahg-short-log
-h               ahg-command-help
-n               ahg-short-log-next
-p               ahg-short-log-previous
-q               ahg-buffer-quit
-r               ahg-short-log-goto-revision
-s               ahg-status
-
-
-
-
-This mode runs the hook `ahg-short-log-mode-hook', as the final step
-during initialization.
+RET ahg-short-log-view-details
+SPC ahg-short-log-view-details
+<code>=</code> ahg-short-log-view-diff
+D ahg-short-log-view-diff-with-other
+g ahg-short-log
+n ahg-short-log-next
+p ahg-short-log-previous
+q ahg-buffer-quit
+r ahg-short-log-goto-revision
+s ahg-status
 
 =====================================================
 Detailed Log:
@@ -245,85 +252,51 @@ Commands:
 key             binding
 ---             -------
 
-TAB             ahg-log-next
+TAB ahg-log-next
+<code>=</code> ahg-log-view-diff
+D ahg-log-view-diff-select-rev
+g ahg-log
+n ahg-log-next
+p ahg-log-previous
+q ahg-buffer-quit
+s ahg-status
+
+
+======================================================
+
+*** Работа с очередями патчей
+
+Отдельный набор команд определен для работы с очередями патчей, реализованных в Mercurial.
+Все команды из этого набора имеют глобальную привязку имеющую префикс =C-c h g Q=, или, если
+они выполняются в буфере статуса, то префиксной клавишей является =Q=.  При описании команды
+я буду давать только локальное сочетание клавиш, но вы всегда можете вызвать нужную
+команду использовав глобальную привязку для данной команды.
+
+<code>Q =</code>             ahg-qdiff
+Q c             ahg-mq-convert-patch-to-changeset
+Q d             ahg-qdelete
+Q e             ahg-mq-edit-series
+Q g             ahg-qgoto
+Q l             ahg-mq-list-patches
+Q n             ahg-qnew
+Q p             ahg-qpop-all
+Q r             ahg-qrefresh
+Q t             ahg-qtop
+
+
+*** Прочие команды
+
+C-c h g ! ahg-do-command
+C-c h g h ahg-command-help
+
+status & log
 !               ahg-do-command
-=               ahg-log-view-diff
-D               ahg-log-view-diff-select-rev
-g               ahg-log
 h               ahg-command-help
-n               ahg-log-next
-p               ahg-log-previous
-q               ahg-buffer-quit
-s               ahg-status
+
+g ahg-status-refresh
+q ahg-buffer-quit
 
 
-
-
-This mode runs the hook `ahg-log-mode-hook', as the final step
-during initialization.
-
-=====================================================
-
-Commit Current File:
-   Commits the file you are currently visiting.
-
-======================================================
-View Changes of Current File:
-   Displays changes of current file wrt. the tip of the repository.
-
-aHg Diff mode:
-Special Diff mode for aHg buffers.
-
-Commands:
-key             binding
----             -------
-
-C-c             Prefix Command
-C-x             Prefix Command
-ESC             Prefix Command
-q               ahg-buffer-quit
-  (that binding is currently shadowed by another mode)
-
-C-x 4           Prefix Command
-
-C-c C-a         diff-apply-hunk
-C-c C-b         diff-refine-hunk
-C-c C-c         diff-goto-source
-C-c C-d         diff-unified->context
-C-c C-e         diff-ediff-patch
-C-c C-f         next-error-follow-minor-mode
-C-c C-n         diff-restrict-view
-C-c C-r         diff-reverse-direction
-C-c C-s         diff-split-hunk
-C-c C-t         diff-test-hunk
-C-c C-u         diff-context->unified
-C-c C-w         diff-ignore-whitespace-hunk
-
-M-TAB           diff-hunk-next
-M-RET           diff-goto-source
-M-K             diff-file-kill
-M-N             diff-file-next
-M-P             diff-file-prev
-M-k             diff-hunk-kill
-M-n             diff-hunk-next
-M-o             diff-goto-source
-M-p             diff-hunk-prev
-M-q             quit-window
-M-{             diff-file-prev
-M-}             diff-file-next
-ESC <backtab>   diff-hunk-prev
-ESC <mouse-2>   diff-goto-source
-
-C-x 4 A         diff-add-change-log-entries-other-window
-
-
-
-
-In addition to any hooks its parent mode `diff-mode' might have run,
-this mode runs the hook `ahg-diff-mode-hook', as the final step
-during initialization.
-
-======================================================
 
 Execute Hg Command:
    Lets you execute an arbitrary hg command. The focus goes to the minibuffer,
@@ -334,13 +307,6 @@ Execute Hg Command:
 Help on Hg Command:
    Shows help on a given hg command (again, use ``TAB`` to complete partial
    command names).
-
-
-*** aHg buffers
-
-The ``Status``, ``Log Summary`` and ``Detailed Log`` display their results on
-special buffers. Each of these has its own menu, with further available
-commands.
 
 
 <div id="rule">[[./index][На главную страницу]]</div>
