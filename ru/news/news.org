@@ -9,6 +9,11 @@
 #+KEYWORDS:    alex ott blog news articles emacs новости статьи емакс программирование
 #+HTML_CSS:    web.css
 
+* DONE Рассказ про пакет aHg
+  CLOSED: [2008-10-13 Mon 16:38]
+
+В рассказ про работу с Mercurial добавил [[http://xtalk.msk.su/~ott/my-page-muse/ru/writings/emacs-vcs/EmacsMercurial.html#sec5][раздел про пакет aHg]]
+
 * DONE Окончательная версия статьи про Emacs + Erlang             :emacs:erlang:
   CLOSED: [2008-08-25 Mon 13:09]
 
