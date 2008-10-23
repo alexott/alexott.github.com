@@ -1,8 +1,10 @@
-*.orig
-*.rej
-*~
-*.aux
-*.out
-*.tex
-*.log
 
+*.aux
+*.log
+*.orig
+*.out
+*.rej
+*.tex
+*~
+/copyright.html
+/index.html
