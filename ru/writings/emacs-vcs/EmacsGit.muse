@@ -104,19 +104,156 @@
 настройки называется =git= и позволяет задать и параметры *Git* и настройки начертаний,
 используемых при отображении данных.
 
-; * Пакет emacs-git
-
-; ** Установка
+* Пакет emacs-git
 
 
-; ** Работа с пакетом
+
+** Установка и настройка
+
+<src lang="emacs-lisp">
+</src>
+
+** Работа с пакетом
 
 
-; ** Настройка
+git status mode:
+Major mode for interacting with Git.
+Commands:
+key             binding
+---             -------
 
-; * Вспомогательные пакеты для Git
+ .. \377    digit-argument
 
-; git-blame & gitsum
+C-c             Prefix Command
+RET             git-find-file
+ESC             Prefix Command
+SPC             git-next-file
+-               negative-argument
+=               git-diff-file
+?               git-help
+M               git-mark-all
+N               git-next-unmerged-file
+P               git-prev-unmerged-file
+R               git-resolve-file
+T               git-toggle-all-marks
+U               git-revert-file
+a               git-add-file
+c               git-commit-file
+d               Prefix Command
+f               git-find-file
+g               git-refresh-status
+h               git-help
+i               git-ignore-file
+l               git-log-file
+m               git-mark-file
+n               git-next-file
+o               git-find-file-other-window
+p               git-prev-file
+q               git-status-quit
+r               git-remove-file
+t               Prefix Command
+u               git-unmark-file
+v               git-view-file
+x               git-remove-handled
+DEL             git-unmark-file-up
+<remap>         Prefix Command
+
+C-c C-a         git-amend-commit
+
+M-DEL           git-unmark-all
+
+d =             git-diff-file
+d E             git-find-file-imerge
+d b             git-diff-file-base
+d c             git-diff-file-combined
+d e             git-diff-file-idiff
+d h             git-diff-file-merge-head
+d m             git-diff-file-mine
+d o             git-diff-file-other
+
+t i             git-toggle-show-ignored
+t k             git-toggle-show-unknown
+t m             git-toggle-all-marks
+t u             git-toggle-show-uptodate
+
+
+
+* magit
+
+
+http://zagadka.vm.bytemark.co.uk/magit/magit.html
+
+** Установка и настройка
+
+http://zagadka.vm.bytemark.co.uk/magit/
+
+http://github.com/jwiegley/magit/tree/master
+
+<src lang="emacs-lisp">
+(autoload 'magit-status "magit" nil t)
+</src>
+
+** Использование пакета
+
+
+
+* egg
+
+
+* Вспомогательные пакеты
+
+** git-blame 
+
+** gitsum
+
+** egit
+
+This file contains an interface to git commands which are not
+(currently) part of git.el. Primarily, this is a view of the git commit
+history with the ability to mark ranges and/or single commits and
+operate on them. Mutiple branches/tags/ref interfaces can be active at
+the same time.
+
+To install: put this file on the load-path and place the following in
+your .emacs file:
+
+<src lang="emacs-lisp">
+(autoload 'egit "egit" "Emacs git history" t)
+(autoload 'egit-file "egit" "Emacs git history file" t)
+(autoload 'egit-dir "egit" "Emacs git history directory" t)
+</src>
+
+`M-x egit' shows commit history for a given branch, tag, or other
+ref. You supply a directory (to identify the repo), the ref, and a
+maximum number of commits to show.
+
+`M-x egit-file' will show commits related to a specific file
+
+`M-x egit-dir' will show commits related to files within a directory
+
+egit is currently useful for browsing the history. It has only two
+operations implemented (cherry-pick and revert) -- and those are
+implemented only minimally. The framework for operating on a single or
+multiple commits (that have been marked) already exists, so adding new
+git commands should be relatively easy.
+
+There isn't a way to specify a range of commits (unless you use the
+marked commits to do so). There should probably be a dedicated method of
+creating a range to pass to git commands. It might be good to have a
+facility like qgit's in which user defined commands can be added
+(although the default set should be fairly complete)
+
+The "occur" feature needs something like himark to highlight the occur
+regex in the comment buffer(s). There's a piece of code in there that
+currently calls himark that's commented out. The idea is to "grep"
+through comments. For example to highlight all cherry picked commits
+search for "cherry", etc.
+
+Start up time can be significant when 10s of thousands of commits are
+being displayed. Unfortunately, this is not an unusual situtation. 
+
+
+** git-modeline
 
 <div id="rule">[[./index][На главную страницу]]</div>
 
