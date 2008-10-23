@@ -1,0 +1,8 @@
+*.orig
+*.rej
+*~
+*.aux
+*.out
+*.tex
+*.log
+
