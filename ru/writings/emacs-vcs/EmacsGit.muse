@@ -104,62 +104,55 @@
 настройки называется =git= и позволяет задать и параметры *Git* и настройки начертаний,
 используемых при отображении данных.
 
-* Пакет emacs-git
+* Пакет git-emacs
 
 
 
 ** Установка и настройка
 
 <src lang="emacs-lisp">
+(require 'git-emacs)
 </src>
 
 ** Работа с пакетом
 
 
-git status mode:
-Major mode for interacting with Git.
-Commands:
-key             binding
----             -------
+git status mode: Major mode for interacting with Git.
 
- .. \377    digit-argument
-
-C-c             Prefix Command
 RET             git-find-file
-ESC             Prefix Command
+f               git-find-file
+v               git-view-file
+o               git-find-file-other-window
+
 SPC             git-next-file
--               negative-argument
-=               git-diff-file
-?               git-help
-M               git-mark-all
+n               git-next-file
+p               git-prev-file
 N               git-next-unmerged-file
 P               git-prev-unmerged-file
+
+=               git-diff-file
+l               git-log-file
+
+g               git-refresh-status
+q               git-status-quit
+x               git-remove-handled
+
+?               git-help
+h               git-help
+
 R               git-resolve-file
-T               git-toggle-all-marks
 U               git-revert-file
 a               git-add-file
 c               git-commit-file
-d               Prefix Command
-f               git-find-file
-g               git-refresh-status
-h               git-help
 i               git-ignore-file
-l               git-log-file
-m               git-mark-file
-n               git-next-file
-o               git-find-file-other-window
-p               git-prev-file
-q               git-status-quit
 r               git-remove-file
-t               Prefix Command
-u               git-unmark-file
-v               git-view-file
-x               git-remove-handled
-DEL             git-unmark-file-up
-<remap>         Prefix Command
-
 C-c C-a         git-amend-commit
 
+m               git-mark-file
+T               git-toggle-all-marks
+u               git-unmark-file
+DEL             git-unmark-file-up
+M               git-mark-all
 M-DEL           git-unmark-all
 
 d =             git-diff-file
@@ -177,7 +170,7 @@ t m             git-toggle-all-marks
 t u             git-toggle-show-uptodate
 
 
-
+#magit
 * magit
 
 
@@ -251,6 +244,10 @@ search for "cherry", etc.
 
 Start up time can be significant when 10s of thousands of commits are
 being displayed. Unfortunately, this is not an unusual situtation. 
+
+<div id="screenshot">
+[[../../../common/writings/emacs-vcs/egit.png]]
+</div>
 
 
 ** git-modeline
