@@ -106,7 +106,7 @@
 
 * Пакет git-emacs
 
-
+http://tsgates.cafe24.com/git/git-emacs.html
 
 ** Установка и настройка
 
