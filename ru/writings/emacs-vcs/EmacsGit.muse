@@ -104,70 +104,129 @@
 настройки называется =git= и позволяет задать и параметры *Git* и настройки начертаний,
 используемых при отображении данных.
 
+#git-emacs
 * Пакет git-emacs
 
-http://tsgates.cafe24.com/git/git-emacs.html
+Пакет *git-emacs* во реализует примерно те же функции, что и пакет *git.el*, но имеет
+некоторые улучшения, в основном в области пользовательского интерфейса.[1]
+[[http://tsgates.cafe24.com/git/git-emacs.html][Домашняя страница]] проекта содержит достаточно подробный иллюстрированный мануал, так что
+пользователь может быстро научиться пользоваться данным пакетом.
 
 ** Установка и настройка
+
+Скачать пакет, и сопутствующие пакеты можно из [[http://github.com/tsgates/git-emacs/tree/master][репозитория разработчика]], и скачав,
+поместите их в нужный каталог, и добавьте следующую команду в файл инициализации:
 
 <src lang="emacs-lisp">
 (require 'git-emacs)
 </src>
 
-** Работа с пакетом
+Для настройки пакета используется несколько переменных, значение которых можно настроить
+используя группу настройки с именем =git=.
+
+** Основы работы с пакетом
+
+Работа с пакетом начинается с выполнения команды =git-status=, выполнение которой создаст
+буфер, в котором будут отображена информация о состоянии репозитория.  В данном буфере
+действует специальный режим =git-status-mode= и определены команды для выполнения оперций
+над файлами и репозиторием в целом.  Команды можно выполнять с помощью соответствующих
+привязок клавиш или используя соответствующие пункты меню =Emacs-Git=, которое появляется
+при включении данного режима.  
+
+Перемещение по буферу производится помощью нескольких команд -- к традиционным =n=
+(=git-next-file=) и =p= (=git-prev-file=), которые осуществляют переход к следующему или
+предыдущему файлу, были добавлены команды =N= (=git-next-unmerged-file=) и =P=
+(=git-prev-unmerged-file=), которые выполняют переход между файлами, в которых не выполнено
+слияние изменений.
+
+Также как и в других пакетах, пользователь может открыть нужный файл путем перемещения к
+нему и нажатия =f= или =RET= (команда =git-find-file=).  Кроме того, пользователь может открыть
+файл только для просмотра с помощью клавиши =v= (=git-view-file=), или открыть его в другом
+окне с помощью =o= (=git-find-file-other-window=).
+
+Операции могут выполняться как с отдельными файлами, так и с группами отмеченных файлов.
+Установка пометки на конкретный файл может выполняться клавишей =m= (=git-mark-file=), а с
+помощью клавиши =M= (=git-mark-all=) можно отметить сразу все файлы.  Для снятия пометки
+определены следующие команды: клавиша =u= (=git-unmark-file=) снимает пометку с текущего файла
+и перемещается к следующему, =DEL= (=git-unmark-file-up=) снимает пометку с предыдущего в
+списке файла, а =M-DEL= (=git-unmark-all=) снимает пометку со всех файлов.  А с помощью
+клавиши =T= (=git-toggle-all-marks=) можно инвертировать список отмеченных файлов, что иногда
+очень удобно, если надо отметить большое количество файлов, при этом не выделяя только
+несколько файлов.
+
+m git--status-view-mark-and-next
+SPC  git--status-view-toggle-and-next
+u git--status-view-unmark-and-next
+
+=*= git--status-view-mark-reg
 
 
-git status mode: Major mode for interacting with Git.
+n git--status-view-next-line
+p git--status-view-prev-line
+N git--status-view-next-meaningfull-line
+P git--status-view-prev-meaningfull-line
+< git--status-view-first-line
+> git--status-view-last-line
 
-RET             git-find-file
-f               git-find-file
-v               git-view-file
-o               git-find-file-other-window
+e git--status-view-expand-tree-toggle
+v git--status-view-view-file
+o git--status-view-open-file
 
-SPC             git-next-file
-n               git-next-file
-p               git-prev-file
-N               git-next-unmerged-file
-P               git-prev-unmerged-file
+<code>=</code> git--status-view-diff-file
+b git--status-view-switch-branch
+! git--status-view-resolve-merge
+. git--status-view-git-cmd
 
-=               git-diff-file
-l               git-log-file
+k git--status-view-gitk
 
-g               git-refresh-status
-q               git-status-quit
-x               git-remove-handled
+a git--status-view-add
+r git--status-view-rename
+d git--status-view-rm
 
-?               git-help
-h               git-help
+s git--status-view-summary
 
-R               git-resolve-file
-U               git-revert-file
-a               git-add-file
-c               git-commit-file
-i               git-ignore-file
-r               git-remove-file
-C-c C-a         git-amend-commit
+z git-branch
 
-m               git-mark-file
-T               git-toggle-all-marks
-u               git-unmark-file
-DEL             git-unmark-file-up
-M               git-mark-all
-M-DEL           git-unmark-all
+c git-commit-all
 
-d =             git-diff-file
-d E             git-find-file-imerge
-d b             git-diff-file-base
-d c             git-diff-file-combined
-d e             git-diff-file-idiff
-d h             git-diff-file-merge-head
-d m             git-diff-file-mine
-d o             git-diff-file-other
+? git--status-view-blame
+   
+C-m git--status-view-do-propriate
 
-t i             git-toggle-show-ignored
-t k             git-toggle-show-unknown
-t m             git-toggle-all-marks
-t u             git-toggle-show-uptodate
+g git--status-view-refresh
+q git--status-view-quit
+
+
+** Работа с файлами
+
+Операции с файлами производятся с помощью нескольких команд.  Добавление и удаление файлов
+производится командами =git-add-file= (клавиша =a=) и =git-remove-file= (клавиша =r=).  Откатить
+изменения, сделанные в конкретном файле, можно с помощью клавиши =U= (=git-revert-file=), а в
+том случае, если файл помечен, как содержащий конфликты, то изменить его статус можно с
+помощью команды =git-resolve-file= (клавиша =R=).
+
+i git--status-view-add-ignore
+
+
+** Работа с изменениями
+
+Подтверждение изменений в репозиторий производится с помощью команды =git-commit-file=
+(клавиша =c=), выполнение которой открывает новый буфер, в котором пользователь может ввести
+описание изменения, и завершить подтверждение путем нажатия сочетания клавиш =C-c C-c=.  
+
+
+** История изменений
+
+
+
+
+** Работка с ветками и тагами
+
+
+** Прочие команды
+
+
+
 
 
 #magit
@@ -195,7 +254,9 @@ http://github.com/jwiegley/magit/tree/master
 
 * Вспомогательные пакеты
 
-** git-blame 
+** git-blame
+
+Данный пакет входит в состав пакета *git-emacs*, описанного [[#git-emacs][выше]].
 
 ** gitsum
 
@@ -250,10 +311,13 @@ being displayed. Unfortunately, this is not an unusual situtation.
 </div>
 
 
-** git-modeline
-
 <div id="rule">[[./index][На главную страницу]]</div>
 
 Footnotes: 
 [1] Хотя существует возможность использования данной системы и в централизованной среде
+
+[2] Стоит отметить некоторые неудобства возникающие при использовании данного пакета --
+    некоторые команды пересекаются с командами пакета *git.el*, так что использовать их
+    одновременно не получится.  И во вторых, пакет принудительно включает глобальный режим
+    *ido-mode*, что не всегда удобно для пользователей, использующих другие пакеты.
 
