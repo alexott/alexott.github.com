@@ -276,6 +276,9 @@ http://github.com/jwiegley/magit/tree/master
 
 * Вспомогательные пакеты
 
+В данном разделе приводятся краткие описания вспомогательных пакетов, которые реализуют
+функционал, отсутствующий в многих из пакетов для работы с *git*.
+
 #git-blame
 ** git-blame
 
@@ -300,24 +303,33 @@ http://github.com/jwiegley/magit/tree/master
 
 ** gitsum
 
-http://chneukirchen.org/blog/archive/2008/02/introducing-gitsum.html
+Пакет *gitsum* предназначен для выполнения частичных коммитов в репозиторий *git*, так, как
+это делается при работе с *darcs* через пакет [[./EmacsDarcs][darcsum]].  Для установки пакет, его нужно
+скачать из [[http://github.com/chneukirchen/gitsum/tree/master][репозитория]], поместить в каталог, где его найдет Emacs, и добавить следующую
+команду в файл инициализации:
 
-http://github.com/chneukirchen/gitsum/tree/master
+<src lang="emacs-lisp">
+(require 'gitsum)
+</src>
 
-Gitsum provides a mode to do interactive partial commits with Emacs.  Run `M-x gitsum'
-inside a Git repository and kill everything you don't want to commit with `k'.  You can
-navigate easily between hunks with `n' and `p' and between files with `N' and `P'.  A
-whole file can be killed with `K'.  If you want to refine the patch, you can split it with
-`C-c C-s'.  If you toggle read-only with `C-x C-q', you can edit everything freely (be
-careful!).
+Пакет *gitsum* предоставляет пользователю одну команду -- =gitsum=, которая позволяет
+выполнять частичные коммиты используя Emacs.  Для проведения этой операции, пользователю
+необходимо выполнить данную команду, находясь в каком-то из файлов, репозитория *git*.
+После ее выполнения, появится буфер, в котором будут отображены изменения, сделанные в
+данном репозитории.  
 
-If you are ready, commit the patch with `C-c C-c' or just `c'.  Enter the message and
-press `C-c C-c' again.
+В данном буфере пользователь может перемещаться как между отдельными изменениями (с
+помощью клавиш =n= и =p=), так и между измененными файлами (с помощью клавиш =N= и =P=).  Те
+изменения, которые вы не хотите включать в данный коммит, могут быть удалены используя
+клавишу =k=.  В том случае, если вы не хотите включать все изменения из конкретного файла,
+то вы можете воспользоваться клавишей =K= для их исключения из коммита.  После завершения
+выбора, достаточно нажать =c= или =C-c C-c= для того, чтобы подтвердить изменения в
+репозиторий (после ввода сообщения).  Кроме этого, есть еще одно сочетание клавиш, которое
+может быть полезным -- =C-c C-s=, которое позволяет разделить конкретное изменение на два, и
+использовать их по отдельности.
 
-N.B: If you want to add files in the commit, use `M-x git-status' from git.el, add the
-files with `a', then switch to gitsum with `s'.  You can only add files as a whole.  You
-need git.el from the git repository then.
-
+Хотелось бы также отметить, что пакет *gitsum* умеет интегрироваться с пакетом *git.el* и его
+можно использовать из буфера статуса, запуская с помощью клавиши =s=.
 
 ** egit
 
