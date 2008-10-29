@@ -333,14 +333,10 @@ http://github.com/jwiegley/magit/tree/master
 
 ** egit
 
-This file contains an interface to git commands which are not
-(currently) part of git.el. Primarily, this is a view of the git commit
-history with the ability to mark ranges and/or single commits and
-operate on them. Mutiple branches/tags/ref interfaces can be active at
-the same time.
-
-To install: put this file on the load-path and place the following in
-your .emacs file:
+Данный пакет реализует функциональность, пока остсутствующую в пакете *git.el*.  В основном
+это расширения для работы с историей изменений и конкретными изменениями.  Для установки
+пакета, его нужно скачать из [[http://github.com/jimhourihan/egit/tree/master][репозитория]], поместить в пути поиска, и добавить следующие
+команды в файл инициализации:
 
 <src lang="emacs-lisp">
 (autoload 'egit "egit" "Emacs git history" t)
@@ -348,39 +344,38 @@ your .emacs file:
 (autoload 'egit-dir "egit" "Emacs git history directory" t)
 </src>
 
-`M-x egit' shows commit history for a given branch, tag, or other
-ref. You supply a directory (to identify the repo), the ref, and a
-maximum number of commits to show.
+В пакете определены три команды, которые имеют сходную функциональность, но отличаются
+объектом применения.  Команда =egit= работает с репозиторием, =egit-dir= -- с каталогом в
+репозитории, а =egit-file= с конкретным файлом в репозитории.  Единственным отличием
+является то, что =egit= запрашивает у пользователя информацию о имени ветке или таге, а
+также количество записей в истории, которое нужно отобразить.
 
-`M-x egit-file' will show commits related to a specific file
-
-`M-x egit-dir' will show commits related to files within a directory
-
-egit is currently useful for browsing the history. It has only two
-operations implemented (cherry-pick and revert) -- and those are
-implemented only minimally. The framework for operating on a single or
-multiple commits (that have been marked) already exists, so adding new
-git commands should be relatively easy.
-
-There isn't a way to specify a range of commits (unless you use the
-marked commits to do so). There should probably be a dedicated method of
-creating a range to pass to git commands. It might be good to have a
-facility like qgit's in which user defined commands can be added
-(although the default set should be fairly complete)
-
-The "occur" feature needs something like himark to highlight the occur
-regex in the comment buffer(s). There's a piece of code in there that
-currently calls himark that's commented out. The idea is to "grep"
-through comments. For example to highlight all cherry picked commits
-search for "cherry", etc.
-
-Start up time can be significant when 10s of thousands of commits are
-being displayed. Unfortunately, this is not an unusual situtation. 
+Все три команды создают отдельный буфер, в котором показывается история изменений, и в
+котором определен специальный режим =egit-mode=, позволяющий пользователю выполнять команды
+над отдельными изменениями.  Команды могут выполняться как с помощью сочетаний клавиш, так
+и через меню =EGit=, которое появляется при создании буфера.  Пример работы в данном буфере
+вы можете увидеть на рисунке ниже.
 
 <div id="screenshot">
 [[../../../common/writings/emacs-vcs/egit.png]]
 </div>
 
+Для перемещения в буфере можно использовать клавиши =n= (=C-n=) и =p= (=C-p=) или клавиши
+управления курсором.  По умолчанию, при перемещении между записями, пакет показывает
+базовую информацию о текущем изменении -- имя автора, дату изменения, краткое описание
+изменения и т.п.  Кроме этого, пользователь может увидеть полный текст описания изменения
+(клавиша =RET= или стрелка вправо), список измененных файлов (клавиша =f=) и сами изменения
+(клавиша =d=) внесенные в файлы (пример можно увидеть на рисунке ниже).
+
+<div id="screenshot">
+[[../../../common/writings/emacs-vcs/egit-diff.png]]
+</div>
+
+Помимо просмотра истории, пользователь может заново применить выбранные изменения с
+помощью команды =egit-cherry-pick= (клавиша =c=), что приведет к выполнению команды =git
+cherry-pick= с нужными флагами.  Также можно откатить изменения сделанные в конкретном
+патче -- это выполняется с помощью команды =egit-revert=, для которой нет привязки клавиш
+(все-таки она слишком разрушительна), но которую можно вызвать через меню.
 
 <div id="rule">[[./index][На главную страницу]]</div>
 
