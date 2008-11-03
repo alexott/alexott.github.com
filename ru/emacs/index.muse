@@ -21,6 +21,7 @@ Emacs активно используется мной уже более 10 ле
  - [[../writings/emacs-vcs/index][Рассказ про использование Emacs с системами контроля версий]]
  - [[../writings/emacs-tex/index][Рассказ про использование Emacs для работы с TeX/LaTeX]]
  - Небольшой рассказ про [[../writings/EmacsMuseMyPage][создание данного сайта с помощью Emacs Muse]]
+ - Небольшая заметка о [[../writings/EmacsMacOSXAndGrowl][взаимодействии с Growl из Emacs]]
 
 Вы также можете ознакомиться и с [[../writings/][другими моими статьями]].  
 

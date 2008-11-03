@@ -1,4 +1,4 @@
 open -u "ott@xtalk.it.niir" it.niir.ru
 set ftp:passive-mode on
 cd my-page
-mirror -RnevL -x '.hg' -X "*~" -X "*.tex" .
+mirror -RnevL -x '.git' -X "*~" -X "*.tex" .

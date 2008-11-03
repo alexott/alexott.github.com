@@ -14,6 +14,7 @@ tasks (many of articles in Russian, and here listed only some translated article
 
  - [[../writings/emacs-vcs/][Article about using Emacs with version control systems]] 
  - Small article about [[../writings/EmacsMuseMyPage][how this site was created with Emacs Muse]]
+ - Small note about [[../writings/EmacsMacOSXAndGrowl][interaction between Growl & Emacs]]
 
 You can also find [[../writings/][other my articles]].
 
