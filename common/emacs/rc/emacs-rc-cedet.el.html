@@ -1,134 +1,101 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in css mode. -->
+<!-- Created by htmlize-1.34 in inline-css mode. -->
 <html>
   <head>
     <title>emacs-rc-cedet.el</title>
-    <style type="text/css">
-    <!--
-      body {
-        color: #000000;
-        background-color: #ebebeb;
-      }
-      .comment {
-        /* font-lock-comment-face */
-        color: #666666;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #666666;
-      }
-      .constant {
-        /* font-lock-constant-face */
-        color: #00008b;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #008b00;
-      }
-
-      a {
-        color: inherit;
-        background-color: inherit;
-        font: inherit;
-        text-decoration: inherit;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    -->
-    </style>
   </head>
-  <body>
+  <body style="color: #000000; background-color: #ebebeb;">
     <pre>
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-cedet.el --- 
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-cedet.el --- 
 </span>
-<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2003 Alex Ott
-</span><span class="comment-delimiter">;;</span><span class="comment">
-</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
-</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+<span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) 2003 Alex Ott
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Author: alexott@gmail.com
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Keywords: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Requirements: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Status: not intended to be distributed yet
 </span>
-(add-to-list 'load-path <span class="string">"~/emacs/cedet"</span>)
-(setq semantic-load-turn-everything-on t)
-(load-file <span class="string">"~/emacs/cedet/common/cedet.el"</span>)
+(load-file <span style="color: #008b00;">"~/emacs/cedet/common/cedet.el"</span>)
 
-(<span class="keyword">require</span> '<span class="constant">bovine-grammar</span> nil t)
-(<span class="keyword">when</span> (<span class="keyword">require</span> '<span class="constant">ede</span> nil t)
-  (global-ede-mode t))
-(<span class="keyword">require</span> '<span class="constant">semantic</span> nil t)
 (semantic-load-enable-code-helpers)
-(global-semantic-idle-scheduler-mode 1)
 (global-semantic-idle-completions-mode 1)
-(global-semantic-idle-summary-mode 1)
-(<span class="keyword">require</span> '<span class="constant">semantic-sb</span> nil t)
-(<span class="keyword">require</span> '<span class="constant">semanticdb</span> nil t)
 (semantic-load-enable-guady-code-helpers)
 
-<span class="comment-delimiter">;; </span><span class="comment">smart complitions
-</span>(<span class="keyword">require</span> '<span class="constant">semantic-ia</span>)
+(setq senator-minor-mode-name <span style="color: #008b00;">"SN"</span>)
+(setq semantic-imenu-auto-rebuild-directory-indexes nil)
+(global-srecode-minor-mode 1)
+(global-semantic-mru-bookmark-mode 1)
 
-(setq-mode-local c++-mode
-                semanticdb-find-default-throttle
-                '(project unloaded system recursive))
-
-(global-semanticdb-minor-mode 1)
+<span style="color: #666666;">;; </span><span style="color: #666666;">gcc setup
+</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-gcc</span>)
+<span style="color: #666666;">;; </span><span style="color: #666666;">(semantic-gcc-setup "gcc")
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">smart complitions
+</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-ia</span>)
 
 (setq-mode-local c-mode semanticdb-find-default-throttle
                  '(project unloaded system recursive))
 (setq-mode-local c++-mode semanticdb-find-default-throttle
                  '(project unloaded system recursive))
+(setq-mode-local erlang-mode semanticdb-find-default-throttle
+                 '(project unloaded system recursive))
 
-(<span class="keyword">require</span> '<span class="constant">eassist</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">eassist</span>)
 
-<span class="comment-delimiter">;; </span><span class="comment">customisation of modes
-</span>(<span class="keyword">defun</span> <span class="function-name">my-cedet-hook</span> ()
-<span class="comment-delimiter">;</span><span class="comment"> (local-set-key "\C-c/" 'semantic-ia-complete-symbol)
+<span style="color: #666666;">;; </span><span style="color: #666666;">customisation of modes
+</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-cedet-hook</span> ()
+<span style="color: #666666;">;</span><span style="color: #666666;"> (local-set-key "\C-c/" 'semantic-ia-complete-symbol)
 </span>  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-  (local-set-key <span class="string">"\C-c/"</span> 'semantic-ia-complete-symbol-menu)
-  (local-set-key <span class="string">"\C-c."</span> 'senator-complete-symbol)
-  <span class="comment-delimiter">;;</span><span class="comment">
-</span>  (local-set-key <span class="string">"\C-c&gt;"</span> 'semantic-complete-analyze-inline)
-  (local-set-key <span class="string">"\C-c="</span> 'semantic-decoration-include-visit)
+  (local-set-key <span style="color: #008b00;">"\C-c/"</span> 'semantic-ia-complete-symbol-menu)
+  (local-set-key <span style="color: #008b00;">"\C-c."</span> 'senator-complete-symbol)
+  <span style="color: #666666;">;;</span><span style="color: #666666;">
+</span>  (local-set-key <span style="color: #008b00;">"\C-c&gt;"</span> 'semantic-complete-analyze-inline)
+  (local-set-key <span style="color: #008b00;">"\C-c="</span> 'semantic-decoration-include-visit)
+  
+  (local-set-key <span style="color: #008b00;">"\C-cj"</span> 'semantic-ia-fast-jump)
+  (local-set-key <span style="color: #008b00;">"\C-cp"</span> 'semantic-analyze-proto-impl-toggle)
   )
 (add-hook 'c-mode-common-hook 'my-cedet-hook)
 (add-hook 'lisp-mode-hook 'my-cedet-hook)
 
-(<span class="keyword">defun</span> <span class="function-name">my-c-mode-cedet-hook</span> ()
-<span class="comment-delimiter">;</span><span class="comment"> (local-set-key "." 'semantic-complete-self-insert)
-</span><span class="comment-delimiter">;</span><span class="comment"> (local-set-key "&gt;" 'semantic-complete-self-insert)
-</span>  (local-set-key <span class="string">"\C-ct"</span> 'eassist-switch-h-cpp)
-  (local-set-key <span class="string">"\C-xt"</span> 'eassist-switch-h-cpp)
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-c-mode-cedet-hook</span> ()
+<span style="color: #666666;">;</span><span style="color: #666666;"> (local-set-key "." 'semantic-complete-self-insert)
+</span><span style="color: #666666;">;</span><span style="color: #666666;"> (local-set-key "&gt;" 'semantic-complete-self-insert)
+</span>  (local-set-key <span style="color: #008b00;">"\C-ct"</span> 'eassist-switch-h-cpp)
+  (local-set-key <span style="color: #008b00;">"\C-xt"</span> 'eassist-switch-h-cpp)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-cedet-hook)
 
-<span class="comment-delimiter">;;</span><span class="comment">
-</span>(setq-default semanticdb-default-save-directory <span class="string">"~/tmp/semantic"</span>)
+<span style="color: #666666;">;;</span><span style="color: #666666;">
+</span>(setq-default semanticdb-default-save-directory <span style="color: #008b00;">"~/tmp/semantic"</span>)
 
-(semantic-add-system-include <span class="string">"~/exp/include"</span> 'c++-mode)
-(semantic-add-system-include <span class="string">"~/exp/include"</span> 'c-mode)
-(semantic-add-system-include <span class="string">"/usr/include"</span> 'c-mode)
-(semantic-add-system-include <span class="string">"/usr/include"</span> 'c++-mode)
+(semantic-add-system-include <span style="color: #008b00;">"~/exp/include"</span> 'c++-mode)
+(semantic-add-system-include <span style="color: #008b00;">"~/exp/include"</span> 'c-mode)
 
 (custom-set-variables
  '(semantic-idle-scheduler-idle-time 10)
 )
 
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-cedet.el ends here
+<span style="color: #666666;">;; </span><span style="color: #666666;">(semantic-load-enable-all-exuberent-ctags-support)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">(semantic-enable-exuberent-ctags 'c-mode)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">(semantic-enable-exuberent-ctags 'c++-mode)
+</span>
+<span style="color: #666666;">;;; </span><span style="color: #666666;">ede customization
+</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-lex-spp</span>)
+(global-ede-mode t)
+
+<span style="color: #666666;">;; </span><span style="color: #666666;">cpp-tests project definition
+</span>(ede-cpp-root-project <span style="color: #008b00;">"cpp-tests"</span> <span style="color: #006400;">:file</span> <span style="color: #008b00;">"~/projects/lang-exp/cpp/CMakeLists.</span><span style="color: #cdad00; font-weight: bold; text-decoration: underline;">txt</span><span style="color: #008b00;">"</span>
+                      <span style="color: #006400;">:system-include-path</span> '(<span style="color: #008b00;">"/home/ott/exp/include"</span>
+                                             <span style="color: #008b00;">"/home/ott/exp/include/boost-1_37"</span>))
+(ede-cpp-root-project <span style="color: #008b00;">"text-categorization"</span> <span style="color: #006400;">:file</span> <span style="color: #008b00;">"~/projects/text-categorization/CMakeLists.txt"</span>
+                      <span style="color: #006400;">:system-include-path</span> '(<span style="color: #008b00;">"/home/ott/exp/include"</span>
+                                             <span style="color: #008b00;">"/home/ott/exp/include/boost-1_37"</span>))
+(ede-cpp-root-project <span style="color: #008b00;">"wfilter"</span> <span style="color: #006400;">:file</span> <span style="color: #008b00;">"~/projects/wfilter/README"</span>
+                      <span style="color: #006400;">:system-include-path</span> '(<span style="color: #008b00;">"/home/ott/exp/include"</span>
+                                             <span style="color: #008b00;">"/home/ott/exp/include/boost-1_37"</span>))
+
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-cedet.el ends here
 </span></pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
   </body>
 </html>

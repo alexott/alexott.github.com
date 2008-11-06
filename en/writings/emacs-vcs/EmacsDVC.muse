@@ -178,6 +178,10 @@ Following commands are common for all supported DVCS:
 | =dvc-submit-patch= | =C-x V p= | send changes to given e-mail address
 | =dvc-bookmarks= | =C-x V b= | open buffer with bookmarks to remote repositories
 | =dvc-clone= | =C-x V C= | clone repository from external one
+| =dvc-create-branch= | =C-x V o c= | creates new branch
+| =dvc-select-branch= | =C-x V o s= | switch to another branch
+| =dvc-list-branches= | =C-x V o l= | show list of existing branches
+; | == | == | 
 
 Using these commands you can perform most of the tasks affecting other repositories.
   
