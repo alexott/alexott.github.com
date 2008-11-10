@@ -269,6 +269,20 @@ http://github.com/jwiegley/magit/tree/master
 
 ** Использование пакета
 
+   The main entry point to Magit is `M-x magit-status', which will put
+you in Magit's status buffer.  You will be using it frequently, so it
+is probably a good idea to bind `magit-status' to a key of your choice.
+
+   In addition to the status buffer, Magit will also create buffers that
+show lists of commits, buffers with diffs, and other kinds of buffers.
+All these buffers are in `magit-mode' and have the same key bindings.
+Not all commands make sense in all contexts, but a given key will
+always do the same thing in all Magit buffers.
+
+   Naturally, Magit runs the `git' command to do most of the work.  The
+`*magit-process*' buffer contains the transcript of the most recent
+command.  You can switch to it with `$'.
+
 
 * egg
 
