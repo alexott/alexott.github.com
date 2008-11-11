@@ -281,46 +281,27 @@ make && make install
 
 ** Основы работы
 
+Аналогично многим другим режимам, работа с репозиторием начинается с выполнения отдельной
+команды.  Для данного пакета это команда =magit-status=, выполнение которой приводит к
+запросу имени каталога с репозиторием, и созданию буфера =*magit: имя_каталога*=, который
+содержит текущее состояние репозитория, и из которого выполняются все операции.  Примерный
+вид буфера  =*magit: имя_каталога*= вы можете увидеть на рисунке ниже.
 
-   The main entry point to Magit is `M-x magit-status', which will put
-you in Magit's status buffer.  You will be using it frequently, so it
-is probably a good idea to bind `magit-status' to a key of your choice.
+<div id="screenshot">
+[[../../../common/writings/emacs-vcs/magit-status.png]]
+</div>
 
-  =*magit: имя_каталога*=  
+Данный буфер содержит несколько списков файлов, соответствующих разным состояниям объектов
+в репозитории *Git*: неизвестные объекты (untracked); измененные объекты, но не добавленные
+в список для следующего подтверждения изменений (unstaged); объекты, добавленные в список
+следующего подтверждения изменений (staged), и подтвержденные изменения, но не
+синхронизированные с исходным репозиторием (unpushed).
 
-   In addition to the status buffer, Magit will also create buffers that
-show lists of commits, buffers with diffs, and other kinds of buffers.
-All these buffers are in `magit-mode' and have the same key bindings.
-Not all commands make sense in all contexts, but a given key will
-always do the same thing in all Magit buffers.
+Между объектами можно перемещаться с помощью клавиш курсора или клавиш =n= & =p=.  Кроме того,
+пользователь может быстро перемещаться между списками объектов с разными состояниями с
+помощью клавиш =1= (=magit-jump-to-untracked=), =2= (=magit-jump-to-unstaged=), =3=
+(=magit-jump-to-staged=) и =4= (=magit-jump-to-unpushed=).
 
-   Naturally, Magit runs the `git' command to do most of the work.  The
-=*magit-process*= buffer contains the transcript of the most recent
-command.  You can switch to it with `$'.
-
-
-TAB             magit-toggle-section
-RET             magit-visit-item
-
-SPC             magit-show-item-or-scroll-up
-DEL             magit-show-item-or-scroll-down
-
-.               magit-mark-item
-
-n               magit-goto-next-section
-p               magit-goto-previous-section
-
-<backtab>       magit-expand-collapse-section
-
-1               magit-jump-to-untracked
-2               magit-jump-to-unstaged
-3               magit-jump-to-staged
-4               magit-jump-to-unpushed
-
-?               magit-describe-item
-
-C               magit-add-log
-c               magit-log-edit
 
 I               magit-ignore-item-locally
 i               magit-ignore-item
@@ -328,15 +309,23 @@ i               magit-ignore-item
 k               magit-discard-item
 
 
+
 S               magit-stage-all
 U               magit-unstage-all
 s               magit-stage-item
 u               magit-unstage-item
 
-<div id="screenshot">
-[[../../../common/writings/emacs-vcs/magit-status.png]]
-</div>
 
+Открыть нужный объект в новом буфере можно с помощью клавиши =RET= (=magit-visit-item=).
+
+TAB             magit-toggle-section
+<backtab>       magit-expand-collapse-section
+
+
+?               magit-describe-item
+
+C               magit-add-log
+c               magit-log-edit
 
 
 ** Работа с изменениями
@@ -348,6 +337,12 @@ d               magit-diff-working-tree
 X               magit-reset-working-tree
 x               magit-reset-head
 
+SPC             magit-show-item-or-scroll-up
+DEL             magit-show-item-or-scroll-down
+
+.               magit-mark-item
+
+z magit-stash
 
 ** Работа с историей изменений
 
@@ -399,6 +394,9 @@ M               magit-automatic-merge
 
 R               magit-rebase-step
 
+N r magit-svn-rebase
+N c magit-svn-dcommit
+
 
 ** Прочие команды
 
@@ -406,6 +404,10 @@ q               quit-window
 $               magit-display-process
 g               magit-refresh
 G               magit-refresh-all
+
+   Naturally, Magit runs the `git' command to do most of the work.  The
+=*magit-process*= buffer contains the transcript of the most recent
+command.  You can switch to it with `$'.
 
 
 
