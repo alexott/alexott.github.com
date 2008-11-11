@@ -333,6 +333,11 @@ U               magit-unstage-all
 s               magit-stage-item
 u               magit-unstage-item
 
+<div id="screenshot">
+[[../../../common/writings/emacs-vcs/magit-status.png]]
+</div>
+
+
 
 ** Работа с изменениями
 
@@ -348,6 +353,16 @@ x               magit-reset-head
 
 l               magit-log-head
 L               magit-log
+
+Пример вывода истории изменений вы можете увидеть на рисунке ниже.  При этом стоит
+отметить, что *magit* старается отображать изменения в разных ветках, примерно так, как это
+делает =gitk=.
+
+<div id="screenshot">
+[[../../../common/writings/emacs-vcs/magit-history.png]]
+</div>
+
+
 H               magit-reflog
 h               magit-reflog-head
 
