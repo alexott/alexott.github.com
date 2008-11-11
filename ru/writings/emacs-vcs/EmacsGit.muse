@@ -254,24 +254,39 @@ Emacs.  Эту утилиту можно запустить как напрям�
 #magit
 * magit
 
-
-http://zagadka.vm.bytemark.co.uk/magit/magit.html
+Пакет [[http://zagadka.vm.bytemark.co.uk/magit/][magit]] является еще одной реализацией интерфейса для работы с *Git* из Emacs.  По
+сравнению с другими пакетами, он предоставляет более точное отображение идеологии *Git*, и
+немного отличающиеся наборы клавиш, так что сначала рекомендуется прочитать руководство
+пользователя, которое поставляется вместе с пакетом.
 
 ** Установка и настройка
 
-http://zagadka.vm.bytemark.co.uk/magit/
+Установка пакета проста -- вам необходимо скачать исходные тексты из репозитория, адрес
+которого указан на [[http://zagadka.vm.bytemark.co.uk/magit/][домашней странице]] проекта, и установить его, используя следующую
+последовательность команд:
 
-http://github.com/jwiegley/magit/tree/master
+<src lang="sh">
+sh ./autogen.sh
+./configure [опции]
+make && make install
+</src>
+
+После установки, добавьте в файл инициализации следующую строку:
 
 <src lang="emacs-lisp">
 (autoload 'magit-status "magit" nil t)
 </src>
 
-** Использование пакета
+которая выполнит загрузку пакета при первом вызове команды =magit-status=.
+
+** Основы работы
+
 
    The main entry point to Magit is `M-x magit-status', which will put
 you in Magit's status buffer.  You will be using it frequently, so it
 is probably a good idea to bind `magit-status' to a key of your choice.
+
+  =*magit: имя_каталога*=  
 
    In addition to the status buffer, Magit will also create buffers that
 show lists of commits, buffers with diffs, and other kinds of buffers.
@@ -280,75 +295,102 @@ Not all commands make sense in all contexts, but a given key will
 always do the same thing in all Magit buffers.
 
    Naturally, Magit runs the `git' command to do most of the work.  The
-`*magit-process*' buffer contains the transcript of the most recent
+=*magit-process*= buffer contains the transcript of the most recent
 command.  You can switch to it with `$'.
 
-Magit mode:
-Review the status of a git repository and act on it.
-
-Please see the manual for a complete description of Magit.
-
-key             binding
----             -------
 
 TAB             magit-toggle-section
 RET             magit-visit-item
+
 SPC             magit-show-item-or-scroll-up
-$               magit-display-process
+DEL             magit-show-item-or-scroll-down
+
 .               magit-mark-item
+
+n               magit-goto-next-section
+p               magit-goto-previous-section
+
+<backtab>       magit-expand-collapse-section
+
 1               magit-jump-to-untracked
 2               magit-jump-to-unstaged
 3               magit-jump-to-staged
 4               magit-jump-to-unpushed
-=               magit-diff-with-mark
+
 ?               magit-describe-item
-A               magit-cherry-pick-item
-B               magit-create-branch
+
 C               magit-add-log
-D               magit-diff
-F               magit-pull
-G               magit-refresh-all
-H               magit-reflog
-I               magit-ignore-item-locally
-L               magit-log
-M               magit-automatic-merge
-P               magit-push
-R               magit-rebase-step
-S               magit-stage-all
-T               magit-annotated-tag
-U               magit-unstage-all
-X               magit-reset-working-tree
-a               magit-apply-item
-b               magit-checkout
 c               magit-log-edit
-d               magit-diff-working-tree
-f               magit-remote-update
-g               magit-refresh
-h               magit-reflog-head
+
+I               magit-ignore-item-locally
 i               magit-ignore-item
+
 k               magit-discard-item
-l               magit-log-head
-m               magit-manual-merge
-n               magit-goto-next-section
-p               magit-goto-previous-section
-q               quit-window
-r               Prefix Command
+
+
+S               magit-stage-all
+U               magit-unstage-all
 s               magit-stage-item
-t               magit-tag
 u               magit-unstage-item
-v               magit-revert-item
+
+
+** Работа с изменениями
+
+=               magit-diff-with-mark
+D               magit-diff
+d               magit-diff-working-tree
+
+X               magit-reset-working-tree
 x               magit-reset-head
-DEL             magit-show-item-or-scroll-down
-<backtab>       magit-expand-collapse-section
-<remap>         Prefix Command
+
+
+** Работа с историей изменений
+
+l               magit-log-head
+L               magit-log
+H               magit-reflog
+h               magit-reflog-head
+
+Cherry-pick
+A               magit-cherry-pick-item
+a               magit-apply-item
+
+v               magit-revert-item
+
+
 
 r *             magit-rewrite-set-unused
 r .             magit-rewrite-set-used
 r a             magit-rewrite-abort
-r f             magit-rewrite-finish
+r f             magit-rewrite-finish 
 r s             magit-rewrite-start
 r t             magit-rewrite-stop
 
+
+
+** Таги, ветки и удаленные репозитории
+
+t               magit-tag
+T               magit-annotated-tag
+P               magit-push
+F               magit-pull
+f               magit-remote-update
+
+B               magit-create-branch
+b               magit-checkout
+
+m               magit-manual-merge
+M               magit-automatic-merge
+
+R               magit-rebase-step
+
+
+** Прочие команды
+
+q               quit-window
+$               magit-display-process
+g               magit-refresh
+G               magit-refresh-all
 
 
 
