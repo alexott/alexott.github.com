@@ -302,35 +302,44 @@ make && make install
 помощью клавиш =1= (=magit-jump-to-untracked=), =2= (=magit-jump-to-unstaged=), =3=
 (=magit-jump-to-staged=) и =4= (=magit-jump-to-unpushed=).
 
+Некоторые операции, которые можно выполнять над объектами, напрямую зависят от того, в
+каком состоянии этот объект находится.  Так, например, клавиша =k= (=magit-discard-item=)
+приведет к удалению неизвестного объекта, а при применении к измененному объекту, лишь
+приведет к откату сделанных изменений.
 
-I               magit-ignore-item-locally
-i               magit-ignore-item
+Кроме удаления неизвестных файлов, можно также поместить их в список игнорирования.  Для
+этого определены две команды: =i= (=magit-ignore-item=) помещает текущий объект в файл
+=.gitignore=, а =I= (=magit-ignore-item-locally=) вносит его в файл =.git/info/exclude=, который
+используется для игнорирования файлов только для текущего репозитория.  Кроме того, если
+перед нужно клавишей задать префиксный аргумент, то у пользователя будет запрошено имя
+игнорируемого файла, что удобно для ввода масок игнорируемых файлов.
 
-k               magit-discard-item
+Подтверждение изменений происходит для файлов, внесенных 
 
-
-
-S               magit-stage-all
-U               magit-unstage-all
 s               magit-stage-item
 u               magit-unstage-item
 
-
-Открыть нужный объект в новом буфере можно с помощью клавиши =RET= (=magit-visit-item=).
-
-TAB             magit-toggle-section
-<backtab>       magit-expand-collapse-section
-
-
-?               magit-describe-item
+S               magit-stage-all
+U               magit-unstage-all
 
 C               magit-add-log
 c               magit-log-edit
 
 
+
+
+Открыть нужный объект в новом буфере можно с помощью клавиши =RET= (=magit-visit-item=).
+
+<backtab>       magit-expand-collapse-section
+
+
+?               magit-describe-item
+
+
 ** Работа с изменениями
 
-=               magit-diff-with-mark
+TAB             magit-toggle-section
+
 D               magit-diff
 d               magit-diff-working-tree
 
@@ -356,6 +365,8 @@ L               magit-log
 <div id="screenshot">
 [[../../../common/writings/emacs-vcs/magit-history.png]]
 </div>
+
+=               magit-diff-with-mark
 
 
 H               magit-reflog
