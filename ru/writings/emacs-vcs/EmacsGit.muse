@@ -408,8 +408,51 @@ X               magit-reset-working-tree
 описанные выше.
 
 Также пакет *magit* реализует набор команд, предназначенных для переписывания истории
-изменений.  Но поскольку это достаточно редкая операция, то подробную информацию о ней вы
-сможете найти в руководстве пользователя пакета.
+изменений, которые позволяют более удобно работать с историей, чем при использовании
+сочетания =x= (reset head) и =a= (cherry pick).  Данный набор команд имеет общий префикс =r=.
+Для начала работы необходимо нажать =r s=, и у вас будет запрошено имя ревизии, с которой вы
+хотите начать работу.   При этом все последующие изменения будут помещены в специальный
+список *ожидающих* (*pending*) изменений.  Затем можно использовать команды =a= & =A= для
+применения изменений в заданном порядке.
+
+
+   You would then typically use `a' and `A' to cherry pick commits from
+the list of pending commits in the desired order, until all have been
+applied.  Magit shows which commits have been applied by changing their
+marker from `*' to `.'.
+
+   Using `A' will immediately commit the commit (as usual).  If you
+want to combine multiple previous commits into a single new one, use
+`a' to apply them all to your working tree, and then commit them
+together.
+
+   Magit has no explicit support for rewriting merge commits.  It will
+happily include merge commits in the list of pending commits, but there
+is no way of replaying them automatically.  You have to redo the merge
+explicitly.
+
+   You can also use `v' to revert a commit when you have changed your
+mind.  This will change the `.' mark back to `*'.
+
+   Once you are done with the rewrite, type `r t' to remove the book
+keeping information from the status buffer.
+
+   If you rather wish to start over, type `r a'.  This will abort the
+rewriting, resetting the current head back to the value it had before
+the rewrite was started with `r s'.
+
+   Typing `r f' will _finish_ the rewrite: it will apply all unused
+commits one after the other, as if you would us `A' with all of them.
+
+   You can change the `*' and `.' marks of a pending commit explicitly
+with `r *' and `r .'.
+
+   In addition to a list of pending commits, the status buffer will show
+the _Pending changes_.  This section shows the diff between the
+original head and the current head.  You can use it to review the
+changes that you still need to rewrite, and you can apply hunks from
+it, like from any other diff.
+
 
 ** Таги, ветки и удаленные репозитории
 
