@@ -287,28 +287,29 @@ This buffer contains several lists of objects, matching to different states of o
 Besides this, if lists *staged* & *unstaged* aren't exists, then all modified files are listed
 in list with status *changed*.
 
-Между объектами можно перемещаться с помощью клавиш курсора или клавиш =n= & =p=.  Кроме того,
-пользователь может быстро перемещаться между списками объектов с разными состояниями с
-помощью клавиш =1= (=magit-jump-to-untracked=), =2= (=magit-jump-to-unstaged=), =3=
-(=magit-jump-to-staged=) и =4= (=magit-jump-to-unpushed=).
+User can move between objects in list by using arrow keys, or keys =n= & =p=.  Besides this,
+user can quickly move between groups of files with different states by using numerical
+keys: =1= (=magit-jump-to-untracked=), =2= (=magit-jump-to-unstaged=), =3= (=magit-jump-to-staged=)
+and =4= (=magit-jump-to-unpushed=).
 
-Некоторые операции, которые можно выполнять над объектами, напрямую зависят от того, в
-каком состоянии этот объект находится.  Так, например, клавиша =k= (=magit-discard-item=)
-приведет к удалению неизвестного объекта, а при применении к измененному объекту, лишь
-приведет к откату сделанных изменений.  Она также может использоваться для удаления
-сохраненных (*stashed*) изменений.
+Some operations, that could be performed on objects, behave differently depending on state
+of object.  For example, if you press the =k= key (=magit-discard-item=) on unknown object,
+then it will deleted, but if you press it on modified object, this will only lead to drop
+changes from that object.  And if you'll apply it to the saved (*stashed*) change, then this
+change will deleted.
 
-Кроме удаления неизвестных файлов, можно также поместить их в список игнорирования.  Для
-этого определены две команды: =i= (=magit-ignore-item=) помещает текущий объект в файл
-=.gitignore=, а =I= (=magit-ignore-item-locally=) вносит его в файл =.git/info/exclude=, который
-используется для игнорирования файлов только для текущего репозитория.  Кроме того, если
-перед нужно клавишей задать префиксный аргумент, то у пользователя будет запрошено имя
-игнорируемого файла, что удобно для ввода масок игнорируемых файлов.
+If you don't want to delete unknown objects, and don't want to register them in
+repository, then you can ignore them with one of two defined commands: the =i= key
+(=magit-ignore-item=) will put current object into ignore list located in the =.gitignore=
+file, and the =I= key (=magit-ignore-item-locally=) will put current object into the
+=.git/info/exclude= file, that is used to ignore objects only in current repository.
+Besides this, if you'll specify prefix argument before pressing one of these keys, then
+commands will ask for name of file to ignore, and you can enter name or regular
+expression as answer.
 
-И как обычно, открыть нужный объект в новом буфере можно с помощью клавиши =RET=
-(=magit-visit-item=).  
+And, as usually, you can open current object by pressing the =RET= key (=magit-visit-item=).
 
-** Работа с изменениями
+** Work with changes
 
 Подтверждение изменений производится одной из двух команд -- =c= (=magit-log-edit=) или =C=
 (=magit-add-log=).  Они обе открывают новый буфер в котором пользователь может ввести
