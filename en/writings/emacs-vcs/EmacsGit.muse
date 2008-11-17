@@ -238,16 +238,16 @@ name of the tag as a parameter for the =git-checkout-to-new-branch= command.
 #magit
 * The magit package
 
-Пакет [[http://zagadka.vm.bytemark.co.uk/magit/][magit]] является еще одной реализацией интерфейса для работы с *Git* из Emacs.  По
-сравнению с другими пакетами, он предоставляет более точное отображение идеологии *Git*, и
-немного отличающиеся наборы клавиш, так что сначала рекомендуется прочитать руководство
-пользователя, которое поставляется вместе с пакетом.
+The [[http://zagadka.vm.bytemark.co.uk/magit/][magit]] package provides interface for work with *Git* from Emacs.  Comparing with other
+packages, this package provides more precise mapping of *Git's* ideology to Emacs interface,
+but use slightly different, comparing with other packages, set of key bindings, so it's
+recommended to read user's manual first.
 
 ** Installation and customisation
 
-Установка пакета проста -- вам необходимо скачать исходные тексты из репозитория, адрес
-которого указан на [[http://zagadka.vm.bytemark.co.uk/magit/][домашней странице]] проекта, и установить его, используя следующую
-последовательность команд:
+Installation of package is very simple -- you need to retrieve sources from the
+repository, specified on the [[http://zagadka.vm.bytemark.co.uk/magit/][project's home page]], and install it, using following
+commands:
 
 <src lang="sh">
 sh ./autogen.sh
@@ -255,38 +255,37 @@ sh ./autogen.sh
 make && make install
 </src>
 
-После установки, добавьте в файл инициализации следующую строку:
+After installation, just add following line to your initialisation file:
 
 <src lang="emacs-lisp">
 (autoload 'magit-status "magit" nil t)
 </src>
 
-которая выполнит загрузку пакета при первом вызове команды =magit-status=.
+This command will load package when on first call of the =magit-status= command.
 
 ** Basics of work with package
 
-Аналогично многим другим режимам, работа с репозиторием начинается с выполнения отдельной
-команды.  Для данного пакета это команда =magit-status=, выполнение которой приводит к
-запросу имени каталога с репозиторием, и созданию буфера =*magit: имя_каталога*=, который
-содержит текущее состояние репозитория, и из которого выполняются все операции используя
-специальные клавиши или меню =Magit=.  Примерный вид буфера =*magit: имя_каталога*= вы можете
-увидеть на рисунке ниже.
+Like in other version control support packages, work with repository is starting by
+executing one command.  For *magit* package this is the =magit-status= command, that, when
+executed, will ask for name of directory with repository, and than will create a new
+buffer with name =*magit: directory_name*=, that will hold information about actual state of
+repository.  All commands are executed from this buffer, either by using key bindings,
+either via the =Magit= menu.  The buffer =*magit: directory_name*= will look like this:
 
 <div id="screenshot">
 [[../../../common/writings/emacs-vcs/magit-status.png]]
 </div>
 
-Данный буфер содержит несколько списков файлов, соответствующих разным состояниям объектов
-в репозитории *Git*: 
- - неизвестные объекты (*untracked*)
- - сохраненные (*stashed*) объекты
- - измененные объекты, но не добавленные в список для следующего подтверждения изменений
-   (*unstaged*)
- - объекты, добавленные в список следующего подтверждения изменений (*staged*)
- - подтвержденные изменения, но не синхронизированные с исходным репозиторием (*unpushed*).
+This buffer contains several lists of objects, matching to different states of objects in
+*Git's* repository: 
+ - unknown objects (*untracked*)
+ - saved (*stashed*) objects
+ - modified object, but not added to commit list (*unstaged*)
+ - modified objects, added to commit list (*staged*)
+ - committed changes, but not pushed to source repository (*unpushed*).
 
-Кроме того, если списков *staged* и *unstaged* не существует, то измененные файлы показываются
-в списке *changed*.
+Besides this, if lists *staged* & *unstaged* aren't exists, then all modified files are listed
+in list with status *changed*.
 
 Между объектами можно перемещаться с помощью клавиш курсора или клавиш =n= & =p=.  Кроме того,
 пользователь может быстро перемещаться между списками объектов с разными состояниями с
