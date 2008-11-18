@@ -9,9 +9,24 @@ Cedet.
 
 * Установка Cedet
 
+Лучше всего в настоящее время пользоваться версией Cedet находящейся в репозитории на
+[[http://sourceforge.net/cvs/?group_id=17886][Sourceforge.net]].  После загрузки данных из репозитория, необходимо скомпилировать пакет
+воспользовавшись следующей последовательностью команд:
+
+<src lang="sh">
+find . -name Makefile|xargs touch
+make clean && make autoloads && make -k all
+</src>
+
+Первая команда необходима, поскольку файлы Makefile, используемые для сборки, генерируются
+из файлов Projects.ede, и при извлечении из репозитория имеют неправильную дату, что
+приводит к ошибкам сборки.[1] 
+
+* Базовая настройка пакета
 
 * Базовая настройка Semantic
 
+* Настройка Semantic для работы с C & C++
 
 * Настройка дополнения имен
 
@@ -19,4 +34,14 @@ Cedet.
 * Настройка проектов
 
 
-;  LocalWords: emacs ede cedet localwords
+* Интеграция с другими пакетами
+
+упомянуть про ECB, Speedbar & JDEE
+
+
+;  LocalWords: emacs ede cedet localwords lang autoloads Makefile xargs ECB src
+;  LocalWords:  Speedbar JDEE LocalWords CVS
+
+Footnotes: 
+[1] Это относится только к сборке пакета из CVS
+
