@@ -354,100 +354,93 @@ changeset (by default this is last committed changeset).  There is also
 =magit-reset-working-tree= command (the =X= key), that will revert changes and return
 repository to the last committed change, without asking for name of changeset.
 
-** Работа с историей изменений
+** Work with history of changes
 
-Просмотр истории изменений производится командами =l= (=magit-log-head=) и =L= (=magit-log=).
-Первая команда отображает историю изменений для текущей ветки разработки, а вторая команда
--- для заданного отрезка истории, данные о котором запрашиваются у пользователя.  Пример
-вывода истории изменений вы можете увидеть на рисунке ниже.  При этом стоит отметить, что
-*magit* старается отображать изменения в разных ветках, примерно так, как это делает =gitk=.
+To see history of changes in repository, user can use either =l= key (=magit-log-head=), or =L=
+key (=magit-log=).  First command displays history of changes for current branch of
+development, while second, displays history for range, that it asks from user.  Example of
+output, produced by these commands, you can see on the picture below.  I want to mention,
+that *magit* tries to display changes in different branches, like the =gitk= command do.
 
 <div id="screenshot">
 [[../../../common/writings/emacs-vcs/magit-history.png]]
 </div>
 
-Перемещаясь по истории изменений пользователь может получать подробную информацию о
-конкретном изменении нажав на клавишу =RET=.  Кроме этого, можно посмотреть сделанные
-изменения между двумя произвольными подтвержденными изменениями.  Для этого, необходимо
-отметить одно из нужных изменений с помощью клавиши =.= (=magit-mark-item=), и перейдя ко
-второму изменению, нажать на клавишу <code>=</code> (=magit-diff-with-mark=).  Это приведет
-к созданию нового буфера, в котором будут отображены соответствующие данные.
+When moving along the history of changes, user can get detailed information about
+changeset under point by pressing the =RET= key.  Besides this, user can view changes
+between any two changesets.  To do this, he need to move to first changeset and mark it
+with the =.= key (=magit-mark-item=), and than, move to the other changeset, and display the
+changes by pressing the <code>=</code> key (=magit-diff-with-mark=).  This will create a new
+buffer, where corresponding information will displayed.
 
-Пользователь может выполнять различные операции над конкретными изменениями.  С помощью
-команды =a= (=magit-apply-item=) можно применить выбранное изменение к текущей ветке
-разработки.  Только стоит отметить, что при выполнении этой команды, пользователю
-необходимо будет явно подтвердить изменения, или воспользоваться командой =A=
-(=magit-cherry-pick-item=), которая также применит выбранные изменения, но при этом еще и
-выполнит подтверждение в репозиторий.  А для отмены изменений сделанных каким-то
-конкретным подтверждением изменений можно воспользоваться командой =v= (=magit-revert-item=),
-которая аккуратно применит патч в обратном порядке.
+User can execute different commands on changesets.  Using the =a= key (=magit-apply-item=) he
+can apply current changeset (changeset under point) to current branch of development.  But
+he will need to explicitly commit new changes, or use the =A= key (=magit-cherry-pick-item=),
+that will also apply current changeset, but also will automatically commit changes to
+repository.  And to revert changes, done in changeset under point, user can use the =v= key
+(=magit-revert-item=), that will apply patch in revert order.
 
-Кроме истории изменений репозитория, пользователь может просматривать записи в локальной
-истории (*reflog*).  Для этого можно воспользоваться командой =h= (=magit-reflog-head=), которая
-отображает *reflog* для текущей ветки разработки, или =H= (=magit-reflog=), которая может
-показать данные для двух произвольных точек в истории.  Обе команды создают буфер с
-историей изменений, в котором также могут выполняться команды для работы с изменениями,
-описанные выше.
+Besides working with history of changes for whole repository, user can also look
+changesets in local history (*reflog*). To do this, he can use either =h= key
+(=magit-reflog-head=), that displays *reflog* for current branch of development, or =H= key
+(=magit-reflog=), that displays changesets for any two points in local history. Both
+commands create a new buffer, in which user can execute commands, described above.
 
-Также пакет *magit* реализует набор команд, предназначенных для переписывания истории
-изменений, которые позволяют более удобно работать с историей, чем при использовании
-сочетания команд =x= (reset head) и =a= (cherry pick).  Данный набор команд имеет общий
-префикс =r=.  Для начала работы необходимо нажать =r s=, и у вас будет запрошено имя ревизии,
-с которой вы хотите начать работу.  При этом все последующие изменения будут помещены в
-специальный список *ожидающих* (*pending*) изменений.  Затем можно использовать команды =a=, =A= &
-=v= для применения изменений в нужном вам порядке.  При этом, примененные изменения меняют
-свой статус с знака =*= на знак =.= (точка).  Вы также можете явно изменить статус изменения
-на нужный, используя команды =r .= и =r *=.
+There is also set of commands, that allows user to rewrite history of changes. This set of
+commands is more handy than combination of =x= (reset head) and =a= (cherry pick). All
+commands in this set have =r= as common prefix. To start work, you need to press =r s=, and
+you will asked for name of revision, starting from which you can start rewriting. And all
+following changesets will put into special list of *pending* changes. Than you can use =a=, =A=
+& =v= keys to apply and revert changes in order, that you need. And applied changesets will
+change their status from =*= to =.= (dot). You can also explicitly change status of changeset
+with =r .= and =r *= keys.
 
-Если у вас что-то пошло не так, то вы можете вернуться к началу работы по переписыванию
-истории нажав =r a=.  И завершить работу по переписыванию истории изменений можно с помощью
-сочетания =r f=, которое применит все оставшиеся изменения в их обычном порядке, и закончит
-работу по переписыванию истории изменений.
+If something goes wrong, you can return to start of work by pressing =r a=, and work will
+started from the revision, those name you enter with =r s=. And you can finish work by
+pressing =r f=, that will apply rest of changeset in the same order, as they were in the
+history of changes.
 
-** Таги, ветки и сторонние репозитории
+** Tags, branches, and remote repositories
 
-Пакет *magit* предоставляет достаточный набор средств для работы с ветками, тагами и
-сторонними репозиториями, так что практически все операции можно выполнять не покидая
-Emacs.  
+The *magit* package also provides enough set of commands for work with branches, tags &
+remote repositories, so almost all operations could be performed from the Emacs.
 
-Для создания тагов используются команды =t= (=magit-tag=) и =T= (=magit-annotated-tag=).  Они обе
-запрашивают у пользователя имя тага, который нужно создать, но вторая команда позволяет
-пользователю ввести описание тага, что иногда очень удобно.  После ввода всей необходимой
-информации, пакет создает нужный таг, основываясь на текущем состоянии репозитория.
+To create tags user can use keys =t= (=magit-tag=) and =T= (=magit-annotated-tag=). They both ask
+user for a name of tag, but the second command will also ask for more detailed description
+of the tag, so it could be much easier to find it later. After entering of tag's name,
+package will create tag with given name, and using current repository state.
 
-Работа с ветками также достаточно проста.  Для создания новой ветки и переключения в нее
-может использоваться команда =B= (=magit-create-branch=) -- она запрашивает у пользователя
-лишь имя нужной ветки.  А для переключения между существующими ветками можно
-воспользоваться командой =b= (=magit-checkout=), которая запрашивает имя существующей ветки
-(можно воспользоваться дополнением имен веток) и переключается в нее.  И для выполнения
-=git rebase= пользователь должен использоваться командой =R= (=magit-rebase-step=).
+Work with branches is also simple. To create a new branch (and switching to it) user can
+use =B= key (=magit-create-branch=) -- it will ask user for a name of the new branch. To
+switching between existing branches, user can use =b= key (=magit-checkout=), that will ask
+for name of the existing branch (you can use name completion) and will switch to given
+branch. And to perform =git rebase= user can use the =R= key (=magit-rebase-step=).
 
-Между ветками можно проводить слияние изменений.  Для автоматического слияния изменений из
-указанной ветки можно использовать команду =M= (=magit-automatic-merge=), которая применит все
-изменения и подтвердит их в репозиторий.  А если вы хотите просматривать изменения перед
-их слиянием, то вам стоит воспользоваться командой =m= (=magit-manual-merge=).  Обе эти
-команды получают в качестве аргумента имя ветки из которой будет производиться слияние. 
+We can merge the changes between the branches. To perform automatic merge of changes from
+given branch, user can use the =M= key (=magit-automatic-merge=), that will perform all
+missing changesets, and commit them into repository. And if you want to review changes
+before merging, then you can use the =m= key (=magit-manual-merge=). Both these commands
+accept name of branch as an argument.
 
-Пакет предоставляет несколько базовых команд для работы со сторонними репозиториями.
-Команда =f= (=magit-remote-update=) получает из стороннего репозитория (*origin*) список
-изменений, отсутствующих в текущем репозитории.  Эти изменения можно получить и применить
-к текущему репозиторию с помощью команды =F= (=magit-pull=).  Кроме того, если у пользователя
-правильно проведена настройка репозитория, то можно воспользоваться командой =P=
-(=magit-push=), которая выполнит загрузку изменений в удаленный репозиторий (в данный момент
-это только оригинальный репозиторий (*origin*).
+There are also several commands to work with remote repositories. The =f= key
+(=magit-remote-update=) gets from remote (*origin*) repository list of changesets, missing in
+current repository. These changes could be downloaded and applied with the =F= key
+(=magit-pull=). Besides this, if user did right customization of repository, then user can
+also use =P= key (=magit-push=) to push changesets into remote repository (currently,
+supported only pushing into *origin*.
 
-Также недавно в пакет была добавлена базовая поддержка =git svn=.  Если существующий
-репозиторий был создан на основе проекта из Subversion, то пользователю становятся
-доступными две команды: =N r= (=magit-svn-rebase=) приводит к выполнению команды =git svn
-rebase=, которая производит синхронизацию с Subversion, и =N c= (=magit-svn-dcommit=), которая
-помещает подтвержденные изменения из репозитория Git в репозиторий Subversion.
+Some time ago, the support of the =git svn= was added to the package. If current repository
+was created from the Subversion, then user will get access to the two additional commands:
+=N r= (=magit-svn-rebase=) will perform =git svn rebase= command, that performs synchronisation
+with the Subversion, and =N c= (=magit-svn-dcommit=), that will push your changesets from
+the *Git* to Subversion.
 
 * The egg package
 
-Пакет *egg* является форком пакета [[#magit][magit]], описанного выше.  Основным отличием от *magit*
-является улучшение пользовательского интерфейса (пример интерфейса для работы с историей
-изменений вы можете видеть на рисунке ниже), остальной функционал примерно соответствует
-пакету *magit*.  Пакет доступен для загрузки с [[http://github.com/bogolisk/egg/tree/master][сайта разработчика]].
+The *egg* package is the fork of the [[#magit][magit]] package, described above. Main difference
+from *magit* is an improvements in the users interface (example of interface to work with
+history of changes you can see on the picture below), all other functional is almost the
+same as in *magit*. This package is available to download from the [[http://github.com/bogolisk/egg/tree/master][developer's site]].
 
 <div id="screenshot">
 [[../../../common/writings/emacs-vcs/egg-history.png]]
@@ -571,4 +564,4 @@ Footnotes:
 [3] Эту команду можно выполнять не только из буфера статуса, но и воспользовавшись
     глобальной привязкой клавиш =C-x v v=.
 
-;  LocalWords:  gitignore SPC RET unmark changeset
+;  LocalWords:  gitignore SPC RET unmark changeset changesets magit
