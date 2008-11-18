@@ -311,51 +311,48 @@ And, as usually, you can open current object by pressing the =RET= key (=magit-v
 
 ** Work with changes
 
-Подтверждение изменений производится одной из двух команд -- =c= (=magit-log-edit=) или =C=
-(=magit-add-log=).  Они обе открывают новый буфер в котором пользователь может ввести
-описание изменения, но при этом они немного отличаются оформлением описания.  Для первой
-команды пользователь может ввести текст в произвольной форме, тогда как во втором случае,
-в буфер вставляется имя файла, что позволяет оформлять описания в виде принятом для файлов
-=ChangeLog=.
+User can commit by using one of two commands -- either =c= (=magit-log-edit=), or =C=
+(=magit-add-log=).  They both open a new buffer, where user should enter description of
+change, but slightly differs in decoration of this description.  For first command, user
+can enter description as free form text, while for second, buffer will contain name of
+files, so log will look like standard =ChangeLog= files.
 
-Но стоит отметить, что изменения подтверждаются немного по разному в зависимости от
-состояния репозитория.  Если существует только список измененных файлов (*changed*), то
-подтверждаются все изменения из данного списка.  Если пользователь хочет подтвердить
-только некоторые изменения, то ему стоит перенести их в список объектов для подтверждения
-(*staged*), и уже затем выполнять операцию подтверждения изменений.  Для внесения объекта в
-список подтверждения, пользователь может воспользоваться клавишей =s= (=magit-stage-item=),
-которая помещает измененный объект в нужный список (для неизвестных файлов это
-эквивалентно добавлению файла в репозиторий), удалить из которого можно с помощью клавиши
-=u= (=magit-unstage-item=).  Для добавления всех объектов в список подтверждения, определена
-клавиша =S= (=magit-stage-all=), и противоположная ей по действию клавиша =U=
-(=magit-unstage-all=).
+But I need to mention, that changes are committed differently, depending on the state of
+repository.  If exists only list of modified (*changed*) objects, then these commands will
+commit changes for files in this list.  If user wants to commit only some objects, then he
+need to move them into the list of objects to commit (*staged*), and perform commit only
+after this operation.  To move object into commit list, user can use the =s=
+key(=magit-stage-item=), (for unknown (*untracked*) objects, this will add object into
+repository), and remove file from this list, user can with the =u= key (=magit-unstage-item=).
+To move all objects into commit list, we can use the =S= key (=magit-stage-all=), and to
+perform reverse operations -- the =U= key (=magit-unstage-all=).
 
-Кроме того, пакет может сохранять сделанные изменения, чтобы их можно было применить
-позднее.  Это удобно в тех случаях, если вы не хотите подтверждать изменения в
-репозиторий, но вам требуется выполнить какую-нибудь операцию требующую наличие "чистого"
-репозитория.  Для этого определена команда =magit-stash=, привязанная к клавише =z=, которая
-помещает изменения в список сохраненных (*stashed*) изменений.  После этого, можно выполнить
-нужные операции, и после их выполнения, заново применить изменения к рабочим файлам (это
-делается с помощью клавиши =a=).  И как упоминалось выше, удалить сохраненные изменения
-можно с помощью клавиши =k=.
+Besides this, the package also can save changes without committing them into repository,
+so user can apply them some time later.  This is very useful, when you don't want to
+commit changes, but you want to perform some operation, that requires "clean" repository.
+You can save changes by executing the =magit-stash= command, that is bound to =z= key, and
+that puts changes into list of saved (*stashed*) changes.  Than you can perform all needed
+operations, and after them, apply saved changes to repository (this is could be done by
+using the =a= key).  And, as was mentioned above, you can delete saved changes using the =k=
+key.
 
-Пакет *magit* умеет показывать сделанные изменения несколькими способами.  Для просмотра
-изменений в конкретном объекте можно воспользоваться клавишей =TAB= (=magit-toggle-section=),
-которая показывает изменения сделанные в объекте, на котором находится курсор.  Эта же
-клавиша используется и для скрытия показанных изменений.
+The *magit* package can display changes using several ways.  To view changes in concrete
+object, we can use the =TAB= key (=magit-toggle-section=), that will display changes in
+current object.  To hide changes, user can use the same key.
 
-Для просмотра изменений, внесенных в текущую ветку разработки определена команда =d=
-(=magit-diff-working-tree=), которая запросит у пользователя имя ветки с которой надо
-провести сравнение, и создаст новый буфер, содержащий изменения.  Для сравнения между
-двумя произвольными ветками имеется команда =D= (=magit-diff=), которая запрашивает у
-пользователя имена двух веток.  Листать содержимое буфера, создаваемого обоими командами
-можно с помощью клавиш =SPC= (вперед) и =DEL= (назад).
+To view changes, made in the current branch, user can press =d= key
+(=magit-diff-working-tree=), and after asking a name of branch, with which the comparison
+should be performed, it will create a new buffer, containing information between current
+version and given branch.  To make comparison between two arbitrary branches (or tags),
+user can use the =D= key(=magit-diff=), which will ask for name of two branches, and perform
+comparison.  To scroll the content of buffer, user can use keys =SPC= (scroll down) and =DEL=
+(scroll up).
 
-И наконец, пользователь может вернуться к определенному подтвержденному состоянию
-репозитория с помощью команды =x= (=magit-reset-head=), которая вернет репозиторий к
-указанному состоянию (по умолчанию это предыдущее подтвержденное состояние).  Для большего
-удобства определена команда =X= (=magit-reset-working-tree=), которая откатывает все сделанные
-изменения и восстанавливает состояние на время последнего подтвержденного изменения.
+And if user wants, he could return to the clear state of repository by discarding the
+changes with the =x= key(=magit-reset-head=), that will rollback repository to the given
+changeset (by default this is last committed changeset).  There is also
+=magit-reset-working-tree= command (the =X= key), that will revert changes and return
+repository to the last committed change, without asking for name of changeset.
 
 ** Работа с историей изменений
 
@@ -445,7 +442,7 @@ Emacs.
 rebase=, которая производит синхронизацию с Subversion, и =N c= (=magit-svn-dcommit=), которая
 помещает подтвержденные изменения из репозитория Git в репозиторий Subversion.
 
-* Пакет egg
+* The egg package
 
 Пакет *egg* является форком пакета [[#magit][magit]], описанного выше.  Основным отличием от *magit*
 является улучшение пользовательского интерфейса (пример интерфейса для работы с историей
@@ -574,4 +571,4 @@ Footnotes:
 [3] Эту команду можно выполнять не только из буфера статуса, но и воспользовавшись
     глобальной привязкой клавиш =C-x v v=.
 
-;  LocalWords:  gitignore SPC RET unmark
+;  LocalWords:  gitignore SPC RET unmark changeset
