@@ -449,67 +449,65 @@ same as in *magit*. This package is available to download from the [[http://gith
 
 * Auxiliary packages
 
-В данном разделе приводятся краткие описания вспомогательных пакетов, которые реализуют
-функционал, отсутствующий в многих из пакетов для работы с *git*.
+In this section I'll describe some of the auxiliary packages, that implements some
+functionality, missing in the many packages for work with *Git*.
 
 #git-blame
 ** git-blame
 
-Данный пакет написан David Kågedal и его можно скачать вместе с пакетом *git-emacs*,
-описанного [[#git-emacs][выше]].  Для загрузки пакета поместите в файл инициализации следующую команду:
+This package was written by David Kågedal and it's available as a part of *git-emacs*
+package, described [[#git-emacs][above]].  To load the package, put following line into your
+initialization file:
 
 <src lang="emacs-lisp">
 (require 'git-blame)
 </src>
 
-или вот эту, если вы хотите, чтобы пакет загрузился только при первом обращении к нему:
+or you can use following, if you don't want to load package until first call:
 
 <src lang="emacs-lisp">
 (autoload 'git-blame-mode "git-blame" "Minor mode for incremental blame for Git." t)
 </src>
 
-Для того, чтобы воспользоваться пакетом, пользователь должен включить в нужном буфере
-вспомогательный режим =git-blame-mode=.  Это приведет к изменению оформления буфера --
-каждая строка будет иметь свое собственное оформление, в зависимости от того, в какой
-версии происходило ее изменение.  При этом, при перемещении по буферу, в мини-буфере будет
-отображаться информация о версии, в которой изменялась данная строка.
+To use this package in some buffer, user should enable in it the =git-blame-mode= minor
+mode.  This will lead to change buffer's decoration -- each line of buffer, will have
+their own decoration, depending in which version it was modified.  And when you'll
+navigate through buffer's lines, the mini-buffer will display information about version,
+in which current line was modified.
 
 ** gitsum
 
-Пакет *gitsum* предназначен для выполнения частичных коммитов в репозиторий *git*, так, как
-это делается при работе с *darcs* через пакет [[./EmacsDarcs][darcsum]].  Для установки пакет, его нужно
-скачать из [[http://github.com/chneukirchen/gitsum/tree/master][репозитория]], поместить в каталог, где его найдет Emacs, и добавить следующую
-команду в файл инициализации:
+The *gitsum* package allows to perform partial commits into the *Git* repository, like when
+you working with *darcs* via the [[./EmacsDarcs][darcsum]] package.  To install this package, you need to
+download it from [[http://github.com/chneukirchen/gitsum/tree/master][repository]], put into directory, where Emacs will able to find it, and put
+following line into initialization file:
 
 <src lang="emacs-lisp">
 (require 'gitsum)
 </src>
 
-Пакет *gitsum* предоставляет пользователю одну команду -- =gitsum=, которая позволяет
-выполнять частичные коммиты используя Emacs.  Для проведения этой операции, пользователю
-необходимо выполнить данную команду, находясь в каком-то из файлов, репозитория *git*.
-После ее выполнения, появится буфер, в котором будут отображены изменения, сделанные в
-данном репозитории.  
+The *gitsum* package provides to user only one command -- =gitsum=, that allows user to
+perform partial commits from Emacs.  To do this, user should run this command from buffer
+with file, registered in the *Git* repository.  And after execution of this command, a new
+buffer will created, containing all changes, made in current repository.
 
-В данном буфере пользователь может перемещаться как между отдельными изменениями (с
-помощью клавиш =n= и =p=), так и между измененными файлами (с помощью клавиш =N= и =P=).  Те
-изменения, которые вы не хотите включать в данный коммит, могут быть удалены используя
-клавишу =k=.  В том случае, если вы не хотите включать все изменения из конкретного файла,
-то вы можете воспользоваться клавишей =K= для их исключения из коммита.  После завершения
-выбора, достаточно нажать =c= или =C-c C-c= для того, чтобы подтвердить изменения в
-репозиторий (после ввода сообщения).  Кроме этого, есть еще одно сочетание клавиш, которое
-может быть полезным -- =C-c C-s=, которое позволяет разделить конкретное изменение на два, и
-использовать их по отдельности.
+In this buffer, user can move between separate changes (by using =n= & =p= keys), and between
+modified files (by pressing =N= & =P= keys).  If you don't want to include some changes into
+commit, then you can press =k= to hide them.  If you don't want to include all changes from
+some file, you can press =K= to exclude all changes from commit.  And after you'll prepare
+list of changes to commit, you can press =c= or =C-c C-c= to do actual commit (after entering
+of description for change).  Besides this, there is also one very useful key binding --
+=C-c C-s=, that splits one change into two, so you could commit them separately.
 
-Хотелось бы также отметить, что пакет *gitsum* умеет интегрироваться с пакетом *git.el* и его
-можно использовать из буфера статуса, запуская с помощью клавиши =s=.
+I want to mention, that *gitsum* package can automatically plug into *git.el* package, so you
+could call it from the *git.el's* status buffer by pressing the =s= key.
 
 ** egit
 
-Данный пакет реализует функциональность, пока отсутствующую в пакете *git.el*.  В основном
-это расширения для работы с историей изменений и конкретными изменениями.  Для установки
-пакета, его нужно скачать из [[http://github.com/jimhourihan/egit/tree/master][репозитория]], поместить в пути поиска, и добавить следующие
-команды в файл инициализации:
+This package implements functionality, currently missing from the *git.el* package.  This is
+mostly extensions for work with history of changes, and with concrete changes.  To install
+package, you need to download it from [[http://github.com/jimhourihan/egit/tree/master][repository]], install it into right directory, and add
+following code to the initialization file:
 
 <src lang="emacs-lisp">
 (autoload 'egit "egit" "Emacs git history" t)
@@ -517,38 +515,36 @@ same as in *magit*. This package is available to download from the [[http://gith
 (autoload 'egit-dir "egit" "Emacs git history directory" t)
 </src>
 
-В пакете определены три команды, которые имеют сходную функциональность, но отличаются
-объектом применения.  Команда =egit= работает с репозиторием, =egit-dir= -- с каталогом в
-репозитории, а =egit-file= с конкретным файлом в репозитории.  Единственным отличием
-является то, что =egit= запрашивает у пользователя информацию о имени ветке или таге, а
-также количество записей в истории, которое нужно отобразить.
+The package defines three commands, that have similar functionality, but working with
+different objects.  The =egit= command works with whole repository, the =egit-dir= -- with
+concrete directory in repository, and the =egit-file= with concrete file in repository.  One
+difference between them is that =egit= will ask user for information about branch or tag
+name for which it should display information, and also about number of records to display.
 
-Все три команды создают отдельный буфер, в котором показывается история изменений, и в
-котором определен специальный режим =egit-mode=, позволяющий пользователю выполнять команды
-над отдельными изменениями.  Команды могут выполняться как с помощью сочетаний клавиш, так
-и через меню =EGit=, которое появляется при создании буфера.  Пример работы в данном буфере
-вы можете увидеть на рисунке ниже.
+All three commands create a separate buffer, that is used to display history of changes,
+and in which the =egit-mode= mode is enabled.  This mode allows user to execute different
+commands either by using key bindings, or by selecting them from the =EGit= menu.  An
+example of this buffer you can see on picture below.
 
 <div id="screenshot">
 [[../../../common/writings/emacs-vcs/egit.png]]
 </div>
 
-Для перемещения в буфере можно использовать клавиши =n= (=C-n=) и =p= (=C-p=) или клавиши
-управления курсором.  По умолчанию, при перемещении между записями, пакет показывает
-базовую информацию о текущем изменении -- имя автора, дату изменения, краткое описание
-изменения и т.п.  Кроме этого, пользователь может увидеть полный текст описания изменения
-(клавиша =RET= или стрелка вправо), список измененных файлов (клавиша =f=) и сами изменения
-(клавиша =d=) внесенные в файлы (пример можно увидеть на рисунке ниже).
+To move inside the buffer user can use keys =n= (=C-n=) and =p= (=C-p=), or arrow keys.  By
+default, when you move between records, the package shows a basic information about
+current changeset -- author's name, date of commit, short description of the change, etc.
+Besides this, user can see full description of change by pressing =RET= or right arrow key,
+or list of modified files (the =f= key), or diff between this and previous version by
+pressing the =d= key (the example you can see on picture below).
 
 <div id="screenshot">
 [[../../../common/writings/emacs-vcs/egit-diff.png]]
 </div>
 
-Помимо просмотра истории, пользователь может заново применить выбранные изменения с
-помощью команды =egit-cherry-pick= (клавиша =c=), что приведет к выполнению команды =git
-cherry-pick= с нужными флагами.  Также можно откатить изменения сделанные в конкретном
-патче -- это выполняется с помощью команды =egit-revert=, для которой нет привязки клавиш
-(все-таки она слишком разрушительна), но которую можно вызвать через меню.
+Besides looking for history of changes, user can also apply selected changesets to the
+current repository with the =egit-cherry-pick= command (the =c= key).  And it's also possible
+to rollback some changes by executing the =egit-revert= command, that has no key binding,
+and only item in the =EGit= menu.
 
 
 <div id="rule">[[./index][To main page]]</div>
@@ -556,12 +552,13 @@ cherry-pick= с нужными флагами.  Также можно откат
 Footnotes: 
 [1] Although we can use it for work in centralized environment
 
-[2] Стоит отметить некоторые неудобства возникающие при использовании данного пакета --
-    некоторые команды пересекаются с командами пакета *git.el*, так что использовать их
-    одновременно не получится.  И во вторых, пакет принудительно включает глобальный режим
-    *ido-mode*, что не всегда удобно для пользователей, использующих другие пакеты.
+[2] I need to mention, that it has some inconvenience -- some commands are same as in the
+    *git.el* package, so you couldn't use them simultaneously.  And also, this package
+    explicitly set global *ido-mode*, so not always handy for users, that are using another
+    packages.
 
-[3] Эту команду можно выполнять не только из буфера статуса, но и воспользовавшись
-    глобальной привязкой клавиш =C-x v v=.
+[3] This command could be executed not only from the status buffer, but also via global
+    key binding =C-x v v=.
 
-;  LocalWords:  gitignore SPC RET unmark changeset changesets magit
+;  LocalWords:  gitignore SPC RET unmark changeset changesets magit gitsum egit
+;  LocalWords:  darcs dir el src

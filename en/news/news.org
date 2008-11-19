@@ -9,6 +9,17 @@
 #+KEYWORDS:    alex ott blog news articles emacs
 #+HTML_CSS:    web.css
 
+* DONE Updates in article about Emacs and Git                :emacs:git:article:
+  CLOSED: [2008-11-19 Wed 15:18]
+
+The article about [[http://xtalk.msk.su/~ott/en/writings/emacs-vcs/EmacsGit.html][Emacs and Git]] was updated with description of the git-emacs, magit & some
+auxiliary packages.
+
+* DONE Updates in article about Emacs and Mercurial          :emacs:git:article:
+  CLOSED: [2008-11-19 Wed 15:17]
+
+The article about [[http://xtalk.msk.su/~ott/en/writings/emacs-vcs/EmacsMercurial.html][Emacs and Mercurial]] was updated with section about aHg package.
+
 * DONE Add news feed to the site                                    :site:emacs:
   CLOSED: [2008-08-04 Mon 12:32]
 

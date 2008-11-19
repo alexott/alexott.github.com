@@ -9,24 +9,30 @@
 #+KEYWORDS:    alex ott blog news articles emacs новости статьи емакс программирование
 #+HTML_CSS:    web.css
 
-* DONE Рассказ про пакет aHg
+* DONE Обновлен рассказ про Emacs и Git                      :emacs:article:git:
+  CLOSED: [2008-11-19 Wed 15:18]
+
+Статья про [[http://xtalk.msk.su/~ott/ru/writings/emacs-vcs/EmacsGit.html][Emacs & Git]] была сильно обновлена -- добавлены описания пакетов git-emacs,
+magit и некоторых вспомогательных пакетов
+
+* DONE Рассказ про пакет aHg                           :emacs:article:mercurial:
   CLOSED: [2008-10-13 Mon 16:38]
 
 В рассказ про работу с Mercurial добавил [[http://xtalk.msk.su/~ott/my-page-muse/ru/writings/emacs-vcs/EmacsMercurial.html#sec5][раздел про пакет aHg]]
 
-* DONE Окончательная версия статьи про Emacs + Erlang             :emacs:erlang:
+* DONE Окончательная версия статьи про Emacs и Erlang     :emacs:erlang:article:
   CLOSED: [2008-08-25 Mon 13:09]
 
 Закончил статью про [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsErlang.html][использование Emacs для разработки на языке Erlang]].  Замечания и
 предложения приветствуются
 
-* DONE Вторая бета статьи про Emacs + Erlang                      :emacs:erlang:
+* DONE Вторая бета статьи про Emacs и Erlang              :emacs:erlang:article:
   CLOSED: [2008-08-21 Thu 15:09]
 
 Обновил статью про использование Emacs для работы с Erlang.  Добавились описания distel &
 erlware-mode... 
 
-* DONE Драфт статьи про Emacs + Erlang                            :emacs:erlang:
+* DONE Драфт статьи про Emacs и Erlang                    :emacs:erlang:article:
   CLOSED: [2008-08-06 Wed 15:27]
 
 выложил на сайт драфт [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsErlang.html][статьи про работу с Erlang в Emacs]]. В следующей вресии будет
