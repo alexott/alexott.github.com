@@ -326,14 +326,14 @@
  * 
  */</span>
 <span class="type">void</span> <span class="constant">connection</span>::<span class="function-name">start_write_to_server</span>() {
-    <span class="constant">std</span>::<span class="type">string</span> <span class="variable-name">Req</span>=fMethod;
-    Req+=<span class="string">" "</span>;
-    Req+=fNewURL;
-    Req+=<span class="string">" HTTP/"</span>;
-    Req+=<span class="string">"1.0"</span>;
-    Req+=<span class="string">"\r\n"</span>;
-    Req+=fHeaders;
-    <span class="constant">ba</span>::async_write(ssocket_, <span class="constant">ba</span>::buffer(Req),
+    <span class="variable-name">fReq</span>=fMethod;
+    fReq+=<span class="string">" "</span>;
+    fReq+=fNewURL;
+    fReq+=<span class="string">" HTTP/"</span>;
+    fReq+=<span class="string">"1.0"</span>;
+    ffReq+=<span class="string">"\r\n"</span>;
+    fReq+=fHeaders;
+    <span class="constant">ba</span>::async_write(ssocket_, <span class="constant">ba</span>::buffer(fReq),
                     <span class="constant">boost</span>::bind(&amp;<span class="constant">connection</span>::handle_server_write, shared_from_this(),
                                 <span class="constant">ba</span>::<span class="constant">placeholders</span>::error,
                                 <span class="constant">ba</span>::<span class="constant">placeholders</span>::bytes_transferred));
