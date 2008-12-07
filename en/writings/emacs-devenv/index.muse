@@ -1,11 +1,11 @@
-#title Emacs как рабочее место разработчика ПО
-#keywords Emacs, среда разработки, development environment, ide, C++, Java, Lisp, Scheme, GNU Emacs, erlang, haskell, ocaml
+#title Emacs as software development environment
+#keywords Emacs, development environment, ide, C++, Java, Lisp, Scheme, GNU Emacs, erlang, haskell, ocaml
 
-***Это альфа версия статьи про использование Emacs для разработи ПО.  Статья будет
-дополняться по мере написания, но вы уже сейчас можете присылать свои замечания и
-пожелания к уже написанным частям.  Адрес для связи [[mailto:alexott@gmail.com][alexott@gmail.com]].***
+***This is early alpha version of the article about using Emacs as software developer's
+workplace.  New parts of article will published as they will written, but you can sent
+your comments and suggestions right now.  Send them to [[mailto:alexott@gmail.com][alexott@gmail.com]].***
 
-*  Поддержка конкретных языков
+*  Support of concrete programming languages
 
- - [[EmacsScheme][Поддержка Scheme]]
- - [[./EmacsErlang][Работа с Erlang]]
+; - [[EmacsScheme][Поддержка Scheme]]
+ - [[./EmacsErlang][Work with Erlang]]
