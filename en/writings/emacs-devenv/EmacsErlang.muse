@@ -24,7 +24,7 @@ Almost all commands, implemented by package are available to user via =Erlang= m
 most often used also have key bindings (described below) for quick access to them.
 
 #erlang-customize
-** Package's installation and customization
+** Installation and customization of the package
 
 Installation of the package is quite simple -- you need to specify path to the *erlang-mode*
 (usually this is sub-directory inside Erlang's distribution), and load package
@@ -68,30 +68,27 @@ This code sets list of options, that will passed to Erlang process, and also cha
 bindings for *erlang-mode*, and add list of defined Erlang's functions into menu, generated
 by *Imenu* package.
 
-** Working with source code
+** Work with source code
 
-*erlang-mode* предоставляет пользователю набор команд для работы с кодом.  Сюда можно
-отнести команды навигации по коду, его редактирования и правильно расстановки отступов.
+*erlang-mode* provides to user set of the commands for work with source code.  This set
+includes commands for source code navigation, code editing & indenting.
 
-Когда вы работаете с кодом функций, состоящих из нескольких отдельных выражений (clause),
-то вы можете воспользоваться командой =erlang-generate-new-clause= (она привязана к =C-c C-j=)
-для вставки нового выражения в текущей точке -- эта команда берет название функции из
-предыдущего выражения, и генерирует новое выражение, оставляя курсор в точке вставки
-параметров функции.  В том случае, если параметры нового выражения почти совпадают с
-параметрами предыдущего, то вы можете воспользоваться командой =erlang-clone-arguments= (=C-c
-C-y=) для копирования параметров из предыдущего выражения и вставки их в текущее выражение.
+When you work with source code of function, consisting from several clauses (parts), then
+you can use command =erlang-generate-new-clause= (it bound to =C-c C-j=) to insert new clause
+in current point -- this command takes name of function from previous clause, and after
+inserting name, it put cursor in argument list.  If most of function's parameters are same
+as in previous clause, then you can use the =erlang-clone-arguments= (=C-c C-y=) command to
+copy parameters from previous clause and inserting them into current expression.
 
-В зависимости от текущего контекста, клавиши '<code>,</code>', '<code>;</code>',
-'<code><</code>' и '<code>></code>' могут вести себя по разному.  Так, если вы находитесь
-в конце выражения и нажимаете =;=, то автоматически будет вставлен шаблон для нового
-выражения, так как будто вы воспользовались командой =erlang-generate-new-clause=.
-Аналогичным образом, ввод =,= в конце подвыражения, приведет к переходу на новую строку и
-выставлению правильного отступа.
+Depending on than current context, keys '<code>,</code>', '<code>;</code>',
+'<code><</code>' and '<code>></code>' have different behaviour.  So, if you at the end of
+expression, and press =;=, then template for new expression will be inserted, as you
+explicitly call =erlang-generate-new-clause= command.  And, if you press =,= at the end of
+expression, then this will lead to moving to new line and setting proper indent for code.
 
-Для более удобного оформления кода Erlang пользователь может также воспользоваться
-командой =erlang-align-arrows= (=C-c C-a=), которая выполняет выравнивание в выделенном
-регионе текста стрелок (=->=) после выражений, что улучшает восприятие исходного кода за
-счет явного выделения границ выражений.
+To make Erlang's source code more readable user can use the =erlang-align-arrows= (=C-c C-a=)
+command, that aligns all arrows (=->=) after clauses -- this makes code more readable, as
+clauses boundaries are explicitly shown.
 
 Достаточно регулярно возникает необходимость в выделении текущего выражения или всей
 функции.  В этом случае пользователь может воспользоваться командами =erlang-mark-clause=
@@ -117,7 +114,7 @@ C-c=), которая вставит по одному знаку коммент
 команды для расстановки отступов в текущем выражении -- =erlang-indent-clause=, функции --
 =erlang-indent-function= (=C-c C-q=) и всем буфере -- =erlang-indent-current-buffer=.
 
-** Навигация по коду
+** Navigation in source code
 
 В дополнение к стандартным командам перемещения по коду -- следующая/предыдущая скобка, и
 т.п., *erlang-mode* предоставляет набор дополнительных команд, которые позволяют выполнять
@@ -143,7 +140,7 @@ C-c=), которая вставит по одному знаку коммент
 Пользователь также может использовать команду =erlang-complete-tag= (=M-TAB=) для дополнения
 имен известных функций, используя данные из файла =TAGS=.
 
-** Использование шаблонов кода
+** Code templates
 
 Для облегчения работы пользователя, *erlang-mode* имеет в своем составе набор шаблонов кода,
 которые могут вставляться пользователем используя пункт =Skeletons= меню =Erlang= или
@@ -156,7 +153,7 @@ C-c=), которая вставит по одному знаку коммент
  - заготовки для различных стандартных серверов (*behaviour* в терминологии Erlang) --
    =gen_server=, =application=, =gen_fsm= и т.д.
 
-** Компиляция и работа с =erl=
+** Compilation and work with =erl=
 
 Пользователь может интерактивно выполнять команды Erlang используя процесс =erl= запущенный
 в буфере Emacs (процесс запускается через =comint=, так что пользователь может использовать
@@ -246,7 +243,7 @@ C-c=), которая вставит по одному знаку коммент
 							(define-key erlang-shell-mode-map (car spec) (cadr spec)))))
 </src>
 
-** Работа с исходным кодом
+** Work with source code
 
 Пакет *distel* добавляет некоторое количество команд для работы с исходным кодом,
 отсутствующих в *erlang-mode*.   Однако стоит отметить, что некоторые из них требуют наличия
@@ -285,7 +282,7 @@ C-c=), которая вставит по одному знаку коммент
 помещена в буфер обмена, откуда она может быть вставлена с помощью команды =yank= (=C-y=).
 Пример использования данной функции вы можете найти в документации *distel*.
 
-** Доступ к документации
+** Obtaining information from documentation
 
 Для более удобной работы с документацией, пакет *distel* использует внешние программы,
 написанные на Erlang, которые выполняют предварительную обработку документации, и затем
@@ -309,7 +306,7 @@ C-c=), которая вставит по одному знаку коммент
 она вначале выполняет перестройку базы данных =fdoc=, и только затем выполняет требуемую
 операцию.
   
-** Выполнение и профилирование кода
+** Execution and profiling of code
 
 *Distel* расширяет набор команд *erlang-mode* предназначенных для выполнения кода Erlang.  С
 помощью команды =erl-eval-expression= (=C-c C-d :=) пользователь может ввести в мини-буфере
@@ -352,7 +349,7 @@ C-c=), которая вставит по одному знаку коммент
 [[../../../common/writings/emacs-devenv/distel-fprof.png]]
 </div>
 
-** Работа с отладчиком
+** Work with debugger
 
 ; TODO: добавить скриншот отладчика
 
@@ -427,7 +424,7 @@ C-d s=), которую необходимо использовать после
 [[../../../common/writings/emacs-devenv/distel-proc-monitor.png]]
 </div>
 
-** Программирование с использованием distel
+** Programming with distel
 
 *Distel* позволяет писать на Emacs Lisp приложения в стиле Erlang, а также взаимодействовать
 с процессами, запущенными на узлах Erlang.  Краткое введение в программирование с помощью
@@ -511,7 +508,7 @@ main([File_Name]) ->
 найти и рапортует об ошибке.  А объявление функции подсвечено из-за того, что параметр =Fun=
 не используется в теле функции, что приводит к получению предупреждения.
 
-* Пакет Wrangler
+* Wrangler package
 
 Пакет *Wrangler* реализует базовую функциональность по рефакторингу программ написанных на
 Erlang.  Пакет доступен с [[http://www.cs.kent.ac.uk/projects/forse/][сайта проекта]], но работа пока находится в самом начале, и сами
@@ -561,7 +558,7 @@ Intellisense в Visual Studio.  Пакет реализует следующие
 Этот пакет может использоваться как дополнительный режим при редактировании исходного кода
 Erlang, а также при работе с кодом в буфере в котором выполненяются команды Erlang.
 
-** Установка и настройка пакета
+** Installation & customization
 
 Скачать пакет *ESense* можно с [[http://esense.sourceforge.net/][сайта проекта]].  Для его работы требуется наличие модуля
 разбора HTML из состава веб-сервера [[http://yaws.hyber.org/][Yaws]][6].  Скачанный пакет необходимо развернуть и с
@@ -592,7 +589,7 @@ Emacs, и добавить следующий код в ваш файл иниц
 генерации индексов для исходных текстов, вы можете сгенерировать индексы для документации
 в формате HTML, так что ссылки на нее смогут использоваться в процессе работы.
 
-** Работа с пакетом
+** Work with package
 
 По умолчанию, *ESense* использует клавишу =F1= (команда =esense-do-something-at-point=) для
 выполнения практически всех операций.  В зависимости от положения курсора, пакет выполняет
