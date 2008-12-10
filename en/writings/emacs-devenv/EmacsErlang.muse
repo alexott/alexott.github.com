@@ -90,124 +90,116 @@ To make Erlang's source code more readable user can use the =erlang-align-arrows
 command, that aligns all arrows (=->=) after clauses -- this makes code more readable, as
 clauses boundaries are explicitly shown.
 
-Достаточно регулярно возникает необходимость в выделении текущего выражения или всей
-функции.  В этом случае пользователь может воспользоваться командами =erlang-mark-clause=
-(=M-h= или =C-c M-h=) для выделения выражения, или =erlang-mark-function= (=M-C-h=) для выделения
-функции целиком.
+Users is often need to mark source code of function or current clause.  *erlang-mode*
+defines two commands for these operations: the =erlang-mark-clause= command (=M-h= or =C-c M-h=)
+is used to mark current clause, while the =erlang-mark-function= command (=M-C-h=) could be
+used to mark whole function.
 
-Для работы с комментариями определено несколько команд.  Для конвертации выбранного
-региона в комментарий, пользователь может воспользоваться командой =comment-region= (=C-c
-C-c=), которая вставит по одному знаку комментария (=%=) в начало каждой строки региона.  В
-том случае, если вы хотите удалить комментарий с региона, то вы можете воспользоваться
-командой =erlang-uncomment-region= (=C-c C-u=).  Вы также можете воспользоваться командой
-=comment-dwim= (=M-;=) для того, чтобы закомментировать выделенный регион, или вставить
-однострочный комментарий в конце существующей строки.
+To work with comments there are several commands.  To comment out selected region, user
+can use the =comment-region= command (=C-c C-c=), that will insert one comment sign (=%=) into
+start of each line.  If you want to delete comment from selected region, you can execute
+the =erlang-uncomment-region= command (=C-c C-u=).  You can also use the =comment-dwim= command
+(=M-;=) to mark selected region, or insert one line comment into end of existing line of
+code.
 
-Кроме того, *erlang-mode* реализует команду =erlang-fill-paragraph= (=M-q=) которая пытается
-правильно отформатировать текущий параграф комментария, что также позволяет улучшить
-читаемость исходного кода.
+Besides this, *erlang-mode* provides the =erlang-fill-paragraph= command (=M-q=) that tries to
+properly format current paragraph with commentary, and increase readability of the source
+code.
 
-*erlang-mode* реализует набор команд предназначенных для правильной расстановки отступов в
-исходном тексте.  Нажав на клавишу =TAB= вы вызовите команду =erlang-indent-command= которая
-сделает правильный отступ для текущей строки.  А для выделенного региона вы можете
-использовать стандартную команду =indent-region= (=M-C-\=).  Существуют также отдельные
-команды для расстановки отступов в текущем выражении -- =erlang-indent-clause=, функции --
-=erlang-indent-function= (=C-c C-q=) и всем буфере -- =erlang-indent-current-buffer=.
+*erlang-mode* also provides number of commands for proper indenting of source code.  By
+pressing to =TAB= key you run the =erlang-indent-command= command, that will set proper
+indentation for current line of code.  For selected region you can use standard command
+=indent-region= (=M-C-\=).  There are also separate commands for set indentation for current
+clause -- =erlang-indent-clause=, function -- =erlang-indent-function= (=C-c C-q=) and for whole
+buffer -- =erlang-indent-current-buffer=.
 
 ** Navigation in source code
 
-В дополнение к стандартным командам перемещения по коду -- следующая/предыдущая скобка, и
-т.п., *erlang-mode* предоставляет набор дополнительных команд, которые позволяют выполнять
-перемещение среди объектов Erlang -- выражений и функций.  Так, команды
-=erlang-beginning-of-function= (=C-a M-a=) и =erlang-end-of-function= (=C-a M-e=) перемещают
-курсор в начало и конец текущей функции Erlang[2], а команды =erlang-beginning-of-clause=
-(=M-C-a=) и =erlang-end-of-clause= (=M-C-e=) выполняют перемещение курсора в начало или конец
-текущего выражения.
+In addition to standard commands for navigation inside source code -- next/previous
+bracket, etc., *erlang-mode* implements several additional commands that allow to navigate
+between Erlang's objects -- clauses & functions.  Commands =erlang-beginning-of-function=
+(=C-a M-a=) and =erlang-end-of-function= (=C-a M-e=) move cursor to start or end of current
+Erlang's function[2], and commands =erlang-beginning-of-clause= (=M-C-a=) and
+=erlang-end-of-clause= (=M-C-e=) move cursor to start/end of the current clause.
 
-Аналогичным образом *erlang-mode* расширяет набор стандартных команд для работы с тегами.
-Для использования этих команд вам необходимо создать файл =TAGS=, который может быть
-сгенерирован либо с помощью  утилиты =etags= из поставки Emacs, либо с помощью модуля =tags=
-из поставки Erlang.  
+*erlang-mode* also extends set of standard commands for work with tags.  To use these
+commands, you'll need to create special file =TAGS=, that could be generated either with
+=etags= command from Emacs's distribution, either with =tags= module from Erlang's
+distribution.
 
-Используя имеющийся файл =TAGS= вы можете использовать стандартные команды работы с тегами
--- =find-tag= (=M-.=), =tags-apropos=, =tags-search= (=C-x t s=) и другие.  *erlang-mode* добавляет
-следующие команды -- =erlang-find-tag=, которая является аналогом =find-tag=, но позволяет
-указывать модуль, в котором необходимо производить поиск (если тег задан в форме =module:=
-или =module:tag=), =erlang-find-next-tag= (=M-+=), которая ищет следующий тег, и две команды
-=erlang-find-tag-other-frame= (=C-x 5 .=) и =erlang-find-tag-other-window= (=C-x 4 .=), которые
-открывают определение тега в новом фрейме или окне, соответственно.
+Using existing =TAGS= file you can use standard commands to work with tags -- =find-tag=
+(=M-.=), =tags-apropos=, =tags-search= (=C-x t s=) and other.  *erlang-mode* add following commands
+-- =erlang-find-tag=, that works like =find-tag=, but allows to specify name of the module
+where search will performed (if tag is specified as =module:= or =module:tag=),
+=erlang-find-next-tag= (=M-+=), that search for next tag with given name, and two commands --
+=erlang-find-tag-other-frame= (=C-x 5 .=) and =erlang-find-tag-other-window= (=C-x 4 .=), that
+open tag's definition in new frame or window.
 
-Пользователь также может использовать команду =erlang-complete-tag= (=M-TAB=) для дополнения
-имен известных функций, используя данные из файла =TAGS=.
+Use can also use the =erlang-complete-tag= command (=M-TAB=) to complete names of existing
+functions using data, collected in =TAGS= file.
 
 ** Code templates
 
-Для облегчения работы пользователя, *erlang-mode* имеет в своем составе набор шаблонов кода,
-которые могут вставляться пользователем используя пункт =Skeletons= меню =Erlang= или
-используя команду  =tempo-template-erlang-XXX=, где =XXX= -- название шаблона.  Для вставки
-шаблонов используется пакет *tempo* входящий в состав Emacs.  В настоящее время пакет
-предоставляет следующие классы шаблонов:
- - заготовки для простых конструкций типа =if=, =case=, =receive= и т.д.;
- - заготовки для "стандартных" стилей оформления заголовков файлов -- название модуля,
-   автор модуля и т.д.;
- - заготовки для различных стандартных серверов (*behaviour* в терминологии Erlang) --
-   =gen_server=, =application=, =gen_fsm= и т.д.
+To make work of user more easy, *erlang-mode* has number of code templates (snippets), that
+could be inserted into source code using the =Skeletons= items from =Erlang= menu, or directly
+calling =tempo-template-erlang-XXX=, where =XXX= is a name of the template.  To insert
+templates the *tempo* package included into Emacs.  Currently, package provides following
+templates:
+ - snippets for simple constructions, like =if=, =case=, =receive=, etc.;
+ - snippets for "standard" file headers -- module name, module's author, etc.;
+ - snippets for different standard servers (*behaviour* in Erlang's terminology) --
+   =gen_server=, =application=, =gen_fsm=, etc.
 
 ** Compilation and work with =erl=
 
-Пользователь может интерактивно выполнять команды Erlang используя процесс =erl= запущенный
-в буфере Emacs (процесс запускается через =comint=, так что пользователь может использовать
-стандартные возможности этого пакета, например перемещения по истории команд с помощью
-клавиш =M-p= и =M-n=).  Этот же процесс используется *erlang-mode* для выполнения компиляции
-исходного кода.
+User can execute Erlang's commands interactively using =erl= process running in the Emacs's
+buffer (process is running with =comint=, so user can use standard commands of this package,
+for example, navigation through history of commands with =M-p= & =M-n= keys).  This process is
+also used by *erlang-mode* to compile source code.
 
-Для запуска нового процесса =erl= пользователь может воспользоваться командой =erlang-shell=,
-но он также может быть запущен неявно при выполнении команды компиляции или переключения в
-буфер =*erlang*= с помощью команды =erlang-shell-display= (=C-c C-z=).
+To run new =erl= process, user can use the =erlang-shell= command, but it will implicitly run
+when user run compilation of source code, or try to switch to =*erlang*= buffer with
+=erlang-shell-display= command (=C-c C-z=).
 
-Компиляция и загрузка кода из текущего модуля осуществляется с помощью команды
-=erlang-compile= (=C-c C-k=).  В том случае если пользователь передаст этой команде префиксный
-аргумент, то компиляция будет осуществлена с использованием отладочных опций =debug_info= и
-=export_all=.  Для просмотра результатов компиляции пользователь может воспользоваться
-командой =erlang-compile-display= (=C-c C-l=).  Для перемещения между найденными ошибками
-используется команда =erlang-next-error= (=C-x `=).  В том случае, если вы хотите заново
-переместиться на первую найденную ошибку, то вам необходимо передать префиксный аргумент
-этой команде, например, вот так -- =C-u C-x `=.
+Compilation and loading of compiled code is performed with =erlang-compile= command (=C-c
+C-k=).  If user gives prefix argument to this command, then compilation will performed with
+options =debug_info= & =export_all=.  To view compilation results, user can run
+=erlang-compile-display= command (=C-c C-l=).  To move between errors, the =erlang-next-error=
+command (=C-x `=) is could be used.  In this case, if you want to move to first error, you
+need to give prefix argument to this command, for example with =C-u C-x `=.
 
 * erlware-mode
 
-*erlware-mode* является заменой *erlang-mode*, основанной на его коде, но добавляющей
-следующую функциональность:
- - изменены шаблоны для вставки кода, теперь они содержат дополнительную информацию для
-   утилиты =edoc=;
- - ведется работа над интеграцией поддержки для проектов *Sinan* и *Faxien*, позволяющей более
-   простую инсталяцию и сопровождение пакетов для Erlang.
+*erlware-mode* package is replacement for *erlang-mode*, using it as a base, but adding
+following new functionality:
+ - code templates are changed -- now they contain information for =edoc= utility;
+ - started work on the integration with *Sinan* & *Faxien* projects, that allows to make
+   installation & maintenance of Erlang's packages more easy.
 
-Пакет доступен для загрузки с [[http://www.erlware.org/tools/erlware-mode/index.html][сайта проекта]], и его установка и настройка практически не
-отличается от [[#erlang-customize][установки и настройки erlang-mode]].
+This package is available from [[http://www.erlware.org/tools/erlware-mode/index.html][project's site]], and its installation & customization isn't
+differs from  [[#erlang-customize][erlang-mode's installation & customization]].
 
-Выполнение основных команд также не отличается от выполнения команд *erlang-mode*.  Описания
-дополнительных команд будут добавляться по мере реализации новой функциональности.
+Execution of basic commands also not differs from execution of the *erlang-mode* commands.
+Description of new commands will added in future, as they will released.
 
 * distel
 
-Пакет *distel*, доступный с http://code.google.com/p/distel/, является реализацией
-библиотекой на Emacs Lisp, которая позволяет использовать распределенный стиль
-программирования и взаимодействовать с кодом, написанным на Erlang.  За счет наличия этой
-функциональности, этот пакет позволяет реализовать набор команд, отсутствующих в
-*erlang-mode* и позволяющих выполнять следующие задачи:
- - поиск определений функций и доступ к актуальной документации;
- - дополнение имен модулей и функций, основываясь на актуальной информации, полученной от
-   среды выполнения Erlang;
- - вычисление фрагментов кода;
- - базовая поддержка рефакторинга исходного кода;
- - отладка программ на Erlang;
- - отображение информации о запущенных процессах Erlang и работа с ними;
- - профилирование кода.
+The *distel* package, available from http://code.google.com/p/distel/, is a library in Emacs
+Lisp, that allows to write Emacs code in distributed style, and also allows to communicate
+with code, written in Erlang.  This allows to implement set of commands, not existing in
+*erlang-mode*, that allow to perform following tasks:
+ - search for function's definitions & access to actual documentation;
+ - module's & function's names completion, using actual information from Erlang
+   environment;
+ - direct evaluation of the code snippets;
+ - base support for source code refactoring;
+ - debugging of Erlang programs;
+ - display information about  Erlang processes and work with them;
+ - code profiling.
 
-Краткий обзор возможностей пакета вы можете найти в [[http://bc.tech.coop/blog/070528.html][статье на сайте Bill Clementson]].
-Вместе с пакетом поставляется достаточно подробная документация, описывающая как общие
-концепции, лежащие в основе пакета, так и описывающая реализуемые функции.
+Short review of package features you can find at [[http://bc.tech.coop/blog/070528.html][article of Bill Clementson]].  Package
+comes together with very detailed documentation, describing both basic concepts, and
+functions, implemented in package.
 
 ** Installation & customization of distel
 
@@ -431,7 +423,7 @@ C-d s=), которую необходимо использовать после
 *distel* вы можете найти в статье [[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.11.4770][Distel: Distributed Emacs Lisp]] и/или
 [[http://bc.tech.coop/blog/070719.html][статье в блоге Bill Clementson]].
 
-* Настройка  flymake для работы с Erlang
+*  Flymake's customization for work with Erlang
 
 Пакет *flymake*, входящий в поставку Emacs, позволяет выполнять проверку корректности кода
 на лету.  Erlang пока не входит в список языков, поддерживаемых "из коробки", но мы можем
@@ -508,9 +500,9 @@ main([File_Name]) ->
 найти и рапортует об ошибке.  А объявление функции подсвечено из-за того, что параметр =Fun=
 не используется в теле функции, что приводит к получению предупреждения.
 
-* Wrangler package
+* The wrangler package
 
-Пакет *Wrangler* реализует базовую функциональность по рефакторингу программ написанных на
+Пакет *wrangler* реализует базовую функциональность по рефакторингу программ написанных на
 Erlang.  Пакет доступен с [[http://www.cs.kent.ac.uk/projects/forse/][сайта проекта]], но работа пока находится в самом начале, и сами
 авторы не рекомендуют использовать его для серьезной работы.  Документация на пакет может
 быть найдена [[http://www.cs.kent.ac.uk/projects/forse/wrangler/doc/overview-summary.html][тут]].
@@ -640,4 +632,4 @@ Footnotes:
 
 ;  LocalWords:  flymake Erlang erl init src erlang lang flymake-errline Distel
 ;  LocalWords:  flymake-warnline distel erlang-mode M-TAB C-d C-c node nil dir
-;  LocalWords:  esense ESense Erlang's erlware Imenu emacs
+;  LocalWords:  esense ESense Erlang's erlware Imenu emacs fsm refactoring
