@@ -34,6 +34,11 @@ make clean && make autoloads && make -k all
 * Настройка проектов
 
 
+* Прочие утилиты и т.п.
+
+ - semantic-symref
+ - поддержка gtags
+
 * Интеграция с другими пакетами
 
 упомянуть про ECB, Speedbar & JDEE

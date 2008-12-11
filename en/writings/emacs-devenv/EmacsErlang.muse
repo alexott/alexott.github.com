@@ -203,8 +203,8 @@ functions, implemented in package.
 
 ** Installation & customization of distel
 
-Для установки пакета, вам необходимо скачать его с [[http://code.google.com/p/distel/][сайта проекта]] и распаковать в выбранное
-место.  После этого, вы можете добавить следующий код в ваш файл инициализации:
+To install package, you need to download it from the [[http://code.google.com/p/distel/][project's site]] and unpack it into
+selected place, and than add following code into initialization file:
 
 <src lang="emacs-lisp">
 (add-to-list 'load-path "~/emacs/distel/elisp")
@@ -212,10 +212,10 @@ functions, implemented in package.
 (distel-setup)
 </src>
 
-который приведет к загрузке пакета и его базовой настройке.  Дополнительно мы можем
-провести тонкую настройку пакета используя механизм хуков.  Например, следующий код[3]
-добавит новые привязки клавиш к режиму, используемому для интерактивной работы с Erlang,
-что сделает работу с кодом более удобной:
+This code will perform loading and base customization of the package.  In additional we
+can perform more precise customization using hooks.  For example, following code[3] will
+add new key bindings to mode, that is used to interactive work with Erlang, making this
+work more comfortable:
 
 <src lang="emacs-lisp">
 ;; A number of the erlang-extended-mode key bindings are useful in the shell too
@@ -237,23 +237,23 @@ functions, implemented in package.
 
 ** Work with source code
 
-Пакет *distel* добавляет некоторое количество команд для работы с исходным кодом,
-отсутствующих в *erlang-mode*.   Однако стоит отметить, что некоторые из них требуют наличия
-запущенной среды выполнения Erlang, и при первом запуске запросят у вас имя узла (node),
-который будет использоваться для получения необходимой информации.  Пользователь может
-переключаться между узлами с помощью команды =erl-choose-nodename= (=C-c C-d n=).  А проверить
-доступность конкретного узла можно с помощью команды =erl-ping= (=C-c C-d g==), которая
-запросит у вас имя узла, и в случае его доступности загрузит на него модули, необходимые
-для реализации команд *distel*.  Имя текущего узла всего отображается в строке статуса.
+The *distel* package add to *erlang-mode* several commands for work with source code.  But i
+need to mention, that some of them requires running Erlang environment, and when you'll
+execute them first time, they will ask you for a name of the node, that will be used to
+get all necessary information.  User can switch between nodes with the =erl-choose-nodename=
+command(=C-c C-d n=).  And for checking availability of the concrete node the =erl-ping=
+command(=C-c C-d g==) could be used.  The command will ask you for name of the node, and if
+it available, it will load to node all modules are needed to work with *distel*.  Name of
+the current node is displayed in the status line.
 
-Кроме выполнения команд напрямую, пользователь может воспользоваться командами из подменю
-=Distel= меню =Erlang=.
+Besides direct execution of commands, user can run them from the =Distel= item in =Erlang=
+menu.
  
-*Distel* реализует свой набор команд для дополнения имен модулей и функций.  Для их
-получения используется текущая информация из среды выполнения Erlang.  Для использования
-дополнения вы можете воспользоваться командой =erl-complete= (=M-TAB= и =M-?=).  В том случае,
-если набираемая часть имени соответствует нескольким именам, то будет показан буфер со
-всеми возможными вариантами, в котором вы можете выбрать нужное вам.
+*Distel* implements its own set of commands for completion of modules & functions names.  To
+get this information, package retrieve it from running Erlang environment.  To use name
+completion you can run =erl-complete= command (=M-TAB= or =M-?=).  If already entered part of
+name corresponds several names, then package will create a new buffer and user should
+select between suggested variants.
 
 Также, переопределяются и команды работы с тагами, но в отличии от *erlang-mode* вам нет
 необходимости регулярно обновлять файл =TAGS=, поскольку *distel* позволяет найти определение
@@ -633,3 +633,4 @@ Footnotes:
 ;  LocalWords:  flymake Erlang erl init src erlang lang flymake-errline Distel
 ;  LocalWords:  flymake-warnline distel erlang-mode M-TAB C-d C-c node nil dir
 ;  LocalWords:  esense ESense Erlang's erlware Imenu emacs fsm refactoring
+;  LocalWords:  nodename
