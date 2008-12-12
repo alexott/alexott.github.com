@@ -255,24 +255,24 @@ completion you can run =erl-complete= command (=M-TAB= or =M-?=).  If already en
 name corresponds several names, then package will create a new buffer and user should
 select between suggested variants.
 
-Также, переопределяются и команды работы с тагами, но в отличии от *erlang-mode* вам нет
-необходимости регулярно обновлять файл =TAGS=, поскольку *distel* позволяет найти определение
-функции используя информацию от среды выполнения.  Для перехода к определению нужной
-функции вы можете использовать команду =erl-find-source-under-point= (=M-.=) -- по умолчанию,
-эта команда в качестве имени функции берет то имя, которое находится под курсором.  Но вы
-можете изменить это поведение, если передадите префиксный аргумент (=C-u=), или если
-переменная =distel-tags-compliant= имеет не-=nil= значение -- в этом случае, у вас запросят
-имя функции, определение которой вы хотите найти.  Чтобы вернуться назад, к точке вызова,
-вы можете использовать команду =erl-find-source-unwind= (=M-,= или =M-*=).
+The package also overrides commands for work with tags, but it make this differently
+(comparing with *erlang-mode*) -- you don't need to keep your =TAGS= file updated, as *distel*
+use information from the running Erlang environment to get information about function's
+definition.  To go to the function's definition, you can use the
+=erl-find-source-under-point= command (=M-.=) -- by default, this command use name under
+cursor as a variant to search.  But you can change this behaviour if you'll pass it prefix
+argument (=C-u=), or if the variable =distel-tags-compliant= has non-=nil= value -- in these
+cases, you'll be prompted for name of function.  To return back, you can use the
+=erl-find-source-unwind= command (=M-,= or =M-*=).
 
-Кроме того, в *distel* есть рудиментальные возможности по рефакторингу кода.  С помощью
-команды =erl-refactor-subfunction= (=C-c C-d f=) пользователь может выделить часть кода
-(пользователю необходимо выделить нужный блок с помощью стандартных команд) функции в
-отдельную функцию.  При выполнении данной команды, у пользователя будет запрошено название
-новой функции, будет определен список переменных, используемых в данной функции, и
-выделенная часть кода будет заменена на вызов новой функции.  Сама новая функция будет
-помещена в буфер обмена, откуда она может быть вставлена с помощью команды =yank= (=C-y=).
-Пример использования данной функции вы можете найти в документации *distel*.
+Besides this, *distel* has rudimentary support for refactoring of source code.  Using the
+=erl-refactor-subfunction= command (=C-c C-d f=) user can select part of source code (user
+should select corresponding block of code with standard commands) of a function into
+separate function.  When command is executed, user will asked for name of new function,
+the list of the parameters will detected, and selected part of code will replaced with
+call to new function.  Text of new function will put into kill buffer, and user can insert
+it into appropriate place with the =yank= command (=C-y=).  In *distel* documentation you can
+find example of usage of this command.
 
 ** Obtaining information from documentation
 
