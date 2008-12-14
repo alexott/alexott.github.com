@@ -276,66 +276,62 @@ find example of usage of this command.
 
 ** Obtaining information from documentation
 
-Для более удобной работы с документацией, пакет *distel* использует внешние программы,
-написанные на Erlang, которые выполняют предварительную обработку документации, и затем
-используют полученные данные для ее отображения.
+To more comfortable work with documentation, the *distel* package use external programs,
+written in Erlang, that perform preprocessing of documentation, and later use collected
+information for access to documentation.
 
-Для обработки документации в формате HTML, имеется модуль =otp_doc=, который выполняет
-анализ файлов, и генерирует набор пар "сигнатура функции/ссылка на документацию".
-С помощью команды =erl-find-sig= пользователь может получить список сигнатур функций,
-соответствующих заданному выражению, а затем может воспользоваться командой =erl-find-doc=
-для отображения документации (для этого необходимо наличие пакета *w3m*).  В том случае если
-имеется несколько функций, соответствующих запросу, то пользователь должен будет выбрать
-нужную функцию из списка.
+To preprocess documentation in HTML format, there is =otp_doc= module, that performs
+analysis of the files, and generates set of pairs "function's signature/link to
+documentation".  With the =erl-find-sig= command user can get list of the function's
+signatures, corresponding to given expression, and than could use the =erl-find-doc= command
+to get documentation for given function (you need to have the *w3m* package installed).  In
+this case, if you have several functions, corresponding to your request, then you'll need
+to select needed function from list.
 
-Пользователь может также получить краткую документацию по загруженным модулям.  Для этого
-используется дополнительный модуль =fdoc=, который также, как и =otp_doc=, проводит анализ
-исходных текстов загруженных модулей и сохраняет собранные данные для последующего
-использования.  Получить описание модуля или функции из базы данных =fdoc= можно с помощью
-команды =erl-fdoc-describe= (=C-c C-d d=).  А с помощью команды =erl-fdoc-apropos= (=C-c C-d a=)
-можно получить перечень функций, чьи названия или комментарий соответствуют заданному
-регулярному выражению.  В том случае, если одна из команд получает префиксный аргумент,
-она вначале выполняет перестройку базы данных =fdoc=, и только затем выполняет требуемую
-операцию.
+User can also get short description of the loaded modules.  For this task the =fdoc= module
+is used, that also performs analysis of the source code of the loaded modules, and stores
+collected data to the later use. You can get description of the module or function from
+the =fdoc's= database the =erl-fdoc-describe= command (=C-c C-d d=).  And with the
+=erl-fdoc-apropos= command (=C-c C-d a=) you can get list of functions, whose names or
+descriptions are matched to the given regular expression.  In this case, if one of these
+commands is called with prefix argument, then it rebuild =fdoc= database first, and than
+perform requested operation.
   
 ** Execution and profiling of code
 
-*Distel* расширяет набор команд *erlang-mode* предназначенных для выполнения кода Erlang.  С
-помощью команды =erl-eval-expression= (=C-c C-d :=) пользователь может ввести в мини-буфере
-выражение на Erlang и получить результаты его вычисления.  В том случае, если пользователь
-выделил регион кода, то этот код будет предложен в качестве значения по умолчанию.  Кроме
-того, определены две команды, которые позволяют перегружать модули на выбранном узле.  Это
-команда =erl-reload-module= (=C-c C-d L=), которая заново загружает модуль с заданным именем,
-и команда =erl-reload-modules= (=C-c C-d r=), которая заново загружает все обновленные
-используемые модули.
+*Distel* extends set of the *erlang-mode* commands that are used to execution of the Erlang
+code.  With the =erl-eval-expression= command (=C-c C-d :=) user can enter in mini-buffer any
+Erlang expression, and get result of its evaluation.  If user mark some region of code,
+then this part will suggested as expression to evaluate.  Besides this, there are two
+additional commands, that allow to reload modules on selected node.  This is the
+=erl-reload-module= command (=C-c C-d L=), that reloads module with given name, and the
+=erl-reload-modules= command (=C-c C-d r=), that reloads all updated modules.
 
-Более мощные возможности по интерактивному выполнению кода Erlang реализованы в рамках так
-называемых "интерактивных сессий" -- аналоге буфера =*scratch*= в Emacs, которые позволяют
-вводить и выполнять отдельные выражения Erlang не создавая выделенных файлов с исходным
-кодом (пример работы вы можете увидеть на скриншоте ниже).  Для начала работы в этом
-режиме, необходимо выполнить команду =erl-ie-show-session= (=C-c C-d e=), которая либо создаст
-новый, либо переключит в существующий буфер в котором пользователь может вводить команды.
-По умолчанию, буфер имеет название =*ie sessions имя_узла*=.  Внутри этого буфера,
-пользователь может вводить выражения и определения функций.  Для вычисления выражения,
-которое находится перед курсором, используется команда =erl-ie-eval-expression= (=C-j=), а для
-вычисления определения функции -- команда =erl-ie-eval-defun= (=C-M-x=).
+More powerful facilities for interactive Erlang's code evaluation are implemented as part
+of "interactive sessions" -- something like the =*scratch*= buffer for Emacs Lisp, in which
+you can enter and execute separate Erlang's expressions without creation of files with
+source code (an example of work with such buffer, you can see on picture below).  To start
+interactive session you need to run the =erl-ie-show-session= command (=C-c C-d e=), that
+either will create new buffer, or will switch to existing buffer, where user will can
+enter Erlang's expressions.  By default, this buffer has name =*ie sessions node_name*=.
+Inside this buffer, user can enter separate expressions & function's definitions.  To
+evaluate expression, before point, the =erl-ie-eval-expression= command (=C-j=) is used.  And
+to evaluate function's definition, there is the =erl-ie-eval-defun= command (=C-M-x=).
 
 <div id="screenshot">
 [[../../../common/writings/emacs-devenv/distel-ie-sessions.png]]
 </div>
 
-Также как и для документации, для профилирования используется существующий модуль Erlang
--- =fprof=.  Для работы с ним *distel* предоставляет две команды.  С помощью команды =fpropf=
-(=C-c C-d p=) пользователь может ввести выражение Erlang и получить результаты выполнения
-этого выражения в режиме профилирования.  А с помощью команды =fprof-analyse= (=C-c C-d P=)
-можно загрузить файл с уже имеющимися данными профилирования, и проводить их анализ в
-удобной форме.   После проведения анализа, пользователь получает доступ к буферу, в
-котором перечислены все использованные в работе функции, и для каждой из них приводится
-следующая информация: =Calls= -- общее количество вызовов данной функции; =ACC= -- сколько
-времени (в миллисекундах) было затрачено на выполнение данной функции, включая вызов
-других функций, вызванных из нее; =Own= -- сколько времени выполнялась сама функция, без
-учета других функций, вызванных из нее.  Пример вывода результатов профайлинга вы можете
-увидеть на рисунке ниже.
+The *distel* package use =fprof= module to get information from profiler.  To work with this
+module, the package provides two commands.  With the =fpropf= command (=C-c C-d p=) user can
+enter Erlang's expression and get profiling information.  And with the =fprof-analyse=
+command (=C-c C-d P=) you can load file with existing profiler data and perform their
+analysis in convenient form.  After finishing of analysis user gets buffer, in which all
+called functions are listed, together with detailed information about them: =Calls= --
+number of calls for concrete function; =ACC= -- how much time (in milliseconds) was spent
+for execution of concrete function, including calls for other functions; =Own= -- how much
+time was spent for execution of function's body, without calls to other functions.  An
+example of result's representation you can see on picture below.
 
 <div id="screenshot">
 [[../../../common/writings/emacs-devenv/distel-fprof.png]]
@@ -345,72 +341,66 @@ find example of usage of this command.
 
 ; TODO: добавить скриншот отладчика
 
-Для реализации возможности отладки приложений, *distel* использует те же модули, что и
-отладчик, идущий в составе Erlang.  Для того, чтобы воспользоваться отладкой, необходимо
-скомпилировать модули с добавлением отладочной информации (необходимо явно указать ключ
-=+debug-info= компилятору =erlc= или выполнить команду =erlang-compile= с префиксным
-аргументом).
+To implement interface to debugger, the *distel* package uses same modules, as debugger from
+Erlang's distribution.  To use debug facilities you need to compile modules with debug
+information enabled (you need to specify =+debug-info= option for =erlc=, or execute the
+=erlang-compile= command with prefix argument).
 
-При работе отладчика создаются отдельные буфера для отображения списка отлаживаемых
-(интерпретируемых) процессов (буфер =Monitor=) и отдельные буфера для каждого из
-интерпретируемых модулей, которые выполняются в пошаговом режиме (буфер =Attach=).
+When you run debugger, several additional buffers are created -- one buffer for list of
+interpreted (run under debug) processes (the =Monitor= buffer) and separate buffers for each
+of module, run under debugger (=Attach= buffers).
 
-Для того, чтобы получить возможность отладки текущего модуля, вам необходимо переключить
-его в режим интерпретации, что выполняется с помощью команды =edb-toggle-interpret= (=C-c C-d
-i=), после этого, вы можете расставлять в исходном тексте точки останова с помощью
-=edb-toggle-breakpoint= (=C-x SPC=).
+To enable debugging of current module, you need to switch it into process of
+interpretation.  This is performed with the =edb-toggle-interpret= command (=C-c C-d i=), and
+after this, you can set breakpoints in the source code with the =edb-toggle-breakpoint=
+command (=C-x SPC=).
 
-Сама отладка производится в буфере =Attach=, в который можно попасть через буфер =Monitor=.
-Чтобы переключиться в буфер =Monitor=, вы можете воспользоваться командой =edb-monitor= (=C-c
-C-d m=).  В этом буфере отображается список отлаживаемых процессов и пользователю доступно
-несколько команд: =RET= переключает в буфер =Attach=, соответствующий выбранному процессу; =q=
-скрывает буфер монитора, а =k= удаляет буфер монитора, удаляет все точки останова и
-отключается от модуля отладки на выбранном узле.
+Debugging is performed in the =Attach= buffer, that you can visit via =Monitor= buffer. To
+switch to the =Monitor= buffer you can use the =edb-monitor= command (=C-c C-d m=).  This buffer
+list all modules executed in debug mode, and user can use several commands in this buffer:
+=RET= opens the =Attach= buffer for module under cursor; =q= hides monitor buffer, and =k= deletes
+monitor buffer, remove all breakpoints and disconnects from the debugging module on
+selected node.
 
-Буфер =Attach= позволяет выполнять пошаговое выполнение кода конкретного модуля.  В нем
-отображается исходный код модуля и метка, показывающая следующую выполняемую строку (в том
-случае, если выполнение было остановлено на какой-то из точек останова).  В этом буфере
-пользователю доступны следующие команды:
+The =Attach= buffer allows step-by-step execution of code in concrete module.  In this
+buffer you can see source code of the module, together with label, displaying on line for
+next command to execute (if execution was stopped on one of breakpoints).  In this buffer
+following commands are available for user:
 
-|| функция || клавиша || описание
-| =edb-attach-step= | =SPC= | выполнить следующее выражение, с заходом в вызываемую функцию (если это вызов функции)
-| =edb-attach-next= | =n= | выполнить следующее выражение, без захода в вызываемую функцию
-| =edb-attach-continue= | =c= | продолжить выполнение до следующей точки останова
-| =edb-attach-up= | =u= | показать предыдущий фрейм стека
-| =edb-attach-down= | =d= | показать следующий фрейм стека
-| =edb-toggle-breakpoint= | =b= | переключить точку останова на текущей строке
-| =edb-attach-help= | =h= | показать справку по пользованию данным буфером
-|  | =q= | удалить буфер =Attach= без завершения отлаживаемого процесса
+|| command || key || description
+| =edb-attach-step= | =SPC= | execute next expression, with entering into calling function (if you stay on function call)
+| =edb-attach-next= | =n= | execute next expression without entering into calling function
+| =edb-attach-continue= | =c= | continue execution until next breakpoint
+| =edb-attach-up= | =u= | show previous stack frame
+| =edb-attach-down= | =d= | show next stack frame
+| =edb-toggle-breakpoint= | =b= | switch breakpoint on current line of code
+| =edb-attach-help= | =h= | show help for current buffer
+|  | =q= | remove =Attach= buffer without debug finishing
 
-Во время отладки пользователь может изменять исходный код модулей, поэтому расстановка
-точек останова в исходном тексте, и в выполняемом процессе может отличаться.  Для того,
-чтобы их синхронизировать, *distel* имеет в своем составе команду =edb-synch-breakpoints= (=C-c
-C-d s=), которую необходимо использовать после перекомпиляции и перезагрузки модуля.  Кроме
-того, для перезагрузки модулей рекомендуется использовать команду =erl-reload-module=, а не
-загружать его вручную, поскольку эта команда позволяет сохранить все установленные точки
-останова и флаги интерпретации модулей.
+During debug user can change source code, so positions of breakpoints in source code and
+in debugging process could differ.  To synchronize them, *distel* provides the
+=edb-synch-breakpoints= command (=C-c C-d s=), that you need to execute after re-compilation &
+reloading of the module.  Besides this, it's recommended to use the =erl-reload-module=
+command to module reloading, as this command will keep all breakpoints & debug statuses.
 
-Еще одной возможностью *distel* полезной для отладки является то, что пакет может сохранить
-текущее состояние отладчика, и затем восстановить его на выбранном узле, что крайне
-полезно в тех случаях, когда вам необходимо перезапустить узел Erlang и продолжить отладку
-с того места, где вы остановились.  Для выполнения этой задачи, пакет определяет две
-команды: =edb-save-dbg-state= (=C-c C-d S=) для сохранения состояния отладчика, и
-=edb-restore-dbg-state= (=C-c C-d R=) для его восстановления.
+*distel* also allows to store current state of debugger and restore it on another selected
+node, that is very useful when you need to restart Erlang's node and continue debugging
+from the same place.  To do this you need to use the =edb-save-dbg-state= command (=C-c C-d
+S=) to store debugger state, and the =edb-restore-dbg-state= command (=C-c C-d R=) to restore
+stored state.
 
-** Приложения для работы со средой выполнения Erlang
+** Applications for work with Erlang environment
 
-Кроме описанных выше приложений, в составе *distel* поставляется еще несколько утилит,
-которые могут быть полезными для разработчика, активно работающего с Erlang. Например,
-сюда можно отнести менеджер процессов выполняемых на узле Erlang, к которому сейчас
-подключен *distel*.
+*distel* distribution also has several additional utilities that could be useful for
+developer, who work with Erlang.  For example, there is manager of processes executing on
+the Erlang's node, to which *distel* is connected.
 
-Менеджер процессов запускается командой =erl-process-list= (=C-c C-d l=) и создает буфер, в
-который выводится различная информация о выполняемых процессах (пример показан на
-скриншоте ниже).  В данном буфере пользователь может выполнять различные команды, которые
-позволяют получать более подробную информацию о процессе (=RET= или =i=), просматривать
-содержимое очереди сообщений (=m=), выполнять трассировку процесса (=b=).  Пользователь может
-даже завершить процесс воспользовавшись командой =k=.  Чтобы покинуть этот буфер необходимо
-нажать =q=, а чтобы обновить информацию -- =u=.
+The process manager is run by =erl-process-list= command (=C-c C-d l=), and creates new buffer
+with information about processes (you can see an example on picture below).  In this
+buffer user can execute different commands, that allow to get detailed information about
+process (=RET= or =i= keys), view content of message queue (=m= key), perform tracing of
+selected process (=b= key).  User can also terminate process with the =k= key.  To leave this
+buffer user need to press =q= key, and to update information in buffer -- press the =u= key.
 
 <div id="screenshot">
 [[../../../common/writings/emacs-devenv/distel-proc-monitor.png]]
@@ -418,28 +408,26 @@ C-d s=), которую необходимо использовать после
 
 ** Programming with distel
 
-*Distel* позволяет писать на Emacs Lisp приложения в стиле Erlang, а также взаимодействовать
-с процессами, запущенными на узлах Erlang.  Краткое введение в программирование с помощью
-*distel* вы можете найти в статье [[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.11.4770][Distel: Distributed Emacs Lisp]] и/или
-[[http://bc.tech.coop/blog/070719.html][статье в блоге Bill Clementson]].
+*Distel* allows to write code in Emacs Lisp in Erlang style, and also to communicate with
+Erlang processes.  Short introduction to programming with *distel* you can find in article
+[[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.11.4770][Distel: Distributed Emacs Lisp]] and/or in article in [[http://bc.tech.coop/blog/070719.html][Bill Clementson's blog]].
 
-*  Flymake's customization for work with Erlang
+*  Customize Flymake to work with Erlang
 
-Пакет *flymake*, входящий в поставку Emacs, позволяет выполнять проверку корректности кода
-на лету.  Erlang пока не входит в список языков, поддерживаемых "из коробки", но мы можем
-достаточно легко исправить это упущение[4].
+The *flymake* package, supplied with Emacs, allows to perform source code checking on the
+fly.  Erlang isn't supported out of box, but we can fix this problem as described
+below[4].
 
-Если вы еще не использовали *flymake*, то во первых вам необходимо загрузить его с помощью
-следующей команды:
+If you never used *flymake* before, then first you need to load it with following command:
 
 <src lang="emacs-lisp">
 (require 'flymake)
 </src>
 
-Затем нам необходимо написать процедуру, которая будет правильно инициализировать *flymake*,
-так чтобы он мог работать с кодом на Erlang.  Эта процедура будет захватывать код по мере
-набора и будет передавать его скрипту на Erlang, который и будет проверять код на наличие
-ошибок.  Процедура выглядит следующим образом:
+Than you need to write function, that will perform *flymake* initialization, so it will
+properly handle Erlang's source code.  This function will catch source code as you'll type
+it in the buffer, and pass code to Erlang script, that will perform checking of the code.
+This function looks like:
 
 <src lang="emacs-lisp">
 (defun flymake-erlang-init ()
@@ -451,9 +439,10 @@ C-d s=), которую необходимо использовать после
     (list "~/emacs/bin/eflymake" (list local-file))))
 </src>
 
-Путь к скрипту указывается в теле процедуры, так что вам необходимо изменить путь в том
-случае, если он находится в другом месте.  Сам скрипт достаточно прост -- он получает имя
-файла и пытается выполнить компиляцию кода, возвращая список ошибок и предупреждений: 
+The path to the Erlang script is hardcoded in the body of function, so you'll need to
+change it, if you put it in other place.  This script is pretty simple -- it receive name
+of the file with source code, and tries to compile it, returning list of errors and
+warnings:
 
 <src lang="erlang">
 #!/usr/bin/env escript
@@ -465,23 +454,22 @@ main([File_Name]) ->
 					   strong_validation, report]).
 </src>
 
-После написания процедуры и скрипта, нам необходимо указать *flymake*, что он должен
-использовать указанную процедуру для проверки файлов с расширением =.erl=, что делается с
-помощью следующего кода.
+After writing these function & script, you need to point to *flymake*, that it should use
+given function for check of the files with =.erl= extension.  This is done with following
+piece of code.
 
 <src lang="emacs-lisp">
 (add-to-list 'flymake-allowed-file-name-masks
 						 '("\\.erl\\'" flymake-erlang-init))
 </src>
 
-На этом подготовительные действия заканчиваются и вы можете либо разрешить использовать
-*flymake* глобально, с помощью добавления хука открытия файла:
+That's all, and you can either enable *flymake* globally, with the file open hook:
 
 <src lang="emacs-lisp">
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 </src>
 
-либо явно включать режим *flymake* для нужных режимов, например, вот так:
+or you can enable *flymake* mode only for some modes with corresponding hooks:
 
 <src lang="emacs-lisp">
 (defun my-erlang-mode-hook ()
@@ -489,23 +477,23 @@ main([File_Name]) ->
 (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 </src>
 
-После этого, при открытии файла с расширением =.erl= режим *flymake* будет включаться
-автоматически, и вы будете видеть результаты проверки по мере набора вашего кода.  По
-умолчанию, строки содержащие ошибки выделяются светло-розовым цветом, а строки, вызывающие
-появление предупреждений -- светло-голубым[5].  Пример вы можете увидеть на скриншоте:
+After this, if you will open file with =.erl= extension, the *flymake* mode will enabled
+automatically, and you will see results as you will type your code.  By default, lines
+containing errors are marked with pink color, while lines with warnings will marked with
+light blue[5].  An example you can see on picture:
 
 [[../../../common/writings/emacs-devenv/erlang-flymake.png]]
 
-В данном примере, функции =some_wrong_function= не существует, и поэтому Erlang не может ее
-найти и рапортует об ошибке.  А объявление функции подсвечено из-за того, что параметр =Fun=
-не используется в теле функции, что приводит к получению предупреждения.
+In this case, the =some_wrong_function= function isn't defined, so Erlang can't find it, and
+report about error.  And function's declaration is highlighted, as the =Fun= argument isn't
+used in the function's body, so this lead to the warning.
 
 * The wrangler package
 
-Пакет *wrangler* реализует базовую функциональность по рефакторингу программ написанных на
-Erlang.  Пакет доступен с [[http://www.cs.kent.ac.uk/projects/forse/][сайта проекта]], но работа пока находится в самом начале, и сами
-авторы не рекомендуют использовать его для серьезной работы.  Документация на пакет может
-быть найдена [[http://www.cs.kent.ac.uk/projects/forse/wrangler/doc/overview-summary.html][тут]].
+The *wrangler* package implements basic support for refactoring of programs, written in
+Erlang.  The package is available from [[http://www.cs.kent.ac.uk/projects/forse/][project's site]], but development is on early stages,
+so authors don't recommend it for serious work.  You can find documentation for package at
+[[http://www.cs.kent.ac.uk/projects/forse/wrangler/doc/overview-summary.html][following address]].
 
 ; I’ve when playing around a bit with Wrangler—an Erlang refactoring package for Emacs. I
 ; like what I’ve seen of it so far but turning it on and off is a little ugly. Typing M-x
@@ -539,98 +527,93 @@ Erlang.  Пакет доступен с [[http://www.cs.kent.ac.uk/projects/fors
 
 * ESense
 
-[[http://esense.sourceforge.net/][Пакет ESense]] (ErlangSense) реализует для связки Emacs + Erlang нечто подобное функции
-Intellisense в Visual Studio.  Пакет реализует следующие возможности:
- - дополнение имен модулей, функций, названий записей и полей в записях, а также имен макросов;
- - переход к содержимому подключаемого (через =-include=) заголовочного файла;
- - переход к определению функции в исходном коде;
- - открытие документации на выбранную функцию или показ краткой подсказки в всплывающем
-   окне.
+[[http://esense.sourceforge.net/][The ESense package]] (ErlangSense) implements for Emacs + Erlang something like Intellisense
+function in Microsoft Visual Studio.  The package implements following functions:
+ - completion of names for modules, functions, records, macroses & fields in records;
+ - jump to the files included with  =-include= directive;
+ - jump to the function's definition;
+ - show of documentation for selected function, or show short description in tooltip.
 
-Этот пакет может использоваться как дополнительный режим при редактировании исходного кода
-Erlang, а также при работе с кодом в буфере в котором выполненяются команды Erlang.
+This package could be used as minor mode when you edit source code, or work in buffer,
+where Erlang's commands are executed.
 
 ** Installation & customization
 
-Скачать пакет *ESense* можно с [[http://esense.sourceforge.net/][сайта проекта]].  Для его работы требуется наличие модуля
-разбора HTML из состава веб-сервера [[http://yaws.hyber.org/][Yaws]][6].  Скачанный пакет необходимо развернуть и с
-помощью =make= скомпилировать код на Erlang, который будет использоваться для индексации
-модулей.  
+You can download *ESense* from the [[http://esense.sourceforge.net/][project's site]].  For its work you need to have HTML
+parser module from the [[http://yaws.hyber.org/][Yaws]] distribution[6] .  After downloading, you need to unpack
+package, and compile it with =make=, building the utility that will used for indexing of
+source code.
 
-После этого вам необходимо поместить файлы с расширением =.el= в то место, где их найдет
-Emacs, и добавить следующий код в ваш файл инициализации:
+After this, you need to copy all files with =.el= extension, to place where Emacs will find
+it, and add following code to your initialization file:
 
 <src lang="emacs-lisp">
 (require 'esense-start)
 (setq esense-indexer-program "/path/to/esense.sh")
 </src>
 
-Вам необходимо изменить значение второй строки таким образом, чтобы она указывала на
-расположение скрипта =esense.sh=, который используется для индексации кода.  Прочие
-настройки могут быть заданы используя группу настройки =esense=.
+You also need to change value at second line, so it will point to place, where =esense.sh=
+script is located.  This script is used to indexing of source code.  Other settings you
+can specify using customization group called =esense=.
 
-Перед первым запуском вам необходимо сгенерировать первоначальные индексы, которые будут
-использоваться пакетом в процессе работы.  Эта задача выполняется с помощью скрипта
-=esense.sh=, в качестве параметра которому передается каталог с исходным кодом. (В первую
-очередь рекомендуется построить индексы для исходных текстов Erlang, поскольку наличие
-информации для некоторых модулей необходимо для работы пакета).  Индексные файлы по
-умолчанию сохраняются в каталоге =~/.esense=.
+Before first run you'll need to generate indexes, that will be used during work of the
+package.  This task is performed with =esense.sh= script, that accepts directory with source
+code as a first argument.  (Initially it's better to generate indexes for Erlang's source
+code, as some information is need to proper work of package).  By default, index files are
+stored in =~/.esense= directory.
 
-После генерации индекса, вы можете или перезапустить Emacs, или выполнить команду
-=esense-initialize=, которая обновит информацию о существующих индексных файлах.  После
-генерации индексов для исходных текстов, вы можете сгенерировать индексы для документации
-в формате HTML, так что ссылки на нее смогут использоваться в процессе работы.
+After index generation, you can either restart Emacs, or run the =esense-initialize=
+command, that will update information about existing index files.  After generation of
+indexes for source code, you can also generate indexes for documentation in HTML format,
+so links to it, could be used during the work.
 
 ** Work with package
 
-По умолчанию, *ESense* использует клавишу =F1= (команда =esense-do-something-at-point=) для
-выполнения практически всех операций.  В зависимости от положения курсора, пакет выполняет
-одно из следующих действий:
- - если курсор находится в конце символа, то пакет пытается дополнить имя символа (имя
-   модуля или функции из конкретного модуля).  Если существует несколько вариантов
-   дополнения, то пакет отображает окно, в котором перечисляются все возможные варианты.
-   В этом окне пользователь может перемещаться с помощью клавиш курсора, и выбрать нужный
-   вариант с помощью клавиши =RET= или сочетания =C-m=;
- - если курсор находится на символе (функции, макросе или записи), то пакет показывает
-   документацию для данного символа в всплывающем окне (tooltip);
- - если курсор находится на списке параметров, то показывается документация на
-   соответствующий параметр функции;
- - если курсор находится на строке с директивой =-include=, то будет показан соответствующий
-   заголовочный файл.
+By default, *ESense* uses the =F1= key (the =esense-do-something-at-point= command) to execute
+almost all operations.  Depending on cursor's location, the package performs one of
+following operations:
+ - if cursor is at the end of name, then package tries to complete this name (name of
+   module or function from concrete module).  If several completions exist, then a buffer
+   with possible completions is displayed.  In this case, user can select required variant
+   using arrow keys and =RET=;
+ - if cursor is on the name (function, macro, or record), then package shows documentation
+   for this name as tooltip;
+ - if cursor is on the list of parameters, then documentation for corresponding parameter
+   of function is shown;
+ - if cursor is on the line with =-include= directive, then corresponding file will shown.
 
-Нажатие комбинации =C-F1= приведет к вызову команды =esense-go-to-documentation=, что приведет
-к переходу к месту определения символа, находящегося под курсором (вернуться назад можно с
-помощью стандартной для =etags= комбинации =M-*=).  А комбинация =M-F1=
-(=esense-go-to-function-documentation=) запросит имя функции и выполнит переход к ее
-определению.
+If you press =C-F1=, then this will lead to call of the =esense-go-to-documentation= command,
+that will jump to definition of the name under cursor (you can return back with standard,
+for =etags=, key binding -- =M-*=).  You can use =M-F1= (=esense-go-to-function-documentation=) if
+you want to enter name of object, for which you want to find definition.
 
-Нажатие клавиш =:=, =#=, =.= и =?= также приводят к выдаче списка возможных вариантов для функций
-из модуля, имен записей, членов записей или макросов, соответственно.
+Pressing to the =:=, =#=, =.= and =?= keys also lead to displaying list of possible completions
+for names of function, records, fields and records and macros.
  
 ; ======================================================================
 
 <div id="rule">[[./index][На главную страницу]]</div>
 
 Footnotes: 
-[1] На самом деле, этот пакет является реализацией Erlang-подобного стиля программирования
-    для Emacs Lisp.  *erlang-extended-mode*, реализуемый этим пакетом, построен на основе
-    библиотеки, обеспечивающей взаимодействие с процессами Erlang.
+[1] In general, this package provides implementation of the Erlang-style programming for
+    Emacs Lisp.  *erlang-extended-mode*, implemented by this package, is built on the base
+    of the library, that provides communication with  Erlang processes.
 
-[2] Вы также можете задать числовой префикс для этих команд, что обеспечит пропуск
-    соответствующего количества функций Erlang.
+[2] You can also provide numerical prefix for these commands, so it will lead to skipping
+    given number of Erlang's functions.
 
-[3] Этот код был опубликован в блоге [[http://bc.tech.coop/blog/][Bill Clementson]]
+[3] This code was published in the [[http://bc.tech.coop/blog/][Bill Clementson's blog]]
 
-[4] Данный раздел основан на информации, полученной из [[http://weblog.hypotheticalabs.com/?p=265][блога Hypothetical Labs]].
+[4] This section is based on the information from the [[http://weblog.hypotheticalabs.com/?p=265][Hypothetical Labs blog]].
 
-[5] Вы можете сами указать нужные цвета, отредактировав параметры начертаний
-    =flymake-errline= & =flymake-warnline=.
+[5] You can also specify another colors by changing definitions for =flymake-errline= &
+    =flymake-warnline= faces.
 
-[6] Вам может понадобиться добавить каталог где установлен *Yaws* в список каталогов, где
-    будет производиться поиск выполняемых модулей.  Это может быть сделано путем помещения
-    команды code:add_path с нужным каталогом в файл инициализации =~/.erlang=.
+[6] You could be need to add directory, where *Yaws* is installed, to the list of
+    directories, that will searched for the concrete modules.  You can do this by adding
+    the =code:add_path= command with corresponding directory to the =~/.erlang= file.
 
 ;  LocalWords:  flymake Erlang erl init src erlang lang flymake-errline Distel
 ;  LocalWords:  flymake-warnline distel erlang-mode M-TAB C-d C-c node nil dir
 ;  LocalWords:  esense ESense Erlang's erlware Imenu emacs fsm refactoring
-;  LocalWords:  nodename
+;  LocalWords:  nodename breakpoint
