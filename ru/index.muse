@@ -26,7 +26,7 @@ list* я веду на сайте [[http://amazon.de/gp/registry/wishlist/3GN7PN
 информационная безопасность и [[cf/index][контентная фильтрация данных]].
 
 Разработка ПО, производится на разных языках программирования.  Основной рабочий язык --
-[[cpp/index][C & C++]], но кроме этого, часто используется [[lisp/index][Lisp]], [[scheme/index][Scheme]], [[erlang/index][Erlang]], OCaml, и прочие
+[[cpp/index][C & C++]], но кроме этого, часто используется [[lisp/index][Lisp]], [[scheme/index][Scheme]], [[erlang/index][Erlang]], Haskell, и прочие
 [[fp/index][функциональные языки]] программирования.
 
 Уже более 10 лет работаю с Unix-подобными операционными системами, в частности с [[linux/index][Linux]],
