@@ -12,9 +12,10 @@ package for Emacs).
 I wrote (and continue to write) series of articles about using Emacs to perform different
 tasks (many of articles in Russian, and here listed only some translated articles):
 
- - [[../writings/emacs-vcs/][Article about using Emacs with version control systems]] 
+ - [[../writings/emacs-vcs/][Article about using Emacs with version control systems]]
  - Small article about [[../writings/EmacsMuseMyPage][how this site was created with Emacs Muse]]
  - Small note about [[../writings/EmacsMacOSXAndGrowl][interaction between Growl & Emacs]]
+ - [[../writings/emacs-devenv/index][Alpha version of the article about "Emacs as development environment]]
 
 You can also find [[../writings/][other my articles]].
 

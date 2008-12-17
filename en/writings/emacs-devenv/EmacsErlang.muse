@@ -592,7 +592,7 @@ for names of function, records, fields and records and macros.
  
 ; ======================================================================
 
-<div id="rule">[[./index][На главную страницу]]</div>
+<div id="rule">[[./index][To main page]]</div>
 
 Footnotes: 
 [1] In general, this package provides implementation of the Erlang-style programming for
