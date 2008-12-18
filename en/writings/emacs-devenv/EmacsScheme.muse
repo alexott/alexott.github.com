@@ -69,26 +69,25 @@ Second line of example is used to set name of the Scheme interpreter, that you c
 with any other name.  All settings for this package is also available via customization
 group with name =cmuscheme=.
 
-В буфере интерпретатора, создаваемом пакетом, используется специальный режим --
-=inferior-scheme-mode=, который можно настроить используя хук =inferior-scheme-mode-hook=.
-Кроме того, если существует файл =~/.emacs_SCHEMENAME= или =~/.emacs.d/init_SCHEMENAME.scm=
-(где =SCHEMENAME= -- название интерпретатора), то они будут выполнены сразу после загрузки
-интерпретатора.
+In the interpreter buffer, that is created by package, the special major mode is used --
+=inferior-scheme-mode=, that you can customize with =inferior-scheme-mode-hook=.  Besides
+this, if there is =~/.emacs_SCHEMENAME= file, or =~/.emacs.d/init_SCHEMENAME.scm= file (where
+=SCHEMENAME= is a name of Scheme interpreter), then Scheme expressions from them will
+executed right after start of interpreter.
 
 ** Work with package
 
-Основной функцией пакета является функция =run-scheme=, которая запускает выбранный
-интерпретатор языка Scheme и позволяет производить интерактивное выполнение кода не
-покидая Emacs.  
+Main command of the package is =run-scheme=, that run selected Scheme interpreter, and
+allows to interactively execute Scheme expressions without leaving Emacs.
 
-При этом вы можете управлять тем, какая часть кода (выделенный блок, определение функции
-или отдельное выражение) будет выполнена путем использования разных функций, определенных
-пакетом -- функция =scheme-send-definition= (сочетания клавиш =C-c C-e= или =C-M-x=) передает
-для выполнения интерпретатору текущее определение; функция =scheme-send-region= (=C-c C-r=)
-позволяет выполнить выделенный кусок исходного кода; функция =scheme-send-last-sexp= (=C-x
-C-e=) используется для вычисления выражения, которое находится перед курсором; а функция
-=scheme-load-file= (=C-c C-l=) позволяет загрузить в интерпретатор файл целиком (она позволяет
-выполнить код из любого файла, указанного пользователем, а не только из текущего буфера.
+You can control which portion of source code (selected region, function's definition, or
+concrete expression) will evaluated by using different commands, defined in the package --
+the =scheme-send-definition= command (=C-c C-e= or =C-M-x= key bindings) pass to interpreter
+definition of current function; the =scheme-send-region= command (=C-c C-r=) allows to
+executed source code from selected region; the =scheme-send-last-sexp= command (=C-x C-e=) is
+used to evaluation of expression, before the current point; and the =scheme-load-file=
+command (=C-c C-l=) allows to load to interpreter whole file -- it allows to load
+expressions from any file, specified by user, not only from current buffer.
 
 Интерпретатор Scheme выполняется в отдельном буфере с именем =*scheme*=[1], куда также
 выводятся и результаты вычисления выражений и функций.  Для быстрого переключения в этот
