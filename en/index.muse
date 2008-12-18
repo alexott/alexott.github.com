@@ -12,10 +12,10 @@
 Other my personal information you can find in my profile at [[https://www.plaxo.com/add_me?u=38655136415&v0=861575&k0=1086616232][Plaxo]]. And my *wish list* i keep
 on [[http://amazon.de/gp/registry/wishlist/3GN7PNIFBJSHC][Amazon.de]].
 
-You can also read my [[alexott-cv-en][CV]] ([[alexott-cv-en.pdf][PDF]]).  And also, my professional information you can find at
+You can also look into my [[alexott-cv-en][CV]] ([[alexott-cv-en.pdf][PDF]]).  And also, my professional information you can find at
 [[http://www.linkedin.com/in/alexott][LinkedIn]].
 
-You can read what i do in my [[http://alexott.blogspot.com/][personal blog]].
+You can read what i do in my [[http://alexott.blogspot.com/][personal blog]], and also at some [[./internet][other Internet resources]].
 
 * What i do
 

@@ -16,7 +16,8 @@ list* я веду на сайте [[http://amazon.de/gp/registry/wishlist/3GN7PN
 можете найти в сети [[http://www.linkedin.com/in/alexott][LinkedIn]].
 
 О моих занятиях вы можете прочитать в блогах, которых у меня два -- на
-[[http://alexott-ru.blogspot.com/][профессиональные темы]] и на более-менее [[http://www.livejournal.com/users/alexott/][персональные]].
+[[http://alexott-ru.blogspot.com/][профессиональные темы]] и на более-менее [[http://www.livejournal.com/users/alexott/][персональные]].  Список остальных интернет-ресурсов
+которыми я пользуюсь, вы можете найти на [[./internet][отдельной странице]].
 
 * Чем я занимаюсь
 

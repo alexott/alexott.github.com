@@ -1,0 +1,12 @@
+#title Ресурсы Интернет которыми я пользуюсь
+
+ - [[http://alexott-ru.blogspot.com][Блог на около-компьютерные темы]]
+ - [[http://alexott.livejournal.com][Блог на "бытовые" темы]], с фотографиями, разными рассказами и т.п.
+ - [[http://www.shelfari.com/o1517990503][Shelfari]] используется для ведения списков книг, которые я прочитал, читаю или собираюсь
+   читать
+ - [[http://www.amazon.de/gp/registry/wishlist/ref=topnav_wishlist_/302-3198130-0139241][Wishlist]] ведется на Amazon Germany
+ - Мой профиль на [[http://www.facebook.com/profile.php?id=760140831&ref=profile][Facebook]]
+ - Мой профиль на [[http://vkontakte.ru/id2310336][ВКонтакте]]
+ - Профиль на [[http://www.linkedin.com/in/alexott][LinkedIn]]
+
+
