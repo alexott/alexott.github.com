@@ -154,131 +154,122 @@ access to SRFI.
 
 ** Work with package
 
-После загрузки пакета, в дополнение к функциям *cmuscheme* и *scheme-mode* становятся
-доступными функции, определенные пакетом.  Пользователь может выполнять эти функции либо
-используя стандартные механизмы (сочетания клавиш и/или запуск по имени функции), либо
-используя меню =Quack=.
+After loading of package, several additional commands become available to use.  User can
+run these commands either via key bindings, and/or direct call via =M-x=, or selecting them
+via the =Quack= menu.
 
-Просмотр документации осуществляется с помощью нескольких функций.  Функция
-=quack-view-manual= (=C-c C-q m=) используется для просмотра документации в веб-браузере.  Эта
-команда позволяет просматривать как базовую документацию по языку Scheme, так и
-документацию по конкретным реализациям.  Для просмотра SRFI определена отдельная команда
--- =quack-view-srfi= (=C-c C-q s=), которая запрашивает номер нужного документа и открывает
-его в браузере.  А для пользователей PLT Scheme еще доступна и команда
-=quack-view-keyword-docs= (=C-c C-q k=), которая показывает документацию для заданного
-ключевого слова (*работа этой команды зависит от правильной установки документации PLT
+For work with documentation the package provides several commands.  The =quack-view-manual=
+command (=C-c C-q m=) is used to show documentation in a web-browser.  This command allows
+to view not only base Scheme documentation, but also documentation for concrete
+implementations.  To show SRFI's there is sepearate command -- =quack-view-srfi= (=C-c C-q
+s=), that asks a number of document, and shows it in browser.  For PLT Scheme users there
+is also the =quack-view-keyword-docs= command (=C-c C-q k=), that shows documentation for
+given keyword (*work of this command is depend on the proper installation of the PLT
 Scheme*).
 
-Как уже отмечалось выше, пакетом реализована функция =run-scheme= (=C-c C-q r=), которая
-позволяет запускать интерпретаторы языка Scheme, выбирая их из списка известных (включая
-запуск с нужными опциями), а также запоминает последний выбор пользователя.
+As was mentioned above, the package provides the =run-scheme= command (=C-c C-q r=), that
+allows to run  Scheme interpreters, selecting them from list  (and including run of them
+with all needed options), and also remembers last user's choice.
 
-Для пользователей PLT Scheme также определены удобные функции для работы с коллекциями.
-Функция =quack-find-file= (=C-c C-q f=) открывает файл, используя данные из текущего контекста
-для получения имени файла.  Например, если вы используете эту функцию в то время как
-курсор находится на коде =(require (lib "list.ss"))=, то вам будет предложено открыть файл
-=list.ss= из коллекции *mzlib*.  Кроме того, определена функция =quack-dired-pltcollect=,
-которая позволяет открыть буфер *Dired* для нужной коллекции PLT Scheme (при задании имени
-пользователь может использовать автодополнение имени коллекции).
+For users of PLT Scheme also provided additional commands for work with collections.  The
+=quack-find-file= command (=C-c C-q f=) opens file, using its name from current context.  For
+example, if you'll run this command while you staying on expression =(require (lib
+"list.ss"))=, then package will suggest to open file =list.ss= from *mzlib* collection.
+Besides this, there is the =quack-dired-pltcollect= command, that allows to open *Dired*
+buffer for given PLT Scheme collection (when typing name of collection, user can use names
+completion).
 
-Данный пакет также реализует несколько функций, которые изменяют форматирование кода,
-делая его более удобным для использования.   Функция =quack-tidy-buffer= (=C-c C-q t=) заново
-расставляет отступы в коде, заменяет знаки табуляции на пробелы, удаляет лишние пустые
-строки, удаляет заключительные пробельные символы в строках, а также добавляет знак
-перевода строки в конце файла, если его нет.  Функция  =quack-toggle-lambda= (=C-c C-q l=)
-изменяет объявление текущей функции с =(define (func args) ...)= на =(define func (lambda (args)
-..))=, что позволяет показывать знак лямбда в коде (при включенной опции отображения
-данного символа).  Например, вот так:
+This package also implements several commands, that change source code formatting, making
+work with it more comfortable.  The =quack-tidy-buffer= command (=C-c C-q t=) performs
+re-inditing of source code, replace tabs with spaces, removes unneeded empty lines, and
+removes spaces at the end of lines, and so on.  The =quack-toggle-lambda= command (=C-c C-q
+l=) changes definition of the current function from =(define (func args) ...)= to =(define
+func (lambda (args) ..))=, that allows to show lambda character in the source code (if this
+is enabled in options), for example:
 
 [[../../../common/writings/emacs-devenv/quack-lambda.png]]
 
 * The GCA package
 
-*GCA* -- пакет предназначенный для эффективной работы с исходным кодом Scheme.  Он
-разрабатывался для поддержки [[http://practical-scheme.net/gauche/index.html][Gauche Scheme]], но может использоваться и с другими
-диалектами.  Как и *quack*, он расширяет функции пакета *cmuscheme*.
+The *GCA* package is created for effective work with source code written in Scheme language.
+It was designed for work with [[http://practical-scheme.net/gauche/index.html][Gauche Scheme]], but it could be used with other
+implementations.  As the *quack* package, it extends commands of the *cmuscheme* package. This
+package provides following features:
+ - insertion of source code snippets, using templates;
+ - show function's descriptions;
+ - completions of names;
 
-Данный пакет имеет следующие возможности:
- - вставку кусков кода, используя механизм шаблонов
- - показ описаний для функций
- - дополнение имен
-
-Скачать пакет можно с [[http://homepage.mac.com/naoki.koguro/prog/gca/gca-20060903.tar.gz][сайта автора]], но к сожалению для него практически нет документации,
-а имеющаяся написана на японском.  На английском есть очень [[http://subtech.g.hatena.ne.jp/antipop/20071108/1194528967][краткое описание]] в виде
-примера конфигурации и ссылок на архив с пакетом и видео, содержащего пример работы с *gca*
+This package could be downloaded from the [[http://homepage.mac.com/naoki.koguro/prog/gca/gca-20060903.tar.gz][author's site]], but it almost hasn't
+documentation, and existing is written in Japan.  In English is available only
+[[http://subtech.g.hatena.ne.jp/antipop/20071108/1194528967][very short description]] with example of configuration, and links to the source code &
+videos, showing work with package.
 
 #gds
 * The GDS package
 
-Пакет *gds* является расширением пакета *cmuscheme* и реализует следующие дополнительные
-возможности:
- - Дополнение имен идентификаторов (тех, которые известны соответствующему процессу
-   Guile);
- - доступ к встроенным командам справки Guile -- =help= & =apropos=;
- - отладка исходного кода -- просмотр содержимого переменных и стека, пошаговое выполнение
-   кода и т.п.
+The *gds* package extends the *cmuscheme* package with following features:
+ - completion of the names (that are known for corresponding Guile process);
+ - access to built-in Guile commands -- =help= & =apropos=;
+ - debugging of source code -- show of values for variables & stack, step-by-step
+   execution, etc.
 
-Пакет разрабатывался для работы с Guile Scheme, и сильно зависит от специфических для
-Guile возможностей.  Подробную информацию об этом пакете можно найти в [[http://www.gnu.org/software/guile/manual/html_node/Using-Guile-in-Emacs.html][руководстве Guile]].
+This package was developed for Guile Scheme, and has dependencies on the Guile's features.
+You can find detailed information in the [[http://www.gnu.org/software/guile/manual/html_node/Using-Guile-in-Emacs.html][Guile manual]].
 
-Данный пакет имеет некоторые архитектурные отличия от других пакетов -- вместо
-взаимодействия с интерпретаторами используя стандартный ввод и вывод, данный пакет
-использует простой сетевой протокол для передачи данных.  Данный подход позволяет
-выполнять большее количество задач, но сильно зависит от реализации интерпретатора и
-требует отдельного процесса Scheme (сервера *gds*), который будет использоваться
-взаимодействия с другими процессами.
+This package differs from other packages -- instead of communication via standard
+input/output, it uses simple network protocol for data transmission.  This approach allows
+to implement more features, but it also requires a dedicated Scheme process (the *gds*
+server), that will be used for communication with other processes.
 
 ** Installation and customization
 
-Пакет *gds* поставляется вместе с последними версиями Guile, так что вам необходимо лишь
-добавить файлы с исходными текстами Emacs Lisp в пути поиска Emacs, и вписать в файл
-инициализации следующую строчку:
+The *gds* package is distributed together with latest versions of the Guile Scheme, so you
+just need to add directory with package to the Emacs's search path, and add following line
+to your initialization file:
 
 <src lang="emacs-lisp">
 (require 'gds)
 </src>
 
-Данная команда приводит к загрузке пакета и запуска отдельного процесса, который будет
-отвечать за взаимодействие с интерпретаторами Scheme. Стоит отметить, что для работы
-пакета необходимо наличие отдельного пакета на Scheme в путях поиска Guile.  Если пакет
-находится в нестандартном месте, то вы можете указать его расположение с помощью
-переменной =gds-scheme-directory=, иначе, при отсутствии этого пакета, загрузка пакета не
-будет произведена полностью.
+This command will load the package, and spawn separate process, that will responsible for
+communication with Scheme interpreters.  I need to mention, that this will require, that
+special package written in Scheme will available in the Guile's search path.  If this
+package is located in non-standard place, you can specify its location with
+=gds-scheme-directory= variable, or initialization will fail.
 
-Остальные настройки могут быть заданы используя группу настройки =gds=.
+Other settings could be specified via the =gds= customization group.
 
 ** Work with source code
 
-Пакет *gds* для вычисления кода использует те же сочетания клавиш, что и *cmuscheme*.
-Исключением является функция =gds-eval-expression= (=C-c C-e=), которая вычисляет выражение
-введенное в мини-буфере.
+For source code evaluation the *gds* package uses same key bindings as *cmuscheme* package.
+The only exception is the =gds-eval-expression= command (=C-c C-e=), that evaluates expression
+entered in mini-buffer.
 
-Одним из приятных добавлений, реализованных *gds* является дополнение имен функций и
-переменных, а также получение справки о конкретных символах и/или поиск символа по имени.
+The most important features, implemented by  *gds* are completion of names of
+functions & variables, getting help information for concrete symbols, and/or search for
+symbol using part of name.
 
-Дополнение имен производится функцией =gds-complete-symbol= (сочетание клавиш =M-TAB=),
-которая старается найти все известные символы, чьи имена соответствуют тем буквам, которые
-находятся перед курсором.  Если найдено одно имя, то оно вставляется сразу, но если есть
-несколько вариантов, то будет показано новое окно, в котором пользователь может выбрать
-нужное имя.
+Completion of names is performed by =gds-complete-symbol= command (=M-TAB=), that tries to
+find all known symbols, whose names are match to string before point.  If only one name
+was found, then it inserted immediately, but if there are several names, then new buffer
+will displayed, where user can select needed name.
 
-Получение справки на конкретный символ производится с помощью функции =gds-help-symbol= (=C-h
-g=), которая выдает те же результаты, что и запуск команды =(help SYMBOL)= в интерактивной
-среде Guile.  Имя символа запрашивается у пользователя через мини-буфер, но в качестве
-значения по умолчанию используется имя, на котором находится курсор.  Если вы не помните
-точное имя символа, то вы можете воспользоваться функцией =gds-apropos= (=C-h G=), которая
-аналогична выполнению =(apropos REGEXP)= в Guile, и которая выводит список символов, чьи
-имена соответствуют введенному регулярному выражению.
+To get help information for concrete symbol you can use the =gds-help-symbol= command (=C-h
+g=), that displays same information as direct evaluation of the =(help SYMBOL)= expression in
+Guile interpreter.  User is prompted for a name, and as default the name under point is
+used.  If you don't remember precise symbol's name, then you can use the =gds-apropos=
+command (=C-h G=), that performs =(apropos REGEXP)= in Guile interpreter, and displays list of
+symbols, whose names are matched to the entered regex.
 
 ** Debugging
 
-Разработчик программ может явно управлять запуском *gds* из отлаживаемой программы.
-Для этого, он должен добавить некоторый код в свою программу, который приведет к передаче
-данных серверу *gds*.  Более подробно об этом вы можете прочитать в [[http://www.gnu.org/software/guile/manual/html_node/GDS-Getting-Started.html#GDS-Getting-Started][руководстве Guile]].
+Developer can explicitly control execution of the *gds* from debugged program.  To do this,
+he should add some code to his program, that will lead to pass of data to *gds* server.  You
+can find more information about this in the [[http://www.gnu.org/software/guile/manual/html_node/GDS-Getting-Started.html#GDS-Getting-Started][Guile manual]].
 
-Для использования возможностей *gds* в процессе интерактивной работы, пользователь все равно
-должен явно указать модули, которые будут обеспечивать работу с *gds*.  Например,
-использование следующего кода загружает все необходимые для работы модули:
+To use *gds* features during interactive work, user should explicitly specify which modules
+should be loaded to provide work with *gds*.  For example, following code will load all
+modules, that are necessary for work:
 
 <src lang="scheme">
 (use-modules (ice-9 gds-client))
@@ -286,8 +277,9 @@ g=), которая выдает те же результаты, что и за�
 (gds-accept-input #f))
 </src>
 
-После этого, вы можете работать с *gds*.  Для установки точки остановки в процедуре
-=proc_name=, используется следующий, вычисляемый в буфере с исходным кодом:
+After execution of this code, you'll able to work with *gds*.  To set break point in
+procedure with name =proc_name=, use following code, that should be evaluated in the buffer
+with source code:
 
 <src lang="scheme">
 (install-trap (make <procedure-trap>
@@ -295,7 +287,7 @@ g=), которая выдает те же результаты, что и за�
                      #:procedure proc_name))
 </src>
 
-и после вызова указанной процедуры, в получите в буфере *gds* примерно следующее:
+and after call of given procedure, you'll get in *gds* buffer following trace:
 
 <example>
  Calling procedure:
@@ -306,89 +298,83 @@ g=), которая выдает те же результаты, что и за�
  --:**  PID XXXXX         (Guile-Debug)--All--------
 </example>
 
-в этом буфере вы можете перемещаться по стеку, просматривать его состояние, продолжать
-выполнение программы, и/или пошаговое выполнение.  Работа в буфере стека обеспечивается за
-счет использования некоторого количества команд, привязанных к отдельным клавишам.
+In this buffer you can navigate through stack, view its state, continue execution of
+program (including step-by-step execution).  There are several commands, that provide
+execution of different tasks in stack buffer.
 
-Для перемещения по стеку вызовов функций могут использоваться следующие клавиши: =u=, =C-p= и
-стрелка вверх используются для перемещения вверх по стеку вызовов и выбора этого фрейма
-(функция =gds-up=), =d=, =C-n= и стрелка вниз -- для перемещения вниз (=gds-down=), а клавиша =RET=
-используется для выбора  фрейма на котором находится курсор.
+For navigation through call stack, user can use following keys: =u=, =C-p= or up arrow keys
+are used to move up in the call stack, and selecting next frame (the =gds-up= command), =d=,
+=C-n= and down arrow keys are used to move down through call stack (=gds-down=), and the =RET=
+key is used for selecting of the frame under point.  Selection of some frame lead to show
+of corresponding part of source code.  Besides this, some commands will use environment,
+corresponding to selected frame..
 
-Выбор фрейма стека приводит к показу соответствующей части исходного кода.  Кроме того,
-некоторые функции также будут использовать окружение, относящиеся к выбранному фрейму, при
-своем выполнении.
+Following commands could be used for perform different operations in stack buffer:
+ =gds-evaluate= (the =e= key) :: allow to evaluate expression, using environment for selected
+   frame.  Result of expression is shown in the echo area;
+ =gds-frame-info= (=i=) :: shows information about selected frame -- line in file with source
+   code, frame type, etc.;
+ =gds-frame-args= (=A=) :: shows frame arguments;
+ =gds-proc-source= (=S=) :: shows source code for called procedure.  This is very useful when
+   procedure was created by anonymous lambda-expression, as such procedures are shown as
+   =<procedure #f (...)>= in call stack, so you couldn't understand what will executed next.
 
-К дополнительным функциям, работающим в буфере стека относятся следующие:
- =gds-evaluate= (клавиша =e=) :: позволяет вычислить выражение, используя окружение,
-   соответствующее выбранному фрейму, при этом результат отображается в эхо-области;
- =gds-frame-info= (=i=) :: показывает информацию о выбранном фрейме -- строку в исходном
-   файле, соответствующее выражение, тип фрейма и т.п.;
- =gds-frame-args= (=A=) :: показывает аргументы фрейма приложения;
- =gds-proc-source= (=S=) :: показывает исходный код вызванной процедуры.  Эта функция очень
-   полезна в тех случаях, когда процедура создана анонимным лямбда-выражением, поскольку
-   такие процедуры показываются в стеке вызовов функций в виде =<procedure #f (...)>=, что
-   не делает понятным, что будет выполнено дальше.
+To continue execution of program, user can use following commands:
+ =gds-go= (=g=, =c= or =q=) :: continue execution of program;
+ =gds-step-file= (=SPC=) :: execute next operation in same source file, as selected stack
+  frame.  Functions from other files are executed without stopping;
+ =gds-step-into= (=i=) :: execute next operation with entering into called procedure;
+ =gds-step-over= (=o=) :: execute program until end of current stack frame.
 
-Для продолжения выполнения прерванной программы, *gds* реализует следующие функции:
-
- =gds-go= (=g=, =c= или =q=) :: продолжает выполнение программы;
- =gds-step-file= (=SPC=) :: выполняет один шаг функций, относящихся к тому же исходному файлу,
-  что и выбранный фрейм стека.  Функции из других файлов будут выполняться, но без входа в
-  них;
- =gds-step-into= (=i=) :: выполняет следующий шаг.  Это наиболее детальный уровень выполнения
-  программы;
- =gds-step-over= (=o=) :: выполняет программу до тех пор, пока не будет закончено выполнение
-  выбранного фрейма стека.
-
-Пользуясь всеми этими функциями разработчик может получать детальную информацию о
-состоянии программы, и получает возможность нахождения и исправления ошибок.
+Using these functions developer can get detailed information about program's state, and
+has ability to find and fix errors.
 
 * Scheme48
 
-*scheme48* -- еще один пакет основанный на *cmuscheme*, но реализующий расширенную поддержку
-реализации Scheme48.  Данный пакет добавляет поддержку *font-lock* для ключевых слов и
-операторов, специфических для Scheme48, а также дополнительные привязки клавиш для команд
-вычисления выражений.
+the *scheme48* package is also built on top of the *cmuscheme*, and it extends it with support
+for Scheme48 implementation.  This package extends *font-lock* with support of keywords and
+operators, specific for Scheme48.  It also introduce new key bindings for expressions
+evaluation.
 
-Скачать пакет можно с [[http://www.emacswiki.org/cgi-bin/wiki/Scheme48Mode][EmacsWiKi]], и устанавливается он как и другие пакеты -- копированием
-его в каталог, где его может найти Emacs, и прописыванием команды загрузки в файл
-инициализации.
+You can download this package from [[http://www.emacswiki.org/cgi-bin/wiki/Scheme48Mode][EmacsWiKi]], and install it like another packages -- copy
+it in directory, where Emacs will find it, and add load command to your initialization
+file.
 
 #xscheme
 * Xscheme
 
-Пакет *xscheme* во многом похож на  *cmuscheme* -- он позволяет производить вычисление кода не
-покидая буфер.  Кроме этого, он позволяет просматривать содержимое стека вызовов функций в
-том случае если произошла ошибка.
+The *xscheme* package has almost same features as *cmuscheme* -- it allows to perform code
+evaluation without leaving the buffer with source code.  Besides this, it also allows to
+view call stack, if something goes wrong.
 
-Данный пакет работает только с MIT Scheme, поскольку используются некоторые возможности,
-присущие только этому пакету.  Пакет идет в поставке Emacs и для того, чтобы
-воспользоваться его возможностями необходимо его загрузить с помощью команды
+This package works only with MIT Scheme, as it uses some of features, available only in
+this implementation.  The package is distributed together with  Emacs, and to use it, you
+just need to add following command to your initialization file:
 
 <src lang="emacs-lisp">
 (require 'xscheme)
 </src>
 
-После загрузки пакета, пользователь может запустить интерпретатор с помощью команды
-=start-scheme= и использовать его функции для передачи исходного кода интерпретатору.  Для
-передачи выражения перед курсором могут использоваться либо функция
-=advertised-xscheme-send-previous-expression= (=C-x C-e=), либо функция
-=xscheme-send-previous-expression= (=M-RET=).  А функции =xscheme-send-definition= (=C-M-x= или
-=M-z=), =xscheme-send-region= (=C-M-z=) и =xscheme-send-buffer= (=M-o=) передают интерпретатору
-соответственно текущее определение, выделенный регион кода или весь буфер.  Для перехода в
-буфер интерпретатора может использоваться функция =xscheme-select-process-buffer= (=C-c C-s=).
+After loading of the package, user can run interpreter with the =start-scheme= command, and
+use corresponding commands for evaluation of code in interpreter.  To evaluate expression
+before point, user can use either =advertised-xscheme-send-previous-expression= command (=C-x
+C-e=), or the =xscheme-send-previous-expression= command (=M-RET=).  Commands
+=xscheme-send-definition= (=C-M-x= or =M-z=), =xscheme-send-region= (=C-M-z=), and
+=xscheme-send-buffer= (=M-o=) pass to interpreter definition of current function, selected
+region, or whole buffer.  To switch to interpreter buffer, user can use the
+=xscheme-select-process-buffer= command (=C-c C-s=).
 
 #gambit
 * Support for Gambit-C
 
-Для диалекта Gambit Scheme также имеется отдельный пакет, основанный на *cmuscheme*, и
-реализующий несколько операций, поддерживаемых только Gambit -- отладка, компиляция и т.п.
-Пакет называется *gambit*, и поставляется вместе с дистрибутивом [[http://dynamo.iro.umontreal.ca/~gambit/][Gambit Scheme]].
-Дополнительную информацию о Gambit Scheme, и пакете *gambit* вы можете найти в [[http://dynamo.iro.umontreal.ca/~gambit/wiki/index.php/Documentation][документации]].
+For the Gambit Scheme implementation there is also separate package, based on the
+*cmuscheme*, and implementing several operations, supported only for Gambit -- debugging,
+compilation, etc.  This package has name *gambit*, and distributed together with
+[[http://dynamo.iro.umontreal.ca/~gambit/][Gambit Scheme]].  Additional information about Gambit Scheme, and the *gambit* package, you
+can find in [[http://dynamo.iro.umontreal.ca/~gambit/wiki/index.php/Documentation][documentation]].
 
-Процедура установки этого пакета стандартна -- поместите =gambit.el= в место, где его найдет
-Emacs, и добавьте следующие строки в файл инициализации:
+Installation procedure is standard -- put =gambit.el= into some directory, where Emacs will
+find it, and add following lines into initialization file:
 
 <src lang="emacs-lisp">
 (autoload 'gambit-inferior-mode "gambit" "Hook Gambit mode into cmuscheme.")
@@ -398,37 +384,30 @@ Emacs, и добавьте следующие строки в файл иниц�
 (setq scheme-program-name "gsi -:d-")
 </src>
 
-Интерпретатор Gambit запускается с помощью функции =run-scheme=, реализованной в *cmuscheme*,
-но *gambit* добавляет к ней процедуры фильтрации вывода, что позволяет пакету получать
-информацию о местоположении в исходном файле.  После запуска интерпретатора, пользователь
-получает возможность использовать стандартные сочетания клавиш [[#cmuscheme][cmuscheme]] для выполнения и
-компиляции кода -- =C-x C-e=, =C-c C-l=, =C-c C-k= и т.д.
+Gambit interpreter is run with =run-scheme= command, implemented in *cmuscheme*, but the
+*gambit* package add to it procedures for output filtering, allowing to get information
+about source file.  After run of interpreter, user can use standard [[#cmuscheme][cmuscheme]] key bindings
+for evaluation and compilation of code -- =C-x C-e=, =C-c C-l=, =C-c C-k=, etc.
 
-В дополнение к функциям *cmuscheme*, пакет *gambit* предлагает несколько функций,
-предназначенных для отладки исходного кода:
+In addition to *cmuscheme* commands, the *gambit* package provides several commands, that
+could be used for debugging of source code:
+ =gambit-continue= (=F8= или =C-c c=) :: continue execution of the code.  The same as  =,c=
+   in interpreter;
+ =gambit-crawl-backtrace-newer= (=F9= или =C-c ]=) :: switch to previous stack frame. The same
+   as =,-= in interpreter;
+ =gambit-crawl-backtrace-older= (=F10= или =C-c [=) :: switch to next stack frame. The same as
+   =,+= in interpreter;
+ =gambit-step-continuation= (=F11= или =C-c s=) :: execute one operation with entering into
+   calling function.  The same as =,s= in interpreter;
+ =gambit-leap-continuation= (=F12= или =C-c l=) :: execute one operation without entering into
+   calling function. The same as =,l= in interpreter;
+ =gambit-kill-last-popup= (=C-c _=) :: delete window, that was created for displaying of
+   source code.
 
- =gambit-continue= (=F8= или =C-c c=) :: продолжить выполнение кода. Аналогично команде =,c=
-   интерпретатора;
-
- =gambit-crawl-backtrace-newer= (=F9= или =C-c ]=) :: перейти к предыдущему фрейму в
-   цепочке. Аналогично команде =,-= интерпретатора;
-
- =gambit-crawl-backtrace-older= (=F10= или =C-c [=) :: перейти к следующему фрейму в
-   цепочке. Аналогично команде =,+= интерпретатора;
-
- =gambit-step-continuation= (=F11= или =C-c s=) :: выполнить один шаг вычисления включая
-   вхождение в вызываемую функцию. Аналогично команде =,s= интерпретатора;
-
- =gambit-leap-continuation= (=F12= или =C-c l=) :: выполнить один шаг вычисления, не заходя в
-    вызываемую функцию. Аналогично команде =,l= интерпретатора;
-
- =gambit-kill-last-popup= (=C-c _=) :: удалить окно, которое было создано для показа
-   выражения.
-
-Существуют и более короткие сочетания клавиш для этих команд: =M-c=, =M-[=, =M-]=,
-=M-s=, =M-l= и =M-_=, но они по умолчанию не активированы, поскольку они не совсем соответствуют
-соглашениям, принятым для сочетаний клавиш в Emacs.  Чтобы разрешить их использование, вам
-необходимо выполнить следующую команду (или поместить ее в файл инициализации):
+There also more short key bindings for these commands: =M-c=, =M-[=, =M-]=, =M-s=, =M-l= and =M-_=,
+but they aren't activated by default, as they doesn't match to Emacs guidelines for key
+bindings.  To enable them, you need to execute following expression (and put it into
+initialization file):
 
 <src lang="emacs-lisp">
 (setq gambit-repl-command-prefix "\e")
@@ -437,8 +416,8 @@ Emacs, и добавьте следующие строки в файл иниц�
 #bee-mode
 * Bee-mode (bmacs)
 
-*bmacs* -- это реализация интегрированной программной среды для работы с [[http://www-sop.inria.fr/mimosa/fp/Bigloo/][Bigloo Scheme]].
-Данный пакет реализует следующие возможности:
+The *bmacs* package -- это реализация интегрированной программной среды для работы с
+[[http://www-sop.inria.fr/mimosa/fp/Bigloo/][Bigloo Scheme]].  Данный пакет реализует следующие возможности:
  - отладку кода;
  - профилирование;
  - автоматическое создание и обновление файлов Makefile;
