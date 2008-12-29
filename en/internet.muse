@@ -10,7 +10,7 @@ Here is small list of resources, that i use:
  - [[http://www.shelfari.com/o1517990503][Shelfari]] contains list of books that I've read, or currently reading
  - My profile at [[http://www.facebook.com/profile.php?id=760140831&ref=profile][Facebook]]
  - My profile at [[http://www.linkedin.com/in/alexott][LinkedIn]]
-
+ - Bookmarks are stored at [[http://del.icio.us/alexott][del.icio.us]]
 
 ** Photo hosting
 
