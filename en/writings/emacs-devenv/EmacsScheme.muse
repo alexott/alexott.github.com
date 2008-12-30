@@ -416,21 +416,21 @@ initialization file):
 #bee-mode
 * Bee-mode (bmacs)
 
-The *bmacs* package -- это реализация интегрированной программной среды для работы с
-[[http://www-sop.inria.fr/mimosa/fp/Bigloo/][Bigloo Scheme]].  Данный пакет реализует следующие возможности:
- - отладку кода;
- - профилирование;
- - автоматическое создание и обновление файлов Makefile;
- - навигация по коду;
- - интеграция с системами контроля версий;
- - просмотр документации;
- - интерактивное выполнение кода;
- - раскрытие макросов;
- - некоторая поддержка грамотного стиля программирования (literate programming).
+With the *bmacs* package authors had tried to create integrated development environment for
+work with [[http://www-sop.inria.fr/mimosa/fp/Bigloo/][Bigloo Scheme]].  This package implements following features:
+ - debugging;
+ - profiling;
+ - automatic creation & update of Makefiles;
+ - navigation in source code;
+ - integration with version control systems;
+ - display of documentation;
+ - interactive evaluation of source code;
+ - macro expansion;
+ - basic support for literate programming.
 
-Для работы этого пакета требуется наличие некоторого количества дополнительных утилит,
-большинство из которых поставляется вместе с Bigloo.  Документацию можно найти на
-[[http://www-sop.inria.fr/mimosa/fp/Bigloo/doc/bigloo-31.html][сайте проекта]], либо в составе дистрибутива.
+For proper work of this package some number of additional utilities are required, but most
+of them are distributed together with Bigloo Scheme.   Documentation you can find
+[[http://www-sop.inria.fr/mimosa/fp/Bigloo/doc/bigloo-31.html][project's site]], or in distribution.
 
 ** Installation & basic customization
 
