@@ -7,5 +7,5 @@ your comments and suggestions right now.  Send them to [[mailto:alexott@gmail.co
 
 *  Support of concrete programming languages
 
-; - [[EmacsScheme][Work with Scheme]]
+ - [[EmacsScheme][Work with Scheme]]
  - [[./EmacsErlang][Work with Erlang]]
