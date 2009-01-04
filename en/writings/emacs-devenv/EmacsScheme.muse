@@ -434,17 +434,18 @@ of them are distributed together with Bigloo Scheme.   Documentation you can fin
 
 ** Installation & basic customization
 
-Данный пакет поставляется в составе Bigloo Scheme и находится в подкаталоге =bmacs=
-дистрибутива.  Для установки пакета надо перейти в этот каталог и там выполнить команду:
+This package is distributed together with Bigloo Scheme and placed in =bmacs= sub-directory
+of distribution.  To install this package you need to switch to this sub-directory and
+execute following command:
 
 <src lang="sh">
 make
 make install EMACSDIR=<your site lisp>
 </src>
 
-которая установит необходимые файлы в то место, которое вы указали.  После этого, вы
-можете добавить следующие строки в ваш файл инициализации для автоматической загрузки
-пакета при открытии файлов с исходными текстами[2]:
+that will install all needed files to place, that you specified.  After this, you can add
+following lines to your initialization file, to enable automatic loading of all needed
+parts when you'll open files with source code[2]:
 
 <src lang="emacs-lisp">
 (autoload 'bdb "bdb" "bdb mode" t)
@@ -458,189 +459,167 @@ make install EMACSDIR=<your site lisp>
               auto-mode-alist))
 </src>
 
-Настройки пакета могут быть установлены используя группу настройки =bee=, которая
-обеспечивает задание настроек для *bee-mode*, и групп *dbg* & *bug*, используемых для задания
-настроек отладчика.
+All settings could be specified via customization group =bee=, that control behaviour for
+the *bee-mode*, and via groups *dbg* & *bug*, that are used to specify settings for debugger.
 
 ** Work with source code
 
-После загрузки *bee-mode* пользователь может выполнять основные команды используя
-соответствующие иконки тулбара, или выбирая нужные пункты из меню =Bee=, которое появляется
-при запуске режима.
+After loading of *bee-mode* user can execute commands using the pictures in toolbar or
+selecting corresponding items from menu =Bee=, that is appear when this mode is enabled.
 
-Для расстановки отступов в соответствии с принятыми для Bigloo соглашениями, пакет
-*bee-mode* определяет несколько функций:  =bee-indent-sexp= (=C-M-q=) расставляет отступы для
-текущего выражения, =bee-indent-define= (=C-c TAB C-d=) делает это для текущего определения
-функции, =bee-indent-last-sexp= (=C-c TAB C-l=) расставляет отступы для выражения перед
-курсором и т.д.
+To proper indenting of source code, according to Bigloo rules, this package defines
+several commands: the =bee-indent-sexp= command (=C-M-q=) re-indents current expression,
+=bee-indent-define= (=C-c TAB C-d=) performs this operation for current function, and
+=bee-indent-last-sexp= (=C-c TAB C-l=) re-indents expression before point.
 
-Очень важный набор функций, используемых при работе с исходным кодом, это функции поиска
-определений функций и переменных.  Чтобы найти определение переменной, вы можете
-воспользоваться функцией =bee-tags-find= (=C-x 5 .=) или =bee-tags-find-variable= (=C-c C-d f=).
-А для поиска определения модуля существует функция =bee-find-module= (=C-c C-d m=).  Кроме
-того, *bee-mode* переопределяет два сочетания клавиш -- =M-.= & =M-,=, которые привязываются к
-функциям =bee-tag-find= и =bee-tags-find-next=, что позволяет находить определения функций и
-классов.
+One of important thing when you work with source code -- commands for search of
+definitions of functions & variables.  To find variable's definition, you can use the
+=bee-tags-find= command (=C-x 5 .=) or the =bee-tags-find-variable= command (=C-c C-d f=).  And to
+find definition of the module, you can use the =bee-find-module= command (=C-c C-d m=).
+Besides this, *bee-mode* redefines two key binding -- =M-.= & =M-,=, that re-bound to the
+=bee-tag-find= and =bee-tags-find-next= commands, that allows to search definitions of
+functions & classes.
 
-Для упрощения работы с модулями, *bee-mode* определяет набор функций, которые управляют
-списком модулей импортируемых текущим исходным кодом -- функция =bee-import-binding= (=C-c
-RET i=), а также списком функций и переменных, экспортируемых из текущего модуля --
-=bee-export-function= (=C-c RET f=) и =bee-export-variable= (=C-c RET v=).  Кроме того, существует
-отдельная функция, которая позволяет импортировать символы из файлов на языке C --
-=bee-import-c-file= (=C-c RET c=), а также она обновляет =Makefile=, добавляя зависимость для
-компиляции соответствующего кода.
+To simplify work with modules, *bee-mode* defines set of commands, that control list of
+modules, imported by current file -- the =bee-import-binding= command (=C-c RET i=), and also
+control list of functions & variables, exported from current file -- this is commands
+=bee-export-function= (=C-c RET f=) and =bee-export-variable= (=C-c RET v=).  Besides this, exists
+command, that allows to import symbols from files, written in C -- =bee-import-c-file= (=C-c
+RET c=), it also updates =Makefile=, adding dependencies for compilation of corresponding
+code file.
 
-Пакет также обеспечивает некоторую поддержку так называемого грамотного программирования
-(literate programming).  Реализуемая поддержка не является полной, но по крайней мере
-позволяет вставлять в код ссылки на описания модулей и функций.  Это достигается за счет
-использования ключевых слов =@path=, =@node= & =@deffn= в комментариях для модуля и описаний
-функций.  Ключевые слова =@path= & =@node= определяют файл и раздел документации, описывающих
-данный модуль и указываются в комментарии для объявления модуля.  А ключевое слово =@deffn=
-указывается в комментарии для функции.  Используя эти ключевые слова, разработчик получает
-возможность быстрого перехода к соответствующим разделам и описаниям функций, что
-позволяет улучшить документирование кода.
+The package also provides basic support for literate programming.  It allows to insert
+into source code, links to descriptions of modules & functions.  This is allowed by using
+keywords =@path=, =@node= & =@deffn= in comments for modules & functions. The =@path= & =@node=
+keywords (used in commentary for module's declaration) define file and part of
+documentation, that describe given module.  The =@deffn= keyword is used in commentary for
+function.  By using these keywords, developer get ability to fast navigation between code
+and its description, allowing to make code more readable.
 
 ** Compilation &  execution of source code
 
-Также как и другие пакеты, *bee-mode* позволяет выполнять код Scheme непосредственно из
-буфера Emacs.  Для запуска интерпретатора необходимо выполнить функцию
-=ude-repl-other-frame= (=C-c C-r C-r=), выбрать соответствующую иконку тулбара (*Repl*), или
-соответствующий пункт меню.
+As other packages, the *bmacs* allows to execute Scheme code directly from Emacs buffer.  To
+perform these operations, you need to execute the =ude-repl-other-frame= command (=C-c C-r
+C-r=), or select corresponding icon in toolbar (*Repl*), or select corresponding menu item.
 
-И после загрузки интерпретатора, пользователь может выполнять код используя следующие
-функции:
- - =ude-repl-send-buffer= (=C-c C-r b=) передает для вычисления весь буфер;
- - =ude-repl-send-region= (=C-c C-r r=), передает интерпретатору выделенный блок кода;
- - =bee-repl-send-define= (=C-c C-r d=) используется для выполнения текущего определения
-   (=define=);
- - =bee-repl-send-last-sexp= (=C-c C-r l=) вычисляет значение выражения перед курсором;
- - =bee-repl-send-toplevel-sexp= (=C-c C-r t=) используется для вычисления всего текущего
-   выражения.
+After loading of interpreter, user can evaluate source code using following commands:
+ - =ude-repl-send-buffer= (=C-c C-r b=) pass whole buffer to interpreter;
+ - =ude-repl-send-region= (=C-c C-r r=), pass to interpreter only selected region of source code;
+ - =bee-repl-send-define= (=C-c C-r d=) evaluates only current definition (=define=);
+ - =bee-repl-send-last-sexp= (=C-c C-r l=) evaluates expression before point;
+ - =bee-repl-send-toplevel-sexp= (=C-c C-r t=) evaluates current expression.
 
-Очень часто при использовании макросов необходима возможность их раскрытия.  Также как и
-для работы с обычным кодом, *bee-mode* реализует набор функций для раскрытия макросов в
-вашем коде (при этом, весь буфер будет просканирован на предмет наличия определений
-макросов):
- - =bee-expand-buffer= (=C-c C-e C-e=) приводит к раскрытию макросов в текущем буфере;
- - =bee-expand-region= (=C-c C-e C-r=) раскрывает макросы в выделенном коде;
- - =bee-expand-define= (=C-c C-e C-d=) раскрывает макросы в текущем определении (=define=)
- - =bee-expand-last-sexp= (=C-c C-e C-l=) производит раскрытие макросов в выражении перед
-   курсором;
- - =bee-expand-toplevel-sexp= (=C-c C-e C-t=) раскрывает макросы в текущем выражении.
+When you working with macros, it's often need to expand them.  The *bee-mode* implements set
+of commands, that could be used to expand macros in your code (search of macros will
+performed in whole buffer):
+ - =bee-expand-buffer= (=C-c C-e C-e=) expand all macros in current buffer;
+ - =bee-expand-region= (=C-c C-e C-r=) expand macros in selected region;
+ - =bee-expand-define= (=C-c C-e C-d=) expand macros in current definition (=define=)
+ - =bee-expand-last-sexp= (=C-c C-e C-l=) expand macros in expression before point;
+ - =bee-expand-toplevel-sexp= (=C-c C-e C-t=) expand macros in current expression.
 
-Для компиляции программ необходимо наличие файла =Makefile=, который описывает зависимости
-между модулями и указывает флаги компиляции.  Для проекта необходимо наличие так
-называемого корневого каталога -- *bee-mode* пытается определить корневой каталог проекта
-путем поиска одного из файлов =Makefile=, =.afile= или =.etags=, или корневой каталог может быть
-установлен с помощью функции =ude-user-set-root-directory= (=C-c C-p C-r=) или соответствующей
-кнопки тулбара.
+To compile code, you need to have =Makefile=, that describe dependencies between modules,
+and specify compilation flags.  For projects you also need to have root directory --
+*bee-mode* tries to find it by searching for =Makefile=, =.afile= or =.etags= files, or you can
+set it with the =ude-user-set-root-directory= command (=C-c C-p C-r=) or corresponding
+toolbar's icon.
 
-После того, как корневой каталог задан, =Makefile= может быть сгенерирован с помощью функции
-=ude-generate-makefile= (=C-c C-c a= или =C-c C-c C-l=), которая запросит у пользователя имя
-исполняемого модуля, в который будет скомпилирован данный исходный код.   В том случае,
-если =Makefile= уже существует, то эти же сочетания клавиш обновляют его, а также
-перестраивают файлы  =.afile= и =.etags=.  Кроме того, имеется набор функций для
-редактирования =Makefile= -- =ude-edit-makefile= (=C-c C-c e=), обновления =Makefile= --
-=ude-update-makefile= (=C-c C-c u=), переключения между отладочной и окончательной версиями
-программы -- =ude-makefile-debug-mode= (=C-c C-c C-d=) & =ude-makefile-final-mode= (=C-c C-c C-f=)
-и другие.
+When root directory is specified, =Makefile= could be generated with the
+=ude-generate-makefile= command (=C-c C-c a= or =C-c C-c C-l=), that will ask user for name of
+executable, that will created from your source code.  If =Makefile= already exists, this
+command will update it, and also rebuild files =.afile= and =.etags=.  Besides this, you can
+edit =Makefile= with command =ude-edit-makefile= (=C-c C-c e=), update it with the
+=ude-update-makefile= command (=C-c C-c u=), and switch between debug & release versions of
+executable with commands =ude-makefile-debug-mode= (=C-c C-c C-d=) & =ude-makefile-final-mode=
+(=C-c C-c C-f=).
 
-Когда =Makefile= существует, то появляется возможность компиляции кода с помощью функции
-=ude-mode-compile-from-menu= (=C-c C-c C-c=)[3].  Прервать компиляцию можно с помощью функции
-=kill-compilation= (=C-c C-c k=).
-
-И после того, как компиляция закончится, можно выполнить исполняемый модуль с помощью
-функции =ude-execute= (=C-c C-c C-r=).
+When =Makefile= exists, then you can compile code with the =ude-mode-compile-from-menu=
+command (=C-c C-c C-c=)[3].  You can stop compilation with the =kill-compilation= command (=C-c
+C-c k=).  And when compilation is finished, you can run executable with the =ude-execute=
+command (=C-c C-c C-r=).
 
 ** Debugging & profiling
 
-Вместе с пакетом Bigloo поставляется и отладчик, который позволяет производить отладку на
-уровне исходного кода.  *bee-mode* поддерживает взаимодействие с этим отладчиком в Emacs.
-Для запуска отладчика надо выполнить функцию =bee-debug= (=C-c C-b C-b=) или выбрать
-соответствующую иконку тулбара, или пункт меню.   Но запуск отладчика не приводит к
-автоматическому подключению к нему, поэтому необходимо явно выполнить функцию
-=bee-toggle-connect-buffer= (=C-c C-b c=) чтобы связать текущий буфер с отладчиком, что
-позволит устанавливать точки останова и выполнять прочие задачи находясь в буфере с
-исходным текстом.
+Debugger is shipped together with Bigloo, and it allows to perform debugging on the level
+of source code.  *bee-mode* supports interaction with debugger from Emacs.  To run debugger
+you need to execute the =bee-debug= command (=C-c C-b C-b=) or select corresponding menu item
+or toolbar's icon.  But to connect current code to debugger you need explicitly execute
+the =bee-toggle-connect-buffer= command (=C-c C-b c=) that will link current buffer with
+debugger, and allows to set breakpoints, and perform other tasks, related to debugging of
+source code.
 
-Профилирование программ поддерживается автоматически, если вы пользуетесь генерацией
-=Makefile=.  Чтобы провести профилирование кода, необходимо его сначала скомпилировать с
-поддержкой профилирования, что выполняется функцией =bee-profiler-start= (=C-c C-p c=).  А
-после компиляции, вы можете выполнить функцию =bee-profiler-inspect= (=C-c C-p i=), что
-приведет к запуску программы, и затем к запуску утилиты =bglprof=, которая соберет данные о
-выполнении, и вы получите их в удобном для анализа виде.
+Profiling of programs is supported out of box, if you generate =Makefile= with Bigloo tools.
+To make code profiling, you need to compile it first with appropriate flags.  This
+operation is could be performed with the =bee-profiler-start= command (=C-c C-p c=).  And
+after compilation, you can execute the =bee-profiler-inspect= command (=C-c C-p i=), that will
+run your program, and than it will run the =bglprof= utility, that will collect and process
+data about execution of your program.
 
 ** Other commands
 
-Пакет предоставляет возможности по получению справочной информации.  Это может быть
-сделано путем запуска функции =bee-doc-visit= (=C-c C-d i=) или нажатия на иконку =Info= в
-тулбаре.  Эта функция ведет себя по разному в зависимости от текущего положения курсора --
-если курсор находится на идентификаторе, то выдается документация для данного
-идентификатора, если выделен регион кода, то будет выдана документация для данного
-региона.  В противном случае, у пользователя будет запрошено имя интересующего раздела
-документации, и показан выбранный раздел.
+The package implements commands to get help information.  This could be done by executing
+the  =bee-doc-visit= command (=C-c C-d i=), or pressing to the =Info= icon in toolbar.  This
+command behaves differently, depending on context -- if cursor is on identifier, it
+displays information for this identifier, if there is selected region of code, it will try
+to find appropriate description.  Otherwise, it will ask user for name of section of
+documentation, and display it.
 
-Информация, показываемая пользователю берется из файлов в формате Info, которые
-поставляются вместе с Bigloo.  Кроме того, документация ищется в каталогах текущего
-проекта, и они добавляются автоматически. Кроме того, пользователь может указать
-дополнительные файлы документации, в которых будет производиться поиск.
+Information is taken from files in Info format, that are distributed together with Bigloo.
+Besides this, search for documentation is performed in sub-directories of current project,
+and if it found, they it will added to documentation index.  User can also specify where
+to search for additional documentation.
 
-Пакет *bmacs* также представляет некоторое количество функций для работы с системами
-контроля версий, которые позволяют оперировать данными на уровне проектов.  Но в связи с
-появлением новых систем контроля версий, и соответствующих интерфейсов для них, эти
-функции становятся не особо востребованными.
+The *bmacs* package also implements several functions for work with version control systems,
+that allow to work with them on the project level.  But it supports only for limited
+number of VCSs, so this support become not actual for most of users.
 
-Кроме того, существует множество дополнительных функций, реализованных данным пакетом,
-например, поддержка работы с кодом, написанным на языке C, и т.п., но описание этих
-возможностей лежит за границами данной статьи.
+Besides commands, described above, package implements number of functions, dedicated for
+work with C code, etc.  But description of these functions is out of boundaries of this
+article.  You can find they description in documentation bundled with Bigloo.
 
 * Support for Scheme in SLIME
 
-Замечательный [[./EmacsSLIME][пакет SLIME]], созданный для работы с кодом на языке Lisp, также имеет
-рудиментальную поддержку работы с языком Scheme.  В настоящий момент поддерживаются лишь
-два диалекта Scheme -- *Kawa* & *MIT Scheme*.  Для остальных диалектов поддержка может быть
-добавлена реализацией протокола, используемого *SLIME* для общения с конкретной реализацией
-языка[4].
+The wonderful [[./EmacsSLIME][SLIME package]], created for work with Lisp code, also has rudiment support
+for work with code in Scheme.  Currently it supports only two Scheme implementations --
+*Kawa* & *MIT Scheme*.  Support for other implementations could be added by implementing
+protocol that is used by *SLIME* for work with concrete process[4].
 
-Для использования *SLIME* со Scheme, вам необходимо выполнить базовую настройку пакета, как
-это описано в разделе посвященном этому пакету, а затем загрузить необходимые
-компоненты[5].  В общем виде это делается следующим образом:
+To use *SLIME* with Scheme, you need to perform basic setup of the package, as described in
+manual, and then load all needed components[5].  This will look something like this:
 
 <src lang="emacs-lisp">
 (add-hook 'slime-load-hook (lambda () (require 'slime-scheme)))
 </src>
 
-Эта команда установит хуки необходимые для работы со *SLIME*, но для каждого из
-поддерживамых диалектов вам может понадобиться выполнить дополнительную настройку в
-соответствии с инструкциями, изложенными в соответствующем файле -- =swank-kawa.scm= или
-=swank-mit-scheme.scm=.
+This command will setup all hooks, that are needed to work with *SLIME*, but for concrete
+implementation you'll need to perform additional setup, as described in corresponding
+files -- =swank-kawa.scm= or =swank-mit-scheme.scm=.
 
-А все остальное, касающееся работы со *SLIME*, [[./EmacsSLIME][описано в соответствующем разделе]].
+All other details, related to the *SLIME* are described in [[./EmacsSLIME][corresponding section]].
 
 ; ======================================================================
 
 <div id="rule">[[./index][To main page]]</div>
 
 Footnotes:
-[1] По умолчанию разрешается иметь только один запущенный процесс Scheme.  Но вы можете
-    воспользоваться пакетом [[http://www.emacswiki.org/cgi-bin/wiki/RunSchemeHere][scheme-here.el]], если вам необходимо выполнение нескольких
-    процессов одновременно.
+[1] By default you can use only one active Scheme process.  But if you need to have
+    several processes at the same time, you can use [[http://www.emacswiki.org/cgi-bin/wiki/RunSchemeHere][scheme-here.el]] package.
 
-[2] Кроме того, в поставке *bmacs* также имеются пакеты *cee*, предназначенный для
-    редактирования кода на языке C, используемого для написания расширений Bigloo,
-    *bug-mode*, обеспечивающий поддержку отладчика Bigloo, и *ude* (Unix Development
-    Environment), реализующий поддержку компиляции, и различных утилит, используемых в
-    работе с Bigloo.
+[2] Besides *bee-mode*, in the *bmacs* distribution there are following packages: *cee* package
+    is used to edit C code, in which you can write Bigloo's extensions; *bug-mode* provides
+    support for Bigloo debugger; *ude* (Unix Development Environment) implements commands
+    for compilation, profiling, and other utilities, that could be used when you work with
+    Bigloo.
 
-[3] Стоит отметить, что если =Makefile= не существует, то эта функция приводит к запуску
-    компиляции исполняемого модуля из одного файла.
+[3] I need to mention, that if there is no =Makefile=, then this command will run
+    compilation of program from one source file.
 
-[4] Так называемый *swank*-модуль.
+[4] So called *swank*-module.
 
-[5] Все компоненты, относящиеся к Scheme, находятся в подкаталоге =contrib= дистрибутива
-    *SLIME*, так что не забудьте добавить его в пути поиска.
+[5] All components needed for work with Scheme, are located in the =contrib= sub-directory
+    of the *SLIME* distribution, so don't forget to include it in Emacs search paths.
 
-;  LocalWords:  Makefile Repl makefile etags ude afile bglprof фрейма
+;  LocalWords:  Makefile Repl makefile etags ude afile bglprof фрейма toolbar's
 ;  LocalWords:  xscheme GDS dired PLT SRFI srfi cmuscheme wget PLTHOME dirs src
 ;  LocalWords:  PLTCOLLECTS emacs lang Dyke plt xemacs func ss bmacs gds Bigloo
 
