@@ -44,9 +44,10 @@ make clean && make autoloads && make -k all
 упомянуть про ECB, Speedbar & JDEE
 
 
-;  LocalWords: emacs ede cedet localwords lang autoloads Makefile xargs ECB src
-;  LocalWords:  Speedbar JDEE LocalWords CVS
-
 Footnotes: 
 [1] Это относится только к сборке пакета из CVS
+
+
+;  LocalWords: emacs ede cedet localwords lang autoloads Makefile xargs ECB src
+;  LocalWords:  Speedbar JDEE LocalWords CVS
 
