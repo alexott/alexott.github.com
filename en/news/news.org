@@ -1,5 +1,5 @@
 #+TITLE:       Alex Ott's Page. News
-#+SUBTITLE:    News
+#+SUBTITLE:    Site News
 #+BLOG_URL:    http://xtalk.msk.su/~ott/en/news/
 #+PUBLISH_DIR: /home/ott/projects/my-page-muse/en/news/
 #+ENCODING:    utf-8
@@ -9,16 +9,26 @@
 #+KEYWORDS:    alex ott blog news articles emacs
 #+HTML_CSS:    web.css
 
+* DONE New article about working with Scheme from Emacs   :emacs:scheme:article:
+  CLOSED: [2009-01-06 Tue 09:12]
+
+Translated article about [[../writings/emacs-devenv/EmacsScheme.html][Emacs & Scheme]] was uploaded to site
+
+* DONE New article about working with Erlang from Emacs   :emacs:erlang:article:
+  CLOSED: [2009-01-06 Tue 09:10]
+
+Translated article about [[../writings/emacs-devenv/EmacsErlang.html][Emacs & Erlang]] was uploaded to site
+
 * DONE Updates in article about Emacs and Git                :emacs:git:article:
   CLOSED: [2008-11-19 Wed 15:18]
 
-The article about [[http://xtalk.msk.su/~ott/en/writings/emacs-vcs/EmacsGit.html][Emacs and Git]] was updated with description of the git-emacs, magit & some
-auxiliary packages.
+The article about [[../writings/emacs-vcs/EmacsGit.html][Emacs and Git]] was updated with description of the git-emacs, magit &
+some auxiliary packages.
 
 * DONE Updates in article about Emacs and Mercurial          :emacs:git:article:
   CLOSED: [2008-11-19 Wed 15:17]
 
-The article about [[http://xtalk.msk.su/~ott/en/writings/emacs-vcs/EmacsMercurial.html][Emacs and Mercurial]] was updated with section about aHg package.
+The article about [[../writings/emacs-vcs/EmacsMercurial.html][Emacs and Mercurial]] was updated with section about aHg package.
 
 * DONE Add news feed to the site                                    :site:emacs:
   CLOSED: [2008-08-04 Mon 12:32]

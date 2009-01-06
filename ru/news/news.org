@@ -1,5 +1,5 @@
 #+TITLE:       Alex Ott's Page. Новости сайта
-#+SUBTITLE:    Новости
+#+SUBTITLE:    Новости сайта
 #+BLOG_URL:    http://xtalk.msk.su/~ott/ru/news/
 #+PUBLISH_DIR: /home/ott/projects/my-page-muse/ru/news/
 #+ENCODING:    utf-8
@@ -12,30 +12,30 @@
 * DONE Обновлен рассказ про Emacs и Git                      :emacs:article:git:
   CLOSED: [2008-11-19 Wed 15:18]
 
-Статья про [[http://xtalk.msk.su/~ott/ru/writings/emacs-vcs/EmacsGit.html][Emacs & Git]] была сильно обновлена -- добавлены описания пакетов git-emacs,
+Статья про [[../writings/emacs-vcs/EmacsGit.html][Emacs & Git]] была сильно обновлена -- добавлены описания пакетов git-emacs,
 magit и некоторых вспомогательных пакетов
 
 * DONE Рассказ про пакет aHg                           :emacs:article:mercurial:
   CLOSED: [2008-10-13 Mon 16:38]
 
-В рассказ про работу с Mercurial добавил [[http://xtalk.msk.su/~ott/my-page-muse/ru/writings/emacs-vcs/EmacsMercurial.html#sec5][раздел про пакет aHg]]
+В рассказ про работу с Mercurial добавил [[../writings/emacs-vcs/EmacsMercurial.html#sec5][раздел про пакет aHg]]
 
 * DONE Окончательная версия статьи про Emacs и Erlang     :emacs:erlang:article:
   CLOSED: [2008-08-25 Mon 13:09]
 
-Закончил статью про [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsErlang.html][использование Emacs для разработки на языке Erlang]].  Замечания и
+Закончил статью про [[../writings/emacs-devenv/EmacsErlang.html][использование Emacs для разработки на языке Erlang]] Замечания и
 предложения приветствуются
 
 * DONE Вторая бета статьи про Emacs и Erlang              :emacs:erlang:article:
   CLOSED: [2008-08-21 Thu 15:09]
 
 Обновил статью про использование Emacs для работы с Erlang.  Добавились описания distel &
-erlware-mode... 
+erlware-mode...
 
 * DONE Драфт статьи про Emacs и Erlang                    :emacs:erlang:article:
   CLOSED: [2008-08-06 Wed 15:27]
 
-выложил на сайт драфт [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsErlang.html][статьи про работу с Erlang в Emacs]]. В следующей вресии будет
+выложил на сайт драфт [[../writings/emacs-devenv/EmacsErlang.html][статьи про работу с Erlang в Emacs]]. В следующей вресии будет
 добавлено описание erlware-mode и distel.
 
 * DONE Прикрутил к сайту ленту новостей через blorg                 :site:emacs:
@@ -62,5 +62,5 @@ erlware-mode...
   CLOSED: [2008-08-04 Mon 10:41]
 
 Добавил на сайт [[../erlang/][раздел про программирование на Erlang]].  В этом разделе будут публиковаться
-различные записки, связанные с программированием на Erlang 
+различные записки, связанные с программированием на Erlang
 
