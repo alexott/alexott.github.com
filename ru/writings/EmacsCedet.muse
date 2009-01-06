@@ -24,20 +24,143 @@ make clean && make autoloads && make -k all
 
 * Базовая настройка пакета
 
-* Базовая настройка Semantic
+<src lang="emacs-lisp">
+(load-file "~/emacs/cedet/common/cedet.el")
 
-* Настройка Semantic для работы с C & C++
+;; если будете использовать проекты, то необходимо установить соответствующий режим
+(global-ede-mode t)
+</src>
 
-* Настройка дополнения имен
+** Настройка Semantic
+
+В зависимости от того, какие возможности вы хотите получить от Semantic, вы можете
+воспользоваться одной из команд для загрузки соответствующих наборов функциональности (они
+перечислены в порядке возрастания реализованных функций):
+
+ - =semantic-load-enable-code-helpers= -- 
+ - =semantic-load-enable-gaudy-code-helpers= -- 
+ - =semantic-load-enable-excessive-code-helpers= -- 
+ - =semantic-load-enable-semantic-debugging-helpers= -- 
+
+Если вы используете GCC в качестве компилятора, то пакет может автоматически получить
+данные о нахождении системных подключаемых файлов.  Для этого вам нужно загрузить пакет
+=semantic-gcc= с помощью следующей команды:
+
+<src lang="emacs-lisp">
+(require 'semantic-gcc)
+</src>
+
+Вы также можете явно задать дополнительные пути поиска подключаемых файлов, которые будут
+использоваться при работе в определенном режиме.  Для этого используется команда
+=semantic-add-system-include=, которой передается два параметра -- путь к заголовочным
+файлам, и имя режима в котором этот путь будет использоваться.  Например:
+
+<src lang="emacs-lisp">
+(semantic-add-system-include "~/exp/include/boost_1_37" 'c++-mode)
+</src>
+
+** Настройка Semanticdb
+
+<src lang="emacs-lisp">
+;; если вы хотите 
+(require 'semanticdb-global)
+(semanticdb-enable-gnu-global-databases 'c-mode)
+(semanticdb-enable-gnu-global-databases 'c++-mode)
+
+;; включить поддержку ctags 
+(semantic-load-enable-all-exuberent-ctags-support)
+</src>
 
 
-* Настройка проектов
+** Настройка Semantic для работы с проектами на C & C++
+
+Для правильной работы Semantic с кодом на С & C++ рекомендуется воспользоваться пакетом
+EDE (работа с проектами и т.п.) также из поставки CEDET.  Для этих языков, EDE определяет
+специальный тип проекта -- =ede-cpp-root-project=, который предоставляет Semantic
+дополнительную информацию, используемую для анализа исходных текстов вашего проекта, и
+последующего использования информации только для вашего проекта.  Для этого, необходимо
+включить соответствующий режим при загрузке пакета.
+
+Для определения проекта используется следующий код:
+
+<src lang="emacs-lisp">
+(ede-cpp-root-project "Test"
+											:name "Test Project"
+											:file "~/work/project/CMakeLists.txt"
+											:include-path '("/"
+																			"/Common"
+																			"/Interfaces"
+																			"/Libs"
+																			 )
+											:system-include-path '("~/exp/include")
+											:spp-table '(("isUnix" . "")
+																	 ("BOOST_TEST_DYN_LINK" . "")))
+</src>
+
+В качестве параметра =:file= вам надо указать любой из файлов, находящихся в корневом
+каталоге проекта.  Этот файл никак не анализируется, а служит только отправной точкой для
+поиска файлов.   
+
+Для поиска подключаемых файлов используется каталоги из двух списков, которые могут быть
+определены в проекте.  Параметр =:system-include-path= используется для задания списка
+полных путей каталогов, в которых будет производиться поиск "системных" подключаемых
+файлов.  А параметр =:include-path= задает список каталогов, относительно корневого каталога
+проекта, в которых будет производиться поиск подключаемых файлов, специфичных для вашего
+проекта (заметьте, что имена начинаются со знака =/=, что означает, что имена задаются
+относительно корневого каталога проекта).  Вместо явного задания каталогов, вы также
+можете задать функцию, которая будет заниматься поиском файлов вашего проекта.  Об этом вы
+можете прочитать в руководстве EDE.
+
+Еще один параметр, который может быть задан в проекте -- список определений, которые будут
+использоваться при обработке кода препроцессором.  Параметр =:spp-table= позволяет
+определить список пар, состоящих из имени символа и свзяанного с ним значения.  В нашем
+примере мы определяем два символа =isUnix= и =BOOST_TEST_DYN_LINK=, которые будут переданы
+препроцессору, что позволит произвести правильный разбор кода.  Более подробно про эти
+определения вы можете прочитать в документации на переменную
+=semantic-lex-c-preprocessor-symbol-map=.
+
+* Использование Semantic
+
+** Дополнение имен
+
+<src lang="emacs-lisp">
+;; smart completions
+(require 'semantic-ia)
+(setq-mode-local c-mode semanticdb-find-default-throttle
+								 '(project unloaded system recursive))
+(setq-mode-local c++-mode semanticdb-find-default-throttle
+								 '(project unloaded system recursive))
+</src>
+
+
+
+semantic-ia-complete-symbol
+semantic-ia-complete-symbol-menu
+senator-complete-symbol
+
+semantic-complete-analyze-inline
+semantic-decoration-include-visit
+
+semantic-ia-fast-jump
+semantic-analyze-proto-impl-toggle
+
 
 
 * Прочие утилиты и т.п.
 
  - semantic-symref
  - поддержка gtags
+ - srecode?
+ - http://www.dr-qubit.org/predictive/completion-ui.el
+ - http://www.emacswiki.org/cgi-bin/wiki/CompletionUI#toc4
+
+** eassist
+
+(require 'eassist)
+(local-set-key "\C-ct" 'eassist-switch-h-cpp)
+(local-set-key "\C-xt" 'eassist-switch-h-cpp)
+
+
 
 * Интеграция с другими пакетами
 
