@@ -118,7 +118,7 @@
 (require 'calendar)
 (require 'time-stamp)
 ;; (require 'eshell)
-(require 'em-unix)
+;; (require 'em-unix)
 
 ;; rewrite as below
 ;; (when (and
@@ -725,8 +725,6 @@ If ALL is non-nil, force re-publication of each post."
     (when (plist-get blorgv-header :config-file)
       (load-file (plist-get blorgv-header :config-file))
       (message "Blorg local config file loaded"))
-;;; Create directories
-;;    (blorg-maybe-create-directories blorgv-publish-d blorgv-images-d blorgv-upload-d)
     ;; Maybe clean orphan files
 		;;    (blorg-maybe-clean-orphan-files blorgv-content)
     (save-window-excursion
@@ -749,21 +747,6 @@ If ALL is non-nil, force re-publication of each post."
   (when (get-buffer "*blorg feed output*")
     (kill-buffer "*blorg feed output*")))
 
-;;; TO BE TESTED
-;; (defun blorg-maybe-clean-orphan-files (blorgv-content)
-;;   "Delete all html and xml files but those which won't be republished."
-;;   (let ((existing-files 
-;; 	 (directory-files blorgv-publish-d nil "\..+ml"))
-;; 	(posts-files (mapcar 
-;; 		      (lambda (post)
-;; 			(blorg-make-post-url 
-;; 			 (plist-get post :post-title)))
-;; 		      blorgv-content)))
-;;     (dolist (file (cddr existing-files))
-;;       (when (not (member file posts-files))
-;; 	(delete-file (concat blorgv-publish-d file))))))
-
-
 (defun blorg-parse-new-tags (blorgv-content)
 	"Parse BLORGV-CONTENT and look for new tags."
 	(let (tags-list)
@@ -771,25 +754,6 @@ If ALL is non-nil, force re-publication of each post."
 			(mapcar (lambda (tag) (add-to-list 'tags-list tag))
 							(delete "" (split-string (plist-get post :post-tags) ":"))))
 		(mapcar (lambda (tag) (cons tag 1)) tags-list)))
-
-(defun blorg-maybe-create-directories
-  (pub-d img-d upl-d)
-  "Maybe create PUB-D IMG-D and UPL-D directories."
-	(unless (file-exists-p pub-d)
-		(when (yes-or-no-p (format "Create this new directory : %s ? "
-															 pub-d))
-			(eshell/mkdir pub-d)
-			(message "%s directory created" pub-d)))
-	(unless (file-exists-p (concat pub-d img-d))
-		(when (yes-or-no-p (format "Create this new directory : %s ? "
-															 (concat pub-d img-d)))
-			(eshell/mkdir (concat pub-d img-d))
-			(message "%s%s directory created" pub-d img-d)))
-	(unless (file-exists-p (concat pub-d upl-d))
-		(when (yes-or-no-p (format "Create this new directory : %s ? "
-															 (concat pub-d upl-d)))
-			(eshell/mkdir (concat pub-d upl-d))
-			(message "%s%s directory created" pub-d upl-d))))
 
 ;;; Parsing
 (defun blorg-set-header-region nil
@@ -802,8 +766,6 @@ If ALL is non-nil, force re-publication of each post."
 						(setq end (match-end 0))
 					(setq end (point-max))))
       (cons (point-min) end))))
-
-
 
 (defun blorg-parse-tags ()
   "Make a sorted list of all tags from buffer.
@@ -832,7 +794,6 @@ Each element of the list is a cons: (\"tag-name\" . number)."
 				(backward-char 1)))
     (blorg-sort-tags alltags blorg-tags-sort)))
 
-
 (defun blorg-parse-header nil
   "Create a plist containing blorgv-header options."
   (let* ((region (blorg-set-header-region))
@@ -843,7 +804,6 @@ Each element of the list is a cons: (\"tag-name\" . number)."
       (add-to-list 'blorgv-header (car opt) t)
       (add-to-list 'blorgv-header (blorg-get-option
 																	 start end opt) t)) blorgv-header))
-
 
 (defun blorg-count-tags-total (taglist)
   "Count total number of tags in taglist."
