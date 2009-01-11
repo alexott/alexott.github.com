@@ -110,6 +110,7 @@
 (defun hs-lint ()
 	"Run HLint for current buffer with haskell source"
 	(interactive)
+	(save-some-buffers t)
   (compilation-start (concat hs-lint-command " "
 														 buffer-file-name) 'hs-lint-mode))
 
