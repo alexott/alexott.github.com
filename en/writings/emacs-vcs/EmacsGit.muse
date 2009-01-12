@@ -437,10 +437,11 @@ the *Git* to Subversion.
 
 * The egg package
 
-The *egg* package is the fork of the [[#magit][magit]] package, described above. Main difference
-from *magit* is an improvements in the users interface (example of interface to work with
-history of changes you can see on the picture below), all other functional is almost the
-same as in *magit*. This package is available to download from the [[http://github.com/bogolisk/egg/tree/master][developer's site]].
+The *egg* package is the fork of the [[#magit][magit]] package, described above. Main difference from
+*magit* is an improvements in the users interface (example of interface to work with history
+of changes you can see on the picture below) and correct work on MS Windows, all other
+functional is almost the same as in *magit*. This package is available to download from the
+[[http://github.com/bogolisk/egg/tree/master][developer's site]].
 
 <div id="screenshot">
 [[../../../common/writings/emacs-vcs/egg-history.png]]
