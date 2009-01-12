@@ -19,13 +19,16 @@
   :type 'string
   :group 'hs-lint)
 
-;;;###autoload
+(defcustom hs-lint-save-files t
+  "Save modified files when run HLint or no (ask user)"
+  :type 'boolean
+  :group 'hs-lint)
+
 (defcustom hs-lint-setup-hook nil
   "List of hook functions run by `hs-lint-process-setup' (see `run-hooks')."
   :type 'hook
   :group 'hs-lint)
 
-;;;###autoload
 (defvar hs-lint-regexp-alist
   '(("^\\(.+?\\)\\(:[ \t]*\\)\\([0-9]+\\)\\2" 1 3))
   "Regexp used to match hlint hits.  See `compilation-error-regexp-alist'.")
@@ -110,7 +113,7 @@
 (defun hs-lint ()
 	"Run HLint for current buffer with haskell source"
 	(interactive)
-	(save-some-buffers t)
+	(save-some-buffers hs-lint-save-files)
   (compilation-start (concat hs-lint-command " "
 														 buffer-file-name) 'hs-lint-mode))
 
