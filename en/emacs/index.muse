@@ -22,7 +22,7 @@ You can also find [[../writings/][other my articles]].
 * Code for Emacs
 
 On this site is available some amount of code, written for Emacs:
- - [[../../common/emacs/blorg.el][hs-lint.el]] -- module for work with [[http://www-users.cs.york.ac.uk/%7Endm/hlint/][HLint]] from Emacs.  It allows to get list of hints,
+ - [[../../common/emacs/hs-lint.el][hs-lint.el]] -- module for work with [[http://www-users.cs.york.ac.uk/%7Endm/hlint/][HLint]] from Emacs.  It allows to get list of hints,
    and provide navigation through this list.  It could be used following way (to run of
    =hs-lint= command the =C-c l= key binding is used):
 <src lang="emacs-lisp">
