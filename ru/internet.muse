@@ -20,3 +20,8 @@
 
  - Фотографии на [[http://picasaweb.google.com/alexott/][Google Picasa]]
  - Фотографии на [[http://fotki.yandex.ru/users/ottalex/][Яндекс.Фотки]]
+
+** Что меня интересует
+
+ - [[../common/google-reader-subscriptions.xml][Список сайтов новости которых я читаю]] (в формате OPML)
+

@@ -17,3 +17,7 @@ Here is small list of resources, that i use:
  - Photo albums at [[http://picasaweb.google.com/alexott/][Google Picasa]]
  - Photo albums at [[http://fotki.yandex.ru/users/ottalex/][Yandex.Foto]] (with Russian interface)
 
+** What is interesting for me
+
+ - [[../common/google-reader-subscriptions.xml][List of sites, those news I'm reading]] (in OPML format)
+
