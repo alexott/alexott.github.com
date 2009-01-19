@@ -1,170 +1,134 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in css mode. -->
+<!-- Created by htmlize-1.34 in inline-css mode. -->
 <html>
   <head>
     <title>emacs-rc-gnus-split.el</title>
-    <style type="text/css">
-    <!--
-      body {
-        color: #000000;
-        background-color: #ebebeb;
-      }
-      .comment {
-        /* font-lock-comment-face */
-        color: #666666;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #666666;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #008b00;
-      }
-
-      a {
-        color: inherit;
-        background-color: inherit;
-        font: inherit;
-        text-decoration: inherit;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    -->
-    </style>
   </head>
-  <body>
+  <body style="color: #000000; background-color: #ebebeb;">
     <pre>
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-gnus-split.el --- nnmail split rules
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-gnus-split.el --- nnmail split rules
 </span>
-<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2004 Alex Ott
-</span><span class="comment-delimiter">;;</span><span class="comment">
-</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
+<span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) 2004 Alex Ott
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Author: alexott@gmail.com
 </span>
 
 (setq nnmail-split-methods 'nnmail-split-fancy)
 (setq nnmail-split-fancy
-      `(| <span class="comment-delimiter">;; </span><span class="comment">message duplicates
-</span><span class="comment-delimiter">;;</span><span class="comment">    ("gnus-warning" "duplicat\\(e\\|ion\\) of message" "duplicates")
+      `(| <span style="color: #666666;">;; </span><span style="color: #666666;">message duplicates
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">    ("gnus-warning" "duplicat\\(e\\|ion\\) of message" "duplicates")
 </span>
-          <span class="comment-delimiter">;; </span><span class="comment">catch spam
-</span><span class="comment-delimiter">;;           </span><span class="comment">(subject ".*\\*\\*\\*\\*\\*SPAM\\*\\*\\*\\*\\*.*" "SPAM")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(spam-flag "YES" "SPAM")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (: spam-stat-split-fancy)
+          <span style="color: #666666;">;; </span><span style="color: #666666;">catch spam
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(subject ".*\\*\\*\\*\\*\\*SPAM\\*\\*\\*\\*\\*.*" "SPAM")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(spam-flag "YES" "SPAM")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (: spam-stat-split-fancy)
 </span>          
-          <span class="comment-delimiter">;; </span><span class="comment">Mailing lists
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "ding@\\(gnus.org\\|hpc.uh.edu\\|lists.math.uh.edu\\)" "gnus-ding")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "emacs-devel@gnu.org" "emacs-devel")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "emacs-pretest-bug@gnu.org" "emacs-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "\\(jde\\|jde-devel\\|jde-patches\\)@sunsite.dk" "jdee")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "emacs-nxml-mode@yahoogroups.com" "nxml-mode")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "db2latex-apps@lists.\\(sourceforge\\|sf\\).net" "db2latex")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "db2latex-devel@lists.\\(sourceforge\\|sf\\).net" "db2latex")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "cedet-devel@lists.\\(sourceforge\\|sf\\).net" "cedet")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "cedet-eieio@lists.\\(sourceforge\\|sf\\).net" "cedet")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "cedet-semantic@lists.\\(sourceforge\\|sf\\).net" "cedet")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "ecb-list@lists.\\(sourceforge\\|sf\\).net" "ecb")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "mmm-mode-discuss@lists.\\(sourceforge\\|sf\\).net" "mmm-mode")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "xwem-devel@xwem.org" "xwem")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "xwem-devel@nongnu.org" "xwem")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "w3-dev@gnu.org" "w3-dev")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "schematics-users@lists.\\(sourceforge\\|sf\\).net" "schematics")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "emacspeak-devel@lists.\\(sourceforge\\|sf\\).net" "emacspeak")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(list-id "cc-mode-help.lists.\\(sourceforge\\|sf\\).net" "cc-mode")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "bbdb-info@lists.\\(sourceforge\\|sf\\).net" "bbdb")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "psgml-devel@lists.\\(sourceforge\\|sf\\).net" "psgml-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "psgml-user@lists.\\(sourceforge\\|sf\\).net" "psgml-user")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "squid-announce@squid-cache.org" "squid-users")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "squid-dev@squid-cache.org" "squid-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "squid-users@squid-cache.org" "squid-users")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "dansguardian@yahoogroups.com" "dg")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "dansguardianannounce@yahoogroups.com" "dg")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "slime-devel@common-lisp.net" "slime")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "preview-latex-devel@lists.\\(sourceforge\\|sf\\).net" "preview-latex")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "preview-latex-bugs@lists.\\(sourceforge\\|sf\\).net" "preview-latex")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "tnt-devel@lists.\\(sourceforge\\|sf\\).net" "tnt-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "eicq-devel@lists.\\(sourceforge\\|sf\\).net" "eicq")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "emchat-devel@emchat.org" "eicq")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (list-id "eicq-devel.eicq.org" "eicq")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (list-id "eicq-users.eicq.org" "eicq")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (list-id "eicq-bug.eicq.org" "eicq")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "dgav-devel@lists.\\(sourceforge\\|sf\\).net" "dgav-devel")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "dgav-cvs@lists.sourceforge.net" "dgav-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "icap-discussions@yahoogroups.com" "icap-discuss")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "emms-help@gnu.org" "emms")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(list-id "xtla-el-dev.gna.org" "xtla")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "emacs-jabber-general@lists.sourceforge.net" "emacs-jabber")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "emacs-wiki-discuss@nongnu.org" "emacs-wiki")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "auc-tex@sunsite.dk" "auctex-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "auctex@gnu.org" "auctex-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "auctex-devel@gnu.org" "auctex-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(list-id "plt-scheme.list.cs.brown.edu" "mzscheme")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(list-id "plt-announce.list.cs.brown.edu" "mzscheme")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(list-id "tramp-devel.nongnu.org" "tramp")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "tramp-devel@nongnu.org" "tramp")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "tramp-devel@gnu.org" "tramp")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "tramp-devel@mail.freesoftware.fsf.org" "tramp")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "xemacs-design@xemacs.org" "xemacs-design")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "ietf-openproxy@imc.org" "ietf-openproxy")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "dansguardian-dev@yahoogroups.com" "dg-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "dansguardian-cvs@lists.sourceforge.net" "dg-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "googlealerts-noreply@google.com" "google-alerts")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "ug-mosug@opensolaris.org" "solaris-mosug")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "erc-discuss@gnu.org" "erc")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "bbdb-info@lists.sourceforge.net" "bbdb")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "muse-el-discuss@gna.org" "muse-el")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "planner-el-discuss@gna.org" "planner-el")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "asio-users@lists.sourceforge.net" "asio")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "dvc-dev@gna.org" "dvc")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "bug-cc-mode@gnu.org" "cc-mode")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "boost@lists.boost.org" "boost-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "boost-users@lists.boost.org" "boost-users")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "emacs-jabber-general@lists.sourceforge.net" "emacs-jabber")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "xtla-el-dev@gna.org" "xtla")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "eicq-devel@eicq.org" "eicq")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "squid-dev@squid-cache.org" "squid-devel")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "c-icap-users@lists.sourceforge.net" "c-icap")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "cc-mode-help@lists.sourceforge.net" "cc-mode")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "xwem-devel@xwem.org" "xwem")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "soci-users@lists.sourceforge.net" "soci")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "fsharp@list.research.microsoft.com" "fsharp")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "docs@lists.altlinux.org" "altlinux-docs")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "icap-discussions@yahoogroups.com" "icap-discussions")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "intro2fp@googlegroups.com" "intro2fp")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "firewall-wizards@listserv.icsalabs.com" "fw-wizards" "fw-wizards")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "firewall-wizards@honor.icsalabs.com" "fw-wizards")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "firewall-wizards@listserv.cybertrust.com" "fw-wizards")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "ug-gosug@opensolaris.org" "solaris-gosug")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "cedet-semantic@lists.sourceforge.net" "cedet")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "funprog-ru@sxemacs.org" "intro2fp")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "cpp-netlib-devel@lists.sourceforge.net" "cpp-netlib")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "cedet-eieio@lists.sourceforge.net" "cedet")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "spirit-general@lists.sourceforge.net" "boost-spirit")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(reply-to ".*@bugs.launchpad.net" "emacs-ubuntu")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "google-safe-browsing-api@googlegroups.com" "google-sba")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "openfwtk-devel@lists.sourceforge.net" "openfwtk-devel")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "arabica-devel@lists.sourceforge.net" "arabica-devel")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "websecurity@webappsec.org" "ws-webapps")
-</span><span class="comment-delimiter">;; </span><span class="comment">         (any "wasc-wafec@webappsec.org" "wasc-wafec")
-</span><span class="comment-delimiter">;;           </span><span class="comment">(any "pcl-ru@googlegroups.com" "pcl-ru")
-</span><span class="comment-delimiter">;          </span><span class="comment">(list-id "" "")
-</span><span class="comment-delimiter">;          </span><span class="comment">(list-id "" "")
-</span><span class="comment-delimiter">;          </span><span class="comment">(list-id "" "")
-</span><span class="comment-delimiter">;          </span><span class="comment">(list-id "" "")
+          <span style="color: #666666;">;; </span><span style="color: #666666;">Mailing lists
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "ding@\\(gnus.org\\|hpc.uh.edu\\|lists.math.uh.edu\\)" "gnus-ding")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "emacs-devel@gnu.org" "emacs-devel")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "emacs-pretest-bug@gnu.org" "emacs-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "\\(jde\\|jde-devel\\|jde-patches\\)@sunsite.dk" "jdee")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "emacs-nxml-mode@yahoogroups.com" "nxml-mode")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "db2latex-apps@lists.\\(sourceforge\\|sf\\).net" "db2latex")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "db2latex-devel@lists.\\(sourceforge\\|sf\\).net" "db2latex")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "cedet-devel@lists.\\(sourceforge\\|sf\\).net" "cedet")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "cedet-eieio@lists.\\(sourceforge\\|sf\\).net" "cedet")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "cedet-semantic@lists.\\(sourceforge\\|sf\\).net" "cedet")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "ecb-list@lists.\\(sourceforge\\|sf\\).net" "ecb")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "mmm-mode-discuss@lists.\\(sourceforge\\|sf\\).net" "mmm-mode")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "xwem-devel@xwem.org" "xwem")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "xwem-devel@nongnu.org" "xwem")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "w3-dev@gnu.org" "w3-dev")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "schematics-users@lists.\\(sourceforge\\|sf\\).net" "schematics")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "emacspeak-devel@lists.\\(sourceforge\\|sf\\).net" "emacspeak")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(list-id "cc-mode-help.lists.\\(sourceforge\\|sf\\).net" "cc-mode")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "bbdb-info@lists.\\(sourceforge\\|sf\\).net" "bbdb")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "psgml-devel@lists.\\(sourceforge\\|sf\\).net" "psgml-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "psgml-user@lists.\\(sourceforge\\|sf\\).net" "psgml-user")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "squid-announce@squid-cache.org" "squid-users")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "squid-dev@squid-cache.org" "squid-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "squid-users@squid-cache.org" "squid-users")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "dansguardian@yahoogroups.com" "dg")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "dansguardianannounce@yahoogroups.com" "dg")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "slime-devel@common-lisp.net" "slime")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "preview-latex-devel@lists.\\(sourceforge\\|sf\\).net" "preview-latex")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "preview-latex-bugs@lists.\\(sourceforge\\|sf\\).net" "preview-latex")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "tnt-devel@lists.\\(sourceforge\\|sf\\).net" "tnt-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "eicq-devel@lists.\\(sourceforge\\|sf\\).net" "eicq")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "emchat-devel@emchat.org" "eicq")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (list-id "eicq-devel.eicq.org" "eicq")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (list-id "eicq-users.eicq.org" "eicq")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (list-id "eicq-bug.eicq.org" "eicq")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "dgav-devel@lists.\\(sourceforge\\|sf\\).net" "dgav-devel")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "dgav-cvs@lists.sourceforge.net" "dgav-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "icap-discussions@yahoogroups.com" "icap-discuss")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "emms-help@gnu.org" "emms")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(list-id "xtla-el-dev.gna.org" "xtla")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "emacs-jabber-general@lists.sourceforge.net" "emacs-jabber")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "emacs-wiki-discuss@nongnu.org" "emacs-wiki")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "auc-tex@sunsite.dk" "auctex-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "auctex@gnu.org" "auctex-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "auctex-devel@gnu.org" "auctex-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(list-id "plt-scheme.list.cs.brown.edu" "mzscheme")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(list-id "plt-announce.list.cs.brown.edu" "mzscheme")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(list-id "tramp-devel.nongnu.org" "tramp")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "tramp-devel@nongnu.org" "tramp")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "tramp-devel@gnu.org" "tramp")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "tramp-devel@mail.freesoftware.fsf.org" "tramp")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "xemacs-design@xemacs.org" "xemacs-design")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "ietf-openproxy@imc.org" "ietf-openproxy")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "dansguardian-dev@yahoogroups.com" "dg-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "dansguardian-cvs@lists.sourceforge.net" "dg-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "googlealerts-noreply@google.com" "google-alerts")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "ug-mosug@opensolaris.org" "solaris-mosug")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "erc-discuss@gnu.org" "erc")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "bbdb-info@lists.sourceforge.net" "bbdb")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "muse-el-discuss@gna.org" "muse-el")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "planner-el-discuss@gna.org" "planner-el")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "asio-users@lists.sourceforge.net" "asio")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "dvc-dev@gna.org" "dvc")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "bug-cc-mode@gnu.org" "cc-mode")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "boost@lists.boost.org" "boost-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "boost-users@lists.boost.org" "boost-users")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "emacs-jabber-general@lists.sourceforge.net" "emacs-jabber")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "xtla-el-dev@gna.org" "xtla")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "eicq-devel@eicq.org" "eicq")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "squid-dev@squid-cache.org" "squid-devel")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "c-icap-users@lists.sourceforge.net" "c-icap")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "cc-mode-help@lists.sourceforge.net" "cc-mode")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "xwem-devel@xwem.org" "xwem")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "soci-users@lists.sourceforge.net" "soci")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "fsharp@list.research.microsoft.com" "fsharp")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "docs@lists.altlinux.org" "altlinux-docs")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "icap-discussions@yahoogroups.com" "icap-discussions")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "intro2fp@googlegroups.com" "intro2fp")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "firewall-wizards@listserv.icsalabs.com" "fw-wizards" "fw-wizards")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "firewall-wizards@honor.icsalabs.com" "fw-wizards")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "firewall-wizards@listserv.cybertrust.com" "fw-wizards")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "ug-gosug@opensolaris.org" "solaris-gosug")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "cedet-semantic@lists.sourceforge.net" "cedet")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "funprog-ru@sxemacs.org" "intro2fp")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "cpp-netlib-devel@lists.sourceforge.net" "cpp-netlib")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "cedet-eieio@lists.sourceforge.net" "cedet")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "spirit-general@lists.sourceforge.net" "boost-spirit")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(reply-to ".*@bugs.launchpad.net" "emacs-ubuntu")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "google-safe-browsing-api@googlegroups.com" "google-sba")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "openfwtk-devel@lists.sourceforge.net" "openfwtk-devel")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "arabica-devel@lists.sourceforge.net" "arabica-devel")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "websecurity@webappsec.org" "ws-webapps")
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">         (any "wasc-wafec@webappsec.org" "wasc-wafec")
+</span><span style="color: #666666;">;;           </span><span style="color: #666666;">(any "pcl-ru@googlegroups.com" "pcl-ru")
+</span><span style="color: #666666;">;          </span><span style="color: #666666;">(list-id "" "")
+</span><span style="color: #666666;">;          </span><span style="color: #666666;">(list-id "" "")
+</span><span style="color: #666666;">;          </span><span style="color: #666666;">(list-id "" "")
+</span><span style="color: #666666;">;          </span><span style="color: #666666;">(list-id "" "")
 </span>
-    <span class="comment-delimiter">;; </span><span class="comment">catch-all
-</span>    <span class="string">"inbox"</span>))
+    <span style="color: #666666;">;; </span><span style="color: #666666;">catch-all
+</span>    <span style="color: #008b00;">"inbox"</span>))
 
 
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-gnus-split.el ends here
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-gnus-split.el ends here
 </span>
 </pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
   </body>
 </html>

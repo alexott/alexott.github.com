@@ -1,65 +1,166 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in css mode. -->
+<!-- Created by htmlize-1.34 in inline-css mode. -->
 <html>
   <head>
     <title>emacs-rc-haskell.el</title>
-    <style type="text/css">
-    <!--
-      body {
-        color: #000000;
-        background-color: #ebebeb;
-      }
-      .comment {
-        /* font-lock-comment-face */
-        color: #666666;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #666666;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #008b00;
-      }
-
-      a {
-        color: inherit;
-        background-color: inherit;
-        font: inherit;
-        text-decoration: inherit;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    -->
-    </style>
   </head>
-  <body>
+  <body style="color: #000000; background-color: #ebebeb;">
     <pre>
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-haskell.el --- 
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-haskell.el --- 
 </span>
-<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2008 Alex Ott
-</span><span class="comment-delimiter">;;</span><span class="comment">
-</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
-</span><span class="comment-delimiter">;; </span><span class="comment">Version: $Id: emacs-rc-haskell.el,v 0.0 2008/01/28 08:58:32 ott Exp $
-</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+<span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) 2008 Alex Ott
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Author: alexott@gmail.com
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Version: $Id: emacs-rc-haskell.el,v 0.0 2008/01/28 08:58:32 ott Exp $
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Keywords: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Requirements: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Status: not intended to be distributed yet
 </span>
 
-(add-to-list 'load-path <span class="string">"~/emacs/haskell-mode"</span>)
-(load <span class="string">"~/emacs/haskell-mode/haskell-site-file"</span>)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-<span class="comment-delimiter">;;</span><span class="comment">(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+(add-to-list 'load-path <span style="color: #008b00;">"~/emacs/haskell-mode"</span>)
+(load <span style="color: #008b00;">"~/emacs/haskell-mode/haskell-site-file"</span>)
+
+(custom-set-variables
+ '(haskell-program-name <span style="color: #008b00;">"ghci"</span>)
+ '(inferior-haskell-wait-and-jump t)
+ )
+
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">hs-lint</span>)
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-haskell-mode-hook</span> ()
+  (turn-on-haskell-doc-mode)
+  (turn-on-haskell-indent)
+<span style="color: #666666;">;;</span><span style="color: #666666;">  (turn-on-haskell-ghci)
+</span>  (turn-on-eldoc-mode)
+  (local-set-key [return] 'newline-and-indent)
+  (local-set-key <span style="color: #008b00;">"\C-m"</span> 'newline-and-indent)
+  (local-set-key <span style="color: #008b00;">"\C-c:"</span> 'uncomment-region)
+  (local-set-key <span style="color: #008b00;">"\C-c;"</span> 'comment-region)
+  (local-set-key <span style="color: #008b00;">"\C-c\C-c"</span> 'comment-region)
+  (local-set-key <span style="color: #008b00;">"\C-cl"</span> 'hs-lint)
+  (setq tab-width 4)
+<span style="color: #666666;">;;</span><span style="color: #666666;">  (turn-on-haskell-simple-indent)
+</span>  )
+(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
+
+
+<span style="color: #666666;">;; </span><span style="color: #666666;">flymake settings
 </span>
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-haskell.el ends here
+<span style="color: #666666;">;; </span><span style="color: #666666;">(defvar flymake-ghc-options (list "-Wall"))
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">(defvar flymake-ghc-packages (mapcar (lambda (p)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">                                      (concat "-package " p))
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">                                    '("QuickCheck")))
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">(defun flymake-get-Haskell-cmdline (source base-dir)
+</span><span style="color: #666666;">;;   </span><span style="color: #666666;">(list "ghc"
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">       (append
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">        (list "--make" (concat "-i" base-dir) source)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">        flymake-ghc-options
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">        flymake-ghc-packages)))
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">(defun flymake-Haskell-init ()
+</span><span style="color: #666666;">;;   </span><span style="color: #666666;">(flymake-simple-make-init-impl
+</span><span style="color: #666666;">;;    </span><span style="color: #666666;">'flymake-create-temp-inplace
+</span><span style="color: #666666;">;;    </span><span style="color: #666666;">nil nil
+</span><span style="color: #666666;">;;    </span><span style="color: #666666;">(file-name-nondirectory buffer-file-name)
+</span><span style="color: #666666;">;;    </span><span style="color: #666666;">'flymake-get-Haskell-cmdline))
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">(defun flymake-Haskell-cleanup ()
+</span><span style="color: #666666;">;;   </span><span style="color: #666666;">(delete-file flymake-temp-source-file-name))
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">(push '(".+\\.hs$" flymake-Haskell-init flymake-Haskell-cleanup)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">     flymake-allowed-file-name-masks)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">;; fix to proper handling of warnings
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">(push '("^\\(\.+\.hs\\|\.lhs\\):\\([0-9]+\\):\\([0-9]+\\):\\(.\+\\)" 1 2 3 4)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">     flymake-err-line-patterns)
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">Unicode symbols in buffer
+</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">unicode-symbol</span> (name)
+  <span style="color: #666666;">"Translate a symbolic name for a Unicode character -- e.g., LEFT-ARROW                                      
+ or GREATER-THAN into an actual Unicode character code. "</span>
+  (decode-char 'ucs (<span style="color: #a020f0;">case</span> name                                             
+                      ('left-arrow 8592)
+                      ('up-arrow 8593)
+                      ('right-arrow 8594)
+                      ('down-arrow 8595)                                                
+                      ('double-vertical-bar #X2551)                  
+                      ('equal #X003d)
+                      ('not-equal #X2260)
+                      ('identical #X2261)
+                      ('not-identical #X2262)
+                      ('less-than #X003c)
+                      ('greater-than #X003e)
+                      ('less-than-or-equal-to #X2264)
+                      ('greater-than-or-equal-to #X2265)                        
+                      ('logical-and #X2227)
+                      ('logical-or #X2228)
+                      ('logical-neg #X00AC)                                                  
+                      ('nil #X2205)
+                      ('horizontal-ellipsis #X2026)
+                      ('double-exclamation #X203C)
+                      ('prime #X2032)
+                      ('double-prime #X2033)
+                      ('for-all #X2200)
+                      ('there-exists #X2203)
+                      ('element-of #X2208)              
+                      ('square-root #X221A)
+                      ('squared #X00B2)
+                      ('cubed #X00B3)                                            
+                      ('lambda #X03BB)
+                      ('alpha #X03B1)
+                      ('beta #X03B2)
+                      ('gamma #X03B3)
+                      ('delta #X03B4))))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">substitute-pattern-with-unicode</span> (pattern symbol)
+  <span style="color: #666666;">"Add a font lock hook to replace the matched part of PATTERN with the                                       
+Unicode symbol SYMBOL looked up with UNICODE-SYMBOL."</span>
+  (interactive)
+  (font-lock-add-keywords
+   nil `((,pattern 
+          (0 (<span style="color: #a020f0;">progn</span> (compose-region (match-beginning 1) (match-end 1)
+                                    ,(unicode-symbol symbol)
+                                    'decompose-region)
+                    nil))))))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">substitute-patterns-with-unicode</span> (patterns)
+  <span style="color: #666666;">"Call SUBSTITUTE-PATTERN-WITH-UNICODE repeatedly."</span>
+  (mapcar #'(<span style="color: #a020f0;">lambda</span> (x)
+              (substitute-pattern-with-unicode (car x)
+                                               (cdr x)))
+          patterns))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">haskell-unicode</span> ()
+  (interactive)
+  (substitute-patterns-with-unicode
+   (list
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">&lt;-</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s "</span> 'left-arrow)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">-&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s "</span> 'right-arrow)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">==</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s "</span> 'identical)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">/=</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s "</span> 'not-identical)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">()</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s "</span> 'nil)
+    (cons <span style="color: #008b00;">"\\&lt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">sqrt</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\&gt;"</span> 'square-root)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">&amp;&amp;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s "</span> 'logical-and)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">||</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s "</span> 'logical-or)
+    (cons <span style="color: #008b00;">"\\&lt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">not</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\&gt;"</span> 'logical-neg)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">=\\]"</span> 'greater-than)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">&lt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">=\\]"</span> 'less-than)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">&gt;=</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s "</span> 'greater-than-or-equal-to)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">&lt;=</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s "</span> 'less-than-or-equal-to)
+    (cons <span style="color: #008b00;">"\\&lt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">alpha</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\&gt;"</span> 'alpha)
+    (cons <span style="color: #008b00;">"\\&lt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">beta</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\&gt;"</span> 'beta)
+    (cons <span style="color: #008b00;">"\\&lt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">gamma</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\&gt;"</span> 'gamma)
+    (cons <span style="color: #008b00;">"\\&lt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">delta</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\&gt;"</span> 'delta)
+<span style="color: #666666;">;;</span><span style="color: #666666;">    (cons "\\s \\(''\\)\\s " 'double-prime)
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">    (cons "\\s \\('\\)\\s " 'prime)
+</span>    (cons <span style="color: #008b00;">"\\s (</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">\\\\</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s *\\w"</span> 'lambda)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">!!</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s "</span> 'double-exclamation)
+    (cons <span style="color: #008b00;">"\\s </span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">\\.\\.</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\s "</span> 'horizontal-ellipsis))))
+
+(add-hook 'haskell-mode-hook 'haskell-unicode)
+
+
+
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-haskell.el ends here
 </span></pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
   </body>
 </html>

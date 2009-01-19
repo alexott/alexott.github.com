@@ -1,166 +1,56 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in css mode. -->
+<!-- Created by htmlize-1.34 in inline-css mode. -->
 <html>
   <head>
     <title>emacs-rc-local-alexott.el</title>
-    <style type="text/css">
-    <!--
-      body {
-        color: #000000;
-        background-color: #ebebeb;
-      }
-      .builtin {
-        /* font-lock-builtin-face */
-        color: #006400;
-      }
-      .comment {
-        /* font-lock-comment-face */
-        color: #666666;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #666666;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #008b00;
-      }
-
-      a {
-        color: inherit;
-        background-color: inherit;
-        font: inherit;
-        text-decoration: inherit;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    -->
-    </style>
   </head>
-  <body>
+  <body style="color: #000000; background-color: #ebebeb;">
     <pre>
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-local-alexott.el --- 
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-local-alexott.el --- 
 </span>
-(add-to-list 'jabber-account-list
-             '(<span class="string">"alexott@jabber.webwasher.com/emacs"</span>
-               (<span class="builtin">:network-server</span> . <span class="string">"jabber.webwasher.com"</span>)
-               ))
+<span style="color: #666666;">;; </span><span style="color: #666666;">erlang
+</span>(setq erlang-root-dir <span style="color: #008b00;">"/usr/lib/erlang"</span>)
+(add-to-list 'exec-path <span style="color: #008b00;">"/usr/lib/erlang/bin"</span>)
+(setq erlang-man-root-dir <span style="color: #008b00;">"/usr/lib/erlang/man"</span>)
 
-<span class="comment-delimiter">;;</span><span class="comment">
-</span><span class="comment-delimiter">;;</span><span class="comment">
-</span>(semantic-add-system-include <span class="string">"/usr/include/c++/4.2/"</span> 'c++-mode)
-(semantic-add-system-include <span class="string">"~/work/webwasher-ng/Webwasher"</span> 'c++-mode)
-(semantic-add-system-include <span class="string">"~/work/webwasher-ng/Webwasher/Common"</span> 'c++-mode)
-(semantic-add-system-include <span class="string">"~/work/webwasher-ng/Webwasher/Common/Linux"</span> 'c++-mode)
-(semantic-add-system-include <span class="string">"~/work/webwasher-ng/Webwasher/Interfaces"</span> 'c++-mode)
-(semantic-add-system-include <span class="string">"~/work/webwasher-ng/Webwasher/Openers"</span> 'c++-mode)
-(semantic-add-system-include <span class="string">"~/work/webwasher-ng/Webwasher/Openers/SDK"</span> 'c++-mode)
-(semantic-add-system-include <span class="string">"~/work/webwasher-ng/Webwasher/Openers/CompAlgorithms"</span> 'c++-mode)
-
-<span class="comment-delimiter">;;</span><span class="comment">(semantic-add-system-include "~/work/webwasher-ng/Webwasher/ExtLibs/devel/include" 'c++-mode)
-</span>(add-to-list 'semanticdb-project-roots <span class="string">"~/work/webwasher-ng/Webwasher"</span>)
-<span class="comment-delimiter">;</span><span class="comment">(add-to-list 'semanticdb-project-roots "~/work/webwasher-ng/Webwasher")
-</span>(add-to-list 'semanticdb-project-roots <span class="string">"~/work/wwpro-6.6"</span>)
-
-<span class="comment-delimiter">;; </span><span class="comment">auto-inserts
-</span>(add-to-list 'auto-insert-alist '(<span class="string">"\\.cpp$"</span> . [<span class="string">"insert-work.cpp"</span> auto-update-c-source-file]))
-(add-to-list 'auto-insert-alist '(<span class="string">"\\.h$"</span>   . [<span class="string">"insert-work.h"</span> auto-update-header-file]))
-(add-to-list 'auto-insert-alist '(<span class="string">"\\.c$"</span> . [<span class="string">"insert-work.cpp"</span> auto-update-c-source-file]))
-
-<span class="comment-delimiter">;;</span><span class="comment">
-</span>(add-to-list 'muse-project-alist
-             '(<span class="string">"webwasher-ng"</span>     <span class="comment-delimiter">; </span><span class="comment">webwasher
-</span>               (<span class="string">"~/work/webwasher-ng/Doc/Implementation"</span> <span class="builtin">:default</span> <span class="string">"index"</span>)
-               (<span class="builtin">:base</span> <span class="string">"html"</span> <span class="builtin">:path</span> <span class="string">"~/public_html/muse/webwasher-ng"</span>)
-<span class="comment-delimiter">;</span><span class="comment">              (:base "pdf" :path "~/public_html/muse/webwasher-ng")
-</span>               ))
-
-<span class="comment-delimiter">;; </span><span class="comment">mail settings
-</span><span class="comment-delimiter">;</span><span class="comment">(setq user-mail-address "alex_ott@securecomputing.com")
+<span style="color: #666666;">;; </span><span style="color: #666666;">emacs-jabber
 </span>
-<span class="comment-delimiter">;</span><span class="comment">(setq smtpmail-smtp-server "emea.scur.com")
-</span><span class="comment-delimiter">;</span><span class="comment">(setq smtpmail-default-smtp-server "emea.scur.com")
-</span><span class="comment-delimiter">;</span><span class="comment">(setq smtpmail-smtp-service 25)
-</span><span class="comment-delimiter">;</span><span class="comment">(setq smtpmail-auth-credentials '(("emea.scur.com" 25 "aott" nil)))
-</span>
-<span class="comment-delimiter">;; </span><span class="comment">Gnus Mail setup
-</span>(setq gnus-secondary-select-methods
-      '((nnimap <span class="string">"emea.scur.com"</span>
-                (nnimap-server-port 993)
-                (nnimap-authenticator login)
-                (nnimap-stream ssl)
-                )
-        (nnml <span class="string">""</span>)
-        ))
-
-(setq nnmail-spool-file '(<span class="string">"/var/spool/mail/ott"</span>))
-(setq gnus-outgoing-message-group <span class="string">"nnimap+emea.scur.com:INBOX.Sent"</span>)
-
-(setq gnus-posting-styles
-      '(
-        (<span class="string">".*"</span>
-         (Gcc <span class="string">"nnml:sent"</span>)
-         (Organization <span class="string">"Secure Computing Corp."</span>)
-         (signature-file <span class="string">"~/.signature"</span>)
-         )
-        (message-news-p
-         (signature My-Signature)
-         )
-        (<span class="string">"^fido7."</span>
-         (keywords <span class="string">"2079727183"</span>)
-         (x-comment-to (<span class="keyword">save-excursion</span>
-                         (set-buffer gnus-article-buffer)
-                         (message-fetch-field <span class="string">"from"</span>)))
-         )
-        ))
-
 (custom-set-variables
  '(transient-mark-mode t)
  '(x-select-enable-clipboard t)
  '(x-select-request-type (quote (UTF8_STRING COMPOUND_TEXT TEXT STRING)))
  '(interprogram-paste-function (quote x-cut-buffer-or-selection-value))
- '(compile-command <span class="string">"make -k -j2"</span>)
+ '(compile-command <span style="color: #008b00;">"make -k -j2"</span>)
+ '(browse-url-browser-function (quote browse-url-firefox))
  )
 
-(set-input-method <span class="string">"russian-computer"</span> nil)
+(set-input-method <span style="color: #008b00;">"russian-computer"</span> nil)
 
-(add-to-list 'default-frame-alist '(font . <span class="string">"Consolas-13"</span>))
-(add-to-list 'default-frame-alist '(height . 46))
-(add-to-list 'default-frame-alist '(width . 120))
-(add-to-list 'default-frame-alist '(background-color . <span class="string">"grey92"</span>))
+<span style="color: #666666;">;; </span><span style="color: #666666;">decoration
+</span>(add-to-list 'default-frame-alist '(font . <span style="color: #008b00;">"Consolas-13"</span>))
+(add-to-list 'default-frame-alist '(height . 43))
+(add-to-list 'default-frame-alist '(width . 115))
+(add-to-list 'default-frame-alist '(background-color . <span style="color: #008b00;">"grey92"</span>))
 (setq initial-frame-alist default-frame-alist)
 (setq special-display-frame-alist default-frame-alist)
 
 (custom-set-faces
-<span class="comment-delimiter">; </span><span class="comment">'(default ((t (:stipple nil :background "gray90" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :family "monotype-courier new"))))
-</span><span class="comment-delimiter">; </span><span class="comment">'(fixed-pitch ((t (:family "monotype-courier new"))))
-</span> '(font-latex-sectioning-2-face ((t (<span class="builtin">:inherit</span> font-latex-sectioning-3-face <span class="builtin">:height</span> 1.1))))
- '(font-latex-sectioning-5-face ((((class color) (background light)) (<span class="builtin">:foreground</span> <span class="string">"blue4"</span> <span class="builtin">:weight</span> bold))))
- '(font-latex-verbatim-face ((((class color) (background light)) (<span class="builtin">:foreground</span> <span class="string">"SaddleBrown"</span>))))
- '(font-lock-builtin-face ((((class color) (min-colors 88) (background light)) (<span class="builtin">:foreground</span> <span class="string">"darkgreen"</span>))))
- '(font-lock-comment-face ((((class color) (min-colors 88) (background light)) (<span class="builtin">:foreground</span> <span class="string">"gray40"</span>))))
- '(font-lock-constant-face ((((class color) (min-colors 88) (background light)) (<span class="builtin">:foreground</span> <span class="string">"blue4"</span>))))
- '(font-lock-doc-face ((t (<span class="builtin">:inherit</span> font-lock-comment-face))))
- '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (<span class="builtin">:foreground</span> <span class="string">"green4"</span>))))
- '(font-lock-type-face ((((class color) (min-colors 88) (background light)) (<span class="builtin">:foreground</span> <span class="string">"blue"</span>))))
- '(font-lock-variable-name-face ((((class color) (min-colors 88) (background light)) (<span class="builtin">:foreground</span> <span class="string">"darkred"</span>))))
- '(planner-completed-task-face ((t (<span class="builtin">:strike-through</span> t))))
-<span class="comment-delimiter">; </span><span class="comment">'(variable-pitch ((t (:family "monotype-arial"))))
-</span> '(org-hide ((((background light)) (<span class="builtin">:foreground</span> <span class="string">"grey92"</span>))))
- )
+ '(default ((t (<span style="color: #006400;">:background</span> <span style="color: #008b00;">"grey92"</span> <span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"black"</span> <span style="color: #006400;">:slant</span> normal <span style="color: #006400;">:weight</span> normal <span style="color: #006400;">:height</span> 130 <span style="color: #006400;">:width</span> normal <span style="color: #006400;">:foundry</span> <span style="color: #008b00;">"microsoft"</span> <span style="color: #006400;">:family</span> <span style="color: #008b00;">"Consolas"</span>))))
+ '(font-latex-sectioning-2-face ((t (<span style="color: #006400;">:inherit</span> font-latex-sectioning-3-face <span style="color: #006400;">:height</span> 1.1))))
+ '(font-latex-sectioning-5-face ((((class color) (background light)) (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"blue4"</span> <span style="color: #006400;">:weight</span> bold))))
+ '(font-latex-verbatim-face ((((class color) (background light)) (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"SaddleBrown"</span>))))
+ '(font-lock-builtin-face ((((class color) (min-colors 88) (background light)) (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"darkgreen"</span>))))
+ '(font-lock-comment-face ((((class color) (min-colors 88) (background light)) (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"gray40"</span>))))
+ '(font-lock-constant-face ((((class color) (min-colors 88) (background light)) (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"blue4"</span>))))
+ '(font-lock-doc-face ((t (<span style="color: #006400;">:inherit</span> font-lock-comment-face))))
+ '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"green4"</span>))))
+ '(font-lock-type-face ((((class color) (min-colors 88) (background light)) (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"blue"</span>))))
+ '(font-lock-variable-name-face ((((class color) (min-colors 88) (background light)) (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"darkred"</span>))))
+ '(jabber-chat-prompt-system ((t (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"darkgreen"</span> <span style="color: #006400;">:weight</span> bold))))
+ '(org-hide ((((background light)) (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"grey92"</span>))))
+ '(planner-completed-task-face ((t (<span style="color: #006400;">:strike-through</span> t)))))
 
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-local-alexott.el ends here
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-local-alexott.el ends here
 </span></pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
   </body>
 </html>

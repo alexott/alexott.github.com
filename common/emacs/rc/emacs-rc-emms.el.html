@@ -1,88 +1,44 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in css mode. -->
+<!-- Created by htmlize-1.34 in inline-css mode. -->
 <html>
   <head>
     <title>emacs-rc-emms.el</title>
-    <style type="text/css">
-    <!--
-      body {
-        color: #000000;
-        background-color: #ebebeb;
-      }
-      .comment {
-        /* font-lock-comment-face */
-        color: #666666;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #666666;
-      }
-      .constant {
-        /* font-lock-constant-face */
-        color: #00008b;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #008b00;
-      }
-
-      a {
-        color: inherit;
-        background-color: inherit;
-        font: inherit;
-        text-decoration: inherit;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    -->
-    </style>
   </head>
-  <body>
+  <body style="color: #000000; background-color: #ebebeb;">
     <pre>
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-emms.el --- 
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-emms.el --- 
 </span>
-<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2004 Alex Ott
-</span><span class="comment-delimiter">;;</span><span class="comment">
-</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
-</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+<span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) 2004 Alex Ott
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Author: alexott@gmail.com
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Keywords: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Requirements: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Status: not intended to be distributed yet
 </span>
-(add-to-list 'load-path <span class="string">"/jet/ott/reps/anon/emacs-stuff/emms"</span>)
-(<span class="keyword">require</span> '<span class="constant">emms</span>)
+(add-to-list 'load-path <span style="color: #008b00;">"/jet/ott/reps/anon/emacs-stuff/emms"</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">emms</span>)
 
-(<span class="keyword">require</span> '<span class="constant">emms-default</span>)
-(<span class="keyword">require</span> '<span class="constant">later-do</span>)
-(emms-setup 'advanced <span class="string">"/net/smap1/mmedia/Music/"</span>)
-(<span class="keyword">require</span> '<span class="constant">emms-pbi</span>)
-(<span class="keyword">require</span> '<span class="constant">emms-pbi-mark</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">emms-default</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">later-do</span>)
+(emms-setup 'advanced <span style="color: #008b00;">"/net/smap1/mmedia/Music/"</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">emms-pbi</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">emms-pbi-mark</span>)
 
-<span class="comment-delimiter">;;</span><span class="comment">(add-hook 'emms-player-started-hook 'emms-show)
-</span><span class="comment-delimiter">;;</span><span class="comment">(remove-hook 'emms-player-started-hook 'emms-show)
-</span>(setq emms-show-format <span class="string">"emms now playing: %s"</span>)
+<span style="color: #666666;">;;</span><span style="color: #666666;">(add-hook 'emms-player-started-hook 'emms-show)
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">(remove-hook 'emms-player-started-hook 'emms-show)
+</span>(setq emms-show-format <span style="color: #008b00;">"emms now playing: %s"</span>)
 
-(setq emms-source-file-default-directory <span class="string">"/net/smap1/mmedia/Music/"</span>)
-(setq emms-player-mpg321-parameters '(<span class="string">"-o"</span> <span class="string">"alsa"</span>))
+(setq emms-source-file-default-directory <span style="color: #008b00;">"/net/smap1/mmedia/Music/"</span>)
+(setq emms-player-mpg321-parameters '(<span style="color: #008b00;">"-o"</span> <span style="color: #008b00;">"alsa"</span>))
 
-(global-set-key <span class="string">"\C-cew"</span> 'emms-show)
-(global-set-key <span class="string">"\C-cen"</span> 'emms-next)
-(global-set-key <span class="string">"\C-cep"</span> 'emms-previous)
-(global-set-key <span class="string">"\C-ces"</span> 'emms-stop)
-(global-set-key <span class="string">"\C-cer"</span> 'emms-start)
-(global-set-key <span class="string">"\C-cel"</span> 'emms-pbi)
+(global-set-key <span style="color: #008b00;">"\C-cew"</span> 'emms-show)
+(global-set-key <span style="color: #008b00;">"\C-cen"</span> 'emms-next)
+(global-set-key <span style="color: #008b00;">"\C-cep"</span> 'emms-previous)
+(global-set-key <span style="color: #008b00;">"\C-ces"</span> 'emms-stop)
+(global-set-key <span style="color: #008b00;">"\C-cer"</span> 'emms-start)
+(global-set-key <span style="color: #008b00;">"\C-cel"</span> 'emms-pbi)
 
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-emms.el ends here
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-emms.el ends here
 </span></pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
   </body>
 </html>

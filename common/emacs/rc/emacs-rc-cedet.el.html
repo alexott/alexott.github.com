@@ -17,14 +17,16 @@
 </span>
 (load-file <span style="color: #008b00;">"~/emacs/cedet/common/cedet.el"</span>)
 
-(semantic-load-enable-code-helpers)
-(global-semantic-idle-completions-mode 1)
-(semantic-load-enable-guady-code-helpers)
-
+<span style="color: #666666;">;;</span><span style="color: #666666;">(semantic-load-enable-guady-code-helpers)
+</span>(semantic-load-enable-excessive-code-helpers)
+<span style="color: #666666;">;;</span><span style="color: #666666;">(semantic-load-enable-semantic-debugging-helpers)
+</span>
 (setq senator-minor-mode-name <span style="color: #008b00;">"SN"</span>)
 (setq semantic-imenu-auto-rebuild-directory-indexes nil)
 (global-srecode-minor-mode 1)
 (global-semantic-mru-bookmark-mode 1)
+
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-decorate-include</span>)
 
 <span style="color: #666666;">;; </span><span style="color: #666666;">gcc setup
 </span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-gcc</span>)
@@ -63,11 +65,18 @@
 </span><span style="color: #666666;">;</span><span style="color: #666666;"> (local-set-key "&gt;" 'semantic-complete-self-insert)
 </span>  (local-set-key <span style="color: #008b00;">"\C-ct"</span> 'eassist-switch-h-cpp)
   (local-set-key <span style="color: #008b00;">"\C-xt"</span> 'eassist-switch-h-cpp)
+  (local-set-key <span style="color: #008b00;">"\C-c\C-r"</span> 'semantic-symref)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-cedet-hook)
 
 <span style="color: #666666;">;;</span><span style="color: #666666;">
-</span>(setq-default semanticdb-default-save-directory <span style="color: #008b00;">"~/tmp/semantic"</span>)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">(setq-default semanticdb-default-save-directory "~/tmp/semantic")
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">
+</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semanticdb-global</span>)
+(semanticdb-enable-gnu-global-databases 'c-mode)
+(semanticdb-enable-gnu-global-databases 'c++-mode)
+
 
 (semantic-add-system-include <span style="color: #008b00;">"~/exp/include"</span> 'c++-mode)
 (semantic-add-system-include <span style="color: #008b00;">"~/exp/include"</span> 'c-mode)
@@ -76,32 +85,44 @@
  '(semantic-idle-scheduler-idle-time 10)
 )
 
-<span style="color: #666666;">;; </span><span style="color: #666666;">(semantic-load-enable-all-exuberent-ctags-support)
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">(semantic-enable-exuberent-ctags 'c-mode)
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">(semantic-enable-exuberent-ctags 'c++-mode)
-</span>
+(semantic-load-enable-all-exuberent-ctags-support)
+(semanticdb-enable-exuberent-ctags 'c-mode)
+(semanticdb-enable-exuberent-ctags 'c++-mode)
+
 <span style="color: #666666;">;;; </span><span style="color: #666666;">ede customization
 </span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-lex-spp</span>)
 (global-ede-mode t)
 
 <span style="color: #666666;">;; </span><span style="color: #666666;">cpp-tests project definition
-</span>(ede-cpp-root-project <span style="color: #008b00;">"cpp-tests"</span> <span style="color: #006400;">:file</span> <span style="color: #008b00;">"~/projects/lang-exp/cpp/CMakeLists.</span><span style="color: #cdad00; font-weight: bold; text-decoration: underline;">txt</span><span style="color: #008b00;">"</span>
-                      <span style="color: #006400;">:system-include-path</span> '(<span style="color: #008b00;">"/home/ott/exp/include"</span>
-                                             <span style="color: #008b00;">"/home/ott/exp/include/boost-1_37"</span>))
-(ede-cpp-root-project <span style="color: #008b00;">"text-categorization"</span> <span style="color: #006400;">:file</span> <span style="color: #008b00;">"~/projects/text-categorization/CMakeLists.txt"</span>
-                      <span style="color: #006400;">:system-include-path</span> '(<span style="color: #008b00;">"/home/ott/exp/include"</span>
-                                             <span style="color: #008b00;">"/home/ott/exp/include/boost-1_37"</span>))
-(ede-cpp-root-project <span style="color: #008b00;">"wfilter"</span> <span style="color: #006400;">:file</span> <span style="color: #008b00;">"~/projects/wfilter/README"</span>
+</span>(ede-cpp-root-project <span style="color: #008b00;">"cpp-tests"</span> <span style="color: #006400;">:file</span> <span style="color: #008b00;">"~/projects/lang-exp/cpp/CMakeLists.txt"</span>
                       <span style="color: #006400;">:system-include-path</span> '(<span style="color: #008b00;">"/home/ott/exp/include"</span>
                                              <span style="color: #008b00;">"/home/ott/exp/include/boost-1_37"</span>))
 
+<span style="color: #666666;">;; </span><span style="color: #666666;">to look 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">(setq path-to-makefiles (make-hash-table :test 'eq))
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">(setq cpp-test-prj (ede-cpp-root-project "cpp-tests" :file "~/projects/lang-exp/cpp/CMakeLists.txt"
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">                                        :system-include-path '("/home/ott/exp/include"
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">                                                               "/home/ott/exp/include/boost-1_37"))
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">     )
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">(puthash cpp-test-prj "make -k -C ~/projects/lang-exp/cpp/build" path-to-makefiles)
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">(defun my-compile ()
+</span><span style="color: #666666;">;; </span><span style="color: #666666;"> "compilation using ede projects"
+</span><span style="color: #666666;">;; </span><span style="color: #666666;"> (interactive)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;"> (setq current-dir (file-name-directory (buffer-file-name (current-buffer))))
+</span><span style="color: #666666;">;; </span><span style="color: #666666;"> (setq prj (ede-current-project current-dir))
+</span><span style="color: #666666;">;; </span><span style="color: #666666;"> (when prj
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">   (setq make-cmd (gethash prj path-to-makefiles))
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">   (save-buffer)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">   (save-some-buffers)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">   (compile (format "%s" make-cmd))
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">   )
+</span><span style="color: #666666;">;; </span><span style="color: #666666;"> )
+</span>
 <span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-cedet.el ends here
-</span></pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
+</span>
+</pre>
   </body>
 </html>

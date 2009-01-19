@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in inline-css mode. -->
+<html>
+  <head>
+    <title>register-growl.applescript</title>
+  </head>
+  <body style="color: #000000; background-color: #ebebeb;">
+    <pre>
+-- code is taken from http://growl.info/documentation/applescript-support.php
+tell application <span style="color: #008b00;">"GrowlHelperApp"</span>
+ -- Make a list of all the notification types that this script will ever send:
+ set the allNotificationsList to {<span style="color: #008b00;">"Emacs Notification"</span>}
+
+ -- Make a list of the notifications that will be enabled by default.      
+ -- Those not enabled by default can be enabled later in the 'Applications' tab of the growl prefpane.
+ set the enabledNotificationsList to {<span style="color: #008b00;">"Emacs Notification"</span>}
+
+ -- Register our script with growl.
+ register as application <span style="color: #008b00;">"Aquamacs Emacs"</span> all notifications allNotificationsList default notifications enabledNotificationsList icon of application <span style="color: #008b00;">"Aquamacs Emacs"</span>
+end tell
+</pre>
+  </body>
+</html>

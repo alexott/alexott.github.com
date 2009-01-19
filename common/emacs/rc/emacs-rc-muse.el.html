@@ -1,129 +1,76 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in css mode. -->
+<!-- Created by htmlize-1.34 in inline-css mode. -->
 <html>
   <head>
     <title>emacs-rc-muse.el</title>
-    <style type="text/css">
-    <!--
-      body {
-        color: #000000;
-        background-color: #ebebeb;
-      }
-      .builtin {
-        /* font-lock-builtin-face */
-        color: #006400;
-      }
-      .comment {
-        /* font-lock-comment-face */
-        color: #666666;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #666666;
-      }
-      .constant {
-        /* font-lock-constant-face */
-        color: #00008b;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .negation-char {
-      }
-      .regexp-grouping-backslash {
-        /* font-lock-regexp-grouping-backslash */
-        font-weight: bold;
-      }
-      .regexp-grouping-construct {
-        /* font-lock-regexp-grouping-construct */
-        font-weight: bold;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #008b00;
-      }
-
-      a {
-        color: inherit;
-        background-color: inherit;
-        font: inherit;
-        text-decoration: inherit;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    -->
-    </style>
   </head>
-  <body>
+  <body style="color: #000000; background-color: #ebebeb;">
     <pre>
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-muse.el --- -*- coding: utf-8 -*-
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-muse.el --- -*- coding: utf-8 -*-
 </span>
-<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2006 Alex Ott
-</span><span class="comment-delimiter">;;</span><span class="comment">
-</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
-</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+<span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) 2006 Alex Ott
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Author: alexott@gmail.com
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Keywords: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Requirements: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Status: not intended to be distributed yet
 </span>
-(add-to-list 'load-path <span class="string">"~/emacs/muse"</span>)
-<span class="comment-delimiter">;;</span><span class="comment">(add-to-list 'load-path "~/emacs/planner")
-</span><span class="comment-delimiter">;;</span><span class="comment">(add-to-list 'load-path "~/emacs/remember")
+(add-to-list 'load-path <span style="color: #008b00;">"~/emacs/muse"</span>)
+<span style="color: #666666;">;;</span><span style="color: #666666;">(add-to-list 'load-path "~/emacs/planner")
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">(add-to-list 'load-path "~/emacs/remember")
 </span>
-(<span class="keyword">require</span> '<span class="constant">muse-mode</span>)     <span class="comment-delimiter">; </span><span class="comment">load authoring mode
-</span>(<span class="keyword">require</span> '<span class="constant">muse-html</span>)     <span class="comment-delimiter">; </span><span class="comment">load publishing styles I use
-</span>(<span class="keyword">require</span> '<span class="constant">muse-colors</span>)
-(<span class="keyword">require</span> '<span class="constant">muse-wiki</span>)
-(<span class="keyword">require</span> '<span class="constant">muse-latex</span>)
-(<span class="keyword">require</span> '<span class="constant">muse-texinfo</span>)
-(<span class="keyword">require</span> '<span class="constant">muse-docbook</span>)
-(<span class="keyword">require</span> '<span class="constant">muse-project</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-mode</span>)     <span style="color: #666666;">; </span><span style="color: #666666;">load authoring mode
+</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-html</span>)     <span style="color: #666666;">; </span><span style="color: #666666;">load publishing styles I use
+</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-colors</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-wiki</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-latex</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-texinfo</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-docbook</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-project</span>)
 
-(muse-derive-style <span class="string">"my-page-html"</span> <span class="string">"html"</span>
-                   <span class="builtin">:header</span> <span class="string">"~/projects/my-page-muse/header.tmpl"</span>
-                   <span class="builtin">:footer</span> <span class="string">"~/projects/my-page-muse/footer.tmpl"</span>)
+(muse-derive-style <span style="color: #008b00;">"my-page-html"</span> <span style="color: #008b00;">"html"</span>
+                   <span style="color: #006400;">:header</span> <span style="color: #008b00;">"~/projects/my-page-muse/header.tmpl"</span>
+                   <span style="color: #006400;">:footer</span> <span style="color: #008b00;">"~/projects/my-page-muse/footer.tmpl"</span>)
 
-(muse-derive-style <span class="string">"my-page-pdf"</span> <span class="string">"pdf"</span>
-                   <span class="builtin">:header</span> <span class="string">"~/projects/my-page-muse/header.tex"</span>
-                   <span class="builtin">:footer</span> <span class="string">"~/projects/my-page-muse/footer.tex"</span>)
+(muse-derive-style <span style="color: #008b00;">"my-page-pdf"</span> <span style="color: #008b00;">"pdf"</span>
+                   <span style="color: #006400;">:header</span> <span style="color: #008b00;">"~/projects/my-page-muse/header.tex"</span>
+                   <span style="color: #006400;">:footer</span> <span style="color: #008b00;">"~/projects/my-page-muse/footer.tex"</span>)
 
 (setq muse-project-alist
-      `((<span class="string">"personal-notes"</span>
-         (,@(muse-project-alist-dirs <span class="string">"~/projects/Muse"</span>) <span class="builtin">:default</span> <span class="string">"index"</span>)
-         ,@(muse-project-alist-styles <span class="string">"~/projects/Muse"</span>
-                                      <span class="string">"~/public_html/muse/personal"</span>
-                                      <span class="string">"html"</span>))
-        (<span class="string">"wfilter-muse"</span>     
-         (<span class="string">"~/projects/wfilter/Muse"</span> <span class="builtin">:default</span> <span class="string">"index"</span>)
-         (<span class="builtin">:base</span> <span class="string">"html"</span> <span class="builtin">:path</span> <span class="string">"~/public_html/muse/wfilter"</span>))
-        (<span class="string">"squid-gsb-muse"</span>     
-         (<span class="string">"~/projects/squid-gsb/Muse"</span> <span class="builtin">:default</span> <span class="string">"index"</span>)
-         (<span class="builtin">:base</span> <span class="string">"html"</span> <span class="builtin">:path</span> <span class="string">"~/public_html/muse/squid-gsb"</span>))
-        (<span class="string">"my-page-project"</span>
-         (,@(muse-project-alist-dirs <span class="string">"~/projects/my-page-muse"</span>) <span class="builtin">:default</span> <span class="string">"index"</span>)
-         ,@(muse-project-alist-styles <span class="string">"~/projects/my-page-muse"</span>
-                                      <span class="string">"~/projects/my-page-muse"</span>
-                                      <span class="string">"my-page-html"</span>)
-         (<span class="builtin">:base</span> <span class="string">"my-page-pdf"</span>
-                <span class="builtin">:path</span> <span class="string">"~/projects/my-page-muse/en"</span>
-                <span class="builtin">:include</span> <span class="string">"/alexott-cv-en[</span><span class="string"><span class="negation-char">^</span></span><span class="string">/]*$"</span>)
-         (<span class="builtin">:base</span> <span class="string">"my-page-pdf"</span>
-                <span class="builtin">:path</span> <span class="string">"~/projects/my-page-muse/ru"</span>
-                <span class="builtin">:include</span> <span class="string">"/alexott-cv-ru[</span><span class="string"><span class="negation-char">^</span></span><span class="string">/]*$"</span>))
+      `((<span style="color: #008b00;">"personal-notes"</span>
+         (,@(muse-project-alist-dirs <span style="color: #008b00;">"~/projects/Muse"</span>) <span style="color: #006400;">:default</span> <span style="color: #008b00;">"index"</span>)
+         ,@(muse-project-alist-styles <span style="color: #008b00;">"~/projects/Muse"</span>
+                                      <span style="color: #008b00;">"~/public_html/muse/personal"</span>
+                                      <span style="color: #008b00;">"html"</span>))
+<span style="color: #666666;">;;; </span><span style="color: #666666;">        ("wfilter-muse"     
+</span><span style="color: #666666;">;;; </span><span style="color: #666666;">         ("~/projects/wfilter/Muse" :default "index")
+</span><span style="color: #666666;">;;; </span><span style="color: #666666;">         (:base "html" :path "~/public_html/muse/wfilter"))
+</span><span style="color: #666666;">;;; </span><span style="color: #666666;">        ("squid-gsb-muse"     
+</span><span style="color: #666666;">;;; </span><span style="color: #666666;">         ("~/projects/squid-gsb/Muse" :default "index")
+</span><span style="color: #666666;">;;; </span><span style="color: #666666;">         (:base "html" :path "~/public_html/muse/squid-gsb"))
+</span><span style="color: #666666;">;;; </span><span style="color: #666666;">        ("as-muse"      
+</span><span style="color: #666666;">;;; </span><span style="color: #666666;">         ("~/projects/archive-system/Muse" :default "index")
+</span><span style="color: #666666;">;;; </span><span style="color: #666666;">         (:base "html" :path "~/public_html/muse/archive-system"))
+</span>        (<span style="color: #008b00;">"my-page-project"</span>
+         (,@(muse-project-alist-dirs <span style="color: #008b00;">"~/projects/my-page-muse"</span>) <span style="color: #006400;">:default</span> <span style="color: #008b00;">"index"</span>)
+         ,@(muse-project-alist-styles <span style="color: #008b00;">"~/projects/my-page-muse"</span>
+                                      <span style="color: #008b00;">"~/projects/my-page-muse"</span>
+                                      <span style="color: #008b00;">"my-page-html"</span>)
+         (<span style="color: #006400;">:base</span> <span style="color: #008b00;">"my-page-pdf"</span>
+                <span style="color: #006400;">:path</span> <span style="color: #008b00;">"~/projects/my-page-muse/en"</span>
+                <span style="color: #006400;">:include</span> <span style="color: #008b00;">"/alexott-cv-en[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">/]*$"</span>)
+         (<span style="color: #006400;">:base</span> <span style="color: #008b00;">"my-page-pdf"</span>
+                <span style="color: #006400;">:path</span> <span style="color: #008b00;">"~/projects/my-page-muse/ru"</span>
+                <span style="color: #006400;">:include</span> <span style="color: #008b00;">"/alexott-cv-ru[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">/]*$"</span>))
         ))
 
-(add-to-list 'auto-mode-alist '(<span class="string">"\\.muse$"</span> . muse-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.muse$"</span> . muse-mode))
 
-<span class="comment-delimiter">;;</span><span class="comment">(add-to-list 'file-coding-system-alist (cons "/Muse/"  'utf-8))
-</span>(add-to-list 'file-coding-system-alist (cons <span class="string">"/my-page-muse/"</span>  'utf-8))
-(add-to-list 'file-coding-system-alist (cons <span class="string">"\\.muse$"</span>  'utf-8))
+<span style="color: #666666;">;;</span><span style="color: #666666;">(add-to-list 'file-coding-system-alist (cons "/Muse/"  'utf-8))
+</span>(add-to-list 'file-coding-system-alist (cons <span style="color: #008b00;">"/my-page-muse/"</span>  'utf-8))
+(add-to-list 'file-coding-system-alist (cons <span style="color: #008b00;">"\\.muse$"</span>  'utf-8))
 
-(<span class="keyword">defun</span> <span class="function-name">muse-gen-relative-name</span> (name)
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">muse-gen-relative-name</span> (name)
   (concat
    (file-name-directory (muse-wiki-resolve-project-page (muse-project)))
    name))
@@ -131,239 +78,286 @@
 (custom-set-variables
  '(muse-html-encoding-default (quote utf-8))
  '(muse-html-meta-content-encoding (quote utf-8))
- '(muse-html-charset-default <span class="string">"utf-8"</span>)
- '(muse-file-extension <span class="string">"muse"</span>)
+ '(muse-html-charset-default <span style="color: #008b00;">"utf-8"</span>)
+ '(muse-file-extension <span style="color: #008b00;">"muse"</span>)
  '(muse-mode-auto-p nil)
  '(muse-wiki-allow-nonexistent-wikiword nil)
  '(muse-wiki-use-wikiword nil)
- '(muse-html-footer <span class="string">"~/emacs/muse/templates/footer.html"</span>)
- '(muse-html-header <span class="string">"~/emacs/muse/templates/header.html"</span>)
- '(muse-latex-footer <span class="string">"~/emacs/muse/templates/footer.tex"</span>)
- '(muse-latex-header <span class="string">"~/emacs/muse/templates/header.tex"</span>)
+ '(muse-html-footer <span style="color: #008b00;">"~/emacs/muse/templates/footer.html"</span>)
+ '(muse-html-header <span style="color: #008b00;">"~/emacs/muse/templates/header.html"</span>)
+ '(muse-latex-footer <span style="color: #008b00;">"~/emacs/muse/templates/footer.tex"</span>)
+ '(muse-latex-header <span style="color: #008b00;">"~/emacs/muse/templates/header.tex"</span>)
  '(muse-html-style-sheet
-   <span class="string">"&lt;link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"screen,projection\" href=\"web.css\"&gt;
+   <span style="color: #008b00;">"&lt;link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"screen,projection\" href=\"web.css\"&gt;
     &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"print.css\" media=\"print\"&gt;"</span>)
- '(muse-ignored-extensions (quote (<span class="string">"bz2"</span> <span class="string">"gz"</span> <span class="string">"[Zz]"</span> <span class="string">"rej"</span> <span class="string">"orig"</span> <span class="string">"png"</span> <span class="string">"hgignore"</span> <span class="string">"gif"</span>
-                                   <span class="string">"css"</span> <span class="string">"jpg"</span> <span class="string">"html"</span> <span class="string">"sh"</span> <span class="string">"lftp"</span> <span class="string">"pdf"</span>)))
+ '(muse-ignored-extensions (quote (<span style="color: #008b00;">"bz2"</span> <span style="color: #008b00;">"gz"</span> <span style="color: #008b00;">"[Zz]"</span> <span style="color: #008b00;">"rej"</span> <span style="color: #008b00;">"orig"</span> <span style="color: #008b00;">"png"</span> <span style="color: #008b00;">"hgignore"</span> <span style="color: #008b00;">"gif"</span>
+                                   <span style="color: #008b00;">"css"</span> <span style="color: #008b00;">"jpg"</span> <span style="color: #008b00;">"html"</span> <span style="color: #008b00;">"sh"</span> <span style="color: #008b00;">"lftp"</span> <span style="color: #008b00;">"pdf"</span>)))
 )
 
-(<span class="keyword">defun</span> <span class="function-name">my-muse-mode-hook</span> ()
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-muse-mode-hook</span> ()
   (setq auto-fill-mode t)
   (footnote-mode 1)
+  (local-set-key <span style="color: #008b00;">"\C-c:"</span> 'uncomment-region)
+  (local-set-key <span style="color: #008b00;">"\C-c;"</span> 'comment-region)
+  (local-set-key <span style="color: #008b00;">"\C-c\C-c"</span> 'comment-region)
   )
 (add-hook 'muse-mode-hook 'my-muse-mode-hook)
+(add-hook 'muse-mode-hook 'turn-on-flyspell)
 
-<span class="comment-delimiter">;;;;; </span><span class="comment">for my page
+<span style="color: #666666;">;;;;; </span><span style="color: #666666;">for my page
 </span>
-<span class="comment-delimiter">; </span><span class="comment">variable buffer-file-name - contain name of the current buffer
+<span style="color: #666666;">; </span><span style="color: #666666;">variable buffer-file-name - contain name of the current buffer
 </span>
-(setq my-page-menu '((<span class="string">"ru"</span> . (
-                               (<span class="string">"index.html"</span> . <span class="string">"&#1043;&#1083;&#1072;&#1074;&#1085;&#1072;&#1103;"</span>)
-                               (<span class="string">"cf/"</span> . <span class="string">"&#1048;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1086;&#1085;&#1085;&#1072;&#1103; &#1073;&#1077;&#1079;&#1086;&#1087;&#1072;&#1089;&#1085;&#1086;&#1089;&#1090;&#1100;"</span>)
-                               (<span class="string">"fp/"</span> . <span class="string">"&#1060;&#1091;&#1085;&#1082;&#1094;&#1080;&#1086;&#1085;&#1072;&#1083;&#1100;&#1085;&#1086;&#1077; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077;"</span>)
-                               (<span class="string">"scheme/"</span> . <span class="string">"Scheme"</span>)
-                               (<span class="string">"lisp/"</span> . <span class="string">"Lisp"</span>)
-                               (<span class="string">"cpp/"</span> . <span class="string">"C++"</span>)
-                               (<span class="string">"oss/"</span> . <span class="string">"Open Source Projects"</span>)
-                               (<span class="string">"emacs/"</span> . <span class="string">"Emacs"</span>)
-                               (<span class="string">"writings/"</span> . <span class="string">"&#1057;&#1090;&#1072;&#1090;&#1100;&#1080;"</span>)
-<span class="comment-delimiter">;;</span><span class="comment">                               ("" . "")
+(setq my-page-menu '((<span style="color: #008b00;">"ru"</span> . (
+                               (<span style="color: #008b00;">"index.html"</span> . <span style="color: #008b00;">"&#1043;&#1083;&#1072;&#1074;&#1085;&#1072;&#1103;"</span>)
+                               (<span style="color: #008b00;">"cf/"</span> . <span style="color: #008b00;">"&#1048;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1086;&#1085;&#1085;&#1072;&#1103; &#1073;&#1077;&#1079;&#1086;&#1087;&#1072;&#1089;&#1085;&#1086;&#1089;&#1090;&#1100;"</span>)
+                               (<span style="color: #008b00;">"fp/"</span> . <span style="color: #008b00;">"&#1060;&#1091;&#1085;&#1082;&#1094;&#1080;&#1086;&#1085;&#1072;&#1083;&#1100;&#1085;&#1086;&#1077; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077;"</span>)
+                               (<span style="color: #008b00;">"scheme/"</span> . <span style="color: #008b00;">"Scheme"</span>)
+                               (<span style="color: #008b00;">"lisp/"</span> . <span style="color: #008b00;">"Lisp"</span>)
+                               (<span style="color: #008b00;">"erlang/"</span> . <span style="color: #008b00;">"Erlang"</span>)
+                               (<span style="color: #008b00;">"cpp/"</span> . <span style="color: #008b00;">"C++"</span>)
+                               (<span style="color: #008b00;">"oss/"</span> . <span style="color: #008b00;">"Open Source Projects"</span>)
+                               (<span style="color: #008b00;">"emacs/"</span> . <span style="color: #008b00;">"Emacs"</span>)
+                               (<span style="color: #008b00;">"writings/"</span> . <span style="color: #008b00;">"&#1057;&#1090;&#1072;&#1090;&#1100;&#1080;"</span>)
+                               (<span style="color: #008b00;">"macosx/"</span> . <span style="color: #008b00;">"Mac OS X"</span>)
+                               (<span style="color: #008b00;">"news/"</span> . <span style="color: #008b00;">"&#1053;&#1086;&#1074;&#1086;&#1089;&#1090;&#1080;"</span>)
+<span style="color: #666666;">;;; </span><span style="color: #666666;">("" . "")
+</span><span style="color: #666666;">;;; </span><span style="color: #666666;">("" . "")
 </span>                               ))
-                     (<span class="string">"en"</span> . (
-                               (<span class="string">"index.html"</span> . <span class="string">"Main"</span>)
-                               (<span class="string">"cf/"</span> . <span class="string">"Information Security"</span>)
-                               (<span class="string">"fp/"</span> . <span class="string">"Functional programming"</span>)
-<span class="comment-delimiter">;;</span><span class="comment">                               ("lisp/" . "Lisp")
-</span>                               (<span class="string">"cpp/"</span> . <span class="string">"C++"</span>)
-                               (<span class="string">"oss/"</span> . <span class="string">"Open Source Projects"</span>)
-                               (<span class="string">"emacs/"</span> . <span class="string">"Emacs"</span>)
-                               (<span class="string">"writings/"</span> . <span class="string">"Articles"</span>)
-<span class="comment-delimiter">;;</span><span class="comment">                               ("" . "")
+                     (<span style="color: #008b00;">"en"</span> . (
+                               (<span style="color: #008b00;">"index.html"</span> . <span style="color: #008b00;">"Main"</span>)
+                               (<span style="color: #008b00;">"cf/"</span> . <span style="color: #008b00;">"Information Security"</span>)
+                               (<span style="color: #008b00;">"fp/"</span> . <span style="color: #008b00;">"Functional programming"</span>)
+<span style="color: #666666;">;;;</span><span style="color: #666666;">                              ("lisp/" . "Lisp")
+</span>                               (<span style="color: #008b00;">"cpp/"</span> . <span style="color: #008b00;">"C++"</span>)
+                               (<span style="color: #008b00;">"oss/"</span> . <span style="color: #008b00;">"Open Source Projects"</span>)
+                               (<span style="color: #008b00;">"emacs/"</span> . <span style="color: #008b00;">"Emacs"</span>)
+                               (<span style="color: #008b00;">"writings/"</span> . <span style="color: #008b00;">"Articles"</span>)
+                               (<span style="color: #008b00;">"news/"</span> . <span style="color: #008b00;">"Site news"</span>)
+<span style="color: #666666;">;;;</span><span style="color: #666666;">                              ("" . "")
 </span>                               ))
                      ))
 
-(<span class="keyword">defun</span> <span class="function-name">muse-mp-detect-language</span> ()
-  (<span class="keyword">let</span> ((lang <span class="string">"NN"</span>)
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">muse-mp-detect-language</span> ()
+  (<span style="color: #a020f0;">let</span> ((lang <span style="color: #008b00;">"NN"</span>)
         (cur-dir (file-name-directory (muse-current-file)))
         )
-    (<span class="keyword">let</span> ((smatch (string-match <span class="string">"/</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">ru</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">|</span></span><span class="string">en</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">|</span></span><span class="string">de</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">/"</span> cur-dir)))
-      (<span class="keyword">when</span> smatch
+    (<span style="color: #a020f0;">let</span> ((smatch (string-match <span style="color: #008b00;">"/</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">ru</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">|</span><span style="color: #008b00;">en</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">|</span><span style="color: #008b00;">de</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">/"</span> cur-dir)))
+      (<span style="color: #a020f0;">when</span> smatch
         (setq lang (substring cur-dir (+ smatch 1) (+ smatch 3)))))
     lang))
 
-(<span class="keyword">defun</span> <span class="function-name">muse-mp-generate-menu</span> ()
-  (<span class="keyword">let*</span> ((menu-lang (muse-mp-detect-language))
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">muse-mp-generate-menu</span> ()
+  (<span style="color: #a020f0;">let*</span> ((menu-lang (muse-mp-detect-language))
          (menu-struct (assoc menu-lang my-page-menu))
-         (menu-string <span class="string">""</span>)
+         (menu-string <span style="color: #008b00;">""</span>)
          (rel-dir (file-name-directory (muse-wiki-resolve-project-page (muse-project))))
-         (rel-path (<span class="keyword">if</span> (&gt; (length rel-dir) 2)  (substring rel-dir 3) <span class="string">""</span>))
+         (rel-path (<span style="color: #a020f0;">if</span> (&gt; (length rel-dir) 2)  (substring rel-dir 3) <span style="color: #008b00;">""</span>))
          (cur-path-muse (muse-current-file))
-         (cur-path-html (replace-regexp-in-string <span class="string">"\\.muse"</span> <span class="string">".html"</span> cur-path-muse))
+         (cur-path-html (replace-regexp-in-string <span style="color: #008b00;">"\\.muse"</span> <span style="color: #008b00;">".html"</span> cur-path-muse))
          )
-      (<span class="keyword">when</span> menu-struct
-        (<span class="keyword">let</span> ((menu-list (<span class="keyword">if</span> (not (null menu-struct)) (cdr menu-struct))))
+      (<span style="color: #a020f0;">when</span> menu-struct
+        (<span style="color: #a020f0;">let</span> ((menu-list (<span style="color: #a020f0;">if</span> (not (null menu-struct)) (cdr menu-struct))))
           (setq menu-string
-                (concat <span class="string">"&lt;ul class=\"avmenu\"&gt;"</span>
+                (concat <span style="color: #008b00;">"&lt;ul class=\"avmenu\"&gt;"</span>
                         (apply #'concat 
                                (mapcar
-                                (<span class="keyword">lambda</span> (x)
-                                  (concat <span class="string">"&lt;li&gt;&lt;a href=\""</span> rel-path (car x)
-                                          (<span class="keyword">if</span> (string-match (concat <span class="string">"/"</span> menu-lang <span class="string">"/"</span> (car x))
+                                (<span style="color: #a020f0;">lambda</span> (x)
+                                  (concat <span style="color: #008b00;">"&lt;li&gt;&lt;a href=\""</span> rel-path (car x)
+                                          (<span style="color: #a020f0;">if</span> (string-match (concat <span style="color: #008b00;">"/"</span> menu-lang <span style="color: #008b00;">"/"</span> (car x))
                                                             cur-path-html)
-                                              <span class="string">"\" class=\"current\""</span>
-                                            <span class="string">"\""</span>)
-                                          <span class="string">"&gt;"</span> (cdr x) <span class="string">"&lt;/a&gt;&lt;/li&gt;"</span>))
+                                              <span style="color: #008b00;">"\" class=\"current\""</span>
+                                            <span style="color: #008b00;">"\""</span>)
+                                          <span style="color: #008b00;">"&gt;"</span> (cdr x) <span style="color: #008b00;">"&lt;/a&gt;&lt;/li&gt;"</span>))
                                 menu-list))
-                        <span class="string">"&lt;/ul&gt;"</span>))))
+                        <span style="color: #008b00;">"&lt;/ul&gt;"</span>))))
       menu-string))
 
 
-<span class="comment-delimiter">;;;;; </span><span class="comment">for docbook quick-conversion
+<span style="color: #666666;">;;;;; </span><span style="color: #666666;">for docbook quick-conversion
 </span>
 (setq my-muse-docbook-replacements
       '(
-        (<span class="string">"&lt;/?para&gt;"</span> . <span class="string">""</span>)
-        (<span class="string">"&lt;/?section&gt;"</span> . <span class="string">""</span>)
-        (<span class="string">"&lt;/?orderedlist&gt;"</span> . <span class="string">""</span>)
-        (<span class="string">"&lt;/?itemizedlist&gt;"</span> . <span class="string">""</span>)
-        (<span class="string">"&lt;/?glossdef&gt;"</span> . <span class="string">""</span>)
-        (<span class="string">"&lt;/?glossentry&gt;"</span> . <span class="string">""</span>)
-        (<span class="string">"&lt;/?glosslist&gt;"</span> . <span class="string">""</span>)
-        (<span class="string">"&amp;mdash;"</span> . <span class="string">" -- "</span>)
-        (<span class="string">"&amp;EMACS;"</span> . <span class="string">"Emacs"</span>)
-        (<span class="string">"&amp;GNUEMACS;"</span> . <span class="string">"GNU Emacs"</span>)
-        (<span class="string">"&amp;XEMACS;"</span> . <span class="string">"XEmacs"</span>)
-        (<span class="string">"&lt;quote&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/quote&gt;"</span> . <span class="string">"\"\\1\""</span>)
-        (<span class="string">"&lt;ulink\\s *url=\"</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">\"]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">\"&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/ulink&gt;"</span> . <span class="string">"[[\\1][\\2]]"</span>)
-        (<span class="string">"&lt;filename&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/filename&gt;"</span> . <span class="string">"=\\1="</span>)
-        (<span class="string">"&lt;command&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/command&gt;"</span> . <span class="string">"=\\1="</span>)
-        (<span class="string">"&lt;option&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/option&gt;"</span> . <span class="string">"=\\1="</span>)
-        (<span class="string">"&lt;varname&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/varname&gt;"</span> . <span class="string">"=\\1="</span>)
-        (<span class="string">"&lt;application&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/application&gt;"</span> . <span class="string">"*\\1*"</span>)
-        (<span class="string">"&lt;literal&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/literal&gt;"</span> . <span class="string">"=\\1="</span>)
-        (<span class="string">"&lt;keycap&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/keycap&gt;"</span> . <span class="string">"=\\1="</span>)
-        (<span class="string">"&lt;function&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/function&gt;"</span> . <span class="string">"=\\1="</span>)
-        (<span class="string">"^\\s *&lt;title[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&gt;]*&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/title&gt;"</span> . <span class="string">"* \\1"</span>)
-        (<span class="string">"&lt;acronym&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/acronym&gt;"</span> . <span class="string">"*\\1*"</span>)
-        (<span class="string">"&lt;keycombo&gt;\\s *&lt;keysym&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/keysym&gt;\\s *&lt;keysym&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/keysym&gt;\\s *&lt;/keycombo&gt;"</span> . <span class="string">"\\1-\\2"</span>)
-        (<span class="string">"&lt;keysym&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/keysym&gt;"</span> . <span class="string">"\\1"</span>)
-        (<span class="string">"&lt;computeroutput&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/computeroutput&gt;"</span> . <span class="string">"=\\1="</span>)
-        (<span class="string">"&lt;emphasis&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/emphasis&gt;"</span> . <span class="string">"*\\1*"</span>)
-        (<span class="string">"&lt;glossterm&gt;</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[</span><span class="string"><span class="negation-char">^</span></span><span class="string">&lt;]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">&lt;/glossterm&gt;"</span> . <span class="string">"\\1 :: "</span>)
-        <span class="comment-delimiter">;;  </span><span class="comment">        ("&lt;&gt;\\([</span><span class="comment"><span class="negation-char">^</span></span><span class="comment">&lt;]*\\)&lt;/&gt;" . "\\1")
-</span>        <span class="comment-delimiter">;;  </span><span class="comment">        ("&lt;&gt;\\([</span><span class="comment"><span class="negation-char">^</span></span><span class="comment">&lt;]*\\)&lt;/&gt;" . "\\1")
-</span>        (<span class="string">"&lt;screen&gt;"</span> . <span class="string">"&lt;src lang=\"emacs-lisp\"&gt;"</span>)
-        (<span class="string">"&lt;/screen&gt;"</span> . <span class="string">"&lt;/src&gt;"</span>)
-        (<span class="string">"&amp;lt;"</span> . <span class="string">"&lt;"</span>)                  <span class="comment-delimiter">;</span><span class="comment">
-</span>        (<span class="string">"&amp;gt;"</span> . <span class="string">"&gt;"</span>)
-        (<span class="string">"&amp;amp;"</span> . <span class="string">"&amp;"</span>)
-        (<span class="string">"^\\s *&lt;listitem&gt;"</span> . <span class="string">" - "</span>)
-        (<span class="string">"&amp;nbsp;"</span> . <span class="string">" "</span>)
-        (<span class="string">"&lt;/listitem&gt;"</span> . <span class="string">""</span>)
-        (<span class="string">"&amp;quot;"</span> . <span class="string">"\""</span>)                 
-        <span class="comment-delimiter">;; </span><span class="comment">       ("" . "")
-</span>        <span class="comment-delimiter">;; </span><span class="comment">       ("" . "")
-</span>        (<span class="string">"&amp;PSGML;"</span> . <span class="string">"*PSGML*"</span>)
-        (<span class="string">"&amp;NXML;"</span> . <span class="string">"*nXML*"</span>)
-        (<span class="string">"&amp;RCS;"</span> . <span class="string">"*RCS*"</span>)
-        (<span class="string">"&amp;VSS;"</span> . <span class="string">"*Visual SourceSafe*"</span>)
-        (<span class="string">"&amp;CVS;"</span> . <span class="string">"*CVS*"</span>)
-        (<span class="string">"&amp;MCVS;"</span> . <span class="string">"*MetaCVS*"</span>)
-        (<span class="string">"&amp;SCCS;"</span> . <span class="string">"*SCCS*"</span>)
-        (<span class="string">"&amp;GNUARCH;"</span> . <span class="string">"*GNU Arch*"</span>)
-        (<span class="string">"&amp;BAZAAR;"</span> . <span class="string">"*Bazaar*"</span>)
-        (<span class="string">"&amp;SUBVERSION;"</span> . <span class="string">"*Subversion*"</span>)
-        (<span class="string">"&amp;DARCS;"</span> . <span class="string">"*Darcs*"</span>)
-        (<span class="string">"&amp;CLEARCASE;"</span> . <span class="string">"*ClearCase*"</span>)
-        (<span class="string">"&amp;SOURCESAFE;"</span> . <span class="string">"*SourceSafe*"</span>)
-        (<span class="string">"&amp;BITKEEPER;"</span> . <span class="string">"*BitKeeper*"</span>)
-        (<span class="string">"&amp;AEGIS;"</span> . <span class="string">"*Aegis*"</span>)
-        (<span class="string">"&amp;PERFORCE;"</span> . <span class="string">"*Perforce*"</span>)
-        (<span class="string">"&amp;MONOTONE;"</span> . <span class="string">"*Monotone*"</span>)
-        (<span class="string">"&amp;GIT;"</span> . <span class="string">"*Git*"</span>)
-        (<span class="string">"&amp;DVC;"</span> . <span class="string">"*dvc*"</span>)
-        (<span class="string">"&amp;BAZAARNG;"</span> . <span class="string">"*Bazaar-NG*"</span>)
-        (<span class="string">"&amp;MERCURIAL;"</span> . <span class="string">"*Mercurial*"</span>)
-        (<span class="string">"&amp;MERCURIALEL;"</span> . <span class="string">"*mercurial.el*"</span>)
-        (<span class="string">"&amp;VC;"</span> . <span class="string">"*VC*"</span>)
-        (<span class="string">"&amp;DVC;"</span> . <span class="string">"*DVC*"</span>)
-        (<span class="string">"&amp;P4;"</span> . <span class="string">"*p4*"</span>)
-        (<span class="string">"&amp;BK;"</span> . <span class="string">"*bk*"</span>)
-        (<span class="string">"&amp;CLEARCASEEL;"</span> . <span class="string">"*clearcase*"</span>)
-        (<span class="string">"&amp;PCLCVS;"</span> . <span class="string">"*PCL-CVS*"</span>)
-        (<span class="string">"&amp;XTLA;"</span> . <span class="string">"*xtla*"</span>)
-        (<span class="string">"&amp;DARCSUM;"</span> . <span class="string">"*darcsum*"</span>)
-        (<span class="string">"&amp;PSVN;"</span> . <span class="string">"*PSVN*"</span>)
-        (<span class="string">"&amp;SSEL;"</span> . <span class="string">"*source-safe.el*"</span>)
-        (<span class="string">"&amp;AEGISMODE;"</span> . <span class="string">"*aegis-mode*"</span>)
-        (<span class="string">"&amp;MONOTONEEL;"</span> . <span class="string">"*monotone.el*"</span>)
-        (<span class="string">"&amp;GITEL;"</span> . <span class="string">"*git.el*"</span>)
-        (<span class="string">"&amp;ELGYACH;"</span> . <span class="string">"*ElGyach*"</span>)
-        (<span class="string">"&amp;TNT;"</span> . <span class="string">"*TNT*"</span>)
-        (<span class="string">"&amp;JABBEREL;"</span> . <span class="string">"*Jabber.el*"</span>)
-        (<span class="string">"&amp;ERC;"</span> . <span class="string">"*Erc*"</span>)
-        (<span class="string">"&amp;RCIRC;"</span> . <span class="string">"*Rcirc*"</span>)
-        (<span class="string">"&amp;EDIFF;"</span> . <span class="string">"*Ediff*"</span>)
-        (<span class="string">"&amp;EMERGE;"</span> . <span class="string">"*Emerge*"</span>)
-        (<span class="string">"&amp;GNUS;"</span> . <span class="string">"*Gnus*"</span>)
-        (<span class="string">"&amp;RMAIL;"</span> . <span class="string">"*Rmail*"</span>)
-        (<span class="string">"&amp;MAILCRYPT;"</span> . <span class="string">"*Mailcrypt*"</span>)
-        (<span class="string">"&amp;SUPERCITE;"</span> . <span class="string">"*Supercite*"</span>)
-        (<span class="string">"&amp;AUCTEX;"</span> . <span class="string">"*AUCTeX*"</span>)
-        (<span class="string">"&amp;TEXMODE;"</span> . <span class="string">"*TeX-mode*"</span>)
-        (<span class="string">"&amp;REFTEX;"</span> . <span class="string">"*RefTeX*"</span>)
-        (<span class="string">"&amp;PLATEX;"</span> . <span class="string">"*Preview-LaTeX*"</span>)
-        (<span class="string">"&amp;BIBTEXMODE;"</span> . <span class="string">"*bibtex*"</span>)
-        (<span class="string">"&amp;ITE;"</span> . <span class="string">"*iTe*"</span>)
-        (<span class="string">"&amp;YATEX;"</span> . <span class="string">"*yatex*"</span>)
-        (<span class="string">"&amp;XSYMBOL;"</span> . <span class="string">"*X-Symbol*"</span>)
-        (<span class="string">"&amp;LSYMBOLS;"</span> . <span class="string">"*latex-symbols*"</span>)
-        (<span class="string">"&amp;WHIZZYTEX;"</span> . <span class="string">"*WhizzyTeX*"</span>)
-        (<span class="string">"&amp;TEX;"</span> . <span class="string">"TeX"</span>)
-        (<span class="string">"&amp;LATEX;"</span> . <span class="string">"LaTeX"</span>)
+        (<span style="color: #008b00;">"&lt;/?para&gt;"</span> . <span style="color: #008b00;">""</span>)
+        (<span style="color: #008b00;">"&lt;/?section&gt;"</span> . <span style="color: #008b00;">""</span>)
+        (<span style="color: #008b00;">"&lt;/?orderedlist&gt;"</span> . <span style="color: #008b00;">""</span>)
+        (<span style="color: #008b00;">"&lt;/?itemizedlist&gt;"</span> . <span style="color: #008b00;">""</span>)
+        (<span style="color: #008b00;">"&lt;/?glossdef&gt;"</span> . <span style="color: #008b00;">""</span>)
+        (<span style="color: #008b00;">"&lt;/?glossentry&gt;"</span> . <span style="color: #008b00;">""</span>)
+        (<span style="color: #008b00;">"&lt;/?glosslist&gt;"</span> . <span style="color: #008b00;">""</span>)
+        (<span style="color: #008b00;">"&amp;mdash;"</span> . <span style="color: #008b00;">" -- "</span>)
+        (<span style="color: #008b00;">"&amp;EMACS;"</span> . <span style="color: #008b00;">"Emacs"</span>)
+        (<span style="color: #008b00;">"&amp;GNUEMACS;"</span> . <span style="color: #008b00;">"GNU Emacs"</span>)
+        (<span style="color: #008b00;">"&amp;XEMACS;"</span> . <span style="color: #008b00;">"XEmacs"</span>)
+        (<span style="color: #008b00;">"&lt;quote&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/quote&gt;"</span> . <span style="color: #008b00;">"\"\\1\""</span>)
+        (<span style="color: #008b00;">"&lt;ulink\\s *url=\"</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">\"]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\"&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/ulink&gt;"</span> . <span style="color: #008b00;">"[[\\1][\\2]]"</span>)
+        (<span style="color: #008b00;">"&lt;filename&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/filename&gt;"</span> . <span style="color: #008b00;">"=\\1="</span>)
+        (<span style="color: #008b00;">"&lt;command&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/command&gt;"</span> . <span style="color: #008b00;">"=\\1="</span>)
+        (<span style="color: #008b00;">"&lt;option&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/option&gt;"</span> . <span style="color: #008b00;">"=\\1="</span>)
+        (<span style="color: #008b00;">"&lt;varname&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/varname&gt;"</span> . <span style="color: #008b00;">"=\\1="</span>)
+        (<span style="color: #008b00;">"&lt;application&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/application&gt;"</span> . <span style="color: #008b00;">"*\\1*"</span>)
+        (<span style="color: #008b00;">"&lt;literal&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/literal&gt;"</span> . <span style="color: #008b00;">"=\\1="</span>)
+        (<span style="color: #008b00;">"&lt;keycap&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/keycap&gt;"</span> . <span style="color: #008b00;">"=\\1="</span>)
+        (<span style="color: #008b00;">"&lt;function&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/function&gt;"</span> . <span style="color: #008b00;">"=\\1="</span>)
+        (<span style="color: #008b00;">"^\\s *&lt;title[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&gt;]*&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/title&gt;"</span> . <span style="color: #008b00;">"* \\1"</span>)
+        (<span style="color: #008b00;">"&lt;acronym&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/acronym&gt;"</span> . <span style="color: #008b00;">"*\\1*"</span>)
+        (<span style="color: #008b00;">"&lt;keycombo&gt;\\s *&lt;keysym&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/keysym&gt;\\s *&lt;keysym&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/keysym&gt;\\s *&lt;/keycombo&gt;"</span> . <span style="color: #008b00;">"\\1-\\2"</span>)
+        (<span style="color: #008b00;">"&lt;keysym&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/keysym&gt;"</span> . <span style="color: #008b00;">"\\1"</span>)
+        (<span style="color: #008b00;">"&lt;computeroutput&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/computeroutput&gt;"</span> . <span style="color: #008b00;">"=\\1="</span>)
+        (<span style="color: #008b00;">"&lt;emphasis&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/emphasis&gt;"</span> . <span style="color: #008b00;">"*\\1*"</span>)
+        (<span style="color: #008b00;">"&lt;glossterm&gt;</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">&lt;]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">&lt;/glossterm&gt;"</span> . <span style="color: #008b00;">"\\1 :: "</span>)
+        <span style="color: #666666;">;;  </span><span style="color: #666666;">        ("&lt;&gt;\\([</span><span style="color: #666666;">^</span><span style="color: #666666;">&lt;]*\\)&lt;/&gt;" . "\\1")
+</span>        <span style="color: #666666;">;;  </span><span style="color: #666666;">        ("&lt;&gt;\\([</span><span style="color: #666666;">^</span><span style="color: #666666;">&lt;]*\\)&lt;/&gt;" . "\\1")
+</span>        (<span style="color: #008b00;">"&lt;screen&gt;"</span> . <span style="color: #008b00;">"&lt;src lang=\"emacs-lisp\"&gt;"</span>)
+        (<span style="color: #008b00;">"&lt;/screen&gt;"</span> . <span style="color: #008b00;">"&lt;/src&gt;"</span>)
+        (<span style="color: #008b00;">"&amp;lt;"</span> . <span style="color: #008b00;">"&lt;"</span>)                  <span style="color: #666666;">;</span><span style="color: #666666;">
+</span>        (<span style="color: #008b00;">"&amp;gt;"</span> . <span style="color: #008b00;">"&gt;"</span>)
+        (<span style="color: #008b00;">"&amp;amp;"</span> . <span style="color: #008b00;">"&amp;"</span>)
+        (<span style="color: #008b00;">"^\\s *&lt;listitem&gt;"</span> . <span style="color: #008b00;">" - "</span>)
+        (<span style="color: #008b00;">"&amp;nbsp;"</span> . <span style="color: #008b00;">" "</span>)
+        (<span style="color: #008b00;">"&lt;/listitem&gt;"</span> . <span style="color: #008b00;">""</span>)
+        (<span style="color: #008b00;">"&amp;quot;"</span> . <span style="color: #008b00;">"\""</span>)                 
+        <span style="color: #666666;">;; </span><span style="color: #666666;">       ("" . "")
+</span>        <span style="color: #666666;">;; </span><span style="color: #666666;">       ("" . "")
+</span>        (<span style="color: #008b00;">"&amp;PSGML;"</span> . <span style="color: #008b00;">"*PSGML*"</span>)
+        (<span style="color: #008b00;">"&amp;NXML;"</span> . <span style="color: #008b00;">"*nXML*"</span>)
+        (<span style="color: #008b00;">"&amp;RCS;"</span> . <span style="color: #008b00;">"*RCS*"</span>)
+        (<span style="color: #008b00;">"&amp;VSS;"</span> . <span style="color: #008b00;">"*Visual SourceSafe*"</span>)
+        (<span style="color: #008b00;">"&amp;CVS;"</span> . <span style="color: #008b00;">"*CVS*"</span>)
+        (<span style="color: #008b00;">"&amp;MCVS;"</span> . <span style="color: #008b00;">"*MetaCVS*"</span>)
+        (<span style="color: #008b00;">"&amp;SCCS;"</span> . <span style="color: #008b00;">"*SCCS*"</span>)
+        (<span style="color: #008b00;">"&amp;GNUARCH;"</span> . <span style="color: #008b00;">"*GNU Arch*"</span>)
+        (<span style="color: #008b00;">"&amp;BAZAAR;"</span> . <span style="color: #008b00;">"*Bazaar*"</span>)
+        (<span style="color: #008b00;">"&amp;SUBVERSION;"</span> . <span style="color: #008b00;">"*Subversion*"</span>)
+        (<span style="color: #008b00;">"&amp;DARCS;"</span> . <span style="color: #008b00;">"*Darcs*"</span>)
+        (<span style="color: #008b00;">"&amp;CLEARCASE;"</span> . <span style="color: #008b00;">"*ClearCase*"</span>)
+        (<span style="color: #008b00;">"&amp;SOURCESAFE;"</span> . <span style="color: #008b00;">"*SourceSafe*"</span>)
+        (<span style="color: #008b00;">"&amp;BITKEEPER;"</span> . <span style="color: #008b00;">"*BitKeeper*"</span>)
+        (<span style="color: #008b00;">"&amp;AEGIS;"</span> . <span style="color: #008b00;">"*Aegis*"</span>)
+        (<span style="color: #008b00;">"&amp;PERFORCE;"</span> . <span style="color: #008b00;">"*Perforce*"</span>)
+        (<span style="color: #008b00;">"&amp;MONOTONE;"</span> . <span style="color: #008b00;">"*Monotone*"</span>)
+        (<span style="color: #008b00;">"&amp;GIT;"</span> . <span style="color: #008b00;">"*Git*"</span>)
+        (<span style="color: #008b00;">"&amp;DVC;"</span> . <span style="color: #008b00;">"*dvc*"</span>)
+        (<span style="color: #008b00;">"&amp;BAZAARNG;"</span> . <span style="color: #008b00;">"*Bazaar-NG*"</span>)
+        (<span style="color: #008b00;">"&amp;MERCURIAL;"</span> . <span style="color: #008b00;">"*Mercurial*"</span>)
+        (<span style="color: #008b00;">"&amp;MERCURIALEL;"</span> . <span style="color: #008b00;">"*mercurial.el*"</span>)
+        (<span style="color: #008b00;">"&amp;VC;"</span> . <span style="color: #008b00;">"*VC*"</span>)
+        (<span style="color: #008b00;">"&amp;DVC;"</span> . <span style="color: #008b00;">"*DVC*"</span>)
+        (<span style="color: #008b00;">"&amp;P4;"</span> . <span style="color: #008b00;">"*p4*"</span>)
+        (<span style="color: #008b00;">"&amp;BK;"</span> . <span style="color: #008b00;">"*bk*"</span>)
+        (<span style="color: #008b00;">"&amp;CLEARCASEEL;"</span> . <span style="color: #008b00;">"*clearcase*"</span>)
+        (<span style="color: #008b00;">"&amp;PCLCVS;"</span> . <span style="color: #008b00;">"*PCL-CVS*"</span>)
+        (<span style="color: #008b00;">"&amp;XTLA;"</span> . <span style="color: #008b00;">"*xtla*"</span>)
+        (<span style="color: #008b00;">"&amp;DARCSUM;"</span> . <span style="color: #008b00;">"*darcsum*"</span>)
+        (<span style="color: #008b00;">"&amp;PSVN;"</span> . <span style="color: #008b00;">"*PSVN*"</span>)
+        (<span style="color: #008b00;">"&amp;SSEL;"</span> . <span style="color: #008b00;">"*source-safe.el*"</span>)
+        (<span style="color: #008b00;">"&amp;AEGISMODE;"</span> . <span style="color: #008b00;">"*aegis-mode*"</span>)
+        (<span style="color: #008b00;">"&amp;MONOTONEEL;"</span> . <span style="color: #008b00;">"*monotone.el*"</span>)
+        (<span style="color: #008b00;">"&amp;GITEL;"</span> . <span style="color: #008b00;">"*git.el*"</span>)
+        (<span style="color: #008b00;">"&amp;ELGYACH;"</span> . <span style="color: #008b00;">"*ElGyach*"</span>)
+        (<span style="color: #008b00;">"&amp;TNT;"</span> . <span style="color: #008b00;">"*TNT*"</span>)
+        (<span style="color: #008b00;">"&amp;JABBEREL;"</span> . <span style="color: #008b00;">"*Jabber.el*"</span>)
+        (<span style="color: #008b00;">"&amp;ERC;"</span> . <span style="color: #008b00;">"*Erc*"</span>)
+        (<span style="color: #008b00;">"&amp;RCIRC;"</span> . <span style="color: #008b00;">"*Rcirc*"</span>)
+        (<span style="color: #008b00;">"&amp;EDIFF;"</span> . <span style="color: #008b00;">"*Ediff*"</span>)
+        (<span style="color: #008b00;">"&amp;EMERGE;"</span> . <span style="color: #008b00;">"*Emerge*"</span>)
+        (<span style="color: #008b00;">"&amp;GNUS;"</span> . <span style="color: #008b00;">"*Gnus*"</span>)
+        (<span style="color: #008b00;">"&amp;RMAIL;"</span> . <span style="color: #008b00;">"*Rmail*"</span>)
+        (<span style="color: #008b00;">"&amp;MAILCRYPT;"</span> . <span style="color: #008b00;">"*Mailcrypt*"</span>)
+        (<span style="color: #008b00;">"&amp;SUPERCITE;"</span> . <span style="color: #008b00;">"*Supercite*"</span>)
+        (<span style="color: #008b00;">"&amp;AUCTEX;"</span> . <span style="color: #008b00;">"*AUCTeX*"</span>)
+        (<span style="color: #008b00;">"&amp;TEXMODE;"</span> . <span style="color: #008b00;">"*TeX-mode*"</span>)
+        (<span style="color: #008b00;">"&amp;REFTEX;"</span> . <span style="color: #008b00;">"*RefTeX*"</span>)
+        (<span style="color: #008b00;">"&amp;PLATEX;"</span> . <span style="color: #008b00;">"*Preview-LaTeX*"</span>)
+        (<span style="color: #008b00;">"&amp;BIBTEXMODE;"</span> . <span style="color: #008b00;">"*bibtex*"</span>)
+        (<span style="color: #008b00;">"&amp;ITE;"</span> . <span style="color: #008b00;">"*iTe*"</span>)
+        (<span style="color: #008b00;">"&amp;YATEX;"</span> . <span style="color: #008b00;">"*yatex*"</span>)
+        (<span style="color: #008b00;">"&amp;XSYMBOL;"</span> . <span style="color: #008b00;">"*X-Symbol*"</span>)
+        (<span style="color: #008b00;">"&amp;LSYMBOLS;"</span> . <span style="color: #008b00;">"*latex-symbols*"</span>)
+        (<span style="color: #008b00;">"&amp;WHIZZYTEX;"</span> . <span style="color: #008b00;">"*WhizzyTeX*"</span>)
+        (<span style="color: #008b00;">"&amp;TEX;"</span> . <span style="color: #008b00;">"TeX"</span>)
+        (<span style="color: #008b00;">"&amp;LATEX;"</span> . <span style="color: #008b00;">"LaTeX"</span>)
         ))
 
-(<span class="keyword">defun</span> <span class="function-name">my-muse-replace-text</span> (from to)
-  (<span class="keyword">save-excursion</span>
-    (<span class="keyword">while</span> (re-search-forward from nil t)
-      (<span class="keyword">save-restriction</span>
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-muse-replace-text</span> (from to)
+  (<span style="color: #a020f0;">save-excursion</span>
+    (<span style="color: #a020f0;">while</span> (re-search-forward from nil t)
+      (<span style="color: #a020f0;">save-restriction</span>
         (narrow-to-region (match-beginning 0) (match-end 0))
         (replace-match to t)))))
 
-(<span class="keyword">defun</span> <span class="function-name">my-muse-convert-docbook</span> ()
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-muse-convert-docbook</span> ()
   (interactive)
-  (mapcar (<span class="keyword">lambda</span> (x) (my-muse-replace-text (car x) (cdr x)))
+  (mapcar (<span style="color: #a020f0;">lambda</span> (x) (my-muse-replace-text (car x) (cdr x)))
           my-muse-docbook-replacements))
 
-<span class="comment-delimiter">;; </span><span class="comment">------------------------------------------------------------------------------------------
-</span><span class="comment-delimiter">;; </span><span class="comment">implementation of additional tags
+<span style="color: #666666;">;; </span><span style="color: #666666;">------------------------------------------------------------------------------------------
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">implementation of additional tags
 </span>
-(add-to-list 'muse-publish-markup-tags '(<span class="string">"div"</span> t t t muse-publish-div-tag))
-(<span class="keyword">defalias</span> '<span class="function-name">muse-publish-div-tag</span> 'ignore)
+(add-to-list 'muse-publish-markup-tags '(<span style="color: #008b00;">"div"</span> t t t muse-publish-div-tag))
+(<span style="color: #a020f0;">defalias</span> '<span style="color: #0000ff;">muse-publish-div-tag</span> 'ignore)
              
-(<span class="keyword">defun</span> <span class="function-name">muse-html-div-tag</span> (beg end attrs)
-  (<span class="keyword">let</span> ((id (cdr (assoc <span class="string">"id"</span> attrs)))
-        (style (cdr (assoc <span class="string">"style"</span> attrs))))
-    (<span class="keyword">when</span> (or id style)
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">muse-html-div-tag</span> (beg end attrs)
+  (<span style="color: #a020f0;">let</span> ((id (cdr (assoc <span style="color: #008b00;">"id"</span> attrs)))
+        (style (cdr (assoc <span style="color: #008b00;">"style"</span> attrs))))
+    (<span style="color: #a020f0;">when</span> (or id style)
       (goto-char beg)
-      (<span class="keyword">if</span> (null id)
-          (muse-insert-markup <span class="string">"&lt;div style=\""</span> style <span class="string">"\"&gt;"</span>)
-        (muse-insert-markup <span class="string">"&lt;div id=\""</span> id <span class="string">"\"&gt;"</span>))
-      (<span class="keyword">save-excursion</span>
+      (<span style="color: #a020f0;">if</span> (null id)
+          (muse-insert-markup <span style="color: #008b00;">"&lt;div style=\""</span> style <span style="color: #008b00;">"\"&gt;"</span>)
+        (muse-insert-markup <span style="color: #008b00;">"&lt;div id=\""</span> id <span style="color: #008b00;">"\"&gt;"</span>))
+      (<span style="color: #a020f0;">save-excursion</span>
         (goto-char end)
-        (muse-insert-markup <span class="string">"&lt;/div&gt;"</span>)))))
+        (muse-insert-markup <span style="color: #008b00;">"&lt;/div&gt;"</span>)))))
 
-(add-to-list 'muse-html-markup-tags '(<span class="string">"div"</span> t t t muse-html-div-tag))
+(add-to-list 'muse-html-markup-tags '(<span style="color: #008b00;">"div"</span> t t t muse-html-div-tag))
 
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">compare-mod-times</span> (f1 f2)
+  <span style="color: #666666;">"compare two file modification time and return -1, 0 or 1 if first time
+is less, equal or greater then second"</span>
+  (<span style="color: #a020f0;">let</span> ((f1-h (car f1))
+        (f1-l (cadr f1))
+        (f2-h (car f2))
+        (f2-l (cadr f2)))
+    (<span style="color: #a020f0;">cond</span>
+     ((&lt; f1-h f2-h) -1)
+     ((&gt; f1-h f2-h) 1)
+     (t
+      (<span style="color: #a020f0;">cond</span>
+       ((&lt; f1-l f2-l) -1)
+       ((&gt; f1-l f2-l) 1)
+       (t 0))))))
 
+<span style="color: #666666;">;; </span><span style="color: #666666;">hook to publish blorg pages
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">TODO: restore windows positions and so on
+</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-blorg-publish-file</span> (fname)
+  (<span style="color: #a020f0;">save-excursion</span>
+    (<span style="color: #a020f0;">when</span> (file-exists-p fname)
+      (<span style="color: #a020f0;">let*</span> ((cb (current-buffer))
+             (test-name (concat (file-name-directory fname) <span style="color: #008b00;">"index.html"</span>))
+             (fname-mod (nth 5 (file-attributes fname)))
+             (test-mod (<span style="color: #a020f0;">if</span> (file-exists-p test-name)
+                           (nth 5 (file-attributes test-name))
+                         (list 0 0))))
+        (message <span style="color: #008b00;">"%s %s"</span> fname test-name)
+        (<span style="color: #a020f0;">when</span> (or
+               (not (file-exists-p test-name))
+               (= (compare-mod-times fname-mod test-mod) 1))
+          (find-file fname)
+          (blorg-publish t)
+          (kill-buffer (current-buffer))
+          (pop-to-buffer cb))))))
 
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-muse.el ends here
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">muse-mp-publish-hook</span> (data)
+  (<span style="color: #a020f0;">if</span> (string-equal (car data) <span style="color: #008b00;">"my-page-project"</span>)
+      (<span style="color: #a020f0;">progn</span>
+        (my-blorg-publish-file <span style="color: #008b00;">"~/projects/my-page-muse/ru/news/news.org"</span>)
+        (my-blorg-publish-file <span style="color: #008b00;">"~/projects/my-page-muse/en/news/news.org"</span>))))
+(add-hook 'muse-after-project-publish-hook 'muse-mp-publish-hook)
+
+<span style="color: #666666;">;; </span><span style="color: #666666;">command to fix links in blorg-generated files
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">for i in *.html *.xml ; do sed -i -e 's|\[\[\([</span><span style="color: #666666;">^</span><span style="color: #666666;">]]*\)\]\[\([</span><span style="color: #666666;">^</span><span style="color: #666666;">]]*\)\]\]|&lt;a href="\1"&gt;\2&lt;/a&gt;|' -- $i ; done
+</span>
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-muse.el ends here
 </span></pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
   </body>
 </html>

@@ -1,103 +1,79 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in css mode. -->
+<!-- Created by htmlize-1.34 in inline-css mode. -->
 <html>
   <head>
     <title>emacs-rc-local-flash.lan.el</title>
-    <style type="text/css">
-    <!--
-      body {
-        color: #000000;
-        background-color: #ebebeb;
-      }
-      .builtin {
-        /* font-lock-builtin-face */
-        color: #006400;
-      }
-      .comment {
-        /* font-lock-comment-face */
-        color: #666666;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #666666;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #008b00;
-      }
-
-      a {
-        color: inherit;
-        background-color: inherit;
-        font: inherit;
-        text-decoration: inherit;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    -->
-    </style>
   </head>
-  <body>
+  <body style="color: #000000; background-color: #ebebeb;">
     <pre>
-<span class="comment-delimiter">;; </span><span class="comment">local settings for mac
+<span style="color: #666666;">;; </span><span style="color: #666666;">local settings for mac
 </span>
 
-(semantic-add-system-include <span class="string">"/usr/include/c++/4.0/"</span> 'c++-mode)
+<span style="color: #666666;">;; </span><span style="color: #666666;">(semantic-add-system-include "/usr/include/c++/4.0.0/" 'c++-mode)
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">info
+</span>(push <span style="color: #008b00;">"/opt/local/share/info"</span> Info-directory-list)
+(setenv <span style="color: #008b00;">"MANPATH"</span> <span style="color: #008b00;">"/opt/local/man:/usr/share/man:/usr/local/man"</span>)
 
-<span class="comment-delimiter">;; </span><span class="comment">info
-</span>(add-to-list  'Info-directory-list <span class="string">"/opt/local/share/info"</span>)
-
-<span class="comment-delimiter">;;</span><span class="comment">
+<span style="color: #666666;">;;</span><span style="color: #666666;">
 </span>(set-file-name-coding-system 'utf-8)
+<span style="color: #666666;">;; </span><span style="color: #666666;">(normal-erase-is-backspace-mode t)
+</span>
+<span style="color: #666666;">;; </span><span style="color: #666666;">auto-inserts
+</span>(add-to-list 'auto-insert-alist '(<span style="color: #008b00;">"\\.cpp$"</span> . [<span style="color: #008b00;">"insert-home.cpp"</span> auto-update-c-source-file]))
+(add-to-list 'auto-insert-alist '(<span style="color: #008b00;">"\\.h$"</span>   . [<span style="color: #008b00;">"insert-home.h"</span> auto-update-header-file]))
+(add-to-list 'auto-insert-alist '(<span style="color: #008b00;">"\\.c$"</span> . [<span style="color: #008b00;">"insert-home.cpp"</span> auto-update-c-source-file]))
 
-<span class="comment-delimiter">;; </span><span class="comment">auto-inserts
-</span>(add-to-list 'auto-insert-alist '(<span class="string">"\\.cpp$"</span> . [<span class="string">"insert-home.cpp"</span> auto-update-c-source-file]))
-(add-to-list 'auto-insert-alist '(<span class="string">"\\.h$"</span>   . [<span class="string">"insert-home.h"</span> auto-update-header-file]))
-(add-to-list 'auto-insert-alist '(<span class="string">"\\.c$"</span> . [<span class="string">"insert-home.cpp"</span> auto-update-c-source-file]))
-
-<span class="comment-delimiter">;;</span><span class="comment">
+<span style="color: #666666;">;;</span><span style="color: #666666;">
 </span>(custom-set-variables
- '(aquamacs-customization-version-id 100 t)
- '(custom-file <span class="string">"~/.emacs"</span>)
+ '(custom-file <span style="color: #008b00;">"~/.emacs"</span>)
  '(default-frame-alist nil)
  '(pc-selection-mode nil nil (pc-select))
- '(one-buffer-one-frame-mode nil nil (aquamacs-frame-setup))
- '(cua-mode nil)
+ <span style="color: #666666;">;; </span><span style="color: #666666;">'(one-buffer-one-frame-mode nil nil (aquamacs-frame-setup))
+</span> '(cua-mode nil)
  '(transient-mark-mode t)
- '(aquamacs-styles-mode nil nil (color-theme))
- '(mac-input-method-mode nil)
- '(delete-selection-mode t)
- '(smart-frame-positioning-mode nil)
-<span class="comment-delimiter">;; </span><span class="comment">'(default-input-method "russian-computer")
-</span>)
+ <span style="color: #666666;">;; </span><span style="color: #666666;">'(aquamacs-styles-mode nil nil (color-theme))
+</span> <span style="color: #666666;">;; </span><span style="color: #666666;">'(mac-input-method-mode nil)
+</span> '(smart-frame-positioning-mode nil)
+ <span style="color: #666666;">;; </span><span style="color: #666666;">'(default-input-method "russian-computer")
+</span> )
 
-(setq mac-command-modifier 'meta)
-(setq x-select-enable-clipboard t)
-(setq special-display-regexps (remove <span class="string">"[ ]?\\*[hH]elp.*"</span> special-display-regexps))
+(setq delete-selection-mode t)
+
+<span style="color: #666666;">;;; </span><span style="color: #666666;">(setq-default mac-command-key-is-meta t)
+</span>(setq mac-command-modifier 'meta)
+<span style="color: #666666;">;;; </span><span style="color: #666666;">(setq mac-option-modifier 'super)
+</span><span style="color: #666666;">;;; </span><span style="color: #666666;">(setq mac-pass-command-to-system nil)
+</span>(setq x-select-enable-clipboard t)
+(setq special-display-regexps (remove <span style="color: #008b00;">"[ ]?\\*[hH]elp.*"</span> special-display-regexps))
 
 (custom-set-faces
-  <span class="comment-delimiter">;; </span><span class="comment">custom-set-faces was added by Custom.
-</span>  <span class="comment-delimiter">;; </span><span class="comment">If you edit it by hand, you could mess it up, so be careful.
-</span>  <span class="comment-delimiter">;; </span><span class="comment">Your init file should contain only one such instance.
-</span>  <span class="comment-delimiter">;; </span><span class="comment">If there is more than one, they won't work right.
-</span> '(default ((t (<span class="builtin">:stipple</span> nil <span class="builtin">:background</span> <span class="string">"grey90"</span> <span class="builtin">:foreground</span> <span class="string">"Black"</span> <span class="builtin">:inverse-video</span> nil
-                         <span class="builtin">:box</span> nil <span class="builtin">:strike-through</span> nil <span class="builtin">:overline</span> nil <span class="builtin">:underline</span> nil <span class="builtin">:slant</span>
-                         normal <span class="builtin">:weight</span> normal <span class="builtin">:height</span> 160 <span class="builtin">:width</span> normal <span class="builtin">:family</span>
-                         <span class="string">"apple-monaco"</span>))))
+ '(default ((t (<span style="color: #006400;">:stipple</span> nil <span style="color: #006400;">:background</span> <span style="color: #008b00;">"grey90"</span> <span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"Black"</span> <span style="color: #006400;">:inverse-video</span> nil
+                         <span style="color: #006400;">:box</span> nil <span style="color: #006400;">:strike-through</span> nil <span style="color: #006400;">:overline</span> nil <span style="color: #006400;">:underline</span> nil <span style="color: #006400;">:slant</span>
+                         normal <span style="color: #006400;">:weight</span> normal <span style="color: #006400;">:height</span> 160 <span style="color: #006400;">:width</span> normal <span style="color: #006400;">:family</span>
+                         <span style="color: #008b00;">"apple-monaco"</span>))))
  '(font-lock-comment-face ((((class color) (min-colors 88) (background light))
-                            (<span class="builtin">:foreground</span> <span class="string">"gray50"</span>))))
- '(org-hide ((((background light)) (<span class="builtin">:foreground</span> <span class="string">"grey90"</span>)))))
+                            (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"gray50"</span>))))
+ '(org-hide ((((background light)) (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"grey90"</span>)))))
 
-(setq default-frame-alist '((background-color . <span class="string">"grey90"</span>) (left . 0) (width . 130) (height . 43)))
+(setq default-frame-alist '((background-color . <span style="color: #008b00;">"grey90"</span>) (left . 0) (width . 130) (height . 43)))
 (setq initial-frame-alist default-frame-alist)
 (setq special-display-frame-alist default-frame-alist)
+
+<span style="color: #666666;">;; </span><span style="color: #666666;">erlang
+</span>(setq erlang-root-dir <span style="color: #008b00;">"/opt/local/lib/erlang"</span>)
+(push <span style="color: #008b00;">"/opt/local/lib/erlang/bin"</span> exec-path)
+(setq erlang-man-root-dir <span style="color: #008b00;">"/opt/local/lib/erlang/man"</span>)
+
+<span style="color: #666666;">;; </span><span style="color: #666666;">redefine some keys to more useful 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">(define-key osx-key-mode-map (kbd "&lt;home&gt;") 'beginning-of-line)
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">(define-key osx-key-mode-map (kbd "&lt;end&gt;") 'end-of-line)
+</span>
+<span style="color: #666666;">;;</span><span style="color: #666666;">
+</span>(setq special-display-regexps (remove <span style="color: #008b00;">"[ ]?\\*[hH]elp.*"</span> special-display-regexps))
+(setq special-display-regexps (remove <span style="color: #008b00;">"[ ]?\\*info.*\\*[ ]?"</span> special-display-regexps))
+(setq special-display-regexps (remove <span style="color: #008b00;">"[ ]?\\*Messages\\*[ ]?"</span> special-display-regexps))
+
 </pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
   </body>
 </html>

@@ -2,11 +2,11 @@
 <!-- Created by htmlize-1.34 in inline-css mode. -->
 <html>
   <head>
-    <title>emacs-rc-javascript.el</title>
+    <title>emacs-rc-ess.el</title>
   </head>
   <body style="color: #000000; background-color: #ebebeb;">
     <pre>
-<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-javascript.el --- 
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-ess.el --- 
 </span>
 <span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) Alex Ott
 </span><span style="color: #666666;">;;</span><span style="color: #666666;">
@@ -15,18 +15,17 @@
 </span><span style="color: #666666;">;; </span><span style="color: #666666;">Requirements: 
 </span><span style="color: #666666;">;; </span><span style="color: #666666;">Status: not intended to be distributed yet
 </span>
-(load-library <span style="color: #008b00;">"js2"</span>)
-(setq js2-use-font-lock-faces t)
-(setq js2-indent-on-enter-key t)
-(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.js$"</span> . js2-mode))
- 
-(setq js2-basic-offset 2)
-(setq js2-use-font-lock-faces t)
+(add-to-list 'load-path <span style="color: #008b00;">"~/emacs/ess"</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">ess-site</span>)
 
-<span style="color: #666666;">;; </span><span style="color: #666666;">
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">(autoload 'js-console "js-console" nil t)
-</span>
-<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-javascript.el ends here
+<span style="color: #666666;">;; </span><span style="color: #666666;">R doc
+</span>(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.rd\\'"</span> . Rd-mode))
+(add-hook 'Rd-mode-hook
+          (<span style="color: #a020f0;">lambda</span> ()
+            (abbrev-mode 1)
+            (font-lock-mode 1)))
+
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-ess.el ends here
 </span></pre>
   </body>
 </html>

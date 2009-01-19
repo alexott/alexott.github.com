@@ -1,118 +1,85 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in css mode. -->
+<!-- Created by htmlize-1.34 in inline-css mode. -->
 <html>
   <head>
     <title>emacs-rc-jabber.el</title>
-    <style type="text/css">
-    <!--
-      body {
-        color: #000000;
-        background-color: #ebebeb;
-      }
-      .builtin {
-        /* font-lock-builtin-face */
-        color: #006400;
-      }
-      .comment {
-        /* font-lock-comment-face */
-        color: #666666;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #666666;
-      }
-      .constant {
-        /* font-lock-constant-face */
-        color: #00008b;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #008b00;
-      }
-
-      a {
-        color: inherit;
-        background-color: inherit;
-        font: inherit;
-        text-decoration: inherit;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    -->
-    </style>
   </head>
-  <body>
+  <body style="color: #000000; background-color: #ebebeb;">
     <pre>
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-jabber.el --- 
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-jabber.el --- 
 </span>
-<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2004 Alex Ott
-</span><span class="comment-delimiter">;;</span><span class="comment">
-</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
-</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+<span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) 2004 Alex Ott
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Author: alexott@gmail.com
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Keywords: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Requirements: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Status: not intended to be distributed yet
 </span>
-(add-to-list 'load-path <span class="string">"~/emacs/emacs-jabber"</span>)
-(<span class="keyword">require</span> '<span class="constant">jabber</span>)
+(add-to-list 'load-path <span style="color: #008b00;">"~/emacs/emacs-jabber"</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">jabber</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">jabber-bookmarks</span>)
 
-(<span class="keyword">defun</span> <span class="function-name">my-jabber-connect-hook</span> ()
-  (jabber-send-presence <span class="string">"online"</span> <span class="string">"I'm online"</span> 10))
-(add-hook 'jabber-post-connect-hook
-          'my-jabber-connect-hook)
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-jabber-connect-hook</span> (jc)
+  (jabber-send-presence <span style="color: #008b00;">""</span> <span style="color: #008b00;">"I'm online"</span> 10)
+  (<span style="color: #a020f0;">let*</span> ((state-data (fsm-get-state-data jc))
+         (server (plist-get state-data <span style="color: #006400;">:server</span>)))
+    (message <span style="color: #008b00;">"%s"</span> server)
+    (<span style="color: #a020f0;">if</span> (string-equal server <span style="color: #008b00;">"gmail.com"</span>)
+        (<span style="color: #a020f0;">progn</span>
+<span style="color: #666666;">;;</span><span style="color: #666666;">          (jabber-groupchat-join jc "devil@conference.jabber.ru" "alexott")
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">          (jabber-groupchat-join jc "haskell@conference.jabber.ru" "alexott")
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">          (jabber-groupchat-join jc "lisp@conference.jabber.ru" "alexott")
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">          (jabber-groupchat-join jc "emacs@conference.jabber.ru" "alexott")
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">          (jabber-groupchat-join jc "icfpc@conference.jabber.ru" "alexott")
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">          (jabber-groupchat-join jc "wax@conference.jabber.ru" "alexott")
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">          (jabber-groupchat-join jc "erlang@conference.jabber.ru" "alexott")
+</span>          ))))
+(add-hook 'jabber-post-connect-hooks 'my-jabber-connect-hook)
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-jabber-chat-hook</span> ()
+  (auto-fill-mode -1))
+(add-hook 'jabber-chat-mode-hook 'my-jabber-chat-hook)
 
 (setq jabber-history-enabled t)
 (setq jabber-use-global-history nil)
 
-(<span class="keyword">require</span> '<span class="constant">jabber-autoaway</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">jabber-autoaway</span>)
 (add-hook 'jabber-post-connect-hook 'jabber-autoaway-start)
 
 (setq jabber-alert-info-message-hooks (quote (jabber-info-echo)))
 (setq jabber-alert-message-hooks (quote (jabber-message-beep jabber-message-scroll)))
 (setq jabber-alert-presence-hooks (quote (jabber-presence-update-roster)))
-(setq jabber-nickname <span class="string">"alexott"</span>)
-(setq jabber-resource <span class="string">"emacs"</span>)
+(setq jabber-nickname <span style="color: #008b00;">"alexott"</span>)
+(setq jabber-resource (concat <span style="color: #008b00;">"at-"</span>
+                              (<span style="color: #a020f0;">if</span> (string-equal (system-name) <span style="color: #008b00;">"alexott"</span>)
+                                  <span style="color: #008b00;">"work"</span>
+                                <span style="color: #008b00;">"home"</span>)))
 
-(setq jabber-account-list '((<span class="string">"alexott@gmail.com/alexott"</span> 
-                             (<span class="builtin">:network-server</span> . <span class="string">"talk.google.com"</span>)
-                             (<span class="builtin">:connection-type</span> . ssl))))
+(setq jabber-account-list '((<span style="color: #008b00;">"alexott@gmail.com/alexott"</span> 
+                             (<span style="color: #006400;">:network-server</span> . <span style="color: #008b00;">"talk.google.com"</span>)
+                             (<span style="color: #006400;">:connection-type</span> . ssl))))
 
-<span class="comment-delimiter">;;; </span><span class="comment">(setq jabber-muc-autojoin
-</span><span class="comment-delimiter">;;; </span><span class="comment">      '(
-</span><span class="comment-delimiter">;;;</span><span class="comment">       "emacs@conference.jabber.ru"
-</span><span class="comment-delimiter">;;; </span><span class="comment">        "devil@conference.jabber.ru"
-</span><span class="comment-delimiter">;;; </span><span class="comment">        "lisp@conference.jabber.ru"))
+(setq jabber-chat-buffer-show-avatar nil)
+<span style="color: #666666;">;; </span><span style="color: #666666;">(setq jabber-vcard-avatars-retrieve nil
+</span><span style="color: #666666;">;;       </span><span style="color: #666666;">jabber-vcard-avatars-publish nil
+</span><span style="color: #666666;">;;       </span><span style="color: #666666;">)
 </span>
 (custom-set-variables
  '(jabber-auto-reconnect t)
- '(jabber-groupchat-buffer-format <span class="string">"*-jg-%n-*"</span>)
- '(jabber-roster-buffer <span class="string">"*-jroster-*"</span>)
- '(jabber-roster-line-format <span class="string">" %c %-25n %u %-8s  %S"</span>)
- '(jabber-chat-buffer-format <span class="string">"*-jc-%n-*"</span>)
- '(jabber-muc-private-buffer-format <span class="string">"*-jmuc-priv-%g-%n-*"</span>)
- '(jabber-rare-time-format <span class="string">"%e %b %Y %H:00"</span>)
+ '(jabber-groupchat-buffer-format <span style="color: #008b00;">"*-jg-%n-*"</span>)
+ '(jabber-roster-buffer <span style="color: #008b00;">"*-jroster-*"</span>)
+ '(jabber-roster-line-format <span style="color: #008b00;">" %c %-25n %u %-8s  %S"</span>)
+ '(jabber-chat-buffer-format <span style="color: #008b00;">"*-jc-%n-*"</span>)
+ '(jabber-muc-private-buffer-format <span style="color: #008b00;">"*-jmuc-priv-%g-%n-*"</span>)
+ '(jabber-rare-time-format <span style="color: #008b00;">"%e %b %Y %H:00"</span>)
  )
 
 (custom-set-faces
- '(jabber-chat-prompt-system ((t (<span class="builtin">:foreground</span> <span class="string">"darkgreen"</span> <span class="builtin">:weight</span> bold))))
+ '(jabber-chat-prompt-system ((t (<span style="color: #006400;">:foreground</span> <span style="color: #008b00;">"darkgreen"</span> <span style="color: #006400;">:weight</span> bold))))
  )
 
 
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-jabber.el ends here
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-jabber.el ends here
 </span></pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
   </body>
 </html>

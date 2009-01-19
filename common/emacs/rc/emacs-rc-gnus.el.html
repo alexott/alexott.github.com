@@ -1,157 +1,103 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in css mode. -->
+<!-- Created by htmlize-1.34 in inline-css mode. -->
 <html>
   <head>
     <title>emacs-rc-gnus.el</title>
-    <style type="text/css">
-    <!--
-      body {
-        color: #000000;
-        background-color: #ebebeb;
-      }
-      .comment {
-        /* font-lock-comment-face */
-        color: #666666;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #666666;
-      }
-      .constant {
-        /* font-lock-constant-face */
-        color: #00008b;
-      }
-      .doc {
-        /* font-lock-doc-face */
-        color: #666666;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .regexp-grouping-backslash {
-        /* font-lock-regexp-grouping-backslash */
-        font-weight: bold;
-      }
-      .regexp-grouping-construct {
-        /* font-lock-regexp-grouping-construct */
-        font-weight: bold;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #008b00;
-      }
-
-      a {
-        color: inherit;
-        background-color: inherit;
-        font: inherit;
-        text-decoration: inherit;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    -->
-    </style>
   </head>
-  <body>
+  <body style="color: #000000; background-color: #ebebeb;">
     <pre>
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-gnus.el --- 
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-gnus.el --- 
 </span>
-<span class="comment-delimiter">;; </span><span class="comment">Copyright (C) 2003 Alex Ott
-</span><span class="comment-delimiter">;;</span><span class="comment">
-</span><span class="comment-delimiter">;; </span><span class="comment">Author: alexott@gmail.com
-</span><span class="comment-delimiter">;; </span><span class="comment">Keywords: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Requirements: 
-</span><span class="comment-delimiter">;; </span><span class="comment">Status: not intended to be distributed yet
+<span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) 2003 Alex Ott
+</span><span style="color: #666666;">;;</span><span style="color: #666666;">
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Author: alexott@gmail.com
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Keywords: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Requirements: 
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">Status: not intended to be distributed yet
 </span>
 
-<span class="comment-delimiter">;; </span><span class="comment">mail settings
-</span>(setq user-mail-address <span class="string">"alexott@gmail.com"</span>)
+<span style="color: #666666;">;; </span><span style="color: #666666;">mail settings
+</span>(setq user-mail-address <span style="color: #008b00;">"alexott@gmail.com"</span>)
 (setq send-mail-function 'smtpmail-send-it
       message-send-mail-function 'smtpmail-send-it
-      smtpmail-starttls-credentials '((<span class="string">"smtp.gmail.com"</span> 587 nil nil))
-      smtpmail-auth-credentials '((<span class="string">"smtp.gmail.com"</span> 587 <span class="string">"alexott@gmail.com"</span> nil))
-      smtpmail-default-smtp-server <span class="string">"smtp.gmail.com"</span>
-      smtpmail-smtp-server <span class="string">"smtp.gmail.com"</span>
+      smtpmail-starttls-credentials '((<span style="color: #008b00;">"smtp.gmail.com"</span> 587 nil nil))
+      smtpmail-auth-credentials '((<span style="color: #008b00;">"smtp.gmail.com"</span> 587 <span style="color: #008b00;">"alexott@gmail.com"</span> nil))
+      smtpmail-default-smtp-server <span style="color: #008b00;">"smtp.gmail.com"</span>
+      smtpmail-smtp-server <span style="color: #008b00;">"smtp.gmail.com"</span>
       smtpmail-smtp-service 587
       smtpmail-debug-info t
       starttls-use-gnutls t)
-(<span class="keyword">require</span> '<span class="constant">starttls</span>)
-(<span class="keyword">require</span> '<span class="constant">smtpmail</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">starttls</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">smtpmail</span>)
 
-(setq gnus-ignored-newsgroups <span class="string">""</span>)
+(setq gnus-ignored-newsgroups <span style="color: #008b00;">""</span>)
 
-<span class="comment-delimiter">;; </span><span class="comment">Gnus Mail setup
+<span style="color: #666666;">;; </span><span style="color: #666666;">Gnus Mail setup
 </span>(setq gnus-secondary-select-methods '(
-                                      (nnimap <span class="string">"gmail"</span>
-                                              (nnimap-address <span class="string">"imap.gmail.com"</span>)
+                                      (nnimap <span style="color: #008b00;">"gmail"</span>
+                                              (nnimap-address <span style="color: #008b00;">"imap.gmail.com"</span>)
                                               (nnimap-server-port 993)
                                               (nnimap-stream ssl)
                                               (nnimap-expunge-on-close always)
                                               )
-                                      (nnml <span class="string">""</span>)
+                                      (nnml <span style="color: #008b00;">""</span>)
                                       )
       )
 
 (setq gnus-parameters
       '(
-        (<span class="string">"^nntp.*"</span>
+        (<span style="color: #008b00;">"^nntp.*"</span>
          (gnus-fetch-old-headers t)
          )
-        (<span class="string">"^nnimap.*"</span>
+        (<span style="color: #008b00;">"^nnimap.*"</span>
          (gnus-fetch-old-headers t)
          )
         ))
 
 (setq gnus-posting-styles
       '(
-        (<span class="string">".*"</span>
-         (Gcc <span class="string">"nnml:sent"</span>)
-         (Organization <span class="string">"Alex Ott's Consulting"</span>)
-         (signature-file <span class="string">"~/.signature"</span>)
+        (<span style="color: #008b00;">".*"</span>
+         (Gcc <span style="color: #008b00;">"nnml:sent"</span>)
+         (Organization <span style="color: #008b00;">"Alex Ott's Consulting"</span>)
+         (signature-file <span style="color: #008b00;">"~/.signature"</span>)
          )
-        (<span class="string">"nntp.*fido7\."</span>
-         (keywords <span class="string">"201132189"</span>)
-         (x-comment-to (<span class="keyword">save-excursion</span>
+        (<span style="color: #008b00;">"nntp.*fido7\."</span>
+         (keywords <span style="color: #008b00;">"201132189"</span>)
+         (x-comment-to (<span style="color: #a020f0;">save-excursion</span>
                          (set-buffer gnus-article-buffer)
-                         (message-fetch-field <span class="string">"from"</span>)))
-         (from <span class="string">"Alex Ott &lt;<a href="mailto:alexott&#64;alice-dsl.net">alexott&#64;alice-dsl.net</a>&gt;"</span>)
+                         (message-fetch-field <span style="color: #008b00;">"from"</span>)))
+         (from <span style="color: #008b00;">"Alex Ott &lt;<a href="mailto:alexott&#64;alice-dsl.net">alexott&#64;alice-dsl.net</a>&gt;"</span>)
          )
         ))
 
 
-<span class="comment-delimiter">;; </span><span class="comment">Old Customization
-</span><span class="comment-delimiter">;; </span><span class="comment">============================================================
+<span style="color: #666666;">;; </span><span style="color: #666666;">Old Customization
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">============================================================
 </span>(add-hook 'mime/editor-mode-hook
-          '(<span class="keyword">lambda</span> ()
+          '(<span style="color: #a020f0;">lambda</span> ()
              (put-alist 'koi8-r nil
                         mime-editor/charset-default-encoding-alist)
-             (put-alist <span class="string">"Subject"</span> nil mime/field-encoding-method-alist)
-             (put-alist <span class="string">"To"</span> nil mime/field-encoding-method-alist)
+             (put-alist <span style="color: #008b00;">"Subject"</span> nil mime/field-encoding-method-alist)
+             (put-alist <span style="color: #008b00;">"To"</span> nil mime/field-encoding-method-alist)
              ))
 
 (add-hook 'gnus-article-display-hook
-          '(<span class="keyword">lambda</span> ()
+          '(<span style="color: #a020f0;">lambda</span> ()
              (gnus-article-highlight)
              (gnus-article-hide-headers-if-wanted)
              (setq gnus-visible-headers
-                   '(<span class="string">"^From:"</span> <span class="string">"^X-Comment-To:"</span> <span class="string">"^Comment-To:"</span> <span class="string">"^Subject:"</span> <span class="string">"^Date:"</span>
-                     <span class="string">"^Followup-To:"</span> <span class="string">"^Reply-To:"</span> <span class="string">"^Organization:"</span> <span class="string">"^Summary:"</span>
-                     <span class="string">"^Keywords:"</span> <span class="string">"^To:"</span> <span class="string">"^Cc:"</span> <span class="string">"^Posted-To:"</span> <span class="string">"^Mail-Copies-To:"</span>
-                     <span class="string">"^Apparently-To:"</span> <span class="string">"^Gnus-Warning:"</span> <span class="string">"^Resent-From"</span> <span class="string">"^Bcc:"</span> ))
+                   '(<span style="color: #008b00;">"^From:"</span> <span style="color: #008b00;">"^X-Comment-To:"</span> <span style="color: #008b00;">"^Comment-To:"</span> <span style="color: #008b00;">"^Subject:"</span> <span style="color: #008b00;">"^Date:"</span>
+                     <span style="color: #008b00;">"^Followup-To:"</span> <span style="color: #008b00;">"^Reply-To:"</span> <span style="color: #008b00;">"^Organization:"</span> <span style="color: #008b00;">"^Summary:"</span>
+                     <span style="color: #008b00;">"^Keywords:"</span> <span style="color: #008b00;">"^To:"</span> <span style="color: #008b00;">"^Cc:"</span> <span style="color: #008b00;">"^Posted-To:"</span> <span style="color: #008b00;">"^Mail-Copies-To:"</span>
+                     <span style="color: #008b00;">"^Apparently-To:"</span> <span style="color: #008b00;">"^Gnus-Warning:"</span> <span style="color: #008b00;">"^Resent-From"</span> <span style="color: #008b00;">"^Bcc:"</span> ))
              (article-emphasize)
              )
           )
 
 (add-hook 'gnus-summary-mode-hook
-          '(<span class="keyword">lambda</span> ()
+          '(<span style="color: #a020f0;">lambda</span> ()
              (local-set-key [tab] 'gnus-summary-next-unread-article)
-             (<span class="keyword">save-excursion</span>
+             (<span style="color: #a020f0;">save-excursion</span>
                (goto-char (point-min))
                )
              )
@@ -162,41 +108,41 @@
       gnus-read-active-file nil
       gnus-check-new-newsgroups 'ask-server
       gnus-use-sc t
-      gnus-select-method '(nnnil <span class="string">""</span>)
+      gnus-select-method '(nnnil <span style="color: #008b00;">""</span>)
       mail-signature t
       default-mime-charset 'koi8-r
       message-default-charset 'koi8-r
       gnus-strict-mime t
       mime-editor/transfer-level 8
-      mime-editor/transfer-level-string <span class="string">"8bit"</span>
+      mime-editor/transfer-level-string <span style="color: #008b00;">"8bit"</span>
       gnus-novice-user nil
       gnus-auto-select-next nil
       gnus-cite-minimum-match-count 1
       )
 
 
-(load-library <span class="string">"supercite"</span>)
+(load-library <span style="color: #008b00;">"supercite"</span>)
 
 (setq sc-preferred-attribution-list
-      '( <span class="string">"initials"</span> <span class="string">"x-attribution"</span> <span class="string">"firstname"</span> <span class="string">"sc-lastchoice"</span> )
+      '( <span style="color: #008b00;">"initials"</span> <span style="color: #008b00;">"x-attribution"</span> <span style="color: #008b00;">"firstname"</span> <span style="color: #008b00;">"sc-lastchoice"</span> )
       sc-rewrite-header-list '((my-header-line-generator))
       sc-preferred-header-style 0
-      sc-citation-leader <span class="string">" "</span>
-      sc-citation-separator <span class="string">" "</span>
-      sc-citation-delimiter <span class="string">"&gt;"</span>
-      sc-citation-nonnested-root-regexp <span class="string">"[-._a-zA-Z0-9\301\302\327\307\304\305\326\332\311\312\313\314\315\316\317\320\322\323\324\325\306\310\303\336\333\335\330\331\337\334\300\321\341\342\367\347\344\345\366\372\351\352\353\354\355\356\357\360\362\363\364\365\346\350\343\376\373\375\370\371\377\374\340\361]*"</span>
-      sc-citation-delimetr-regexp <span class="string">"[&gt;:]+"</span>
+      sc-citation-leader <span style="color: #008b00;">" "</span>
+      sc-citation-separator <span style="color: #008b00;">" "</span>
+      sc-citation-delimiter <span style="color: #008b00;">"&gt;"</span>
+      sc-citation-nonnested-root-regexp <span style="color: #008b00;">"[-._a-zA-Z0-9\301\302\327\307\304\305\326\332\311\312\313\314\315\316\317\320\322\323\324\325\306\310\303\336\333\335\330\331\337\334\300\321\341\342\367\347\344\345\366\372\351\352\353\354\355\356\357\360\362\363\364\365\346\350\343\376\373\375\370\371\377\374\340\361]*"</span>
+      sc-citation-delimetr-regexp <span style="color: #008b00;">"[&gt;:]+"</span>
       sc-confirm-always-p nil
-                                        <span class="comment-delimiter">;      </span><span class="comment">sc-auto-fill-region-p t
+<span style="color: #666666;">;;      </span><span style="color: #666666;">sc-auto-fill-region-p t
 </span>      sc-fixup-whitespace-p nil
       )
 
-<span class="comment-delimiter">;;; </span><span class="comment">sc hack by Bor.
-</span>(<span class="keyword">defun</span> <span class="function-name">sc-add-citation-level-m</span> ()
-  <span class="doc">"Add citation level to cited string"</span>
+<span style="color: #666666;">;;; </span><span style="color: #666666;">sc hack by Bor.
+</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">sc-add-citation-level-m</span> ()
+  <span style="color: #666666;">"Add citation level to cited string"</span>
   (interactive)
-  (<span class="keyword">if</span> (looking-at (sc-cite-regexp))
-      (<span class="keyword">if</span> (re-search-forward 
+  (<span style="color: #a020f0;">if</span> (looking-at (sc-cite-regexp))
+      (<span style="color: #a020f0;">if</span> (re-search-forward 
            (concat sc-citation-leader-regexp sc-citation-root-regexp)
            )
           (insert sc-citation-delimiter)
@@ -205,171 +151,165 @@
     )
   )
 
-                                        <span class="comment-delimiter">;</span><span class="comment">
-</span>(<span class="keyword">defun</span> <span class="function-name">my-header-line-generator</span> ()
-  (<span class="keyword">let</span> ((sc-mumble <span class="string">""</span>)
+                                        <span style="color: #666666;">;</span><span style="color: #666666;">
+</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-header-line-generator</span> ()
+  (<span style="color: #a020f0;">let</span> ((sc-mumble <span style="color: #008b00;">""</span>)
         (whofrom (sc-whofrom)))
-    (<span class="keyword">if</span> whofrom
+    (<span style="color: #a020f0;">if</span> whofrom
         (insert sc-reference-tag-string
-                (sc-hdr <span class="string">"\""</span> (sc-mail-field <span class="string">"sc-attribution"</span>) <span class="string">"\" == "</span>)
-                (sc-hdr <span class="string">""</span>   (sc-mail-field <span class="string">"sc-author"</span>) <span class="string">" "</span>)
-                <span class="string">"writes:"</span>))))
+                (sc-hdr <span style="color: #008b00;">"\""</span> (sc-mail-field <span style="color: #008b00;">"sc-attribution"</span>) <span style="color: #008b00;">"\" == "</span>)
+                (sc-hdr <span style="color: #008b00;">""</span>   (sc-mail-field <span style="color: #008b00;">"sc-author"</span>) <span style="color: #008b00;">" "</span>)
+                <span style="color: #008b00;">"writes:"</span>))))
 
 (setq rfc2047-header-encoding-alist
-      '((<span class="string">"Newsgroups"</span>  . nil)
-        (<span class="string">"Message-ID"</span>  . nil)
-        (<span class="string">"Subject"</span>     . mime)
-        (<span class="string">"From"</span>     . default)
-        (<span class="string">"To"</span>     . default)
+      '((<span style="color: #008b00;">"Newsgroups"</span>  . nil)
+        (<span style="color: #008b00;">"Message-ID"</span>  . nil)
+        (<span style="color: #008b00;">"Subject"</span>     . mime)
+        (<span style="color: #008b00;">"From"</span>     . default)
+        (<span style="color: #008b00;">"To"</span>     . default)
         (t             . mime)))
 
 (setq mm-body-charset-encoding-alist
       '((windows-1251 . 8bit)
         (koi8-r . 8bit)))
 
-(<span class="keyword">require</span> '<span class="constant">gnus-setup</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">gnus-setup</span>)
 
 (setq news-reply-header-hook nil)
 
-(<span class="keyword">require</span> '<span class="constant">gnus-art</span>)
-(<span class="keyword">require</span> '<span class="constant">gnus-cite</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">gnus-art</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">gnus-cite</span>)
 
-(<span class="keyword">defun</span> <span class="function-name">sc-break-cited-line</span> ()
-  <span class="doc">"Break cited line. Do it correctly."</span>
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">sc-break-cited-line</span> ()
+  <span style="color: #666666;">"Break cited line. Do it correctly."</span>
   (interactive)
   (delete-horizontal-space)
   (newline)
   (forward-line -1)
-  (<span class="keyword">let</span> ((cited (looking-at (sc-cite-regexp))))
+  (<span style="color: #a020f0;">let</span> ((cited (looking-at (sc-cite-regexp))))
     (forward-line)
-    (<span class="keyword">if</span> cited (<span class="keyword">progn</span> (sc-cite-line) (just-one-space)))))
+    (<span style="color: #a020f0;">if</span> cited (<span style="color: #a020f0;">progn</span> (sc-cite-line) (just-one-space)))))
 
-(<span class="keyword">defun</span> <span class="function-name">sc-header-hello-attributed-writes</span> ()
-  <span class="doc">"Insert Hi, sc-firstneme, then sc-header-attributed-writes"</span>
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">sc-header-hello-attributed-writes</span> ()
+  <span style="color: #666666;">"Insert Hi, sc-firstneme, then sc-header-attributed-writes"</span>
   (insert
-   (concat <span class="string">"Hello, "</span> (sc-mail-field <span class="string">"sc-firstname"</span>) <span class="string">"!\n\n"</span>))
+   (concat <span style="color: #008b00;">"Hello, "</span> (sc-mail-field <span style="color: #008b00;">"sc-firstname"</span>) <span style="color: #008b00;">"!\n\n"</span>))
   (sc-header-attributed-writes))
 
-(<span class="keyword">defun</span> <span class="function-name">sc-install-rewrite-header-fn</span> (new-fn)
-  <span class="doc">"Install new header rewrite function and make it preffered"</span>
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">sc-install-rewrite-header-fn</span> (new-fn)
+  <span style="color: #666666;">"Install new header rewrite function and make it preffered"</span>
   (setq sc-preferred-header-style (length sc-rewrite-header-list))
   (setq sc-rewrite-header-list
         (append sc-rewrite-header-list `((,new-fn)))))
 
-(<span class="keyword">defun</span> <span class="function-name">ic-cite-message</span> ()
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">ic-cite-message</span> ()
   (sc-cite-original)
-  (local-set-key <span class="string">"\C-m"</span> 'sc-break-cited-line))
+  (local-set-key <span style="color: #008b00;">"\C-m"</span> 'sc-break-cited-line))
 
-(add-hook 'sc-load-hook (<span class="keyword">lambda</span> ()
+(add-hook 'sc-load-hook (<span style="color: #a020f0;">lambda</span> ()
                           (sc-install-rewrite-header-fn
                            'sc-header-hello-attributed-writes)
                           (setq sc-confirm-always-p nil)))
 
-(<span class="keyword">defun</span> <span class="function-name">SNP:citation-line</span> ()
-  (<span class="keyword">let*</span> ((email-from (mail-header-from message-reply-headers))
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">SNP:citation-line</span> ()
+  (<span style="color: #a020f0;">let*</span> ((email-from (mail-header-from message-reply-headers))
          (name-from (SNP:email-&gt;stripped-full-name email-from))
-         (name-to (message-fetch-reply-field <span class="string">"X-Comment-To"</span>)))
-                                        <span class="comment-delimiter">;    </span><span class="comment">(insert "Hello " (SNP:full-name-&gt;first-name name-from) ".\n\n")
-</span>    (insert <span class="string">"## On "</span> (mail-header-date message-reply-headers) <span class="string">"\n"</span>)
-    (<span class="keyword">if</span> (string-match <span class="string">"^To: "</span> (buffer-string))
-        (insert <span class="string">"## you wrote:\n\n"</span>)
-      (<span class="keyword">progn</span>
-        (insert <span class="string">"## "</span> name-from)
+         (name-to (message-fetch-reply-field <span style="color: #008b00;">"X-Comment-To"</span>)))
+                                        <span style="color: #666666;">;    </span><span style="color: #666666;">(insert "Hello " (SNP:full-name-&gt;first-name name-from) ".\n\n")
+</span>    (insert <span style="color: #008b00;">"## On "</span> (mail-header-date message-reply-headers) <span style="color: #008b00;">"\n"</span>)
+    (<span style="color: #a020f0;">if</span> (string-match <span style="color: #008b00;">"^To: "</span> (buffer-string))
+        (insert <span style="color: #008b00;">"## you wrote:\n\n"</span>)
+      (<span style="color: #a020f0;">progn</span>
+        (insert <span style="color: #008b00;">"## "</span> name-from)
 
-        <span class="comment-delimiter">;; </span><span class="comment">Insert FTN address
-</span>        (<span class="keyword">let</span> ((ftnaddr (SNP:email-&gt;ftn-addr email-from)))
-          (<span class="keyword">when</span> ftnaddr
-            (insert <span class="string">" ("</span> ftnaddr <span class="string">")"</span>)))
+        <span style="color: #666666;">;; </span><span style="color: #666666;">Insert FTN address
+</span>        (<span style="color: #a020f0;">let</span> ((ftnaddr (SNP:email-&gt;ftn-addr email-from)))
+          (<span style="color: #a020f0;">when</span> ftnaddr
+            (insert <span style="color: #008b00;">" ("</span> ftnaddr <span style="color: #008b00;">")"</span>)))
 
-        (insert <span class="string">" wrote"</span>)
+        (insert <span style="color: #008b00;">" wrote"</span>)
 
-        <span class="comment-delimiter">;; </span><span class="comment">Insert X-Comment-To
-</span>        (<span class="keyword">when</span> name-to
-          (insert <span class="string">" to "</span>)
-          (<span class="keyword">let</span> ((to (SNP:email-&gt;stripped-full-name name-to)))
-            (<span class="keyword">if</span> (SNP:my-name-p to)
-                (insert <span class="string">"me"</span>)
+        <span style="color: #666666;">;; </span><span style="color: #666666;">Insert X-Comment-To
+</span>        (<span style="color: #a020f0;">when</span> name-to
+          (insert <span style="color: #008b00;">" to "</span>)
+          (<span style="color: #a020f0;">let</span> ((to (SNP:email-&gt;stripped-full-name name-to)))
+            (<span style="color: #a020f0;">if</span> (SNP:my-name-p to)
+                (insert <span style="color: #008b00;">"me"</span>)
               (insert to))))
 
-        (insert <span class="string">":\n\n"</span>)))))
+        (insert <span style="color: #008b00;">":\n\n"</span>)))))
 
 (setq message-citation-line-function 'SNP:citation-line)
 
-<span class="comment-delimiter">;; </span><span class="comment">Based on code by Sergey Dolin &lt;<a href="mailto:dsa-ugur&#64;chel.surnet.ru">dsa-ugur&#64;chel.surnet.ru</a>&gt;
-</span><span class="comment-delimiter">;; </span><span class="comment">and message-indent-citation function of Gnus
-</span>(<span class="keyword">defun</span> <span class="function-name">SNP:citation</span> ()
-  (<span class="keyword">let</span> ((beg (point))
+<span style="color: #666666;">;; </span><span style="color: #666666;">Based on code by Sergey Dolin &lt;<a href="mailto:dsa-ugur&#64;chel.surnet.ru">dsa-ugur&#64;chel.surnet.ru</a>&gt;
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">and message-indent-citation function of Gnus
+</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">SNP:citation</span> ()
+  (<span style="color: #a020f0;">let</span> ((beg (point))
         (end (mark t))
         (initials (SNP:full-name-&gt;initials
                    (SNP:email-&gt;stripped-full-name
-                    (message-fetch-reply-field <span class="string">"From"</span>)))))
-    (<span class="keyword">save-excursion</span>
+                    (message-fetch-reply-field <span style="color: #008b00;">"From"</span>)))))
+    (<span style="color: #a020f0;">save-excursion</span>
       (narrow-to-region beg end)
       (goto-char (point-min))
-      (search-forward <span class="string">"\n\n"</span>)
+      (search-forward <span style="color: #008b00;">"\n\n"</span>)
       (delete-region (point-min) (point))
-      (<span class="keyword">while</span> (and (point-min)
+      (<span style="color: #a020f0;">while</span> (and (point-min)
                   (eolp)
                   (not (eobp)))
         (message-delete-line))
 
-      <span class="comment-delimiter">;; </span><span class="comment">... \311 \327 \313\317\316\303\305 \324\305\313\323\324\301
+      <span style="color: #666666;">;; </span><span style="color: #666666;">... \311 \327 \313\317\316\303\305 \324\305\313\323\324\301
 </span>      (goto-char (point-max))
-      (<span class="keyword">unless</span> (eolp)
-        (insert <span class="string">"\n"</span>))
-      (<span class="keyword">while</span> (and (zerop (forward-line -1))
-                  (looking-at <span class="string">"$"</span>))
+      (<span style="color: #a020f0;">unless</span> (eolp)
+        (insert <span style="color: #008b00;">"\n"</span>))
+      (<span style="color: #a020f0;">while</span> (and (zerop (forward-line -1))
+                  (looking-at <span style="color: #008b00;">"$"</span>))
         (message-delete-line))
 
-      <span class="comment-delimiter">;; </span><span class="comment">\363\317\302\323\324\327\305\316\316\317 \303\311\324\311\322\317\327\301\316\311\305
+      <span style="color: #666666;">;; </span><span style="color: #666666;">\363\317\302\323\324\327\305\316\316\317 \303\311\324\311\322\317\327\301\316\311\305
 </span>      (goto-char beg)
-      (<span class="keyword">while</span> (not (eobp))
-        <span class="comment-delimiter">;; </span><span class="comment">\372\301\315\305\316\311\315 \324\301\302\325\314\321\303\311\311 \316\301 \320\322\317\302\305\314\331
+      (<span style="color: #a020f0;">while</span> (not (eobp))
+        <span style="color: #666666;">;; </span><span style="color: #666666;">\372\301\315\305\316\311\315 \324\301\302\325\314\321\303\311\311 \316\301 \320\322\317\302\305\314\331
 </span>        (beginning-of-line)
-        (<span class="keyword">while</span> (re-search-forward <span class="string">"\011"</span> (point-at-eol) t)
-          (replace-match <span class="string">"        "</span>))
+        (<span style="color: #a020f0;">while</span> (re-search-forward <span style="color: #008b00;">"\011"</span> (point-at-eol) t)
+          (replace-match <span style="color: #008b00;">"        "</span>))
 
-        <span class="comment-delimiter">;; </span><span class="comment">\357\324\313\327\317\324\311\315
+        <span style="color: #666666;">;; </span><span style="color: #666666;">\357\324\313\327\317\324\311\315
 </span>        (beginning-of-line)
-        (<span class="keyword">unless</span> (eolp)
-          (<span class="keyword">if</span> (not SNP:quote-initials)
-              (insert <span class="string">"&gt; "</span>)
-            (<span class="keyword">if</span> (re-search-forward <span class="string">"^ *</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">[a-zA-Z\340-\377\300-\337]*</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">(</span></span><span class="string">&gt;+</span><span class="string"><span class="regexp-grouping-backslash">\\</span></span><span class="string"><span class="regexp-grouping-construct">)</span></span><span class="string">"</span> 
+        (<span style="color: #a020f0;">unless</span> (eolp)
+          (<span style="color: #a020f0;">if</span> (not SNP:quote-initials)
+              (insert <span style="color: #008b00;">"&gt; "</span>)
+            (<span style="color: #a020f0;">if</span> (re-search-forward <span style="color: #008b00;">"^ *</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">[a-zA-Z\340-\377\300-\337]*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">&gt;+</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">"</span> 
                                    (point-at-eol) t)
-                (replace-match <span class="string">"\\1&gt;\\2"</span>)
-              (insert initials <span class="string">"&gt; "</span>))))
+                (replace-match <span style="color: #008b00;">"\\1&gt;\\2"</span>)
+              (insert initials <span style="color: #008b00;">"&gt; "</span>))))
 
         (next-line 1))
       (widen))
-    (insert <span class="string">"\n"</span>)))
+    (insert <span style="color: #008b00;">"\n"</span>)))
 
 (setq mail-citation-hook
-      '(<span class="keyword">lambda</span> ()
+      '(<span style="color: #a020f0;">lambda</span> ()
          (SNP:citation)
          (goto-char (point-min))
-         (search-forward <span class="string">"\n\n"</span>)
+         (search-forward <span style="color: #008b00;">"\n\n"</span>)
          (SNP:citation-line)))
 
-(<span class="keyword">defun</span> <span class="function-name">SNP:break-cited-line</span> ()
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">SNP:break-cited-line</span> ()
   (interactive)
-  (<span class="keyword">if</span> (or (bolp) (eolp))
-      (insert <span class="string">"\n"</span>)
-    (<span class="keyword">let</span> ((quote-string nil))
-      (<span class="keyword">save-excursion</span>
+  (<span style="color: #a020f0;">if</span> (or (bolp) (eolp))
+      (insert <span style="color: #008b00;">"\n"</span>)
+    (<span style="color: #a020f0;">let</span> ((quote-string nil))
+      (<span style="color: #a020f0;">save-excursion</span>
         (beginning-of-line)
-        (<span class="keyword">when</span> (re-search-forward <span class="string">"^ *[a-zA-Z\300-\337\340-\376]*&gt;+"</span> (point-at-eol) t)
+        (<span style="color: #a020f0;">when</span> (re-search-forward <span style="color: #008b00;">"^ *[a-zA-Z\300-\337\340-\376]*&gt;+"</span> (point-at-eol) t)
           (setq quote-string (match-string 0))))
-      (<span class="keyword">if</span> quote-string
-          (insert (concat <span class="string">"\n"</span> quote-string))
-        (insert <span class="string">"\n"</span>)))))
+      (<span style="color: #a020f0;">if</span> quote-string
+          (insert (concat <span style="color: #008b00;">"\n"</span> quote-string))
+        (insert <span style="color: #008b00;">"\n"</span>)))))
 
-<span class="comment-delimiter">;;; </span><span class="comment">emacs-rc-gnus.el ends here
+<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-gnus.el ends here
 </span></pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
   </body>
 </html>
