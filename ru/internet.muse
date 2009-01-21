@@ -9,7 +9,7 @@
 
 ** Социальные сети
 
- - [[http://www.shelfari.com/o1517990503][Shelfari]] используется для ведения списков книг, которые я прочитал, читаю или собираюсь
+ - [[http://www.shelfari.com/alexott][Shelfari]] используется для ведения списков книг, которые я прочитал, читаю или собираюсь
    читать
  - Мой профиль на [[http://www.facebook.com/profile.php?id=760140831&ref=profile][Facebook]]
  - Мой профиль на [[http://vkontakte.ru/id2310336][ВКонтакте]]
