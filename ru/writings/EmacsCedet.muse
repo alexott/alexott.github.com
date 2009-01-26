@@ -62,7 +62,7 @@ make clean && make autoloads && make -k all
 ** Настройка Semanticdb
 
 <src lang="emacs-lisp">
-;; если вы хотите 
+;; если вы хотите включить поддержку gnu global
 (require 'semanticdb-global)
 (semanticdb-enable-gnu-global-databases 'c-mode)
 (semanticdb-enable-gnu-global-databases 'c++-mode)

@@ -7,5 +7,5 @@
 
 *  Поддержка конкретных языков
 
- - [[EmacsScheme][Поддержка Scheme]]
+ - [[./EmacsScheme][Поддержка Scheme]]
  - [[./EmacsErlang][Работа с Erlang]]
