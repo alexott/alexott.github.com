@@ -141,6 +141,8 @@ senator-complete-symbol
 semantic-complete-analyze-inline
 semantic-decoration-include-visit
 
+** Навигация по коду
+
 semantic-ia-fast-jump
 semantic-analyze-proto-impl-toggle
 
