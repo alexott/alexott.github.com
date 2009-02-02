@@ -9,21 +9,27 @@
 #+KEYWORDS:    alex ott blog news articles emacs новости статьи емакс программирование
 #+HTML_CSS:    web.css
 
+* DONE Добавлен рассказ про работу с Cedet                 :emacs:article:cedet:
+  CLOSED: [2009-02-02 Mon 21:04]
+
+К статье [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/][Emacs как рабочее средство разработчика ПО]] добавлен [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsCedet.html][рассказ про работу с пакетом
+Cedet]].  Это первая версия рассказа, которая будет в дальнейшем развиваться.
+
 * DONE Обновлен рассказ про Emacs и Git                      :emacs:article:git:
   CLOSED: [2008-11-19 Wed 15:18]
 
-Статья про [[../writings/emacs-vcs/EmacsGit.html][Emacs & Git]] была сильно обновлена -- добавлены описания пакетов git-emacs,
+Статья про [[http://xtalk.msk.su/~ott/ru/writings/emacs-vcs/EmacsGit.html][Emacs & Git]] была сильно обновлена -- добавлены описания пакетов git-emacs,
 magit и некоторых вспомогательных пакетов
 
 * DONE Рассказ про пакет aHg                           :emacs:article:mercurial:
   CLOSED: [2008-10-13 Mon 16:38]
 
-В рассказ про работу с Mercurial добавил [[../writings/emacs-vcs/EmacsMercurial.html#sec5][раздел про пакет aHg]]
+В рассказ про работу с Mercurial добавил [[http://xtalk.msk.su/~ott/ru/writings/emacs-vcs/EmacsMercurial.html#sec5][раздел про пакет aHg]]
 
 * DONE Окончательная версия статьи про Emacs и Erlang     :emacs:erlang:article:
   CLOSED: [2008-08-25 Mon 13:09]
 
-Закончил статью про [[../writings/emacs-devenv/EmacsErlang.html][использование Emacs для разработки на языке Erlang]] Замечания и
+Закончил статью про [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsErlang.html][использование Emacs для разработки на языке Erlang]]. Замечания и
 предложения приветствуются
 
 * DONE Вторая бета статьи про Emacs и Erlang              :emacs:erlang:article:
@@ -35,7 +41,7 @@ erlware-mode...
 * DONE Драфт статьи про Emacs и Erlang                    :emacs:erlang:article:
   CLOSED: [2008-08-06 Wed 15:27]
 
-выложил на сайт драфт [[../writings/emacs-devenv/EmacsErlang.html][статьи про работу с Erlang в Emacs]]. В следующей вресии будет
+выложил на сайт драфт [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsErlang.html][статьи про работу с Erlang в Emacs]]. В следующей вресии будет
 добавлено описание erlware-mode и distel.
 
 * DONE Прикрутил к сайту ленту новостей через blorg                 :site:emacs:
@@ -55,12 +61,12 @@ erlware-mode...
 * DONE Обновление статьи про Emacs + Scheme               :article:emacs:scheme:
   CLOSED: [2008-08-04 Mon 12:20]
 
-Выложено обновление для [[../writings/emacs-devenv/][статьи про использование Emacs для работы с языком Scheme]] --
+Выложено обновление для [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/][статьи про использование Emacs для работы с языком Scheme]] --
 добавлено краткое описание настройки пакета SLIME для работы со Scheme.
 
 * DONE Добавил раздел про Erlang                                   :site:erlang:
   CLOSED: [2008-08-04 Mon 10:41]
 
-Добавил на сайт [[../erlang/][раздел про программирование на Erlang]].  В этом разделе будут публиковаться
+Добавил на сайт [[http://xtalk.msk.su/~ott/ru/erlang/][раздел про программирование на Erlang]].  В этом разделе будут публиковаться
 различные записки, связанные с программированием на Erlang
 
