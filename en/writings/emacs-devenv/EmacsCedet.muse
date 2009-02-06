@@ -1,29 +1,28 @@
 #title The Gentle introduction to Cedet
 #keywords c, c++, emacs, cedet, programming, semantic, ede, ide, integrated development environment
 
-Этот рассказ не претендует на звание полного описания настройки Emacs как среды разработки
-на разных языках (это будет [[emacs-devenv/index][отдельная статья]]), а является попыткой написать краткий
-рассказ о настройке пакета [[http://cedet.sf.net][Cedet]] для работы с языками программирования C & C++, хотя
-большая часть изложенного подходит и к работе с другими языками, поддерживаемыми пакетом
-Cedet.
+This article doesn't pretend to represent detailed description of the customizing of Emacs
+as development environment (this is theme for [[emacs-devenv/index][separate article]]) -- I tried to write a
+small description of the [[http://cedet.sf.net][Cedet]]'s customization to work with C & C++, although most of
+description will also applicable for other languages, supported by Cedet.
 
 <contents>
 
 * What is Cedet?
 
-Пакет Cedet объединяет в своем составе несколько пакетов, реализующих различную
-функциональность, но объединенных вокруг одной задачи по работе с исходным кодом на
-различных языках программирования.
+The Cedet package is a collection of several packages, implementing different functions,
+but used for one task -- provide functionality for work with source code written in
+different programming languages:
 
- - Semantic -- является основой для построения анализаторов для различных языков
-   программирования, позволяя использовать общее представление извлеченной информации для
-   разных языков, используя которую реализуется остальной функционал не только Cedet, но и
-   других пакетов -- [[http://jdee.sourceforge.net/][JDEE]] и [[http://ecb.sf.net][ECB]], которые являются попыткой создать среды разработки,
-   близкие по виду к имеющимся на рынке (Eclipse, NetBeans и т.п.);
- - SemanticDB -- входит в состав Semantic, и реализует интерфейсы к разным модулям
-   хранения информации, используемой при дополнении имен, навигации по коду и т.п.
-   Синтаксическая информация может сохраняться между сессиями работы в Emacs, что
-   уменьшает потребность в регулярном разборе одного и того же кода;
+ - Semantic is a basis for building of syntax analyzers for different programming
+   languages, that allows to provide common representation for information extracted from
+   code, written in different languages.  Using this information, Cedet & other packages
+   ([[http://jdee.sourceforge.net/][JDEE]] and [[http://ecb.sf.net][ECB]]), can implement functions, required for modern development environment
+   (something like Eclipse, NetBeans, etc.);
+ - SemanticDB is included into Semantic, and implements interfaces to different storage
+   modules, that keeps information, that is needed for names completion, source code
+   navigation, etc.  Syntax information could be saved between Emacs sessions, so it
+   reduce need for re-parsing of not modified source code.;
  - Senator -- реализует функциональность для навигации по синтаксической информации,
    извлеченной Semantic;
  - Srecode -- библиотека для генерации кода основываясь на существующей синтаксической
