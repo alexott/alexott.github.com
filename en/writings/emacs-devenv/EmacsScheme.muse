@@ -599,7 +599,7 @@ All other details, related to the *SLIME* are described in [[./EmacsSLIME][corre
 
 ; ======================================================================
 
-<div id="rule">[[./index][To main page]]</div>
+<div id="rule">[[./index][To the main page]]</div>
 
 Footnotes:
 [1] By default you can use only one active Scheme process.  But if you need to have
