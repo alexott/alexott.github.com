@@ -5,6 +5,11 @@
 workplace.  New parts of article will published as they will written, but you can sent
 your comments and suggestions right now.  Send them to [[mailto:alexott@gmail.com][alexott@gmail.com]].***
 
+*  Packages for common development tasks
+
+ - [[./EmacsCedet][Work with Cedet]]
+
+
 *  Support of concrete programming languages
 
  - [[./EmacsScheme][Work with Scheme]]

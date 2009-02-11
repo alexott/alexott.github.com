@@ -1,4 +1,4 @@
-#title The Gentle introduction to Cedet
+#title A Gentle introduction to Cedet
 #keywords c, c++, emacs, cedet, programming, semantic, ede, ide, integrated development environment
 
 This article doesn't pretend to represent detailed description of the customizing of Emacs
@@ -413,54 +413,53 @@ corresponding function -- =senator-search-forward= or =senator-search-backward=.
          
 * Work with Srecode
 
-Пакет Srecode позволяет пользователю определять различные шаблоны, но в отличии от других
-систем для работы с шаблонами, вставка новых кусков текста, может сильно зависеть от
-текущего контекста, например, вставка пары =get/set= может производиться только внутри
-объявления класса, или вставка объявления новой функции может производиться только вне
-какой-либо другой функции.
+The Srecode package allows user to define different code templates, but it differs from
+other packages, that provide template's insertion, as list of available templates could
+vary depending on current context.  For example, insertion of =get/set= functions will
+happen only when you inside class declaration.  Or, insertion of function declaration,
+could happen only outside of other function.
 
-Основной командой, используемой для вставки шаблонов, является функция =srecode-insert=,
-которая привязана к сочетанию клавиш =C-c / /=.  Эта функция запросит у вас имя шаблона,
-которое вы можете ввести, используя механизмы дополнения.  В зависимости от текущего
-контекста, список доступных шаблонов может меняться.  Если вы хотите вставить тот же самый
-шаблон еще раз, то в можете воспользоваться командой =srecode-insert-again= (=C-c / .=),
-которая вставит последний использованный шаблон.
+The main command, that is used to insert templates, is the =srecode-insert=, that bound to
+the =C-c / /= keys.  This function will ask user for name of template to insert, that you
+can enter using name completion.  List of available templates could vary, depending on
+current context.  If you want to insert the same template once again, then you can use the
+=srecode-insert-again= command (=C-c / .=).
 
-Шаблоны также могут определять собственные привязки клавиш -- для них зарегистрирован
-диапазон сочетаний =C-c / [a..z]=, и пользователь может указать в шаблоне какая клавиша
-будет к нему привязана -- например, для C++ использование сочетания =C-c / c= приведет к
-вставке шаблона для класса.  
+Templates, defined by user, could also define they own key bindings.  They can use
+lower-case symbols from range =C-c / [a..z]=, and user can specify in concrete template,
+which key will assigned to it.  For example, for C++ you can use the =C-c / c= key binding
+to insert class declaration.
 
-Сочетания клавиш, использующие заглавные буквы, зарезервированы для шаблонов и команд,
-определенных в Srecode.  Например, =C-c / G= (=srecode-insert-getset=) вставляет пару функций
-=get/set= для заданной переменной-члена класса, а =C-c / E= (=srecode-edit=) используется для
-редактирования шаблонов.  Число этих команд регулярно меняется, поэтому для получения
-полного их списка, лучше посмотреть в документацию.
+Key bindings, that use upper-case symbols, are reserved for templates & commands defined
+in Srecode.  For example, =C-c / G= (=srecode-insert-getset=) inserts pair of functions
+=get/set= for some class member variable, while =C-c / E= (=srecode-edit=) is used to edit
+templates.  List of this commands vary from time to time, so you need to look into
+documentation to get actual list of commands.
 
-Кроме шаблонов поставляемых вместе с Cedet, пользователь может определять собственные
-шаблоны и сохранять их в каталоге =~/.srecode=, где Cedet найдет их автоматически.  Про
-создание шаблонов вы можете прочитать в руководстве для данного пакета, которое входит в
-состав документации, поставляемой вместе с Cedet.
+Besides templates, supplied with Cedet, user can define their own templates, and store
+them in the =~/.srecode= directory, where Cedet finds them automatically.  You can read
+about templates creation in the Srecode manual, that comes together with other
+documentation in Cedet distribution.
 
 * Additional packages
 
-Вместе с Cedet поставляется некоторое количество дополнительных пакетов, часто находящихся
-в каталоге =contrib= дистрибутива, который автоматически добавляется в пути поиска пакетов,
-поэтому загрузка нужных пакетов производится без дополнительных действий.
+Together with Cedet the number of additional packages is supplied.  Some of them are
+located in the =contrib= subdirectory, that also will added to package search list, when you
+load Cedet, so you don't need to do anything special to load them.
 
 ** The eassist package
 
-Пакет *eassist* реализует несколько дополнительных команд, которые в своей работе используют
-информацию, полученную от Semantic.  По умолчанию эти команды не имеют предопределенных
-привязок клавиш, поэтому вам необходимо самим назначить нужные клавиши, если вы планируте
-пользоваться этими командами.
+The *eassist* package implements several additional commands, that for their work use
+information obtained from Semantic.  By default, these commands have no predefined key
+bindings, so you need to select them yourself.
 
-Функция =eassist-list-methods=, запущенная в файле с исходным кодом, показывает список
-функций в этом файле, позволяя выполнить быстрый переход к выбранной функции.
+The =eassist-list-methods= command, executed in file with source code, will show you a list
+of functions, defined in current buffer, and allows you to perform quick jump to selected
+function.
 
-При разработке на языках C и C++ полезной может оказаться функция =eassist-switch-h-cpp=,
-которая выполняет переключение между подключаемым файлом и файлом реализации (если они
-имеют одинаковые имена, но разные расширения файлов).
+If you develop code in C and/or C++ languages, then the =eassist-switch-h-cpp= command,
+could be very useful to you -- it jumps between include file and file, that contains
+implementation (if they have same names, but different extensions).
 
 
 <div id="rule">[[./index][To the main page]]</div>
@@ -469,18 +468,15 @@ Footnotes:
 
 [1] First line is need only when you build package from CVS
 
-[2] На моей странице вы можете найти мой [[http://xtalk.msk.su/~ott/common/emacs/rc/emacs-rc-cedet.el.html][файл инициализации Cedet]], который можно
-    использовать в качестве базы для дальнейшей работы (хотя там достаточно много
-    лишнего).
+[2] You can take [[http://xtalk.msk.su/~ott/common/emacs/rc/emacs-rc-cedet.el.html][my configuration file for Cedet]] as a base, although it contains lot of
+    not needed things
 
-[3] Существует также функция =semantic-complete-analyze-inline=, которая отображает список
-    возможных дополнений в отдельном окне, часто более удобно чем использование
-    графического меню.
+[3] There is also =semantic-complete-analyze-inline= command, that shows list of all
+    possible completions in separate window, that is often handy than graphical menu
 
-[4] В том случае, если дополнение имен работает неправильно, то попробуйте
-    проанализировать почему это происходит, и лишь затем отправлять сообщение об ошибке в
-    список рассылки.  Описание процесса отладки вы можете найти в Semantic User Guide в
-    разделе *Smart Completion Debugging*.
+[4] If name completion works improperly, then try to analyze why this happens, and send
+    bug report only after this.  Information about debugging you can find in Semantic User
+    Guide in section *Smart Completion Debugging*
 
 ;  LocalWords: emacs ede cedet localwords lang autoloads Makefile xargs ECB src
 ;  LocalWords:  Speedbar JDEE LocalWords CVS тагах Senator Semantic Srecode SPC
