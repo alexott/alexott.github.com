@@ -100,6 +100,8 @@ loading of Cedet.  For example:
 (semantic-load-enable-excessive-code-helpers)
 </src>
 
+The rest of this section assumes that the minimal Semantic features have been loaded.
+
 To use additional features for names completion, and displaying of information for tags &
 classes, you also need to load the =semantic-ia= package.  This could be performed with
 following command:
@@ -151,16 +153,16 @@ To optimize work with tags, you can use several techniques:
 								 '(project unloaded system recursive))
 </src>
 
-Besides this, you can point to Semantic, that it should extract syntactic information for
-current buffer only when Emacs is idle.  To do this, you need to enable
-=semantic-idle-scheduler-mode=, and customize the =semantic-idle-scheduler-idle-time=
-variable, that specify idle time (in seconds).
+Semantic extracts syntactic information when Emacs is idle.  You can customize the
+=semantic-idle-scheduler-idle-time= variable, that specify idle time (in seconds) if you
+don't want to use default value.
 
 *** Integration with imenu
 
-The Semantic package could be integrated with the *imenu* package, that allows to display
-menu with list of functions, variables, etc.  To enable this feature, you need to add
-following code into your initialization file:
+The Semantic package can be integrated with the *imenu* package.  This enables the display
+of a menu with a list of functions, variables, and other tags.  To enable this feature you
+can either use =semantic-load-enable-code-helpers=, or, you need to add following code into
+your initialization file:
 
 <src lang="emacs-lisp">
 (defun my-semantic-hook ()
@@ -293,12 +295,12 @@ If there are lot of the possible names, or you want to see full list of function
 variables for some class, then it's better to use the =senator-completion-menu-popup=
 command (=C-c , SPC=), that displays list of all possible completions as a graphical menu.
 
-Besides these commands, for some languages user can explicitly enable special mode --
-=semantic-idle-completions-mode= (or use the =global-semantic-idle-scheduler-mode= to enable
-it for all supported languages) -- in this mode names completions are shown automatically
-if user stops its work for a some time (idle time).  By default, only first possible
-completion is shown, and user can use the =TAB= key to navigate through list of possible
-completions.
+Besides these commands, for some languages user can use special mode --
+=semantic-idle-completions-mode= (it loaded when you use
+=emantic-load-enable-gaudy-code-helpers=, or you can enable it explicitly) -- in this mode
+names completions are shown automatically if user stops its work for a some time (idle
+time).  By default, only first possible completion is shown, and user can use the =TAB= key
+to navigate through list of possible completions.
 
 For C-like languages, user can use the =semantic-complete-self-insert= command, bound to the
 =.= and/or =>= keys, as this show below:
@@ -344,6 +346,10 @@ project -- =semantic-complete-jump= (=C-c , J=).  Both commands allow to enter n
 function or variable (including local variables for functions) and jump to given
 definition (you can use name completion when entering the name).
 
+The main difference between =semantic-ia-fast-jump= & =semantic-complete-jump= commands is
+that the first properly handles complex names, like =this::that->foo()=, while the second,
+can find only simple names, like =foo=.
+
 The =semantic-analyze-proto-impl-toggle= command allows to switch between function's
 declaration and its implementation in languages, that allows to have separate declaration
 and implementation of functions.  Another useful command is
@@ -376,16 +382,10 @@ to jump to found places:
 
 As Semantic has almost full syntactic information about source code, this allows it to
 implement folding functionality, similar to implemented by *hideshow* package.  To enable
-this feature, you need to add following line of code to your initialization file:
-
-<src lang="emacs-lisp">
-(global-semantic-folding-mode 1)
-</src>
-
-and perform customization of the =global-semantic-tag-folding-mode= variable.  This will
-lead to displaying of small triangles at the *fringle* field, and you'll able to fold and
-unfold pieces of code pressing on them (not only pieces source code, but also comments,
-and other objects).
+this feature, you need to perform customization of the =global-semantic-tag-folding-mode=
+variable.  This will lead to displaying of small triangles at the *fringle* field, and
+you'll able to fold and unfold pieces of code pressing on them (not only pieces source
+code, but also comments, and other objects).
 
 Senator also has similar functionality, but it usually used for top-level objects --
 functions, class declarations, etc.  You can fold piece of code with the =senator-fold-tag=
