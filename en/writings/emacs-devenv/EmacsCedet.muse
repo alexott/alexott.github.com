@@ -242,7 +242,7 @@ User, if this need, can redefine some variables for files inside project.  This 
 done by specifying the =:local-variables= parameter, and passing to it list of pairs symbol
 name/value, and these values will set for files in project.
 
-** Обработка кода препроцессором
+** Preprocessing of source code
 
 More information about definitions for preprocessor you can find in documentation for the
 =semantic-lex-c-preprocessor-symbol-map= variable.  List of preprocessor symbols defined for
@@ -261,10 +261,8 @@ configuration for work with Qt4:
 (setq qt4-base-dir "/usr/include/qt4")
 (semantic-add-system-include qt4-base-dir 'c++-mode)
 (add-to-list 'auto-mode-alist (cons qt4-base-dir 'c++-mode))
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file 
-    (concat qt4-base-dir "/Qt/qconfig.h"))
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file 
-    (concat qt4-base-dir "/Qt/qconfig-dist.h"))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir "/Qt/qconfig.h"))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir "/Qt/qconfig-dist.h"))
 </src>
 
 After adding of these lines to your initialization file, you'll be able to use name
