@@ -1,42 +1,42 @@
 #title A Gentle introduction to Cedet
 #keywords c, c++, emacs, cedet, programming, semantic, ede, ide, integrated development environment
 
-This article doesn't pretend to represent detailed description of the customizing of Emacs
-as development environment (this is theme for [[emacs-devenv/index][separate article]]) -- I tried to write a
-small description of the [[http://cedet.sf.net][Cedet]]'s customization to work with C & C++, although most of
+This article doesn't pretend to represent detailed description of customization of Emacs
+as development environment (this is theme for [[emacs-devenv/index][separate article]]). I just tried to provide a
+small description of "How to customize [[http://cedet.sf.net][Cedet]] to work with C & C++", although most of this
 description will also applicable for other languages, supported by Cedet.
 
 <contents>
 
 * What is Cedet?
 
-The Cedet package is a collection of several packages, implementing different functions,
+The Cedet package is a collection of several libraries, implementing different commands,
 but used for one task -- provide functionality for work with source code written in
 different programming languages:
 
- - Semantic is a basis for building of syntactic analyzers for different programming
-   languages, that allows to provide common representation for information extracted from
+ - *Semantic* is base for construction of syntactic analyzers for different programming
+   languages. This allows to provide common representation for information extracted from
    code, written in different languages.  Using this information, Cedet & other packages
-   ([[http://jdee.sourceforge.net/][JDEE]] and [[http://ecb.sf.net][ECB]]), can implement functions, required for modern development environment
+   ([[http://jdee.sourceforge.net/][JDEE]] and [[http://ecb.sf.net][ECB]]), can implement commands, required for modern development environment
    (something like Eclipse, NetBeans, etc.);
- - SemanticDB is included into Semantic, and implements interfaces to different storage
-   modules, that keeps information, that is needed for names completion, source code
-   navigation, etc.  Syntactic information could be saved between Emacs sessions, so it
-   reduce need for re-parsing of not modified source code.;
- - Senator -- implements navigation in source code file, using information, extracted by
+ - *SemanticDB* is included into Semantic, and implements interfaces to different storage
+   modules, that keeps information, needed for names completion, source code navigation,
+   and so on.  Syntactic information could be saved between Emacs sessions, so it reduce
+   need for re-parsing of not modified source code.;
+ - *Senator* implements navigation in source code file, using information, extracted by
    Semantic;
- - Srecode -- package for source code generation, using syntactic information, including
-   information, obtained from  Semantic;
- - EDE -- implements set of extensions, that allow to work with projects -- control list
-   of the targets to build, perform build of project, etc.  Besides this, using notion of
-   the project, you can have more precise control about Semantic's operations -- name
+ - *Srecode* -- package for source code generation, using syntactic information, including
+   information, obtained from Semantic;
+ - *EDE* implements set of extensions to work with projects -- user can control list of
+   the targets to build, perform build of project, etc.  Besides this, using notion of the
+   project, you can have more precise control about Semantic's operations -- name
    completions, and so on;
- - Speedbar -- is used to display information about current buffer, using different
-   sources of information -- Semantic, some specialized information providers (for texinfo
-   & html, for example), etc.
- - Eieio -- implementation of CLOS-like (Common Lisp Object System) infrastructure for
-   Emacs Lisp;
- - Cogre -- library for drawing of UML-like diagrams in Emacs buffer, with basic
+ - *Speedbar* is used to display information about current buffer using different sources of
+   information -- Semantic, some specialized information providers (for texinfo & html,
+   for example), etc.
+ - *Eieio* is a library, implementating CLOS-like (Common Lisp Object System) infrastructure
+   for Emacs Lisp;
+ - *Cogre* is a library for drawing of UML-like diagrams in Emacs buffer, with basic
    integration with Semantic.
 
 * Installation of the Cedet
@@ -50,20 +50,20 @@ find . -name Makefile|xargs touch
 make clean ; make -k all
 </src>
 
-The first command is necessary, as =Makefile= files, that are used to build, are generated
-from =Projects.ede= files, and when you fetch them from repository, they have wrong date,
-and this lead to the build errors.[1]
+The first command is necessary, as =Makefile= files, are generated from =Projects.ede= files,
+and when you fetch them from repository, they have wrong date, and this could lead to the
+build errors.[1]
 
 * Customization
 
-The loading of package is performed with the =cedet.el= script, so all you need to do -- is
-just add following line to the your Emacs initialization file[2]:
+The loading of package is performed by =cedet.el= script, so all you need to do -- is just
+add following line to the your Emacs initialization file[2]:
 
 <src lang="emacs-lisp">
 (load-file "~/emacs/cedet/common/cedet.el")
 </src>
 
-If you plan to use projects, then you need to switch corresponding mode on -- it's
+If you plan to use projects, then you need to switch on corresponding mode -- it's
 implemented by EDE package:
 
 <src lang="emacs-lisp">
@@ -127,10 +127,10 @@ with following command:
 </src>
 
 You can also explicitly specify additional paths for look up of include files (and these
-paths also could vary for specific modes).  To add path to list of system include paths,
-you can use the =semantic-add-system-include=, that accepts two parameters -- string with
-path to include files, and symbol, representing name of major mode, for which this path
-will used.  For example:
+paths also could vary for specific modes).  To add some path to list of system include
+paths, you can use the =semantic-add-system-include= command, that accepts two parameters --
+string with path to include files, and symbol, representing name of major mode, for which
+this path will used.  For example:
 
 <src lang="emacs-lisp">
 (semantic-add-system-include "~/exp/include/boost_1_37" 'c++-mode)
@@ -139,7 +139,7 @@ will used.  For example:
 *** Optimization of Semantic's work
 
 To optimize work with tags, you can use several techniques:
- - limit search by setting of the EDE project, as this described below;
+ - limit search by declaring an EDE project, as this described below;
  - explicitly specify a list of root directories for your projects, so Semantic will use
    limited number of databases with syntactic information;
  - explicitly generate tags databases for often used directories (=/usr/include=,
@@ -154,8 +154,8 @@ To optimize work with tags, you can use several techniques:
 </src>
 
 Semantic extracts syntactic information when Emacs is idle.  You can customize the
-=semantic-idle-scheduler-idle-time= variable, that specify idle time (in seconds) if you
-don't want to use default value.
+=semantic-idle-scheduler-idle-time= variable to specify idle time (in seconds), if you don't
+want to use default value.
 
 *** Integration with imenu
 
@@ -172,7 +172,7 @@ your initialization file:
 
 ** Customization of Semanticdb
 
-If you had used standard procedure of Cedet's loading, then Semanticdb will loaded
+If you use standard procedure for loading of Cedet, then Semanticdb will loaded
 automatically.  Otherwise, you can load and enable it with following commands:
 
 <src lang="emacs-lisp">
@@ -199,11 +199,10 @@ Besides this, Semanticdb can use databases generated by external utilities -- =g
 
 ** How to customize  Semantic to work with C & C++ projects
 
-To proper work of  Semantic with С & C++ code is recommended to use the EDE package (work
-with projects, etc.).  For these languages, the EDE package defines special project type
--- =ede-cpp-root-project=, that provides additional information to Semantic, that will used
-to analyze source code of your project.   To use this feature, you need to enable
-corresponding mode -- =global-ede-mode=, as shown above.  
+To proper work of Semantic with С & C++ code is recommended to use the EDE package (work
+with projects, etc.).  For these languages, EDE package defines special project type --
+=ede-cpp-root-project=, that provides additional information to Semantic, that will be used
+to analyze source code of your project.  
 
 To define a project, you need to use following code:
 
@@ -221,32 +220,35 @@ To define a project, you need to use following code:
 																	 ("BOOST_TEST_DYN_LINK" . "")))
 </src>
 
-You can use any file at root directory of the project, as an argument to =:file= parameter.
-This file isn't analyzed, but it's only used as an anchor to search a files from projects.
+You can use any file at root directory of the project, as a =:file= parameter.  This file
+isn't parsed, but it's used only as an anchor to search a files in projects.
 
-To searching of include files, Semantic uses directories from two lists, that could be
-defined in project.  The =:system-include-path= parameter is used to specify list of the
-full paths that will searched for "system" include files.  Another parameter --
-=:include-path= specifies the list of directories, relative to the project's root directory,
-that will searched for your include files (if names are starting with =/=, this means, that
-name is specified relative to root directory).  Instead of specifying of the paths lists,
+To search include files, Semantic uses directories from two lists, that could be specified
+for project.  The =:system-include-path= parameter is used to specify list of the full paths
+that will searched for "system" include files.  Another parameter -- =:include-path=
+specifies the list of directories, relative to the project's root directory, that will
+searched for your include files (if names are starting with =/=, this means, that path is
+specified relative to project's root directory).  Instead of specifying paths as lists,
 you can also provide function, that will perform a search for include files in your
 project.  You can read about it in the EDE's manual.
 
 Another parameter, that could be specified in project's definition is a list of
 definitions, that will be used during preprocessing of the code.  The =:spp-table= parameter
-allows to specify list of pairs, consisting from symbol's name & value, defined for it.
-In our example above, we define two symbols -- =isUnix= and =BOOST_TEST_DYN_LINK=, that will
-passed to preprocessor, and this allows to perform proper parsing of the code.  More
+allows to specify list of pairs, consisting from symbol's name & value, defined for given
+name.  In our example above, we define two symbols -- =isUnix= and =BOOST_TEST_DYN_LINK=, that
+will passed to preprocessor, and this allows to perform proper parsing of the code.  More
 information about these definitions you can find in documentation for the
-=semantic-lex-c-preprocessor-symbol-map= variable.
+=semantic-lex-c-preprocessor-symbol-map= variable.  List of preprocessor symbols defined for
+some file with source code you can obtain with the =semantic-lex-spp-describe= command, and
+use its result to customize =:spp-table= parameter or =semantic-lex-c-preprocessor-symbol-map=
+variable.
 
 * Work with Semantic
 
-From the user's point of view, Semantic implements several major functions -- name
+From the user's point of view, Semantic implements several major commands -- name
 completions, obtaining information about tags (variables, functions, etc.), and navigation
-in source code.  Some of commands are implemented by =semantic-ia= package, other, by
-Senator package, and rest of them, are implemented by Semantic's kernel.
+in source code.  Some of commands are implemented by =semantic-ia= package, while some other
+are implemented in Senator, and rest of them, are implemented by Semantic's kernel.
 
 Some of commands have no standard key bindings, so you it's better to select key bindings,
 that are comfortable to you, and bind needed commands to them, for example, like this:
@@ -261,17 +263,17 @@ that are comfortable to you, and bind needed commands to them, for example, like
 </src>
 
 *I want to mention, that Semantic's development is pretty active, and if something doesn't
-work, or works wrong, then please, send examples of code to the cedet-devel mailing list
--- the Cedet's author, answers pretty operative.*
+work, or works wrong, then please, send examples of code to the [[https://lists.sourceforge.net/lists/listinfo/cedet-devel][cedet-devel mailing list]]
+-- the Cedet's author usually answers very quickly.*
 
 ** Names completion
 
-Name completions for names of functions & classes is pretty often used feature[3].  There
-are two packages inside Semantic that implement this functionality -- =semantic-ia= and
-Senator.  Functions, implemented by =semantic-ia= use the
-=semantic-analyze-possible-completions= function to create a list of all possible names
+Name completions for names of functions, variables & classes is pretty often used feature
+when you work with source code[3].  There are two packages inside Semantic that implement
+this functionality -- =semantic-ia= and Senator.  Commands, implemented by =semantic-ia= use
+the =semantic-analyze-possible-completions= function to create a list of all possible names
 completion, and this function take into account many parameters, and it could be also
-extended by user to provide more precise list of names.  At the same time, functions from
+extended by user to provide more precise list of names.  At the same time, commands from
 Senator package use more simple methods to create a list of all possibles completions
 (usually use information about only definitions in current file), and this sometime lead
 to the wrong completion of names.
@@ -286,7 +288,7 @@ list of possible completions as a graphical menu, from which the needed name cou
 selected by user[4].  Besides this, there is =semantic-ia-complete-tip= command, that
 displays list of possible completions as tooltip.
 
-As was mentioned above, the Senator package, also provides functions for names completion,
+As was mentioned above, the Senator package, also provides commands for names completion,
 that work fast, but with less precision, as they use few parameters during computation of
 names for completions. The =senator-complete-symbol= command (=C-c , TAB=) completes name for
 current tag, and insert first found completion as result.  If it substitute wrong name,
@@ -320,13 +322,13 @@ displaying of list of possible completions for given class or structure.
 
 The =semantic-ia= package implements several commands, that allows to get information about
 classes, functions & variables.  As documentation are used comments, extracted from source
-code, including comments, written for Doxygen.  Now following functions are implemented:
+code, including comments, written for Doxygen.  Now following commands are implemented:
 
  =semantic-ia-show-doc= :: shows documentation for function or variable, whose names is
-   under point.  Documentation is shown in separate buffer.  For variables this function
+   under point.  Documentation is shown in separate buffer.  For variables this command
    shows their declaration, including type of variable, and documentation string, if it
-   available.  For functions, function's prototype is shown, including documentation for
-   arguments and returning value (if comments are available);
+   available.  For functions, prototype of the function is shown, including documentation
+   for arguments and returning value (if comments are available);
  =semantic-ia-show-summary= :: shows documentation for name under point, but information is
    shown in the mini-buffer, so user will see only variable's declaration or function's
    prototype;
@@ -340,7 +342,7 @@ command, that allows to jump to declaration of variable or function, whose name 
 point.  You can return back by using the =semantic-mrub-switch-tag= command (=C-x B=), that is
 available when you use the =semantic-mru-bookmark-mode= minor mode.
 
-Semantic also provides two additional commands for jumping to function or variable,
+Semantic also provides two additional commands for jumping to function or variable:
 defined in current file -- =semantic-complete-jump-local= (=C-c , j=), or defined in current
 project -- =semantic-complete-jump= (=C-c , J=).  Both commands allow to enter name of
 function or variable (including local variables for functions) and jump to given
@@ -351,84 +353,85 @@ that the first properly handles complex names, like =this::that->foo()=, while t
 can find only simple names, like =foo=.
 
 The =semantic-analyze-proto-impl-toggle= command allows to switch between function's
-declaration and its implementation in languages, that allows to have separate declaration
+declaration and its implementation in languages, that allow to have separate declaration
 and implementation of functions.  Another useful command is
 =semantic-decoration-include-visit=, that allows to switch to the include file, whose name
 is under point.
 
-Senator also implements several commands for navigation in source code.  This is commands
-=senator-next-tag= (=C-c , n=) and =senator-previous-tag= (=C-c , p=), that move cursor to the
-next or previous tag, and also the =senator-go-to-up-reference= command (=C-c , u=), that move
-cursor to the "parent" tag (for example, for class member function, "parent" tag is class
-declaration).
+Senator also implements several commands for navigation in source code.  This is
+=senator-next-tag= (=C-c , n=) and =senator-previous-tag= (=C-c , p=) commands, that move cursor
+to next or previous tag, and also the =senator-go-to-up-reference= command (=C-c , u=), that
+move cursor to the "parent" tag (for example, for class member function, "parent" tag is
+class declaration).
 
 ** Search for places where function is called
 
 Not so long ago a very useful command was implemented in Semantic -- =semantic-symref=, that
-allows to find places, where symbol, whose name is under point, is used in the project.
+allows to find places, where symbol, whose name is under point, is used in your project.
 If you want to find usage of symbol with any name, you can use the =semantic-symref-symbol=,
 that allows to explicitly specify name of the symbol.
 
-If references to given name weren't found in the corresponding database (GNU Global,
-etc.), then this command tries to find them with the =find-grep= command.  As result of
-execution of these commands, a new buffer with results will created, and user can use them
-to jump to found places:
+If references to given name weren't found in corresponding database (GNU Global, etc.),
+then this command tries to find them with the =find-grep= command.  As result of execution
+of these commands, a new buffer with results will created, and user can use them to jump
+to corresponding places:
 
 <div id="screenshot">
 [[../../../common/writings/emacs-devenv/cedet-symref.png]]
 </div>
 
-** Folding of the source code
+** Source code folding
 
 As Semantic has almost full syntactic information about source code, this allows it to
-implement folding functionality, similar to implemented by *hideshow* package.  To enable
-this feature, you need to perform customization of the =global-semantic-tag-folding-mode=
-variable.  This will lead to displaying of small triangles at the *fringle* field, and
-you'll able to fold and unfold pieces of code pressing on them (not only pieces source
-code, but also comments, and other objects).
+implement folding functionality, similar to functionality implemented by *hideshow* package.
+To enable this feature, you need to do customization of the
+=global-semantic-tag-folding-mode= variable.  When you'll enable it, this will lead to
+displaying of small triangles at the *fringle* field, and you'll able to fold and unfold
+pieces of code pressing on them (not only pieces source code, but also comments, and other
+objects).
 
 Senator also has similar functionality, but it usually used for top-level objects --
 functions, class declarations, etc.  You can fold piece of code with the =senator-fold-tag=
 command (=C-c , -=), and unfold with =senator-unfold-tag= (=C-c , +=).
 
-** Other commands implemented in Senator
+** Other commands implemented by Senator
 
-The Senator package defines number of commands for work with tags, that allows to cut or
-copy tag, and insert it in another place, and so on.  To cut current tag (usually this is
-function's declaration or implementation) the =senator-kill-tag= command (=C-c , C-w=) is
-defined.  You can insert tag with standard key binding =C-y=, while the =senator-yank-tag=
-command (=C-c , C-y=) inserts only tag's declaration, without body. Another useful command
-is =senator-copy-tag= (=C-c , M-w=), that copies (you can use =C-c , C-y= key binding), that's
-very handy when you want to insert function's declaration into header file.
+The Senator package defines number of commands for work with tags, that allow user to cut
+or copy tag, and insert it in another place, etc.  To cut current tag (usually this is
+declaration of some function or its implementation) the =senator-kill-tag= command (=C-c ,
+C-w=) is defined.  You can insert tag with standard key binding =C-y=, while the
+=senator-yank-tag= command (=C-c , C-y=) inserts only tag declaration, without body. Another
+useful command is =senator-copy-tag= (=C-c , M-w=), that copies current tag -- this is very
+handy when you want to insert declaration of function into include file, for example.
 
 Senator allows to change behaviour of standard search commands (=re-search-forward=,
 =isearch-forward= and other), when you work with source code, such way, so they will perform
 search only in given tags.  To enable this mode you can use the
 =senator-isearch-toggle-semantic-mode= command(=C-c , i=), and with the
-=senator-search-set-tag-class-filter= command (=C-c , f=) you can limit search to given tag's
+=senator-search-set-tag-class-filter= command (=C-c , f=) you can limit search to given tag
 types -- =function= for functions, =variable= for variables, etc.
 
 You can also perform tags search without enabling this mode -- you just need to call
-corresponding function -- =senator-search-forward= or =senator-search-backward=.
+corresponding command: =senator-search-forward= or =senator-search-backward=.
          
 * Work with Srecode
 
 The Srecode package allows user to define different code templates, but it differs from
-other packages, that provide template's insertion, as list of available templates could
-vary depending on current context.  For example, insertion of =get/set= functions will
+other packages, that provide insertion of templates, as far as list of available templates
+could vary depending on current context.  For example, insertion of =get/set= functions will
 happen only when you inside class declaration.  Or, insertion of function declaration,
 could happen only outside of other function.
 
 The main command, that is used to insert templates, is the =srecode-insert=, that bound to
-the =C-c / /= keys.  This function will ask user for name of template to insert, that you
-can enter using name completion.  List of available templates could vary, depending on
+the =C-c / /= keys.  This command will ask user for name of template to insert (you can
+enter it using name completion).  List of available templates will vary, depending on
 current context.  If you want to insert the same template once again, then you can use the
 =srecode-insert-again= command (=C-c / .=).
 
-Templates, defined by user, could also define they own key bindings.  They can use
-lower-case symbols from range =C-c / [a..z]=, and user can specify in concrete template,
-which key will assigned to it.  For example, for C++ you can use the =C-c / c= key binding
-to insert class declaration.
+Templates, defined by user, could also use they own key bindings.  They can use lower-case
+symbols from range =C-c / [a..z]=, and user can specify template's declaration, which key
+will assigned to it.  For example, for C++ you can use the =C-c / c= key binding to insert
+declaration of class.
 
 Key bindings, that use upper-case symbols, are reserved for templates & commands defined
 in Srecode.  For example, =C-c / G= (=srecode-insert-getset=) inserts pair of functions
