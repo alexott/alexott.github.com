@@ -236,12 +236,45 @@ Another parameter, that could be specified in project's definition is a list of
 definitions, that will be used during preprocessing of the code.  The =:spp-table= parameter
 allows to specify list of pairs, consisting from symbol's name & value, defined for given
 name.  In our example above, we define two symbols -- =isUnix= and =BOOST_TEST_DYN_LINK=, that
-will passed to preprocessor, and this allows to perform proper parsing of the code.  More
-information about these definitions you can find in documentation for the
+will passed to preprocessor, and this allows to perform proper parsing of the code.  
+
+User, if this need, can redefine some variables for files inside project.  This could be
+done by specifying the =:local-variables= parameter, and passing to it list of pairs symbol
+name/value, and these values will set for files in project.
+
+** Обработка кода препроцессором
+
+More information about definitions for preprocessor you can find in documentation for the
 =semantic-lex-c-preprocessor-symbol-map= variable.  List of preprocessor symbols defined for
 some file with source code you can obtain with the =semantic-lex-spp-describe= command, and
 use its result to customize =:spp-table= parameter or =semantic-lex-c-preprocessor-symbol-map=
 variable.
+
+Many libraries list all defined macros in one of include files, so you can use these
+definitions.  To do this you need to list these files in the
+=semantic-lex-c-preprocessor-symbol-file= variables, and when Cedet will perform analysis,
+this values will taken into account.  By default, this variable has only one value -- file
+with definitions for C++ standard library.  As example, I want to show Cedet's
+configuration for work with Qt4:
+
+<src lang="emacs-lisp">
+(setq qt4-base-dir "/usr/include/qt4")
+(semantic-add-system-include qt4-base-dir 'c++-mode)
+(add-to-list 'auto-mode-alist (cons qt4-base-dir 'c++-mode))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file 
+    (concat qt4-base-dir "/Qt/qconfig.h"))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file 
+    (concat qt4-base-dir "/Qt/qconfig-dist.h"))
+</src>
+
+After adding of these lines to your initialization file, you'll be able to use name
+completion for classes, defined in Qt4 library.  Example of this you can see on picture
+below.
+
+<div id="screenshot">
+[[../../../common/writings/emacs-devenv/cedet-qt-name-completion.png]]
+</div>
+
 
 * Work with Semantic
 
