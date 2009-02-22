@@ -4,151 +4,150 @@
   <head>
     <title>emacs-rc-prog-misc.el</title>
   </head>
-  <body style="color: #000000; background-color: #ebebeb;">
+  <body style="color: #000000; background-color: #e5e5e5;">
     <pre>
-<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-prog-misc.el --- 
+<span style="color: #7f7f7f;">;;; </span><span style="color: #7f7f7f;">emacs-rc-prog-misc.el ---
 </span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) 2003 Alex Ott
-</span><span style="color: #666666;">;;</span><span style="color: #666666;">
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Author: alexott@gmail.com
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Version: $Id: emacs-prog-misc.el,v 0.0 2003/11/20 11:30:47 ott Exp $
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Keywords: 
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Requirements: 
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Status: not intended to be distributed yet
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Copyright (C) 2003 Alex Ott
+</span><span style="color: #7f7f7f;">;;</span><span style="color: #7f7f7f;">
+</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Author: alexott@gmail.com
+</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Version: $Id: emacs-prog-misc.el,v 0.0 2003/11/20 11:30:47 ott Exp $
+</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Keywords:
+</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Requirements:
+</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Status: not intended to be distributed yet
 </span>
-(add-to-list 'load-path <span style="color: #008b00;">"~/emacs/programming"</span>)
-<span style="color: #666666;">;;; </span><span style="color: #666666;">find-func
-</span>(load <span style="color: #008b00;">"find-func"</span>)
+(add-to-list 'load-path <span style="color: #bc8f8f;">"~/emacs/programming"</span>)
+<span style="color: #7f7f7f;">;;; </span><span style="color: #7f7f7f;">find-func
+</span>(load <span style="color: #bc8f8f;">"find-func"</span>)
 (global-set-key [(control ?c) ?f] 'find-function)
 (global-set-key [(control ?c) ?4 ?f] 'find-function-other-window)
 (global-set-key [(control ?c) ?5 ?f] 'find-function-other-frame)
 (global-set-key [(control ?c) ?k] 'find-function-on-key)
 
-<span style="color: #666666;">;; </span><span style="color: #666666;">VCS
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">(require 'vc)
-</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">psvn</span>)
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">VCS
+</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">(require 'vc)
+</span>(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">psvn</span>)
 
-<span style="color: #666666;">;; </span><span style="color: #666666;">compile
-</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">compile</span>)
-(setq compilation-disable-input nil)
-(setq compilation-scroll-output t)
-(setq mode-compile-always-save-buffer-p t)
-(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">My-Compile</span> ()
-  <span style="color: #666666;">"Saves all unsaved buffers, and runs 'compile'."</span>
-  (interactive)
-  (save-some-buffers t)
-  (<span style="color: #a020f0;">let</span> ((fname (or (buffer-file-name) default-directory)))
-    (<span style="color: #a020f0;">if</span> (and (stringp fname) (string-match-p <span style="color: #008b00;">"/webwasher-ng/"</span> fname))
-        (<span style="color: #a020f0;">let*</span> ((dir-name (file-name-directory fname))
-               (str-m (string-match <span style="color: #008b00;">"/webwasher-ng/"</span> dir-name))
-               (subdir-name (substring dir-name (match-end 0))))
-          (message <span style="color: #008b00;">"%s %s"</span> str-m subdir-name)
-          (compile (concat 
-                    <span style="color: #008b00;">"(cd ~/work/webwasher-ng/Debug/"</span> subdir-name
-                    <span style="color: #008b00;">"; make -j2) &amp;&amp; (cd ~/work/webwasher-ng/Release/"</span>
-                    subdir-name <span style="color: #008b00;">"; make -j2)"</span>)))
-      (compile compile-command))))
-
-<span style="color: #666666;">;; </span><span style="color: #666666;">sh mode hook
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">sh mode hook
 </span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-sh-mode-hook</span> ()
   (local-set-key [return] 'newline-and-indent)
-  (local-set-key <span style="color: #008b00;">"\C-m"</span> 'newline-and-indent)
-  (local-set-key <span style="color: #008b00;">"\C-c\C-c"</span> 'comment-region)
-  (local-set-key <span style="color: #008b00;">"\C-u\C-c\C-c"</span> 'comment-region)
+  (local-set-key <span style="color: #bc8f8f;">"\C-m"</span> 'newline-and-indent)
+  (local-set-key <span style="color: #bc8f8f;">"\C-c\C-c"</span> 'comment-region)
+  (local-set-key <span style="color: #bc8f8f;">"\C-u\C-c\C-c"</span> 'comment-region)
   )
 (add-hook 'sh-mode-hook 'my-sh-mode-hook)
 
 
-<span style="color: #666666;">;; </span><span style="color: #666666;">Working with RPM specs
-</span>(autoload 'rpm-spec-mode <span style="color: #008b00;">"rpm-spec-mode"</span> <span style="color: #666666;">"RPM spec mode."</span> t)
-(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.spec$"</span> . rpm-spec-mode))
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Working with RPM specs
+</span>(autoload 'rpm-spec-mode <span style="color: #bc8f8f;">"rpm-spec-mode"</span> <span style="color: #bc8f8f;">"RPM spec mode."</span> t)
+(add-to-list 'auto-mode-alist '(<span style="color: #bc8f8f;">"\\.spec$"</span> . rpm-spec-mode))
 
-(autoload 'smerge-mode <span style="color: #008b00;">"smerge-mode"</span> nil t)
+(autoload 'smerge-mode <span style="color: #bc8f8f;">"smerge-mode"</span> nil t)
 
-(autoload 'po-mode <span style="color: #008b00;">"po-mode"</span>  <span style="color: #666666;">"Major mode for translators to edit PO files"</span> t)
-(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.po$</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">|</span><span style="color: #008b00;">\\.po\\."</span> . po-mode))
+(autoload 'po-mode <span style="color: #bc8f8f;">"po-mode"</span>  <span style="color: #bc8f8f;">"Major mode for translators to edit PO files"</span> t)
+(add-to-list 'auto-mode-alist '(<span style="color: #bc8f8f;">"\\.po$</span><span style="color: #bc8f8f; font-weight: bold;">\\</span><span style="color: #bc8f8f; font-weight: bold;">|</span><span style="color: #bc8f8f;">\\.po\\."</span> . po-mode))
 
-(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.log$"</span> . auto-revert-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #bc8f8f;">"\\.log$"</span> . auto-revert-mode))
 
-<span style="color: #666666;">;; </span><span style="color: #666666;">support for CMake
-</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">cmake-mode</span>)
-(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"CMakeLists\\.txt\\'"</span> . cmake-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.cmake\\'"</span> . cmake-mode))
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">support for CMake
+</span>(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">cmake-mode</span>)
+(add-to-list 'auto-mode-alist '(<span style="color: #bc8f8f;">"CMakeLists\\.txt\\'"</span> . cmake-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #bc8f8f;">"\\.cmake\\'"</span> . cmake-mode))
 (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-cmake-mode-hook</span> ()
   (local-set-key [return] 'newline-and-indent)
-  (local-set-key <span style="color: #008b00;">"\C-m"</span> 'newline-and-indent)
-  (local-set-key <span style="color: #008b00;">"\C-c\C-c"</span> 'comment-region)
-  (local-set-key <span style="color: #008b00;">"\C-u\C-c\C-c"</span> 'uncomment-region)
+  (local-set-key <span style="color: #bc8f8f;">"\C-m"</span> 'newline-and-indent)
+  (local-set-key <span style="color: #bc8f8f;">"\C-c\C-c"</span> 'comment-region)
+  (local-set-key <span style="color: #bc8f8f;">"\C-u\C-c\C-c"</span> 'uncomment-region)
   )
 (add-hook 'cmake-mode-hook 'my-cmake-mode-hook)
 
-<span style="color: #666666;">;; </span><span style="color: #666666;">gdb/gud
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">gdb/gud
 </span>(setq gdb-many-windows t)
 (setq gdb-show-main t)
 (setq gud-chdir-before-run nil)
 (setq gud-tooltip-mode t)
 
-<span style="color: #666666;">;; </span><span style="color: #666666;">automatically indenting yanked text if in programming-modes
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">(defvar yank-indent-modes '(emacs-lisp-mode lisp-mode
-</span><span style="color: #666666;">;;                             </span><span style="color: #666666;">c-mode c++-mode js2-mode
-</span><span style="color: #666666;">;;                             </span><span style="color: #666666;">tcl-mode sql-mode
-</span><span style="color: #666666;">;;                             </span><span style="color: #666666;">perl-mode cperl-mode
-</span><span style="color: #666666;">;;                             </span><span style="color: #666666;">java-mode jde-mode
-</span><span style="color: #666666;">;;                             </span><span style="color: #666666;">lisp-interaction-mode
-</span><span style="color: #666666;">;;                             </span><span style="color: #666666;">LaTeX-mode TeX-mode)
-</span><span style="color: #666666;">;;   </span><span style="color: #666666;">"Modes in which to indent regions that are yanked (or yank-popped)")
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">automatically indenting yanked text if in programming-modes
+</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">(defvar yank-indent-modes '(emacs-lisp-mode lisp-mode
+</span><span style="color: #7f7f7f;">;;                             </span><span style="color: #7f7f7f;">c-mode c++-mode js2-mode
+</span><span style="color: #7f7f7f;">;;                             </span><span style="color: #7f7f7f;">tcl-mode sql-mode
+</span><span style="color: #7f7f7f;">;;                             </span><span style="color: #7f7f7f;">perl-mode cperl-mode
+</span><span style="color: #7f7f7f;">;;                             </span><span style="color: #7f7f7f;">java-mode jde-mode
+</span><span style="color: #7f7f7f;">;;                             </span><span style="color: #7f7f7f;">lisp-interaction-mode
+</span><span style="color: #7f7f7f;">;;                             </span><span style="color: #7f7f7f;">LaTeX-mode TeX-mode)
+</span><span style="color: #7f7f7f;">;;   </span><span style="color: #7f7f7f;">"Modes in which to indent regions that are yanked (or yank-popped)")
 </span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">(defvar yank-advised-indent-threshold 1000
-</span><span style="color: #666666;">;;   </span><span style="color: #666666;">"Threshold (# chars) over which indentation does not automatically occur.")
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">(defvar yank-advised-indent-threshold 1000
+</span><span style="color: #7f7f7f;">;;   </span><span style="color: #7f7f7f;">"Threshold (# chars) over which indentation does not automatically occur.")
 </span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">(defun yank-advised-indent-function (beg end)
-</span><span style="color: #666666;">;;   </span><span style="color: #666666;">"Do indentation, as long as the region isn't too large."
-</span><span style="color: #666666;">;;   </span><span style="color: #666666;">(if (&lt;= (- end beg) yank-advised-indent-threshold)
-</span><span style="color: #666666;">;;       </span><span style="color: #666666;">(indent-region beg end nil)))
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">(defun yank-advised-indent-function (beg end)
+</span><span style="color: #7f7f7f;">;;   </span><span style="color: #7f7f7f;">"Do indentation, as long as the region isn't too large."
+</span><span style="color: #7f7f7f;">;;   </span><span style="color: #7f7f7f;">(if (&lt;= (- end beg) yank-advised-indent-threshold)
+</span><span style="color: #7f7f7f;">;;       </span><span style="color: #7f7f7f;">(indent-region beg end nil)))
 </span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">(defadvice yank (after yank-indent activate)
-</span><span style="color: #666666;">;;   </span><span style="color: #666666;">"If current mode is one of 'yank-indent-modes, indent yanked text (with prefix arg don't indent)."
-</span><span style="color: #666666;">;;   </span><span style="color: #666666;">(if (and (not (ad-get-arg 0))
-</span><span style="color: #666666;">;;            </span><span style="color: #666666;">(member major-mode yank-indent-modes))
-</span><span style="color: #666666;">;;       </span><span style="color: #666666;">(let ((transient-mark-mode nil))
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">       (yank-advised-indent-function (region-beginning) (region-end)))))
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">(defadvice yank (after yank-indent activate)
+</span><span style="color: #7f7f7f;">;;   </span><span style="color: #7f7f7f;">"If current mode is one of 'yank-indent-modes, indent yanked text (with prefix arg don't indent)."
+</span><span style="color: #7f7f7f;">;;   </span><span style="color: #7f7f7f;">(if (and (not (ad-get-arg 0))
+</span><span style="color: #7f7f7f;">;;            </span><span style="color: #7f7f7f;">(member major-mode yank-indent-modes))
+</span><span style="color: #7f7f7f;">;;       </span><span style="color: #7f7f7f;">(let ((transient-mark-mode nil))
+</span><span style="color: #7f7f7f;">;;        </span><span style="color: #7f7f7f;">(yank-advised-indent-function (region-beginning) (region-end)))))
 </span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">(defadvice yank-pop (after yank-pop-indent activate)
-</span><span style="color: #666666;">;;   </span><span style="color: #666666;">"If current mode is one of 'yank-indent-modes, indent yanked text (with prefix arg don't indent)."
-</span><span style="color: #666666;">;;   </span><span style="color: #666666;">(if (and (not (ad-get-arg 0))
-</span><span style="color: #666666;">;;            </span><span style="color: #666666;">(member major-mode yank-indent-modes))
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">     (let ((transient-mark-mode nil))
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">     (yank-advised-indent-function (region-beginning) (region-end)))))
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">(defadvice yank-pop (after yank-pop-indent activate)
+</span><span style="color: #7f7f7f;">;;   </span><span style="color: #7f7f7f;">"If current mode is one of 'yank-indent-modes, indent yanked text (with prefix arg don't indent)."
+</span><span style="color: #7f7f7f;">;;   </span><span style="color: #7f7f7f;">(if (and (not (ad-get-arg 0))
+</span><span style="color: #7f7f7f;">;;            </span><span style="color: #7f7f7f;">(member major-mode yank-indent-modes))
+</span><span style="color: #7f7f7f;">;;      </span><span style="color: #7f7f7f;">(let ((transient-mark-mode nil))
+</span><span style="color: #7f7f7f;">;;      </span><span style="color: #7f7f7f;">(yank-advised-indent-function (region-beginning) (region-end)))))
 </span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">flymake
-</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">flymake</span>)
-<span style="color: #666666;">;; </span><span style="color: #666666;">todo - simply clear all default rules?
-</span>(setq flymake-allowed-file-name-masks (delete '(<span style="color: #008b00;">"\\.c\\'"</span> flymake-simple-make-init) flymake-allowed-file-name-masks))
-(setq flymake-allowed-file-name-masks (delete '(<span style="color: #008b00;">"\\.cpp\\'"</span> flymake-simple-make-init) flymake-allowed-file-name-masks))
-(setq flymake-allowed-file-name-masks (delete '(<span style="color: #008b00;">"\\.cs\\'"</span> flymake-simple-make-init) flymake-allowed-file-name-masks))
-(setq flymake-allowed-file-name-masks (delete '(<span style="color: #008b00;">"\\.h\\'"</span> flymake-master-make-header-init flymake-master-cleanup) flymake-allowed-file-name-masks))
-(setq flymake-allowed-file-name-masks (delete '(<span style="color: #008b00;">"\\.xml\\'"</span> flymake-xml-init) flymake-allowed-file-name-masks))
-(setq flymake-allowed-file-name-masks (delete '(<span style="color: #008b00;">"\\.html?\\'"</span> flymake-xml-init) flymake-allowed-file-name-masks))
-(setq flymake-allowed-file-name-masks (delete '(<span style="color: #008b00;">"\\.tex\\'"</span> flymake-simple-tex-init) flymake-allowed-file-name-masks))
-(setq flymake-allowed-file-name-masks (delete '(<span style="color: #008b00;">"[0-9]+\\.tex\\'"</span> flymake-master-tex-init flymake-master-cleanup) flymake-allowed-file-name-masks))
-<span style="color: #666666;">;; </span><span style="color: #666666;">(delete ' flymake-allowed-file-name-masks)
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">flymake
+</span>(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">flymake</span>)
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">todo - simply clear all default rules?
+</span>(setq flymake-allowed-file-name-masks (delete '(<span style="color: #bc8f8f;">"\\.c\\'"</span> flymake-simple-make-init) flymake-allowed-file-name-masks))
+(setq flymake-allowed-file-name-masks (delete '(<span style="color: #bc8f8f;">"\\.cpp\\'"</span> flymake-simple-make-init) flymake-allowed-file-name-masks))
+(setq flymake-allowed-file-name-masks (delete '(<span style="color: #bc8f8f;">"\\.cs\\'"</span> flymake-simple-make-init) flymake-allowed-file-name-masks))
+(setq flymake-allowed-file-name-masks (delete '(<span style="color: #bc8f8f;">"\\.h\\'"</span> flymake-master-make-header-init flymake-master-cleanup) flymake-allowed-file-name-masks))
+(setq flymake-allowed-file-name-masks (delete '(<span style="color: #bc8f8f;">"\\.xml\\'"</span> flymake-xml-init) flymake-allowed-file-name-masks))
+(setq flymake-allowed-file-name-masks (delete '(<span style="color: #bc8f8f;">"\\.html?\\'"</span> flymake-xml-init) flymake-allowed-file-name-masks))
+(setq flymake-allowed-file-name-masks (delete '(<span style="color: #bc8f8f;">"\\.tex\\'"</span> flymake-simple-tex-init) flymake-allowed-file-name-masks))
+(setq flymake-allowed-file-name-masks (delete '(<span style="color: #bc8f8f;">"[0-9]+\\.tex\\'"</span> flymake-master-tex-init flymake-master-cleanup) flymake-allowed-file-name-masks))
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">(delete ' flymake-allowed-file-name-masks)
 </span>(add-hook 'find-file-hook 'flymake-find-file-hook)
 
-<span style="color: #666666;">;; </span><span style="color: #666666;">company-mode
-</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">company-mode</span>)
-(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">company-bundled-completions</span>)
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">company-mode
+</span>(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">company-mode</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">company-bundled-completions</span>)
 (company-install-bundled-completions-rules)
 
-<span style="color: #666666;">;; </span><span style="color: #666666;">gtags
-</span>(autoload 'gtags-mode <span style="color: #008b00;">"gtags"</span> <span style="color: #666666;">""</span> t)
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">gtags
+</span>(autoload 'gtags-mode <span style="color: #bc8f8f;">"gtags"</span> <span style="color: #bc8f8f;">""</span> t)
 
-<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-prog-misc.el ends here
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">clean trailing whitespaces automatically
+</span>(setq my-trailing-whitespace-modes '(c++-mode c-mode haskell-mode emacs-lisp-mode
+                                              lisp-mode scheme-mode))
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-trailing-whitespace-hook</span> ()
+  (<span style="color: #a020f0;">when</span> (member major-mode my-trailing-whitespace-modes)
+    (delete-trailing-whitespace)))
+(add-hook 'before-save-hook 'my-trailing-whitespace-hook)
+
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">untabify some modes
+</span>(setq my-untabify-modes '(haskell-mode emacs-lisp-mode lisp-mode scheme-mode))
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-untabify-hook</span> ()
+  (<span style="color: #a020f0;">when</span> (member major-mode my-untabify-modes)
+    (untabify (point-min) (point-max))))
+(add-hook 'before-save-hook 'my-untabify-hook)
+
+<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">cleanup code
+</span>
+
+
+<span style="color: #7f7f7f;">;;; </span><span style="color: #7f7f7f;">emacs-prog-misc.el ends here
 </span></pre>
+
 <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
 </script>
 <script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
+ _uacct = "UA-78697-3";
+  urchinTracker();
 </script>
-  </body>
+</body>
 </html>
