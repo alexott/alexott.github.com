@@ -6,15 +6,25 @@ Squid redirector, and installed according the documentation for squid's redirect
 
 * How to obtain it
 
-This software is available in source form from [[../../common/cf/squid-gsb-0.1.tar.gz][my site]].
+This software is available in source form in repository at [[http://github.com/alexott/squid-gsb/tree/master][GitHub]].
 
 * How to build
 
-To build *squid-gsb* you need to have boost c++ libraries version 1.35 or higher (boost is
-available from http://www.boost.org).  To compile project from scratch you need to run
-=bootstrap.sh= script and then run =configure= to configure package.  If Boost is installed in
-non-standard place, you could use =--with-boost-includes= & =--with-boost-libs= options to
-specify where located include files and libs for Boost.
+To build *squid-gsb* you need to have [[http://www.boost.org][boost c++ libraries]] version 1.35 or higher, and [[http://cmake.org][CMake]],
+that is used to configuration & build of program.  To configure, you need to execute
+following command:
+
+<src lang="sh">
+cmake . -DCMAKE_INSTALL_PREFIX=install_path
+</src>
+
+If Boost is installed in non-standard place, you'll need to specify location of header
+files and libraries with  CMake's directives
+<code>-DBOOST_INCLUDEDIR=path_to_includes</code> and
+<code>-DBOOST_LIBRARYDIR=path_to_libraries</code>. 
+
+After configuration, you can build program with standard sequence of commands: =make= &&
+=make install=.
 
 It was successfully tested on Linux with kernel 2.6 (Ubuntu) and Mac OS X Tiger (10.4) on
 iMac.  Theoretically it should be compilable also on MS Windows, but i hadn't tried yet.
