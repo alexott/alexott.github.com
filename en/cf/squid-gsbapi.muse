@@ -6,7 +6,8 @@ Squid redirector, and installed according the documentation for squid's redirect
 
 * How to obtain it
 
-This software is available in source form in repository at [[http://github.com/alexott/squid-gsb/tree/master][GitHub]].
+Latest versions of this software are available as source from repository at [[http://github.com/alexott/squid-gsb/tree/master][GitHub]].
+Stable releases are available from [[../../common/cf][my site]] as archives.
 
 * How to build
 
