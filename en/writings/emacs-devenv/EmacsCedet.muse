@@ -263,6 +263,7 @@ configuration for work with Qt4:
 (add-to-list 'auto-mode-alist (cons qt4-base-dir 'c++-mode))
 (add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir "/Qt/qconfig.h"))
 (add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir "/Qt/qconfig-dist.h"))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir "/Qt/qglobal.h"))
 </src>
 
 After adding of these lines to your initialization file, you'll be able to use name
