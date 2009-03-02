@@ -208,16 +208,16 @@ To define a project, you need to use following code:
 
 <src lang="emacs-lisp">
 (ede-cpp-root-project "Test"
-											:name "Test Project"
-											:file "~/work/project/CMakeLists.txt"
-											:include-path '("/"
-																			"/Common"
-																			"/Interfaces"
-																			"/Libs"
-																			 )
-											:system-include-path '("~/exp/include")
-											:spp-table '(("isUnix" . "")
-																	 ("BOOST_TEST_DYN_LINK" . "")))
+		:name "Test Project"
+		:file "~/work/project/CMakeLists.txt"
+		:include-path '("/"
+				"/Common"
+				"/Interfaces"
+				"/Libs"
+			       )
+		:system-include-path '("~/exp/include")
+		:spp-table '(("isUnix" . "")
+			     ("BOOST_TEST_DYN_LINK" . "")))
 </src>
 
 You can use any file at root directory of the project, as a =:file= parameter.  This file
