@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.34 in inline-css mode. -->
+<html>
+  <head>
+    <title>chapter-4.hs</title>
+  </head>
+  <body style="color: #000000; background-color: #ebebeb;">
+    <pre>
+<span style="color: #a020f0;">module</span> <span style="color: #0000ff;">RwhChap4</span>
+       <span style="color: #a020f0;">where</span>
+
+<span style="color: #a020f0;">import</span> <span style="color: #0000ff;">Data.Char</span>
+<span style="color: #a020f0;">import</span> <span style="color: #0000ff;">Data.List</span>
+
+<span style="color: #666666;">-- </span><span style="color: #666666;">page 84
+</span>
+<span style="color: #666666;">-- </span><span style="color: #666666;">ex. 1
+</span><span style="color: #0000ff;">safeHead</span> <span style="color: #8b0000;">::</span> [a] <span style="color: #8b0000;">-&gt;</span> <span style="color: #0000ff;">Maybe</span> a
+<span style="color: #0000ff;">safeHead</span> <span style="color: #0000ff;">[]</span> <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">Nothing</span>
+<span style="color: #0000ff;">safeHead</span> (x<span style="color: #0000ff;">:</span>xs) <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">Just</span> x
+
+<span style="color: #0000ff;">safeTail</span> <span style="color: #8b0000;">::</span> [a] <span style="color: #8b0000;">-&gt;</span> <span style="color: #0000ff;">Maybe</span> [a]
+<span style="color: #0000ff;">safeTail</span> <span style="color: #0000ff;">[]</span> <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">Nothing</span>
+<span style="color: #0000ff;">safeTail</span> (x<span style="color: #0000ff;">:</span>xs) <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">Just</span> xs
+
+<span style="color: #0000ff;">safeLast</span> <span style="color: #8b0000;">::</span> [a] <span style="color: #8b0000;">-&gt;</span> <span style="color: #0000ff;">Maybe</span> a
+<span style="color: #0000ff;">safeLast</span> <span style="color: #0000ff;">[]</span> <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">Nothing</span>
+<span style="color: #0000ff;">safeLast</span> xall<span style="color: #8b0000;">@</span>(x<span style="color: #0000ff;">:</span>xs) <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">Just</span> (last xall)
+
+<span style="color: #0000ff;">safeInit</span> <span style="color: #8b0000;">::</span> [a] <span style="color: #8b0000;">-&gt;</span> <span style="color: #0000ff;">Maybe</span> [a]
+<span style="color: #0000ff;">safeInit</span> <span style="color: #0000ff;">[]</span> <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">Nothing</span>
+<span style="color: #0000ff;">safeInit</span> xall<span style="color: #8b0000;">@</span>(x<span style="color: #0000ff;">:</span>xs) <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">Just</span> (init xall)
+
+<span style="color: #666666;">-- </span><span style="color: #666666;">ex. 2
+</span><span style="color: #0000ff;">splitWith</span> <span style="color: #8b0000;">::</span> (a <span style="color: #8b0000;">-&gt;</span> <span style="color: #0000ff;">Bool</span>) <span style="color: #8b0000;">-&gt;</span> [a] <span style="color: #8b0000;">-&gt;</span> [[a]]
+<span style="color: #0000ff;">splitWith</span> <span style="color: #a020f0;">_</span> <span style="color: #0000ff;">[]</span> <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">[]</span>
+<span style="color: #0000ff;">splitWith</span> p xs <span style="color: #8b0000;">=</span> filter (<span style="color: #8b0000;">\</span>l <span style="color: #8b0000;">-&gt;</span> not <span style="color: #8b0000;">$</span> null l) <span style="color: #8b0000;">$</span> reverse <span style="color: #8b0000;">$</span> swHelper p xs <span style="color: #0000ff;">[]</span> <span style="color: #0000ff;">[]</span>
+    <span style="color: #a020f0;">where</span>
+      swHelper p <span style="color: #0000ff;">[]</span> acc lst <span style="color: #8b0000;">=</span> reverse acc <span style="color: #8b0000;">++</span> lst
+      swHelper p (x<span style="color: #0000ff;">:</span>xs) acc lst <span style="color: #8b0000;">|</span> not <span style="color: #8b0000;">$</span> p x  <span style="color: #8b0000;">=</span> swHelper p xs <span style="color: #0000ff;">[]</span> [(reverse acc)]<span style="color: #8b0000;">++</span>lst
+                                <span style="color: #8b0000;">|</span> otherwise <span style="color: #8b0000;">=</span> swHelper p xs (x<span style="color: #0000ff;">:</span>acc) lst
+
+<span style="color: #666666;">-- </span><span style="color: #666666;">ex. 3
+</span><span style="color: #666666;">-- </span><span style="color: #666666;">done, see file chapter-4-p84-3.hs
+</span>
+<span style="color: #666666;">-- </span><span style="color: #666666;">ex. 4
+</span><span style="color: #666666;">-- </span><span style="color: #666666;">done, see file chapter-4-p84-4.hs
+</span>
+
+<span style="color: #666666;">-- </span><span style="color: #666666;">pages 97-99
+</span>
+<span style="color: #666666;">-- </span><span style="color: #666666;">ex. 1. done
+</span><span style="color: #0000ff;">asIntFold1</span> <span style="color: #8b0000;">::</span> <span style="color: #0000ff;">String</span> <span style="color: #8b0000;">-&gt;</span> <span style="color: #0000ff;">Int</span>
+<span style="color: #0000ff;">asIntFold1</span> <span style="color: #8b0000;">=</span> foldl (<span style="color: #8b0000;">\</span>x c <span style="color: #8b0000;">-&gt;</span> x<span style="color: #8b0000;">*</span>10 <span style="color: #8b0000;">+</span> digitToInt c) 0
+
+<span style="color: #666666;">-- </span><span style="color: #666666;">ex. 2. done
+</span><span style="color: #0000ff;">asIntFold2</span> <span style="color: #8b0000;">::</span> <span style="color: #0000ff;">String</span> <span style="color: #8b0000;">-&gt;</span> <span style="color: #0000ff;">Int</span>
+<span style="color: #0000ff;">asIntFold2</span> xx<span style="color: #8b0000;">@</span>(x<span style="color: #0000ff;">:</span>xs) <span style="color: #8b0000;">|</span> x <span style="color: #8b0000;">==</span> <span style="color: #008b00;">'-'</span> <span style="color: #8b0000;">=</span> <span style="color: #8b0000;">-</span> asIntFold2 xs
+                     <span style="color: #8b0000;">|</span> x <span style="color: #8b0000;">==</span> <span style="color: #008b00;">'+'</span> <span style="color: #8b0000;">||</span> isSpace x <span style="color: #8b0000;">=</span> asIntFold2 xs
+                     <span style="color: #8b0000;">|</span> otherwise <span style="color: #8b0000;">=</span> foldl (<span style="color: #8b0000;">\</span>x c <span style="color: #8b0000;">-&gt;</span> x<span style="color: #8b0000;">*</span>10 <span style="color: #8b0000;">+</span> digitToInt c) 0 xx
+<span style="color: #666666;">-- </span><span style="color: #666666;">ex. 3. done
+</span><span style="color: #0000ff;">asIntFold3</span> <span style="color: #8b0000;">::</span> <span style="color: #0000ff;">String</span> <span style="color: #8b0000;">-&gt;</span> <span style="color: #0000ff;">Int</span>
+<span style="color: #0000ff;">asIntFold3</span> xx<span style="color: #8b0000;">@</span>(x<span style="color: #0000ff;">:</span>xs) <span style="color: #8b0000;">|</span> (x <span style="color: #8b0000;">==</span> <span style="color: #008b00;">'-'</span> <span style="color: #8b0000;">||</span> x <span style="color: #8b0000;">==</span> <span style="color: #008b00;">'+'</span> <span style="color: #8b0000;">||</span> isSpace x) <span style="color: #8b0000;">&amp;&amp;</span> null xs <span style="color: #8b0000;">=</span> error <span style="color: #008b00;">"Bad argument"</span>
+                     <span style="color: #8b0000;">|</span> x <span style="color: #8b0000;">==</span> <span style="color: #008b00;">'-'</span> <span style="color: #8b0000;">=</span> <span style="color: #8b0000;">-</span> asIntFold3 xs
+                     <span style="color: #8b0000;">|</span> x <span style="color: #8b0000;">==</span> <span style="color: #008b00;">'+'</span> <span style="color: #8b0000;">||</span> isSpace x <span style="color: #8b0000;">=</span> asIntFold3 xs
+                     <span style="color: #8b0000;">|</span> length xx <span style="color: #8b0000;">&gt;</span> 9 <span style="color: #8b0000;">=</span> error <span style="color: #008b00;">"Overflow"</span>
+                     <span style="color: #8b0000;">|</span> otherwise <span style="color: #8b0000;">=</span> foldl (<span style="color: #8b0000;">\</span>x c <span style="color: #8b0000;">-&gt;</span> x<span style="color: #8b0000;">*</span>10 <span style="color: #8b0000;">+</span> digitToInt c) 0 xx
+
+
+<span style="color: #666666;">-- </span><span style="color: #666666;">ex. 4. done
+</span><span style="color: #a020f0;">data</span> <span style="color: #0000ff;">Ei</span> <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">ErrMessage</span> <span style="color: #0000ff;">String</span>
+        <span style="color: #8b0000;">|</span> <span style="color: #0000ff;">Intgr</span> <span style="color: #0000ff;">Int</span>
+          <span style="color: #a020f0;">deriving</span> <span style="color: #0000ff;">Show</span>
+<span style="color: #0000ff;">asIntEither</span> <span style="color: #8b0000;">::</span> <span style="color: #0000ff;">String</span> <span style="color: #8b0000;">-&gt;</span> <span style="color: #0000ff;">Ei</span>
+<span style="color: #0000ff;">asIntEither</span> xx<span style="color: #8b0000;">@</span>(x<span style="color: #0000ff;">:</span>xs) <span style="color: #8b0000;">|</span> (x <span style="color: #8b0000;">==</span> <span style="color: #008b00;">'-'</span> <span style="color: #8b0000;">||</span> x <span style="color: #8b0000;">==</span> <span style="color: #008b00;">'+'</span> <span style="color: #8b0000;">||</span> isSpace x) <span style="color: #8b0000;">&amp;&amp;</span> null xs <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">ErrMessage</span> <span style="color: #008b00;">"Bad argument"</span>
+                      <span style="color: #8b0000;">|</span> x <span style="color: #8b0000;">==</span> <span style="color: #008b00;">'-'</span> <span style="color: #8b0000;">=</span> <span style="color: #a020f0;">let</span> r <span style="color: #8b0000;">=</span> asIntEither xs
+                                   <span style="color: #a020f0;">in</span>
+                                     <span style="color: #a020f0;">case</span> r <span style="color: #a020f0;">of</span>
+                                       (<span style="color: #0000ff;">Intgr</span> i) <span style="color: #8b0000;">-&gt;</span> <span style="color: #0000ff;">Intgr</span> (<span style="color: #8b0000;">-</span> i)
+                                       <span style="color: #a020f0;">_</span> <span style="color: #8b0000;">-&gt;</span> r
+                      <span style="color: #8b0000;">|</span> x <span style="color: #8b0000;">==</span> <span style="color: #008b00;">'+'</span> <span style="color: #8b0000;">||</span> isSpace x <span style="color: #8b0000;">=</span> asIntEither xs
+                      <span style="color: #8b0000;">|</span> length xx <span style="color: #8b0000;">&gt;</span> 9 <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">ErrMessage</span> <span style="color: #008b00;">"Overflow"</span>
+                      <span style="color: #8b0000;">|</span> otherwise <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">Intgr</span> (foldl (<span style="color: #8b0000;">\</span>x c <span style="color: #8b0000;">-&gt;</span> x<span style="color: #8b0000;">*</span>10 <span style="color: #8b0000;">+</span> digitToInt c) 0 xx)
+
+<span style="color: #666666;">-- </span><span style="color: #666666;">ex. 5 &amp; 6. done
+</span><span style="color: #0000ff;">concatFold</span> <span style="color: #8b0000;">::</span> [[a]] <span style="color: #8b0000;">-&gt;</span> [a]
+<span style="color: #0000ff;">concatFold</span> <span style="color: #0000ff;">[]</span> <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">[]</span>
+<span style="color: #0000ff;">concatFold</span> xs <span style="color: #8b0000;">=</span> foldl (<span style="color: #8b0000;">\</span> lst x <span style="color: #8b0000;">-&gt;</span> lst <span style="color: #8b0000;">++</span> x) <span style="color: #0000ff;">[]</span> xs
+
+<span style="color: #666666;">-- </span><span style="color: #666666;">ex. 7
+</span><span style="color: #0000ff;">takeWhileRec</span> <span style="color: #8b0000;">::</span> (a <span style="color: #8b0000;">-&gt;</span> <span style="color: #0000ff;">Bool</span>) <span style="color: #8b0000;">-&gt;</span> [a] <span style="color: #8b0000;">-&gt;</span> [a]
+<span style="color: #0000ff;">takeWhileRec</span> f <span style="color: #0000ff;">[]</span> <span style="color: #8b0000;">=</span> <span style="color: #0000ff;">[]</span>
+<span style="color: #0000ff;">takeWhileRec</span> f xs <span style="color: #8b0000;">=</span> reverse <span style="color: #8b0000;">$</span> tHelper f xs <span style="color: #0000ff;">[]</span>
+                    <span style="color: #a020f0;">where</span>
+                      tHelper fp <span style="color: #0000ff;">[]</span> lst <span style="color: #8b0000;">=</span> lst
+                      tHelper fp (x<span style="color: #0000ff;">:</span>xs) lst <span style="color: #8b0000;">|</span> fp x <span style="color: #8b0000;">=</span> tHelper fp xs (x<span style="color: #0000ff;">:</span>lst)
+                                            <span style="color: #8b0000;">|</span> otherwise <span style="color: #8b0000;">=</span> lst
+
+</pre>
+  
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+ _uacct = "UA-78697-3";
+  urchinTracker();
+</script>
+</body>
+</html>
