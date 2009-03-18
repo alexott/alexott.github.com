@@ -1,5 +1,5 @@
 #title Пакет PSVN
-#keywords emacs, svn, subversion, psvn
+#keywords emacs, svn, subversion, psvn, емакс, сабвершин
 
 <contents>
 

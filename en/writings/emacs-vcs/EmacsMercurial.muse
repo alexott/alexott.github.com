@@ -1,5 +1,5 @@
 #title How to use Emacs to work with Mercurial
-#keywords emacs, version control, mercurial, hg
+#keywords emacs, version control, mercurial, hg, mercurial.el, ahg, 
 
 <contents>
 

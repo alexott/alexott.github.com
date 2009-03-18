@@ -1,5 +1,5 @@
 #title Работа с Git
-#keywords emacs, git
+#keywords emacs, git, magit, git.el, gitsum, git-emacs, egg, git-blame, egit, гит, емакс
 
 <contents>
 

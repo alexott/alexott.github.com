@@ -1,5 +1,5 @@
 #title Поддержка Mercurial
-#keywords emacs, mercurial, hg
+#keywords emacs, mercurial, hg, меркуриал, емакс, mercurial.el, ahg
 
 <contents>
 

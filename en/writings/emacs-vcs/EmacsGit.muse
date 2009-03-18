@@ -1,5 +1,5 @@
 #title Work with Git from Emacs
-#keywords emacs, git
+#keywords emacs, git, magit, git.el, gitsum, git-emacs, egg, git-blame, egit
 
 <contents>
 
