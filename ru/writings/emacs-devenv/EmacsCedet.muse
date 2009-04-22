@@ -195,8 +195,9 @@ make clean ; make -k all
 (semanticdb-enable-gnu-global-databases 'c-mode)
 (semanticdb-enable-gnu-global-databases 'c++-mode)
 
-;; включить поддержку ctags 
-(semantic-load-enable-all-exuberent-ctags-support)
+;; включить поддержку ctags для основных языков:
+;;  Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
+(semantic-load-enable-primary-exuberent-ctags-support)
 </src>
 
 
