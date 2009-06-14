@@ -11,7 +11,7 @@
 
  - [[http://www.shelfari.com/alexott][Shelfari]] используется для ведения списков книг, которые я прочитал, читаю или собираюсь
    читать
- - Мой профиль на [[http://www.facebook.com/profile.php?id=760140831&ref=profile][Facebook]]
+ - Мой профиль на [[http://www.facebook.com/alexott/][Facebook]]
  - Мой профиль на [[http://vkontakte.ru/id2310336][ВКонтакте]]
  - Профиль на [[http://www.linkedin.com/in/alexott][LinkedIn]]
  - Закладки хранятся на [[http://del.icio.us/alexott][del.icio.us]]
