@@ -4,7 +4,7 @@
 * Коротко о себе
 
 **Имя**: Алексей (Алекс) Отт<br>
-**Возраст**: 33 года<br>
+**Возраст**: 35 лет<br>
 **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]]<br>
 **Jabber**: [[xmpp://alexott@gmail.com][alexott@gmail.com]]<br>
 **Живу в**: Германии
