@@ -1,66 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in inline-css mode. -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-  <head>
-    <title>emacs-rc-fsharp.el</title>
-  </head>
-  <body style="color: #000000; background-color: #ebebeb;">
-    <pre>
-<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-fsharp.el --- 
-</span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) Alex Ott
-</span><span style="color: #666666;">;;</span><span style="color: #666666;">
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Author: Alex Ott &lt;<a href="mailto:alexott&#64;gmail.com">alexott&#64;gmail.com</a>&gt;
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Keywords: 
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Requirements: 
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Status: not intended to be distributed yet
-</span>
+<head>
+<meta http-equiv="refresh" content="2;url=http://github.com/alexott/emacs-configs/tree/master">
+</head>
+<body>
 
-(add-to-list 'load-path <span style="color: #008b00;">"~/projects/fsharp-mode"</span>)
-(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">fsharp-mode</span>)
-(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.fsi?$"</span> . fsharp-mode))
-
-(add-hook 'fsharp-mode-hook
-          '(<span style="color: #a020f0;">lambda</span> ()
-             (local-set-key [return] 'newline-and-indent)
-             (setq fsharp-mode-lazy-= t) <span style="color: #666666;">; </span><span style="color: #666666;">indent `=' like a standard keyword
-</span>             (setq fsharp-mode-lazy-paren t) <span style="color: #666666;">; </span><span style="color: #666666;">indent [({ like standard keywords
-</span>             (setq fsharp-mode-in-indent 0) <span style="color: #666666;">; </span><span style="color: #666666;">no indentation after `</span><span style="color: #00008b;">in</span><span style="color: #666666;">' keywords
-</span>             (setq fsharp-mode-font-lock-governing '(<span style="color: #008b00;">"brown"</span> <span style="color: #008b00;">"cyan"</span> nil t t t))
-                                        <span style="color: #666666;">; </span><span style="color: #666666;">bold leading keywords in color mode
-</span>                                        <span style="color: #666666;">; </span><span style="color: #666666;">bold-italic in font mode
-</span>             (auto-fill-mode 1) <span style="color: #666666;">; </span><span style="color: #666666;">turn on auto-fill minor mode
-</span>             (<span style="color: #a020f0;">if</span> (<span style="color: #a020f0;">featurep</span> '<span style="color: #00008b;">sym-lock</span>)   <span style="color: #666666;">; </span><span style="color: #666666;">Sym-Lock customization only
-</span>                 (setq sym-lock-mouse-face-enabled nil)) <span style="color: #666666;">; </span><span style="color: #666666;">turn off special face under mouse
-</span>             ))
-
-(<span style="color: #a020f0;">if</span> (<span style="color: #a020f0;">featurep</span> '<span style="color: #00008b;">sym-lock</span>)
-    (setq fsharp-mode-sym-lock-keywords
-          '((<span style="color: #008b00;">"&lt;-"</span> 0 1 172)
-            (<span style="color: #008b00;">"-&gt;"</span> 0 1 174)
-            (<span style="color: #008b00;">"&lt;="</span> 0 1 163)
-            (<span style="color: #008b00;">"&gt;="</span> 0 1 179)
-            (<span style="color: #008b00;">"&lt;&gt;"</span> 0 1 185)
-            (<span style="color: #008b00;">"=="</span> 0 1 186)
-            (<span style="color: #008b00;">"||"</span> 0 1 218)
-            (<span style="color: #008b00;">"&amp;&amp;"</span> 0 1 217)
-            (<span style="color: #008b00;">"[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">*]</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">\\*</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\."</span> 1 8 180)
-            (<span style="color: #008b00;">"</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">/</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">\\."</span> 1 3 184)
-            (<span style="color: #008b00;">"\\&lt;_\\&gt;"</span> 0 3 188)
-            (<span style="color: #008b00;">"\\&lt;sqrt\\&gt;"</span> 0 3 214)
-            (<span style="color: #008b00;">"\\&lt;unit\\&gt;"</span> 0 3 198)
-            (<span style="color: #008b00;">"\\&lt;fun\\&gt;"</span> 0 3 108)
-            (<span style="color: #008b00;">"\\&lt;or\\&gt;"</span> 0 3 218)
-            (<span style="color: #008b00;">"\\&lt;not\\&gt;"</span> 0 3 216))))
-
-
-<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-fsharp.el ends here
-</span></pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
-  </body>
+  <p>Configuration files were moved
+  to <a href="http://github.com/alexott/emacs-configs/tree/master">GitHub</a>!</p>
+  
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+    _uacct = "UA-78697-3";
+    urchinTracker();
+  </script>
+</body>
 </html>

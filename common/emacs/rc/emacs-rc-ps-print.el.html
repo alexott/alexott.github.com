@@ -1,46 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in inline-css mode. -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-  <head>
-    <title>emacs-rc-ps-print.el</title>
-  </head>
-  <body style="color: #000000; background-color: #ebebeb;">
-    <pre>
-<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-ps-print.el --- 
-</span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) 2003 Alex Ott
-</span><span style="color: #666666;">;;</span><span style="color: #666666;">
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Author: alexott@gmail.com
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Keywords: 
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Requirements: 
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Status: not intended to be distributed yet
-</span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">BDF fonts for printing
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">(load-library "ps-mule")
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">(setq bdf-directory-list '("/usr/X11R6/lib/X11/fonts/emacs/bdf"))
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">(setq ps-mule-font-info-database-default ps-mule-font-info-database-bdf)
-</span>(setq ps-multibyte-buffer 'bdf-font-except-latin)
+<head>
+<meta http-equiv="refresh" content="2;url=http://github.com/alexott/emacs-configs/tree/master">
+</head>
+<body>
 
-(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">unicode-cyrillic-to-8859-5</span> ()
-  (interactive)
-  (<span style="color: #a020f0;">save-excursion</span>
-    (goto-char (point-min))
-    (<span style="color: #a020f0;">let</span> ((re (format <span style="color: #008b00;">"[%c-%c]+"</span>
-          (decode-char 'ucs #x0400) (decode-char 'ucs #x04ff)))
-    (case-fold-search nil)
-    pos)
-      (<span style="color: #a020f0;">while</span> (re-search-forward re nil 'move)
-  (setq pos (match-beginning 0))
-  (encode-coding-region pos (point) 'iso-8859-5)
-  (decode-coding-region pos (point) 'iso-8859-5)))))
-
-<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-ps-print.el ends here
-</span></pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
-  </body>
+  <p>Configuration files were moved
+  to <a href="http://github.com/alexott/emacs-configs/tree/master">GitHub</a>!</p>
+  
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+    _uacct = "UA-78697-3";
+    urchinTracker();
+  </script>
+</body>
 </html>

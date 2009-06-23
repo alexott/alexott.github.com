@@ -1,154 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in inline-css mode. -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-  <head>
-    <title>emacs-rc-cedet.el</title>
-  </head>
-  <body style="color: #000000; background-color: #e5e5e5;">
-    <pre>
-<span style="color: #7f7f7f;">;;; </span><span style="color: #7f7f7f;">emacs-rc-cedet.el ---
-</span>
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Copyright (C) 2003 Alex Ott
-</span><span style="color: #7f7f7f;">;;</span><span style="color: #7f7f7f;">
-</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Author: alexott@gmail.com
-</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Keywords:
-</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Requirements:
-</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Status: not intended to be distributed yet
-</span>
-(load-file <span style="color: #bc8f8f;">"~/emacs/cedet/common/cedet.el"</span>)
+<head>
+<meta http-equiv="refresh" content="2;url=http://github.com/alexott/emacs-configs/tree/master">
+</head>
+<body>
 
-(semantic-load-enable-excessive-code-helpers)
-<span style="color: #7f7f7f;">;;</span><span style="color: #7f7f7f;">(semantic-load-enable-semantic-debugging-helpers)
-</span>
-(setq senator-minor-mode-name <span style="color: #bc8f8f;">"SN"</span>)
-(setq semantic-imenu-auto-rebuild-directory-indexes nil)
-(global-srecode-minor-mode 1)
-(global-semantic-mru-bookmark-mode 1)
-
-(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">semantic-decorate-include</span>)
-
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">gcc setup
-</span>(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">semantic-gcc</span>)
-
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">smart complitions
-</span>(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">semantic-ia</span>)
-
-(setq-mode-local c-mode semanticdb-find-default-throttle
-                 '(project unloaded system recursive))
-(setq-mode-local c++-mode semanticdb-find-default-throttle
-                 '(project unloaded system recursive))
-(setq-mode-local erlang-mode semanticdb-find-default-throttle
-                 '(project unloaded system recursive))
-
-(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">eassist</span>)
-
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">customisation of modes
-</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-cedet-hook</span> ()
-  (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
-  (local-set-key <span style="color: #bc8f8f;">"\C-c?"</span> 'semantic-ia-complete-symbol)
-  <span style="color: #7f7f7f;">;;</span><span style="color: #7f7f7f;">
-</span>  (local-set-key <span style="color: #bc8f8f;">"\C-c&gt;"</span> 'semantic-complete-analyze-inline)
-  (local-set-key <span style="color: #bc8f8f;">"\C-c="</span> 'semantic-decoration-include-visit)
-
-  (local-set-key <span style="color: #bc8f8f;">"\C-cj"</span> 'semantic-ia-fast-jump)
-  (local-set-key <span style="color: #bc8f8f;">"\C-cq"</span> 'semantic-ia-show-doc)
-  (local-set-key <span style="color: #bc8f8f;">"\C-cs"</span> 'semantic-ia-show-summary)
-  (local-set-key <span style="color: #bc8f8f;">"\C-cp"</span> 'semantic-analyze-proto-impl-toggle)
-  )
-<span style="color: #7f7f7f;">;;</span><span style="color: #7f7f7f;">(add-hook 'semantic-init-hooks 'my-cedet-hook)
-</span>(add-hook 'c-mode-common-hook 'my-cedet-hook)
-(add-hook 'lisp-mode-hook 'my-cedet-hook)
-(add-hook 'emacs-lisp-mode-hook 'my-cedet-hook)
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">(add-hook 'erlang-mode-hook 'my-cedet-hook)
-</span>
-(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-c-mode-cedet-hook</span> ()
- <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">(local-set-key "." 'semantic-complete-self-insert)
-</span> <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">(local-set-key "&gt;" 'semantic-complete-self-insert)
-</span>  (local-set-key <span style="color: #bc8f8f;">"\C-ct"</span> 'eassist-switch-h-cpp)
-  (local-set-key <span style="color: #bc8f8f;">"\C-xt"</span> 'eassist-switch-h-cpp)
-  (local-set-key <span style="color: #bc8f8f;">"\C-ce"</span> 'eassist-list-methods)
-  (local-set-key <span style="color: #bc8f8f;">"\C-c\C-r"</span> 'semantic-symref)
-  )
-(add-hook 'c-mode-common-hook 'my-c-mode-cedet-hook)
-
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">hooks, specific for semantic
-</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-semantic-hook</span> ()
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">(semantic-tag-folding-mode 1)
-</span>  (imenu-add-to-menubar <span style="color: #bc8f8f;">"TAGS"</span>)
- )
-(add-hook 'semantic-init-hooks 'my-semantic-hook)
-
-(custom-set-variables
- '(semantic-idle-scheduler-idle-time 3)
- '(semantic-self-insert-show-completion-function (<span style="color: #a020f0;">lambda</span> nil (semantic-ia-complete-symbol-menu (point))))
- '(global-semantic-tag-folding-mode t nil (semantic-util-modes)))
-(global-semantic-folding-mode 1)
-
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">gnu global support
-</span>(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">semanticdb-global</span>)
-(semanticdb-enable-gnu-global-databases 'c-mode)
-(semanticdb-enable-gnu-global-databases 'c++-mode)
-
-(semantic-add-system-include <span style="color: #bc8f8f;">"~/exp/include"</span> 'c++-mode)
-(semantic-add-system-include <span style="color: #bc8f8f;">"~/exp/include"</span> 'c-mode)
-
-<span style="color: #7f7f7f;">;;; </span><span style="color: #7f7f7f;">ede customization
-</span>(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">semantic-lex-spp</span>)
-(global-ede-mode t)
-
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">cpp-tests project definition
-</span>(setq cpp-tests-project
-      (ede-cpp-root-project <span style="color: #bc8f8f;">"cpp-tests"</span> <span style="color: #da70d6;">:file</span> <span style="color: #bc8f8f;">"~/projects/lang-exp/cpp/CMakeLists.txt"</span>
-                            <span style="color: #da70d6;">:system-include-path</span> '(<span style="color: #bc8f8f;">"/home/ott/exp/include"</span>
-                                                   <span style="color: #bc8f8f;">"/home/ott/exp/include/boost-1_38"</span>)
-                            <span style="color: #da70d6;">:local-variables</span> '(
-                                               (compile-command . <span style="color: #bc8f8f;">"cd ~/projects/lang-exp/cpp/; make -j2"</span>)
-                                               )
-                            ))
-
-(setq squid-gsb-project
-      (ede-cpp-root-project <span style="color: #bc8f8f;">"squid-gsb"</span> <span style="color: #da70d6;">:file</span> <span style="color: #bc8f8f;">"~/projects/squid-gsb/README"</span>
-                            <span style="color: #da70d6;">:system-include-path</span> '(<span style="color: #bc8f8f;">"/home/ott/exp/include"</span>
-                                                   <span style="color: #bc8f8f;">"/home/ott/exp/include/boost-1_38"</span>)
-                            <span style="color: #da70d6;">:local-variables</span> '(
-                                               (compile-command . <span style="color: #bc8f8f;">"cd ~/projects/squid-gsb/Debug/; make -j2"</span>)
-                                               )
-                            ))
-
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">my functions for EDE
-</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-ede-get-local-var</span> (fname var)
-  <span style="color: #bc8f8f;">"fetch given variable var from :local-variables of project of file fname"</span>
-  (<span style="color: #a020f0;">let*</span> ((current-dir (file-name-directory fname))
-         (prj (ede-current-project current-dir)))
-    (<span style="color: #a020f0;">when</span> prj
-      (<span style="color: #a020f0;">let*</span> ((ov (oref prj local-variables))
-            (lst (assoc var ov)))
-        (<span style="color: #a020f0;">when</span> lst
-          (cdr lst))))))
-
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">setup compile package
-</span><span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">TODO: allow to specify function as compile-command
-</span>(<span style="color: #a020f0;">require</span> '<span style="color: #5f9ea0;">compile</span>)
-(setq compilation-disable-input nil)
-(setq compilation-scroll-output t)
-(setq mode-compile-always-save-buffer-p t)
-(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">My-Compile</span> ()
-  <span style="color: #bc8f8f;">"Saves all unsaved buffers, and runs 'compile'."</span>
-  (interactive)
-  (save-some-buffers t)
-  (compile (or (my-ede-get-local-var (buffer-file-name (current-buffer)) 'compile-command)
-               compile-command)))
-(global-set-key [f9] 'My-Compile)
-
-<span style="color: #7f7f7f;">;;; </span><span style="color: #7f7f7f;">emacs-rc-cedet.el ends here
-</span>
-</pre>
-
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
- _uacct = "UA-78697-3";
-  urchinTracker();
-</script>
+  <p>Configuration files were moved
+  to <a href="http://github.com/alexott/emacs-configs/tree/master">GitHub</a>!</p>
+  
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+    _uacct = "UA-78697-3";
+    urchinTracker();
+  </script>
 </body>
 </html>

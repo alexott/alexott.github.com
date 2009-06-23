@@ -1,89 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Created by htmlize-1.34 in inline-css mode. -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-  <head>
-    <title>emacs-rc-osd.el</title>
-  </head>
-  <body style="color: #000000; background-color: #ebebeb;">
-    <pre>
-<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-osd.el --- 
-</span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">Copyright (C) Alex Ott
-</span><span style="color: #666666;">;;</span><span style="color: #666666;">
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Author: Alex Ott &lt;<a href="mailto:alexott&#64;gmail.com">alexott&#64;gmail.com</a>&gt;
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Keywords: 
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Requirements: 
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">Status: not intended to be distributed yet
-</span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">rewrite to utf-8 -&gt; byte-string
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">see also http://bbs.macscripter.net/viewtopic.php?id=20553&amp;action=new
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">utxt --&gt; Unicode-16, native byte order, with an optional byte-order mark (BOM).
-</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">osd-text-to-utf-16-hex</span> (text)
-  (<span style="color: #a020f0;">let*</span> ((utext (encode-coding-string text 'utf-16))
-         (ltext (string-to-list utext)))
-    (apply #'concat
-     (mapcar (<span style="color: #a020f0;">lambda</span> (x) (format <span style="color: #008b00;">"%02x"</span> x)) ltext))))
+<head>
+<meta http-equiv="refresh" content="2;url=http://github.com/alexott/emacs-configs/tree/master">
+</head>
+<body>
 
-<span style="color: #666666;">;; </span><span style="color: #666666;">&#1090;&#1077;&#1089;&#1090; -&gt; feff0442043504410442
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">(osd-text-to-utf-16-hex "&#1090;&#1077;&#1089;&#1090;")
-</span>
-(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">output-to-growl</span> (msg)
-  (<span style="color: #a020f0;">let</span> ((fname (make-temp-file <span style="color: #008b00;">"/tmp/growlXXXXXX.applescript"</span>)))
-    (<span style="color: #a020f0;">with-temp-file</span> fname
-      (setq coding-system-for-write 'utf-16)
-      (insert (format <span style="color: #008b00;">"tell application \"GrowlHelperApp\"
-     notify with name \"Emacs Notification\" title \"Emacs alert\" description &#171;data utxt%s&#187; as Unicode text application name \"Aquamacs Emacs\" 
-   end tell"</span>  (osd-text-to-utf-16-hex msg))))
-    (shell-command (format <span style="color: #008b00;">"osascript %s"</span> fname))
-    (delete-file fname)))
-
-<span style="color: #666666;">;; </span><span style="color: #666666;">(output-to-growl "&#1090;&#1077;&#1089;&#1090;")
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">(output-to-growl "test")
-</span>
-<span style="color: #666666;">;; </span><span style="color: #666666;">osd notifications
-</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">osd-display</span> (id msg <span style="color: #0000ff;">&amp;optional</span> delay vattrib hattrib font)
-  <span style="color: #666666;">"Display a message with an id of ID for delay seconds with message msg"</span>
-  (<span style="color: #a020f0;">unless</span> vattrib (setq vattrib <span style="color: #008b00;">"center"</span>))
-  (<span style="color: #a020f0;">unless</span> hattrib (setq hattrib <span style="color: #008b00;">"center"</span>))
-  (<span style="color: #a020f0;">unless</span> delay (setq delay 5000))
-  (<span style="color: #a020f0;">unless</span> font (setq font <span style="color: #008b00;">"Serif Bold Italic 32"</span>))
-
-  (<span style="color: #a020f0;">cond</span>
-   ((string= system-type <span style="color: #008b00;">"gnu/linux"</span>)
-    (<span style="color: #a020f0;">save-window-excursion</span>
-      (shell-command
-       (format
-        <span style="color: #008b00;">"gnome-osd-client -f \"&lt;message id='%s' osd_fake_translucent_bg='off' osd_font='%s' animations='on' hide_timeout='%d' osd_vposition='%s' osd_halignment='%s'&gt;%s&lt;/message&gt;\""</span>    
-        id
-        font
-        delay
-        vattrib
-        hattrib
-        msg)
-     nil nil)))
-   ((string= system-type <span style="color: #008b00;">"darwin"</span>)
-    (<span style="color: #a020f0;">save-window-excursion</span>
-      (output-to-growl msg)))
-   (t
-    nil)))
-
-<span style="color: #666666;">;; </span><span style="color: #666666;">(do-applescript
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">(format "tell application \"GrowlHelperApp\"
-</span><span style="color: #666666;">;;     </span><span style="color: #666666;">notify with name \"Emacs Notification\" title \"Emacs alert\" description \"data utxt%s\" as Unicode text application name \"Aquamacs Emacs\" 
-</span><span style="color: #666666;">;; </span><span style="color: #666666;">end tell"  (osd-text-to-utf-16-hex msg)))
-</span>  
-<span style="color: #666666;">;</span><span style="color: #666666;">(osd-display "i2" "and OSD..." 2000)
-</span><span style="color: #666666;">;</span><span style="color: #666666;">(osd-display "id" "Welcome to Emacs" 1000 "top" "center" "Verdana 20")
-</span><span style="color: #666666;">;</span><span style="color: #666666;">(osd-display "id" "&#1088;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081; &#1090;&#1077;&#1082;&#1089;&#1090;" 1000 "top" "center" "Verdana 40")
-</span>
-
-<span style="color: #666666;">;;; </span><span style="color: #666666;">emacs-rc-osd.el ends here
-</span></pre>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-	_uacct = "UA-78697-3";
-	urchinTracker();
-</script>
-  </body>
+  <p>Configuration files were moved
+  to <a href="http://github.com/alexott/emacs-configs/tree/master">GitHub</a>!</p>
+  
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+    _uacct = "UA-78697-3";
+    urchinTracker();
+  </script>
+</body>
 </html>
