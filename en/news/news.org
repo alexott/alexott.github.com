@@ -34,7 +34,7 @@ The article about [[http://xtalk.msk.su/~ott/en/writings/emacs-vcs/EmacsMercuria
   CLOSED: [2008-08-04 Mon 12:32]
 
 Now you can obtain information about important updates on my site (new and updated
-articles, etc.) from news feed.  It was created with  [[http://lumiere.ens.fr/~guerry/u/blorg.html][blorg]] and org-mode and automatically
+articles, etc.) from news feed.  It was created with [[http://lumiere.ens.fr/~guerry/u/blorg.html][blorg]] and org-mode and automatically
 generated when i publish site from muse.
 
 
