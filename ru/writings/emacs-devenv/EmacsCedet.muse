@@ -50,7 +50,8 @@ Cedet.
 emacs -Q -l cedet-build.el -f cedet-build
 </src>
 
-или, использовать следующую комманду для компиляции пакета в окне терминала:
+или, использовать следующую комманду для компиляции пакета в окне терминала и выхода после
+компиляции:
 
 <src lang="sh">
 emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
