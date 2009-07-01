@@ -49,6 +49,13 @@ directory and compile the package with following command:
 emacs -Q -l cedet-build.el -f cedet-build
 </src>
 
+or, to compile in terminal window, and exit after compilation, you can use following
+command: 
+
+<src lang="sh">
+emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
+</src>
+
 * Customization
 
 The loading of package is performed by =cedet.el= script, so all you need to do -- is just
