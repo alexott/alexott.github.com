@@ -42,17 +42,12 @@ different programming languages:
 * Installation of the Cedet
 
 Currently it's better to use development version of the Cedet, that is available from
-repository at [[http://sourceforge.net/cvs/?group_id=17886][Sourceforge.net]].  After downloading of code, you need to compile the package
-with following commands:
+repository at [[http://sourceforge.net/cvs/?group_id=17886][Sourceforge.net]].  After downloading of code, you need to change to cedet
+directory and compile the package with following command:
 
 <src lang="sh">
-find . -name Makefile|xargs touch
-make clean ; make -k all
+emacs -Q -l cedet-build.el -f cedet-build
 </src>
-
-The first command is necessary, as =Makefile= files, are generated from =Projects.ede= files,
-and when you fetch them from repository, they have wrong date, and this could lead to the
-build errors.[1]
 
 * Customization
 
