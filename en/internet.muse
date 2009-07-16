@@ -22,4 +22,5 @@ Here is small list of resources, that i use:
 ** What is interesting for me
 
  - [[../common/google-reader-subscriptions.xml][List of sites, those news I'm reading]] (in OPML format)
+ - [[http://www.google.com/reader/shared/alexott][Shared items]] in Google Reader
 

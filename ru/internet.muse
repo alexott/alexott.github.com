@@ -26,4 +26,5 @@
 ** Что меня интересует
 
  - [[../common/google-reader-subscriptions.xml][Список сайтов новости которых я читаю]] (в формате OPML)
+ - [[http://www.google.com/reader/shared/alexott][Shared items]] in Google Reader
 
