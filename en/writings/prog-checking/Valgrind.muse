@@ -437,7 +437,7 @@ available at Valgrind's user manual, but default values enough for work.
 To simplify work with Valgrind there are several additional programs, implementing
 different tasks.
 
- - The [[http://alleyoop.sourceforge.net/][aleyoop]] program allow to work Valgrind using graphical user interface.  It allow
+ - The [[http://alleyoop.sourceforge.net/][alleyoop]] program allow to work Valgrind using graphical user interface.  It allow
    user to select necessary module and run Valgrind with specified options, and after
    finish of work, perform analysis of Valgrind's output and provide navigation over
    source code, that cause errors.  Now this program support work with *memcheck*, *helgrind*,
