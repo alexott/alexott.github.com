@@ -9,7 +9,7 @@ Russian, but i also translate some of them to English.
  - [[emacs-vcs/index][Article about using Emacs for work with version control systems]]
  - [[emacs-im/index][Article about using Emacs for interactive messaging]] 
  - Small article about [[./EmacsMuseMyPage][how this site was created with Emacs Muse]]
- - [[emacs-devenv/index][Alpha version of the article about "Emacs as development environment]]
+ - [[emacs-devenv/index][Alpha version of the article about "Emacs as development environment"]]
 
 *** Programming 
 
