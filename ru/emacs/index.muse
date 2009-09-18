@@ -20,6 +20,7 @@ Emacs активно используется мной уже более 10 ле
  - [[../writings/emacs-im/index][Рассказ про использование средств обмена сообщениями (ICQ, Jabber, IRC, ...) в Emacs]]
  - [[../writings/emacs-vcs/index][Рассказ про использование Emacs с системами контроля версий]]
  - [[../writings/emacs-tex/index][Рассказ про использование Emacs для работы с TeX/LaTeX]]
+ - [[../writings/emacs-devenv/index][Альфа-версия статьи "Emacs как среда разработки ПО"]]
  - Небольшой рассказ про [[../writings/EmacsMuseMyPage][создание данного сайта с помощью Emacs Muse]]
  - Небольшая заметка о [[../writings/EmacsMacOSXAndGrowl][взаимодействии с Growl из Emacs]]
 
