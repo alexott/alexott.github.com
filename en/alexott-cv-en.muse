@@ -104,6 +104,7 @@
 
  - C and C++ – more than 10 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
  - Scheme and Common Lisp – 8 years (commercial & personal projects)
+ - Clojure - 1 year (personal projects)
  - Erlang - 1,5 year (personal projects)
  - Haskell - 1 year (personal projects)
  - Java (including J2EE) – 5 years (currently inactive)
