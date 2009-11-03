@@ -1,5 +1,5 @@
 #title Alexey Ott's Curriculum Vitae
-#keywords cv, curriculum vitae, alexey ott
+#keywords cv, curriculum vitae, alexey ott, haskell, erlang, clojure, lisp, scheme, ocaml
 
 * Personal Info
 
