@@ -242,7 +242,7 @@ need to mention, that some of them requires running Erlang environment, and when
 execute them first time, they will ask you for a name of the node, that will be used to
 get all necessary information.  User can switch between nodes with the =erl-choose-nodename=
 command(=C-c C-d n=).  And for checking availability of the concrete node the =erl-ping=
-command(=C-c C-d g==) could be used.  The command will ask you for name of the node, and if
+command(=C-c C-d g=) could be used.  The command will ask you for name of the node, and if
 it available, it will load to node all modules are needed to work with *distel*.  Name of
 the current node is displayed in the status line.
 
