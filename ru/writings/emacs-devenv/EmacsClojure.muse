@@ -1,0 +1,13 @@
+#title Работа с Clojure из Emacs
+#keywords clojure, emacs, slime, lisp
+
+* Введение
+
+
+
+<contents>
+
+* clojure-mode
+
+
+;  LocalWords:  clojure LocalWords
