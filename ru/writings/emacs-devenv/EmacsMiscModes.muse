@@ -1,0 +1,7 @@
+#title Дополнительные режимы для программирования
+#keywords emacs, paredit
+
+#paredit
+* Пакет paredit
+
+Пакет [[http://mumble.net/~campbell/emacs/paredit/][paredit]] обеспечивает...
