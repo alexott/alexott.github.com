@@ -1,5 +1,5 @@
 #title Обзор литературы о функциональном программировании
-#keywords functional programming, fp, функциональное программирование, ФП, lisp, ocaml, haskell, scheme, F#, clojure
+#keywords functional programming, fp, функциональное программирование, ФП, lisp, ocaml, haskell, scheme, F#, clojure, обзор литературы, книги, литература, scala, erlang, лисп, пролог, окамл, скала
 
 Первоначальный вариант данной статьи был опубликован в [[http://fprog.ru/2009/issue1/][первом номере]] журнала
 "[[http://fprog.ru/][Практика функционального программирования]]".  Однако прогресс не стоит на месте, и было
