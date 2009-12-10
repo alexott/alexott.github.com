@@ -1,5 +1,7 @@
 #title Обзор литературы о функциональном программировании
 #keywords functional programming, fp, функциональное программирование, ФП, lisp, ocaml, haskell, scheme, F#, clojure, обзор литературы, книги, литература, scala, erlang, лисп, пролог, окамл, скала
+#bibsource RussianFPBooks
+#bibstyle plain
 
 Первоначальный вариант данной статьи был опубликован в [[http://fprog.ru/2009/issue1/][первом номере]] журнала
 "[[http://fprog.ru/][Практика функционального программирования]]".  Однако прогресс не стоит на месте, и было
@@ -440,8 +442,8 @@ Caml <cite>OCamlBook:2000</cite> -- переведено 11 глав, описы
  - [[http://www.amazon.com/Category-Computer-Scientists-Foundations-Computing/dp/0262660717/][Basic Category Theory for Computer Scientists]] <cite>Pierce:CatTheory:1991</cite> --
    данная книга рассматривает теорию категорий, лежащую в основе некоторых приемов,
    используемых в ФП (в частности, монад в языке Haskell).
-
-**TODO: Добавить ссылку на Conceptual Mathematics**
+ - [[http://www.amazon.com/gp/product/052171916X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=052171916X][Conceptual Mathematics: A First Introduction to Categories]]
+   <cite>ConceptualMathematics:2009</cite> -- **TODO**
 
 #fp-implement
 ** Реализация языков программирования
