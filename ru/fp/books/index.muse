@@ -517,7 +517,7 @@ Caml <cite>OCamlBook:2000</cite> -- переведено 11 глав, описы
 #erlang-en
 *** Erlang
 
-Книга [[http://www.amazon.com/Programming-Erlang-Software-Concurrent-World/dp/193435600X/][Programming Erlang. Software for a Concurrent World]]
+Книга [[http://www.amazon.com/gp/product/193435600X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435600X][Programming Erlang. Software for a Concurrent World]]
 <cite>Armstrong:Erlang:2007</cite>, написанная Джо Армстронгом (Joe Armstrong), является
 практически единственным доступным печатным изданием, посвященным языку Erlang, поскольку
 выпущенная ранее книга "Concurrent Programming in Erlang"
@@ -526,14 +526,18 @@ Caml <cite>OCamlBook:2000</cite> -- переведено 11 глав, описы
 и знакомит читателя с его основным функционалом.  Кроме самого языка, книга описывает
 более сложные темы: базы данных, использование OTP и т.п.
 
-Кроме того, в этом году планируется выпуск следующих книг, посвященных как самому
-языку Erlang, так и применению его в конкретных задачах:
+Издательство O'Reilly в 2009-м году выпустило книгу [[http://www.amazon.com/gp/product/0596518188?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596518188][Erlang Programming]]
+<cite>Cesarini:Erlang:2009</cite>, описывающую как сам язык, так и инфраструктурные
+вопросы.... FIXME
 
-**TODO: обновить список**
+Кроме того, планируется выпуск следующих книг, посвященных как самому языку Erlang, так и
+применению его в конкретных задачах: (FIXME)
 
- - [[http://www.amazon.com/Erlang-Programming-Francesco-Cesarini/dp/0596518188/][Erlang Programming]] <cite>Cesarini:Erlang:2009</cite>,
- - [[http://www.manning.com/logan/][Concurrent Programming with Erlang/OTP]] <cite>Logan:OTP:2009</cite>,
- - [[http://www.amazon.com/Erlang-Applications-Problem-Design-Solution-N-G-Gerakines/dp/0470743840/][Erlang Web Applications: Problem-Design-Solution]] <cite>Gerakines:ErlangWeb:2009</cite>.
+ - [[http://www.amazon.com/gp/product/1933988789?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1933988789][Erlang and OTP in Action]] <cite>Logan:OTP:2010</cite>, будет выпущена издательством Manning весной 2010 года...
+ - [[http://www.amazon.com/gp/product/1430227699?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430227699][Mastering Erlang: Writing Real World Applications]] (Apress), также будет выпущена в
+   2010-м году
+ - [[http://www.amazon.com/gp/product/0470743840?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470743840][Erlang Web Applications: Problem-Design-Solution]] <cite>Gerakines:ErlangWeb:2009</cite>
+   будет доступна уже в январе 2010-го года.... FIXME
 
 #ocaml-en
 *** Caml & Objective Caml
@@ -687,6 +691,16 @@ and Interpretation of Computer Programs <cite>SICP:1996</cite> и How to Design 
    миром, императивному программированию на Прологе, построению экспертных систем и т.п.
 
 *** Scala
+
+ - [[http://www.amazon.com/gp/product/0981531601?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531601][Programming in Scala: A Comprehensive Step-by-step Guide]] (Artima Inc) --
+ - [[http://www.amazon.com/gp/product/0596155956?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596155956][Programming Scala: Scalability = Functional Programming + Objects]] (O'Reilly) --
+ - [[http://www.amazon.com/gp/product/193435631X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435631X][Programming Scala: Tackle Multi-Core Complexity on the Java Virtual Machine]] (Pragmatic
+   Programmers) -- 
+ - [[http://www.amazon.com/gp/product/1430219890?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430219890][Beginning Scala]] (Apress) -- 
+ - [[http://www.amazon.com/gp/product/1430224215?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224215][The Definitive Guide to Lift: A Scala-based Web Framework]] (Apress) -- 
+ - [[http://www.amazon.com/gp/product/143022844X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=143022844X][Pro Scala: Monadic Design Patterns for the Web]] (Apress) -- будет выпущена весной
+   2010-го года
+ - 
 
 **TODO**
 
