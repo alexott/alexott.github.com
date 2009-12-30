@@ -15,12 +15,12 @@ lambda, fusion, spirit, asio, etc.
 
 * Recommended books 
  
- - Classical book -- Bjarne Stroustrup [[http://www.amazon.de/C%2B%2B-Programming-Language-Special/dp/0201700735/ref=pd_bbs_sr_1?ie=UTF8&s=books-intl-de&qid=1206965638&sr=8-1][The C++ Programming Language. Special Edition]]
- - [[http://www.amazon.de/Beyond-Standard-Library-Introduction-Boost/dp/0321133544/ref=pd_bbs_sr_1?ie=UTF8&s=books-intl-de&qid=1206692370&sr=8-1][Beyond the C++ Standard Library. An Introduction to Boost]] -- very good description of
+ - Classical book -- Bjarne Stroustrup [[http://www.amazon.com/gp/product/0201700735?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0201700735][The C++ Programming Language. Special Edition]]
+ - [[http://www.amazon.com/gp/product/0321133544?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321133544][Beyond the C++ Standard Library: An Introduction to Boost]] -- very good description of
    base Boost libraries
- - [[http://www.amazon.de/Template-Metaprogramming-Concepts-Techniques-Beyond/dp/0321227255/ref=sr_1_2?ie=UTF8&s=books-intl-de&qid=1206692370&sr=8-2][C++ Template Metaprogramming. Concepts, Tools, and Techniques from Boost and Beyond]] --
+ - [[http://www.amazon.com/gp/product/0321227255?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321227255][C++ Template Metaprogramming. Concepts, Tools, and Techniques from Boost and Beyond]] --
    book about metaprogramming in C++, based on Boost Metaprogramming Library
- - Series of books with common name [[http://www.amazon.com/s/ref=nb_ss_gw/104-1912664-7359959?url=search-alias%3Dstripbooks&field-keywords=C%2B%2B+In-Depth+&x=19&y=21][C++ In-Depth]]
+ - Series of books with common name [[http://www.amazon.com/gp/redirect.html?ie=UTF8&location=http%3A%2F%2Fwww.amazon.com%2Fs%3Fie%3DUTF8%26x%3D0%26ref_%3Dnb%255Fss%255F0%255F9%26y%3D0%26field-keywords%3Dc%252B%252B%2520in-depth%2520series%26url%3Dsearch-alias%253Dstripbooks%26sprefix%3DC%252B%252B%2520In-De&tag=aleottshompag-20&linkCode=ur2&camp=1789&creative=390957][C++ In-Depth]]
 
 * Small articles about programming in C & C++
 

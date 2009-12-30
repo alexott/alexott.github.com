@@ -10,8 +10,8 @@ architect and develop the web-filtering product called SKVT "Dozor Jet".  Both p
 working in many big companies and government organizations in Russia, Ukraine &
 Kazakhstan.
 
-Since 2007 i working as Senior Developer in [[http://www.securecomputing.com][Secure Computing Corp]] on [[http://www.securecomputing.com/index.cfm?skey=22][Secure Web]] product
-(old name -- Webwasher).
+Since 2007 i working as Senior Developer in McAfee (former [[http://www.securecomputing.com][Secure Computing Corp.]]) on
+[[http://www.securecomputing.com/index.cfm?skey=22][Secure Web]] product (old name -- Webwasher).
 
 * Open source projects
 
