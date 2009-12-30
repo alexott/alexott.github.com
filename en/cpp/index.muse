@@ -20,7 +20,7 @@ lambda, fusion, spirit, asio, etc.
    base Boost libraries
  - [[http://www.amazon.com/gp/product/0321227255?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321227255][C++ Template Metaprogramming. Concepts, Tools, and Techniques from Boost and Beyond]] --
    book about metaprogramming in C++, based on Boost Metaprogramming Library
- - Series of books with common name [[http://www.amazon.com/gp/redirect.html?ie=UTF8&location=http%3A%2F%2Fwww.amazon.com%2Fs%3Fie%3DUTF8%26x%3D0%26ref_%3Dnb%255Fss%255F0%255F9%26y%3D0%26field-keywords%3Dc%252B%252B%2520in-depth%2520series%26url%3Dsearch-alias%253Dstripbooks%26sprefix%3DC%252B%252B%2520In-De&tag=aleottshompag-20&linkCode=ur2&camp=1789&creative=390957][C++ In-Depth]]
+ - Series of books with common name [[http://www.amazon.com/gp/redirect.html?ie=UTF8&location=http%3A%2F%2Fwww.amazon.com%2Fs%3Fie%3DUTF8%26x%3D0%26ref_%3Dnb%255Fss%255F0%255F9%26y%3D0%26field-keywords%3Dc%252B%252B%2520in-depth%2520series%26url%3Dsearch-alias%253Dstripbooks%26sprefix%3DC%252B%252B%2520In-De&tag=aleottshompag-20&linkCode=ur2&camp=1789&creative=390957][C++ In-Depth]].<literal><img src="https://www.assoc-amazon.com/e/ir?t=aleottshompag-20&l=ur2&o=1" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></literal>
 
 * Small articles about programming in C & C++
 
