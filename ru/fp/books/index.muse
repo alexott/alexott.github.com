@@ -653,7 +653,7 @@ Standard ML.
    программирование с использованием продолжений[5], построение интерпретатора и
    компилятора этих языков, поддержку макросов и многое другое.
 
-**TODO** - http://lisp-book.org/?
+**TODO**: - http://lisp-book.org/?
 
 *** Scheme
 
@@ -664,6 +664,10 @@ Standard ML.
  - [[http://www.amazon.com/Reasoned-Schemer-Daniel-P-Friedman/dp/0262562146/][The Reasoned Schemer]] <cite>ReasonedSchemer:2005</cite>,
  - [[http://www.amazon.com/Seasoned-Schemer-Daniel-P-Friedman/dp/026256100X/][The Seasoned Schemer]] <cite>SeasonedSchemer:1995</cite>,
  - [[http://www.amazon.com/Scheme-Programming-Language-3rd/dp/0262541483/][The Scheme Programming Language, 3ed]] <cite>Dybvig:Scheme:2003</cite>.
+
+TODO: add link to Scheme PL, 4ed -
+http://www.amazon.com/Scheme-Programming-Language-4th/dp/026251298X/ref=pd_sim_b_79
+
 
 Книги описывают как сам язык, так и различные аспекты его использования.  Эти книги могут
 использоваться как справочники по языку и являются хорошим дополнением к книгам Structure
@@ -711,6 +715,16 @@ and Interpretation of Computer Programs <cite>SICP:1996</cite> и How to Design 
 *** Clojure
 
 **TODO**
+
+В данный момент выпущена всего одна книга по языку Clojure -- в серии Pragmatic
+Programmers вышла книга [[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]].
+
+В феврале 2010-го года должна выйти книга [[http://www.amazon.com/gp/product/1430272317?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430272317][Practical Clojure. The Definitive Guide]].
+
+А осенью 2010-го года, издательство Manning должно выпустить книгу [[http://www.manning.com/rathore/][Clojure in Action]].
+
+
+
 
 * Рекомендации
 

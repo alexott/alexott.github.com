@@ -12,7 +12,7 @@
 * Рекомендуемая литература 
 
  - Самой популярной и доступной книгой про Erlang в настоящее время считается книга Joe
-   Armstrong [[http://www.pragprog.com/titles/jaerlang/programming-erlang][Programming Erlang: Software for a Concurrent World]].
+   Armstrong [[http://www.amazon.com/gp/product/193435600X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435600X][Programming Erlang: Software for a Concurrent World]]
  - Также интересной является статья Joe Armstrong [[http://www.cs.chalmers.se/Cs/Grundutb/Kurser/ppxt/HT2007/general/languages/armstrong-erlang_history.pdf][History of Erlang]], которая описывает
    историю создания языка, и требования, которые повлияли на его дизайн.
 
