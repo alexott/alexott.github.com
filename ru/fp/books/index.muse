@@ -1,5 +1,5 @@
 #title Обзор литературы о функциональном программировании
-#keywords functional programming, fp, функциональное программирование, ФП, lisp, ocaml, haskell, scheme, F#, clojure, обзор литературы, книги, литература, scala, erlang, лисп, пролог, окамл, скала
+#keywords functional programming, fp, функциональное программирование, ФП, lisp, ocaml, haskell, scheme, F#, clojure, обзор литературы, книги, литература, scala, erlang, лисп, пролог, окамл, скала, список литературы, программирование, функциональное
 #bibsource RussianFPBooks
 #bibstyle plain
 
@@ -666,7 +666,8 @@ Outside the Box", и несколько глав уже доступно для 
  - [[http://www.amazon.com/gp/product/0262560992?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262560992][The Little Schemer]] <cite>LittleSchemer:1995</cite>,
  - [[http://www.amazon.com/gp/product/0262562146?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262562146][The Reasoned Schemer]] <cite>ReasonedSchemer:2005</cite>,
  - [[http://www.amazon.com/gp/product/026256100X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026256100X][The Seasoned Schemer]] <cite>SeasonedSchemer:1995</cite>,
- - [[http://www.amazon.com/gp/product/026251298X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026251298X][The Scheme Programming Language, 4ed]] <cite>Dybvig:Scheme:2003</cite>.
+ - [[http://www.amazon.com/gp/product/026251298X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026251298X][The Scheme Programming Language, 4ed]] <cite>Dybvig:Scheme:2003</cite>, также
+   [[http://scheme.com/tspl4/][доступная свободно]].
 
 Книги описывают как сам язык, так и различные аспекты его использования.  Эти книги могут
 использоваться как справочники по языку и являются хорошим дополнением к книгам Structure
@@ -699,17 +700,18 @@ and Interpretation of Computer Programs <cite>SICP:1996</cite> и How to Design 
 
 *** Scala
 
+TODO:
+
  - [[http://www.amazon.com/gp/product/0981531601?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531601][Programming in Scala: A Comprehensive Step-by-step Guide]] (Artima Inc) --
  - [[http://www.amazon.com/gp/product/0596155956?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596155956][Programming Scala: Scalability = Functional Programming + Objects]] (O'Reilly) --
+   [[http://programming-scala.labs.oreilly.com/][бета-версия книги доступна на сайте O'Reilly]].
  - [[http://www.amazon.com/gp/product/193435631X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435631X][Programming Scala: Tackle Multi-Core Complexity on the Java Virtual Machine]] (Pragmatic
    Programmers) -- 
  - [[http://www.amazon.com/gp/product/1430219890?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430219890][Beginning Scala]] (Apress) -- 
  - [[http://www.amazon.com/gp/product/1430224215?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224215][The Definitive Guide to Lift: A Scala-based Web Framework]] (Apress) -- 
  - [[http://www.amazon.com/gp/product/143022844X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=143022844X][Pro Scala: Monadic Design Patterns for the Web]] (Apress) -- будет выпущена весной
    2010-го года
- - 
 
-**TODO**
 
 *** Clojure
 
