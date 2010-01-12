@@ -724,7 +724,7 @@ Programmers вышла книга [[http://www.amazon.com/gp/product/1934356336?
 
 А осенью 2010-го года, издательство Manning должно выпустить книгу [[http://www.manning.com/rathore/][Clojure in Action]].
 
-
+Еще одна книга от Manning - [[http://joyofclojure.com/][Joy of Clojure. Thinking the Clojure Way]].
 
 
 * Рекомендации
