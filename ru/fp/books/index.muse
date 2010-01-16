@@ -332,9 +332,9 @@ Haskell, и используется в ряде вузов в качестве 
 справочнике определения функций могут использоваться в качестве примеров по написанию
 "правильного" кода на Haskell и являются хорошим подспорьем в работе.
 
-**TODO: написать про новую книгу Душкина.  Добавить ее в список литературы**
-В ноябре 2009 года была выпущена еще одна книга Романа Душкина.  Она называется
-"[[http://www.ozon.ru/context/detail/id/4819032/?partner=alexott][Практика работы на языке Haskell]]" и содержит ....
+; ; **TODO: написать про новую книгу Душкина.  Добавить ее в список литературы**
+; В ноябре 2009 года была выпущена еще одна книга Романа Душкина.  Она называется
+; "[[http://www.ozon.ru/context/detail/id/4819032/?partner=alexott][Практика работы на языке Haskell]]" и содержит ....
 
 **** "Функциональное программирование" (Роганова)
 
@@ -436,10 +436,15 @@ Caml <cite>OCamlBook:2000</cite> -- переведено 11 глав, описы
    данная книга рассматривает теорию категорий, лежащую в основе некоторых приемов,
    используемых в ФП (в частности, монад в языке Haskell).
  - [[http://www.amazon.com/gp/product/052171916X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=052171916X][Conceptual Mathematics: A First Introduction to Categories]]
-   <cite>ConceptualMathematics:2009</cite> -- **TODO**
- - Interactive Theorem Proving and Program Development (Coq book) -- TODO
+   <cite>ConceptualMathematics:2009</cite> -- подробное и хорошо написанное введение в
+   теорию категорий, также может быть полезна при изучении функциональных языков.
+ - Книга [[http://www.amazon.com/gp/product/3540208542?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=3540208542][Interactive Theorem Proving and Program Development]] (Coq book) посвящена вопросам
+   доказательства корректности программ.  В качестве утилиты для доказательства теорем,
+   используеся [[http://coq.inria.fr/][Coq]].
+ - [[http://adam.chlipala.net/cpdt/][Certified Programming with Dependent Types]] (бета-версия, доступная бесплатно) -- еще
+   одна книга, посвященная доказательству корректности программ, которая также использует
+   Coq.
 
-; add section about theorem proving, etc.
 
 #fp-implement
 ** Реализация языков программирования
