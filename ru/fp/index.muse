@@ -15,25 +15,26 @@
 
 * Рекомендуемая литература
 
- - [[http://mitpress.mit.edu/sicp/][Structure & Interpretation of Computer Programs]] -- классический учебник по
-   программированию, который рекомендуется программистам на любых языках.  Существует
-   русский перевод данного учебника с названием "Структура и интерпретация компьютерных
-   программ".
- - [[http://www.cl.cam.ac.uk/Teaching/Lectures/funprog-jrh-1996/index.html][Введение в функциональное программирование]], написанное John Harrison. Для него также
-   существует [[http://code.google.com/p/funprog-ru/][русский перевод]].
- - [[http://www.cl.cam.ac.uk/users/mjcg/Teaching/FuncProg/FuncProg.html][Введение в функциональное программирование]], написанное Mike Gordon.
- - [[http://www.cs.chalmers.se/~rjmh/tutorials.html][Учебные статьи по функциональному программированию]]
- - [[http://www.math.chalmers.se/~rjmh/Papers/whyfp.html][Why Functional Programming Matters]] - известная статья о ФП.
- - [[http://www.cs.trinity.edu/~jhowland/ccsc98/ccsc98/ccsc98.html][Recursion, Iteration and Functional Languages]]
- - [[http://www.cs.hmc.edu/~keller/cs60book/][Книга Computer Science: Abstraction to Implementation]], написанная Robert M. Keller и
-   Harvey Mudd College.
- - [[http://www.cs.brown.edu/~sk/Publications/Books/ProgLangs/][Programming Languages: Application and Interpretation]], автор Shriram Krishnamurthi
+Подробное описание книг, и рекомендации по выбору литературы, вы сможете найти в статье
+"[[./books/][Обзор литературы по теме ФП]]", первоначально опубликованной в [[http://fprog.ru/2009/issue1/][первом номере]] журнала
+"Практика функционального программирования", но сейчас существующей как отдельный,
+регулярно обновляемый проект.
 
-Более подробное описание книг, и рекомендации по выбору литературы, вы сможете найти в
-статье "[[./books/][Обзор литературы по теме ФП]]", первоначально опубликованной в [[http://fprog.ru/2009/issue1/][первом номере]] журнала
-"Практика функционального программирования".
+; - [[http://mitpress.mit.edu/sicp/][Structure & Interpretation of Computer Programs]] -- классический учебник по
+;   программированию, который рекомендуется программистам на любых языках.  Существует
+;   русский перевод данного учебника с названием "Структура и интерпретация компьютерных
+;   программ".
+; - [[http://www.cl.cam.ac.uk/Teaching/Lectures/funprog-jrh-1996/index.html][Введение в функциональное программирование]], написанное John Harrison. Для него также
+;   существует [[http://code.google.com/p/funprog-ru/][русский перевод]].
+; - [[http://www.cl.cam.ac.uk/users/mjcg/Teaching/FuncProg/FuncProg.html][Введение в функциональное программирование]], написанное Mike Gordon.
+; - [[http://www.cs.chalmers.se/~rjmh/tutorials.html][Учебные статьи по функциональному программированию]]
+; - [[http://www.math.chalmers.se/~rjmh/Papers/whyfp.html][Why Functional Programming Matters]] - известная статья о ФП.
+; - [[http://www.cs.trinity.edu/~jhowland/ccsc98/ccsc98/ccsc98.html][Recursion, Iteration and Functional Languages]]
+; - [[http://www.cs.hmc.edu/~keller/cs60book/][Книга Computer Science: Abstraction to Implementation]], написанная Robert M. Keller и
+;   Harvey Mudd College.
+; - [[http://www.cs.brown.edu/~sk/Publications/Books/ProgLangs/][Programming Languages: Application and Interpretation]], автор Shriram Krishnamurthi
 
-* Полезные ссылки
+; * Полезные ссылки
 
- - [[http://www.luca.demon.co.uk][Персональная страница Luca Cardelli]], на которой можно найти статьи по функциональным
-   языкам и системам типов.
+; - [[http://www.luca.demon.co.uk][Персональная страница Luca Cardelli]], на которой можно найти статьи по функциональным
+;   языкам и системам типов.
