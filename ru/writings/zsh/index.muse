@@ -511,7 +511,7 @@
  - [[http://zsh.sunsite.dk/Guide/][Руководство пользователя Zsh]]
  - [[http://www.zsh.org/FAQ/][Zsh FAQ]]
  - [[http://zsh.sunsite.dk/Refcard/][Zsh refcard]]
- - [[http://xtalk.msk.su/~ott/ru/writings/zsh/zsh-refcard.pdf][Zsh refcard на русском языке]]
+ - [[http://alexott.net/ru/writings/zsh/zsh-refcard.pdf][Zsh refcard на русском языке]]
       
   
 

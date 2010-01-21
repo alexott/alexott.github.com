@@ -9,6 +9,12 @@
 #+KEYWORDS:    alex ott blog news articles emacs новости статьи емакс программирование
 #+HTML_CSS:    web.css
 
+* DONE Новости сайта закрыты...
+  CLOSED: [2010-01-21 Thu 10:59]
+
+Я решил закрыть раздел "Новости сайта", поскольку все равно информация публикуется в
+основном блоге на http://alexott-ru.blogspot.com
+
 * DONE Добавлен рассказ про работу с Cedet                 :emacs:article:cedet:
   CLOSED: [2009-02-02 Mon 21:04]
 

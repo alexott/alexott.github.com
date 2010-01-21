@@ -20,7 +20,7 @@
 Для загрузки пакета надо просто использовать команду:
 
 <src lang="emacs-lisp">
-(require &apos;preview-latex)
+(require 'preview-latex)
 </src>
 
 (не забудьте что этот файл должен быть помещен в пути поиска библиотек Emacs).

@@ -506,7 +506,7 @@ Footnotes:
 
 [1] First line is need only when you build package from CVS
 
-[2] You can take [[http://xtalk.msk.su/~ott/common/emacs/rc/emacs-rc-cedet.el.html][my configuration file for Cedet]] as a base, although it contains lot of
+[2] You can take [[http://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet.el][my configuration file for Cedet]] as a base, although it contains lot of
     not needed things
 
 [3] There is also =semantic-complete-analyze-inline= command, that shows list of all

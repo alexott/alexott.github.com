@@ -9,6 +9,12 @@
 #+KEYWORDS:    alex ott blog news articles emacs
 #+HTML_CSS:    web.css
 
+* DONE Site news section is closed
+  CLOSED: [2010-01-21 Thu 10:59]
+
+I decided to close 'News' section of the site, because all news are published at
+http://alexott.blogspot.com anyway
+
 * DONE New article about working with Scheme from Emacs   :emacs:scheme:article:
   CLOSED: [2009-01-06 Tue 09:12]
 
