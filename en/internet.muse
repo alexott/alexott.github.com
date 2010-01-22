@@ -12,7 +12,7 @@ Here is small list of resources, that i use:
  - My profile at [[http://www.linkedin.com/in/alexott][LinkedIn]]
  - Bookmarks are stored at [[http://del.icio.us/alexott][del.icio.us]]
  - Account at [[http://www.last.fm/user/alexott][Last.fm]]
- - Account at [[http://twitter.com/alexott][twitter]]
+ - Account at [[http://twitter.com/alexott_en][twitter]]
 
 ** Photo hosting
 
