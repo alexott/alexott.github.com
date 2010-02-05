@@ -1,5 +1,5 @@
 #title Программирование на Lisp
-#keywords lisp, elisp, common lisp, clojure
+#keywords lisp, elisp, common lisp, clojure, лисп, кложура
 
 Случилось так, что Lisp был вторым языком программирования, который я выучил и на котором
 программировал некоторое время (первым языком был Fortran, которому нас учили в
@@ -9,19 +9,6 @@
 В настоящее время я все также использую Emacs, который дополняю кодом на elisp, но кроме
 этого я разрабатываю некоторые личные проекты используя Common Lisp и Clojure.
 
-* Литература по Lisp
+Список книг, которые нужны для изучения Lisp'ообразных языко вы можете найти в моей статье
+[[../fp/books][Обзор литература по функциональному программированию]].  
 
- - Книга [[http://www.gigamonkeys.com/book/][Practical Common Lisp]] ([[http://pcl.catap.ru][русский перевод]]) -- достаточно хорошее введение в
-   программирование на Common Lisp
- - Книга [[http://paulgraham.com/onlisp.html][On Lisp]] -- пособие по Common Lisp для уже имеющих опыт программирования на Common
-   Lisp
- - [[http://www.lisp.org/HyperSpec/FrontMatter/index.html][Common Lisp Hyperspec]] -- справочник по Common Lisp
- - Для изучения elisp может оказаться полезным [[../emacs/elisp-intro/][введение в программирование на elisp]].
-
-* Полезные ссылки
-
- - [[http://planet.lisp.org/][Planet Lisp]] агрегатор блогов людей, использующих Common Lisp
- - [[http://common-lisp.net/project/slime/][Slime]] -- среда программирования Common Lisp в виде пакета для Emacs
- - [[http://common-lisp.net/][Common-Lisp.Net]] -- сайт посвященный Common Lisp, являющийся хостингом для проектов на
-   Common Lisp
- - [[http://www.cliki.net/index][Common Lisp Wiki]] 
