@@ -612,8 +612,10 @@ Scientists", адаптированной для языка F#, и содерж�
 разработки для платформы .Net, и желающих ознакомиться с разными подходами к разработке
 программ.
 
-А в феврале 2010-го года, издательство Apress, в серии The Definitive Guide, выпустит
-книгу [[http://www.amazon.com/gp/product/1430224312?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224312][Programming F#]].
+К выходу также планируются следующие книги:
+ - в феврале 2010-го года, издательство Apress, в серии The Definitive Guide, выпустит
+   книгу [[http://www.amazon.com/gp/product/1430224312?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224312][Programming F#]];
+ - на лето 2010-го года в издательстве Wrox запланирован выход книги [[http://www.amazon.com/gp/product/047052801X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=047052801X][Professional F# 1.0]].
 
 #ml-en
 *** Standard ML
@@ -749,9 +751,11 @@ and Interpretation of Computer Programs <cite>SICP:1996</cite> и How to Design 
    представляет собой достаточно полное описание популярного веб-фреймворка Lift,
    разработанного для языка Scala.
 
-Еще одна книга будет выпущена издательством Apress весной 2010-го года --
-[[http://www.amazon.com/gp/product/143022844X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=143022844X][Pro Scala: Monadic Design Patterns for the Web]].
-
+К изданию планируются следующие книги:
+ - весной 2010-го года  издательством Apress  будет выпущена книга
+   [[http://www.amazon.com/gp/product/143022844X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=143022844X][Pro Scala: Monadic Design Patterns for the Web]];
+ - А осенью 2010-го года планируется к выпуску книга
+   [[http://www.amazon.com/gp/product/0521762170?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521762170][Steps in Scala: An Introduction to Object-Functional Programming]].
 
 *** Clojure
 
