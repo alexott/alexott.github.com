@@ -5,6 +5,7 @@
 # Created: Wednesday, April  2 2008 by Alex Ott
 #
 
+export LC_TIME=C
 FILE=sitemap.xml
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' > $FILE
