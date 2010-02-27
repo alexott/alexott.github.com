@@ -1,6 +1,48 @@
-#title Alex Ott's home page (german)
-#keywords home page, deutsch
+#title Alex Ott's home page (Deutsch)
+#keywords home page, emacs, Linux, Programmierung, C + +, funktionale Programmierung, System, Lisp, Common Lisp, Haskell, ocaml, Artikel, Programmierung, funktionale Programmierung, Alex Ott
 
+* Über mich
 
-* Kurz personal information
+**Name**: Alex (Alexey) Ott <br>
+**Alter**: 35 Jahre <br>
+**E-Mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]] <br>
+**Jabber**: [[xmpp://alexott@gmail.com][alexott@gmail.com]] <br>
+**Ich wohne in**: Paderborn, Deutschland
+
+Der Rest der persönlichen Daten können Sie in meinem Profil auf [[https://www.plaxo.com/add_me?u=38655136415&v0=861575&k0=1086616232][Plaxo]] finden. Und mein
+*Wunsch Liste* ist auf der [[http://amazon.de/gp/registry/wishlist/3GN7PNIFBJSHC][Amazon.de]].
+
+Sie können auch meine [[alexott-cv-de][Lebenslauf]]. Auch professionelle Informationen, finden Sie im
+Internet [[http://www.linkedin.com/in/alexott][LinkedIn]].
+
+Über meine Arbeit können Sie in den [[http://alexott-de.blogspot.com/][Blogs]]. Liste der anderen Internet-Ressourcen Ich
+verwenden, können Sie unter [[./internet][diese Seite]].
+
+* Was mache Ich
+
+Der Großteil der Arbeit - Software-Entwicklung, von der Konzeption und endet mit der
+Durchführung und Förderung (Marketing-Aktivitäten). Auch nicht Consulting-Projekte auf
+dieser Seite. Derzeit ist das Haupt-Spezialisierung -- Informationssicherheit und
+Content-Filtering.
+
+Software-Entwicklung ist in verschiedenen Programmiersprachen durchgeführt. Die
+Arbeitssprache -- C & C ++, aber anders als das, wird häufig verwendet,
+[[lisp/index][Lisp]], Scheme, [[clojure/index][Clojure]], Erlang, Haskell, und andere [[fp/index][funktionalen Programmensprachen]].
+
+Mehr als 10 Jahre Arbeit mit Unix-ähnlichen Betriebssystemen, insbesondere mit Linux
+Solaris, HP-UX, FreeBSD, und in jüngster Zeit mit Mac OS X.
+
+Separaten Raum ist in den Editor Emacs, die verwendet wird, zu erfüllen vorbehalten fast
+alle ihre Probleme -- von der Programmierung bis Mails zu lesen und die Kommunikation über
+das Internet. Dieses Sie lesbar auf [[emacs/index][separaten Seite]].
+
+Genug, um zu schreiben viel persönlichem Interesse - über Content-Filtering,
+Programmierung, Emacs, etc. Liste der Artikel und die Artikel selbst, finden Sie in
+[[writings/index]["Artikel"-Sektion]].
+
+Bei Projekten, die der Schriftsteller, aktiv in mehreren Projekten zu beteiligen mit
+Open-Source.
+
+; LocalWords: OCaml 
+
 

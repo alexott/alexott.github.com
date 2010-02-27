@@ -1,0 +1,24 @@
+#title Clojure
+#keywords alex ott, Clojure, klozhura, klozura, klozhure, LISP, lisp, Common Lisp, funktionale programmierung, einführung in die Clojure
+
+Seit einiger Zeit verwende ich die [[http://clojure.org][Clojure]] Programmiersprache Programme zu entwickeln,
+arbeiten auf der Plattform JVM (ich wirklich nicht besonders, wie die Sprache
+Java). Clojure obwohl junge Sprache, sondern über eine ausreichend große Anzahl von
+interessanten Features, wie z. B.  Unveränderbarkeit der Daten und vereinfachtes Modell
+der Concurrency-Programmierung, zusammen mit traditionellen Funktionen von Lisp. Und die
+Arbeit auf JVM-Plattform ermöglicht die Verwendung einer großen Anzahl von Bibliotheken
+für diese schriftliche Plattform.
+
+Die Hauptrichtungen der Verwendung dieser Sprache in meinem Fall - die Analyse der Daten,
+wie numerische und Text, um verschiedene Informationen zu extrahieren und Klassifizierung.
+Ein sehr nützliches Werkzeug in diesem Zusammenhang ist das Projekt [[http://incanter.org][Incanter]], in der
+Entwicklung, von denen ich teilnehmen.
+
+Im [[http://fprog.ru/2010/issue4/][4 Ausgabe]] der Russische Zeitschrift "Die Praxis der funktionalen Programmierung" ich in
+meinem Artikel über die Sprache Clojure, die als Einführung in die Programmierung in
+dieser Sprache verwendet werden kann.  Diese Artikel war auch [[intro/index][auf Deutsch übersetzt]].  Eine
+Liste der verfügbaren Literatur über Clojure finden sich in
+[[../ fp/books][Übersicht über die Literatur zur funktionalen Programmierung]]. Und natürlich die wichtigste
+Quelle der Information ist [[http://clojure.org][site von Clojure Sprache]] und die Mailing-Liste.
+
+
