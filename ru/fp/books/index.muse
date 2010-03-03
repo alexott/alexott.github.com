@@ -371,7 +371,7 @@ Haskell, а также состав основных библиотек этог
 основные возможности языка Haskell и наиболее часто используемые функции стандартных
 библиотек, включая ввод и вывод, и может использоваться для изучения основ языка. Перевод
 учебника доступен с сервера [[http://rsdn.ru][RSDN]] <cite>Haskell:Gentle:RU</cite> и состоит из двух частей
---- [[http://rsdn.ru/article/haskell/haskell\_part1.xml][часть 1]] и [[http://rsdn.ru/article/haskell/haskell\_part2.xml][часть 2]].
+--- [[http://rsdn.ru/article/haskell/haskell_part1.xml][часть 1]] и [[http://rsdn.ru/article/haskell/haskell_part2.xml][часть 2]].
 
 *** Семейство языков ML
 
