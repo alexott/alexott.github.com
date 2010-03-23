@@ -1,0 +1,70 @@
+#title Использование Clojure с Hadoop
+#keywords hadoop, clojure
+
+
+
+http://github.com/stuartsierra/clojure-hadoop
+
+
+examples - 
+http://github.com/stuartsierra/clojure-hadoop/tree/master/src/examples/clojure/clojure_hadoop/examples/
+
+
+ - [[http://vimeo.com/7669741][Watch my presentation at HadoopWorld NYC]] 
+
+http://www.bestinclass.dk/index.php/2010/01/hadoop-feeding-reddit-to-hadoop/
+
+http://github.com/technomancy/leiningen
+
+
+<src lang="clojure">
+(defproject hadoop1 "1.0-SNAPSHOT"
+  :description "hadoop1"
+  :dependencies [[org.clojure/clojure "1.1.0"]
+                 [com.stuartsierra/clojure-hadoop "1.1.0"]]
+  :repositories {"stuartsierra-snapshots" "http://stuartsierra.com/maven2"}
+  )
+</src>
+
+
+
+<src lang="sh">
+java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input  -output out
+</src>
+
+
+** USING THE LIBRARY
+
+This library provides different layers of abstraction away from the
+raw Hadoop API.
+
+Layer 1: clojure-hadoop.imports
+
+    Provides convenience functions for importing the many classes and
+    interfaces in the Hadoop API.
+
+Layer 2: clojure-hadoop.gen
+
+    Provides gen-class macros to generate the multiple classes needed
+    for a MapReduce job.  See the example file "wordcount1.clj" for a
+    demonstration of these macros.
+
+Layer 3: clojure-hadoop.wrap
+
+    clojure-hadoop.wrap: provides wrapper functions that automatically
+    convert between Hadoop Text objects and Clojure data structures.
+    See the example file "wordcount2.clj" for a demonstration of these
+    wrappers.
+
+Layer 4: clojure-hadoop.job
+
+    Provides a complete implementation of a Hadoop MapReduce job that
+    can be dynamically configured to use any Clojure functions in the
+    map and reduce phases.  See the example file "wordcount3.clj" for
+    a demonstration of this usage.
+
+Layer 5: clojure-hadoop.defjob
+
+    A convenient macro to configure MapReduce jobs with Clojure code.
+    See the example files "wordcount4.clj" and "wordcount5.clj" for
+    demonstrations of this macro.
