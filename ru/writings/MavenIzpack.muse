@@ -1,0 +1,18 @@
+#title Скрещиваем Maven и IzPack
+#keywords maven, izpack, distribution, дистрибутив, инсталлятор, java, installer, ява
+
+В данной заметке рассказывается об использовании связки из Maven и IzPack для генерации
+инсталляторов для программ, написанных для JVM.
+
+http://izpack.org/
+
+
+
+
+
+
+
+
+* TODO
+
+ - написать про commons-daemon, и запуск сервисов на винде и юниксе?

@@ -1,0 +1,8 @@
+#title Использование Leiningen для сборки кода на Clojure
+#keywords leiningen, clojure, build tool, кложура
+
+В данной заметке рассматривается использование Leiningen для сборки проектов, написанных на
+Clojure.
+
+
+
