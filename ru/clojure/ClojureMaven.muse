@@ -4,3 +4,21 @@
 В данной заметке рассматривается использование Maven для сборки проектов, написанных на
 Clojure (и на смеси Clojure & Java)
 
+
+
+
+
+
+
+http://muckandbrass.com/web/display/~cemerick/2010/03/25/Why+using+Maven+for+Clojure+builds+is+a+no-brainer
+
+Links for article:
+ - http://github.com/talios/clojure-maven-example
+ - http://github.com/talios/clojure-maven-plugin
+
+
+ - http://pupeno.com/blog/how-to-create-a-clojure-application/
+ - http://github.com/dysinger/clojure-pom
+ - http://stuartsierra.com/2009/09/03/mavens-not-so-bad
+
+use http://clojars.org

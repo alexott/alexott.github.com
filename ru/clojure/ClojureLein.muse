@@ -6,3 +6,10 @@ Clojure.
 
 
 
+
+
+
+
+* TODO
+
+ - [[http://nakkaya.com/2010/02/25/writing-leiningen-plugins-101/][как писать новые таски для lein]]

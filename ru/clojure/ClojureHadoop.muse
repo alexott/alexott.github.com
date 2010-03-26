@@ -1,6 +1,9 @@
 #title Использование Clojure с Hadoop
 #keywords hadoop, clojure
 
+<contents>
+
+* Введение 
 
 
 http://github.com/stuartsierra/clojure-hadoop
@@ -16,24 +19,20 @@ http://www.bestinclass.dk/index.php/2010/01/hadoop-feeding-reddit-to-hadoop/
 
 http://github.com/technomancy/leiningen
 
+ - http://hadoop.apache.org/core/
+ - http://www.masukomi.org/writings/hadoop_overview.html
 
-<src lang="clojure">
-(defproject hadoop1 "1.0-SNAPSHOT"
-  :description "hadoop1"
-  :dependencies [[org.clojure/clojure "1.1.0"]
-                 [com.stuartsierra/clojure-hadoop "1.1.0"]]
-  :repositories {"stuartsierra-snapshots" "http://stuartsierra.com/maven2"}
-  )
-</src>
+ - http://hadoop.apache.org/common/docs/current/mapred_tutorial.html
 
+ - [[http://www.michael-noll.com/wiki/Running_Hadoop_On_Ubuntu_Linux_%28Multi-Node_Cluster%29][How to Setup Hadoop on Ubuntu]]
 
+ - [[http://www.cloudera.com/hadoop-training-programming-with-hadoop][Programming with Hadoop video]], etc.  [[http://vimeo.com/cloudera][Other video lectures]] 
+ - http://www.cloudera.com/hadoop-training-basic
 
-<src lang="sh">
-java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input  -output out
-</src>
+ - http://stuartsierra.com/2009/10/02/clojurehadoop-slides
 
 
-** USING THE LIBRARY
+* Из чего состоит clojure-hadoop
 
 This library provides different layers of abstraction away from the
 raw Hadoop API.
@@ -68,3 +67,89 @@ Layer 5: clojure-hadoop.defjob
     A convenient macro to configure MapReduce jobs with Clojure code.
     See the example files "wordcount4.clj" and "wordcount5.clj" for
     demonstrations of this macro.
+
+
+
+* Пример программы
+
+<src lang="clojure">
+(ns hadoop1
+    (:require [clojure-hadoop.wrap :as wrap]
+              [clojure-hadoop.defjob :as defjob])
+    (:use clojure-hadoop.imports)
+    (:use clojure.contrib.seq-utils)
+    (:require [clojure.contrib.str-utils2 :as str2])
+    (:import (java.util StringTokenizer)
+             (org.apache.hadoop.io Text LongWritable)
+             (org.apache.hadoop.mapred OutputCollector)))
+
+(import-io)
+(import-mapred)
+
+(def delimiters "0123456789[ \t\n\r!\"#$%&'()*+,./:;<=>?@\\^`{|}~-]+")
+
+(defn gen-n-grams [#^String s #^Integer n]
+  (when (> (.length s) 0)
+      (let [str (str " " s (String. ) (str2/repeat " " (- n 1)))]
+        (reduce (fn [val elem]
+                  (conj val (.substring str elem (+ elem n))))
+                []
+                (range 0 (+ 1 (.length s)))))))
+
+(defn my-map [key #^String value]
+  (map (fn [token] [token 1])
+       (flatten (map #(gen-n-grams %1 3)
+                     (enumeration-seq (StringTokenizer. value delimiters))))))
+
+(defn my-reduce [key values-fn]
+  [[key (reduce + (values-fn))]])
+
+(defn string-long-writer [#^OutputCollector output
+                          #^String key value]
+  (.collect output (Text. key) (LongWritable. value)))
+
+(defn string-long-reduce-reader [#^Text key wvalues]
+  [(.toString key)
+   (fn [] (map (fn [#^LongWritable v] (.get v))
+               (iterator-seq wvalues)))])
+
+(defjob/defjob job
+  :map my-map
+  :map-reader wrap/int-string-map-reader
+  :map-writer string-long-writer
+  :reduce my-reduce
+  :reduce-reader string-long-reduce-reader
+  :reduce-writer string-long-writer
+  :output-key Text
+  :output-value LongWritable
+  :input-format :text
+  :output-format :text
+  :compress-output false)
+</src>
+
+Данный код основан на примере [[http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount5.clj][wordcount5]] из поставки пакета clojure-hadoop. Для сборки
+кода используется следующий проект Leiningen:
+
+<src lang="clojure">
+(defproject hadoop1 "1.0-SNAPSHOT"
+  :description "hadoop1"
+  :dependencies [[org.clojure/clojure "1.1.0"]
+                 [com.stuartsierra/clojure-hadoop "1.1.0"]]
+  :repositories {"stuartsierra-snapshots" "http://stuartsierra.com/maven2"}
+  )
+</src>
+
+Для запуска проекта в кластере Hadoop, необходимо собрать все библиотеки в один архив,
+поэтому для сборки должна использоваться команда =lein uberjar=, которая упакует код на
+Clojure, вместе со всеми необходимыми библиотеками.  После сборки вы можете запустить
+задачу на выполнение с помощью следующей командой строки (Hadoop должен быть уже настроен
+и запущен):
+
+<src lang="sh">
+java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input FILE -output out
+</src>
+
+в качестве аргумента =FILE= подставьте нужный текстовый файл, и после выполнения программы,
+в каталоге =out= будет создан файл, содержащий список N-Gram и их количество в тексте.
+Данный файл можно затем использовать в качестве базы данных для задач определения языков
+и т.п.
