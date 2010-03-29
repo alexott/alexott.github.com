@@ -19,9 +19,9 @@
 
 * Work Experience
 
- - **Senior Developer** at *Secure Computing Corp.*<br>
- **Dates (from-to)**: 01.2007-now<br>
- **Name and address of employer**: [[http://www.securecomputing.com][Secure Computing Corp]]. 33100 Paderborn, Germany<br>
+ - **Senior Developer** at *McAfee, Inc.*<br>
+ **Dates (from-to)**: 01.2007-now (2007-2008 -- Secure Computing Corp.)<br>
+ **Name and address of employer**: [[http://www.mcafee.com][McAfee, Inc]]. 33100 Paderborn, Germany<br>
  **Positions held**: Senior Developer<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
