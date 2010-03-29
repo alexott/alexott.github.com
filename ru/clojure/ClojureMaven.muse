@@ -2,23 +2,103 @@
 #keywords maven, clojure, build tool, кложура, мавен
 
 В данной заметке рассматривается использование Maven для сборки проектов, написанных на
-Clojure (и на смеси Clojure & Java)
+Clojure (и на смеси Clojure & Java).  
+
+* Что такое Maven?
+
+[[http://maven.apache.org][Maven]] -- утилита для управления жизненным циклом ПО, реализующая разрешение зависимостей,
+сборку и тестирование кода, публикацию собранного ПО и т.д.  Функциональность данной
+утилиты может расширяться с помощью плагинов, что делает возможным ее применение не только
+для работы с кодом на Java, для чего она в первую очередь и создавалась, но и дает
+возможность работы с кодом на других языках.
+
+В отличии от утилиты Ant, которая описывает "как" выполнять сборку и тестирование кода,
+Maven описывает "что" надо сделать в декларативном стиле, и все задачи выполняются
+соответствующими плагинами.
+
+*написать про goals, stages, структуру pom.xml, etc.*
+
+* Maven и Clojure
+
+Поддержка Clojure в Maven реализуется с помощью [[http://github.com/talios/clojure-maven-plugin][clojure-maven-plugin]], который находится в
+центральном репозитории Maven, и поэтому сразу доступен для использования.
+
+Для подключения плагина вам необходимо добавить следующий код в =pom.xml= в раздел
+=<plugins>=:
+
+<src lang="xml">
+  <plugin>
+    <groupId>com.theoryinpractise</groupId>
+    <artifactId>clojure-maven-plugin</artifactId>
+    <version>1.3.2</version>
+  </plugin>
+</src>
+
+*Внимание:* номер версии может меняться по мере продвижения разработки.  Для того, чтобы
+узнать последнюю версию данного плагина обратитесь к сайту [[http://mvnrepository.com/artifact/com.theoryinpractise/clojure-maven-plugin][mvnrepository]], который содержит
+информацию о пакетах, зарегистрированных в центральном репозитории Maven.
+
+Подключение данного плагина даст вам возможность компиляции, тестирования и запуска кода
+на Clojure, однако для этого вам придется использовать явные имена goals, такие как
+=clojure:compile=, =clojure:test= & =clojure:run=.  Однако вы можете упростить себе жизнь путем
+добавления этих задач в список goals, выполняемых для каждой из стадий.  Для этого,
+необходимо добавить раздел =<executions>= в описание плагина, например, вот так:
+
+<src lang="xml">
+ <plugin>
+   <groupId>com.theoryinpractise</groupId>
+   <artifactId>clojure-maven-plugin</artifactId>
+   <version>1.3.2</version>
+   <executions>
+     <execution>
+       <id>compile</id>
+       <phase>compile</phase>
+       <goals>
+         <goal>compile</goal>
+       </goals>
+     </execution>
+     <execution>
+       <id>test</id>
+       <phase>test</phase>
+       <goals>
+         <goal>test</goal>
+       </goals>
+     </execution>        
+   </executions>
+ </plugin>
+</src>
 
 
 
+*туду: написать про значения по умолчанию*
 
 
 
-
-http://muckandbrass.com/web/display/~cemerick/2010/03/25/Why+using+Maven+for+Clojure+builds+is+a+no-brainer
-
-Links for article:
- - http://github.com/talios/clojure-maven-example
- - http://github.com/talios/clojure-maven-plugin
+** Goals, определенные в =clojure-maven-plugin=
 
 
- - http://pupeno.com/blog/how-to-create-a-clojure-application/
- - http://github.com/dysinger/clojure-pom
- - http://stuartsierra.com/2009/09/03/mavens-not-so-bad
+
+** Конфигурация плагина
+
+
+
+** Репозитории, относящиеся к Clojure
 
 use http://clojars.org
+
+
+* Заключение
+
+В принципе, информации изложенной в данной заметке должно хватить для начала использования
+Maven вместе с Clojure.  В том случае, если у вас проект только на Clojure, и вы не
+собираетесь использовать всю мощь Maven, то может быть стоит обратить внимание на утилиту
+[[./ClojureLein][Leiningen]] которая написана специально для сборки проектов на Clojure.
+
+Дополнительные примеры использования Maven с Clojure вы можете найти в проектах [[http://github.com/liebke/incanter][Incanter]]
+(как пример проекта, состоящего из нескольких модулей), [[http://github.com/relevance/labrepl][labrepl]] и [[http://github.com/talios/clojure-maven-example][clojure-maven-example]], а
+также в следующих заметках (на английском языке):
+ - [[http://muckandbrass.com/web/display/~cemerick/2010/03/25/Why+using+Maven+for+Clojure+builds+is+a+no-brainer][Why using Maven for Clojure builds is a no-brainer]] (которая также включает видео,
+   показывающая работу с clojure-maven-plugin
+ - [[http://pupeno.com/blog/how-to-create-a-clojure-application/][How to create a Clojure application]]
+ - [[http://stuartsierra.com/2009/09/03/mavens-not-so-bad][Maven’s Not So Bad]]
+
