@@ -311,6 +311,16 @@ font: 100% Verdana,Tahoma,Arial,sans-serif;
     font:83% Verdana,Tahoma,Arial,sans-serif;
 }
 
+#lastchange {
+    clear:both;
+    margin:0 auto;
+    padding:2px 0; 
+    text-align:left;
+    color:#808080;
+    background:#ffffff;
+    font:83% Verdana,Tahoma,Arial,sans-serif;
+}
+
 /***** Footer *****/
 
 #footer {
