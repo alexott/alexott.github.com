@@ -1,0 +1,22 @@
+#title Типы и протоколы в Clojure
+#keywords clojure, кложура, datatype, protocol
+
+
+ - http://www.assembla.com/wiki/show/clojure/Datatypes
+ - http://www.assembla.com/wiki/show/clojure/protocols
+ - http://www.objectcommando.com/blog/2010/03/26/clojure-protocols-part-1/
+ - http://www.objectcommando.com/blog/2010/03/29/clojure-protocols-part-2/
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/defprotocol
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/deftype
+
+
+* Что это такое и зачем нужно?
+
+
+
+* Типы
+
+
+* Протоколы
+
+
