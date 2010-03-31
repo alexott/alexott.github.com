@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 #
 # File: generate-sitemap.sh
 #
@@ -7,6 +7,8 @@
 
 export LC_TIME=C
 FILE=sitemap.xml
+
+# TODO: rewrite to Zsh, for files, generated from .muse, use modtime of .muse file
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' > $FILE
 echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> $FILE

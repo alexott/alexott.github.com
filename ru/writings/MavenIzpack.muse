@@ -4,6 +4,10 @@
 В данной заметке рассказывается об использовании связки из Maven и IzPack для генерации
 инсталляторов для программ, написанных для JVM.
 
+
+
+http://mojo.codehaus.org/nsis-maven-plugin/
+
 http://izpack.org/
 
 
