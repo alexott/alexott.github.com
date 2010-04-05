@@ -1,5 +1,5 @@
 #title Clojure
-#keywords alex ott, clojure, кложура, клозура, кложуре, лисп, lisp, common lisp, функциональное программирование, functional programming, введение в clojure
+#keywords alex ott, clojure, кложура, клозура, кложуре, лисп, lisp, common lisp, функциональное программирование, functional programming, введение в clojure, учебник, tutorial
 
 С некоторых пор я использую язык программирования [[http://clojure.org][Clojure]] для разработки программ,
 работающих на платформе JVM (я правда не особо люблю язык Java).  Clojure хоть и молодой

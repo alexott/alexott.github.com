@@ -8,10 +8,13 @@
  - http://www.objectcommando.com/blog/2010/03/29/clojure-protocols-part-2/
  - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/defprotocol
  - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/deftype
+ - http://gist.github.com/306174
 
 
 * Что это такое и зачем нужно?
 
+
+чем не устраивает proxy/gen-class/gen-interface
 
 
 * Типы
