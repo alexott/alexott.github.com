@@ -113,27 +113,30 @@ package= или =mvn install=, и т.д.  Но кроме этого, разра
 
 ** Задачи определенные в =clojure-maven-plugin=
 
-clojure-maven-plugin реализует несколько задач, реализующих разную функциональность.  Их
-можно разбить на 2 группы:
+clojure-maven-plugin реализует несколько задач (goals), реализующих разную
+функциональность.  Их можно разбить на 2 группы:
 
  - Задачи обрабатывающие исходный код (обычно связываются с соответствующими фазами
-   жизненного цикла):
+   жизненного цикла как показано выше):
   =clojure:compile= :: реализует компиляцию исходного кода, написанного на Clojure;
   =clojure:test= :: выполняет тесты, написанные на Clojure, при запуске остальных тестов,
     определенных в проекте.
 
  - Задачи, связанные с выполнением кода проекта:
-  =clojure:repl= :: Starts an interactive clojure REPL right on the command line. An
-   initialisation script can be specified in the pom using the replScript configuration
-   element.  тут упомянуть про jline
-  =clojure:run= :: Runs a clojure script specified in the pom using the =<script>= and/or
-   =<scripts>= configuration element.
-  =clojure:swank= :: Starts a Swank server that accepts connections on port 4005 (can be
-   changed using the `-Dclojure.swank.port=X`option). You can connect to this server from
-   emacs with `M-x slime-connect`.
-  =clojure:nailgun= :: Starts a nailgun server that accepts connections on port 2113 (can be
-   changed using the `-Dclojure.nailgun.port=X`option). You can connect to this server
-   from vim using [[http://kotka.de/projects/clojure/vimclojure.html][vimclojure]].
+  =clojure:run= :: выполняет заданный скрипт (или скрипты) заданные директивами конфигурации
+   =script= и/или =scripts=.  Чаще всего используется для запуска проекта со всеми
+   зависимостями;
+  =clojure:repl= :: запускает Clojure REPL со всеми зависимостями, указанными в проекте.
+   При необходимости может быть выполнен скрипт, указанный опцией =replScript=, в который
+   можно поместить необходимый код для инициализации среды.  В том случае, если в
+   зависимостях была указана библиотека JLine, то она будет подключена автоматически, что
+   делает работу в REPL более комфортной;
+  =clojure:swank= :: запускает сервер Swank, к которому можно подключиться из Emacs Slime.
+   По умолчанию сервер запускается на порту 4005 (это значение может быть изменено с
+   помощью опции =clojure.swank.port=);
+  =clojure:nailgun= :: запускает сервер Nailgun, к которому можно подключиться из vim с
+   помощью [[http://kotka.de/projects/clojure/vimclojure.html][vimclojure]].  Сервер запускается на порту 2113 (это значение может быть изменено
+   с помощью опции =clojure.nailgun.port=).
 
 ** Репозитории, относящиеся к Clojure
 
@@ -163,7 +166,18 @@ http://build.clojure.org/snapshots/ в первом объявлении.
 
 ** Зависимости
 
-*Тут написать про зависимости в maven, зависимости для clojure & clojure-contrib*
+Maven автоматически скачивает все необходимые зависимости из репозитория по умолчанию и
+репозиториев указанных пользователем (как это показано выше).  Скачанные пакеты помещаются
+в домашний каталог пользователя и могут использоваться другими проектами без
+дополнительного скачивания их из интернета.  Пакет однозначно идентифицируется сочетанием
+трех параметров -- название группы (=groupId=), артифакта (=artifactId=) и версии.
+
+Для использования Clojure в своем проекте, то вам как минимум надо указать зависимость от
+языка.  Кроме самой Clojure, очень часто используется набор библиотек =clojure-contrib=,
+поэтому их часто указывают вместе.  В настоящее время стабильной версией обоих пакетов
+является версия 1.1.0, которая находится в release-репозитории Clojure.  Для подключения
+этих зависимостей в ваш проект, добавьте следующие строки в раздел =dependencies= в файле
+=pom.xml=:
 
 <src lang="sgml">
  <dependency>
@@ -178,8 +192,11 @@ http://build.clojure.org/snapshots/ в первом объявлении.
  </dependency>
 </src>
 
+Если же вы хотите пользоваться самой последней версией языка, то вы должны подключить
+соответствующий репозиторий (snapshots) и использовать версию (=1.2.0-SNAPSHOTS= (или другую
+текущую на данный момент) вместо версии =1.1.0=.
 
-Для выполнения некоторых задач, перечисленных ниже, может понадобиться указать
+Для выполнения некоторых задач перечисленных ниже, может понадобиться указать
 дополнительные зависимости:
  - если вы будете использовать =clojure:swank=, то вам надо указать зависимость от пакета
   =swank-clojure=:
