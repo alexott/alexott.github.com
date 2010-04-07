@@ -8,10 +8,23 @@
 export LC_TIME=C
 FILE=sitemap.xml
 
-# TODO: rewrite to Zsh, for files, generated from .muse, use modtime of .muse file
-
 echo '<?xml version="1.0" encoding="UTF-8"?>' > $FILE
 echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> $FILE
-find . -name \*.html -a -type f -print0| xargs -0 ls -l --time-style='full-iso' |awk '{print "<url><loc>" $9 "</loc>\n<lastmod>" $6 "</lastmod></url>"}'|sed -e 's|\.\/|http://alexott.net/|' >> $FILE
-find . -name \*.pdf  -a -type f -print0| xargs -0 ls -l --time-style='full-iso' |awk '{print "<url><loc>" $9 "</loc>\n<lastmod>" $6 "</lastmod></url>"}'|sed -e 's|\.\/|http://alexott.net/|' >> $FILE
+
+for file in **/*.html **/*.pdf ; do
+    DFILE=`dirname "$file"`
+    MFILE=$DFILE/`basename "$file" .html`.muse
+    if [ -L "$file" ] ; then
+        echo "$file is symbolic link!"
+    elif [ -L "$DFILE" ] ; then
+        echo "directory is symbolic link!"
+    elif [ -f "$MFILE" ]; then
+        MTIME=`ls -l --time-style='full-iso' "$MFILE" |awk '{print $6}'`
+        echo "MTIME=$MTIME MFILE=$MFILE"
+        echo "<url><loc>http://alexott.net/$file</loc>\n<lastmod>$MTIME</lastmod></url>" >> $FILE
+    else
+        ls -l --time-style='full-iso' "$file" |awk '{print "<url><loc>http://alexott.net/" $9 "</loc>\n<lastmod>" $6 "</lastmod></url>"}' >> $FILE
+    fi
+done
+
 echo '</urlset>' >> $FILE
