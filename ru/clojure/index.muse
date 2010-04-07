@@ -26,6 +26,6 @@ Clojure, которую можно использовать в качестве 
 Мною написано некоторое количество заметок, относящихся к Clojure:
 
  - [[./ClojureMaven][Про использование Maven для сборки проектов на Clojure]]
- - [[./ClojureLein][Leiningen -- утилита для сборки кода, написанного на Clojure]]
+; - [[./ClojureLein][Leiningen -- утилита для сборки кода, написанного на Clojure]]
 
-А другие заметки, относящиеся к Clojure опубликованы в [[http://alexott-ru.blogspot.com/search/label/clojure][моем блоге]].
+А остальные заметки, относящиеся к Clojure опубликованы в [[http://alexott-ru.blogspot.com/search/label/clojure][моем блоге]].

@@ -295,7 +295,10 @@ Maven автоматически скачивает все необходимы�
 В принципе, информации изложенной в данной заметке должно хватить для начала использования
 Maven вместе с Clojure.  В том случае, если у вас проект только на Clojure, и вы не
 собираетесь использовать всю мощь Maven, то может быть стоит обратить внимание на утилиту
-[[./ClojureLein][Leiningen]] которая написана специально для сборки проектов на Clojure.  
+[[./ClojureLein][Leiningen]] которая написана специально для сборки проектов на Clojure.  Еще одним
+интересным проектом является [[http://polyglot.sonatype.org/][Polyglot Maven]], целью которого является создание DSL (Domain
+Specificl Languages) на разных языках (Clojure, Scala, Groovy) для описания конфигураций
+Maven (для Clojure язык практически совпадает с языком, реализованным в Leiningen). 
 
 Дополнительные примеры использования Maven с Clojure вы можете найти в проектах [[http://github.com/liebke/incanter/tree/1.0.x][Incanter]]
 (как пример проекта, состоящего из нескольких модулей), [[http://github.com/relevance/labrepl][labrepl]] и [[http://github.com/talios/clojure-maven-example][clojure-maven-example]], а
@@ -311,4 +314,4 @@ Maven вместе с Clojure.  В том случае, если у вас пр�
 ;  LocalWords:  testSourceDirectories sourceDirectories sourceDirectory test
 ;  LocalWords:  testSourceDirectory testScript replScript runWithTests sgml
 ;  LocalWords:  namespaces compileDeclaredNamespaceOnly clojure-maven-plugin
-;  LocalWords:  testDeclaredNamespaceOnly репозиторием
+;  LocalWords:  testDeclaredNamespaceOnly репозиторием Leiningen
