@@ -17,39 +17,46 @@ Clojure.
 время эта система становится все более популярной -- она имеет возможности расширения с
 помощью дополнительных модулей, например, для компиляции кода на Java и т.п.
 
-
-Из коробки Leiningen позволяет выполнять базовые задачи~--- компиляцию кода, тестирование,
-упаковку кода в jar-архив, сборку jar-архива со всеми зависимостями и~т.\,д.  Кроме того,
+Из коробки Leiningen позволяет выполнять базовые задачи -- компиляцию кода, тестирование,
+упаковку кода в jar-архив, сборку jar-архива со всеми зависимостями и т.д.  Кроме того,
 имеется базовая поддержка работы с Maven, что позволяет использовать собранный код в
 других проектах.
 
-Установка Leiningen достаточно проста и описана на
-\pfpURL{http://github.com/technomancy/leiningen/}{странице проекта}.  После установки вы
-можете начать его использовать в своем проекте, добавив файл \texttt{project.clj},
-содержащий что-то вроде следующего кода:
-\begin{clojure}
-(defproject test-project "1.0-SNAPSHOT"
-  :description "A test project."
-  :url "http://my-cool-project.com"
-  :dependencies [[org.clojure/clojure "1.1.0"]
-                 [org.clojure/clojure-contrib "1.1.0"]]
-  :dev-dependencies [[org.clojure/swank-clojure "1.0"]])
-\end{clojure}
+* Установка
 
-\noindent{}который определяет новый проект \texttt{test-project} с зависимостями от
-Clojure и набора библиотек \texttt{clojure-contrib}, а также зависимостью, которая
-используется в процессе разработки~--- \texttt{swank-clojure}.  \texttt{defproject}~---
-это макрос Clojure, который раскрывается в набор инструкций по сборке, и является
-единственной обязательной конструкцией, которая должна быть указана в файле
-\texttt{project.clj}.  Кроме этого, \texttt{project.clj} может содержать и произвольный
-код на Clojure, выполняемый в процессе сборки. Более подробную информацию о Leiningen
-можно найти на странице проекта.
-
+Установка Leiningen достаточно проста и описана на [[http://github.com/technomancy/leiningen/][странице проекта]].
 
 
 * Структура проекта
 
+
+=defproject= -- это макрос Clojure, который раскрывается в набор инструкций
+по сборке, и является единственной обязательной конструкцией, которая должна быть указана
+в файле =project.clj=.  
+
+Кроме этого, =project.clj= может содержать и произвольный код на Clojure, выполняемый в
+процессе сборки.
+
 ** Пример проекта
+
+После установки вы можете начать его использовать в своем проекте, добавив файл
+=project.clj=, содержащий что-то вроде следующего кода:
+
+<src lang="clojure">
+(defproject test-project "1.0-SNAPSHOT"
+  :description "A test project."
+  :url "http://my-cool-project.com"
+  :dependencies [[org.clojure/clojure "1.1.0"]
+                 [org.clojure/clojure-contrib "1.1.0"]
+                 ]
+  :dev-dependencies [[leiningen/lein-swank "1.2.0-SNAPSHOT"]]
+)
+<src>
+
+который определяет новый проект =test-project= с зависимостями от Clojure и набора библиотек
+=clojure-contrib=, а также зависимостью, которая используется в процессе разработки --
+=swank-clojure=. 
+
 
 ** Репозитории
 
@@ -60,12 +67,11 @@ Clojure и набора библиотек \texttt{clojure-contrib}, а такж
 * Заключение
 
 
+* TODO
 
-; - [[http://nakkaya.com/2010/02/25/writing-leiningen-plugins-101/][как писать новые таски для lein]]
-
-
-
-; - упомянуть про polyglot-maven
+ - [[http://nakkaya.com/2010/02/25/writing-leiningen-plugins-101/][как писать новые таски для lein]]
+ - упомянуть про polyglot-maven
+ - сделать тестовый проект и выложить на github
 
 
 
