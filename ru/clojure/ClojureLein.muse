@@ -12,10 +12,11 @@ Clojure.
 
 [[http://github.com/technomancy/leiningen][Leiningen]] -- утилита для сборки кода написанного на Clojure.  Leiningen намного проще по
 сравнению с [[./ClojureMaven][Maven]], и позволяет описывать конфигурацию проекта и его зависимости используя
-сам язык Clojure.  Leiningen использует внешние утилиты для работы с зависимостями и
-сборки кода, поэтому он имеет достаточно небольшой размер исходного кода. В последнее
-время эта система становится все более популярной -- она имеет возможности расширения с
-помощью дополнительных модулей, например, для компиляции кода на Java и т.п.
+сам язык Clojure.  Leiningen использует внешние утилиты и библиотеки для работы с
+зависимостями и сборки кода, поэтому он имеет достаточно небольшой размер исходного
+кода. В последнее время эта система становится все более популярной -- она имеет
+возможности расширения с помощью дополнительных модулей, например, для компиляции кода на
+Java и т.п.
 
 Из коробки Leiningen позволяет выполнять базовые задачи -- компиляцию кода, тестирование,
 упаковку кода в jar-архив, сборку jar-архива со всеми зависимостями и т.д.  Кроме того,
@@ -24,23 +25,26 @@ Clojure.
 
 * Установка
 
-Установка Leiningen достаточно проста и описана на [[http://github.com/technomancy/leiningen/][странице проекта]].
-
+Установка Leiningen достаточно проста -- вам надо скачать скрипт [[http://github.com/technomancy/leiningen/raw/stable/bin/lein][lein]] (для MS Windows --
+[[http://github.com/technomancy/leiningen/raw/stable/bin/lein.bat][lein.bat]])  После этого, поместите скрипт в каталог, перечисленный в путях поиска программ,
+сделайте его выполняемым, и выполните команду =lein self-install= для завершения процедуры
+установки.  В процессе этой процедуры, Leiningen скачает и установит все компоненты,
+необходимые для его работы.
 
 * Структура проекта
 
+*написать про структуру каталога с проектом*
 
-=defproject= -- это макрос Clojure, который раскрывается в набор инструкций
-по сборке, и является единственной обязательной конструкцией, которая должна быть указана
-в файле =project.clj=.  
+*написать, что сторонние библиотеки могут быть просто помещены в каталог lib*
 
-Кроме этого, =project.clj= может содержать и произвольный код на Clojure, выполняемый в
+Файл =project.clj= содержит определение проекта.  Единственной обязательной конструкцией
+является =defproject= -- макрос Clojure, который раскрывается в набор инструкций по сборке.
+=project.clj= также может содержать произвольный код на Clojure, который будет выполнен в
 процессе сборки.
 
 ** Пример проекта
 
-После установки вы можете начать его использовать в своем проекте, добавив файл
-=project.clj=, содержащий что-то вроде следующего кода:
+Рассмотрим простой проект, описанный в файле =project.clj= следующим кодом:
 
 <src lang="clojure">
 (defproject test-project "1.0-SNAPSHOT"
@@ -57,12 +61,70 @@ Clojure.
 =clojure-contrib=, а также зависимостью, которая используется в процессе разработки --
 =swank-clojure=. 
 
+Копию данного проекта вы можете найти [[http://github.com/alexott/lein-simple-project/][тут]].
+
+** Создание проекта
+
+
+** Задание зависимостей
+
+
+Q: Is it possible to exclude indirect dependencies?
+A: Yes. Some libraries, such as log4j, depend on projects that are not included in public repositories and unnecessary for basic functionality. Projects listed as :dependencies may exclude any of their dependencies by using the :exclusions key, as demonstrated here:
+
+[log4j "1.2.15" :exclusions [javax.mail/mail
+                             javax.jms/jms
+                             com.sun.jdmk/jmxtools
+                             com.sun.jmx/jmxri]]
 
 ** Репозитории
 
+Once that succeeds it will be available for other projects to depend on. Leiningen adds
+Clojars and the Clojure nightly build snapshots to the default repositories.
+
+** Конфигурация проекта
+
+ - :namespaces - a list of namespaces on which to perform AOT-compilation.
+ - :main - specify a namespace to use as main for an executable jar.
+ - :repositories - additional maven repositories to search for dependencies. Specify this as a map of repo IDs to URLs.
+ - :source-path, :compile-path, :library-path, :test-path, :resources-path - alternate
+   paths for src/, classes/, lib/, resources/, and test/ directories. 
+
+
+
+
 * Команды
 
+$ lein deps # install dependencies in lib/
 
+$ lein test [TESTS] # run the tests in the TESTS namespaces, or all tests
+
+$ lein compile # ahead-of-time compile into classes/
+
+$ lein repl # launch a REPL with the project classpath configured
+
+$ lein clean # remove all build artifacts
+
+$ lein jar # create a jar of the project
+
+$ lein uberjar # create a standalone jar that contains all dependencies
+
+$ lein pom # output a pom.xml file for interop with Maven
+
+$ lein install # install in local repository
+
+$ lein help [TASK] # show a list of tasks or help for a given TASK
+
+$ lein new NAME # generate a new project skeleton
+
+
+* Выполнение кода
+
+repl, swank, nailgun
+
+repl - выполняется в скрипте, и использует rlwrap & jline
+
+*написать про долнительные зависимости для swank, nailgun*
 
 * Заключение
 
