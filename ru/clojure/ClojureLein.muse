@@ -25,6 +25,9 @@ Java и т.п.
 
 * Установка
 
+*разбить описание на 2 части - для юникса и для винды. для винды использовать описание из
+Getting Started*
+
 Установка Leiningen достаточно проста -- вам надо скачать скрипт [[http://github.com/technomancy/leiningen/raw/stable/bin/lein][lein]] (для MS Windows --
 [[http://github.com/technomancy/leiningen/raw/stable/bin/lein.bat][lein.bat]])  После этого, поместите скрипт в каталог, перечисленный в путях поиска программ,
 сделайте его выполняемым, и выполните команду =lein self-install= для завершения процедуры
@@ -44,7 +47,8 @@ Java и т.п.
 
 ** Пример проекта
 
-Рассмотрим простой проект, описанный в файле =project.clj= следующим кодом:
+Рассмотрим простой проект, описанный в файле =project.clj= следующим кодом (код для данного
+проекта вы можете найти [[http://github.com/alexott/lein-simple-project/][тут]]):
 
 <src lang="clojure">
 (defproject test-project "1.0-SNAPSHOT"
@@ -61,7 +65,6 @@ Java и т.п.
 =clojure-contrib=, а также зависимостью, которая используется в процессе разработки --
 =swank-clojure=. 
 
-Копию данного проекта вы можете найти [[http://github.com/alexott/lein-simple-project/][тут]].
 
 ** Создание проекта
 
