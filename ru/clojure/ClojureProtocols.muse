@@ -1,5 +1,5 @@
 #title Типы и протоколы в Clojure
-#keywords clojure, кложура, datatype, protocol
+#keywords clojure, кложура, datatype, protocol, defprotocl, reify
 
 
  - http://www.assembla.com/wiki/show/clojure/Datatypes
@@ -16,6 +16,9 @@
 
 чем не устраивает proxy/gen-class/gen-interface
 
+что не нужно использовать AOT
+
+
 
 * Типы
 
@@ -23,3 +26,5 @@
 * Протоколы
 
 
+
+* reify

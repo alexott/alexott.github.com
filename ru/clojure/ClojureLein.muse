@@ -1,10 +1,8 @@
 #title Использование Leiningen для сборки кода на Clojure
 #keywords leiningen, clojure, build tool, кложура
 
-В данной заметке рассматривается использование Leiningen для сборки проектов, написанных на
-Clojure.
-
-***Статья еще не закончена!!!***
+В данной заметке рассматривается использование утилиты Leiningen для сборки проектов,
+написанных на Clojure.
 
 <contents>
 
@@ -25,25 +23,42 @@ Java и т.п.
 
 * Установка
 
-*разбить описание на 2 части - для юникса и для винды. для винды использовать описание из
-Getting Started*
+Установка Leiningen на Unix-подобные ОС и на MS Windows немного различаются. Установка
+Leiningen на Unix достаточно проста -- вам нужно скачать скрипт [[http://github.com/technomancy/leiningen/raw/stable/bin/lein][lein]].  После этого,
+поместите скрипт в каталог, перечисленный в путях поиска программ, сделайте его
+выполняемым, и выполните команду =lein self-install= для завершения процедуры установки.  В
+процессе этой процедуры, Leiningen скачает и установит все компоненты, необходимые для его
+работы.
 
-Установка Leiningen достаточно проста -- вам надо скачать скрипт [[http://github.com/technomancy/leiningen/raw/stable/bin/lein][lein]] (для MS Windows --
-[[http://github.com/technomancy/leiningen/raw/stable/bin/lein.bat][lein.bat]])  После этого, поместите скрипт в каталог, перечисленный в путях поиска программ,
-сделайте его выполняемым, и выполните команду =lein self-install= для завершения процедуры
-установки.  В процессе этой процедуры, Leiningen скачает и установит все компоненты,
-необходимые для его работы.
+Для установки на MS Windows необходимо сделать больше действий, поскольку автоматическая
+установка пока не реализована. Вместо скрипта =lein= необходимо скачать скрипт [[http://github.com/technomancy/leiningen/raw/stable/bin/lein.bat][lein.bat]] и
+поместить его в каталог, перечисленный в путях поиска программ =PATH=.  Скачайте
+[[http://github.com/downloads/technomancy/leiningen/leiningen-1.1.0-standalone.jar][leiningen.jar]] и установите значение переменной среды =LEIN_JAR= в полный путь к этому файлу.
+Также скачайте [[http://build.clojure.org/releases/org/clojure/clojure/1.1.0/clojure-1.1.0.jar][clojure.jar]] и установите значение переменной среды =CLOJURE_JAR= в полный
+путь к этому файлу.  После этого вы можете начать использовать Leiningen.
 
-* Структура проекта
+* Начало работы и структура проекта
 
-*написать про структуру каталога с проектом*
+Для своей работы Leiningen предполагает использование проекта определенной структуры -- в
+корне проекта должен находиться файл =project.clj=, который содержит определение проекта.
+Единственной обязательной конструкцией является =defproject= -- макрос Clojure, который
+раскрывается в набор инструкций по сборке.  =project.clj= также может содержать произвольный
+код на Clojure, который будет выполнен в процессе сборки.
 
-*написать, что сторонние библиотеки могут быть просто помещены в каталог lib*
+Исходный код должен находиться в каталоге =src=, а тесты -- в каталоге =test=.  Каталог =lib=
+содержит библиотеки, нужные для работы проекта -- они копируются туда с помощью команды
+=lein deps=, используя информацию о зависимостях, определенных в описании проекта.  В том
+случае, если какая-то из библиотек отсутствует в репозиториях, то вы можете просто
+скопировать ее в каталог =lib=, и она станет доступна при работе с проектом.  Однако
+названия каталогов не являются неизменяемыми -- вы можете использовать опции =defproject=
+для изменения этих значений, как это описано в разделе [[#conf][Конфигурация проекта]].
 
-Файл =project.clj= содержит определение проекта.  Единственной обязательной конструкцией
-является =defproject= -- макрос Clojure, который раскрывается в набор инструкций по сборке.
-=project.clj= также может содержать произвольный код на Clojure, который будет выполнен в
-процессе сборки.
+Самыс простым способом создать новый проект является использование команды =lein new=,
+которая принимает один аргумент -- название проекра, и которая создаст новый каталог, чье
+имя совпадает с именем проекта, и внутри него сгенерирует файл =project.clj= с зависимостями
+от Clojure и =clojure-contrib=, файл =README= с описанием проекта, а также два каталога -- =src=
+и =test= для исходного кода и тестов, соответственно.  После этого вы можете начать работать
+с данным проектом.
 
 ** Пример проекта
 
@@ -55,21 +70,51 @@ Getting Started*
   :description "A test project."
   :url "http://my-cool-project.com"
   :dependencies [[org.clojure/clojure "1.1.0"]
-                 [org.clojure/clojure-contrib "1.1.0"]
-                 ]
+                 [org.clojure/clojure-contrib "1.1.0"]]
   :dev-dependencies [[leiningen/lein-swank "1.2.0-SNAPSHOT"]]
 )
 <src>
 
 который определяет новый проект =test-project= с зависимостями от Clojure и набора библиотек
 =clojure-contrib=, а также зависимостью, которая используется в процессе разработки --
-=swank-clojure=. 
+=swank-clojure=.
 
+В каталоге =src= находится один файл -- =simple.clj=, определяющий модуль =simple= и внутри
+него, одну функцию следующего вида:
 
-** Создание проекта
+<src lang="clojure">
+(ns simple)
 
+(defn hello
+  ([] "Hello world!")
+  ([name] (str "Hello " name "!")))
+</src>
+
+В каталоге =test= находится файл =simple_test.clj=, содержащий тест для модуля =simple=.  Для
+тестирования используется стандартный модуль =clojure.test=.  Исходный код теста выглядит
+следующим образом:
+<src lang="clojure">
+(ns simple-test
+  (:use clojure.test)
+  (:use simple))
+
+(deftest simple-test
+  (is (= (hello) "Hello world!"))
+  (is (= (hello "test") "Hello test!")))
+</src>
+
+Это полный проект для которого можно выполнять все команды поддерживаемые Leiningen.
 
 ** Задание зависимостей
+
+Одной из важных и наиболее часто использумых частей =defproject= является определение
+зависимостей от других библиотек, находящихся во внешних репозиториях.  Для проектов
+написанных на Clojure это в первую очередь зависимость от самого языка, как это показано в
+примере.
+
+Различают разные виды зависимостей:  *dev-dependencies, etc.*
+
+*Из чего состоит объявление одной зависимости*
 
 
 Q: Is it possible to exclude indirect dependencies?
@@ -80,11 +125,15 @@ A: Yes. Some libraries, such as log4j, depend on projects that are not included 
                              com.sun.jdmk/jmxtools
                              com.sun.jmx/jmxri]]
 
+ - http://github.com/swannodette/native-deps [[http://nakkaya.com/2010/04/05/managing-native-dependencies-with-leiningen/][description]]
+
+
 ** Репозитории
 
 Once that succeeds it will be available for other projects to depend on. Leiningen adds
 Clojars and the Clojure nightly build snapshots to the default repositories.
 
+#conf
 ** Конфигурация проекта
 
  - :namespaces - a list of namespaces on which to perform AOT-compilation.
@@ -129,15 +178,20 @@ repl - выполняется в скрипте, и использует rlwrap 
 
 *написать про долнительные зависимости для swank, nailgun*
 
+написать про то, какие каталоги выставляются в classpath
+
+* Расширение функциональсноти Leiningen
+
+ - [[http://nakkaya.com/2010/02/25/writing-leiningen-plugins-101/][как писать новые таски для lein]]
+ - http://github.com/swannodette/native-deps [[http://nakkaya.com/2010/04/05/managing-native-dependencies-with-leiningen/][description]]
+
+
 * Заключение
 
 
 * TODO
 
- - [[http://nakkaya.com/2010/02/25/writing-leiningen-plugins-101/][как писать новые таски для lein]]
  - упомянуть про polyglot-maven
- - сделать тестовый проект и выложить на github
-
 
 
 ;  LocalWords:  Leiningen
