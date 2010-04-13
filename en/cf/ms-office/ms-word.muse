@@ -1,6 +1,0 @@
-#title Microsoft Word
-#keywords ms word, file format
-
-MS Word
-
-<div id="rule">[[./index][На главную страницу]]</div>
