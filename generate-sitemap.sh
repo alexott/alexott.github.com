@@ -35,9 +35,6 @@ for file in **/*.html **/*.pdf ; do
             esac
     else
         case "$file" in
-            de/*)
-                echo "skip german pages $file"
-                ;;
             */news/*)
                 echo "skip news file $file"
                 ;;
