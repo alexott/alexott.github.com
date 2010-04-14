@@ -23,11 +23,21 @@ for file in **/*.html **/*.pdf ; do
     elif [ -L "$DFILE" ] ; then
         echo "directory is symbolic link!"
     elif [ -f "$MFILE" ]; then
-        MTIME=`ls -l --time-style='full-iso' "$MFILE" |awk '{print $6}'`
-        echo "MTIME=$MTIME MFILE=$MFILE"
-        echo "<url><loc>http://alexott.net/$file</loc>\n<lastmod>$MTIME</lastmod></url>" >> $FILE
+        case "$file" in
+            de/*)
+                echo "skip german pages $MFILE"
+                ;;
+            *)
+                MTIME=`ls -l --time-style='full-iso' "$MFILE" |awk '{print $6}'`
+                echo "MTIME=$MTIME MFILE=$MFILE"
+                echo "<url><loc>http://alexott.net/$file</loc>\n<lastmod>$MTIME</lastmod></url>" >> $FILE
+                ;;
+            esac
     else
         case "$file" in
+            de/*)
+                echo "skip german pages $file"
+                ;;
             */news/*)
                 echo "skip news file $file"
                 ;;
