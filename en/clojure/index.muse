@@ -1,5 +1,5 @@
 #title Clojure
-#keywords alex ott, clojure, кложура, клозура, кложуре, лисп, lisp, common lisp, функциональное программирование, functional programming, введение в clojure, учебник, tutorial
+#keywords clojure, lisp, common lisp, functional programming, intro into clojure, tutorial
 
 С некоторых пор я использую язык программирования [[http://clojure.org][Clojure]] для разработки программ,
 работающих на платформе JVM (я правда не особо люблю язык Java).  Clojure хоть и молодой
@@ -16,17 +16,18 @@
 В [[http://fprog.ru/2010/issue4/][4-м номере журнала "Практика функционального программирования"]] вышла моя статья про язык
 Clojure, которую можно использовать в качестве введения в программирование на этом языке.
 Список имеющейся литературы по Clojure можно найти в
-[[../fp/books][обзоре литературы по функциональному программированию]].  Ну и конечно, основной источник
+[[../fp/books][обзоре литературы по функциональному программированию]].  
+
+Ну и конечно, основной источник
 информации -- [[http://clojure.org][сайт языка]] и список рассылки.  Полезным для новичков является проект
-[[http://github.com/relevance/labrepl][labrepl]], который содержит все необходимое для начала работы с языком.  И еще один источник
-информации о Clojure -- это [[http://planet.clojure.in][Planet Clojure]] -- аггрегатор блогов людей, использующих
-Clojure.
+[[http://github.com/relevance/labrepl][labrepl]], который содержит все необходимое для начала работы с языком.
 
-** Заметки про Clojure
 
-Мною написано некоторое количество заметок, относящихся к Clojure:
+** Some notes about Clojure
+
+I wrote some number of notes about Clojure:
 
  - [[./ClojureMaven][Про использование Maven для сборки проектов на Clojure]]
  - [[./ClojureLein][Leiningen -- утилита для сборки кода, написанного на Clojure]]
 
-А остальные заметки, относящиеся к Clojure опубликованы в [[http://alexott-ru.blogspot.com/search/label/clojure][моем блоге]].
+Other notes about Clojure you can find in [[http://alexott.blogspot.com/search/label/clojure][my blog]].
