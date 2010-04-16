@@ -1,33 +1,33 @@
 #title Clojure
 #keywords clojure, lisp, common lisp, functional programming, intro into clojure, tutorial
 
-С некоторых пор я использую язык программирования [[http://clojure.org][Clojure]] для разработки программ,
-работающих на платформе JVM (я правда не особо люблю язык Java).  Clojure хоть и молодой
-язык, но имеет достаточно большое количество интересных возможностей, таких как
-неизменяемость данных и упрощенная модель конкуретного программирования, наравне с
-традиционной функциональностью Lisp'а.  А работа на платформе JVM позволяет использовать
-большое количество библиотек, написанных для данной платформы.
+I'm using the [[http://clojure.org][Clojure]] programming language to develop programs for JVM platform (I don't
+like Java language, as it too restrictive & too verboes).  Although Clojure is a young
+langage, but it has many interesting features, such as immutable data, simple concurrency
+model & many features of Lisp language Lisp, while work on JVM provides access to numerous
+libraries, developed for this platform.
 
-Основные направления использования данного языка в моем случае -- анализ данных, как
-численных, так и текстовых, с целью извлечения разнообразной информации и классификации.
-Очень полезным инструментом в этом деле является проект [[http://incanter.org][Incanter]], в разработке которого я
-учавствую.
+I mostly using this language to analyze numerical & textual data for information retrieval
+& data mining.  In my work I use  [[http://incanter.org][Incanter]] - very useful library for data analysis,
+numerical calculation & creation of graphics.
 
-В [[http://fprog.ru/2010/issue4/][4-м номере журнала "Практика функционального программирования"]] вышла моя статья про язык
-Clojure, которую можно использовать в качестве введения в программирование на этом языке.
-Список имеющейся литературы по Clojure можно найти в
-[[../fp/books][обзоре литературы по функциональному программированию]].  
-
-Ну и конечно, основной источник
-информации -- [[http://clojure.org][сайт языка]] и список рассылки.  Полезным для новичков является проект
-[[http://github.com/relevance/labrepl][labrepl]], который содержит все необходимое для начала работы с языком.
+Ну и конечно, основной источник информации -- [[http://clojure.org][сайт языка]] и список рассылки.  Полезным для
+новичков является проект [[http://github.com/relevance/labrepl][labrepl]], который содержит все необходимое для начала работы с
+языком.  И еще один источник информации о Clojure -- это [[http://planet.clojure.in][Planet Clojure]] -- аггрегатор
+блогов людей, использующих Clojure.
 
 
 ** Some notes about Clojure
 
-I wrote some number of notes about Clojure:
+I wrote some number of small articles about Clojure (other notes about Clojure you can find in
+[[http://alexott.blogspot.com/search/label/clojure][my blog]]):
 
- - [[./ClojureMaven][Про использование Maven для сборки проектов на Clojure]]
- - [[./ClojureLein][Leiningen -- утилита для сборки кода, написанного на Clojure]]
+ - [[./ClojureMaven][How to use Maven to build Clojure code]]
+ - [[./ClojureLein][Leiningen -- tool to build  Clojure code]]
 
-Other notes about Clojure you can find in [[http://alexott.blogspot.com/search/label/clojure][my blog]].
+I also wrote an introduction-level article (in Russian) for
+[[http://fprog.ru/2010/issue4/][4th issue of Russian Magazine "Practice of Functional Programming"]]
+
+
+
+
