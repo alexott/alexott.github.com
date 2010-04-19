@@ -11,23 +11,39 @@ I mostly using this language to analyze numerical & textual data for information
 & data mining.  In my work I use  [[http://incanter.org][Incanter]] - very useful library for data analysis,
 numerical calculation & creation of graphics.
 
-Ну и конечно, основной источник информации -- [[http://clojure.org][сайт языка]] и список рассылки.  Полезным для
-новичков является проект [[http://github.com/relevance/labrepl][labrepl]], который содержит все необходимое для начала работы с
-языком.  И еще один источник информации о Clojure -- это [[http://planet.clojure.in][Planet Clojure]] -- аггрегатор
-блогов людей, использующих Clojure.
+** Where to find information about Clojure
 
+Main source of information about this language is [[http://clojure.org][site of language]] and [[http://groups.google.com/group/clojure][mailing list]].
+Another useful source of information is [[http://planet.clojure.in][Planet Clojure]] -- aggregator of blogs dedicated to
+Clojure.  There is als [[http://github.com/relevance/labrepl][labrepl]] project that contains all necessary for quick start.
+
+Currently exists only one book about Clojure -- in Pragmatic Programmers series was
+published the book [[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]].  This book describes version 1.0 of the language
+and covers all necessary parts of language.
+
+In may 2010th is planned to release book [[http://www.amazon.com/gp/product/1430272317?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430272317][Practical Clojure. The Definitive Guide]], that
+should describe both language, and examples of it use for practical tasks.
+
+And in the fall of 2010th the Manning publications plans to release 2 books about Clojure:
+[[http://www.manning.com/rathore/][Clojure in Action]] and [[http://joyofclojure.com/][Joy of Clojure. Thinking the Clojure Way]].  These books are available
+as part of MEAP program (Manning Early Access Programm), so you can order them and read
+new material as it become available[1].
 
 ** Some notes about Clojure
 
-I wrote some number of small articles about Clojure (other notes about Clojure you can find in
-[[http://alexott.blogspot.com/search/label/clojure][my blog]]):
+I wrote some number of small articles about Clojure (other notes about Clojure you can
+find in [[http://alexott.blogspot.com/search/label/clojure][my blog]]):
 
  - [[./ClojureMaven][How to use Maven to build Clojure code]]
  - [[./ClojureLein][Leiningen -- tool to build  Clojure code]]
 
 I also wrote an introduction-level article (in Russian) for
-[[http://fprog.ru/2010/issue4/][4th issue of Russian Magazine "Practice of Functional Programming"]]
+[[http://fprog.ru/2010/issue4/][4th issue of Russian Magazine "Practice of Functional Programming"]] -- I plan to translate
+it to English some time later.
 
 
 
+Footnotes: 
+[1] From time to time, Manning gives pretty good discounts for their books -- look to
+    announcements at [[http://twitter.com/manningbooks][Manning@Twitter]]
 

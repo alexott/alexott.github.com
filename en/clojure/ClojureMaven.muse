@@ -1,47 +1,48 @@
-#title Использование Maven для сборки кода на Clojure
-#keywords maven, clojure, build tool, кложура, мавен
+#title How to use Maven to build Clojure code
+#keywords maven, clojure, build tool
 
-В данной заметке рассматривается использование Maven для сборки проектов, написанных на
-Clojure (и на смеси Clojure & Java).  
+This article describes how to use Maven to build projects, written in Clojure (or in
+Clojure & Java).
 
 <contents>
 
-* Что такое Maven?
+* What is Maven?
 
-[[http://maven.apache.org][Maven]] -- утилита для управления жизненным циклом ПО, реализующая разрешение зависимостей
-(с автоматическим скачиванием их из репозиториев), сборку и тестирование кода, публикацию
-собранного ПО и т.д.  Функциональность данной утилиты может расширяться с помощью
-плагинов, что делает возможным ее применение не только для работы с кодом на Java, для
-чего она в первую очередь и создавалась, но и дает возможность работы с кодом на других
-языках.  Подробнее о Maven вы можете прочитать в [[http://www.sonatype.com/products/maven/documentation/book-defguide][следующих книгах]].
+[[http://maven.apache.org][Maven]] is a software project management and comprehension tool.  It implements dependency
+resolving (with automatic download from repositories), building & testing of code,
+deploying of software, etc.  Maven's functionality is extensible with plugins, so it's
+possible to use it not only for Java code (primary goal of this tool), but also for code,
+written in other languages. You can read more about Maven in [[http://www.sonatype.com/products/maven/documentation/book-defguide][following books]] (freely
+available).
 
-В отличии от утилиты Ant, которая описывает *как* выполнять сборку и тестирование кода,
-Maven описывает *что* надо сделать в декларативном стиле, и все задачи выполняются
-соответствующими плагинами.
+Maven differs from other tools, such as Ant -- it describes *what* we want to do, in
+contrast with Ant, that describes *how* to do something.  Maven describes tasks to execute
+in declarative style, and all described tasks are performed by corresponding plugins.
 
-Все описание жизненного цикла и информация о проекте хранится в файле =pom.xml=, который
-находится в корневом каталоге проекта (и в каталогах подпроектов, если проект состоит из
-нескольких частей).  К информации о проекте относятся имя и идентификатор проекта, его
-версия, и достаточно часто -- информация о сайте проекта, репозитории с исходным кодом
-(тогда можно использовать цель =mvn scm:update= для обновления исходного кода, и т.п.) и
-многое другое.
+Description of software lifecycle and project's information are stored in =pom.xml= file,
+that should exist in root directory of the project (and in root directories of
+sub-projects, if your project is separated into several modules).  Project's information
+includes name, identifier and version of the project, and often includes other
+information: URL of project's site, information about source code repository (so you can
+use =mvn scm:update= goal to update code, for example), etc.
 
-Project Object Model (POM) определяет набор стадий жизненного цикла проекта (lifecycle
-phases).  К каждой из стадий привязывается несколько задач (goals), которые определяют что
-будет выполнено в данной стадии жизненного цикла.  К общим фазам относятся компиляция
-(compile), тестирование (test), упаковка (package) и установка (install).  Каждая из
-стадий имеет набор зависимостей от стадий, которые должны быть выполнены до ее запуска
-(компиляция должна быть выполнена до тестирование, тестирование до упаковки и т.д.).
+Project Object Model (POM) defines set of stages for project's lifecycle -- lifecycle
+phases.  Each of lifecycle phase could include several tasks (goals), that define what
+will performed on given stage of lifecycle.  There are several common stages: compilation
+(=compile=), testing (=test=), creation of package (=package=) and installation (=install=).  Each
+of these lifecycle phases has dependencies on other phases, that should be executed before
+its invocation (compilation should be executed before testing, testing before packaging,
+etc.).
 
-Обычно разработчик использует имена стадий для запуска процесса сборки, например, =mvn
-package= или =mvn install=, и т.д.  Но кроме этого, разработчик может явно выполнить
-конкретную задачу (goal) используя Maven.  Для этого он должен указать имя плагина,
-который реализует эту задачу, и название задачи, например, =mvn clojure:run= запустит
-интерпретатор Clojure.  Стоит отметить, что список задач, запускаемых в рамках какой-то
-стадии жизненного цикла, не является фиксированным, а может изменяться путем конфигурации
-плагина. Пример такой конфигурации вы увидите в следующем разделе.
+Usually developer uses phase's name to invoke build process.  For example, =mvn package= or
+=mvn install=, etc.  But developer can also invoke concrete Maven's goal.  To do this, he
+should specify name of plugin, that implements concrete goal, and task name in given
+plugin.  For example, =mvn clojure:run= will run Clojure and execute script, specified in
+configuration.  We need to mention, that list of goals, that are executed for concrete
+lifecycle phase isn't constant -- you can change this list by modifying plugin's
+configuration.
 
-* Maven и Clojure
+* Maven and Clojure
 
 Поддержка Clojure в Maven реализуется с помощью [[http://github.com/talios/clojure-maven-plugin][clojure-maven-plugin]], который находится в
 центральном репозитории Maven, и поэтому сразу доступен для использования.  В качестве
@@ -111,7 +112,7 @@ package= или =mvn install=, и т.д.  Но кроме этого, разра
 помещаются в каталог =src/test/clojure=.  Эти, и другие значения по умолчанию могут быть
 изменены путем конфигурации плагина, как это описано ниже, в разделе [[#configure][Конфигурация плагина]].
 
-** Задачи определенные в =clojure-maven-plugin=
+** Goals, defined in =clojure-maven-plugin=
 
 clojure-maven-plugin реализует несколько задач (goals), реализующих разную
 функциональность.  Их можно разбить на 2 группы:
@@ -138,7 +139,7 @@ clojure-maven-plugin реализует несколько задач (goals), �
    помощью [[http://kotka.de/projects/clojure/vimclojure.html][vimclojure]].  Сервер запускается на порту 2113 (это значение может быть изменено
    с помощью системной опции =clojure.nailgun.port=).
 
-** Репозитории, относящиеся к Clojure
+** Clojure-related repositories
 
 Имеется несколько репозиториев, которые имеют отношение к Clojure.  В первую очередь это
 http://build.clojure.org/releases/, содержащий релизы Clojure и =clojure-contrib=, и
@@ -164,7 +165,7 @@ http://build.clojure.org/snapshots/, содержащий промежуточн
 отслеживать прогресс в разработке языка, то вы должны изменить адрес на
 http://build.clojure.org/snapshots/ в первом объявлении.
 
-** Зависимости
+** Dependencies
 
 Maven автоматически скачивает все необходимые зависимости из репозитория по умолчанию и
 репозиториев указанных пользователем (как это показано выше).  Скачанные пакеты помещаются
@@ -232,7 +233,7 @@ Maven автоматически скачивает все необходимы�
 </src>
 
 #configure
-** Конфигурация плагина
+** Configuration of plugin
 
 Разработчик имеет возможность управлять настройками плагина, такими как, расположение
 исходных кодов, названия скриптов, которые запускаются при тестировании или выполнении и
@@ -290,7 +291,7 @@ Maven автоматически скачивает все необходимы�
  =clojureOptions= :: в данной директиве указываются опции, которые будут переданы процессу
   =java= при любом выполнении кода -- REPL, запуске скрипта, тестировании.
 
-* Заключение
+* Conclusion
 
 В принципе, информации изложенной в данной заметке должно хватить для начала использования
 Maven вместе с Clojure.  В том случае, если у вас проект только на Clojure, и вы не
@@ -309,9 +310,9 @@ Maven (для Clojure язык практически совпадает с яз
  - [[http://stuartsierra.com/2009/09/03/mavens-not-so-bad][Maven’s Not So Bad]]
 
 
-;  LocalWords:  Maven mvn scm update репозитории репозиториев xml pom plugin
-;  LocalWords:  src плагинами подпроектов плагина clojureOptions Script compile
+;  LocalWords:  Maven mvn scm update  xml pom plugin src clojureOptions Script compile
 ;  LocalWords:  testSourceDirectories sourceDirectories sourceDirectory test
 ;  LocalWords:  testSourceDirectory testScript replScript runWithTests sgml
 ;  LocalWords:  namespaces compileDeclaredNamespaceOnly clojure-maven-plugin
-;  LocalWords:  testDeclaredNamespaceOnly репозиторием Leiningen
+;  LocalWords:  testDeclaredNamespaceOnly Leiningen Clojure Maven's plugins
+;  LocalWords:  lifecycle LocalWords plugin's

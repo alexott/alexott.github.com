@@ -795,7 +795,7 @@ Programmers вышла книга [[http://www.amazon.com/gp/product/1934356336?
 [[http://clojure.org/Reference][соответствующий раздел]] сайта языка, поскольку в книге в основном дается описание концепций
 языка.
 
-В феврале 2010-го года должна выйти книга [[http://www.amazon.com/gp/product/1430272317?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430272317][Practical Clojure. The Definitive Guide]], которая
+В мае 2010-го года должна выйти книга [[http://www.amazon.com/gp/product/1430272317?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430272317][Practical Clojure. The Definitive Guide]], которая
 должна содержать как описание языка, так и практические примеры его использования для
 решения разных задач.
 

@@ -153,3 +153,8 @@ java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input FILE 
 в каталоге =out= будет создан файл, содержащий список N-Gram и их количество в тексте.
 Данный файл можно затем использовать в качестве базы данных для задач определения языков
 и т.п.
+
+
+* Заключение
+
+ - добавить описание http://github.com/nathanmarz/cascalog ?
