@@ -44,12 +44,12 @@ configuration.
 
 * Maven and Clojure
 
-Поддержка Clojure в Maven реализуется с помощью [[http://github.com/talios/clojure-maven-plugin][clojure-maven-plugin]], который находится в
-центральном репозитории Maven, и поэтому сразу доступен для использования.  В качестве
-основы для новых проектов вы можете использовать =pom.xml= из проекта [[http://github.com/talios/clojure-maven-example][clojure-maven-example]].
+Clojure's support in Maven is implemented by [[http://github.com/talios/clojure-maven-plugin][clojure-maven-plugin]], that is available in
+Maven's central repository, so it automatically when it required.  As a base for your
+projects you can use =pom.xml= file from [[http://github.com/talios/clojure-maven-example][clojure-maven-example]] project.
 
-Если у вас уже создан файл =pom.xml= для вашего проекта, то для подключения плагина вам
-необходимо добавить следующий код в =pom.xml= в раздел =<plugins>=:
+If you already have =pom.xml= in your project, then to enable this plugin you need to add
+following code into =<plugins>= section of =pom.xml=:
 
 <src lang="nxml">
   <plugin>
@@ -59,16 +59,16 @@ configuration.
   </plugin>
 </src>
 
-*Внимание:* номер версии может меняться по мере продвижения разработки.  Для того, чтобы
-узнать последнюю версию данного плагина обратитесь к сайтам [[http://mvnrepository.com/artifact/com.theoryinpractise/clojure-maven-plugin][mvnrepository]] или [[http://jarvana.com/jarvana/][Jarvana]],
-которые содержат информацию о пакетах, зарегистрированных в репозиториях Maven.
+*Attention:* version number could be changed as development continues.  To find latest
+plugin's version number you can use sites [[http://mvnrepository.com/artifact/com.theoryinpractise/clojure-maven-plugin][mvnrepository]] or [[http://jarvana.com/jarvana/][Jarvana]], that contains
+information about packages, registered in Maven's repositories.
 
-Подключение данного плагина даст вам возможность компиляции, тестирования и запуска кода
-на Clojure, однако для этого вам придется использовать явные имена задач (goals), такие
-как =clojure:compile=, =clojure:test= & =clojure:run=.  Однако вы можете упростить себе жизнь
-путем добавления этих задач в список задач, выполняемых для каждой из стадий жизненного
-цикла (=compile= и =test=, соответственно).  Для этого, необходимо добавить раздел
-=<executions>= в описание плагина, например, вот так:
+Declaration of this plugin will give you all functionality -- compilation, testing &
+running of code, written in Clojure.  But out of box you'll need to use full goals names,
+such as =clojure:compile=, =clojure:test= & =clojure:run=.  Although you can make your life
+easier if you'll add these goals into list of goals of concrete lifecycle phases (=compile=
+and =test=).  To do this you need to add section =<executions>= into plugin's description, as
+in following example:
 
 <src lang="nxml">
  <plugin>
@@ -94,12 +94,12 @@ configuration.
  </plugin>
 </src>
 
-В этом случае исходные коды на Clojure будут откомпилированы, что иногда полезно -- при
-использовании =gen-class= или если вы не хотите поставлять исходные коды.  Но иногда лучше
-просто упаковать исходные коды в архив, и они будут откомпилированы при загрузке пакета.
-Это позволяет избежать несовместимости, если ваш пакет будет использоваться с разными
-версиями Clojure.  Для того, чтобы поместить исходные тексты в архив, вам необходимо
-добавить следующий код в раздел =resources=
+In this case, source code, written in Clojure will compiled -- this useful if you
+implement =gen-class= that will be used from Java, or if you don't want to provide source
+code for your application.  But sometimes it much better just to pack source code into
+jar, and it will compiled during loading of package.  This allows to avoid binary
+incompatibility between different versions of Clojure.  To put source code into jar, you
+need to add following code into =resources= section:
 
 <src lang="nxml">
  <resource>
@@ -107,48 +107,45 @@ configuration.
  </resource>
 </src>
 
-По умолчанию исходные коды на Clojure помещаются в каталог =src/main/clojure=, с
-подкаталогами, отражающими структуру вашей программы.  А исходные тексты для тестов
-помещаются в каталог =src/test/clojure=.  Эти, и другие значения по умолчанию могут быть
-изменены путем конфигурации плагина, как это описано ниже, в разделе [[#configure][Конфигурация плагина]].
+By default Clojure's source code is placed in the =src/main/clojure= directory of the
+project with sub-directories, according to structure of your program. While source for
+tests are placed in the =src/test/clojure= directory.  These default values could be changed
+in [[#configure][plugin's configuration]].
 
 ** Goals, defined in =clojure-maven-plugin=
 
-clojure-maven-plugin реализует несколько задач (goals), реализующих разную
-функциональность.  Их можно разбить на 2 группы:
+clojure-maven-plugin implements several commands (goals) that could be divided into two
+groups:
 
- - Задачи обрабатывающие исходный код (обычно связываются с соответствующими фазами
-   жизненного цикла как показано выше):
-  =clojure:compile= :: реализует компиляцию исходного кода, написанного на Clojure;
-  =clojure:test= :: выполняет тесты, написанные на Clojure, при запуске остальных тестов,
-    определенных в проекте.
+ - Goals that works with source code (usually they are linked with corresponding phases of
+   lifecycle, as it shown above):
+  =clojure:compile= :: implements compilation of source code, written in Clojure;
+  =clojure:test= :: executes tests, written in Clojure.
 
- - Задачи, связанные с выполнением кода проекта:
-  =clojure:run= :: выполняет заданный скрипт (или скрипты) заданные директивами конфигурации
-   =script= и/или =scripts=.  Чаще всего используется для запуска проекта со всеми
-   зависимостями;
-  =clojure:repl= :: запускает Clojure REPL со всеми зависимостями, указанными в проекте.
-   При необходимости может быть выполнен скрипт, указанный опцией =replScript=, в который
-   можно поместить необходимый код для инициализации среды.  В том случае, если в
-   зависимостях была указана библиотека JLine, то она будет подключена автоматически, что
-   делает работу в REPL более комфортной;
-  =clojure:swank= :: запускает сервер Swank, к которому можно подключиться из Emacs Slime.
-   По умолчанию сервер запускается на порту 4005 (это значение может быть изменено с
-   помощью системной опции =clojure.swank.port=);
-  =clojure:nailgun= :: запускает сервер Nailgun, к которому можно подключиться из Vim с
-   помощью [[http://kotka.de/projects/clojure/vimclojure.html][vimclojure]].  Сервер запускается на порту 2113 (это значение может быть изменено
-   с помощью системной опции =clojure.nailgun.port=).
+ - Goals, related to execution of project's code:
+  =clojure:run= :: executes script (or scripts) defined by =script= and/or =scripts=
+   configuration directives.  This goals is often to run project with proper dependencies;
+  =clojure:repl= :: run Clojure REPL with all dependencies, specified in project.  If
+   necessary, it also executes script, specified in configuration option =replScript= -- you
+   can put some initialization code into it.  If the JLine library was listed in
+   dependencies, then it will loaded automatically, making your work in REPL more
+   comfortable;
+  =clojure:swank= :: run Swank server, so you can connect to it from Emacs Slime.  By
+   default, this server is running on port 4005 (this value could be changed with system
+   option =clojure.swank.port=);
+  =clojure:nailgun= :: run Nailgun server, so you can connect to it from Vim with
+    [[http://kotka.de/projects/clojure/vimclojure.html][vimclojure]].  By default, this server is running on port 2113 (this value could be
+    changed with system option =clojure.nailgun.port=).
 
 ** Clojure-related repositories
 
-Имеется несколько репозиториев, которые имеют отношение к Clojure.  В первую очередь это
-http://build.clojure.org/releases/, содержащий релизы Clojure и =clojure-contrib=, и
-http://build.clojure.org/snapshots/, содержащий промежуточные версии.  Вторым популярным
-репозиторием является [[http://clojars.org][Clojars]], который используется сообществом разработчиком Clojure для
-публикации своих проектов.
+There are several Clojure-related repositories.  First, this is
+http://build.clojure.org/releases/ with release versions of Clojure and =clojure-contrib=,
+and http://build.clojure.org/snapshots/, with experimental versions.  Second popular
+repository is [[http://clojars.org][Clojars]], that is used by Clojure community to publish their projects[1].
 
-Для подключения этих репозиториев необходимо добавить следующие строки в секцию
-=repositories= в =pom.xml=:
+To use these repositories you need to add following code into =repositories= section in
+=pom.xml=:
 
 <src lang="nxml">
  <repository>
@@ -161,9 +158,9 @@ http://build.clojure.org/snapshots/, содержащий промежуточн
  </repository>
 </src>
 
-В данном примере подключается репозиторий с релизами Clojure, так что если вы хотите
-отслеживать прогресс в разработке языка, то вы должны изменить адрес на
-http://build.clojure.org/snapshots/ в первом объявлении.
+In this example we add repository with release versions of Clojure, and if you want to use
+bleeding edge version, then you need to change first address to
+http://build.clojure.org/snapshots/.
 
 ** Dependencies
 
@@ -233,7 +230,7 @@ Maven автоматически скачивает все необходимы�
 </src>
 
 #configure
-** Configuration of plugin
+** Plugin's configuration
 
 Разработчик имеет возможность управлять настройками плагина, такими как, расположение
 исходных кодов, названия скриптов, которые запускаются при тестировании или выполнении и
@@ -315,4 +312,8 @@ Maven (для Clojure язык практически совпадает с яз
 ;  LocalWords:  testSourceDirectory testScript replScript runWithTests sgml
 ;  LocalWords:  namespaces compileDeclaredNamespaceOnly clojure-maven-plugin
 ;  LocalWords:  testDeclaredNamespaceOnly Leiningen Clojure Maven's plugins
-;  LocalWords:  lifecycle LocalWords plugin's
+;  LocalWords:  lifecycle LocalWords plugin's REPL JLine contrib clojure
+
+[1] Clojars also provides downloading of Clojure & =clojure-contrib=, so you can add only
+    one entry into list of repositories.
+
