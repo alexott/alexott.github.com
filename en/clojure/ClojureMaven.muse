@@ -164,18 +164,17 @@ http://build.clojure.org/snapshots/.
 
 ** Dependencies
 
-Maven автоматически скачивает все необходимые зависимости из репозитория по умолчанию и
-репозиториев указанных пользователем (как это показано выше).  Скачанные пакеты помещаются
-в домашний каталог пользователя и могут использоваться другими проектами без
-дополнительного скачивания их из интернета.  Пакет однозначно идентифицируется сочетанием
-трех параметров -- название группы (=groupId=), артифакта (=artifactId=) и версии.
+Maven automatically downloads all necessary dependencies from default repository &
+repositories, specified by user (as shown above).  Downloaded packages are stored in
+user's home directory and could be used by other projects without additional downloading
+of them.  Each package is uniquely identified by combination of three parameters --
+group's name (=groupId= tag), artifact name (=artifactId= tag), and version (=version= tag).
 
-Для использования Clojure в своем проекте, то вам как минимум надо указать зависимость от
-языка.  Кроме самой Clojure, очень часто используется набор библиотек =clojure-contrib=,
-поэтому их часто указывают вместе.  В настоящее время стабильной версией обоих пакетов
-является версия 1.1.0, которая находится в release-репозитории Clojure.  Для подключения
-этих зависимостей в ваш проект, добавьте следующие строки в раздел =dependencies= в файле
-=pom.xml=:
+To use Clojure in your project you need at least specify dependency on language itself.
+Besides Clojure, the =clojure-contrib= library is often used in many projects, so they are
+often specified together.  Currently, the stable version of both packages is version
+1.1.0, that is in the release-repository of Clojure.  To declare these dependencies add
+following code into  =dependencies= section of =pom.xml= file:
 
 <src lang="nxml">
  <dependency>
@@ -190,14 +189,13 @@ Maven автоматически скачивает все необходимы�
  </dependency>
 </src>
 
-Если же вы хотите пользоваться самой последней версией языка, то вы должны подключить
-соответствующий репозиторий (snapshots) и использовать версию (=1.2.0-SNAPSHOTS= (или другую
-текущую на данный момент) вместо версии =1.1.0=.
+If you want to use latest version of the language, then you need to add corresponding
+repository (snapshots) and use version number =1.2.0-SNAPSHOTS= (or other actual in current
+time) instead of version =1.1.0=.
 
-Для выполнения некоторых задач перечисленных ниже, может понадобиться указать
-дополнительные зависимости:
- - если вы будете использовать =clojure:swank=, то вам надо указать зависимость от пакета
-  =swank-clojure=:
+To perform some tasks, implemented by clojure-maven-plugin, you need to specify additional
+dependencies:
+ - if you will use =clojure:swank= goal, then you need to specify dependency on =swank-clojure= package:
 <src lang="nxml">
  <dependency>
   <groupId>swank-clojure</groupId>
@@ -205,10 +203,10 @@ Maven автоматически скачивает все необходимы�
   <version>1.2.0-SNAPSHOT</version>
 </dependency>
 </src>
- - если вы планируете использовать =clojure:nailgun=, то вам необходимо скачать дистрибутив
-   с сайта [[http://kotka.de/projects/clojure/vimclojure.html][vimclojure]], собрать его как описано в документации и установить в свой
-   локальный репозиторий Maven.  И после этого, вы можете добавить зависимость от
-   =vimclojure= с помощью следующих строк:
+ - if you will use =clojure:nailgun= task, then you need to download distribution from
+   [[http://kotka.de/projects/clojure/vimclojure.html][vimclojure]]'s site, build it, as described in documentation, and install into local
+   Maven repository.  And after this, you need to add following dependency on
+   =vimclojure= with following code:
 <src lang="nxml">
  <dependency>
   <groupId>de.kotka</groupId>
@@ -216,11 +214,10 @@ Maven автоматически скачивает все необходимы�
   <version>X.X.X</version>
  </dependency>
 </src>
- - Наличие библиотеки JLine не обязательно, но полезно если вы будете работать в REPL --
-   эта библиотека реализует историю команд, редактирование введенного текста и т.п.
-   Наличие этой библиотеки определяется автоматически при запуске команды =mvn
-   clojure:repl=, поэтому ее можно добавить в список зависимостей с помощью следующего
-   кода:
+ - Presence of the JLine library isn't necessary, but it could be useful if you plan to use REPL --
+   this library implements history of commands, etc.  Presence of this library is detected
+   automatically when  =mvn clojure:repl= goal is executed, so you can add dependency for
+   this library with following code:
 <src lang="nxml">
  <dependency>
   <groupId>jline</groupId>
@@ -232,11 +229,10 @@ Maven автоматически скачивает все необходимы�
 #configure
 ** Plugin's configuration
 
-Разработчик имеет возможность управлять настройками плагина, такими как, расположение
-исходных кодов, названия скриптов, которые запускаются при тестировании или выполнении и
-т.д.  Для изменения какого-либо параметра, вам необходимо добавить его в раздел
-=configuration= в описании плагина.  Например, вот так можно задать название скрипта,
-который будет запущен для выполнения тестов:
+Developer can change plugin's configuration options, such as location of source code,
+scripts names, etc.  To change some parameter, you need to add its new value into
+=configuration= section in the plugin's description.  For example, you can specify name of
+the script, that will executed during testing, with following code:
 
 <src lang="nxml">
  <plugin>
@@ -250,62 +246,61 @@ Maven автоматически скачивает все необходимы�
  </plugin>
 </src>
 
-Вот список параметров, относящихся к исходному коду и компиляции:
-  =sourceDirectories= :: определяет список каталогов (каждый из которых должен быть обернут в
-  таг =sourceDirectory=) с исходным кодом на Clojure, который будет помещен в результирующий
-  пакет (и откомпилирован, при задании соответствующих опций);
- =testSourceDirectories= :: определяет список каталогов (каждый из которых должен быть
-  обернут в таг =testSourceDirectory=) с тестами, написанными на Clojure;
- =warnOnReflection= :: параметр (со значениями =true= или =false=), который определяет -- будут
-  ли выводиться предупреждения о вызовах функций, вызов которых требует использования
-  определения типа во время выполнения (reflection).
+Following options are used to specify options related to source code & compilation:
+  =sourceDirectories= :: this option defines list of directories (each of them should be
+  wrapped into =sourceDirectory= tag) with source code in Clojure, that will packed into
+  resulting jar (and compiled, if corresponding option is specified);
+ =testSourceDirectories= :: defines list of directories (each of them should be wrapped into
+  =testSourceDirectory= tag) with tests, written in Clojure;
+ =warnOnReflection= :: option that enables (=true=) or disables (=false=) warnings about
+  reflection when compiling source code.
 
-Кроме этого, вы можете ограничить список пространств имен (namespaces) для которых будет
-выполняться компиляция и/или тестирование кода.  Для этого, вам в директиве =namespaces=
-необходимо перечислить нужные пространства имен (каждое из них должно быть обернуто в
-директиву =namespace=).  Вы можете использовать регулярные выражения для указания всех
-пространств имен в нужном пакете, а также с помощью знака =!= вы можете указывать названия
-пространств имен, которые необходимо исключить из списка.  В дополнение к этому имеются
-две директивы: =compileDeclaredNamespaceOnly= и =testDeclaredNamespaceOnly= (со значениями
-=true= или =false=), которые указывают на то, будут ли ограничения по названиям имен
-применяться при компиляции или тестировании.
+Besides this, you can control which namespaces will compiled and/or for which namespaces
+testing of source code will performed.  To do this, you need to add =namespaces= tag into
+configuration and inside it list corresponding namespaces (each of item should be wrapped
+into =namespace= tag).  You can use regular expressions to specify all necessary namespace,
+and you can also use =!= to exclude namespaces from this list.  In addition to this option,
+you can use other two: =compileDeclaredNamespaceOnly= ad =testDeclaredNamespaceOnly= (with
+values =true= or =false=), that control, will these namespace limitations applied during
+compilation and/or testing.
 
-Еще несколько опций конфигурации используются для задания параметров выполнения кода и/или
-тестов:
- =script= и =scripts= :: указывает один (=script=) или несколько (=scripts= со вложенными
-  директивами =script=) файлов с кодом, которые будут запущены при выполнении задачи
-  =clojure:run=;
- =testScript= :: указывает на файл, который будет запущен при выполнении задачи
-  =clojure:test=.  В том случае, если файл не указан, будет сгенерирован временный скрипт,
-  который выполнит поиск тестов и запустит их на выполнение;
- =replScript= :: указывает на файл, который содержит код, который будет запущен при
-  выполнении задачи =clojure:repl=.  Данный код будет выполнен до перехода в REPL, так что в
-  него можно поместить необходимые инструкции по инициализации вашей рабочей среды;
- =runWithTests= :: данная директива (с возможными значениями true или false) определяет,
-  будет ли выполняться тестирование при запуске кода или REPL.  Вы также можете
-  переопределить указанное значение, указав нужное значение в командной строке Maven,
-  например, вот так: <code>mvn clojure:repl -Dclojure.runwith.test=false</code>;
- =clojureOptions= :: в данной директиве указываются опции, которые будут переданы процессу
-  =java= при любом выполнении кода -- REPL, запуске скрипта, тестировании.
+There are also several options that are used to specify parameters for execution of your
+code and/or tests:
+ =script= and =scripts= :: defines one (=script= tag) or several (=scripts= tag with nested =script=
+   tags) names of scripts with code, that will executed when you'll run the =clojure:run=
+   task;
+ =testScript= :: defines name of script that will executed when you run =clojure:test= task.  If there
+  was no value specified in configuration of plugin, then plugin will automatically
+  generate run script for all tests, found in project;
+ =replScript= :: defines name of script, that will executed if you'll run =clojure:repl= task
+  (it also used by =clojure:swank= and =clojure:nailgun= tasks).  This code will executed
+  before entering into REPL, so you can use it to specify initialization code for your
+  working environment;
+ =runWithTests= :: enable (=true=) or disable (=false=) executions of tests if you run REPL or
+  your code via Maven.  You can also change this value by using Maven's command-line
+  option.  For example, with following command <code>mvn clojure:repl
+  -Dclojure.runwith.test=false</code>;
+ =clojureOptions= :: using this option you can specify command-line options that will be
+  passed to =java= process on every invocation.
 
 * Conclusion
 
-В принципе, информации изложенной в данной заметке должно хватить для начала использования
-Maven вместе с Clojure.  В том случае, если у вас проект только на Clojure, и вы не
-собираетесь использовать всю мощь Maven, то может быть стоит обратить внимание на утилиту
-[[./ClojureLein][Leiningen]] которая написана специально для сборки проектов на Clojure.  Еще одним
-интересным проектом является [[http://polyglot.sonatype.org/][Polyglot Maven]], целью которого является создание DSL (Domain
-Specificl Languages) на разных языках (Clojure, Scala, Groovy) для описания конфигураций
-Maven (для Clojure язык практически совпадает с языком, реализованным в Leiningen). 
+I think, that this article provides enough information to you to start use Maven together
+with Clojure.  If you have Clojure-only project, and you don't plan to use all power of
+Maven, then may be you need to look to the [[./ClojureLein][Leiningen]] -- this is tool, that was created to
+build projects, written only in Clojure.  Another interesting project is [[http://polyglot.sonatype.org/][Polyglot Maven]],
+the main goal of it is creation of special DSL (Domain Specificl Languages) in different
+languages (Clojure, Scala, Groovy) for description of Maven's configurations (for Clojure
+this language is almost same as language implemented in Leiningen).
 
-Дополнительные примеры использования Maven с Clojure вы можете найти в проектах [[http://github.com/liebke/incanter/tree/1.0.x][Incanter]]
-(как пример проекта, состоящего из нескольких модулей), [[http://github.com/relevance/labrepl][labrepl]] и [[http://github.com/talios/clojure-maven-example][clojure-maven-example]], а
-также в следующих заметках (на английском языке):
- - [[http://muckandbrass.com/web/display/~cemerick/2010/03/25/Why+using+Maven+for+Clojure+builds+is+a+no-brainer][Why using Maven for Clojure builds is a no-brainer]] (которая также включает видео,
-   показывающая работу с clojure-maven-plugin
- - [[http://pupeno.com/blog/how-to-create-a-clojure-application/][How to create a Clojure application]]
- - [[http://stuartsierra.com/2009/09/03/mavens-not-so-bad][Maven’s Not So Bad]]
-
+Other examples of use  Maven with Clojure you can find in different projects: [[http://github.com/liebke/incanter/tree/1.0.x][Incanter]]
+(as example of project, consisting from several modules), [[http://github.com/relevance/labrepl][labrepl]] and
+[[http://github.com/talios/clojure-maven-example][clojure-maven-example]].  More information about Clojure and Maven you can also find in
+following bog posts:
+ - [[http://muckandbrass.com/web/display/~cemerick/2010/03/25/Why+using+Maven+for+Clojure+builds+is+a+no-brainer][Why using Maven for Clojure builds is a no-brainer]] (including video, that shows how to
+   work with =clojure-maven-plugin=);
+ - [[http://pupeno.com/blog/how-to-create-a-clojure-application/][How to create a Clojure application]];
+ - [[http://stuartsierra.com/2009/09/03/mavens-not-so-bad][Maven’s Not So Bad]].
 
 ;  LocalWords:  Maven mvn scm update  xml pom plugin src clojureOptions Script compile
 ;  LocalWords:  testSourceDirectories sourceDirectories sourceDirectory test
@@ -313,6 +308,7 @@ Maven (для Clojure язык практически совпадает с яз
 ;  LocalWords:  namespaces compileDeclaredNamespaceOnly clojure-maven-plugin
 ;  LocalWords:  testDeclaredNamespaceOnly Leiningen Clojure Maven's plugins
 ;  LocalWords:  lifecycle LocalWords plugin's REPL JLine contrib clojure
+;  LocalWords:  namespace
 
 [1] Clojars also provides downloading of Clojure & =clojure-contrib=, so you can add only
     one entry into list of repositories.
