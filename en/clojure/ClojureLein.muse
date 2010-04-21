@@ -209,58 +209,55 @@ command [options]=:
 
 ** Additional commands
 
-Дополнительные команды реализуются [[#plugin][плагинами]], расширяющими возможности Leiningen.
-Существует некоторое количество популярных плагинов доступных для Leiningen.  Сюда можно
-отнести и плагины для запуска серверов Swank и Nailgun, которые реализуют интерактивную
-работу из привычной среды Emacs или Vim.  При этом происходит автоматическое подключение
-всех указанных зависимостей, так что вы работаете в том же окружении, как и ваша
-программа.
+Additional commands are implemented by [[#plugin][plugins]], that are used to extend Leiningen's
+functionality.  There are many popular plugins for Leiningen.  For example, this are
+plugins for running of Swank and Nailgun servers, that are implementing interactive work
+from Emacs or Vim.  If you run these servers, then they are using all necessary
+dependencies, so you will work in the same environment, as your program.
 
-Для работы с сервером Swank вам необходимо указать в модуль [[http://clojars.org/leiningen/lein-swank][lein-swank]][3] в списке
-зависимостей используемых при разработке (=:dev-dependencies=)[4].  После этого вам станет
-доступна команда =lein swank=, выполнив которую на порту 4005 будет запущен сервер Swank, к
-которому вы можете подключиться используя команду Emacs =slime-connect=.  Если же вы
-пользователь Vim, то вам необходимо указать в зависимостях модуль [[http://clojars.org/lein-nailgun][lein-nailgun]], о работе с
-которым вы можете прочитать на странице проекта [[http://kotka.de/projects/clojure/vimclojure.html][vimclojure]].
+To use Swank server you need to add dependency on [[http://clojars.org/leiningen/lein-swank][lein-swank]][3] in =:dev-dependencies=
+option[4], and after this you could use =lein swank= command.  After execution of this
+command you'll get Swank server, running on port 4005 and you can connect to it with
+Emacs' =slime-connect= command.  And if you prefer to use Vim editor, then you need to add
+dependency on [[http://clojars.org/lein-nailgun][lein-nailgun]] plugin (more about work with Nailgun you can read on
+[[http://kotka.de/projects/clojure/vimclojure.html][vimclojure]]'s site).
 
 #plugin
 * Extending Leiningen's functionality
 
-Leiningen является расширяемой системой. В случае необходимости вы можете реализовывать
-свои команды -- для этого необходимо создать проект, определяющий пространство имен
-=leiningen.имя_команды= и содержащий реализацию в виде функции =имя_команды=, принимающей
-описание проекта в качестве аргумента.  Подробнее про написание плагинов вы можете
-прочитать в [[http://nakkaya.com/2010/02/25/writing-leiningen-plugins-101/][следующем постинге]].  Одним из примеров расширения функциональности Leiningen
-является плагин =lein-swank=, который реализует поддержку сервера Swank, и
-[[http://github.com/technomancy/leiningen/tree/master/lein-swank/][находится прямо в репозитории]] Leiningen.
+Leiningen is extensible -- if necessary, you can add your own commands.  To do this you
+need to create a project, in which exists =leiningen.command_name= namespace, containing
+implementation of your command as a function with name =command_name=.  This function
+receives project's object as an argument.  More detailed information on writing plugins
+you can find in [[http://nakkaya.com/2010/02/25/writing-leiningen-plugins-101/][following blog post]].  One of example of plugins for Leiningen is the
+=lein-swank= plugin, that implements support for Swank server -- you can find it in
+Leiningen's [[http://github.com/technomancy/leiningen/tree/master/lein-swank/][repository with source code]].
 
-В [[http://clojars.org/][репозитории Clojars]] имеется достаточное количество плагинов, которые были написаны для
-расширения базовой функциональности Leiningen -- автоматической заливки кода в репозиторий
-Clojars, сборки кода написанного на Java, и т.д.  Обычно их имя начинается со слова =lein-=,
-которое вы можете использовать [[http://clojars.org/search?q=lein-][в поиске]].  Для использования этих плагинов вы должны
-указать их в качестве зависимостей, используемых при разработке (опция =:dev-dependencies=).
+There are several plugins for Leiningen in [[http://clojars.org/][Clojars repository]].  These plugins implement
+different functionality -- automatic uploading of code into Clojars repository, building
+of Java source code, etc.  Names of these plugins usually starting with =lein-=, that you
+can use in [[http://clojars.org/search?q=lein-][search]].  To use these plugins in your project, you need to add them into
+development dependencies (the =:dev-dependencies= option).
 
 * Conclusion
 
-Я очень надеюсь, что данный рассказ поможет вам в работе с Leiningen при разработке на
-Clojure.  Если у вас имеются вопросы, то вы можете оставить комментарии на сайте или
-написать мне по [[mailto:alexott@gmail.com][электронной почте]] -- я постараюсь на них ответить.
+I hope, that this article helps you in your work with Leiningen.  If you have questions
+you can write me [[mailto:alexott@gmail.com][e-mail]] or leave a comment on site -- I'll try to answer on all of them.
 
 
 Footnotes: 
-[1] стоит также отметить, что существует проект [[http://polyglot.sonatype.org/][Polyglot Maven]], целью которого является
-    предоставление возможностей описания конфигураций Maven на разных языках -- Clojure,
-    Scala, Groovy и др.
+[1] I should also mention the [[http://polyglot.sonatype.org/][Polyglot Maven]] project, that should allow to describe
+    Maven's configurations using different languages -- Clojure, Scala, Groovy, etc.
 
-[2] в отличии от других команд =repl= реализована напрямую в скрипте =lein=, а не написана на
-    Clojure
+[2] In contrast to other commands, =repl= is implemented directly in =lein=, not written in
+    Clojure.
 
-[3] пример подключения =lein-swank= вы можете увидеть в нашем тестовом примере.
+[3] example of =lein-swank= dependency you can see in project's example.
 
-[4] и не забудьте выполнить команду =lein deps= после добавления этой зависимости!
+[4] and don't forget to run =lein deps= after adding this dependency!
 
 ;  LocalWords:  Leiningen  TODO Maven Vim Leiningen's Clojure plugins plugin
 ;  LocalWords:  swank Emacs Nailgun lein-swank Clojars repl lein Clojure's clj
 ;  LocalWords:  compile test install deps nailgun polyglot-maven Groovy Maven's
-;  LocalWords:  defproject namespace clojars scp namespaces AOT uberjar xml
-;  LocalWords:  classpath jline
+;  LocalWords:  defproject namespace clojars scp namespaces AOT uberjar xml src
+;  LocalWords:  classpath jline leiningen
