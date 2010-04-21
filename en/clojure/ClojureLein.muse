@@ -115,30 +115,28 @@ This is complete project, and we could execute any Leiningen's command for it.
 
 ** How to specify dependencies
 
-Одной из важных и наиболее часто используемых частей =defproject= является определение
-зависимостей от других библиотек, находящихся во внешних репозиториях.  Для проектов
-написанных на Clojure это в первую очередь зависимость от самого языка, как это показано в
-примере.
+One of important parts of =defproject= is declaration of dependencies on external libraries.
+For code, written in Clojure, main dependency is Clojure itself, as this shown in example
+above.
 
-Различают разные виды зависимостей для которых используются разные опции проекта:
- =:dependencies= :: стандартные зависимости -- для библиотек, которые используются в
-   программе;
- =:dev-dependencies= :: зависимости для библиотек, которые используются во время разработки
-  программы, например, зависимость от =swank-clojure= и т.п. библиотек. 
+There are different types of dependencies and different project options for them:
+ =:dependencies= option :: standard dependencies -- for libraries, that are used in your
+   code;
+ =:dev-dependencies= option :: dependencies for libraries, that are used during development.
+  For example, dependency on =swank-clojure=, Leiningen's plugins, etc.
 
-Кроме этого, имеется плагин [[http://github.com/swannodette/native-deps][native-deps]], который реализует поддержку зависимостей от
-непереносимых библиотек (специфических для конкретных платформ).  [[http://nakkaya.com/2010/04/05/managing-native-dependencies-with-leiningen/][Вот пример]] использования
-этого плагина.
+Besides this, exists [[http://github.com/swannodette/native-deps][native-deps]] plugin, that implements support for dependencies on
+platform-dependent libraries (native libraries).  [[http://nakkaya.com/2010/04/05/managing-native-dependencies-with-leiningen/][Here]] is example of use of this plugin.
 
-Каждая из перечисленных опций является вектором, каждый элемент которого является вектором
-с описанием библиотеки.  Это описание состоит из (вы уже видели эти определения в примере
-проекта):
- - символа, определяющего имя библиотеки (группа и название библиотеки, также как и в
-   [[./ClojureMaven][Maven]]), например, =org.clojure/clojure=;
- - строки с версией библиотеки, например, ="1.1.0"= или ="1.2.0-master-SNAPSHOT"=;
- - необязательных опций.  Опции могут использоваться для уточнения зависимостей. Например,
-   для указания того, какие библиотеки должны быть исключены из зависимостей, если указана
-   опция =:exclusions=. Вот пример исключения лишних зависимостей для библиотеки =log4j=: 
+Each of these options is a vector, where each element is another vector, holding
+description of concrete library.  This description consists from three elements (you
+already had seen these descriptions in project's example):
+ - symbol, that defines name of library (combination of group name & name of library, same
+   as in [[./ClojureMaven][Maven]]), for example, =org.clojure/clojure=;
+ - string, that defines version of libraryr, for example, ="1.1.0"= or ="1.2.0-master-SNAPSHOT"=;
+ - options (optional) could be used to adjust dependencies, make them more accurate. For
+   example, you can exclude some libraries from dependencies using the =:exclusions= option.
+   Here is example of excluding of some not necessary dependencies for =log4j= library:
 <src lang="clojure">
 [log4j "1.2.15" :exclusions [javax.mail/mail
                              javax.jms/jms
@@ -148,15 +146,14 @@ This is complete project, and we could execute any Leiningen's command for it.
 
 ** Repositories
 
-Leiningen по умолчанию подключает три репозитория:
- - [[http://mvnrepository.com/][стандартный репозиторий]] Maven;
- - [[http://build.clojure.org/snapshots/][репозиторий]] с ежедневными сборками Clojure;
- - [[http://clojars.org/repo/][репозиторий Clojars]], предназначенный для распространения кода, написанного на Clojure.
+By default Leiningen uses three repository:
+ - Maven's [[http://mvnrepository.com/][standard repository]];
+ - [[http://build.clojure.org/snapshots/][repository]] with Clojure's daily builds;
+ - [[http://clojars.org/repo/][the Clojars repository]], that is used to host libraries, written in Clojure.
 
-Помимо этого, пользователь может указать дополнительные репозитории с помощью опции
-=:repositories=.  В качестве параметров для этой опции указывается отображение (map)
-состоящее из имени репозитория и его адреса (URL).  Например, вот так подключается
-репозиторий [[http://apache.org][проекта Apache]]:
+Besides this, user can specify additional repositories with =:repositories= option.  This
+option take one parameter -- map with names and URLs of repositories.  For example, we can
+add repository of [[http://apache.org][Apache project]] with following code:
 <src lang="clojure">
 (defproject test2 "1.0.0-SNAPSHOT"
   :dependencies [....]
@@ -166,54 +163,49 @@ Leiningen по умолчанию подключает три репозитор
 
 * Work with Leiningen
 
-Типичное использование Leiningen выглядит следующим образом: 
- - вы создаете проект (=lein new=), определяете зависимости от внешних библиотек и
-   загружаете их к себе с помощью =lein deps= (эту команду надо выполнять после каждого
-   изменения списка зависимостей);
- - пишете код регулярно запуская =lein compile=, =lein test=, а также пользуясь при
-   необходимости =lein repl=, =lein swank= или =lein nailgun= (в зависимости от предпочтений)
-   для интерактивной разработки;
- - если вы разрабатываете библиотеку, которую планируете использовать в других проектах,
-   то вы можете установить ее в локальный репозиторий с помощью =lein install= или залить на
-   [[http://clojars.org/][Clojars]] (с помощью =scp=, как предлагается на сайте, или при помощи плагина =lein-clojars=);
- - если вы разрабатываете программу для конечного пользователя, то вы упаковываете код в
-   архив с помощью =lein jar= -- только ваш код, без зависимостей, или с помощью команды
-   =lein uberjar= создаете архив с вашим кодом и всеми зависимостями -- такой архив намного
-   проще распространять.
+Typical workflow when you use Leiningen looks following way: 
+ - you create a project (=lein new=), define dependencies on external libraries and download
+   them with =lein deps= command (you need to run it after each change of dependencies);
+ - you write your code, periodically running =lein compile=, =lein test=, and may be using
+   =lein repl=, =lein swank= or =lein nailgun= (depending on your personal preferences) for
+   interactive development;
+ - if you develop a library, that you plan to use in other projects, then you can install
+   it into Maven's local repository with =lein install= command, or you can upload it to
+   [[http://clojars.org/][Clojars]] (with =scp=, as suggested in documentation, or by using the =lein-clojars= plugin);
+ - if you develop a program for end-user, then you can pack your code into package with
+   =lein jar= command (only your code, without dependencies), or with =lein uberjar=, with all
+   dependencies included into package -- it's much easier to distribute such packages to
+   end users.
 
-Этот процесс достаточно прост и повторяется до полной готовности вашего кода :-)
+This process is pretty simple and you repeat it until your code is complete :-)
 
 ** Basic Leiningen's commands
 
-Список команд, которые могут быть выполнены Leiningen не является фиксированным --
-дополнительные плагины могут добавлять новые команды.  В минимальной конфигурации
-Leiningen реализует следующие команды, которые запускаются как =lein имя_команды [опции]=:
-
- =help [имя_команды]= :: показывает справку об использовании Leiningen или по конкретной
-  команде (за исключением =repl=) , если ее имя указано в командной строке
- =new имя проекта [опции]= :: создает новый пустой проект;
- =deps= :: копирует все зависимости в каталог =lib/=.  Эта команда должна выполняться после
-  каждого изменения зависимостей, чтобы остальные команды имели доступ к правильным
-  пакетам;
- =compile= :: выполняет компиляцию кода (AOT, ahead-of-time) в классы Java.  Полученные
-  классы помещаются в каталог =classes/=.  Пользователь может управлять тем, какие
-  пространства имен будут откомпилированы -- для этого имеется опция =:namespaces=, в
-  которой надо указать список пространств имен для которых будет производиться компиляция;
- =test [список пространств имен]= :: выполняет тесты из указанных пространств имен, или все
-  тесты, если список пространств имен не указан;
- =jar= :: создает пакет (jar) с кодом проекта;
- =uberjar= :: создает автономный пакет (jar) с кодом проекта и всеми зависимостями.  Это
-  позволяет достаточно просто распространять ваши программы. При запуске с помощью команды
-  =java -jar ...= точкой входа является пространство имен, указанное в опции =:main= в
+List of Leiningen's commands isn't fixed -- plugins could add new commands to it.  In
+basic configuration, Leiningen implements following commands, that could be run as =lein
+command [options]=:
+ =help [command]= :: shows help on Leiningen's usage.  If you specify name of the
+  command after =help=, then description of command will shown (except =repl=)
+ =new project_name [options]= :: creates a new empty project;
+ =deps= :: download (if necessary) and copies all dependencies into =lib/= directory.  *This
+  command should executed after each change in dependencies!*;
+ =compile= :: performs compilation of code (AOT, ahead-of-time) into Java classes.  These
+  classes are stored in =classes/= directory.  User can control which namespaces should be
+  compiled -- you can use =:namespaces= option to specify a list of namespaces to compile;
+ =test [list_of_namespace]= :: runs tests from all (or only from specified) namespaces;
+ =jar= :: creates a package with your code;
+ =uberjar= :: create independent package with your code and all dependencies included into
+  it (it's much easier to distribute such packages). If you will run this package with
+  =java -jar ...= then entry point will namespace, specified in =:main= option, specified
   =defproject=;
- =pom= :: создает файл =pom.xml=, содержащий описание проекта.  Этот файл нужен если вы хотите
-  использовать ваш пакет в другом проекте;
- =install= :: устанавливает собранный пакет в локальный репозиторий Maven;
- =clean= :: удаляет все файлы, созданные в процессе сборки (включая библиотеки из каталога =lib/=);
- =repl= :: запускает цикл ввода команд (REPL) с правильно выставленными путями поиска
-  библиотек (classpath) -- в него включаются библиотеки из каталога =lib/=, а также каталоги
-  =src/= и =classes/=.  При запуске =lein=[2] автоматически определяет наличие библиотеки jline,
-  так что вам становится доступна история введенных команд.
+ =pom= :: creates =pom.xml= file, that contains description of project.  This file is needed
+  if you plan to use your package in another project;
+ =install= :: installs package into Maven's local repository;
+ =clean= :: deletes all files, created during build (including libraries from =lib/=
+   directory);
+ =repl= :: runs REPL with correctly specified classpath -- it includes libraries from =lib/=
+  directory, and also directories =src/= and =classes/=.  During start =lein=[2] automatically
+  detects presence of jline library, and uses it, so you'll have command history, etc.
 
 ** Additional commands
 
@@ -270,4 +262,5 @@ Footnotes:
 ;  LocalWords:  Leiningen  TODO Maven Vim Leiningen's Clojure plugins plugin
 ;  LocalWords:  swank Emacs Nailgun lein-swank Clojars repl lein Clojure's clj
 ;  LocalWords:  compile test install deps nailgun polyglot-maven Groovy Maven's
-;  LocalWords:  defproject namespace
+;  LocalWords:  defproject namespace clojars scp namespaces AOT uberjar xml
+;  LocalWords:  classpath jline
