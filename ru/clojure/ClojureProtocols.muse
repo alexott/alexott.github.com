@@ -2,13 +2,25 @@
 #keywords clojure, кложура, datatype, protocol, defprotocl, reify
 
 
- - http://www.assembla.com/wiki/show/clojure/Datatypes
- - http://www.assembla.com/wiki/show/clojure/protocols
+ - http://clojure.org/protocols
+ - http://clojure.org/datatypes
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/deftype
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/defrecord
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/reify
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/defprotocol
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/extend
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/extend-protocol
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/extend-type
+
  - http://www.objectcommando.com/blog/2010/03/26/clojure-protocols-part-1/
  - http://www.objectcommando.com/blog/2010/03/29/clojure-protocols-part-2/
- - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/defprotocol
- - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/deftype
+ - http://www.objectcommando.com/blog/2010/04/12/clojure-protocols-part-3/
+
+ - http://github.com/richhickey/clojure/blob/0d1b2b19065350c5c072b63e912b2415a2c869e6/src/clj/clojure/core/protocols.clj
+ - http://github.com/richhickey/clojure/blob/e660e467789ccc8e9922948b3498939e0239fc7c/src/clj/clojure/gvec.clj
+
  - http://gist.github.com/306174
+
 
 
 * Что это такое и зачем нужно?
@@ -22,6 +34,7 @@
 
 * Типы
 
+ deftype/defrecord
 
 * Протоколы
 
