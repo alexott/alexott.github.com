@@ -210,10 +210,11 @@ command [options]=:
 ** Additional commands
 
 Additional commands are implemented by [[#plugin][plugins]], that are used to extend Leiningen's
-functionality.  There are many popular plugins for Leiningen.  For example, this are
-plugins for running of Swank and Nailgun servers, that are implementing interactive work
-from Emacs or Vim.  If you run these servers, then they are using all necessary
-dependencies, so you will work in the same environment, as your program.
+functionality.  There are many popular plugins for Leiningen, and you can find short
+description of many of them in [[http://blog.licenser.net/2010/04/20/leiningen-the-clojure-build-tool][following blog posting]].  For example, this are plugins for
+running of Swank and Nailgun servers, that are implementing interactive work from Emacs or
+Vim.  If you run these servers, then they are using all necessary dependencies, so you
+will work in the same environment, as your program.
 
 To use Swank server you need to add dependency on [[http://clojars.org/leiningen/lein-swank][lein-swank]][3] in =:dev-dependencies=
 option[4], and after this you could use =lein swank= command.  After execution of this
