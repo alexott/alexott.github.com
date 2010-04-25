@@ -22,6 +22,7 @@
  - http://gist.github.com/306174
 
 
+http://gist.github.com/377213 - annotations
 
 * Что это такое и зачем нужно?
 
