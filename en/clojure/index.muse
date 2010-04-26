@@ -29,13 +29,13 @@ And in the fall of 2010th the Manning publications plans to release 2 books abou
 as part of MEAP program (Manning Early Access Programm), so you can order them and read
 new material as it become available[1].
 
-** Some notes about Clojure
+** Some articles about Clojure
 
 I wrote some number of small articles about Clojure (other notes about Clojure you can
 find in [[http://alexott.blogspot.com/search/label/clojure][my blog]]):
 
  - [[./ClojureMaven][How to use Maven to build Clojure code]]
- - [[./ClojureLein][Leiningen -- tool to build  Clojure code]]
+ - [[./ClojureLein][Using Leiningen to build  Clojure code]]
 
 I also wrote an introduction-level article (in Russian) for
 [[http://fprog.ru/2010/issue4/][4th issue of Russian Magazine "Practice of Functional Programming"]] -- I plan to translate

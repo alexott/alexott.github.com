@@ -1,5 +1,5 @@
-#title Use of Leiningen to build Clojure code
-#keywords leiningen, clojure, build tool
+#title Using Leiningen to build Clojure code
+#keywords leiningen, clojure, build tool, lein, howto, tutorial
 
 This article describes the Leiningen tool for building of projects, written in Clojure.
 
