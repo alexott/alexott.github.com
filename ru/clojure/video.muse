@@ -5,13 +5,13 @@
 Clojure -- видео-лекции и учебники, выступления на конференциях и т.д.  *Если у вас есть
 еще ссылки на видео-материалы, пожалуйста, оставляйте их в комментариях к странице!*
 
- - http://clojure.blip.tv/ -- содержит видео с рассказами о Clojure, записанные на
-   выступлениях как автора языка -- Rich Hickey, так и других разработчиков.  Лекции самые
-   разные по содержанию, и содержат интересные выступления. Есть отдельные лекции "Clojure
-   для программистов на Lisp" и "Clojure для программистов на Java", которые могут служить
+ - http://clojure.blip.tv/ -- набор видео-лекций о Clojure, записанных на выступлениях как
+   автора языка -- Rich Hickey, так и других разработчиков.  Лекции самые разные по
+   содержанию, и содержат интересные выступления. Есть отдельные лекции "Clojure для
+   программистов на Lisp" и "Clojure для программистов на Java", которые могут служить
    очень хорошими введениями в язык;
  - [[http://channel9.msdn.com/shows/Going+Deep/Expert-to-Expert-Rich-Hickey-and-Brian-Beckman-Inside-Clojure/][Inside Clojure]] -- лекция Rich Hickey для Channel 9, в котором рассказывается про
-   внутреннее устройство языка
+   внутреннее устройство языка;
  - [[http://www.infoq.com/presentations/Value-Identity-State-Rich-Hickey][Persistent Data Structures and Managed References]] -- еще одна презентация Rich Hickey о
    внутреннем устройстве Clojure;
  - [[http://vimeo.com/channels/fulldisclojure][набор скринкастов от Sean Devlin]], в которых рассказывается как про возможности Clojure
@@ -27,15 +27,16 @@ Clojure -- видео-лекции и учебники, выступления �
    в Clojure;
  - [[http://www.infoq.com/interviews/hickey-clojure][Rich Hickey on Clojure's Features and Implementation]] -- интервью Rich Hickey во время
    конференции QCon London 2009, в котором он рассказывает о STM, внутреннем устройстве
-   Clojure и т.п.
+   Clojure и т.п.;
  - [[http://www.infoq.com/presentations/hickey-clojure][Clojure]] -- презентация о языке, сделанная Rich Hickey во время JVM Languages Summit
    2008;
  - [[http://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey][Are We There Yet?]] -- презентация Rich Hickey на JVM Languages Summit 2009;
  - [[http://www.infoq.com/presentations/Value-Identity-State-Rich-Hickey][Persistent Data Structures and Managed References]] -- презентация Rich Hickey о
    постоянных структурах данных, изменяемости, и о том, как эти концепции реализованы в
    рамках Clojure;
- - [[http://www.infoq.com/interviews/stuart_holloway_clojure][Stuart Halloway on Clojure and Functional Programming]];
- - [[http://vimeo.com/9090935][Clojure in Clojure]] -- доклад (к сожалению, не полный) Rich Hickey о реализации Clojure
+ - [[http://www.infoq.com/interviews/stuart_holloway_clojure][Stuart Halloway on Clojure and Functional Programming]] -- рассказ автора книги
+   "[[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]]" о языке и его возможностях;
+ - [[http://vimeo.com/9090935][Clojure in Clojure]] -- доклад Rich Hickey (к сожалению, не полный) о реализации Clojure
    на самой Clojure;
  - [[http://peepcode.com/products/functional-programming-with-clojure][Functional Programming with Clojure]] -- платный скринкаст, показывающий возможности
    Clojure на примере разработки игры (я сам не смотрел его, в отличии от предыдущих
