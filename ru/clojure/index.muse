@@ -20,7 +20,8 @@ Clojure, которую можно использовать в качестве 
 информации -- [[http://clojure.org][сайт языка]] и [[http://groups.google.com/group/clojure][список рассылки]].  Полезным для новичков является проект
 [[http://github.com/relevance/labrepl][labrepl]], который содержит все необходимое для начала работы с языком.  И еще один источник
 информации о Clojure -- это [[http://planet.clojure.in][Planet Clojure]] -- аггрегатор блогов людей, использующих
-Clojure.
+Clojure.  Кроме того, имеется достаточно большое количество материалов по языку, ссылки на
+которые собраны на [[./video][отдельной странице]].
 
 ** Заметки про Clojure
 
@@ -30,3 +31,5 @@ Clojure.
  - [[./ClojureLein][Leiningen -- утилита для сборки кода, написанного на Clojure]]
 
 А остальные заметки, относящиеся к Clojure опубликованы в [[http://alexott-ru.blogspot.com/search/label/clojure][моем блоге]].
+
+;  LocalWords:  Clojure
