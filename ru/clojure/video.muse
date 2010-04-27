@@ -1,0 +1,28 @@
+#title Видео-лекции и презентации про Clojure
+#keywords clojure, video, видео, movie, кложура, учебники, презентации, доклады
+
+На данной странице я постарался собрать все существующие ссылки на видео-материлы о
+Clojure -- видео-лекции и учебники, выступления на конференциях и т.д.
+
+ - http://clojure.blip.tv/ -- содержит видео с рассказами о Clojure, записанные на
+   выступлениях как автора языка - Rich Hickey, так и других разработчиков.  Лекции самые
+   разные по содержанию, и содержат интересные выступления. Есть отдельные лекции "Clojure
+   для программистов на Lisp" и "Clojure для программистов на Java", которые могут служить
+   очень хорошими введениями в язык;
+ - [[http://channel9.msdn.com/shows/Going+Deep/Expert-to-Expert-Rich-Hickey-and-Brian-Beckman-Inside-Clojure/][Inside Clojure]] -- лекция Rich Hickey для Channel 9, в котором рассказывается про
+   внутреннее устройство языка
+ - [[http://www.infoq.com/presentations/Value-Identity-State-Rich-Hickey][Persistent Data Structures and Managed References]] -- еще одна презентация Rich Hickey о
+   внутреннем устройстве Clojure;
+ - [[http://vimeo.com/channels/fulldisclojure][набор скринкастов от Sean Devlin]], в которых рассказывается как про возможности Clojure
+   версии 1.1, так и про другие темы -- управление проектами и т.д.;
+ - [[http://www.youtube.com/user/briantwill#g/c/AC43CFB134E85266][Intro to Clojure]] -- серия презентаций о Clojure, достаточно полное введение в
+   программирование на этом языке;
+ - [[http://vimeo.com/11236603][Clojure 1.2 Protocols]] -- скринкаст Stuart Halloway о протоколах и типах данных в новой
+   версии Clojure;
+ - [[http://link.pluralsight.com/clojure][Clojure Concurrency On-Demand!]] -- набор скринкастов о разработке конкурентных программ
+   в Clojure;
+ - [[http://peepcode.com/products/functional-programming-with-clojure][Functional Programming with Clojure]] -- платный скринкаст, показывающий возможности
+   Clojure на примере разработки игры (я сам не смотрел его, в отличии от предыдущих
+   материалов).
+
+;  LocalWords:  Clojure Halloway LocalWords clojure

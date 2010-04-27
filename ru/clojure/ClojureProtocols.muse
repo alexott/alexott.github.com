@@ -32,13 +32,12 @@ http://gist.github.com/377213 - annotations
 что не нужно использовать AOT
 
 
-
-* Типы
-
- deftype/defrecord
-
 * Протоколы
 
 
+* Типы
 
-* reify
+ deftype/defrecord/reify
+
+
+
