@@ -1,0 +1,40 @@
+#title Video lectures & presentations about Clojure
+#keywords clojure, video, movie, lecture, presentation
+
+On this page I tried to collect links to all existing video materials about Clojure --
+video-lectures & tutorials, presentations at conferences, etc.  *if you have more links to
+video materials, please leave them in comments to this page!*
+
+ - http://clojure.blip.tv/ -- contains set of video-lectures & presentation about Clojure
+   by Rich Hickey (and other developers).  Lectures like "Clojure for Lisp developers" &
+   "Clojure for Java developers" could be used as introductions into this language;
+ - [[http://channel9.msdn.com/shows/Going+Deep/Expert-to-Expert-Rich-Hickey-and-Brian-Beckman-Inside-Clojure/][Inside Clojure]] -- Rich Hickey's lectures for Channel 9 about Clojure internals;
+ - [[http://vimeo.com/channels/fulldisclojure][Sean Devlin's screencasts]] about Clojure 1.1 features, project management, installing
+   IDEs, macroses, etc.;
+ - [[http://www.youtube.com/user/briantwill#g/c/AC43CFB134E85266][Intro to Clojure]] -- set of presentations about Clojure -- comprehensive introduction
+   into language;
+ - Stuart Halloway's lectures at [[http://oredev.org][Øredev]] conference: [[http://vimeo.com/10896148][Clojure's basics ]] and
+   [[http://vimeo.com/8672404][Concurrent programming in Clojure]].  These lectures provides comprehensive introduction
+   into language -- basic constructs, its design, problems of concurrent programming (*I
+   liked these lectures*);
+ - [[http://vimeo.com/11236603][Clojure 1.2 Protocols]] -- Stuart Halloway's screencast about data types & protocols in
+   new version of Clojure (version 1.2);
+ - [[http://link.pluralsight.com/clojure][Clojure Concurrency On-Demand!]] -- set of screencasts about concurrent programming in
+   Clojure;
+ - [[http://www.infoq.com/interviews/hickey-clojure][Rich Hickey on Clojure's Features and Implementation]] -- Rich Hickey's interview on QCon
+   London 2009.  He narrates about STM, Clojure's internals, etc.;
+ - [[http://www.infoq.com/presentations/hickey-clojure][Clojure]] -- Rich Hickey's presentation about Clojure on JVM Languages Summit 2008;
+ - [[http://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey][Are We There Yet?]] -- Rich Hickey's presentation on JVM Languages Summit 2009;
+ - [[http://www.infoq.com/presentations/Value-Identity-State-Rich-Hickey][Persistent Data Structures and Managed References]] -- Rich Hickey's presentation about
+   persistent data structures, mutable state & how these things are implemented in
+   Clojure;
+ - [[http://www.infoq.com/interviews/stuart_holloway_clojure][Stuart Halloway on Clojure and Functional Programming]] -- author of
+   "[[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]]" talk about Clojure & FP;
+ - [[http://vimeo.com/9090935][Clojure in Clojure]] -- Rich Hickey's lecture (incomplete) about implementing Clojure in
+   Clojure;
+ - [[http://peepcode.com/products/functional-programming-with-clojure][Functional Programming with Clojure]] -- screencast (requiring payment), that shows
+   Clojure's features on example of game development (*I hadn't seen it, in contrast to
+   other video-materials*).
+
+;  LocalWords:  Clojure Halloway LocalWords clojure screencast Halloway's
+;  LocalWords:  screencasts Clojure's
