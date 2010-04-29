@@ -1,5 +1,5 @@
 #title How to use Maven to build Clojure code
-#keywords maven, clojure, build tool
+#keywords maven, clojure, build tool, howto, tutorial
 
 This article describes how to use Maven to build projects, written in Clojure (or in
 Clojure & Java).

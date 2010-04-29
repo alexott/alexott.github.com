@@ -133,7 +133,10 @@ description of concrete library.  This description consists from three elements 
 already had seen these descriptions in project's example):
  - symbol, that defines name of library (combination of group name & name of library, same
    as in [[./ClojureMaven][Maven]]), for example, =org.clojure/clojure=;
- - string, that defines version of libraryr, for example, ="1.1.0"= or ="1.2.0-master-SNAPSHOT"=;
+ - string, that defines version of library.  To specify version of concrete package, you
+   just write version as normal string, ="1.1.0"= or ="1.2.0-master-SNAPSHOT"=, for example.
+   But you can also list several "supported" versions, if you specify version as vector
+   with values, separated by comma, ="[1.1,1.2-SNAPSHOT]"=, for example;
  - options (optional) could be used to adjust dependencies, make them more accurate. For
    example, you can exclude some libraries from dependencies using the =:exclusions= option.
    Here is example of excluding of some not necessary dependencies for =log4j= library:

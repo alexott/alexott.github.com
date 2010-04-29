@@ -1,5 +1,5 @@
 #title Использование Maven для сборки кода на Clojure
-#keywords maven, clojure, build tool, кложура, мавен
+#keywords maven, clojure, build tool, кложура, мавен, русская, русская документация, документация, описание, учебник
 
 В данной заметке рассматривается использование Maven для сборки проектов, написанных на
 Clojure (и на смеси Clojure & Java).  
