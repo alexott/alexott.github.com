@@ -16,7 +16,7 @@ video materials, please leave them in comments to this page!*
  - Stuart Halloway's lectures at [[http://oredev.org][Øredev]] conference: [[http://vimeo.com/10896148][Clojure's basics ]] and
    [[http://vimeo.com/8672404][Concurrent programming in Clojure]].  These lectures provides comprehensive introduction
    into language -- basic constructs, its design, problems of concurrent programming (*I
-   liked these lectures*);
+   really enjoyed watching these lectures*);
  - [[http://vimeo.com/11236603][Clojure 1.2 Protocols]] -- Stuart Halloway's screencast about data types & protocols in
    new version of Clojure (version 1.2);
  - [[http://link.pluralsight.com/clojure][Clojure Concurrency On-Demand!]] -- set of screencasts about concurrent programming in
