@@ -20,7 +20,7 @@ video materials, please leave them in comments to this page!*
  - [[http://vimeo.com/11236603][Clojure 1.2 Protocols]] -- Stuart Halloway's screencast about data types & protocols in
    new version of Clojure (version 1.2);
  - [[http://link.pluralsight.com/clojure][Clojure Concurrency On-Demand!]] -- set of screencasts about concurrent programming in
-   Clojure;
+   Clojure.  The first screencast contains pretty good introduction into Clojure programming;
  - [[http://www.infoq.com/interviews/hickey-clojure][Rich Hickey on Clojure's Features and Implementation]] -- Rich Hickey's interview on QCon
    London 2009.  He narrates about STM, Clojure's internals, etc.;
  - [[http://www.infoq.com/presentations/hickey-clojure][Clojure]] -- Rich Hickey's presentation about Clojure on JVM Languages Summit 2008;
