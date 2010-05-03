@@ -32,6 +32,8 @@ video materials, please leave them in comments to this page!*
    "[[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]]" talk about Clojure & FP;
  - [[http://vimeo.com/9090935][Clojure in Clojure]] -- Rich Hickey's lecture (incomplete) about implementing Clojure in
    Clojure;
+ - [[http://www.parleys.com/#st=5&id=1518&sl=1][Clojure: Functional Concurrency for the JVM]] -- lecture about Clojure by Howard M. Lewis
+   on [[http://devoxx.com][Devoxx'09]];
  - [[http://peepcode.com/products/functional-programming-with-clojure][Functional Programming with Clojure]] -- screencast (requiring payment), that shows
    Clojure's features on example of game development (*I hadn't seen it, in contrast to
    other video-materials*).
