@@ -1,0 +1,35 @@
+#title Делаем веб-сервисы на Clojure с помощью Compojure
+#keywords clojure, compojure, web development, webdev, вебдев, веб, программирование
+
+**Про что писать:**
+ - Из чего состоит compojure
+ - routes
+ - ring, и т.п.
+ - standalone приложения
+ - deploy в servlet-container
+ - библиотеки для генерации html, js, css (из моих ссылок)
+
+
+
+* Введение
+
+Для Web-разработки на Clojure часто используют библиотеку [[http://compojure.org][Compojure]], текущей версией
+которой является версия 0.4.
+
+
+* Простой пример
+
+ - http://weavejester.github.com/compojure/docs/getting-started.html
+
+
+* Routes
+
+ - http://weavejester.github.com/compojure/docs/routes-in-detail.html
+
+ - http://github.com/weavejester/clout
+
+
+
+* Дополнительные ссылки
+
+
