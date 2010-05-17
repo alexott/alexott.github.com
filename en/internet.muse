@@ -3,7 +3,7 @@
 Here is small list of resources, that i use:
 
  - [[http://alexott.blogspot.com][My blog]] with notes on different themes
- - [[http://www.amazon.de/gp/registry/wishlist/ref=topnav_wishlist_/302-3198130-0139241][Wishlist]] on Amazon Germany
+ - Wishlists on [[http://www.amazon.de/wishlist/3GN7PNIFBJSHC][Amazon Germany]], or at [[http://www.amazon.co.uk/wishlist/T6DNC3CKUHZ2][Amazon UK]]
 
 ** Social networks
 
