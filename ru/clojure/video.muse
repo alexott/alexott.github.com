@@ -54,6 +54,8 @@ Clojure -- видео-лекции и учебники, выступления �
  - [[http://www.parleys.com/#st=5&id=1518&sl=1][Clojure: Functional Concurrency for the JVM]] -- лекция о Clojure прочитанная Howard
    M. Lewis на конференции [[http://devoxx.com][Devoxx'09]];
  - [[http://vimeo.com/9770382][circumspec, inferior-lisp, clojure, and slime]] -- скринкаст Stuart Halloway;
+ - [[http://vimeo.com/8356990][Compojure/Emacs Intro]] -- скринкаст Lau Jensen, в котором показывается как можно
+   использовать Emacs и Compojure для web-разрабки;
  - [[http://peepcode.com/products/functional-programming-with-clojure][Functional Programming with Clojure]] -- платный скринкаст, показывающий возможности
    Clojure на примере разработки игры (*я сам не смотрел его, в отличии от предыдущих
    материалов*).
