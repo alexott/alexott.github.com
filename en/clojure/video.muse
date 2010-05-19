@@ -30,6 +30,8 @@ video materials, please leave them in comments to this page!*
    Clojure;
  - [[http://www.infoq.com/interviews/stuart_holloway_clojure][Stuart Halloway on Clojure and Functional Programming]] -- author of
    "[[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]]" talk about Clojure & FP;
+ - [[http://www.infoq.com/presentations/Clojure-in-the-Field][Clojure in the Field]] -- presentation by Stuart Halloway on use of Clojure for software
+   development;
  - [[http://rubyconf2009.confreaks.com/21-nov-2009-10-25-clojure-for-ruby-programmers-stuart-halloway.html][Clojure for Ruby Programmers]] -- lecture by Stuart Halloway on RubyConf 2009;
  - [[http://vimeo.com/9090935][Clojure in Clojure]] -- Rich Hickey's lecture (incomplete) about implementing Clojure in
    Clojure;

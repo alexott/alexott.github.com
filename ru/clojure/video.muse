@@ -46,6 +46,8 @@ Clojure -- видео-лекции и учебники, выступления �
    рамках Clojure;
  - [[http://www.infoq.com/interviews/stuart_holloway_clojure][Stuart Halloway on Clojure and Functional Programming]] -- рассказ автора книги
    "[[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]]" о языке и его возможностях;
+ - [[http://www.infoq.com/presentations/Clojure-in-the-Field][Clojure in the Field]] -- презентация Stuart Halloway об использовании Clojure в
+   разработке ПО;
  - [[http://rubyconf2009.confreaks.com/21-nov-2009-10-25-clojure-for-ruby-programmers-stuart-halloway.html][Clojure for Ruby Programmers]] -- выступление Stuart Halloway на RubyConf 2009;
  - [[http://vimeo.com/9090935][Clojure in Clojure]] -- доклад Rich Hickey (к сожалению, не полный) о реализации Clojure
    на самой Clojure;
