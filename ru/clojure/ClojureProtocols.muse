@@ -24,7 +24,8 @@
  - http://vimeo.com/11236603 - video about protocols
 
 
-http://gist.github.com/377213 - annotations
+ - http://gist.github.com/377213 - annotations
+ - http://gist.github.com/406504
 
 * Что это такое и зачем нужно?
 
