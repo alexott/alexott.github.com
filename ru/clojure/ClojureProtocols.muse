@@ -22,7 +22,8 @@
  - http://gist.github.com/306174
 
  - http://vimeo.com/11236603 - video about protocols
-
+ 
+ - http://bestinclass.dk/index.clj/2010/04/prototurtle-the-tale-of-the-bleeding-turtle.html
 
  - http://gist.github.com/377213 - annotations
  - http://gist.github.com/406504
