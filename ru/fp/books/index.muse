@@ -805,6 +805,9 @@ Programmers вышла книга [[http://www.amazon.com/gp/product/1934356336?
 после ее выпуска, еще одну - [[http://joyofclojure.com/][Joy of Clojure. Thinking the Clojure Way]].  Обе книги уже
 доступны в рамках программы раннего доступа (MEAP).
 
+Среди свободных источников информации можно отметить [[http://clojure-notes.rubylearning.org/][Clojure Notes]], который использовался
+в курсе обучения Clojure и книгу [[http://en.wikibooks.org/wiki/Clojure_Programming][Clojure Programming]], создаваемую в рамках проекта
+Wikibooks.
 
 * Рекомендации
 
