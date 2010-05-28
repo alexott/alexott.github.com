@@ -36,6 +36,21 @@
 что не нужно использовать AOT
 
 
+There are several motivations for protocols:
+
+    * Provide a high-performance, dynamic polymorphism construct as an alternative to interfaces
+    * Support the best parts of interfaces
+          o specification only, no implementation
+          o a single type can implement multiple protocols
+    * While avoiding some of the drawbacks
+          o Which interfaces are implemented is a design-time choice of the type author, cannot be extended later (although interface injection might eventually address this)
+          o implementing an interface creates an isa/instanceof type relationship and hierarchy
+    * Avoid the 'expression problem' by allowing independent extension of the set of types, protocols, and implementations of protocols on types, by different parties
+          o do so without wrappers/adapters
+    * Support the 90% case of multimethods (single dispatch on type) while providing higher-level abstraction/organization
+
+
+
 * Протоколы
 
 
