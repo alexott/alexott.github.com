@@ -25,6 +25,8 @@
  
  - http://bestinclass.dk/index.clj/2010/04/prototurtle-the-tale-of-the-bleeding-turtle.html
 
+ - http://kotka.de/blog/2010/03/memoize_done_right.html#protocols
+
  - http://gist.github.com/377213 - annotations
  - http://gist.github.com/406504
 
