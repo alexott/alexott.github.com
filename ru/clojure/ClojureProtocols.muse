@@ -30,6 +30,13 @@
  - http://gist.github.com/377213 - annotations
  - http://gist.github.com/406504
 
+ - http://freegeek.in/blog/2010/05/clojure-protocols-datatypes-a-sneak-peek/
+
+; ================================================================================
+
+*написать введение про космические корабли и т.п. в версии 1.2*
+
+
 * Что это такое и зачем нужно?
 
 
@@ -56,9 +63,18 @@ There are several motivations for protocols:
 * Протоколы
 
 
+
+*упомянуть, что protocols похожи на type classes в haskell (только без дефолтной реализации)*
+
+
 * Типы
 
  deftype/defrecord/reify
 
 
+* Misc
 
+написать про =extend-protocol= & =extend-type=, что первый раскрывается во второй, и может
+применяться для нескольких типов.... Также написать про =extend=....
+
+также про =extends?=, =satisfies?=, =extenders= 
