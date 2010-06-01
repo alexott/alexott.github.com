@@ -23,14 +23,13 @@
 
  - http://vimeo.com/11236603 - video about protocols
  
- - http://bestinclass.dk/index.clj/2010/04/prototurtle-the-tale-of-the-bleeding-turtle.html
-
- - http://kotka.de/blog/2010/03/memoize_done_right.html#protocols
-
  - http://gist.github.com/377213 - annotations
  - http://gist.github.com/406504
 
  - http://freegeek.in/blog/2010/05/clojure-protocols-datatypes-a-sneak-peek/
+ - http://blog.higher-order.net/2010/05/05/circuitbreaker-clojure-1-2/
+ - http://kotka.de/blog/2010/03/memoize_done_right.html#protocols
+ - http://bestinclass.dk/index.clj/2010/04/prototurtle-the-tale-of-the-bleeding-turtle.html
 
 ; ================================================================================
 
@@ -58,7 +57,38 @@ There are several motivations for protocols:
           o do so without wrappers/adapters
     * Support the 90% case of multimethods (single dispatch on type) while providing higher-level abstraction/organization
 
+----------------------------------------------------------------------------------------------------
+7:32 G0SUB: rhickey: a lot of people are asking how protocols are different from haskell's type classes and Go's interfaces. what is the right answer to this question?
 
+7:32 rhickey: G0SUB: sounds like 2 questions to me
+
+7:33 G0SUB: rhickey: I grouped them together for brevity.
+
+7:33 rhickey: you can give me two answers :)
+
+7:36 rhickey: they differ from Haskell's type classes (from which they draw partial inspiration) in that the dispatch map isn't an independent entity passed around by the type system, and thus can't do return-type based method selection, and generally in that they are not static-type-system-based.
+
+7:37 G0SUB: rhickey: thanks!
+
+7:38 rhickey: they differ from Go interfaces in that Go just uses method conformance to determine interface support (vs explicit declaration of 'I implement this protocol'), and Go's interfaces, last time I checked, were only 'open' within a module.
+
+7:38 G0SUB: ah
+
+7:39 rhickey: If one said Clojure's protocols were like dynamic type classes you wouldn't offend me (but might offend some Haskellers)
+
+7:39 G0SUB: heh
+
+7:39 rhickey: but they are not very much like Go interfaces at all
+
+7:41 G0SUB: whenever Blub programmers look at protocols, they say it's identical to the Transmogrify feature in Blub.
+
+7:42 rhickey: G0SUB: the differences can be subtle, but are important
+
+7:43 G0SUB: rhickey: indeed.
+
+7:43 It's like saying Agents are identical to Actors 
+
+----------------------------------------------------------------------------------------------------
 
 * Протоколы
 
