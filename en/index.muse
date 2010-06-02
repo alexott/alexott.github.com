@@ -24,8 +24,8 @@ implementation and marketing activity.  Besides this i do consulting of external
 Currently my specialization are information security and [[cf/index][content filtering]].
 
 At work and at home i working on different projects, using different programming
-languages.  My main languages are [[cpp/index][C & C++]], but i also often use Lisp, Scheme, Haskell, and
-other [[fp/index][functional programming]] languages.
+languages.  My main languages are [[cpp/index][C & C++]], but i also use [[./clojure][Clojure]], Lisp, Scheme, Haskell,
+and other [[fp/index][functional programming]] languages.
 
 For a long time (more than 10 years) i working with Unix-like operating systems -- Linux,
 Solaris, HP-UX, FreeBSD, and Mac OS X.
