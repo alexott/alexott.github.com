@@ -32,4 +32,6 @@
 
 * Дополнительные ссылки
 
-
+ - http://github.com/arohner/scriptjure
+ - http://github.com/richhickey/clojure-contrib/tree/master/clojurescript/ ???
+ - http://arohner.blogspot.com/2010/04/writing-jquery-code-with-scriptjure.html

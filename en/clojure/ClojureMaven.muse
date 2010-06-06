@@ -61,7 +61,9 @@ following code into =<plugins>= section of =pom.xml=:
 
 *Attention:* version number could be changed as development continues.  To find latest
 plugin's version number you can use sites [[http://mvnrepository.com/artifact/com.theoryinpractise/clojure-maven-plugin][mvnrepository]] or [[http://jarvana.com/jarvana/][Jarvana]], that contains
-information about packages, registered in Maven's repositories.
+information about packages, registered in Maven's repositories.  Besides this, you can
+omit plugin version -- in this case, Maven will automatically use latest available
+version.
 
 Declaration of this plugin will give you all functionality -- compilation, testing &
 running of code, written in Clojure.  But out of box you'll need to use full goals names,
