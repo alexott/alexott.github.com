@@ -2,35 +2,35 @@
 <html>
   <head>
     <title><lisp>(muse-publishing-directive "title")</lisp></title>
-    <meta name="generator" content="muse.el">
-    <meta name="author" content="Alex Ott">
+    <meta name="generator" content="muse.el" />
+    <meta name="author" content="Alex Ott" />
     <meta http-equiv="<lisp>muse-html-meta-http-equiv</lisp>" 
-          content="<lisp>muse-html-meta-content-type</lisp>">
+          content="<lisp>muse-html-meta-content-type</lisp>" />
     <lisp>
       (let ((keywords (muse-publishing-directive "keywords")))
         (when keywords
-          (concat "<meta name=\"keywords\" content=\"alex ott, " keywords "\">")))
+          (concat "<meta name=\"keywords\" content=\"alex ott, " keywords "\" />")))
     </lisp>
     <lisp>
       (let ((refresh (muse-publishing-directive "refresh")))
         (when refresh
-          (concat "<meta http-equiv=\"refresh\" content=\"" refresh "\">")))
+          (concat "<meta http-equiv=\"refresh\" content=\"" refresh "\" />")))
     </lisp>
     <lisp>
       (let ((maintainer (muse-style-element :maintainer)))
         (when maintainer
-          (concat "<link rev=\"made\" href=\"" maintainer "\">")))
+          (concat "<link rev=\"made\" href=\"" maintainer "\" />")))
     </lisp>
 	 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" 
-         href="<lisp>(muse-gen-relative-name "web.css")</lisp>">
+         href="<lisp>(muse-gen-relative-name "web.css")</lisp>" />
     <link rel="stylesheet" type="text/css" 
-          href="<lisp>(muse-gen-relative-name "print.css")</lisp>" media="print">
+          href="<lisp>(muse-gen-relative-name "print.css")</lisp>" media="print" />
     <link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" 
-          href="http://feeds.feedburner.com/alexott-ru">
+          href="http://feeds.feedburner.com/alexott-ru" />
     <link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" 
-          href="http://feeds.feedburner.com/alexott">
+          href="http://feeds.feedburner.com/alexott" />
     <link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" 
-          href="http://feeds.feedburner.com/alexott-de">
+          href="http://feeds.feedburner.com/alexott-de" />
   </head>
   <body>
     <div id="wrap">
