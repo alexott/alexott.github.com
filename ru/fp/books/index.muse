@@ -494,7 +494,9 @@ Caml <cite>OCamlBook:2000</cite> -- переведено 11 глав, описы
    программирования на примере реализации простого языка.
  - Книга [[http://www.amazon.com/gp/product/0471941484?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0471941484][Garbage Collection: Algorithms for Automatic Dynamic Memory Management]]
    <cite>Jones:Lins:GC:1996</cite> посвящена описанию применяемых в функциональных языках
-   программирования технологий "сборки мусора".
+   программирования технологий "сборки мусора";
+ - Свободно доступная книга [[http://clean.cs.ru.nl/contents/Addison__Wesley_book/addison__wesley_book.html][Functional Programming and Parallel Graph Rewriting]] описывает
+   разные модели реализации функциональных языков, с примерами реализации языка Clean.
 
 ** Конкретные языки ФП
 
