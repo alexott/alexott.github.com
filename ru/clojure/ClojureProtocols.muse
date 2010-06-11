@@ -54,7 +54,7 @@ There are several motivations for protocols:
           o Which interfaces are implemented is a design-time choice of the type author, cannot be extended later (although interface injection might eventually address this)
           o implementing an interface creates an isa/instanceof type relationship and hierarchy
     * Avoid the 'expression problem' by allowing independent extension of the set of types, protocols, and implementations of protocols on types, by different parties
-          o do so without wrappers/adapters
+          o do so without wrappers/adapters/monkey patching
     * Support the 90% case of multimethods (single dispatch on type) while providing higher-level abstraction/organization
 
 ----------------------------------------------------------------------------------------------------
@@ -93,8 +93,42 @@ There are several motivations for protocols:
 * Протоколы
 
 
-
 *упомянуть, что protocols похожи на type classes в haskell (только без дефолтной реализации)*
+
+
+** Чем протоколы не являются
+
+ - они не являются интерфейсами... они решают сходную проблему, но другим способом...
+ - monkey patches - они не используются для вставки кода в существующие классы и т.п.
+ - wrappers
+ - mixins
+ - injections
+ - implicit conversions
+ - dirty tricks - например, не используются для обхода finality классов
+
+** Зачем они были созданы
+
+ - write to abstractions... 
+ - clojure in clojure - быстрые абстракции и т.п.
+ - solve [[http://en.wikipedia.org/wiki/Expression_Problem][expression problem]] - две группы интерфейсов и классов в отдельных
+   библиотеках. А должно работать с Б, и наоборот, без изменения оригинального исходного
+   кода... Проблема в том, что А не может использовать Б, поскольку:
+  - Б "новее" чем А
+  - А тяжело изменить
+  - мы не контролируем А
+
+Тут написать про решение expression problem, например, мультиметодами...  Но мультиметоды
+не быстрые, что не позволяет написать clojure in clojure...
+
+protocols = multimethods - genericity + speed + grouping, and still enough to solve
+expression problem
+
+
+** protocols mythbusting
+
+ - there is no nil class, that protocol has to extend
+ - function in protocol is just normal function
+ - it lives in own namespace, and could mean other thing in another ns
 
 
 * Типы
@@ -107,4 +141,20 @@ There are several motivations for protocols:
 написать про =extend-protocol= & =extend-type=, что первый раскрывается во второй, и может
 применяться для нескольких типов.... Также написать про =extend=....
 
+ - в extend-protocol вместо типа может быть указан =nil=, что является специальным случаем -
+
 также про =extends?=, =satisfies?=, =extenders= 
+
+
+* TODO:
+
+ - select examples, посмотреть в других примерах? example with reduce из screencast? or
+   rock/papper/scissors ([[http://rubyquiz.com/quiz16.html][here]]) - code in labrepl
+ - read chapter "Datatypes and Protocols" from Practical Clojure
+ - написать, какой интерфейс будет создан при определении протокола
+ - There is one important difference between protocols and interfaces: protocols have no
+   inheritance.  You cannot create “subprotocols” like Java's subinterfaces.
+ - Protocols are also similar to “mix-in” facilities provided by languages such as Ruby,
+   with another important difference: protocols have no implementation. As a result,
+   protocols never conflict with one another, unlike mix-ins.
+
