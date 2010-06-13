@@ -803,7 +803,7 @@ Programmers вышла книга [[http://www.amazon.com/gp/product/1934356336?
 как описание языка, так и практические примеры его использования для решения разных задач.
 
 А осенью 2010-го года, издательство Manning должно выпустить книгу [[http://www.manning.com/rathore/][Clojure in Action]], а
-после ее выпуска, еще одну - [[http://joyofclojure.com/][Joy of Clojure. Thinking the Clojure Way]].  Обе книги уже
+после ее выпуска, еще одну - [[http://www.amazon.com/gp/product/1935182641?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182641][Joy of Clojure. Thinking the Clojure Way]].  Обе книги уже
 доступны в рамках программы раннего доступа (MEAP).
 
 Среди свободных источников информации можно отметить [[http://clojure-notes.rubylearning.org/][Clojure Notes]], который использовался

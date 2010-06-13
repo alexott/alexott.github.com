@@ -37,6 +37,6 @@
  - http://arohner.blogspot.com/2010/04/writing-jquery-code-with-scriptjure.html
  - http://www.slideshare.net/mmcgrana/ring-web-apps-in-idiomatic-clojure
 
- - [[http://arohner.blogspot.com/2010/04/writing-jquery-code-with-scriptjure.html][Scriptjure]], [[http://github.com/cgrand/enlive][Enlive]], [[http://github.com/cgrand/moustache/tree][Moustache]]
+ - [[http://arohner.blogspot.com/2010/04/writing-jquery-code-with-scriptjure.html][Scriptjure]], [[http://github.com/cgrand/enlive][Enlive]], [[http://github.com/cgrand/moustache/tree][Moustache]], [[http://github.com/macourtney/Conjure][Conjure]]
 
 

@@ -25,6 +25,7 @@
  
  - http://gist.github.com/377213 - annotations
  - http://gist.github.com/406504
+ - http://gist.github.com/420036 & http://gist.github.com/432465
 
  - http://freegeek.in/blog/2010/05/clojure-protocols-datatypes-a-sneak-peek/
  - http://blog.higher-order.net/2010/05/05/circuitbreaker-clojure-1-2/
