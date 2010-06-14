@@ -471,7 +471,15 @@ Caml <cite>OCamlBook:2000</cite> -- переведено 11 глав, описы
    используеся [[http://coq.inria.fr/][Coq]].
  - [[http://adam.chlipala.net/cpdt/][Certified Programming with Dependent Types]] (бета-версия, доступная бесплатно) -- еще
    одна книга, посвященная доказательству корректности программ, которая также использует
-   Coq.
+   Coq;
+ - [[http://www.freetechbooks.com/programming-in-martin-lof-s-type-theory-an-introduction-t429.html][Programming in Martin-Löf's Type Theory: An Introduction]] -- свободно-распространяемая
+   книга, посвященная теории типов; 
+ - [[http://www.freetechbooks.com/type-theory-and-functional-programming-t428.html][Type Theory and Functional Programming]] -- еще одна свободная книга, посвященная теории
+   типов;
+ - [[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.17.7385][Lectures on the Curry-Howard Isomorphism]] -- в книге описывается связь между теорией
+   доказательств и теорией типов.
+
+Больше книг вы можете найти на страницах проекта [[http://www.freetechbooks.com/functional-programming-f34.html][Free Tech Books]].
 
 
 #fp-implement
