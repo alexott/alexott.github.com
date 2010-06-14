@@ -1,41 +1,11 @@
 #title Типы и протоколы в Clojure
-#keywords clojure, кложура, datatype, protocol, defprotocl, reify
+#keywords clojure, кложура, datatype, protocol, defprotocol, reify
 
+Одно из самых больших изменений в Clojure версии 1.2 -- введение в язык новых артифактов:
+протоколов (protocols) и типов данных (datatypes).  Данные изменения позволяют улучшить
+производительность программ, что в будущем даст возможность написать Clojure на Clojure.
 
- - http://clojure.org/protocols
- - http://clojure.org/datatypes
- - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/deftype
- - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/defrecord
- - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/reify
- - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/defprotocol
- - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/extend
- - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/extend-protocol
- - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/extend-type
-
- - http://www.objectcommando.com/blog/2010/03/26/clojure-protocols-part-1/
- - http://www.objectcommando.com/blog/2010/03/29/clojure-protocols-part-2/
- - http://www.objectcommando.com/blog/2010/04/12/clojure-protocols-part-3/
-
- - http://github.com/richhickey/clojure/blob/0d1b2b19065350c5c072b63e912b2415a2c869e6/src/clj/clojure/core/protocols.clj
- - http://github.com/richhickey/clojure/blob/e660e467789ccc8e9922948b3498939e0239fc7c/src/clj/clojure/gvec.clj
-
- - http://gist.github.com/306174
-
- - http://vimeo.com/11236603 - video about protocols
- 
- - http://gist.github.com/377213 - annotations
- - http://gist.github.com/406504
- - http://gist.github.com/420036 & http://gist.github.com/432465
-
- - http://freegeek.in/blog/2010/05/clojure-protocols-datatypes-a-sneak-peek/
- - http://blog.higher-order.net/2010/05/05/circuitbreaker-clojure-1-2/
- - http://kotka.de/blog/2010/03/memoize_done_right.html#protocols
- - http://bestinclass.dk/index.clj/2010/04/prototurtle-the-tale-of-the-bleeding-turtle.html
-
-; ================================================================================
-
-*написать введение про космические корабли и т.п. в версии 1.2*
-
+<contents>
 
 * Что это такое и зачем нужно?
 
@@ -57,44 +27,6 @@ There are several motivations for protocols:
     * Avoid the 'expression problem' by allowing independent extension of the set of types, protocols, and implementations of protocols on types, by different parties
           o do so without wrappers/adapters/monkey patching
     * Support the 90% case of multimethods (single dispatch on type) while providing higher-level abstraction/organization
-
-----------------------------------------------------------------------------------------------------
-7:32 G0SUB: rhickey: a lot of people are asking how protocols are different from haskell's type classes and Go's interfaces. what is the right answer to this question?
-
-7:32 rhickey: G0SUB: sounds like 2 questions to me
-
-7:33 G0SUB: rhickey: I grouped them together for brevity.
-
-7:33 rhickey: you can give me two answers :)
-
-7:36 rhickey: they differ from Haskell's type classes (from which they draw partial inspiration) in that the dispatch map isn't an independent entity passed around by the type system, and thus can't do return-type based method selection, and generally in that they are not static-type-system-based.
-
-7:37 G0SUB: rhickey: thanks!
-
-7:38 rhickey: they differ from Go interfaces in that Go just uses method conformance to determine interface support (vs explicit declaration of 'I implement this protocol'), and Go's interfaces, last time I checked, were only 'open' within a module.
-
-7:38 G0SUB: ah
-
-7:39 rhickey: If one said Clojure's protocols were like dynamic type classes you wouldn't offend me (but might offend some Haskellers)
-
-7:39 G0SUB: heh
-
-7:39 rhickey: but they are not very much like Go interfaces at all
-
-7:41 G0SUB: whenever Blub programmers look at protocols, they say it's identical to the Transmogrify feature in Blub.
-
-7:42 rhickey: G0SUB: the differences can be subtle, but are important
-
-7:43 G0SUB: rhickey: indeed.
-
-7:43 It's like saying Agents are identical to Actors 
-
-----------------------------------------------------------------------------------------------------
-
-* Протоколы
-
-
-*упомянуть, что protocols похожи на type classes в haskell (только без дефолтной реализации)*
 
 
 ** Чем протоколы не являются
@@ -132,12 +64,54 @@ expression problem
  - it lives in own namespace, and could mean other thing in another ns
 
 
-* Типы
+----------------------------------------------------------------------------------------------------
+
+*упомянуть, что protocols похожи на type classes в haskell (только без дефолтной реализации)*
+
+
+
+7:32 G0SUB: rhickey: a lot of people are asking how protocols are different from haskell's type classes and Go's interfaces. what is the right answer to this question?
+
+7:32 rhickey: G0SUB: sounds like 2 questions to me
+
+7:33 G0SUB: rhickey: I grouped them together for brevity.
+
+7:33 rhickey: you can give me two answers :)
+
+7:36 rhickey: they differ from Haskell's type classes (from which they draw partial inspiration) in that the dispatch map isn't an independent entity passed around by the type system, and thus can't do return-type based method selection, and generally in that they are not static-type-system-based.
+
+7:37 G0SUB: rhickey: thanks!
+
+7:38 rhickey: they differ from Go interfaces in that Go just uses method conformance to determine interface support (vs explicit declaration of 'I implement this protocol'), and Go's interfaces, last time I checked, were only 'open' within a module.
+
+7:38 G0SUB: ah
+
+7:39 rhickey: If one said Clojure's protocols were like dynamic type classes you wouldn't offend me (but might offend some Haskellers)
+
+7:39 G0SUB: heh
+
+7:39 rhickey: but they are not very much like Go interfaces at all
+
+7:41 G0SUB: whenever Blub programmers look at protocols, they say it's identical to the Transmogrify feature in Blub.
+
+7:42 rhickey: G0SUB: the differences can be subtle, but are important
+
+7:43 G0SUB: rhickey: indeed.
+
+7:43 It's like saying Agents are identical to Actors 
+
+----------------------------------------------------------------------------------------------------
+
+* Использование протоколов
+
+
+
+* Определение типов данных
 
  deftype/defrecord/reify
 
 
-* Misc
+* Дополнительные функции
 
 написать про =extend-protocol= & =extend-type=, что первый раскрывается во второй, и может
 применяться для нескольких типов.... Также написать про =extend=....
@@ -145,6 +119,9 @@ expression problem
  - в extend-protocol вместо типа может быть указан =nil=, что является специальным случаем -
 
 также про =extends?=, =satisfies?=, =extenders= 
+
+Аннотации для типов в кложуре - http://gist.github.com/377213 
+
 
 
 * TODO:
@@ -159,3 +136,44 @@ expression problem
    with another important difference: protocols have no implementation. As a result,
    protocols never conflict with one another, unlike mix-ins.
 
+* Дополнительная информация
+
+Как всегда, основной источник информации -- сайт языка: разделы [[http://clojure.org/protocols][protocols]] и [[http://clojure.org/datatypes][datatypes]].
+
+Stuart Halloway создал очень [[http://vimeo.com/11236603][интересный скринкаст]] в котором он рассказывает о том, зачем
+были созданы протоколы и data types, и демонстрирует их применение на небольших примерах.
+
+Введение новых возможностей в язык не обходится без статей в блогах.  Вот ссылки на
+некоторые интересные статьи на эту тему:
+ - Серия из 3-х статей ([[http://www.objectcommando.com/blog/2010/03/26/clojure-protocols-part-1/][1]], [[http://www.objectcommando.com/blog/2010/03/29/clojure-protocols-part-2/][2]], [[http://www.objectcommando.com/blog/2010/04/12/clojure-protocols-part-3/][3]]) о протоколах в блоге Object Commando;
+ - [[http://freegeek.in/blog/2010/05/clojure-protocols-datatypes-a-sneak-peek/][Краткое введение]] в протоколы, написанное Baishampayan Ghose;
+ - [[http://blog.higher-order.net/2010/05/05/circuitbreaker-clojure-1-2/][Пример реализации паттерна "Circuit Breaker"]] с помощью протоколов;
+ - [[http://kotka.de/blog/2010/03/memoize_done_right.html#protocols][Пример использования протоколов]] для мемоизации;
+ - [[http://bestinclass.dk/index.clj/2010/04/prototurtle-the-tale-of-the-bleeding-turtle.html][Еще пример]] использования протоколов для реализации turtle graphics;
+ - [[http://kirindave.tumblr.com/post/658770511/monkey-patching-gorilla-engineering-protocols-in][Небольшое сравнение]] Monkey Patching в Ruby с протоколами в Clojure
+ - Пример реализации стека с помощью протоколов ([[http://www.viksit.com/content/stack-implementation-clojure-using-protocols-and-records][1]], [[http://www.viksit.com/content/stack-implementation-clojure-ii-functional-approach][2]]), написанный Viksit Gaur.
+
+ 
+
+; ================================================================================
+
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/deftype
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/defrecord
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/reify
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/defprotocol
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/extend
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/extend-protocol
+ - http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/extend-type
+
+ - http://github.com/richhickey/clojure/blob/0d1b2b19065350c5c072b63e912b2415a2c869e6/src/clj/clojure/core/protocols.clj
+ - http://github.com/richhickey/clojure/blob/e660e467789ccc8e9922948b3498939e0239fc7c/src/clj/clojure/gvec.clj
+
+ - http://gist.github.com/306174 - пример использования протоколов, написанный Rich Hickey 
+
+ - http://gist.github.com/420036
+
+ - http://groups.google.com/group/clojure/browse_thread/thread/b8620db0b7424712
+
+
+;  LocalWords:  defprotocol reify datatype protocols datatypes data types
+;  LocalWords:  Halloway Stuart
