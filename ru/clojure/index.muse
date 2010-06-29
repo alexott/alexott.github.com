@@ -38,5 +38,7 @@ Clojure, которую можно использовать в качестве 
 
 А остальные заметки, относящиеся к Clojure опубликованы в [[http://alexott-ru.blogspot.com/search/label/clojure][моем блоге]].
 
+Также доступны [[http://www.scribd.com/doc/33620948/][слайды]] моего выступления о Clojure на конференции [[http://margincon.ru][MarginCon 2010]] (они же в
+виде [[Clojure-MarginCon.pdf][PDF]]).
 
 ;  LocalWords:  Clojure
