@@ -79,7 +79,7 @@ project you can find at [[http://github.com/alexott/lein-simple-project/][github
   :url "http://my-cool-project.com"
   :dependencies [[org.clojure/clojure "1.1.0"]
                  [org.clojure/clojure-contrib "1.1.0"]]
-  :dev-dependencies [[leiningen/lein-swank "1.2.0-SNAPSHOT"]]
+  :dev-dependencies [ [swank-clojure "1.2.0"] ]
 )
 </src>
 
@@ -219,7 +219,7 @@ running of Swank and Nailgun servers, that are implementing interactive work fro
 Vim.  If you run these servers, then they are using all necessary dependencies, so you
 will work in the same environment, as your program.
 
-To use Swank server you need to add dependency on [[http://clojars.org/leiningen/lein-swank][lein-swank]][3] in =:dev-dependencies=
+To use Swank server you need to add dependency on  [[http://clojars.org/swank-clojure][swank-clojure]][3] in =:dev-dependencies=
 option[4], and after this you could use =lein swank= command.  After execution of this
 command you'll get Swank server, running on port 4005 and you can connect to it with
 Emacs' =slime-connect= command.  And if you prefer to use Vim editor, then you need to add
@@ -256,7 +256,7 @@ Footnotes:
 [2] In contrast to other commands, =repl= is implemented directly in =lein=, not written in
     Clojure.
 
-[3] example of =lein-swank= dependency you can see in project's example.
+[3] example of =swank-clojure= dependency you can see in project's example.
 
 [4] and don't forget to run =lein deps= after adding this dependency!
 
