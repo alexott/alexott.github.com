@@ -29,6 +29,9 @@ And in the fall of 2010th the Manning publications plans to release 2 books abou
 as part of MEAP program (Manning Early Access Programm), so you can order them and read
 new material as it become available[1].
 
+I'm also collecting links to video-lectures & screencasts about Clojure.  You can find
+them on [[./video][separate page]].
+
 ** Some articles about Clojure
 
 I wrote some number of small articles about Clojure (other notes about Clojure you can
