@@ -26,7 +26,8 @@
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
     - Development of content-filtering software
-    - Architect of new versions of software<br>
+    - Architect of new versions of software -- collecting requirements, creating top-level
+      view, planning concrete development tasks, etc.<br>
 
  - **Head of Software development group** at *Jet Infosystems*<br>
  **Dates (from-to)**: 10.2001-11.2006<br>
@@ -104,16 +105,17 @@
 
  - C and C++ – more than 10 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
  - Scheme and Common Lisp – 8 years (commercial & personal projects)
- - Clojure - 1 year (personal projects)
+ - Clojure - 1 year (commercial & personal projects)
  - Erlang - 1,5 year (personal projects)
  - Haskell - 1 year (personal projects)
  - Java (including J2EE) – 5 years (currently inactive)
  - Perl – 5 years (currently inactive)
- - OCaml and F# – 3 year (currently inactive)
+ - OCaml and F# – 3 years (currently inactive)
  - Prolog - 2 years (currently inactive)
  - SQL – 7 years (Oracle and PostgreSQL)
  - UML modeling in complex projects
  - x86 Assembler – 5 years (currently inactive)
+ - Hadoop and corresponding topics - 1 year
 
 ** Other computer-related skills
 
@@ -155,7 +157,7 @@
 ** Social and organizational skills and competences
 
  - Ability to working in multinational commands, working with foreign customers
- - Ability to lead and working in teams (and alone)
+ - Ability to work in teams and alone
  - Experience in managing of software development teams, coordinating different
    departments to make projects.
  - Participation in Open Source projects
@@ -164,7 +166,8 @@
 
  - **Driving license**: present
  - **Artistic skills and competences**: Author of different articles, in physic and
-   computer-related branches. Co-author of Russian translation of "GNU Emacs manual".
+   computer-related branches. Co-author of Russian translation of "GNU Emacs manual",
+   "Practical Common Lisp", "Types and programming languages", and some other.
 
 
 ;  LocalWords:  Mailboss SMAP Dozor Webboss SKVT IAS BeepayXP NG
