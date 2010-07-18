@@ -143,7 +143,9 @@ Layer 5: clojure-hadoop.defjob
 поэтому для сборки должна использоваться команда =lein uberjar=, которая упакует код на
 Clojure, вместе со всеми необходимыми библиотеками.  После сборки вы можете запустить
 задачу на выполнение с помощью следующей командой строки (Hadoop должен быть уже настроен
-и запущен):
+и запущен): 
+
+; это запуск локального хадупа!
 
 <src lang="sh">
 java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input FILE -output out
@@ -154,6 +156,10 @@ java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input FILE 
 Данный файл можно затем использовать в качестве базы данных для задач определения языков
 и т.п.
 
+; распределенный хадуп
+<src lang="sh">
+hadoop jar hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input input/book/ -output output1
+</src>
 
 * Заключение
 
