@@ -3,7 +3,8 @@
 
 Одно из самых больших изменений в Clojure версии 1.2 -- введение в язык новых артифактов:
 протоколов (protocols) и типов данных (datatypes).  Данные изменения позволяют улучшить
-производительность программ, что в будущем даст возможность написать Clojure на Clojure.
+производительность программ по сравнению с мультиметодами, что в будущем даст возможность
+написать Clojure на Clojure.
 
 <contents>
 
@@ -135,6 +136,7 @@ expression problem
  - Protocols are also similar to “mix-in” facilities provided by languages such as Ruby,
    with another important difference: protocols have no implementation. As a result,
    protocols never conflict with one another, unlike mix-ins.
+ - написать, что не обязательно реализовывать все функции объявленные в протоколе
 
 * Дополнительная информация
 

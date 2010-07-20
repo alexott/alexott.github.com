@@ -1,9 +1,27 @@
 #title Использование Clojure с Hadoop
 #keywords hadoop, clojure
 
+Данная статья является небольшим введение в программирование Hadoop на Clojure.
+
 <contents>
 
 * Введение 
+
+
+написать про core hadoop - http://hadoop.apache.org/, а также родственные проекты
+
+
+* Установка и настройка 
+
+Для использования 
+
+ - http://hadoop.apache.org/
+
+Компания Cloudera [[http://www.cloudera.com/developers/downloads/][предоставляет готовые пакеты]] для разных версий Linux, так что вы можете
+установить Hadoop и другие пакеты используя ваш любимый пакетный менеджер.  Кроме того,
+они распространяют готовую к работе инсталяцию в виде образа для VMWare, так что вы можете
+загрузить нужный архив и получить готовую рабочую среду.
+
 
 
 http://github.com/stuartsierra/clojure-hadoop
@@ -11,25 +29,6 @@ http://github.com/stuartsierra/clojure-hadoop
 
 examples - 
 http://github.com/stuartsierra/clojure-hadoop/tree/master/src/examples/clojure/clojure_hadoop/examples/
-
-
- - [[http://vimeo.com/7669741][Watch my presentation at HadoopWorld NYC]] 
-
-http://www.bestinclass.dk/index.php/2010/01/hadoop-feeding-reddit-to-hadoop/
-
-http://github.com/technomancy/leiningen
-
- - http://hadoop.apache.org/core/
- - http://www.masukomi.org/writings/hadoop_overview.html
-
- - http://hadoop.apache.org/common/docs/current/mapred_tutorial.html
-
- - [[http://www.michael-noll.com/wiki/Running_Hadoop_On_Ubuntu_Linux_%28Multi-Node_Cluster%29][How to Setup Hadoop on Ubuntu]]
-
- - [[http://www.cloudera.com/hadoop-training-programming-with-hadoop][Programming with Hadoop video]], etc.  [[http://vimeo.com/cloudera][Other video lectures]] 
- - http://www.cloudera.com/hadoop-training-basic
-
- - http://stuartsierra.com/2009/10/02/clojurehadoop-slides
 
 
 * Из чего состоит clojure-hadoop
@@ -161,6 +160,31 @@ java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input FILE 
 hadoop jar hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input input/book/ -output output1
 </src>
 
+
+
 * Заключение
 
+Данная статья является лишь введением в использование Clojure для программирования на базе
+Hadoop.  Дополнительные примеры применения clojure-hadoop вы можете найти в следующих
+материалах: 
+ - [[http://vimeo.com/7669741][Видео-презентация о Clojure и Hadoop на HadoopWorld NYC]] ([[http://stuartsierra.com/2009/10/02/clojurehadoop-slides][слайды]]);
+ - [[http://www.bestinclass.dk/index.php/2010/01/hadoop-feeding-reddit-to-hadoop/][Hadoop - Feeding Reddit to Hadoop]] -- заметка в блоге, показывающая использование 
+   Clojure & Hadoop для анализа данных, собранных с Reddit.
+
+Дополнительная информация о программировании Hadoop и Map/Reduce вы можете найти в
+следующих материалах:
+ - [[http://www.cloudera.com/hadoop-training-programming-with-hadoop][Видео-лекция о программировании с помощью Hadoop]];
+ - [[http://www.cloudera.com/hadoop-training-basic][Учебные курсы по работе с Hadoop созданные компаниией Cloudera]]
+ - [[http://hadoop.apache.org/common/docs/current/mapred_tutorial.html][Map/Reduce Tutorial]]
+ - [[http://www.amazon.com/gp/product/0596521979?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0596521979][Hadoop: The Definitive Guide]] -- отличная книга о работе и программировании Hadoop, и
+   сопутствующищих проектов -- Pig, HBase, и других;
+ - [[http://www.amazon.com/gp/product/1608453421?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1608453421][Data-Intensive Text Processing with MapReduce]] -- книга об использовании Map/Reduce для
+   анализа больших объемов текстовых данных, включая примеры использования Hadoop.
+
+
+
+
  - добавить описание http://github.com/nathanmarz/cascalog ?
+
+
+;  LocalWords:  Cloudera Hadoop
