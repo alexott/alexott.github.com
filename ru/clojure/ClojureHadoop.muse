@@ -7,20 +7,26 @@
 
 * Введение 
 
+Проект [[http://hadoop.apache.org/][Hadoop]] является свободной реализацией инфраструктуры для распределенных,
+масштабируемых вычислений.  Он начался как реализация идей MapReduce и GFS, введенных
+Google, но со временем, в рамках проекат были реализованы и другие проекты.  Hadoop
+активно используется во многих проектах, включая коммерческие -- Yahoo, LinkedIn, и т.д.,
+и позволяет обрабатывать огромные объемы данных используя "стандартное" оборудование.
 
-написать про core hadoop - http://hadoop.apache.org/, а также родственные проекты
-
+Hadoop написан на языке Java, что позволяет достаточно просто интегрировать его с Clojure.
+Для упрощения программирования на Clojure для Hadoop, [[http://stuartsierra.com/][Stuart Sierra]] разработал пакет
+=clojure-hadoop=, о котором и пойдет речь в данной статье.
 
 * Установка и настройка 
 
-Для использования 
+Установка Hadoop в минимальной конфигурации, необходимой для наших экспериментов,
+достаточно проста и описана в [[http://hadoop.apache.org/common/docs/current/quickstart.html][документации]].  Настройка Hadoop для работы в кластере
+немного сложнее, но тоже [[http://hadoop.apache.org/common/docs/current/cluster_setup.html][описана достаточно подробно]].
 
- - http://hadoop.apache.org/
-
-Компания Cloudera [[http://www.cloudera.com/developers/downloads/][предоставляет готовые пакеты]] для разных версий Linux, так что вы можете
-установить Hadoop и другие пакеты используя ваш любимый пакетный менеджер.  Кроме того,
-они распространяют готовую к работе инсталяцию в виде образа для VMWare, так что вы можете
-загрузить нужный архив и получить готовую рабочую среду.
+Хочется отметить, что компания Cloudera [[http://www.cloudera.com/developers/downloads/][предоставляет готовые пакеты]] для разных версий
+Linux, так что вы можете установить Hadoop и другие пакеты используя ваш любимый пакетный
+менеджер.  Кроме того, они распространяют готовую к работе инсталяцию в виде образа для
+VMWare, так что вы можете загрузить нужный архив и получить готовую рабочую среду.
 
 
 
@@ -69,21 +75,22 @@ Layer 5: clojure-hadoop.defjob
 
 
 
-* Пример программы
+* Пример
+
+
+Исходный код доступен на [[http://github.com/alexott/clojure-examples][github]], каталог =hadoop1=.
 
 <src lang="clojure">
 (ns hadoop1
     (:require [clojure-hadoop.wrap :as wrap]
-              [clojure-hadoop.defjob :as defjob])
-    (:use clojure-hadoop.imports)
+              [clojure-hadoop.defjob :as defjob]
+              [clojure-hadoop.imports :as imp])
     (:use clojure.contrib.seq-utils)
     (:require [clojure.contrib.str-utils2 :as str2])
-    (:import (java.util StringTokenizer)
-             (org.apache.hadoop.io Text LongWritable)
-             (org.apache.hadoop.mapred OutputCollector)))
+    (:import (java.util StringTokenizer)))
 
-(import-io)
-(import-mapred)
+(imp/import-io)
+(imp/import-mapred)
 
 (def delimiters "0123456789[ \t\n\r!\"#$%&'()*+,./:;<=>?@\\^`{|}~-]+")
 
@@ -130,21 +137,21 @@ Layer 5: clojure-hadoop.defjob
 кода используется следующий проект Leiningen:
 
 <src lang="clojure">
-(defproject hadoop1 "1.0-SNAPSHOT"
+(defproject hadoop1 "1.0"
   :description "hadoop1"
   :dependencies [[org.clojure/clojure "1.1.0"]
-                 [com.stuartsierra/clojure-hadoop "1.1.0"]]
-  :repositories {"stuartsierra-snapshots" "http://stuartsierra.com/maven2"}
+                 [org.clojure/clojure-contrib "1.1.0"]
+                 [com.stuartsierra/clojure-hadoop "1.2.0-SNAPSHOT"]]
   )
 </src>
 
-Для запуска проекта в кластере Hadoop, необходимо собрать все библиотеки в один архив,
-поэтому для сборки должна использоваться команда =lein uberjar=, которая упакует код на
-Clojure, вместе со всеми необходимыми библиотеками.  После сборки вы можете запустить
-задачу на выполнение с помощью следующей командой строки (Hadoop должен быть уже настроен
-и запущен): 
+Для запуска проекта необходимо собрать все библиотеки в один архив, поэтому для сборки
+должна использоваться команда =lein uberjar=, которая упакует код на Clojure, вместе со
+всеми необходимыми библиотеками.  После сборки вы можете запустить задачу на выполнение
+либо в автономном режиме -- без запущенного Hadoop, и работающего с локальными файлами[1],
+либо в кластерном режиме.
 
-; это запуск локального хадупа!
+Запуск в автономном режиме производится следующей командой:
 
 <src lang="sh">
 java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input FILE -output out
@@ -152,16 +159,21 @@ java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input FILE 
 
 в качестве аргумента =FILE= подставьте нужный текстовый файл, и после выполнения программы,
 в каталоге =out= будет создан файл, содержащий список N-Gram и их количество в тексте.
-Данный файл можно затем использовать в качестве базы данных для задач определения языков
-и т.п.
+Данный файл можно затем использовать в качестве базы данных для задач определения языков и
+т.п.
 
-; распределенный хадуп
+Для запуска вашего кода в кластере Hadoop вы должны поместить анализируемые файлы на HDFS
+(в каталог =input=, в нашем примере), и запустить задачу на выполнение с помощью следуюшей
+команды:
+
 <src lang="sh">
-hadoop jar hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input input/book/ -output output1
+hadoop jar hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input input -output output
 </src>
 
+После окончания выполнения задания, данные будут помещены в каталог =output=[2] на HDFS, и
+вы можете получить доступ к ним используя стандартные команды работы с HDFS.
 
-
+#more-info
 * Заключение
 
 Данная статья является лишь введением в использование Clojure для программирования на базе
@@ -187,4 +199,12 @@ Hadoop.  Дополнительные примеры применения clojur
  - добавить описание http://github.com/nathanmarz/cascalog ?
 
 
-;  LocalWords:  Cloudera Hadoop
+;  LocalWords:  Cloudera Hadoop clojure hadoop VMWare GFS HDFS
+
+Footnotes: 
+[1] Запуск в автономном режиме удобен для отладки вашего кода, поскольку он выполняется в
+    отдельном инстансе JVM, и работает с локальными файлами.
+
+[2] Каталог для результатов не должен существовать, задание просто не запустится если
+    каталог уже существует.
+
