@@ -1,7 +1,7 @@
 #title Использование Clojure с Hadoop
 #keywords hadoop, clojure
 
-Данная статья является небольшим введение в программирование Hadoop на Clojure.
+Данная статья является небольшим введением в программирование Hadoop с помощью Clojure.
 
 <contents>
 
@@ -9,7 +9,7 @@
 
 Проект [[http://hadoop.apache.org/][Hadoop]] является свободной реализацией инфраструктуры для распределенных,
 масштабируемых вычислений.  Он начался как реализация идей MapReduce и GFS, введенных
-Google, но со временем, в рамках проекат были реализованы и другие проекты.  Hadoop
+Google, но со временем, в рамках проекта были реализованы и другие проекты.  Hadoop
 активно используется во многих проектах, включая коммерческие -- Yahoo, LinkedIn, и т.д.,
 и позволяет обрабатывать огромные объемы данных используя "стандартное" оборудование.
 
@@ -40,23 +40,33 @@ Clojure 1.1.0.  Если вам нужен Hadoop 0.20 и старше и/или
 порядке увеличения абстракции.
  =clojure-hadoop.gen= :: реализует набор макросов, которые генерируют классы, необходимые
    для определения задания MapReduce.  Функции =map= и =reduce= имеют точно такой же набор
-   параметров, как и функции Java и имеют фиксированные имена -- =map-mapper= и
+   параметров, как и функции Java и имеют фиксированные имена -- =mapper-map= и
    =reduce-reducer=.  А инициализация задания, указание входных и выходных файлов и т.п.,
    должно производиться функцией =tool-run=.
  =clojure-hadoop.wrap= :: реализует функции-обертки, которые упрощают конвертацию входных и
     выходных данных, позволяя писать функции =map= и =reduce= в более натуральном для Clojure
     стиле.  Все остальное реализуется также как и в предыдущем случае.
- =clojure-hadoop.job= :: реализует все необходимые функции (=map-mapper=, =reduce-reducer= и
-   =tool-run=), позволяя указывать названия функций =map= и =reduce= (написанных на Clojure),
-   входные и выходные данные и т.п., используя опции командной строки.
- =clojure-hadoop.defjob= :: A convenient macro to configure MapReduce jobs with Clojure
-   code.  See the example files "wordcount4.clj" and "wordcount5.clj" for demonstrations
-   of this macro.
+ =clojure-hadoop.job= :: реализует все необходимые функции (=mapper-map=, =reduce-reducer= и
+   =tool-run=) и позволяя указывать произвольные функции =map= и =reduce= (написанные на
+   Clojure), входные и выходные данные и т.п., используя опции командной строки.
+ =clojure-hadoop.defjob= :: определяет макрос =defjob=, который позволяет определять задания
+   MapReduce используя Clojure.  При этом сохраняется возможность указания части данных
+   (обычно это входные и выходные данные) через опции командной строки.  А с помощью
+   макроса указываются функции =map= и =reduce=, а также функции для преобразования входных и
+   выходных данных.
 
 Кроме того, имеется пространство имен =clojure-hadoop.imports=, в котором определяются
 функции для импорта определений классов и интерфейсов Hadoop, что делает жизнь
-разработчика легче -- эти функции используются во всех программах, независимо от
-выбранного уровня абстракции;
+разработчика легче -- эти функции используются во всех программах (все или только
+некоторые), независимо от выбранного уровня абстракции.  В данный момент определены
+следующие функции:
+ - =import-io= -- для импорта классов и интерфейсов из пакета =org.apache.hadoop.io=;
+ - =import-io-compress= -- для импорта классов и интерфейсов из пакета
+   =org.apache.hadoop.io.compress=;
+ - =import-fs= -- для импорта классов и интерфейсов из пакета =org.apache.hadoop.fs=;
+ - =import-mapred= -- для импорта классов и интерфейсов из пакета =org.apache.hadoop.mapred=;
+ - =import-mapred-lib= -- для импорта классов и интерфейсов из пакета
+   =org.apache.hadoop.mapred.lib=.
 
 * Как программировать с помощью clojure-hadoop?
 
@@ -64,23 +74,102 @@ Clojure 1.1.0.  Если вам нужен Hadoop 0.20 и старше и/или
 подходы к программированию.  В большинстве случаев достаточно использовать =defjob=, который
 прячет больщую часть деталей за своим интерфейсом, так что программисту достаточно
 реализовать логику в виде двух функций.  Однако, в некоторых случаях может понадобиться
-использовать низкоуровневые интерфейсы, поэтому тут приводится описание всех уровней.
+использовать низкоуровневые интерфейсы, поэтому тут приводится описание всех уровней.  В
+каждом из разделов имеются ссылки на примеры, которые можно найти в
+[[http://github.com/stuartsierra/clojure-hadoop/tree/master/src/examples/clojure/clojure_hadoop/examples/][поставке clojure-hadoop]].
 
 ** Использование clojure-hadoop.gen
 
-wordcount1
+В пространстве имен =clojure-hadoop.gen= определено всего два объекта: макрос
+=gen-job-classes= и функция =gen-main-method=.
+
+Макрос =gen-job-classes= создает три класса, которые реализуют интерфейсы
+=org.apache.hadoop.mapred.Mapper=, =org.apache.hadoop.mapred.Reducer= и
+=org.apache.hadoop.util.Tool=, соответственно.  При этом пользователь обязан определить
+функции =mapper-map=, =reducer-reduce= и =tool-run=, поскольку эти функции являются реализациями
+методов в соответствующих интерфейсах.  Функция =mapper-map= реализует отображение входных
+данных в промежуточные данные (часть =map= в схеме MapReduce), функция =reducer-reduce=
+реализует обработку промежуточных данных и превращениех их в окончательный результат
+(часть =reduce= в схеме MapReduce), а функция =tool-run= определяет опции задания Hadoop и
+подготавливает входные и выходные данные.  Все параметры функций напрямую соответствуют
+параметрам функций в интерфейсах, так что для детальной информации стоит обратиться к
+документации на соответствующие интерфейсы.
+
+Функция =gen-main-method= создает стандартный метод =main=, который запускает функцию =tool-run=
+используя метод =run= класса =org.apache.hadoop.util.ToolRunner=.
+
+Пример реализации всех этих функций можно увидеть в примере [[http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount1.clj][wordcount1]].
 
 ** Использование clojure-hadoop.wrap
 
-wordcount2
+Использование функций из =clojure-hadoop.wrap= позволяют упростить написание функций =map= и
+=reduce=, сделать их более простыми за счет работы не с классами Hadoop, а используя типы
+Clojure для ввода и вывода данных.  Функция =wrap-map= реализует обертку для =map=, а
+=wrap-reduce= -- для =reduce=.  Каждая из функций-оберток имеет по три варианта реализации --
+с одним, двумя или тремя аргументами.  Первый, обязательный аргумент -- обертываемая
+функция.  Второй аргумент -- функция, реализующая чтение данных. А третий аргумент --
+функция, реализующая запись данных.  В составе библиотеки реализован набор функций чтения
+и записи, которые вы можете использовать в своем коде.
+
+Функция, реализующая часть =map=, принимает на вход два параметра -- ключ и значение, а
+функция, реализующая часть =reduce= также принимает на вход два параметра -- ключ и список
+значений, сгенерированных функций =map=.
+
+При этом, стоит отметить что функция =tool-run= должна быть реализована точно также как и в
+предыдущем случае, а результат применения функций-оберток должн иметь имена =mapper-map= и
+=reducer-reduce=, соответственно.
+
+Пример реализации можно увидеть в примере [[http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount2.clj][wordcount2]].
 
 ** Использование clojure-hadoop.job
 
-wordcount3
+Код, реализованный в пространстве имен =clojure-hadoop.job= еще более упрощает реализацию
+функций =map= и =reduce=, реализуя остальные необходимые функции и позволяя пользователю
+указывать свои функции используя параметры командной строки.  Все это производится
+автоматически, используя класс =clojure_hadoop.job=, который выполняет разбор командной
+строки, связывает переданные параметры с 
+
+Required options are:
+ -input     comma-separated input paths
+ -output    output path
+ -map       mapper function, as namespace/name or class name
+ -reduce    reducer function, as namespace/name or class name
+
+Mapper or reducer function may also be \"identity\".
+Reducer function may also be \"none\".
+
+Other available options are:
+ -input-format      Class name or \"text\" or \"seq\" (SeqFile)
+ -output-format     Class name or \"text\" or \"seq\" (SeqFile)
+ -output-key        Class for job output key
+ -output-value      Class for job output value
+ -map-output-key    Class for intermediate Mapper output key
+ -map-output-value  Class for intermediate Mapper output value
+ -map-reader        Mapper reader function, as namespace/name
+ -map-writer        Mapper writer function, as namespace/name
+ -reduce-reader     Reducer reader function, as namespace/name
+ -reduce-writer     Reducer writer function, as namespace/name
+ -name              Job name
+ -replace           If \"true\", deletes output dir before start
+ -compress-output   If \"true\", compress job output files
+ -output-compressor Compression class or \"gzip\",\"bzip2\",\"default\"
+ -compression-type  For seqfiles, compress \"block\",\"record\",\"none\"
+
+
+
+
+
+Пример использования данного подхода можно увидеть в примере [[http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount3.clj][wordcount3]] -- он состоит
+всего из двух функций.
 
 ** Использование clojure-hadoop.defjob
 
-wordcount4 & 5
+
+OR
+ -job       job definition function, as namespace/name
+
+
+Использование макроса =defjob= демонстрируется в примерах [[http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount4.clj][wordcount4]] и [[http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount5.clj][wordcount5]].
 
 * Полный пример
 
@@ -217,7 +306,7 @@ Hadoop.  Дополнительные примеры применения clojur
  - добавить описание http://github.com/nathanmarz/cascalog ?
 
 
-;  LocalWords:  Cloudera Hadoop clojure hadoop VMWare GFS HDFS
+;  LocalWords:  Cloudera Hadoop clojure hadoop VMWare GFS HDFS defjob
 
 Footnotes: 
 [1] Запуск в автономном режиме удобен для отладки вашего кода, поскольку он выполняется в
