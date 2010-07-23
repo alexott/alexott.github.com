@@ -22,12 +22,15 @@ Clojure, которую можно использовать в качестве 
 
 Ну и конечно, основной источник информации -- [[http://clojure.org][сайт языка]] и [[http://groups.google.com/group/clojure][список рассылки]].  Полезным для
 новичков является проект [[http://github.com/relevance/labrepl][labrepl]], который содержит все необходимое для начала работы с
-языком.  И еще один источник информации о Clojure -- это [[http://planet.clojure.in][Planet Clojure]] -- аггрегатор
+языком.  И еще один источник информации о Clojure -- это [[http://planet.clojure.in][Planet Clojure]] -- агрегатор
 блогов людей, использующих Clojure.  Кроме того, имеется достаточно большое количество
 видео-материалов по языку, ссылки на которые собраны на [[./video][отдельной странице]].
 
 На русский язык также переведена книжка-комикс [[http://www.lisperati.com/clojure-spels/casting.html][Casting SPELs with Clojure]] -- русская
 версия называется [[http://lisperati.planvita.com/][Волшебство и магия Clojure]].
+
+Из русскоязычных online-ресурсов стоит отметить конференцию =clojure= на jabber-сервере
+=conference.jabber.ru=, а также список рассылки [[http://groups.google.ru/group/clojure-russian?hl=ru][clojure-russian]].
 
 ** Заметки про Clojure
 
@@ -35,10 +38,11 @@ Clojure, которую можно использовать в качестве 
 
  - [[./ClojureMaven][Про использование Maven для сборки проектов на Clojure]]
  - [[./ClojureLein][Leiningen -- утилита для сборки кода, написанного на Clojure]]
+ - [[./ClojureHadoop][Программирование Hadoop с помощью Clojure]]
 
 А остальные заметки, относящиеся к Clojure опубликованы в [[http://alexott-ru.blogspot.com/search/label/clojure][моем блоге]].
 
-Также доступны [[http://www.scribd.com/doc/33620948/][слайды]] моего выступления о Clojure на конференции [[http://margincon.ru][MarginCon 2010]] (они же в
-виде [[Clojure-MarginCon.pdf][PDF]]).
+Также доступен [[http://www.slideshare.net/alexott/clojure-margincon-2010][слайдкаст]] моего выступления о Clojure на конференции [[http://margincon.ru][MarginCon 2010]] (они же
+в виде [[Clojure-MarginCon.pdf][PDF]]).
 
 ;  LocalWords:  Clojure
