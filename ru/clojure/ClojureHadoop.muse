@@ -301,7 +301,7 @@ hadoop jar hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input inp
 
 
 #more-info
-* Заключение
+* Дополнительная информация
 
 Данная статья является лишь введением в использование Clojure для программирования на базе
 Hadoop.  Дополнительные примеры применения clojure-hadoop вы можете найти в следующих

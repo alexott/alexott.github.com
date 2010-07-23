@@ -1,43 +1,42 @@
-#title Программирование Hadoop с помощью Clojure
+#title Programming  Hadoop with Clojure
 #keywords hadoop, clojure
 
-Данная статья является небольшим введением в программирование Hadoop с помощью Clojure.
+This article is a short introduction into programming  Hadoop using Clojure language.
 
 <contents>
 
-* Введение 
+* Introduction
 
-Проект [[http://hadoop.apache.org/][Hadoop]] является свободной реализацией инфраструктуры для распределенных,
-масштабируемых вычислений.  Он начался как реализация идей MapReduce и GFS, введенных
-Google, но со временем, в рамках проекта были реализованы и другие проекты.  Hadoop
-активно используется во многих проектах, включая коммерческие -- Yahoo, LinkedIn, и т.д.,
-и позволяет обрабатывать огромные объемы данных используя "стандартное" оборудование.
+The [[http://hadoop.apache.org/][Hadoop]] is free implementation of infrastructure for scalable, distributed computing.
+It was started as implementation of ideas of MapReduce and GFS, that was introduced by
+Google, but later, many different projects were included into it.  Hadoop is actively used
+by many projects, including commercial companies -- Yahoo, LinkedIn, etc., and it allows
+to process big amounts of data using "standard" equipment.
 
-Hadoop написан на языке Java, что позволяет достаточно просто интегрировать его с Clojure.
-Для упрощения программирования на Clojure для Hadoop, [[http://stuartsierra.com/][Stuart Sierra]] разработал достаточно
-простой, но мощный пакет =clojure-hadoop=, о котором и пойдет речь в данной статье.
+Hadoop is written in Java, and this allows to easily use it from Clojure.  To simplify
+Hadoop programming in Clojure, [[http://stuartsierra.com/][Stuart Sierra]] developed simple, but powerful package
+=clojure-hadoop=, that will be described in this article.
 
-* Установка и настройка 
+* Installation and configuration
 
-Установка Hadoop в минимальной конфигурации, необходимой для наших экспериментов,
-достаточно проста и описана в [[http://hadoop.apache.org/common/docs/current/quickstart.html][документации]].  Настройка Hadoop для работы в кластере
-немного сложнее, но тоже [[http://hadoop.apache.org/common/docs/current/cluster_setup.html][описана достаточно подробно]].
+Process of minimal Hadoop installation is pretty simple and described in [[http://hadoop.apache.org/common/docs/current/quickstart.html][documentation]].
+Customization of Hadoop for work in clustered environment is slightly complicated, but
+described in details in [[http://hadoop.apache.org/common/docs/current/cluster_setup.html][following document]].
 
-Хочется отметить, что компания Cloudera [[http://www.cloudera.com/developers/downloads/][предоставляет готовые пакеты]] для разных версий
-Linux, так что вы можете установить Hadoop и другие пакеты используя ваш любимый пакетный
-менеджер.  Кроме того, они распространяют готовую к работе инсталляцию в виде образа для
-VMWare, так что вы можете загрузить нужный архив и получить готовую рабочую среду.
+I want to mention, that the Cloudera company [[http://www.cloudera.com/developers/downloads/][provides ready-to-work packages]] for different
+Linux distributions, so you can setup Hadoop and other packages using your favorite
+package manager.  Besides this, Cloudera provides ready-to-use installation as disk image
+for VMWare, so you can download one archive, and get working environment.
 
-Исходные тексты =clojure-hadoop= можно взять с [[http://github.com/stuartsierra/clojure-hadoop][github]] -- она работает с Hadoop версии 0.19 и
-Clojure 1.1.0.  Если вам нужен Hadoop 0.20 и старше и/или Clojure 1.2.0, то вы можете
-взять [[http://github.com/alexott/clojure-hadoop][версию с моими изменениями]].  Сборка и установка производится с помощью Maven -- для
-этого надо всего лишь выполнить команду =mvn install=.
+The source code of =clojure-hadoop= is available from [[http://github.com/stuartsierra/clojure-hadoop][github]] -- this version works with
+Hadoop version 0.19 and Clojure 1.1.0.  If you want to use Hadoop 0.20, or older, and/or
+Clojure 1.2.0, then you can take [[http://github.com/alexott/clojure-hadoop][version with my changes]].  Build and installation is
+performed with Maven -- you just need to execute the =mvn install= command.
 
-* Из чего состоит clojure-hadoop
+* Parts of clojure-hadoop
 
-=clojure-hadoop= состоит из нескольких уровней абстракции, которые реализуются с помощью
-макросов.  Каждый из уровней находится в отдельном пространстве имен, перечисленных в
-порядке увеличения абстракции.
+=clojure-hadoop= has several levels of abstraction.  Each of these levels provided as
+separate namespace, that are described in abstraction increase order:
  =clojure-hadoop.gen= :: реализует набор макросов, которые генерируют классы, необходимые
    для определения задания MapReduce.  Функции =map= и =reduce= имеют точно такой же набор
    параметров, как и функции Java и имеют фиксированные имена -- =mapper-map= и
@@ -68,7 +67,7 @@ Clojure 1.1.0.  Если вам нужен Hadoop 0.20 и старше и/или
  - =import-mapred-lib= -- для импорта классов и интерфейсов из пакета
    =org.apache.hadoop.mapred.lib=.
 
-* Как программировать с помощью clojure-hadoop?
+* How to program with clojure-hadoop
 
 В зависимости от выбранного вами уровня абстракции, вам необходимо использовать разные
 подходы к программированию.  В большинстве случаев достаточно использовать =defjob=, который
@@ -78,7 +77,7 @@ Clojure 1.1.0.  Если вам нужен Hadoop 0.20 и старше и/или
 каждом из разделов имеются ссылки на примеры, которые можно найти в
 [[http://github.com/stuartsierra/clojure-hadoop/tree/master/src/examples/clojure/clojure_hadoop/examples/][поставке clojure-hadoop]].
 
-** Использование clojure-hadoop.gen
+** Using clojure-hadoop.gen
 
 В пространстве имен =clojure-hadoop.gen= определено всего два объекта: макрос
 =gen-job-classes= и функция =gen-main-method=.
@@ -100,7 +99,7 @@ Clojure 1.1.0.  Если вам нужен Hadoop 0.20 и старше и/или
 
 Пример реализации всех этих функций можно увидеть в примере [[http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount1.clj][wordcount1]].
 
-** Использование clojure-hadoop.wrap
+** Using clojure-hadoop.wrap
 
 Использование функций из =clojure-hadoop.wrap= позволяют упростить написание функций =map= и
 =reduce=, сделать их более простыми за счет работы не с классами Hadoop, а используя типы
@@ -121,7 +120,7 @@ Clojure для ввода и вывода данных.  Функция =wrap-ma
 
 Пример реализации можно увидеть в примере [[http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount2.clj][wordcount2]].
 
-** Использование clojure-hadoop.job
+** Using clojure-hadoop.job
 
 Код, реализованный в пространстве имен =clojure-hadoop.job= еще более упрощает реализацию
 функций =map= и =reduce=, реализуя остальные необходимые функции и позволяя пользователю
@@ -167,7 +166,7 @@ Clojure для ввода и вывода данных.  Функция =wrap-ma
 Пример использования данного подхода можно увидеть в примере [[http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount3.clj][wordcount3]] -- он состоит
 всего из двух функций, а все параметры указываются через командную строку.
 
-** Использование clojure-hadoop.defjob
+** Using clojure-hadoop.defjob
 
 Макрос =defjob=, определенный в одноименном пространстве имен, еще больше упрощает написание
 заданий для Hadoop.  Этот макрос позволяет указать часть опций для  =clojure-hadoop.job= в
@@ -192,7 +191,7 @@ Clojure для ввода и вывода данных.  Функция =wrap-ma
 между ними заключается в том, что в =wordcount5= в определении задания указываются функции
 чтения и записи.  Полный пример с =defjob= можно увидеть ниже.
 
-* Полный пример
+* Full example
 
 В качестве примера хочу показать небольшую программу, которая генерирует наборы [[https://secure.wikimedia.org/wikipedia/en/wiki/N-gram][N-Gram]] из
 заданных файлов -- я использую сгенерированные базы для задач классификации документов.
@@ -301,7 +300,7 @@ hadoop jar hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input inp
 
 
 #more-info
-* Заключение
+* Additional information
 
 Данная статья является лишь введением в использование Clojure для программирования на базе
 Hadoop.  Дополнительные примеры применения clojure-hadoop вы можете найти в следующих
@@ -316,10 +315,10 @@ Hadoop.  Дополнительные примеры применения clojur
  - [[http://www.cloudera.com/hadoop-training-programming-with-hadoop][Видео-лекция о программировании с помощью Hadoop]];
  - [[http://www.cloudera.com/hadoop-training-basic][Учебные курсы по работе с Hadoop созданные компанией Cloudera]]
  - [[http://hadoop.apache.org/common/docs/current/mapred_tutorial.html][Map/Reduce Tutorial]]
- - [[http://www.amazon.com/gp/product/0596521979?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0596521979][Hadoop: The Definitive Guide]] -- отличная книга о работе и программировании Hadoop, и
-   сопутствующих проектов -- Pig, HBase, и других;
- - [[http://www.amazon.com/gp/product/1608453421?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1608453421][Data-Intensive Text Processing with MapReduce]] -- книга об использовании Map/Reduce для
-   анализа больших объемов текстовых данных, включая примеры использования Hadoop.
+ - [[http://www.amazon.com/gp/product/0596521979?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0596521979][Hadoop: The Definitive Guide]] -- very good book about programming for Hadoop, and about
+   related projects -- Pig, HBase, и других;
+ - [[http://www.amazon.com/gp/product/1608453421?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1608453421][Data-Intensive Text Processing with MapReduce]] -- book about use of Map/Reduce for
+   analysis of big amounts of text data, including examples for Hadoop.
 
 Также стоит упомянуть проект [[http://github.com/nathanmarz/cascalog][Cascalog]], который реализует DSL, позволяющий производить
 выборки данных из Hadoop, используя Clojure.
