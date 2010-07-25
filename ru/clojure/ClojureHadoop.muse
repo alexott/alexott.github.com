@@ -145,8 +145,8 @@ Clojure для ввода и вывода данных.  Функция =wrap-ma
    текстовых данных, =seq= для =SequenceFile= или имя класса, реализующего нужный формат;
  =-output-format= :: определяет формат выходных данных. Допустимые значения те же, что и для
    =-input-format=;
- =-output-key= :: имя класса для ключей выходных данных;
- =-output-value= :: имя класса для значений выходных данных;
+ =-output-key= :: имя класса для ключей выходных данных (вывод функции =reduce=);
+ =-output-value= :: имя класса для значений выходных данных (вывод функции =reduce=);
  =-map-output-key= :: имя класса для ключей промежуточных данных (вывод функции =map=);
  =-map-output-value= :: имя класса для значений промежуточных данных (вывод функции =map=);
  =-map-reader= :: название функции чтения входных данных (на входе функции =map=), в виде
@@ -308,8 +308,8 @@ Hadoop.  Дополнительные примеры применения clojur
 материалах: 
  - [[http://vimeo.com/7669741][Видео-презентация о Clojure и Hadoop на HadoopWorld NYC]] ([[http://stuartsierra.com/2009/10/02/clojurehadoop-slides][слайды]]);
  - [[http://www.bestinclass.dk/index.php/2010/01/hadoop-feeding-reddit-to-hadoop/][Hadoop - Feeding Reddit to Hadoop]] -- заметка в блоге, показывающая использование 
-   Clojure & Hadoop для анализа данных, собранных с Reddit.
- - [[http://github.com/stuartsierra/clojure-hadoop/tree/master/src/examples/clojure/clojure_hadoop/examples/][Примеры из поставки]] =clojure-hadoop=
+   Clojure & Hadoop для анализа данных, собранных с Reddit;
+ - [[http://github.com/stuartsierra/clojure-hadoop/tree/master/src/examples/clojure/clojure_hadoop/examples/][Примеры из поставки]] =clojure-hadoop=.
 
 Дополнительную информацию о программировании Hadoop и Map/Reduce вы можете найти в
 следующих материалах:

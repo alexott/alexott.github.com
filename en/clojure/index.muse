@@ -39,6 +39,7 @@ find in [[http://alexott.blogspot.com/search/label/clojure][my blog]]):
 
  - [[./ClojureMaven][How to use Maven to build Clojure code]]
  - [[./ClojureLein][Using Leiningen to build  Clojure code]]
+ - [[./ClojureHadoop][Programming  Hadoop with Clojure]]
 
 I also wrote an introduction-level article (in Russian) for
 [[http://fprog.ru/2010/issue4/][4th issue of Russian Magazine "Practice of Functional Programming"]] -- I plan to translate
