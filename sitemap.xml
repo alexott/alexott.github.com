@@ -42,12 +42,14 @@
 <lastmod>2010-04-13</lastmod></url>
 <url><loc>http://alexott.net/en/cf/squid-gsbapi.html</loc>
 <lastmod>2009-03-02</lastmod></url>
+<url><loc>http://alexott.net/en/clojure/ClojureHadoop.html</loc>
+<lastmod>2010-07-26</lastmod></url>
 <url><loc>http://alexott.net/en/clojure/ClojureLein.html</loc>
 <lastmod>2010-06-30</lastmod></url>
 <url><loc>http://alexott.net/en/clojure/ClojureMaven.html</loc>
 <lastmod>2010-06-07</lastmod></url>
 <url><loc>http://alexott.net/en/clojure/index.html</loc>
-<lastmod>2010-06-30</lastmod></url>
+<lastmod>2010-07-26</lastmod></url>
 <url><loc>http://alexott.net/en/clojure/video.html</loc>
 <lastmod>2010-06-22</lastmod></url>
 <url><loc>http://alexott.net/en/cpp/BoostAsioNotes.html</loc>
@@ -175,7 +177,7 @@
 <url><loc>http://alexott.net/ru/cf/squid-gsbapi.html</loc>
 <lastmod>2009-03-02</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/ClojureHadoop.html</loc>
-<lastmod>2010-07-23</lastmod></url>
+<lastmod>2010-07-26</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/ClojureIncanter.html</loc>
 <lastmod>2010-04-14</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/clojure-intro/index.html</loc>
@@ -187,7 +189,7 @@
 <url><loc>http://alexott.net/ru/clojure/ClojureProtocols.html</loc>
 <lastmod>2010-07-20</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/Compojure.html</loc>
-<lastmod>2010-07-20</lastmod></url>
+<lastmod>2010-07-26</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/index.html</loc>
 <lastmod>2010-07-23</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/video.html</loc>
@@ -659,7 +661,7 @@
 <url><loc>http://alexott.net/ru/writings/cf/index.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-22/index.html</loc>
-<lastmod>2008-10-23</lastmod></url>
+<lastmod>2010-07-26</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsCedet.html</loc>
 <lastmod>2010-01-21</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsClojure.html</loc>
