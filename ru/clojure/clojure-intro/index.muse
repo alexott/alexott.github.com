@@ -4,8 +4,8 @@
 ; TODO: 
 ; - protocols & datatypes
 ; - make separate section about vars?
-; - изменения в версии 1.2 - синтаксис для meta, etc. 
 ; http://github.com/clojure/clojure/commit/9c01e1faf5c3c81a6c06234c4ce6df7c2e1f79f4
+; - parameters destructuring
 
 В статье рассказывается функциональном языке Clojure, работающем на платформе JVM.  Данный
 язык имеет интересные возможности, которые упрощают разработку многопоточных программ для
