@@ -24,13 +24,14 @@ Clojure, которую можно использовать в качестве 
 новичков является проект [[http://github.com/relevance/labrepl][labrepl]], который содержит все необходимое для начала работы с
 языком.  И еще один источник информации о Clojure -- это [[http://planet.clojure.in][Planet Clojure]] -- агрегатор
 блогов людей, использующих Clojure.  Кроме того, имеется достаточно большое количество
-видео-материалов по языку, ссылки на которые собраны на [[./video][отдельной странице]].
+видео-материалов по языку, ссылки на которые собраны на [[./video][отдельной странице]].  
 
 На русский язык также переведена книжка-комикс [[http://www.lisperati.com/clojure-spels/casting.html][Casting SPELs with Clojure]] -- русская
 версия называется [[http://lisperati.planvita.com/][Волшебство и магия Clojure]].
 
 Из русскоязычных online-ресурсов стоит отметить конференцию =clojure= на jabber-сервере
-=conference.jabber.ru=, а также список рассылки [[http://groups.google.ru/group/clojure-russian?hl=ru][clojure-russian]].
+=conference.jabber.ru=, а также список рассылки [[http://groups.google.ru/group/clojure-russian?hl=ru][clojure-russian]].  Кроме этого, существует
+аггрегатор блогов "Русская планета Clojure", на которую можно подписаться [[http://feeds.feedburner.com/RussianClojurePlanet][тут]].
 
 ** Заметки про Clojure
 
