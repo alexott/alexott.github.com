@@ -157,8 +157,10 @@ There are also optional command line parameters:
  =-combine= :: full name of combiner function as =namespace/name=, or as class name, that
   implements the =org.apache.hadoop.mapred.Reducer= interface. This function works like
   =reduce=, but it's used to combine map's results only on local node.  This allows to
-  decrease amount of data, transferred via network, and increase speed of processing (*this
-  functionality exists only in my version of clojure-hadoop*);
+  decrease amount of data, transferred via network, and increase speed of processing.
+  This function should accept data of the same type as =reduce=, and output data in the same
+  format as a =map=!  (*This functionality is implemented only in my version of
+  clojure-hadoop*);
  =-name= :: set job's name that will displayed in Hadoop's administrative interface;
  =-replace= :: if it set to =true= then job will remove directory with output data;
  =-compress-output= :: if it set to =true= job will perform compression of output data;
