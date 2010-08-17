@@ -1,5 +1,5 @@
-#open -u "ott@xtalk.it.niir" it.niir.ru
-open -u ott xtalk.msk.su
+open -u "ott@xtalk.it.niir" it.niir.ru
+#open -u ott xtalk.msk.su
 set ftp:passive-mode on
 cd my-page
 mirror -RnevL -x '.git' -X "*~" -X "*.tex" .
