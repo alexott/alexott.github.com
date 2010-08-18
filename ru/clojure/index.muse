@@ -35,6 +35,8 @@
 =conference.jabber.ru=, а также список рассылки [[http://groups.google.ru/group/clojure-russian?hl=ru][clojure-russian]].  Кроме этого, существует
 аггрегатор блогов "[[http://feeds.feedburner.com/RussianClojurePlanet][Русская планета Clojure]]".
 
+; TODO: add gettingclojure.com, clojuredocs, etc.
+
 ** Заметки про Clojure
 
 Мною написано некоторое количество заметок, относящихся к Clojure:
