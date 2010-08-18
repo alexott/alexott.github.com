@@ -10,106 +10,57 @@
 
 * Что это такое и зачем нужно?
 
+Протоколы и типы данных -- два связанных друг с другом понятия.  Протоколы используются
+для определения полиморфных функций, которые затем могут быть реализованы для конкретных
+типов данных (в том числе и из других библиотек).
 
-чем не устраивает proxy/gen-class/gen-interface
+Существует несколько причин введения протоколов и типов данных в новую версию языка:
+ - Увеличить скорость работы полиморфных функций, при этом поддерживая большую часть
+   функциональности мультиметодов, поскольку для протоколов диспатчеризация выполняется
+   только по типу данных.
+ - Использовать лучшие стороны интерфейсов (только спецификация функций, без реализации,
+   реализация нескольких интерфейсов одним типом), в тоже время избегая недостатков
+   (список реализуемых интерфейсов задан во время реализации типа данных, создание
+   иерархии типов вида =isa/instanceof=);
+ - Избежать [[http://en.wikipedia.org/wiki/Expression_Problem][Expression problem]] и дать возможность расширять набор операций над типами
+   данных без изменениях определения типов данных (в том числе и чужих) и перекомпиляции
+   исходного кода[1];
+ - Использовать высокоуровневые абстракции для типов данных и операций над ними[2], что
+   упрощает проектирование программ.
 
-что не нужно использовать AOT
+Также как и интерфейсы, протоколы позволяют объединить объявление нескольких полиморфных
+функций (или одной функции) в один объект[3].  Отличием от интерфейсов является
+то, что вы не можете унаследовать новый протокол от существующего протокола.
 
+В отличии от имеющегося в Clojure =gen-interface= (и соответствующих =proxy/gen-class=)
+определение протоколов и типов не требует AOT (ahead-of-time) компиляции исходного кода,
+что упрощает распространение программ на Clojure.  Однако при определении протокола,
+Clojure автоматически создает соответствующий интерфейс, который будет доступен для кода,
+написанного на Java.
 
-There are several motivations for protocols:
+Типы данных, определенные с помощью =deftype= или =defrecord= позволяют программисту на
+Clojure определять свои структуры данных, вместо использования обычных отображений (на
+самом деле =defrecord= реализует тот же интерфейс, что и стандартные отображения, но при
+этом он "имеет" тип, для которого можно сделать специализацию протокола).
 
-    * Provide a high-performance, dynamic polymorphism construct as an alternative to interfaces
-    * Support the best parts of interfaces
-          o specification only, no implementation
-          o a single type can implement multiple protocols
-    * While avoiding some of the drawbacks
-          o Which interfaces are implemented is a design-time choice of the type author, cannot be extended later (although interface injection might eventually address this)
-          o implementing an interface creates an isa/instanceof type relationship and hierarchy
-    * Avoid the 'expression problem' by allowing independent extension of the set of types, protocols, and implementations of protocols on types, by different parties
-          o do so without wrappers/adapters/monkey patching
-    * Support the 90% case of multimethods (single dispatch on type) while providing higher-level abstraction/organization
-
-
-** Чем протоколы не являются
-
- - они не являются интерфейсами... они решают сходную проблему, но другим способом...
- - monkey patches - они не используются для вставки кода в существующие классы и т.п.
- - wrappers
- - mixins
- - injections
- - implicit conversions
- - dirty tricks - например, не используются для обхода finality классов
-
-** Зачем они были созданы
-
- - write to abstractions... 
- - clojure in clojure - быстрые абстракции и т.п.
- - solve [[http://en.wikipedia.org/wiki/Expression_Problem][expression problem]] - две группы интерфейсов и классов в отдельных
-   библиотеках. А должно работать с Б, и наоборот, без изменения оригинального исходного
-   кода... Проблема в том, что А не может использовать Б, поскольку:
-  - Б "новее" чем А
-  - А тяжело изменить
-  - мы не контролируем А
-
-Тут написать про решение expression problem, например, мультиметодами...  Но мультиметоды
-не быстрые, что не позволяет написать clojure in clojure...
-
-protocols = multimethods - genericity + speed + grouping, and still enough to solve
-expression problem
-
-
-** protocols mythbusting
-
- - there is no nil class, that protocol has to extend
- - function in protocol is just normal function
- - it lives in own namespace, and could mean other thing in another ns
-
-
-----------------------------------------------------------------------------------------------------
-
-*упомянуть, что protocols похожи на type classes в haskell (только без дефолтной реализации)*
+* Определение протоколов
 
 
 
-7:32 G0SUB: rhickey: a lot of people are asking how protocols are different from haskell's type classes and Go's interfaces. what is the right answer to this question?
 
-7:32 rhickey: G0SUB: sounds like 2 questions to me
-
-7:33 G0SUB: rhickey: I grouped them together for brevity.
-
-7:33 rhickey: you can give me two answers :)
-
-7:36 rhickey: they differ from Haskell's type classes (from which they draw partial inspiration) in that the dispatch map isn't an independent entity passed around by the type system, and thus can't do return-type based method selection, and generally in that they are not static-type-system-based.
-
-7:37 G0SUB: rhickey: thanks!
-
-7:38 rhickey: they differ from Go interfaces in that Go just uses method conformance to determine interface support (vs explicit declaration of 'I implement this protocol'), and Go's interfaces, last time I checked, were only 'open' within a module.
-
-7:38 G0SUB: ah
-
-7:39 rhickey: If one said Clojure's protocols were like dynamic type classes you wouldn't offend me (but might offend some Haskellers)
-
-7:39 G0SUB: heh
-
-7:39 rhickey: but they are not very much like Go interfaces at all
-
-7:41 G0SUB: whenever Blub programmers look at protocols, they say it's identical to the Transmogrify feature in Blub.
-
-7:42 rhickey: G0SUB: the differences can be subtle, but are important
-
-7:43 G0SUB: rhickey: indeed.
-
-7:43 It's like saying Agents are identical to Actors 
-
-----------------------------------------------------------------------------------------------------
-
-* Использование протоколов
-
+*Протоколы с одним и тем же именем могут быть определены в разных пространствах имен, так
+что стоит быть осторожным и не наделать ошибок при импорте определений и последующей
+реализации протоколов!*
 
 
 * Определение типов данных
 
  deftype/defrecord/reify
+
+
+
+; TODO: написать, что не обязательно реализовывать все функции объявленные в протоколе
+
 
 
 * Дополнительные функции
@@ -121,26 +72,20 @@ expression problem
 
 также про =extends?=, =satisfies?=, =extenders= 
 
-Аннотации для типов в кложуре - http://gist.github.com/377213 
+
+про "наследование" реализаций -
+http://fulldisclojure.blogspot.com/2010/08/thoughts-on-protocols.html ?
 
 
+* Пример использования протоколов и типов данных
 
-* TODO:
 
- - select examples, посмотреть в других примерах? example with reduce из screencast? or
-   rock/papper/scissors ([[http://rubyquiz.com/quiz16.html][here]]) - code in labrepl
- - read chapter "Datatypes and Protocols" from Practical Clojure
- - написать, какой интерфейс будет создан при определении протокола
- - There is one important difference between protocols and interfaces: protocols have no
-   inheritance.  You cannot create “subprotocols” like Java's subinterfaces.
- - Protocols are also similar to “mix-in” facilities provided by languages such as Ruby,
-   with another important difference: protocols have no implementation. As a result,
-   protocols never conflict with one another, unlike mix-ins.
- - написать, что не обязательно реализовывать все функции объявленные в протоколе
 
 * Дополнительная информация
 
-Как всегда, основной источник информации -- сайт языка: разделы [[http://clojure.org/protocols][protocols]] и [[http://clojure.org/datatypes][datatypes]].
+Как всегда, основной источник информации -- сайт языка: ознакомьтесь с разделами [[http://clojure.org/protocols][protocols]]
+и [[http://clojure.org/datatypes][datatypes]].  Хорошее описание протоколов и типов данных можно найти в 13-й главе недавно
+вышедшей книги [[http://www.amazon.com/gp/product/1430272317?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430272317][Practical Clojure. The Definitive Guide]].
 
 Stuart Halloway создал очень [[http://vimeo.com/11236603][интересный скринкаст]] в котором он рассказывает о том, зачем
 были созданы протоколы и data types, и демонстрирует их применение на небольших примерах.
@@ -149,11 +94,14 @@ Stuart Halloway создал очень [[http://vimeo.com/11236603][интер�
 некоторые интересные статьи на эту тему:
  - Серия из 3-х статей ([[http://www.objectcommando.com/blog/2010/03/26/clojure-protocols-part-1/][1]], [[http://www.objectcommando.com/blog/2010/03/29/clojure-protocols-part-2/][2]], [[http://www.objectcommando.com/blog/2010/04/12/clojure-protocols-part-3/][3]]) о протоколах в блоге Object Commando;
  - [[http://freegeek.in/blog/2010/05/clojure-protocols-datatypes-a-sneak-peek/][Краткое введение]] в протоколы, написанное Baishampayan Ghose;
+ - [[http://formpluslogic.blogspot.com/2010/08/clojure-protocols-and-expression.html][Clojure Protocols and Expression Problem]];
+ - Два постинга от Sean Devlin -- [[http://fulldisclojure.blogspot.com/2010/08/thoughts-on-protocols.html][Protocol Implementation Awesomeness]] и
+   [[http://fulldisclojure.blogspot.com/2010/08/partially-implemented-protocols.html][Partially Implemented Protocols]];
  - [[http://blog.higher-order.net/2010/05/05/circuitbreaker-clojure-1-2/][Пример реализации паттерна "Circuit Breaker"]] с помощью протоколов;
  - [[http://kotka.de/blog/2010/03/memoize_done_right.html#protocols][Пример использования протоколов]] для мемоизации;
  - [[http://bestinclass.dk/index.clj/2010/04/prototurtle-the-tale-of-the-bleeding-turtle.html][Еще пример]] использования протоколов для реализации turtle graphics;
- - [[http://kirindave.tumblr.com/post/658770511/monkey-patching-gorilla-engineering-protocols-in][Небольшое сравнение]] Monkey Patching в Ruby с протоколами в Clojure
- - Пример реализации стека с помощью протоколов ([[http://www.viksit.com/content/stack-implementation-clojure-using-protocols-and-records][1]], [[http://www.viksit.com/content/stack-implementation-clojure-ii-functional-approach][2]]), написанный Viksit Gaur.
+ - [[http://kirindave.tumblr.com/post/658770511/monkey-patching-gorilla-engineering-protocols-in][Небольшое сравнение]] Monkey Patching в Ruby с протоколами в Clojure;
+ - Пример реализации стека с помощью протоколов ([[http://www.viksit.com/content/stack-implementation-clojure-using-protocols-and-records][1]], [[http://www.viksit.com/content/stack-implementation-clojure-ii-functional-approach][2]]), написанный Viksit Gaur;
 
  
 
@@ -176,6 +124,19 @@ Stuart Halloway создал очень [[http://vimeo.com/11236603][интер�
 
  - http://groups.google.com/group/clojure/browse_thread/thread/b8620db0b7424712
 
+;  LocalWords:  defprotocol reify datatype protocols datatypes data types AOT
+;  LocalWords:  Halloway Stuart injection patching monkey gen-interface proxy
 
-;  LocalWords:  defprotocol reify datatype protocols datatypes data types
-;  LocalWords:  Halloway Stuart
+Footnotes: 
+[1] Стоит однако отметить, что протоколы не реализуют monkey patching и внедрение методов
+    (injection) в существующие типы данных.
+
+[2] Возможность реализации абстракций на Clojure и высокая скорость работы протоколов
+    позволит в будущем написать Clojure на самой Clojure, без использования исходного кода
+    на Java.
+
+[3] Люди знакомые с Haskell могут рассматривать протоколы как некоторое подобие типов
+    классов (typeclasses) в этом языке, правда при этом нельзя определять реализации по
+    умолчанию для методов.
+
+;  LocalWords:  gen-class ahead-of-time instanceof
