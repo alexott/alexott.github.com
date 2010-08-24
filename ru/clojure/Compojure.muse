@@ -43,3 +43,5 @@
 
  - http://stackoverflow.com/questions/3325033/comparison-of-clojure-web-frameworks
 
+ - http://stackoverflow.com/questions/3551805/mature-clojure-web-frameworks
+ - http://stackoverflow.com/questions/3180688/what-is-the-good-starting-point-to-developing-restful-web-service-in-clojure/3181196#3181196
