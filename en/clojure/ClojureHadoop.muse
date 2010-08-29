@@ -275,9 +275,9 @@ we're using following project for Leiningen:
 </src>
 
 To run this job, we need to combine all code into one archive, so we need to use =lein
-uberjar= to combine our Clojure code with all necessary libraries.  After this, you can run
+uberjar= to combine our Clojure code with all necessary libraries[1].  After this, you can run
 this job either in autonomous mode, without running Hadoop and working with local
-files[1], or in cluster mode.  To run job in autonomous mode you can use following command:
+files[2], or in cluster mode.  To run job in autonomous mode you can use following command:
 
 <src lang="sh">
 java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input FILE -output out
@@ -294,7 +294,7 @@ in our example), and run task with following command:
 hadoop jar hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input input -output output
 </src>
 
-And after finishing of task, data will put into the =output= directory[2] on HDFS, and you
+And after finishing of task, data will put into the =output= directory[3] on HDFS, and you
 can get access to them with standard HDFS commands.
 
 #more-info
@@ -324,10 +324,14 @@ data in Hadoop using Clojure.
 ;  LocalWords:  Cloudera Hadoop clojure hadoop VMWare GFS HDFS defjob reduce
 
 Footnotes: 
-[1] Execution of job in autonomous is very handy for debugging your code, because it
+[1] You can also use the =lein hadoop= command (implemented by [[http://github.com/ndimiduk/lein-hadoop][lein-hadoop]] plugin), that
+    creates correct archive with Hadoop task (packing all dependencies and necessary
+    information).
+
+[2] Execution of job in autonomous is very handy for debugging your code, because it
     executed in separate JVM instance and works with local files.
 
-[2] Output directory shouldn't exists, or job will not run. If you don't need files output
+[3] Output directory shouldn't exists, or job will not run. If you don't need files output
     directory, then you can use command line option =-replace true=.
 
 ;  LocalWords:  map Reducer namespace org input-format output-format identity
