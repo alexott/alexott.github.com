@@ -116,12 +116,16 @@
 
 ** Проекты с открытым исходным кодом
 
+Учавствовал в разработке различных программ с открытым исходным кодом:
  - Catdoc -- Конвертер для файлов MS Office, разработка конвертеров для файлов в формате
    PPT & XLS
  - ALTLinux -- Linux distribution, package maintainer (2001-2004)
  - Dansguardian – ПО для фильтрации веб-трафика
  - openfwtk -- межсетевой экран уровня приложений
  - Russian documentation for Linux – author of different articles about Linux
+
+Информацию по остальным проектам с открытым исходным вы можете найти на сайтах [[http://github.com/alexott][github]] и
+[[https://www.ohloh.net/accounts/alexott][ohloh]].
 
 ** Сертификаты
 

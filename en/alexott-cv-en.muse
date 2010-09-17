@@ -126,11 +126,14 @@
 
 ** Open Source projects
 
+I participated in many projects with open source code, including:
  - Catdoc -- Open-source converter for MS Office files, development of PPT & XLS converters
  - ALTLinux -- Linux distribution, package maintainer (2001-2004)
  - Dansguardian – web-filtering software 
  - openfwtk -- application level firewall
  - Russian documentation for Linux – author of different articles about Linux
+
+Information about other open source projects you can find on [[http://github.com/alexott][github]] and [[https://www.ohloh.net/accounts/alexott][ohloh]].
 
 ** Certification
 

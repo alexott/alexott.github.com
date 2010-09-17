@@ -38,6 +38,7 @@ video materials, please leave them in comments to this page!*
    Clojure;
  - [[http://www.parleys.com/#st=5&id=1518&sl=1][Clojure: Functional Concurrency for the JVM]] -- lecture about Clojure by Howard M. Lewis
    on [[http://devoxx.com][Devoxx'09]];
+ - [[http://vimeo.com/15046335][Clojure - Up Close and Personal]] -- Uncle Bob Martin's introductory lecture about Clojure;
  - [[http://vimeo.com/9770382][circumspec, inferior-lisp, clojure, and slime]] -- скринкаст Stuart Halloway;
  - [[http://vimeo.com/8356990][Compojure/Emacs Intro]] -- screencast by Lau Jensen that shows how to use Emacs &
    Compojure to develop web-related code;
