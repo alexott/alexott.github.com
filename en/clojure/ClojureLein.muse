@@ -1,7 +1,7 @@
 #title Using Leiningen to build Clojure code
 #keywords leiningen, clojure, build tool, lein, howto, tutorial
 
-This article describes the Leiningen tool for building of projects, written in Clojure.
+This article describes the Leiningen tool for building of projects, written in Clojure.[5]
 
 <contents>
 
@@ -26,12 +26,10 @@ make it executable, copy to directory, listed in =PATH=, and execute =lein self-
 command.  During execution of this command, Leiningen will download and install all
 packages, that are needed to its work.
 
-Installation on MS Windows is more complicated, because automatic install isn't
-implemented yet.  Instead of =lein= script you need to download [[http://github.com/technomancy/leiningen/raw/stable/bin/lein.bat][lein.bat]] script, and put it
-into directory, listed in =PATH=.  Then download [[http://github.com/downloads/technomancy/leiningen/leiningen-1.1.0-standalone.jar][leiningen.jar]] package and set value of
-=LEIN_JAR= environment variable to full path to this file.  After this download [[http://build.clojure.org/releases/org/clojure/clojure/1.1.0/clojure-1.1.0.jar][clojure.jar]]
-package and set value of =CLOJURE_JAR= environment variable to full path to this file.  Now
-you can start to use Leiningen.
+To install Leiningen on MS Windows you need to download [[http://github.com/downloads/technomancy/leiningen/lein-win32.zip][lein-win32.zip]] file from project's
+page.  This file contains all necessary programs, so you can unzip it into any directory,
+add this directory into search path, perform =lein self-install= command, and start to work
+with Leiningen.
 
 * Structure of Leiningen's project
 
@@ -259,6 +257,9 @@ Footnotes:
 [3] example of =swank-clojure= dependency you can see in project's example.
 
 [4] and don't forget to run =lein deps= after adding this dependency!
+
+[5] there is also [[http://github.com/technomancy/leiningen/blob/master/TUTORIAL.md][small document]] in Leiningen's distribution, that describes basic
+    operations.
 
 ;  LocalWords:  Leiningen  TODO Maven Vim Leiningen's Clojure plugins plugin
 ;  LocalWords:  swank Emacs Nailgun lein-swank Clojars repl lein Clojure's clj
