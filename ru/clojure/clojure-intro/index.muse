@@ -1,5 +1,5 @@
 #title Введение в Clojure
-#keywords clojure, введение, introduction, кложура, туториал, учебник, tutorial
+#keywords clojure, введение, introduction, кложура, туториал, учебник, tutorial, учебник clojure
 
 ; TODO: 
 ; - protocols & datatypes
