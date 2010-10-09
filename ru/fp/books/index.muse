@@ -543,13 +543,15 @@ Caml <cite>OCamlBook:2000</cite> -- переведено 11 глав, описы
 
 Кроме напечатанных книг и учебников, имеются и материалы, доступные online.  К наиболее
 интересным можно отнести:
-
+ - [[http://learnyouahaskell.com/][Learn You a Haskell for Great Good!: A Guide for Beginners]], которая также будет
+   доступна в виде [[http://www.amazon.com/gp/product/1593272839?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1593272839][отдельной книги]] в начале 2011-го года.  Написанная простым языком, она
+   является очень хорошим введением в язык Haskell;
  - Раздел на сайте проекта Wikibooks, посвященный [[http://en.wikibooks.org/wiki/Haskell][Haskell]], содержит очень большое
    количество материалов различной степени сложности.
  - [[http://www.haskell.org/tutorial/][A Gentle Introduction to Haskell 98]] <cite>Haskell:Gentle:EN</cite> -- учебник по языку
-   Haskell 98.
+   Haskell 98;
  - [[http://www.cs.utah.edu/~hal/htut/][Yet Another Haskell Tutorial]] <cite>Daume:YAHT</cite> -- еще один учебник по Haskell,
-   содержащий примеры использования языка и упражнения для самостоятельного решения.
+   содержащий примеры использования языка и упражнения для самостоятельного решения;
  - [[http://en.wikibooks.org/wiki/Haskell/Write\_Yourself\_a\_Scheme\_in\_48\_Hours][Write Yourself a Scheme in 48 Hours]] -- данный учебник позволяет получить навыки
    программирования на Haskell на практическом примере написания интерпретатора языка
    Scheme.
@@ -846,8 +848,8 @@ Over Lambda* <cite>Hoyte:LOL:2008</cite>, *Lisp in Small Pieces*
 хорошим выбором будет книга *Real World Haskell* <cite>RWH:2008</cite>, в которой приводятся
 практические примеры использования Haskell.  Среди учебников можно отметить *Yet another
 Haskell tutorial* <cite>Daume:YAHT</cite> и *A Gentle Introduction to Haskell 98*
-<cite>Haskell:Gentle:EN</cite> (также доступный на русском языке), ну и конечно раздел о
-Haskell в проекте Wikibooks.
+<cite>Haskell:Gentle:EN</cite> (также доступный на русском языке), ну и конечно
+[[http://learnyouahaskell.com/][Learn You a Haskell for Great Good!]].
 
 В настоящее время по языку Erlang доступно не так уж много литературы -- только книга
 *Programming Erlang. Software for a Concurrent World* <cite>Armstrong:Erlang:2007</cite>,
