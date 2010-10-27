@@ -712,8 +712,9 @@ Standard ML.
    программирование с использованием продолжений[5], построение интерпретатора и
    компилятора этих языков, поддержку макросов и многое другое.
 
-Весной 2010-го года, издательство No Starch Press должно выпустить еще одну книгу по Lisp --
-[[http://www.amazon.com/gp/product/1593272006?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1593272006][Land of LISP: Learn to Program in LISP, One Game at a Time!]].  
+Осенью 2010-го года, издательство No Starch Press выпустило еще одну книгу по Lisp --
+[[http://www.amazon.com/gp/product/1593272812?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1593272812][Land of LISP: Learn to Program in LISP, One Game at a Time!]].  Кроме того, у книги есть
+отдельный [[http://landoflisp.com/][сайт]], где можно найти более подробную информацию о книге.
 
 А издательство O'Reilly также планирует выпустить книгу о Common Lisp под названием "Lisp
 Outside the Box", и несколько глав уже доступно для чтения на [[http://lisp-book.org/][сайте проекта]].  Как видно из
