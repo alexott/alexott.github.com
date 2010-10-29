@@ -42,7 +42,7 @@ different programming languages:
 * Installation of the Cedet
 
 Currently it's better to use development version of the Cedet, that is available from
-repository at [[http://sourceforge.net/cvs/?group_id=17886][Sourceforge.net]].  After downloading of code, you need to change to cedet
+repository at [[http://sourceforge.net/bzr/?group_id=17886][Sourceforge.net]].  After downloading of code, you need to change to cedet
 directory and compile the package with following command:
 
 <src lang="sh">
