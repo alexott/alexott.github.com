@@ -113,8 +113,10 @@ Programmers, которая в принципе содержит всю необ
 отличие языка от Common Lisp, и т.п.  В мае 2010 года издательство Apress выпустило еще
 одну книгу по Clojure -- [[http://www.amazon.com/gp/product/1430272317?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430272317][Practical Clojure. The Definitive Guide]], которая является кратким
 описанием современной версии языка, включая новшества, которые введены в версии 1.2.  А на
-осень 2010 года в издательстве Manning запланирован выход книг [[http://www.manning.com/rathore/][Clojure in Action]] и
-[[http://www.amazon.com/gp/product/1935182641?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182641][Joy of Clojure. Thinking the Clojure Way]].
+начало 2011 года в издательстве Manning запланирован выход книг [[http://www.amazon.com/gp/product/1935182595?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182595][Clojure in Action]]
+(введение в язык и примеры практического использования) и
+[[http://www.amazon.com/gp/product/1935182641?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182641][The Joy of Clojure. Thinking the Clojure Way]] (более "глубокое" описание языка, с
+разъяснением сложных понятий).
 
 В свободном доступе можно найти книгу [[http://en.wikibooks.org/wiki/Clojure_Programming][Clojure Programming]], работа над которой ведется в
 рамках проекта WikiBooks.  Также существует достаточно подробный практический учебник --
