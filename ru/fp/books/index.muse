@@ -791,8 +791,9 @@ Lisp, ни с Scheme, а реализует свое подмножество Li
 сборки кода и т.д.  Но несмотря на это, эту книгу можно рекомендовать в качестве учебника
 по языку.
 
+; TODO: дописать подробнее про эти книги
 А в начале 2011-го года, издательство Manning должно выпустить книгу [[http://www.amazon.com/gp/product/1935182595?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182595][Clojure in Action]], а
-после ее выпуска, еще одну -- [[http://www.amazon.com/gp/product/1935182641?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182641][Joy of Clojure. Thinking the Clojure Way]].  Обе книги уже
+после ее выпуска, еще одну -- [[http://www.amazon.com/gp/product/1935182641?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182641][The Joy of Clojure. Thinking the Clojure Way]].  Обе книги уже
 доступны в рамках программы раннего доступа Manning (MEAP).
 
 Среди свободных источников информации можно отметить [[http://clojure-notes.rubylearning.org/][Clojure Notes]], который использовался
