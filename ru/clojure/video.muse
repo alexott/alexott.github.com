@@ -32,7 +32,9 @@ Clojure -- видео-лекции и учебники, выступления �
    очень понравились*);
  - [[http://vimeo.com/11236603][Clojure 1.2 Protocols]] -- скринкаст Stuart Halloway о протоколах и типах данных в новой
    версии Clojure;
- - [[http://www.infoq.com/interviews/hickey-clojure-protocols][Rich Hickey рассказывает о протоколахи Clojure 1.3]];
+ - [[http://www.infoq.com/interviews/hickey-clojure-protocols][Rich Hickey рассказывает о протоколах и Clojure 1.3]];
+ - [[http://www.infoq.com/presentations/Clojure-Expression-Problem][Clojure's Solutions to the Expression Problem]] -- выступление Chris Houser на
+   конференции Strange Loop об expression problem и подходах к ее решению;
  - [[http://link.pluralsight.com/clojure][Clojure Concurrency On-Demand!]] -- набор скринкастов о разработке конкурентных программ
    в Clojure.  Первый скринкаст содержит достаточно подробное введение в программирование
    на Clojure;
