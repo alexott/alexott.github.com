@@ -272,9 +272,9 @@ should be loaded to provide work with *gds*.  For example, following code will l
 modules, that are necessary for work:
 
 <src lang="scheme">
-(use-modules (ice-9 gds-client))
+(use-modules (ice-9 gds-client debugging traps))
 (named-module-use! '(guile-user) '(ice-9 session))
-(gds-accept-input #f))
+(gds-accept-input #f)
 </src>
 
 After execution of this code, you'll able to work with *gds*.  To set break point in
