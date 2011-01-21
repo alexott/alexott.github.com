@@ -41,6 +41,8 @@ video materials, please leave them in comments to this page!*
    Clojure;
  - [[http://www.parleys.com/#st=5&id=1518&sl=1][Clojure: Functional Concurrency for the JVM]] -- lecture about Clojure by Howard M. Lewis
    on [[http://devoxx.com][Devoxx'09]];
+ - [[http://vimeo.com/18970727][Asynchronous Events in Clojure]] -- Stuart Sierra's presentation at New York Clojure User
+   Group;
  - [[http://www.youtube.com/watch?v=ObR3qi4Guys][Introduction to Monads]] by Adam Smyczek at Bay Area Clojure User Group meeting. He talk
    about monads in Clojure;
  - [[http://vimeo.com/15046335][Clojure - Up Close and Personal]] -- Uncle Bob Martin's introductory lecture about Clojure;
