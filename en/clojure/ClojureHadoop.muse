@@ -29,7 +29,7 @@ package manager.  Besides this, Cloudera provides ready-to-use installation as d
 for VMWare, so you can download one archive, and get working environment.
 
 The source code of =clojure-hadoop= is available from [[http://github.com/stuartsierra/clojure-hadoop][github]] -- this version works with
-Hadoop version 0.19 and Clojure 1.1.0.  If you want to use Hadoop 0.20, or older, and/or
+Hadoop version 0.19 and Clojure 1.1.0.  If you want to use Hadoop 0.20, or newer, and/or
 Clojure 1.2.0, then you can take [[http://github.com/alexott/clojure-hadoop][version with my changes]].  Build and installation is
 performed with Maven -- you just need to execute the =mvn install= command.
 
