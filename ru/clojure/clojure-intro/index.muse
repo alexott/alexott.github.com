@@ -1404,7 +1404,7 @@ Clojure определять свои структуры данных, вмес�
 <src lang="clojure">
 (defprotocol Hello "Test of protocol"
   (hello [this] "hello function"))
-<src>
+</src>
 
 Мы можем использовать =extend=, =extend-protocol=, или =extend-type= для его специализации для
 класса =String=:
