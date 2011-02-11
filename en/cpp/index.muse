@@ -33,3 +33,5 @@ Beside this i also write articles dedicated to C & C++ programming, and auxiliar
  - [[./BoostAsioProxy][How to write simple HTTP proxy with Boost.Asio]]
  - [[../writings/prog-checking][Article about finding errors of work with memory]] -- memory leaks, access behind memory
    boundaries, etc.
+ - [[./CppTestingIntro][Test-driven development and unit testing with examples in C++]] -- provides introduction
+   to test-driven development in C++.

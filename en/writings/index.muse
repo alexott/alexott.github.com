@@ -15,7 +15,9 @@ Russian, but i also translate some of them to English.
 
  - [[prog-checking/][Article about finding errors of work with memory]] -- memory leaks, access behind memory
    boundaries, etc.  In this article I describe Valgrind, Google Performance Tools and
-   other utilities and libraries.
+   other utilities and libraries;
+ - [[../cpp/CppTestingIntro][Test-driven development and unit testing with examples in C++]] -- provides introduction
+   to test-driven development in C++.
 
 * Information security and content filtering
 
