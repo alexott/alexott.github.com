@@ -6,6 +6,8 @@ it could be useful for other developers, and got permission from [[http://www.mc
 text on my site.  Some text in first part is borrowed from external sources, such as
 Wikipedia, C2 Wiki, etc. -- I tried to provide links to corresponding pages.*
 
+*You can find code for examples from this article at [[http://github.com/alexott/cpp-tesing-examples][github]].*
+
 *I also have an idea to extend this article to cover Google C++ Testing framework, other
 mocking frameworks, and Quickcheck++, but this will take some time.*
 
