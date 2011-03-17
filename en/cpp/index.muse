@@ -1,11 +1,10 @@
 #title  C & C++ languages
 #keywords cpp, c++, boost, asio
 
-I'm programming in C & C++ more than 10 years, and now this is main language for work &
-some personal projects.  I mostly use GCC as compiler, now this is GCC version 4.
 
-In my works i actively use libraries from [[http://www.boost.org][Boost project]], that has beautiful quality and
-very portable.  Their usage allow me to think about "business logic" in my programs
+I'm programming in C & C++ for more than 10 years, and now this is main language for my work & some personal projects. I mostly use GCC as a compiler, now in version 4.
+
+In my projects I actively use libraries from the [[http://www.boost.org][Boost project]], that is beautiful, very portable and has high quality.  Their usage allow me to think about "business logic" in my programs
 without reimplementing common things, like sockets, serialization, etc.  I use many
 libraries, starting from simple ones, like smart_ptr & regex, and finishing with bind,
 lambda, fusion, spirit, asio, etc.
