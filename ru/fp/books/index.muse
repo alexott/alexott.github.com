@@ -241,7 +241,8 @@ Erlang.
 только несколько статей -- [[http://www.ibm.com/developerworks/ru/library/os-eclipse-clojure/index.html][Язык программирования Clojure]], опубликованная в рамках проекта
 IBM developerWorks, и статья
 [[http://fprog.ru/2010/issue4/alex-ott-clojure/][Clojure, или «Вы все еще используете Java? Тогда мы идем к вам!»]], опубликованная в
-[[http://fprog.ru/2010/issue4/][4-м номере]] журнала "Практика функционального программирования"
+[[http://fprog.ru/2010/issue4/][4-м номере]] журнала "Практика функционального программирования" (более свежая версия этой
+статьи доступна на [[../../clojure/clojure-intro][моем сайте]]).
 
 
 *** Логическое программирование и язык Пролог
@@ -796,6 +797,9 @@ Lisp, ни с Scheme, а реализует свое подмножество Li
 А в начале 2011-го года, издательство Manning должно выпустить две книги про Clojure:
 [[http://www.amazon.com/gp/product/1935182595?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182595][Clojure in Action]] и [[http://www.amazon.com/gp/product/1935182641?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182641][The Joy of Clojure. Thinking the Clojure Way]].  Обе книги уже доступны
 в рамках программы раннего доступа Manning (MEAP).
+
+Летом 2011-го года издательство O'Reilly должно выпустить книгу [[http://www.amazon.com/gp/product/1449394701/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449394701][Programming Clojure]],
+авторами которой являются известные разработчики языка и библиотек.
 
 Среди свободных источников информации можно отметить [[http://clojure-notes.rubylearning.org/][Clojure Notes]], который использовался
 в курсе обучения Clojure и книгу [[http://en.wikibooks.org/wiki/Clojure_Programming][Clojure Programming]], создаваемую в рамках проекта
