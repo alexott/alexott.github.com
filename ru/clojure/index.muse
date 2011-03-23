@@ -44,10 +44,12 @@
  - [[./ClojureMaven][Про использование Maven для сборки проектов на Clojure]]
  - [[./ClojureLein][Leiningen -- утилита для сборки кода, написанного на Clojure]]
  - [[./ClojureHadoop][Программирование Hadoop с помощью Clojure]]
+ - [[./ClojureProtocols][Типы и протоколы в Clojure]] -- описывает protocols & datatypes в Clojure, содержит чуть
+   больше информации чем "Введение в Clojure"
 
 А остальные заметки, относящиеся к Clojure опубликованы в [[http://alexott-ru.blogspot.com/search/label/clojure][моем блоге]].
 
-Также доступен [[http://www.slideshare.net/alexott/clojure-margincon-2010][слайдкаст]] моего выступления о Clojure на конференции [[http://margincon.ru][MarginCon 2010]] (они же
+Также доступен [[http://www.slideshare.net/alexott/clojure-margincon-2010][слайдкаст]] моего выступления о Clojure на конференции [[http://margincon.ru][MarginCon 2010]] (он же
 в виде [[Clojure-MarginCon.pdf][PDF]]).
 
 ;  LocalWords:  Clojure

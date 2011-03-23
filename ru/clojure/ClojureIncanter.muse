@@ -1,5 +1,0 @@
-#title Clojure + Incanter
-#keywords clojure, incanter, math, statistics, кложура, статистика, математика, вычисления
-
-рассказ про Incanter
-
