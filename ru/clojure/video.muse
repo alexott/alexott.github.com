@@ -70,6 +70,7 @@ Clojure -- видео-лекции и учебники, выступления �
    Clojure на примере разработки игры (*я сам не смотрел его, в отличии от предыдущих
    материалов*).
 
+; TODO: http://ontwik.com/tag/clojure/
 ; TODO: Stuart Halloway about Clojure Protocols at http://uberconf.com/conference/denver/2010/06/schedule
 ; TODO: http://vimeo.com/laujensen/videos
 ;  LocalWords:  Clojure Halloway LocalWords clojure
