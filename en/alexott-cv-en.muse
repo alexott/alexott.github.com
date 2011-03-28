@@ -19,8 +19,19 @@
 
 * Work Experience
 
+ - **Principal Software Engineer** at *McAfee, Inc. (subsidiary of Intel Corporation)*<br>
+ **Dates (from-to)**: 04.2011-now<br>
+ **Name and address of employer**: [[http://www.mcafee.com][McAfee, Inc]]. 33100 Paderborn, Germany<br>
+ **Positions held**: Principal Software Engineer<br>
+ **Type of business**: Software Development<br>
+ **Main activities and responsibilities**: 
+    - Architect and development of web-filtering and data leak prevention software (McAfee
+      Web Gateway)<br>
+    - Provide support for 3rd party developers<br>
+    - Quality "tzar" -- responsible for introduction of quality-improving techniques and methodologies - code review, unit testing, etc.<br>
+
  - **Senior Developer** at *McAfee, Inc.*<br>
- **Dates (from-to)**: 01.2007-now (2007-2008 -- Secure Computing Corp.)<br>
+ **Dates (from-to)**: 01.2007-03.2011 (2007-2008 -- Secure Computing Corp.)<br>
  **Name and address of employer**: [[http://www.mcafee.com][McAfee, Inc]]. 33100 Paderborn, Germany<br>
  **Positions held**: Senior Developer<br>
  **Type of business**: Software Development<br>
