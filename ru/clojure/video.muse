@@ -60,6 +60,7 @@ Clojure -- видео-лекции и учебники, выступления �
    User Group;
  - [[http://www.youtube.com/watch?v=ObR3qi4Guys][Introduction to Monads]] -- выступление Adam Smyczek на встрече Bay Area Clojure User
    Group с рассказом о монадах вообще, и в Clojure в частности;
+ - Brian Marick записал [[http://www.vimeo.com/user5897815/videos][серию видео-лекций]] о монадах в Clojure;
  - [[http://www.parleys.com/#st=5&id=1518&sl=1][Clojure: Functional Concurrency for the JVM]] -- лекция о Clojure прочитанная Howard
    M. Lewis на конференции [[http://devoxx.com][Devoxx'09]];
  - [[http://vimeo.com/15046335][Clojure - Up Close and Personal]] -- вводная лекция Uncle Bob Martin о Clojure;
