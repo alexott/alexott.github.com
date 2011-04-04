@@ -640,6 +640,9 @@ Syme, Adam Granicz и Antonio Cisternino.  Данная книга содерж�
 
 Также летом 2010-го года в издательстве Wrox вышла книга [[http://www.amazon.com/gp/product/047052801X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=047052801X][Professional F# 2.0]].
 
+Среди свободных ресурсов стоит отметить книгу [[http://ctocorner.com/fsharp/book/][The F# Survival Guide]], которая содержит
+достаточно полную информацию об основах функционального программирования и самом языке F#.
+
 #ml-en
 *** Standard ML
 
@@ -704,9 +707,9 @@ Outside the Box", и несколько глав уже доступно для 
 По языку программирования Scheme также выпущено несколько книг, в настоящее время можно
 купить следующие из них:
 
- - [[http://www.amazon.com/gp/product/0262560992?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262560992][The Little Schemer]],
- - [[http://www.amazon.com/gp/product/0262562146?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262562146][The Reasoned Schemer]],
- - [[http://www.amazon.com/gp/product/026256100X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026256100X][The Seasoned Schemer]],
+ - [[http://www.amazon.com/gp/product/0262560992?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262560992][The Little Schemer]]
+ - [[http://www.amazon.com/gp/product/0262562146?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262562146][The Reasoned Schemer]]
+ - [[http://www.amazon.com/gp/product/026256100X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026256100X][The Seasoned Schemer]]
  - [[http://www.amazon.com/gp/product/026251298X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026251298X][The Scheme Programming Language, 4ed]], также [[http://scheme.com/tspl4/][доступная свободно]].
 
 Книги описывают как сам язык, так и различные аспекты его использования.  Эти книги могут
@@ -839,7 +842,7 @@ another Haskell tutorial* и *A Gentle Introduction to Haskell 98* (также �
 Для ознакомления с языками семейства ML существует достаточно много литературы.  Выбравшим
 OCaml лучше начать с книги *Introduction to Objective Caml*, используя её вместе со
 справочником по языку, а потом переходить к *Developing Applications with Objective Caml* и
-другим книгам из [[ocaml-en][списка выше]].  А изучение F# стоит начать с *Expert F# 2.0* или [[http://www.amazon.com/gp/product/1430223898?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430223898][Begining F#]]
+другим книгам из [[ocaml-en][списка выше]].  А изучение F# стоит начать с [[http://www.amazon.com/gp/product/1430224312?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224312][Expert F# 2.0]] или [[http://www.amazon.com/gp/product/1430223898?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430223898][Begining F#]]
 и продолжить с [[http://www.amazon.com/gp/product/0470242116?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470242116][F# for Scientists]].
 
 Для Prologа выбор книг достаточно велик -- начать можно с книги Братко
