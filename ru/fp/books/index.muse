@@ -659,6 +659,8 @@ Syme, Adam Granicz и Antonio Cisternino.  Данная книга содерж�
 [[http://www.amazon.com/gp/product/0262631814?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262631814][The Definition of Standard ML]] и [[http://www.amazon.com/gp/product/0521794781?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521794781][The Standard ML Basis Library]], которые содержат подробную
 информацию о языке и стандартной библиотеке.
 
+; books from http://www.cs.cmu.edu/~rwh/, Programming in Standard ML (http://www.cs.cmu.edu/~rwh/smlbook/)
+
 #lisp-en
 *** Lisp
 
