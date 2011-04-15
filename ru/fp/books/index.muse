@@ -389,13 +389,16 @@ Caml -- переведено 11 глав, описывающих сам язык
 Также имеется почти полный [[http://ocaml.spb.ru/][перевод документации]] к OCaml 3.10, который содержит достаточно
 хорошее описание самого языка, библиотек и утилит.
 
-; TODO: change link to ozon, when it will available
 Весной 2011-го года, в издательстве "Символ-Плюс" под названием [[http://www.books.ru/shop/books/816635][Программирование на F#]]
 вышел перевод книги [[http://www.amazon.com/gp/product/0596153643?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596153643][Programming F#]], выпущенной издательством O'Reilly.  Данная книга
 описывает 1-ю версию языка, хотя в данный момент уже доступна вторая версия, со многими
 улучшениями.
 
-; TODO: Функциональное программирование на F#, Сошников Д. В., «ДМК Пресс»
+Издательство "ДМК Пресс" также учавствует в выпуске литературы по функциональному
+программированию.  В апрелее 2011-го года, там была выпущена книга Дмитрия Сошников
+[[http://www.ozon.ru/context/detail/id/6151130/?partner=alexott][Функциональное программирование на F#]], которая представляет собой небольшое введение в
+этот язык, без глубокого погружения в лямбда-исчисление, но охватывает основные
+практические вопросы применения этого языка.
 
 #plans-ru
 ** Планируется выпустить
@@ -753,7 +756,8 @@ and Interpretation of Computer Programs и How to Design Programs, в котор
  - [[http://www.amazon.com/gp/product/0981531601?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531601][Programming in Scala: A Comprehensive Step-by-step Guide]] (издательство Artima Inc.) --
    первая книга об этом языке, содержит очень подробное описание языка и приемов
    программирования на нем, включая программирование приложений с графическим интерфейсом
-   пользователя.  (А в начале 2011-го года должно выйти [[http://www.amazon.com/gp/product/0981531644?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531644][2-е издание]] этой книги)
+   пользователя.  В начале 2011-го года вышло [[http://www.amazon.com/gp/product/0981531644?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531644][2-е издание]] этой книги, а 1-е издание
+   официально [[http://www.artima.com/pins1ed/][стало бесплатным]].
  - [[http://www.amazon.com/gp/product/0596155956?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596155956][Programming Scala: Scalability = Functional Programming + Objects]] (издательство
    O'Reilly) -- очень подробное описание языка, включая рассмотрение достаточно сложных
    вопросов, таких как разработка Domain Specific Languages, и т.п.  Кроме того, в книге
