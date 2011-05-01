@@ -786,6 +786,8 @@ and Interpretation of Computer Programs и How to Design Programs, в котор
    как [[http://manning.com/suereth/][Scala in Depth]] описывает более сложные вопросы использования этого языка.  Обе
    книги доступны в рамках программы раннего доступа (MEAP).
 
+; TODO: add Lift in Action, ....
+
 *** Clojure
 
 ; TODO: add description of http://www.lisperati.com/clojure-spels/casting.html
