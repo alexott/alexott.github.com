@@ -38,11 +38,9 @@ On this site is available some amount of code, written for Emacs:
 * My configuration file
 
 You can find my configuration file for GNU Emacs on [[http://github.com/alexott/emacs-configs][github]] -- most of settings, related to
-the concrete packages & topics, are moved to separate files, that you can view clicking on
-the link in =(load ...)= commands.
-
-*I want to mention, that this configuration is not "optimal", and many parts are not
-up-to-date. But now i haven't time to rewrite it*
+the concrete packages & topics, are moved to separate files. *I want to mention, that this
+configuration is not "optimal", and many parts are not up-to-date. But now i haven't time
+to rewrite it*
 
 * Useful links
 
