@@ -58,6 +58,8 @@ Clojure -- видео-лекции и учебники, выступления �
    на самой Clojure;
  - [[http://vimeo.com/18970727][Asynchronous Events in Clojure]] -- выступление Stuart Sierra на встрече New York Clojure
    User Group;
+ - [[http://vimeo.com/22675078][Clojure for Schemers]] -- выступление David Nolen, описывающее Clojure с точки зрения
+   программиста на Scheme;
  - [[http://www.youtube.com/watch?v=ObR3qi4Guys][Introduction to Monads]] -- выступление Adam Smyczek на встрече Bay Area Clojure User
    Group с рассказом о монадах вообще, и в Clojure в частности;
  - Brian Marick записал [[http://www.vimeo.com/user5897815/videos][серию видео-лекций]] о монадах в Clojure;

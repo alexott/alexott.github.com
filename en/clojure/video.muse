@@ -43,6 +43,8 @@ video materials, please leave them in comments to this page!*
    on [[http://devoxx.com][Devoxx'09]];
  - [[http://vimeo.com/18970727][Asynchronous Events in Clojure]] -- Stuart Sierra's presentation at New York Clojure User
    Group;
+ - [[http://vimeo.com/22675078][Clojure for Schemers]] -- presentation by David Nolen, describing Clojure from Schemer's
+   point of view;
  - [[http://www.youtube.com/watch?v=ObR3qi4Guys][Introduction to Monads]] by Adam Smyczek at Bay Area Clojure User Group meeting. He talk
    about monads in Clojure;
  - Brian Marick recorded [[http://www.vimeo.com/user5897815/videos][several video lectures]] about monads in Clojure;
