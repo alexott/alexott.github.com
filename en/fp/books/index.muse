@@ -81,12 +81,11 @@ this allows me to buy new books and add them to review*.
 
 
 #fp-implement
-* Реализация языков программирования
+* Implementation of functional programming languages
 
 Вопросы реализации функциональных языков программирования рассматриваются в некоторых
 описанных выше книгах, посвященных теории ФП, но кроме этого, существуют книги, посвященные
 исключительно вопросам реализации таких языков программирования:
-
  - Книга [[http://www.amazon.com/gp/product/0262201755?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262201755][Design Concepts in Programming Languages]] посвящена теоретическим и практическим
    аспектам разработки языков программирования.
  - Книга [[http://research.microsoft.com/en-us/um/people/simonpj/papers/slpj-book-1987/][The Implementation of Functional Programming Languages]], написанная Simon Peyton
@@ -102,15 +101,13 @@ this allows me to buy new books and add them to review*.
  - Свободно доступная книга [[http://clean.cs.ru.nl/contents/Addison__Wesley_book/addison__wesley_book.html][Functional Programming and Parallel Graph Rewriting]] описывает
    разные модели реализации функциональных языков, с примерами реализации языка Clean.
 
-* Конкретные языки ФП
+* Concrete functional languages
 
-Ниже перечислены наиболее интересные книги на английском языке, посвященные конкретным
-функциональным языкам программирования.
+In this section books about concrete functional programming languages are listed. 
 
 ** Haskell
 
 Среди публикаций, посвященных языку Haskell, я хотел бы отметить следующие:
-
  - [[http://www.amazon.com/gp/product/0134843460?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0134843460][Introduction to Functional Programming using Haskell]] Ричарда Бёрда является учебником
    по функциональному программированию, использующим Haskell в качестве основного языка.
    В нем рассмотрены базовые концепции ФП и их применение в Haskell.  Книга содержит много
@@ -126,6 +123,7 @@ this allows me to buy new books and add them to review*.
    суховато, но может использоваться в качестве справочника теми, кто уже знаком с этим
    или другими функциональными языками, например, OCaml или Standard ML.  Эта книга также
    используется в [[http://channel9.msdn.com/shows/Going+Deep/C9-Lectures-Dr-Erik-Meijer-Functional-Programming-Fundamentals-Chapter-13-of-13/][курсе видео-лекций]] Эрика Майера (Erik Meijer) на Channel9.
+; TODO: update to 3rd edition...
  - Книга [[http://www.amazon.com/gp/product/0201342758?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0201342758][Haskell: The Craft of Functional Programming]] посвящена описанию языка Haskell и
    принципов программирования на нем и включает отдельные главы по работе с типами данных,
    классами типов и т.п.
@@ -136,9 +134,9 @@ this allows me to buy new books and add them to review*.
 
 Кроме напечатанных книг и учебников, имеются и материалы, доступные online.  К наиболее
 интересным можно отнести:
- - [[http://learnyouahaskell.com/][Learn You a Haskell for Great Good!: A Guide for Beginners]], которая также будет
-   доступна в виде [[http://www.amazon.com/gp/product/1593272839?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1593272839][отдельной книги]] в начале 2011-го года.  Написанная простым языком, она
-   является очень хорошим введением в язык Haskell;
+ - [[http://learnyouahaskell.com/][Learn You a Haskell for Great Good!: A Guide for Beginners]], которая также доступна в
+   виде [[http://www.amazon.com/gp/product/1593272839?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1593272839][отдельной книги]].  Написанная простым языком, она является очень хорошим введением
+   в язык Haskell;
  - Раздел на сайте проекта Wikibooks, посвященный [[http://en.wikibooks.org/wiki/Haskell][Haskell]], содержит очень большое
    количество материалов различной степени сложности.
  - [[http://www.haskell.org/tutorial/][A Gentle Introduction to Haskell 98]] -- учебник по языку Haskell 98;
