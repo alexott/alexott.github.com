@@ -1,0 +1,6 @@
+#title Stable versions of Squid-GSB
+#keywords squid, gsb, google safe browsing
+
+Now available following releases:
+ - [[./squid-gsb-0.2.tar.gz][v. 0.2]] (18Kb)
+
