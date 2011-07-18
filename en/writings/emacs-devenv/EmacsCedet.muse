@@ -6,6 +6,8 @@ as development environment (this is theme for [[emacs-devenv/index][separate art
 small description of "How to customize [[http://cedet.sf.net][Cedet]] to work with C & C++", although most of this
 description will also applicable for other languages, supported by Cedet.
 
+This article is also available in [[../../../ru/writings/emacs-devenv/EmacsCedet][Russian]] и [[http://webhostingrating.com/libs/EmacsCedet-be][Belorussian]].
+
 <contents>
 
 * What is Cedet?
