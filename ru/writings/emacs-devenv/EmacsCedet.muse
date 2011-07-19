@@ -7,8 +7,6 @@
 большая часть изложенного подходит и к работе с другими языками, поддерживаемыми пакетом
 Cedet.
 
-Данная статья также доступна на [[../../../en/writings/emacs-devenv/EmacsCedet][английском]] и [[http://webhostingrating.com/libs/EmacsCedet-be][белорусском]] языках.
-
 <contents>
 
 * Что такое Cedet?
