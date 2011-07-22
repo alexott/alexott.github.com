@@ -103,7 +103,8 @@ this allows me to buy new books and add them to review*.
 
 * Concrete functional languages
 
-In this section books about concrete functional programming languages are listed. 
+This section contains information for books about specific functional programming
+languages.
 
 ** Haskell
 
