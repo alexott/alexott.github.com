@@ -24,6 +24,8 @@
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/common/asio-proxy-async/proxy-server.hpp.html</loc>
 <lastmod>2008-10-23</lastmod></url>
+<url><loc>http://alexott.net/common/cf/index.html</loc>
+<lastmod>2011-07-15</lastmod></url>
 <url><loc>http://alexott.net/common/haskell/rwh/chapter-3.hs.html</loc>
 <lastmod>2009-03-18</lastmod></url>
 <url><loc>http://alexott.net/common/haskell/rwh/chapter-4.hs.html</loc>
@@ -37,7 +39,7 @@
 <url><loc>http://alexott.net/de/writings/MBA/Masterarbeit-de.html</loc>
 <lastmod>2009-01-06</lastmod></url>
 <url><loc>http://alexott.net/en/alexott-cv-en.html</loc>
-<lastmod>2011-03-28</lastmod></url>
+<lastmod>2011-10-06</lastmod></url>
 <url><loc>http://alexott.net/en/cf/index.html</loc>
 <lastmod>2010-04-13</lastmod></url>
 <url><loc>http://alexott.net/en/cf/squid-gsbapi.html</loc>
@@ -62,10 +64,12 @@
 <lastmod>2011-03-16</lastmod></url>
 <url><loc>http://alexott.net/en/emacs/index.html</loc>
 <lastmod>2011-06-22</lastmod></url>
+<url><loc>http://alexott.net/en/fp/books/index.html</loc>
+<lastmod>2011-07-22</lastmod></url>
 <url><loc>http://alexott.net/en/fp/index.html</loc>
 <lastmod>2009-11-03</lastmod></url>
 <url><loc>http://alexott.net/en/index.html</loc>
-<lastmod>2010-06-02</lastmod></url>
+<lastmod>2011-10-17</lastmod></url>
 <url><loc>http://alexott.net/en/internet.html</loc>
 <lastmod>2010-05-17</lastmod></url>
 <url><loc>http://alexott.net/en/oss/index.html</loc>
@@ -75,7 +79,7 @@
 <url><loc>http://alexott.net/en/writings/cf/index.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html</loc>
-<lastmod>2011-03-14</lastmod></url>
+<lastmod>2011-07-19</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-devenv/EmacsErlang.html</loc>
 <lastmod>2009-11-10</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-devenv/EmacsLisp.html</loc>
@@ -435,7 +439,7 @@
 <url><loc>http://alexott.net/ru/fp/index.html</loc>
 <lastmod>2010-12-06</lastmod></url>
 <url><loc>http://alexott.net/ru/index.html</loc>
-<lastmod>2010-12-21</lastmod></url>
+<lastmod>2011-10-17</lastmod></url>
 <url><loc>http://alexott.net/ru/internet.html</loc>
 <lastmod>2010-05-17</lastmod></url>
 <url><loc>http://alexott.net/ru/linux/index.html</loc>
@@ -661,7 +665,7 @@
 <url><loc>http://alexott.net/ru/writings/emacs-22/index.html</loc>
 <lastmod>2010-07-26</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsCedet.html</loc>
-<lastmod>2011-03-14</lastmod></url>
+<lastmod>2011-07-19</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsClojure.html</loc>
 <lastmod>2009-12-01</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsErlang.html</loc>
@@ -781,7 +785,7 @@
 <url><loc>http://alexott.net/ru/writings/zsh/index.html</loc>
 <lastmod>2010-01-21</lastmod></url>
 <url><loc>http://alexott.net/en/alexott-cv-en.pdf</loc>
-<lastmod>2011-04-26</lastmod></url>
+<lastmod>2011-10-06</lastmod></url>
 <url><loc>http://alexott.net/ru/alexott-cv-ru.pdf</loc>
 <lastmod>2011-04-26</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/Clojure-MarginCon.pdf</loc>

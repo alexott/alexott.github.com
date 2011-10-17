@@ -3,8 +3,7 @@
 
 * Short information about me
 
-**Name**: Alexey (Alex) Ott<br>
-**Age**: 35<br>
+**Name**: Alex (Alexey) Ott<br>
 **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]]<br>
 **Jabber**: [[xmpp://alexott@gmail.com][alexott@gmail.com]]<br>
 **Live in**: Germany
