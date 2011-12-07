@@ -55,7 +55,7 @@ following code into =<plugins>= section of =pom.xml=:
   <plugin>
     <groupId>com.theoryinpractise</groupId>
     <artifactId>clojure-maven-plugin</artifactId>
-    <version>1.3.2</version>
+    <version>1.3.6</version>
   </plugin>
 </src>
 
@@ -76,7 +76,7 @@ in following example:
  <plugin>
    <groupId>com.theoryinpractise</groupId>
    <artifactId>clojure-maven-plugin</artifactId>
-   <version>1.3.2</version>
+   <version>1.3.6</version>
    <executions>
      <execution>
        <id>compile</id>
@@ -175,25 +175,25 @@ group's name (=groupId= tag), artifact name (=artifactId= tag), and version (=ve
 To use Clojure in your project you need at least specify dependency on language itself.
 Besides Clojure, the =clojure-contrib= library is often used in many projects, so they are
 often specified together.  Currently, the stable version of both packages is version
-1.1.0, that is in the release-repository of Clojure.  To declare these dependencies add
+1.2.0, that is in the release-repository of Clojure.  To declare these dependencies add
 following code into  =dependencies= section of =pom.xml= file:
 
 <src lang="nxml">
  <dependency>
    <groupId>org.clojure</groupId>
    <artifactId>clojure</artifactId>
-   <version>1.1.0</version>
+   <version>1.2.0</version>
  </dependency>
  <dependency>
    <groupId>org.clojure</groupId>
    <artifactId>clojure-contrib</artifactId>
-   <version>1.1.0</version>
+   <version>1.2.0</version>
  </dependency>
 </src>
 
 If you want to use latest version of the language, then you need to add corresponding
-repository (snapshots) and use version number =1.2.0-SNAPSHOTS= (or other actual in current
-time) instead of version =1.1.0=.
+repository (snapshots) and use version number =1.4.0-SNAPSHOTS= (or other actual in current
+time) instead of version =1.2.0=.
 
 To perform some tasks, implemented by clojure-maven-plugin, you need to specify additional
 dependencies:
@@ -202,7 +202,7 @@ dependencies:
  <dependency>
   <groupId>swank-clojure</groupId>
   <artifactId>swank-clojure</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>1.3.0</version>
 </dependency>
 </src>
  - if you will use =clojure:nailgun= task, then you need to download distribution from
@@ -240,9 +240,9 @@ the script, that will executed during testing, with following code:
  <plugin>
    <groupId>com.theoryinpractise</groupId>
    <artifactId>clojure-maven-plugin</artifactId>
-   <version>1.3.2</version>
+   <version>1.3.6</version>
    <configuration>
-     <testScript>src/test/clojure/unapalabra/test.clj</testScript>
+     <testScript>src/test/clojure/test.clj</testScript>
    </configuration>
    .....
  </plugin>
