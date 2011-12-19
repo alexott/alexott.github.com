@@ -32,37 +32,37 @@ Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
 </TR></TABLE>
 <H1>automake</H1></P><P>
 
-Этот файл содержит документацию по пакету GNU Automake для создания файлов
-Makefile по шаблонам.  Созданные файлы отвечают стандартам GNU. Эта редакция
-описывает версию 1.4.
+п╜я┌п╬я┌ я└п╟п╧п╩ я│п╬п╢п╣я─п╤п╦я┌ п╢п╬п╨я┐п╪п╣п╫я┌п╟я├п╦я▌ п©п╬ п©п╟п╨п╣я┌я┐ GNU Automake п╢п╩я▐ я│п╬п╥п╢п╟п╫п╦я▐ я└п╟п╧п╩п╬п╡
+Makefile п©п╬ я┬п╟п╠п╩п╬п╫п╟п╪.  п║п╬п╥п╢п╟п╫п╫я▀п╣ я└п╟п╧п╩я▀ п╬я┌п╡п╣я┤п╟я▌я┌ я│я┌п╟п╫п╢п╟я─я┌п╟п╪ GNU. п╜я┌п╟ я─п╣п╢п╟п╨я├п╦я▐
+п╬п©п╦я│я▀п╡п╟п╣я┌ п╡п╣я─я│п╦я▌ 1.4.
 </P><P>
 
 <BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_1.html#SEC1">1. Введение</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_2.html#SEC2">2. Общая информация</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_3.html#SEC8">3. Некоторые примеры пакетов</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_4.html#SEC12">4. Создание файла <TT>`Makefile.in'</TT></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_5.html#SEC13">5. Сканирование файла <TT>`configure.in'</TT></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_6.html#SEC19">6. <TT>`Makefile.am'</TT> верхнего уровня</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC20">7. Построение программ и библиотек</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_8.html#SEC37">8. Другие порожденные объекты</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_9.html#SEC42">9. Другие утилиты GNU</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_10.html#SEC48">10. Построение документации</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_11.html#SEC51">11. Что будет установлено</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_12.html#SEC52">12. Что будет удалено</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_13.html#SEC53">13. Что войдет в дистрибутив</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_14.html#SEC54">14. Поддержка комплектов тестирования</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_15.html#SEC55">15. Изменение поведения Automake</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_16.html#SEC56">16. Различные правила</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_17.html#SEC59">17. Включение дополнительных файлов</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Включение дополнительных файлов в шаблон Automake</TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_18.html#SEC60">18. Условные операторы</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_19.html#SEC61">19. Эффект использования ключей <CODE>--gnu</CODE> и <CODE>--gnits</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_20.html#SEC62">20. Эффект использования ключа <CODE>--cygnus</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_21.html#SEC63">21. Когда не хватает возможностей Automake</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_22.html#SEC64">22. Распространение файлов <TT>`Makefile.in'</TT></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_23.html#SEC65">23. Некоторые идеи на будущее</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_24.html#SEC66">Индекс переменных и макросов</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
-<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_25.html#SEC67">Общий индекс</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_1.html#SEC1">1. п▓п╡п╣п╢п╣п╫п╦п╣</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_2.html#SEC2">2. п·п╠я┴п╟я▐ п╦п╫я└п╬я─п╪п╟я├п╦я▐</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_3.html#SEC8">3. п²п╣п╨п╬я┌п╬я─я▀п╣ п©я─п╦п╪п╣я─я▀ п©п╟п╨п╣я┌п╬п╡</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_4.html#SEC12">4. п║п╬п╥п╢п╟п╫п╦п╣ я└п╟п╧п╩п╟ <TT>`Makefile.in'</TT></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_5.html#SEC13">5. п║п╨п╟п╫п╦я─п╬п╡п╟п╫п╦п╣ я└п╟п╧п╩п╟ <TT>`configure.in'</TT></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_6.html#SEC19">6. <TT>`Makefile.am'</TT> п╡п╣я─я┘п╫п╣пЁп╬ я┐я─п╬п╡п╫я▐</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_7.html#SEC20">7. п÷п╬я│я┌я─п╬п╣п╫п╦п╣ п©я─п╬пЁя─п╟п╪п╪ п╦ п╠п╦п╠п╩п╦п╬я┌п╣п╨</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_8.html#SEC37">8. п■я─я┐пЁп╦п╣ п©п╬я─п╬п╤п╢п╣п╫п╫я▀п╣ п╬п╠я┼п╣п╨я┌я▀</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_9.html#SEC42">9. п■я─я┐пЁп╦п╣ я┐я┌п╦п╩п╦я┌я▀ GNU</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_10.html#SEC48">10. п÷п╬я│я┌я─п╬п╣п╫п╦п╣ п╢п╬п╨я┐п╪п╣п╫я┌п╟я├п╦п╦</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_11.html#SEC51">11. п╖я┌п╬ п╠я┐п╢п╣я┌ я┐я│я┌п╟п╫п╬п╡п╩п╣п╫п╬</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_12.html#SEC52">12. п╖я┌п╬ п╠я┐п╢п╣я┌ я┐п╢п╟п╩п╣п╫п╬</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_13.html#SEC53">13. п╖я┌п╬ п╡п╬п╧п╢п╣я┌ п╡ п╢п╦я│я┌я─п╦п╠я┐я┌п╦п╡</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_14.html#SEC54">14. п÷п╬п╢п╢п╣я─п╤п╨п╟ п╨п╬п╪п©п╩п╣п╨я┌п╬п╡ я┌п╣я│я┌п╦я─п╬п╡п╟п╫п╦я▐</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_15.html#SEC55">15. п≤п╥п╪п╣п╫п╣п╫п╦п╣ п©п╬п╡п╣п╢п╣п╫п╦я▐ Automake</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_16.html#SEC56">16. п═п╟п╥п╩п╦я┤п╫я▀п╣ п©я─п╟п╡п╦п╩п╟</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_17.html#SEC59">17. п▓п╨п╩я▌я┤п╣п╫п╦п╣ п╢п╬п©п╬п╩п╫п╦я┌п╣п╩я▄п╫я▀я┘ я└п╟п╧п╩п╬п╡</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">п▓п╨п╩я▌я┤п╣п╫п╦п╣ п╢п╬п©п╬п╩п╫п╦я┌п╣п╩я▄п╫я▀я┘ я└п╟п╧п╩п╬п╡ п╡ я┬п╟п╠п╩п╬п╫ Automake</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_18.html#SEC60">18. пёя│п╩п╬п╡п╫я▀п╣ п╬п©п╣я─п╟я┌п╬я─я▀</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_19.html#SEC61">19. п╜я└я└п╣п╨я┌ п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦я▐ п╨п╩я▌я┤п╣п╧ <CODE>--gnu</CODE> п╦ <CODE>--gnits</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_20.html#SEC62">20. п╜я└я└п╣п╨я┌ п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦я▐ п╨п╩я▌я┤п╟ <CODE>--cygnus</CODE></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_21.html#SEC63">21. п п╬пЁп╢п╟ п╫п╣ я┘п╡п╟я┌п╟п╣я┌ п╡п╬п╥п╪п╬п╤п╫п╬я│я┌п╣п╧ Automake</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_22.html#SEC64">22. п═п╟я│п©я─п╬я│я┌я─п╟п╫п╣п╫п╦п╣ я└п╟п╧п╩п╬п╡ <TT>`Makefile.in'</TT></A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_23.html#SEC65">23. п²п╣п╨п╬я┌п╬я─я▀п╣ п╦п╢п╣п╦ п╫п╟ п╠я┐п╢я┐я┴п╣п╣</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_24.html#SEC66">п≤п╫п╢п╣п╨я│ п©п╣я─п╣п╪п╣п╫п╫я▀я┘ п╦ п╪п╟п╨я─п╬я│п╬п╡</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="automake-ru_25.html#SEC67">п·п╠я┴п╦п╧ п╦п╫п╢п╣п╨я│</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
 </TABLE></BLOCKQUOTE>
 <P>
 
