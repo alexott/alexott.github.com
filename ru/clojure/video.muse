@@ -19,7 +19,8 @@ Clojure -- видео-лекции и учебники, выступления �
    автора языка -- Rich Hickey, так и других разработчиков.  Лекции самые разные по
    содержанию, и содержат интересные выступления. Есть отдельные лекции "Clojure для
    программистов на Lisp" и "Clojure для программистов на Java", которые могут служить
-   очень хорошими введениями в язык;
+   очень хорошими введениями в язык.  Там же вы можете найти и видео-лекции с конференций
+   Clojure/conj;
  - [[http://channel9.msdn.com/shows/Going+Deep/Expert-to-Expert-Rich-Hickey-and-Brian-Beckman-Inside-Clojure/][Inside Clojure]] -- лекция Rich Hickey для Channel 9, в котором рассказывается про
    внутреннее устройство языка;
  - [[http://vimeo.com/channels/fulldisclojure][набор скринкастов от Sean Devlin]], в которых рассказывается как про возможности Clojure
@@ -72,6 +73,50 @@ Clojure -- видео-лекции и учебники, выступления �
  - [[http://peepcode.com/products/functional-programming-with-clojure][Functional Programming with Clojure]] -- платный скринкаст, показывающий возможности
    Clojure на примере разработки игры (*я сам не смотрел его, в отличии от предыдущих
    материалов*).
+ - [[http://www.infoq.com/presentations/Clojure-Towards-The-Essence-Of-Programming][Clojure: Towards The Essence Of Programming]] -- лекция Howard Lewis Ship о Clojure;
+ - [[http://www.infoq.com/presentations/Event-Driven-Programming-in-Clojure][Event-Driven Programming in Clojure]] -- Zach Tellman рассказывает о асинхронном
+   программировании на Clojure;
+ - [[http://www.infoq.com/presentations/Simple-Made-Easy][Simple Made Easy]] -- лекция Rich Hickey о простоте, и о том, как она влияет на дизайн;
+ - [[http://www.infoq.com/interviews/chris-houser-clojure-interview][Interview with Chris Houser about Clojure]]
+ - [[http://www.infoq.com/presentations/Clojure-The-Art-of-Abstraction][Clojure: The Art of Abstraction]] -- презентация сделанная Alex Miller об абстракциях в
+   Clojure: коллекции, последовательности, протоколы и т.д.
+ - [[http://www.infoq.com/presentations/Parser-Combinators][Parser Combinators: How to Parse (nearly) Anything]] -- лекция Nate Young о комбинаторных
+   парсерах, с примерами на Clojure;
+ - [[http://vimeo.com/36245706][Clojure's Concurrency Types: Refs, Atoms, Agents, and Vars]] -- лекция Alex Redington об
+   основных типах Clojure для параллельного программирования;
+ - [[http://www.infoq.com/presentations/The-Mapping-Dilemma][The Mapping Dilemma]] -- David Nolen рассказывает о библиотеке =core.match=;
+ - [[http://www.infoq.com/presentations/An-Introduction-to-Clojure-Time-Model][Perception and Action: An Introduction to Clojure's Time Model]] -- лекция Stuart
+   Halloway;
+ - [[http://www.infoq.com/presentations/Monads-Made-Easy][Monads Made Easy]] -- Jim Duey объясняет монады используя Clojure;
+ - [[http://www.infoq.com/presentations/Clojure-Java-Interop][Clojure-Java Interop: A Better Java than Java]] -- Stuart Halloway рассказывает о том,
+   как устроено взаимодействие Clojure-Java;
+ - [[http://skillsmatter.com/event/scala/clojure-exchange/js-2762][Videos from Clojure Exchange 2011]] -- серия видео-лекций на однодневной конференции в
+   Лондоне, организованной by Skills Matter;
+ - [[http://www.reddit.com/r/Clojure/comments/i51v3/ndc_2011_clojure_talks_video/][Видео-лекции о Clojure с Norwegian Developers Conference 2011]];
+
+
+*** Videos from Clojure user groups
+
+ - [[http://vimeo.com/groups/bonjure/videos][Montreal Clojure User Group]]
+ - [[http://skillsmatter.com/user-group/scala/london-clojure-user-group][London Clojure User Group]] -- много интересных видео-лекций на разные темы, имеющие
+   отношение к Clojure;
+
+*** ClojureScript
+
+ - [[http://www.infoq.com/presentations/One-Parenthesis-to-Rule-them-All][One () to Rule them All]] -- выступление Aaron Bedra о Clojure и о том, как ClojureScript
+   используется в веб-разработке;
+ - [[http://vimeo.com/user8648776/videos][Несколько скринкастов о ClojureScript]] сделанных Brenton Ashworth;
+ - [[http://blip.tv/clojure/rich-hickey-unveils-clojurescript-5399498][Rich Hickey анонсирует ClojureScript]]
+
+*** Clojure-related
+
+ - [[http://www.infoq.com/presentations/Functional-Approaches-To-Parallelism][Functional Approaches To Parallelism and Concurrency]] -- Don Syme рассказывает о
+   функциональных языках, и о том, как они используются для параллельного
+   программирования.  Большинство примеров на F#, но некоторые части также имеют отношение
+   к Haskell, Erlang и Clojure;
+ - [[http://www.infoq.com/presentations/Storm][Storm: Distributed and Fault-tolerant Real-time Computation]] -- рассказ Nathan Marz о
+   [[https://github.com/nathanmarz/storm][Storm]], распределенной системе обработки данных, частично написанной на Clojure.
+
 
 ; TODO: http://ontwik.com/tag/clojure/
 ; TODO: Stuart Halloway about Clojure Protocols at http://uberconf.com/conference/denver/2010/06/schedule

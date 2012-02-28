@@ -7,7 +7,8 @@ video materials, please leave them in comments to this page!*
 
  - http://clojure.blip.tv/ -- contains set of video-lectures & presentation about Clojure
    by Rich Hickey (and other developers).  Lectures like "Clojure for Lisp developers" &
-   "Clojure for Java developers" could be used as introductions into this language;
+   "Clojure for Java developers" could be used as introductions into this language.  It
+   also contains vdeos from Clojure/conj conference;
  - [[http://channel9.msdn.com/shows/Going+Deep/Expert-to-Expert-Rich-Hickey-and-Brian-Beckman-Inside-Clojure/][Inside Clojure]] -- Rich Hickey's lectures for Channel 9 about Clojure internals;
  - [[http://vimeo.com/channels/fulldisclojure][Sean Devlin's screencasts]] about Clojure 1.1 features, project management, installing
    IDEs, macroses, etc.;
@@ -32,7 +33,7 @@ video materials, please leave them in comments to this page!*
    persistent data structures, mutable state & how these things are implemented in
    Clojure;
  - [[http://www.infoq.com/interviews/stuart_holloway_clojure][Stuart Halloway on Clojure and Functional Programming]] -- author of
-   "[[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]]" talk about Clojure & FP;
+   "[[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]]" talks about Clojure & FP;
  - [[http://www.infoq.com/presentations/Clojure-in-the-Field][Clojure in the Field]] -- presentation by Stuart Halloway on use of Clojure for software
    development;
  - [[http://java.dzone.com/videos/clojure-and-simplicty][Clojure and Simplicty]] -- interview with Stuart Halloway;
@@ -54,7 +55,63 @@ video materials, please leave them in comments to this page!*
    Compojure to develop web-related code;
  - [[http://peepcode.com/products/functional-programming-with-clojure][Functional Programming with Clojure]] -- screencast (requiring payment), that shows
    Clojure's features on example of game development (*I hadn't seen it, in contrast to
-   other video-materials*).
+   other video-materials*);
+ - [[http://www.infoq.com/presentations/Clojure-Towards-The-Essence-Of-Programming][Clojure: Towards The Essence Of Programming]] -- lecture about Clojure by Howard Lewis
+   Ship;
+ - [[http://www.infoq.com/presentations/Event-Driven-Programming-in-Clojure][Event-Driven Programming in Clojure]] -- Zach Tellman explains how to deal with
+   asynchronous programming difficulties in Clojure using an event-driven data structure;
+ - [[http://www.infoq.com/presentations/Simple-Made-Easy][Simple Made Easy]] -- Rich Hickey talks about simplicity and how it affects design;
+ - [[http://www.infoq.com/interviews/chris-houser-clojure-interview][Interview with Chris Houser about Clojure]]
+ - [[http://www.infoq.com/presentations/Clojure-The-Art-of-Abstraction][Clojure: The Art of Abstraction]] -- presentation by Alex Miller about abstractions in
+   Clojure: Collections, Sequence and Higher Order Functions, Multimethods, Protocols,
+   Atoms, Macros, etc.
+ - [[http://www.infoq.com/presentations/Parser-Combinators][Parser Combinators: How to Parse (nearly) Anything]] -- lecture by Nate Young about
+   parsing combinators, with examples in Clojure;
+ - [[http://vimeo.com/36245706][Clojure's Concurrency Types: Refs, Atoms, Agents, and Vars]] -- lecture by Alex Redington
+   about Clojure's base concurrency types;
+ - [[http://www.infoq.com/presentations/The-Mapping-Dilemma][The Mapping Dilemma]] -- David Nolen talk about =core.match= library at Strange Loop conference;
+ - [[http://www.infoq.com/presentations/An-Introduction-to-Clojure-Time-Model][Perception and Action: An Introduction to Clojure's Time Model]] -- Stuart Halloway talks
+   about Clojure's time model and how it helps to solve concurrency/parallelism problems;
+ - [[http://www.infoq.com/presentations/Monads-Made-Easy][Monads Made Easy]] -- Jim Duey explains monads through Clojure;
+ - [[http://www.infoq.com/presentations/Clojure-Java-Interop][Clojure-Java Interop: A Better Java than Java]] -- Stuart Halloway explains at QCon how
+   Clojure-Java interoperability works;
+ - [[http://skillsmatter.com/event/scala/clojure-exchange/js-2762][Videos from Clojure Exchange 2011]] -- several talks from conference in London, organized
+   by Skills Matter;
+ - [[http://www.reddit.com/r/Clojure/comments/i51v3/ndc_2011_clojure_talks_video/][Clojure-related lectures from Norwegian Developers Conference 2011]];
+; - [[][] --
+; - [[][] --
+; - [[][] --
+; - [[][] --
+
+
+*** Videos from Clojure user groups
+
+ - [[http://vimeo.com/groups/bonjure/videos][Montreal Clojure User Group]]
+ - [[http://skillsmatter.com/user-group/scala/london-clojure-user-group][London Clojure User Group]] -- there are many interesting video-lectures on different
+   Clojure-related topics;
+; - [[][] --
+; - [[][] --
+; - [[][] --
+
+*** ClojureScript
+
+ - [[http://www.infoq.com/presentations/One-Parenthesis-to-Rule-them-All][One () to Rule them All]] -- Aaron Bedra introduces Clojure and details how ClojureScript
+   helps with web development;
+ - [[http://vimeo.com/user8648776/videos][ClojureScript-related videos]] by Brenton Ashworth;
+ - [[http://blip.tv/clojure/rich-hickey-unveils-clojurescript-5399498][Rich Hickey Unveils ClojureScript]];
+; - [[][] --
+
+*** Clojure-related
+
+ - [[http://www.infoq.com/presentations/Functional-Approaches-To-Parallelism][Functional Approaches To Parallelism and Concurrency]] -- Don Syme talks about functional
+   languages, how they could be used for concurrent/parallel programming. Most of examples
+   are in F#, but some topics also related to Haskell, Erlang, Clojure;
+ - [[http://www.infoq.com/presentations/Storm][Storm: Distributed and Fault-tolerant Real-time Computation]] -- lecture about [[https://github.com/nathanmarz/storm][Storm]],
+   presented by Nathan Marz;
+; - [[][] --
+; - [[][] --
+; - [[][] --
+
 
 ;  LocalWords:  Clojure Halloway LocalWords clojure screencast Halloway's
 ;  LocalWords:  screencasts Clojure's
