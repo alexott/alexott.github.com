@@ -93,6 +93,7 @@ Clojure -- видео-лекции и учебники, выступления �
  - [[http://skillsmatter.com/event/scala/clojure-exchange/js-2762][Videos from Clojure Exchange 2011]] -- серия видео-лекций на однодневной конференции в
    Лондоне, организованной by Skills Matter;
  - [[http://www.reddit.com/r/Clojure/comments/i51v3/ndc_2011_clojure_talks_video/][Видео-лекции о Clojure с Norwegian Developers Conference 2011]];
+ - [[http://www.parleys.com/#id=2805&st=5][Cracking Clojure]] -- презентация Alex Miller на Devoxx 2011;
 
 
 *** Videos from Clojure user groups

@@ -78,7 +78,7 @@ video materials, please leave them in comments to this page!*
  - [[http://skillsmatter.com/event/scala/clojure-exchange/js-2762][Videos from Clojure Exchange 2011]] -- several talks from conference in London, organized
    by Skills Matter;
  - [[http://www.reddit.com/r/Clojure/comments/i51v3/ndc_2011_clojure_talks_video/][Clojure-related lectures from Norwegian Developers Conference 2011]];
-; - [[][] --
+ - [[http://www.parleys.com/#id=2805&st=5][Cracking Clojure]] -- presentation Alex Miller at Devoxx 2011;
 ; - [[][] --
 ; - [[][] --
 ; - [[][] --
