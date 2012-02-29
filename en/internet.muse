@@ -1,6 +1,6 @@
 #title My presence in Internet
 
-Here is small list of resources, that i use:
+Here is small list of resources, that I use:
 
  - [[http://alexott.blogspot.com][My blog]] with notes on different themes
  - Wishlists on [[http://www.amazon.de/wishlist/3GN7PNIFBJSHC][Amazon Germany]], or at [[http://www.amazon.co.uk/wishlist/T6DNC3CKUHZ2][Amazon UK]]
@@ -23,4 +23,3 @@ Here is small list of resources, that i use:
 
  - [[../common/google-reader-subscriptions.xml][List of sites, those news I'm reading]] (in OPML format)
  - [[http://www.google.com/reader/shared/alexott][Shared items]] in Google Reader
-

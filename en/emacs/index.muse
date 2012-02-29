@@ -1,9 +1,9 @@
 #title Emacs
 #keywords emacs, gnus, gnu emacs, xemacs
 
-I use Emacs about 10 years (during last 7 years I'm using GNU Emacs, but before i also
-used XEmacs).  Emacs for me is something like Swiss army knife -- with it i perform almost
-all my tasks -- program in different languages, write articles, read e-mail & usenet news,
+I use Emacs more than 10 years (last years I'm using GNU Emacs, but before I've also used
+XEmacs).  Emacs for me is something like Swiss army knife -- with it I perform almost all
+my tasks -- program in different languages, write articles, read e-mail & usenet news,
 talk in irc & jabber, and more other things (and [[../writings/EmacsMuseMyPage][my site created]] with [[http://mwolson.org/projects/EmacsMuse.html][Muse]] -- wiki-like
 package for Emacs).
 
@@ -21,18 +21,17 @@ You can also find [[../writings/][other my articles]].
 
 * Code for Emacs
 
-On this site is available some amount of code, written for Emacs:
- - [[../../common/emacs/hs-lint.el][hs-lint.el]] -- module for work with [[http://www-users.cs.york.ac.uk/%7Endm/hlint/][HLint]] from Emacs (this package is also included into
-   HLint's distribution).  It allows to get list of hints, and provide navigation through
-   this list.  It could be used following way (to run of =hs-lint= command the =C-c l= key
-   binding is used):
+I wrote some code for Emacs (not counting patches for different projects):
+ - =hs-lint.el= -- module for work with [[http://www-users.cs.york.ac.uk/%7Endm/hlint/][HLint]] from Emacs (it now included into
+   [[https://github.com/pheaver/haskell-mode][haskell-mode]]).  It allows to get list of hints, and provide navigation through this
+   list.  It could be used following way (to run of =hs-lint= command the =C-c l= key binding
+   is used):
 <src lang="emacs-lisp">
 (require 'hs-lint)
 (defun my-haskell-mode-hook ()
    (local-set-key "\C-cl" 'hs-lint))
 (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 </src>
-
  - [[../../common/emacs/blorg.el][Patched version of blorg.el]] -- some errors were fixed, mostly in text formatting part
 
 * My configuration file

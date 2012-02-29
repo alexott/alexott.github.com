@@ -1,5 +1,5 @@
 #title Alex Ott's home page (English)
-#keywords home page, emacs, linux, programming, c++, functional programming, scheme, lisp, common lisp, haskell, ocaml, articles
+#keywords home page, emacs, linux, programming, c++, clojure, functional programming, scheme, lisp, common lisp, haskell, ocaml, articles
 
 * Short information about me
 
@@ -8,34 +8,30 @@
 **Jabber**: [[xmpp://alexott@gmail.com][alexott@gmail.com]]<br>
 **Live in**: Germany
 
-Other my personal information you can find in my profile at [[http://gplus.to/alexott][Google+]]. And my *wish lists* are
-stored at [[http://amazon.de/gp/registry/wishlist/3GN7PNIFBJSHC][Amazon.de]] & [[http://www.amazon.co.uk/wishlist/T6DNC3CKUHZ2][Amazon UK]].
+Other personal information you can find in my profile at [[http://gplus.to/alexott][Google+]]. And my *wish lists* are
+at [[http://amazon.de/gp/registry/wishlist/3GN7PNIFBJSHC][Amazon.de]] & [[http://www.amazon.co.uk/wishlist/T6DNC3CKUHZ2][Amazon UK]].
 
-You can also look into my [[alexott-cv-en][CV]] ([[alexott-cv-en.pdf][PDF]]).  And also, my professional information you can find at
-[[http://www.linkedin.com/in/alexott][LinkedIn]].
+You can look into my [[alexott-cv-en][CV]] ([[alexott-cv-en.pdf][PDF]]), and other professional information you can find at
+[[http://www.linkedin.com/in/alexott][LinkedIn]].  You can read what I do in my [[http://alexott.blogspot.com/][personal blog]], and [[./internet][other Internet resources]].
 
-You can read what i do in my [[http://alexott.blogspot.com/][personal blog]], and also at some [[./internet][other Internet resources]].
+* What I do
 
-* What i do
-
-My main work -- development of software, starting from architect it, and finishing in
-implementation and marketing activity.  Besides this i do consulting of external projects.
+My main work -- software development, starting from its architecture, and finishing in
+implementation and marketing activity.  Besides this, I do consulting of external projects.
 Currently my specialization are information security and [[cf/index][content filtering]].
 
-At work and at home i working on different projects, using different programming
-languages.  My main languages are [[cpp/index][C & C++]], but i also use [[./clojure][Clojure]], Lisp, Scheme, Haskell,
-and other [[fp/index][functional programming]] languages.
+At work and at home I working on different projects, using different programming
+languages.  My main languages at work are [[cpp/index][C & C++]], but I also use [[./clojure][Clojure]], Lisp, Scheme,
+Haskell, and other [[fp/index][functional programming]] languages.
 
-For a long time (more than 10 years) i working with Unix-like operating systems -- Linux,
-Solaris, HP-UX, FreeBSD, and Mac OS X.
+For a long time (more than 10 years) I'm working with Unix-like operating systems --
+Linux, Solaris, HP-UX, FreeBSD, and Mac OS X.
 
-I also use [[emacs/index][Emacs editor]], for performing most of my tasks -- from programming to mail
-reading and Internet surfing.
+I use [[emacs/index][Emacs editor]], for most of my tasks -- from programming to mail reading and Internet
+surfing.
 
-I also wrote many articles on different themes -- about content filtering, Emacs editor
-and programming.  List of articles you can find in [[writings/index]["Articles" section]].
-
-Besides articles, i working on different [[oss/index][open source projects]].
+I wrote many articles on different topics -- about content filtering, Emacs, and
+programming.  List of articles you can find in [[writings/index]["Articles" section]].  Besides writing
+articles, I participate in different [[oss/index][open source projects]].
 
 ;  LocalWords:  OCaml
-

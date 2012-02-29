@@ -2,12 +2,12 @@
 #keywords functional programming, fp, ocaml, lisp, haskell, erlang, clojure
 
 I'm working with functional languages for a long time.  Lisp was my first functional
-language, that i studied. Now i mostly programm in Scheme, Common Lisp and Clojure, but
+language, that I studied. Now I mostly programm in Scheme, Common Lisp and Clojure, but
 also plays with Erlang, OCaml and Haskell.
 
 * Some links about functional languages
 
-These links could be useful for users, interested in studying of functional programming: 
+These links could be useful for users, interested in studying of functional programming:
 
  - [[http://www.cl.cam.ac.uk/Teaching/Lectures/funprog-jrh-1996/index.html][Introduction in functional programming]], by John Harrison.
  - [[http://www.cl.cam.ac.uk/users/mjcg/Teaching/FuncProg/FuncProg.html][Introduction in functional programming]], by Mike Gordon.
