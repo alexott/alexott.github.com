@@ -37,7 +37,7 @@ video materials, please leave them in comments to this page!*
  - [[http://www.infoq.com/presentations/Clojure-in-the-Field][Clojure in the Field]] -- presentation by Stuart Halloway on use of Clojure for software
    development;
  - [[http://java.dzone.com/videos/clojure-and-simplicty][Clojure and Simplicty]] -- interview with Stuart Halloway;
- - [[http://rubyconf2009.confreaks.com/21-nov-2009-10-25-clojure-for-ruby-programmers-stuart-halloway.html][Clojure for Ruby Programmers]] -- lecture by Stuart Halloway on RubyConf 2009;
+ - [[http://confreaks.com/videos/191-rubyconf2009-clojure-for-ruby-programmers][Clojure for Ruby Programmers]]-- lecture by Stuart Halloway on RubyConf 2009;
  - [[http://vimeo.com/9090935][Clojure in Clojure]] -- Rich Hickey's lecture (incomplete) about implementing Clojure in
    Clojure;
  - [[http://www.parleys.com/#st=5&id=1518&sl=1][Clojure: Functional Concurrency for the JVM]] -- lecture about Clojure by Howard M. Lewis
