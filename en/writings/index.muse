@@ -2,25 +2,25 @@
 #keywords articles, writings, emacs, zsh, content filtering
 
 I often write articles on themes that are very interesting for me.  Many of them are in
-Russian, but i also translate some of them to English.
+Russian, but I also translate some of them to English.
 
-* Articles about Emacs
+** Emacs
 
  - [[emacs-vcs/index][Article about using Emacs for work with version control systems]]
  - [[emacs-im/index][Article about using Emacs for interactive messaging]] 
  - Small article about [[./EmacsMuseMyPage][how this site was created with Emacs Muse]]
  - [[emacs-devenv/index][Alpha version of the article about "Emacs as development environment"]]
 
-*** Programming 
+** Programming 
 
- - [[prog-checking/][Article about finding errors of work with memory]] -- memory leaks, access behind memory
-   boundaries, etc.  In this article I describe Valgrind, Google Performance Tools and
-   other utilities and libraries;
+ - [[prog-checking/][Article about finding errors when working with memory]] -- memory leaks, incorrect memory
+   access, etc.  In this article I describe Valgrind, Google Performance Tools and other
+   tools and libraries;
  - [[../cpp/CppTestingIntro][Test-driven development and unit testing with examples in C++]] -- provides introduction
    to test-driven development in C++.
 
-* Information security and content filtering
+** Information security and content filtering
 
- - [[cf/index][Article about modern trends in content filtering]]
+ - [[cf/index][Article about modern trends in content filtering]] written in 2006th & updated in 2007th.
   
 

@@ -1,7 +1,7 @@
 #title Emacs
 #keywords emacs, gnus, gnu emacs, xemacs
 
-I use Emacs more than 10 years (last years I'm using GNU Emacs, but before I've also used
+I use Emacs more than 15 years (last years I'm using GNU Emacs, but before I've also used
 XEmacs).  Emacs for me is something like Swiss army knife -- with it I perform almost all
 my tasks -- program in different languages, write articles, read e-mail & usenet news,
 talk in irc & jabber, and more other things (and [[../writings/EmacsMuseMyPage][my site created]] with [[http://mwolson.org/projects/EmacsMuse.html][Muse]] -- wiki-like
@@ -11,13 +11,12 @@ package for Emacs).
 
 I wrote (and continue to write) series of articles about using Emacs to perform different
 tasks (many of articles in Russian, and here listed only some translated articles):
-
  - [[../writings/emacs-vcs/][Article about using Emacs with version control systems]]
  - Small article about [[../writings/EmacsMuseMyPage][how this site was created with Emacs Muse]]
  - Small note about [[../writings/EmacsMacOSXAndGrowl][interaction between Growl & Emacs]]
  - [[../writings/emacs-devenv/index][Alpha version of the article about "Emacs as development environment]]
 
-You can also find [[../writings/][other my articles]].
+[[../writings/][On separate page]] you can also find my other articles.
 
 * Code for Emacs
 
@@ -44,7 +43,6 @@ to rewrite it*
 * Useful links
 
 This links could be useful when searching information about Emacs:
-
  - [[http://www.emacswiki.org/][EmacsWiki]] -- site with many tips, documentation and packages for Emacs
- - [[http://planet.emacsen.org/][Planet Emacsen]] -- blog agregator
+ - [[http://planet.emacsen.org/][Planet Emacsen]] -- blog aggregator
  - [[http://www.anc.ed.ac.uk/~stephen/emacs/ell.html][Emacs Lisp List]] -- collection of links to Emacs packages

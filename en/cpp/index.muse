@@ -1,16 +1,14 @@
 #title  C & C++ languages
-#keywords cpp, c++, boost, asio
+#keywords cpp, c++, boost, asio, unit testing
 
+I'm programming in C & C++ for more than 10 years, and now this is main language for my
+work & some personal projects. I mostly use GCC as a compiler.
 
-I'm programming in C & C++ for more than 10 years, and now this is main language for my work & some personal projects. I mostly use GCC as a compiler, now in version 4.
-
-In my projects I actively use libraries from the [[http://www.boost.org][Boost project]], that is beautiful, very portable and has high quality.  Their usage allow me to think about "business logic" in my programs
-without reimplementing common things, like sockets, serialization, etc.  I use many
-libraries, starting from simple ones, like smart_ptr & regex, and finishing with bind,
-lambda, fusion, spirit, asio, etc.
-
-С использованием библиотек Boost был написан коммерческий продукт СКВТ "Дозор-Джет",
-который успешно продается на российских просторах.
+For my projects I actively use libraries from the [[http://www.boost.org][Boost project]], that is beautiful, very
+portable and has high quality.  Their usage allow me to think about "business logic" in my
+programs without reimplementing common things, like sockets, serialization, etc.  I use
+many libraries, starting from simple ones, like smart_ptr & regex, and finishing with
+bind, lambda, fusion, spirit, asio, etc.
 
 * Recommended books 
  
@@ -24,10 +22,8 @@ lambda, fusion, spirit, asio, etc.
 * Small articles about programming in C & C++
 
 In my blog you can find some notes about [[http://alexott.blogspot.com/search/label/c%2B%2B][C++]] & [[http://alexott.blogspot.com/search/label/boost][Boost]] -- about releases of new libraries,
-tips & tricks, etc.
-
-Beside this i also write articles dedicated to C & C++ programming, and auxiliary topics:
-
+tips & tricks, etc. Beside this I also wrote articles dedicated to C & C++ programming,
+and related topics:
  - [[./BoostAsioNotes][What is Boost.Asio, and why we should use it]]
  - [[./BoostAsioProxy][How to write simple HTTP proxy with Boost.Asio]]
  - [[../writings/prog-checking][Article about finding errors of work with memory]] -- memory leaks, access behind memory

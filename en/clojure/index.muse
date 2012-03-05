@@ -17,7 +17,7 @@ Main source of information about this language is [[http://clojure.org][language
 Another useful source of information is [[http://planet.clojure.in][Planet Clojure]] -- blogs aggregator.  There is also
 [[http://github.com/relevance/labrepl][labrepl]] project that contains everything necessary for quick start.
 
-There are books about Clojure: 
+There are several books about Clojure:
  - [[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]] -- first book on Clojure, that describes version 1.0 of the
    language and covers all necessary parts of it.  In the near future, the second edition
    will be released;

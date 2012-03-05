@@ -2,9 +2,8 @@
 #keywords oss, gnu, emacs, linux, tex, perl
 
 I've been working on different open source projects for more than 10 years.  List of my
-current projects you can find on [[http://github.com/alexott][GitHub]].
-
-I've worked on following projects several years ago:
+current projects you can find on [[http://github.com/alexott][GitHub]]. I've worked on following projects several years
+ago:
  - [[http://sourceforge.net/projects/wfilter][wfilter]] -- project of creating free content filtering software for use in schools, at
    home, etc. 
  - [[http://sourceforge.net/projects/openfwtk][openfwtk]] -- application level firewall, supporting different protocols.  Very portable
