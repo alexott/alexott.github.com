@@ -2,41 +2,42 @@
 #keywords clojure, lisp, common lisp, functional programming, intro into clojure, tutorial
 
 I'm using the [[http://clojure.org][Clojure]] programming language to develop programs for JVM platform (I don't
-like Java language, as it too restrictive & too verboes).  Although Clojure is a young
-langage, but it has many interesting features, such as immutable data, simple concurrency
-model & many features of Lisp language Lisp, while work on JVM provides access to numerous
-libraries, developed for this platform.
+like the Java language, as it too restrictive & too verbose).  Although Clojure is
+relatively young language, but it has many interesting features, such as immutable data,
+simple concurrency model & many features of Lisp, while work on JVM provides access to
+numerous libraries, developed for this platform.
 
-I mostly using this language to analyze numerical & textual data for information retrieval
-& data mining.  In my work I use  [[http://incanter.org][Incanter]] - very useful library for data analysis,
-numerical calculation & creation of graphics.
+I'm mostly using this language to analyze numerical & textual data for information
+retrieval & data mining.  In my work I use [[http://incanter.org][Incanter]] - very useful library for data
+analysis, numerical calculation, etc.
 
 ** Where to find information about Clojure
 
-Main source of information about this language is [[http://clojure.org][site of language]] and [[http://groups.google.com/group/clojure][mailing list]].
-Another useful source of information is [[http://planet.clojure.in][Planet Clojure]] -- aggregator of blogs dedicated to
-Clojure.  There is als [[http://github.com/relevance/labrepl][labrepl]] project that contains all necessary for quick start.
+Main source of information about this language is [[http://clojure.org][language's site]] and [[http://groups.google.com/group/clojure][mailing list]].
+Another useful source of information is [[http://planet.clojure.in][Planet Clojure]] -- blogs aggregator.  There is also
+[[http://github.com/relevance/labrepl][labrepl]] project that contains everything necessary for quick start.
 
-Currently exists only one book about Clojure -- in Pragmatic Programmers series was
-published the book [[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]].  This book describes version 1.0 of the language
-and covers all necessary parts of language.
-
-In may 2010th is planned to release book [[http://www.amazon.com/gp/product/1430272317?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430272317][Practical Clojure. The Definitive Guide]], that
-should describe both language, and examples of it use for practical tasks.
-
-And in the fall of 2010th the Manning publications plans to release 2 books about Clojure:
-[[http://www.manning.com/rathore/][Clojure in Action]] and [[http://joyofclojure.com/][Joy of Clojure. Thinking the Clojure Way]].  These books are available
-as part of MEAP program (Manning Early Access Programm), so you can order them and read
-new material as it become available[1].
+There are books about Clojure: 
+ - [[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]] -- first book on Clojure, that describes version 1.0 of the
+   language and covers all necessary parts of it.  In the near future, the second edition
+   will be released;
+ - In May 2010th the book [[http://www.amazon.com/gp/product/1430272317?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430272317][Practical Clojure. The Definitive Guide]] was released -- although
+   it's called "Practical", it mostly provides succinct description of language with not
+   so much examples. But it covers version 1.2 of language -- huge advantage over
+   "Programming Clojure";
+ - [[https://www.amazon.com/dp/1935182595/ref=as_li_ss_til?tag=aleottshompag-20&camp=0&creative=0&linkCode=as4&creativeASIN=1935182595&adid=0EN4M85RVZ6TQYX5EEFH&][Clojure in Action]] -- introduction to Clojure language for beginners;
+ - [[https://www.amazon.com/dp/1935182641/ref=as_li_ss_til?tag=aleottshompag-20&camp=0&creative=0&linkCode=as4&creativeASIN=1935182641&adid=1F49V87XC9J4QWFXNKND&][Joy of Clojure. Thinking the Clojure Way]]-- book for people, who already know something
+   about this language, but want to improve their skills;
+ - in April 2012th, the O'Reilly will publish the [[http://www.amazon.com/dp/1449394701/ref=as_li_ss_til?tag=aleottshompag-20&camp=0&creative=0&linkCode=as4&creativeASIN=1449394701&adid=1ZZPN494JKRN0BEH8G63][Clojure Programming]] book that should
+   provide good introduction to language and many its libraries.
 
 I'm also collecting links to video-lectures & screencasts about Clojure.  You can find
 them on [[./video][separate page]].
 
 ** Some articles about Clojure
 
-I wrote some number of small articles about Clojure (other notes about Clojure you can
-find in [[http://alexott.blogspot.com/search/label/clojure][my blog]]):
-
+I wrote several articles about Clojure (other notes about Clojure you can find in
+[[http://alexott.blogspot.com/search/label/clojure][my blog]]):
  - [[./ClojureMaven][How to use Maven to build Clojure code]]
  - [[./ClojureLein][Using Leiningen to build  Clojure code]]
  - [[./ClojureHadoop][Programming  Hadoop with Clojure]]
@@ -44,10 +45,4 @@ find in [[http://alexott.blogspot.com/search/label/clojure][my blog]]):
 I also wrote an introduction-level article (in Russian) for
 [[http://fprog.ru/2010/issue4/][4th issue of Russian Magazine "Practice of Functional Programming"]] -- I plan to translate
 it to English some time later.
-
-
-
-Footnotes: 
-[1] From time to time, Manning gives pretty good discounts for their books -- look to
-    announcements at [[http://twitter.com/manningbooks][Manning@Twitter]]
 
