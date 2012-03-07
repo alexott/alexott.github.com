@@ -1,37 +1,36 @@
 #title How this site was created
 #keywords home page, muse, emacs
 
-Idea of recreate my home was pretty old -- old variant was created more than 10 years ago,
-and had very primitive design, like sites of HTML, version 2.
+Idea to recreate my home page was pretty old -- old variant was created more than 10 years ago,
+and had very primitive design, like many sites of HTML, version 2.
 
 ** Preparatory work
 
 As on my current hosting I able to host only static files, this restricted my choice of
-technologies, that could be used for implementation.  First, I wanted to write html
-generator myself, using something like Perl, but I just remembered, that I had seen sites,
-that was created with [[http://mwolson.org/projects/EmacsMuse.html][Emacs Muse]], that I already use for my notes and articles.
+technologies, that could be used for implementation.  First, I wanted to write HTML
+generator myself, using something like Perl, but I just remembered, that I saw sites, that
+was created using [[http://mwolson.org/projects/EmacsMuse.html][Emacs Muse]], that I already used for my notes and articles.
 
-Another task for this site was a creation of new design.  As I'm not so good designer/html
-coder, I searched Internet for good free site's design.  During surfing, I found site of
-[[http://andreasviklund.com/][Andreas Viklund]] and took suitable template (I change it in the end, but this was mostly
-changes in fonts size, etc.)
+Another task for this site was creation of new design.  As I'm not so good designer/HTML
+coder, I searched Internet for good free site designs.  During surfing, I found site of
+[[http://andreasviklund.com/][Andreas Viklund]] and took suitable template (I change it at the end, but this was mostly
+changes in fonts sizes, etc.)
 
-Main parts of design was plugged to Muse without any problem, and I use it for all my
-notes and articles, some of them you can find on my site.  To create a dynamic parts of
-pages -- menus for navigation between parts of site, I wrote some amount of code in elisp.
+Main parts of design was plugged to Muse without any problem, and I also use it for all my
+notes and articles, some of them you can find on this site.  To create a dynamic parts of
+pages -- menus for navigation between parts of site, I wrote some amount of code in Elisp.
 
 ** Implementation
 
-For generation of site from Muse source files I create the configuration file, consisting
+For generation of site from Muse source files I created configuration file, consisting
 from several parts, described below.
 
-First we need to initialize package and set needed variables.  Some loadable packages
-doesn't used for site generation, but they used for my other projects.  Variables changes
-behaviour of package, for example, =.muse= extension for all Muse files, encoding for files
-& generated html, etc.
+First we need to initialize package and set all necessary variables.  Some loadable
+packages doesn't used for site generation, but they are used for my other projects.  Some
+variables changes package's behaviour, for example, associating =.muse= extension with Muse
+files, set encoding for files & generated html, etc.
 
-<src lang="emacs-lisp">
-(require 'muse-mode)
+<src lang="emacs-lisp">(require 'muse-mode)
 (require 'muse-html)
 (require 'muse-colors)
 (require 'muse-wiki)
@@ -55,19 +54,17 @@ behaviour of package, for example, =.muse= extension for all Muse files, encodin
 )
 
 (defun my-muse-mode-hook ()
-  (setq auto-fill-mode t)
+  (auto-fill-mode 1)
   (flyspell-mode 1)
-  (footnote-mode 1)
-  )
+  (footnote-mode 1))
 (add-hook 'muse-mode-hook 'my-muse-mode-hook)
 
 </src>
 
-For site generation, I redefine two style -- for HTML & PDF -- this allows me to use
-styles, that differ from styles, used for other projects.
+For site generation, I redefined two styles: for HTML & PDF -- this allows me to use
+styles, different from styles, used for other projects.
 
-<src lang="emacs-lisp">
-(muse-derive-style "my-page-html" "html"
+<src lang="emacs-lisp">(muse-derive-style "my-page-html" "html"
                    :header "~/projects/my-page-muse/header.tmpl"
                    :footer "~/projects/my-page-muse/footer.tmpl")
 
@@ -80,10 +77,9 @@ These files you can find on my site: HTML -- [[../../header.tmpl][header.tmpl]] 
 & [[../../footer.tex][footer.tex]].  Muse source files also uploaded to site, and you can find them if you
 replace =.html= to =.muse=, for example, for this article this file is [[./EmacsMuseMyPage.muse]].
 
-You also need to define project for this site:
+You also need to setup project for this site:
 
-<src lang="emacs-lisp">
-(setq muse-project-alist
+<src lang="emacs-lisp">(setq muse-project-alist
       `(
         ("my-page"
          (,@(muse-project-alist-dirs "~/projects/my-page-muse") :default "index")
@@ -98,27 +94,25 @@ You also need to define project for this site:
                 :include "/alexott-cv-ru[^/]*$"))))
 </src>
 
-Generated files are also placed in catalog with source files -- in my case this is
+Generated files are placed in catalog with source files -- in my case this is
 =~/projects/my-page-muse=.  =muse-project-alist-dirs= generate list of directories for which
-given style (=my-page-html=) will used.  And two last records used for generation of
-PDF-files for english & russian versions of CV (using style =my-page-pdf=).
+given style (=my-page-html=) will be used.  And two last records are used for generation of
+PDF-files for English & Russian versions of CV (using style =my-page-pdf=).
 
 For proper generation of links to style files (=.css=) and images I wrote small function
-=muse-gen-relative-name=, that accept file name (relative to root directory of project) as
-parameter, and generate proper file name relative to current file:
+=muse-gen-relative-name=, that accepts file name (relative to root directory of project) as
+parameter, and generate correct file name relative to current file:
 
-<src lang="emacs-lisp">
-(defun muse-gen-relative-name (name)
+<src lang="emacs-lisp">(defun muse-gen-relative-name (name)
   (concat
    (file-name-directory (muse-wiki-resolve-project-page (muse-project)))
    name))
 </src>
 
-Other function, =muse-mp-detect-language=, is used for detecting which language used for
-current file[1]:
+Other function, =muse-mp-detect-language=, is used for detection of what language is used
+for current file[1]:
 
-<src lang="emacs-lisp">
-(defun muse-mp-detect-language ()
+<src lang="emacs-lisp">(defun muse-mp-detect-language ()
   (let ((lang "NN")
         (cur-dir (file-name-directory (muse-current-file)))
         )
@@ -133,8 +127,7 @@ Structure of navigation menu, generated for every page, is defined by variable
 and list of pair, representing file (or directory) name and corresponding title for menu
 item.
 
-<src lang="emacs-lisp">
-(setq my-page-menu '(("ru" . ( ("index.html" . "Главная")
+<src lang="emacs-lisp">(setq my-page-menu '(("ru" . ( ("index.html" . "Главная")
                                ("cf/" . "Информационная безопасность")
                                ("fp/" . "Функциональное программирование")
                                ("scheme/" . "Scheme")
@@ -152,9 +145,10 @@ item.
                                ("writings/" . "Articles")))))
 </src>
 
-And at the end, function for menu generation, that called for every page in project.  This
-function detect language for page, get name of generated file and set attribute for menu
-item, matching current path (for example, this note is in section "Articles").
+And at the end, here is function generation of menu, that is called for every page in
+project.  This function finds language for current page, gets name of generated file and
+sets necessary attributes for menu item, that matches to current path (for example, this
+note is in section "Articles").
 
 <src lang="emacs-lisp">
 (defun muse-mp-generate-menu ()
@@ -184,12 +178,22 @@ item, matching current path (for example, this note is in section "Articles").
       menu-string))
 </src>
 
-That's all. All is pretty simple and doesn't require manual changes in generated pages.
-Generated files are ready to upload to server.
+Besides this, we also need one more function that is used in footer to print last change
+data for given page:
 
+<src lang="emacs-lisp">(defun generate-change-date (file)
+  (when (file-exists-p file)
+    (let* ((fa (file-attributes file))
+           (mod-time (nth 6 fa)))
+      (format-time-string "%d.%m.%Y %R" mod-time))))
+</src>
+
+
+That's all. Everything is pretty simple and doesn't require manual changes in generated
+pages.  Generated files are ready to upload to server.
 
 Footnotes: 
-[1] Implementation of this function is not optimal and it could fail, but it could be
-    changed without affecting other code.
+[1] Implementation of this function isn't optimal and it could fail sometimes, but it
+    could be changed without affecting other code.
 
 
