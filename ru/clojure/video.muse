@@ -94,7 +94,8 @@ Clojure -- видео-лекции и учебники, выступления �
    Лондоне, организованной by Skills Matter;
  - [[http://www.reddit.com/r/Clojure/comments/i51v3/ndc_2011_clojure_talks_video/][Видео-лекции о Clojure с Norwegian Developers Conference 2011]];
  - [[http://www.parleys.com/#id=2805&st=5][Cracking Clojure]] -- презентация Alex Miller на Devoxx 2011;
-
+ - [[http://vimeo.com/16398892][Clojure at BackType]] -- Nathan Marz рассказывает как они используют Clojure в компании
+   Backtype (недавно куплена Twitter);
 
 *** Videos from Clojure user groups
 

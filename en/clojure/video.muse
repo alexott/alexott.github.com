@@ -79,6 +79,8 @@ video materials, please leave them in comments to this page!*
    by Skills Matter;
  - [[http://www.reddit.com/r/Clojure/comments/i51v3/ndc_2011_clojure_talks_video/][Clojure-related lectures from Norwegian Developers Conference 2011]];
  - [[http://www.parleys.com/#id=2805&st=5][Cracking Clojure]] -- Alex Miller's presentation at Devoxx 2011;
+ - [[http://vimeo.com/16398892][Clojure at BackType]] -- Nathan Marz explains how they're using Clojure in Backtype (now
+   Twitter);
 ; - [[][] --
 ; - [[][] --
 ; - [[][] --
