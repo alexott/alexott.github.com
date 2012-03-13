@@ -101,6 +101,8 @@ video materials, please leave them in comments to this page!*
    helps with web development;
  - [[http://vimeo.com/user8648776/videos][ClojureScript-related videos]] by Brenton Ashworth;
  - [[http://blip.tv/clojure/rich-hickey-unveils-clojurescript-5399498][Rich Hickey Unveils ClojureScript]];
+ - [[http://skillsmatter.com/podcast/home/clojurescript][Talk about Clojurescript One]] at London Clojure User Group;
+; - [[][] --
 ; - [[][] --
 
 *** Clojure-related

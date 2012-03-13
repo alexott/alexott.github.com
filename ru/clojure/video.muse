@@ -109,6 +109,7 @@ Clojure -- видео-лекции и учебники, выступления �
    используется в веб-разработке;
  - [[http://vimeo.com/user8648776/videos][Несколько скринкастов о ClojureScript]] сделанных Brenton Ashworth;
  - [[http://blip.tv/clojure/rich-hickey-unveils-clojurescript-5399498][Rich Hickey анонсирует ClojureScript]]
+ - [[http://skillsmatter.com/podcast/home/clojurescript][Рассказ о Clojurescript One]] на встрече London Clojure User Group;
 
 *** Clojure-related
 
