@@ -81,7 +81,7 @@ video materials, please leave them in comments to this page!*
  - [[http://www.parleys.com/#id=2805&st=5][Cracking Clojure]] -- Alex Miller's presentation at Devoxx 2011;
  - [[http://vimeo.com/16398892][Clojure at BackType]] -- Nathan Marz explains how they're using Clojure in Backtype (now
    Twitter);
-; - [[][] --
+ - [[http://cufp.org/videos/na%C3%AFvet%C3%A9-vs-experience-%E2%80%93-or-how-we-thought-we-could-use-scala-and-clo][Naïveté vs. Experience – or, How We Thought We Could Use Scala and Clojure and How We Actually Did]] -- Michael Fogus talks at [[http://cufp.org/][CUFP 2010]] about his experience in using Clojure & Scala in real projects;
 ; - [[][] --
 ; - [[][] --
 
