@@ -53,7 +53,7 @@
 <url><loc>http://alexott.net/en/clojure/index.html</loc>
 <lastmod>2012-03-05</lastmod></url>
 <url><loc>http://alexott.net/en/clojure/video.html</loc>
-<lastmod>2012-04-01</lastmod></url>
+<lastmod>2012-04-05</lastmod></url>
 <url><loc>http://alexott.net/en/cpp/BoostAsioNotes.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/en/cpp/BoostAsioProxy.html</loc>
@@ -121,7 +121,7 @@
 <url><loc>http://alexott.net/en/writings/emacs-vcs/EmacsDVC.html</loc>
 <lastmod>2008-11-06</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-vcs/EmacsGit.html</loc>
-<lastmod>2009-03-18</lastmod></url>
+<lastmod>2012-04-03</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-vcs/EmacsMercurial.html</loc>
 <lastmod>2009-03-18</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-vcs/EmacsMonotone.html</loc>
@@ -195,7 +195,7 @@
 <url><loc>http://alexott.net/ru/clojure/index.html</loc>
 <lastmod>2011-03-23</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/video.html</loc>
-<lastmod>2012-04-01</lastmod></url>
+<lastmod>2012-04-05</lastmod></url>
 <url><loc>http://alexott.net/ru/cpp/BoostAsioNotes.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/ru/cpp/BoostAsioProxy.html</loc>
@@ -667,15 +667,15 @@
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsCedet.html</loc>
 <lastmod>2012-04-03</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsClojure.html</loc>
-<lastmod>2009-12-01</lastmod></url>
+<lastmod>2012-04-03</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsErlang.html</loc>
 <lastmod>2009-11-10</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsMiscModes.html</loc>
-<lastmod>2009-12-01</lastmod></url>
+<lastmod>2012-04-03</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsScheme.html</loc>
 <lastmod>2011-01-17</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsSLIME.html</loc>
-<lastmod>2008-12-17</lastmod></url>
+<lastmod>2012-04-03</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/index.html</loc>
 <lastmod>2009-02-03</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-im/EmacsAIM.html</loc>
