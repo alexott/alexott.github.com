@@ -1,105 +1,104 @@
-#title Work with Git from Emacs
+#title Working with Git from Emacs
 #keywords emacs, git, magit, git.el, gitsum, git-emacs, egg, git-blame, egit
 
 <contents>
 
-Creation and popularity of *Git* closely related to development of Linux.  At first it was
-used to provide support of Linux kernel development, but now it's used in the many other
-open source projects.  As on these projects, are working many peoples over Earth, this
-version control system support distributed style of work[1].
+Creation and popularity of *Git* is closely related to development of Linux.  At first it
+was used to for Linux kernel development, but now it's used in the many other open source
+projects.
 
-We can work with *Git* using several packages -- either use modules for *VC* и *DVC* packages,
-or use packages *git.el*, *emacs-git*, *magit* & *egg* packages.  In first case we work with *Git*
-through standard interfaces of *VC* & *DVC*. And other packages implement interfaces, that
-allow user to use full *Git's* functionality.  In this article I'll describe these packages.
+We can work with *Git* from Emacs using several packages -- either use modules for *VC* и *DVC*
+packages, or use specialized packages, like: *git.el*, *emacs-git*, *magit* & *egg*.  In first
+case we work with *Git* through standard interfaces of *VC* & *DVC*, while other packages
+implement interfaces, that allow user to get access to full *Git* power.  In this article
+I'll describe only specialized packages.
 
 * The git.el package
 
 ** Installation of package
 
-Installation of *git.el* is very simple -- it comes in the *Git's* distribution in
-=contrib/emacs/= subdirectory.  To compile package you need just run =make= command, that
-could also be used to install the package (by default, package is installed into
+Installation of *git.el* is very simple -- it comes as part of the *Git's* distribution and
+stored in =contrib/emacs/= subdirectory.  To compile package you need just run =make= command,
+that could also be used to install the package (by default, package is installed into
 =$HOME/share/emacs/site-lisp=, but you can change this behaviour by passing =emacslispdir=
 parameter to =make=, or just copy all files to the directory, where Emacs can find them).
 
 To use *git.el*, you need to put following line into your initialization file:
-
 <src lang="emacs-lisp">
 (require 'git)
 </src>
 
-and after executing it, you'll get all commands, provided by this package.
+and after evaluation, you'll get access all commands, provided by this package.
 
-** Work with git.el
+** Working with git.el
 
-Work with package always starts with execution of =git-status= command, that ask user about
-directory name in which it will search for *Git* repository, and after that, perform
-analysis of repository state.  After analysis of repository state, package creates
-=*git-status*= buffer, that will used to perform commands on files. Example of work with
-this buffer you can see on picture below (at the bottom of picture you can see output of
-=diff= command).  In this buffer enabled =git-status-mode=, that defines some set of commands
-(and corresponding key bindings, many of them match the key bindings of *PCL-CVS* package.
-This make transition to *Git* more easy).  All commands available only in this buffer, and
-couldn't be used outside of it.
+Work with package always starts with execution of =git-status= command, that asks user about
+directory name in which it will search for *Git* repository. After that, it will perform
+analysis of repository state.  After this analysis, the package creates the =*git-status*=
+buffer, that will be used to perform commands on files. On the picture below you can see
+how this buffer looks like (at the bottom of picture you can see output of =diff= command).
+In this buffer the =git-status-mode= is enabled, that defines set of commands (and
+corresponding key bindings, many of them match the key bindings of *PCL-CVS* package -- this
+make transition to *Git* more easy).  All these commands are available only in this buffer,
+and couldn't be used outside of it.
     
 <div id="screenshot">
 [[../../../common/writings/emacs-vcs/git-status.png]]
 </div>
      
-User can navigate in buffer with arrow keys, or with commands =git-next-file= (keys =n= and
-=SPC=) and =git-prev-file= (=p= key).  For many commands user can specify numeric prefix (as for
-many Emacs commands), that will change behaviour of command.
+User can navigate in the buffer using arrow keys, or with commands =git-next-file= (keys =n=
+or =SPC=) and =git-prev-file= (=p= key).  For many commands user can specify numeric prefix,
+that will change behaviour of command.
 
-By default, all commands are executed on file, where cursor is located.  But user can also
-select several files and commands will executed on selected files.  Selection is performed
-with following commands and key bindings: =m= key (=git-mark-file=) mark current file and move
+By default, all commands are executed on file under cursor.  But user can also select
+several files and commands will be executed on them.  Selection is performed with
+following commands and key bindings: =m= key (=git-mark-file=) marks current file and moves
 cursor one line below, =M= key (=git-mark-all=) marks all files in this buffer.  To remove
 selection mark you can use =u= key (=git-unmark-file=) or =DEL= key (=git-unmark-file-up=), but
-first command after removing of selection move cursor one string bellow, but the second,
-to one string upper.  To remove selection mark from all files you can use =git-unmark-all=
-command (=M-DEL= key binding).  To inverse selection you can use =git-toggle-all-marks=
+first command moves cursor one string down after removing of selection, but the second, do
+this to one string up.  To remove selection mark from all files you can use the =git-unmark-all=
+command (=M-DEL= key binding).  To inverse selection you can use the =git-toggle-all-marks=
 command(=T= key).
 
-As in the *PCL-CVS*, you can open current file with the =git-find-file= command (key =RET= or
-=f=).  To open file to view you can use =v= key (=git-view-file=).  In case, if you've got
-conflicts during merging, you can run conflict resolving command -- =git-resolve-file= (=R=
-key).
+The same as in the *PCL-CVS* package, you can open current file with the =git-find-file=
+command (key =RET= or =f=).  To open file for view you can use the =v= key (=git-view-file=).  In
+case, if you've got conflicts during merge, you can run conflict resolving command --
+=git-resolve-file= (=R= key).
 
-You can add new files to repository with =git-add-file= command (=a= key), and remove with
-=git-remove-file= command (=r= key).  To get reed from not needed files existing in directory,
-but not registered in repository, you can put them into list of ignored files.  This could
-be done with =git-ignore-file= command (=i=).  
+You can add new files to repository with the =git-add-file= command (=a= key), and remove
+files with the =git-remove-file= command (=r= key).  To get reed from files that are stored in
+directory, but not registered in repository, you can put them into list of ignored files.
+This could be done with the =git-ignore-file= command (=i=).
 
-Committing of changes is performed with =git-commit-file= command (=c= key), and reverting of
-changes -- with =git-revert-file= command (=U= key).  User can view change log for repository
-with =git-log-file= command (=l= key).
+Committing of changes is performed with the =git-commit-file= command (=c= key), and reverting
+of changes -- with the =git-revert-file= command (=U= key).  User can view change log for
+repository with the =git-log-file= command (=l= key).
     
-The =d= key is prefix key for all commands, related to work with changes.  Most important
-command among them is the =git-diff-file= command, that you can call with <code>=</code> or
-<code>d =</code> keys.  The =git-diff-file-base= command (=d b=) allow to find differences
-between current and base file.  With =git-diff-file-idiff= command (=d e=) you can
-interactively view for changes in current file. And the =git-find-file-imerge= command (=d E=)
-allows user to open current file for interactive application of changes.  Other commands
-allow to view changes relative to main branch -- =git-diff-file-merge-head= command (=d h=),
+The =d= key is prefix key for all changes-related commands.  Most important command among
+them is the =git-diff-file= command, that you can call with the <code>=</code> or <code>d
+=</code> keys.  The =git-diff-file-base= command (=d b=) allows you to find differences
+between current and base file.  And with the =git-diff-file-idiff= command (=d e=) you can
+interactively view changes in current file. The =git-find-file-imerge= command (=d E=) allows
+user to open current file for interactive application of changes.  Other commands allow
+you to see changes relative to main branch -- =git-diff-file-merge-head= command (=d h=),
 relative to versions of files before merges -- =git-diff-file-mine= command (=d m=), etc.
-Full list of commands you can get from help for this mode.
+Full list of commands you can get from help for this mode (=C-h m= key).
 
 Other command allow to refresh status buffer -- =git-refresh-status= command (=g= key), resign
 from the buffer -- =git-status-quit= (=q=), remove processed files from list --
-=git-remove-handled= command (=x=) and get help about mode -- =git-help= (=h= or =?= keys).
+=git-remove-handled= (=x=) and get help about mode -- =git-help= (=h= or =?= keys).
 
 ** Customization
 
 You can customize package with standard customization routines of Emacs.  Corresponding
 customization group has name =git= and allow to specify different *Git* settings and faces
-used for display data.
+that are used to display data.
 
 #git-emacs
 * The git-emacs package
 
 The *git-emacs* package implements almost the same functionality, as the *git.el* package, but
-it also has some improvements, mostly in the user interface.[2] The [[http://tsgates.cafe24.com/git/git-emacs.html][package's home page]]
+it also has some improvements, mostly in the user interface.[1] The [[http://tsgates.cafe24.com/git/git-emacs.html][package's home page]]
 contains detailed illustrated user manual, so user can quickly start to work with this
 package.
 
@@ -177,7 +176,7 @@ To view changes in repository, user can execute command =git--status-view-diff-f
 This operation could be also performed with global =git-diff= command.  Both commands ask
 user for revision number to compare with, and than use *ediff* to display changes.
 
-To commit changes to repository exists command =git-commit-all= (the =c= key)[3], that after
+To commit changes to repository exists command =git-commit-all= (the =c= key)[2], that after
 run, will create a new buffer, where user can enter description of the change, and finish
 operation with =C-c C-c= keys.
 
@@ -551,14 +550,12 @@ and only item in the =EGit= menu.
 <div id="rule">[[./index][To main page]]</div>
 
 Footnotes: 
-[1] Although we can use it for work in centralized environment
-
-[2] I need to mention, that it has some inconvenience -- some commands are same as in the
+[1] I need to mention, that it has some inconvenience -- some commands are same as in the
     *git.el* package, so you couldn't use them simultaneously.  And also, this package
     explicitly set global *ido-mode*, so not always handy for users, that are using another
     packages.
 
-[3] This command could be executed not only from the status buffer, but also via global
+[2] This command could be executed not only from the status buffer, but also via global
     key binding =C-x v v=.
 
 ;  LocalWords:  gitignore SPC RET unmark changeset changesets magit gitsum egit
