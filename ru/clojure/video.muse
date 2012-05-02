@@ -102,6 +102,7 @@ Clojure -- видео-лекции и учебники, выступления �
  - [[http://cufp.org/videos/na%C3%AFvet%C3%A9-vs-experience-%E2%80%93-or-how-we-thought-we-could-use-scala-and-clo][Naïveté vs. Experience – or, How We Thought We Could Use Scala and Clojure and How We Actually Did]] -- Michael Fogus рассказывает на [[http://cufp.org/][CUFP 2010]] о своем опыте использования Clojure & Scala в реальных проектах;
  - Getting Started with Clojure: ([[http://www.codeschool.com/code_tv/getting-started-with-clojure-part-1][Part 1]], [[http://www.codeschool.com/code_tv/getting-started-with-clojure-part-2][Part 2]]) -- скринкаст Craig Andera о Clojure;
  - [[http://www.infoq.com/interviews/hickey-clojure-reader][Rich Hickey on Clojure 1.4's Extensible Reader, ClojureScript]] -- интервью с Rich Hickey о новой функциональности в Clojure 1.4 и т.п.
+ - [[http://www.confreaks.com/videos/860-railsconf2012-keynote-simplicity-matters][Simplicity Matters]] -- вступительная лекция Rich Hickey на RailsConf 2012.
 
 ** Videos from Clojure user groups
 
