@@ -58,7 +58,7 @@ Emacs с LaTeX, если выполнить команду =whizzy-show-interact
 
 <src lang="emacs-lisp">
 (setenv "TEXINPUTS" (concat (getenv "TEXINPUTS")
-														":path_to_whizzytex/src//"))
+        ":path_to_whizzytex/src//"))
 </src>
     
 
