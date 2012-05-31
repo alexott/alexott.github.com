@@ -103,6 +103,8 @@ Clojure -- видео-лекции и учебники, выступления �
  - Getting Started with Clojure: ([[http://www.codeschool.com/code_tv/getting-started-with-clojure-part-1][Part 1]], [[http://www.codeschool.com/code_tv/getting-started-with-clojure-part-2][Part 2]]) -- скринкаст Craig Andera о Clojure;
  - [[http://www.infoq.com/interviews/hickey-clojure-reader][Rich Hickey on Clojure 1.4's Extensible Reader, ClojureScript]] -- интервью с Rich Hickey о новой функциональности в Clojure 1.4 и т.п.
  - [[http://www.confreaks.com/videos/860-railsconf2012-keynote-simplicity-matters][Simplicity Matters]] -- вступительная лекция Rich Hickey на RailsConf 2012.
+ - [[http://www.infoq.com/clojure-west-2012/][Выступления на конференции Clojure/West 2012]] (по состоянию на сейчас (май 2012) еще не
+   все выступления были выложены).
 
 ** Videos from Clojure user groups
 
@@ -117,6 +119,7 @@ Clojure -- видео-лекции и учебники, выступления �
  - [[http://vimeo.com/user8648776/videos][Несколько скринкастов о ClojureScript]] сделанных Brenton Ashworth;
  - [[http://blip.tv/clojure/rich-hickey-unveils-clojurescript-5399498][Rich Hickey анонсирует ClojureScript]]
  - [[http://skillsmatter.com/podcast/home/clojurescript][Рассказ о Clojurescript One]] на встрече London Clojure User Group;
+ - [[http://blip.tv/clojure/kevin-lynagh-extending-javascript-libraries-from-clojurescript-5919758][Extending JavaScript Libraries from ClojureScript]] лекция Kevin Lynagh на Clojure/Conj 2011;
 
 ** Clojure-related
 
@@ -135,6 +138,7 @@ Clojure -- видео-лекции и учебники, выступления �
    архитектуры и модели данных;
  - [[http://www.youtube.com/watch?v=bAilFQdaiHk&list=PLCB84762C02B0BF88&index=18&feature=plpp_video][Datomic Datalog]] -- Stuart Halloway рассказывает о языке запросов datalog, который
    используется в Datomic;
+ - [[http://www.youtube.com/watch?v=8fY687k7DMA][Datomic Database Functions]] -- Stuart Halloway рассказывает про функции Datomic Database;
  - [[http://www.infoq.com/interviews/hickey-datomic][Rich Hickey on Datomic: Datalog, Databases, Persistent Data Structures]] -- интервью с
    Rich Hickey о Datomic;
 
