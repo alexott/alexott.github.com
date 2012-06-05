@@ -105,6 +105,11 @@
  **Name and type of organisation**:  Deutsches MBA Program, Magdeburg University, Germany<br>
  **Principal subjects**: General management, Finance, Marketing
 
+ - Online courses:<br>
+  [[http://www.ai-class.com/][An Introduction to Artificial Intelligence]] (Stanford). Score: 89%<br>
+  [[https://www.coursera.org/course/ml][Machine Learning]] (Stanford). Score: 100%<br>
+  [[https://www.coursera.org/course/nlp/][Natural Language Processing]] (Stanford). Score: 93%
+
 * Technical skills and competences
 
 ** Programming languages and software development skills

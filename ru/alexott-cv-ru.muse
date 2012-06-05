@@ -98,6 +98,10 @@
  **Название организации**:  Deutsches MBA Program, Magdeburg University, Germany<br>
  **Основные предметы**: Общие вопросы управления, финансы, маркетинг, экономика
 
+ - Online курсы:<br>
+  [[http://www.ai-class.com/][An Introduction to Artificial Intelligence]] (Stanford). Результат: 89%<br>
+  [[https://www.coursera.org/course/ml][Machine Learning]] (Stanford). Результат: 100%<br>
+  [[https://www.coursera.org/course/nlp/][Natural Language Processing]] (Stanford). Результат: 93%
 
 * Технические навыки
 
@@ -172,5 +176,5 @@
 
  - **Водительские права**: категории Б (российские и европейские)
  - Автор множества статей по физике и компьютерным областям. Соавтор русского перевода
-   "GNU Emacs manual".
+   "GNU Emacs manual", "Types & Programming Languages" и др.
 
