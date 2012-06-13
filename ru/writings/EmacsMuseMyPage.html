@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Как делался этот сайт</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, home page, muse, emacs" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Как делался этот сайт</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Главная</a></li><li><a href="../cf/">Информационная безопасность</a></li><li><a href="../fp/">Функциональное программирование</a></li><li><a href="../lisp/">Lisp</a></li><li><a href="../clojure/">Clojure</a></li><li><a href="../scheme/">Scheme</a></li><li><a href="../erlang/">Erlang</a></li><li><a href="../cpp/">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>Идея переделать свою домашнюю страницу возникла у меня очень давно &mdash; старый вариант
+существовал уже более 10 лет и имел крайне примитивный дизайн, на уровне HTML версии 2.</p>
+
+<h3>Подготовительная работа</h3>
+
+<p class="first">Поскольку на нынешнем моем хостинге мне доступна только опция раздачи статических файлов,
+то это сразу наложило существенные ограничения на реализацию.  Сначала я собрался писать
+генератор на чем-нибудь вроде Perl'а, но вовремя опомнился, и вспомнил, что видел сайты
+сделанные с помощью <a href="http://mwolson.org/projects/EmacsMuse.html">Emacs Muse</a>, который я уже использовал для того, чтобы писать различные
+заметки и статьи.</p>
+
+<p>Другой задачей был новый дизайн сайта.  Поскольку художник/верстальщик из меня некудышный,
+я полез в Интернет в поиске подходящих бесплатных шаблонов сайтов.  В итоге я набрел на
+сайт <a href="http://andreasviklund.com/">Andreas Viklund</a>'а и взял понравившийся мне шаблон (правда немного пришлось его
+подкрутить для использования нужных шрифтов и т.п.).</p>
+
+<p>Основное оформление шаблона прикрутилось к Muse без каких-либо проблем, и теперь я
+использую его для всех своих новых заметок и статей, некоторые из которых вы можете найти
+на сайте.  Пришлось лишь немного попрограммировать для того, чтобы сайт обзавелся
+изменяемой частью в виде меню для навигации, но об этом в разделе &quot;Реализация&quot;.</p>
+
+
+<h3>Реализация</h3>
+
+<p class="first">Для генерации сайта из исходных текстов Muse используется конфигурационный файл, состоящий
+из нескольких частей, описанных ниже.</p>
+
+<p>Сначала мы инициализируем пакет и выставляем нужные переменные.  Среди загружаемых пакетов
+есть неиспользуемые непосредственно в генерации сайта, но этот же конфигурационный файл у
+меня используется и для других проектов.  А переменные определяют поведение пакета,
+например, наличие расширения <code>.muse</code> для всех документов, кодировку документов и
+генерируемого html и т.п.</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-mode</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-html</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-colors</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-wiki</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-latex</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-texinfo</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-docbook</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">muse-project</span>)
+
+(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.muse$"</span> . muse-mode))
+
+(custom-set-variables
+ '(muse-html-encoding-default (quote utf-8))
+ '(muse-html-meta-content-encoding (quote utf-8))
+ '(muse-html-charset-default <span style="color: #008b00;">"utf-8"</span>)
+ '(muse-file-extension <span style="color: #008b00;">"muse"</span>)
+ '(muse-mode-auto-p nil)
+ '(muse-wiki-allow-nonexistent-wikiword nil)
+ '(muse-wiki-use-wikiword nil)
+ '(muse-ignored-extensions (quote (<span style="color: #008b00;">"bz2"</span> <span style="color: #008b00;">"gz"</span> <span style="color: #008b00;">"[Zz]"</span> <span style="color: #008b00;">"rej"</span> <span style="color: #008b00;">"orig"</span> <span style="color: #008b00;">"png"</span> <span style="color: #008b00;">"hgignore"</span> <span style="color: #008b00;">"gif"</span>
+                                   <span style="color: #008b00;">"css"</span> <span style="color: #008b00;">"jpg"</span> <span style="color: #008b00;">"html"</span> <span style="color: #008b00;">"sh"</span> <span style="color: #008b00;">"lftp"</span> <span style="color: #008b00;">"pdf"</span>)))
+)
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-muse-mode-hook</span> ()
+  (auto-fill-mode 1)
+  (flyspell-mode 1)
+  (footnote-mode 1))
+(add-hook 'muse-mode-hook 'my-muse-mode-hook)
+</pre>
+
+<p>Для генерации содержимого сайта я переопределил два стиля &mdash; для HTML &amp; PDF, что позволяет
+мне использовать стили, отличающиеся от стилей, применяемых для других моих проектов &mdash;
+статей и всяческих записей.</p>
+
+<pre class="src">
+(muse-derive-style <span style="color: #008b00;">"my-page-html"</span> <span style="color: #008b00;">"html"</span>
+                   <span style="color: #006400;">:header</span> <span style="color: #008b00;">"~/projects/my-page-muse/header.tmpl"</span>
+                   <span style="color: #006400;">:footer</span> <span style="color: #008b00;">"~/projects/my-page-muse/footer.tmpl"</span>)
+
+(muse-derive-style <span style="color: #008b00;">"my-page-pdf"</span> <span style="color: #008b00;">"pdf"</span>
+                   <span style="color: #006400;">:header</span> <span style="color: #008b00;">"~/projects/my-page-muse/header.tex"</span>
+                   <span style="color: #006400;">:footer</span> <span style="color: #008b00;">"~/projects/my-page-muse/footer.tex"</span>)
+</pre>
+
+<p>Файлы используемые в этих стилях также лежат на моем сайте: HTML &mdash; <a href="../../header.tmpl">header.tmpl</a> &amp;
+<a href="../../footer.tmpl">footer.tmpl</a>, PDF &mdash; <a href="../../header.tex">header.tex</a> &amp; <a href="../../footer.tex">footer.tex</a>.  Исходные файлы Muse также лежат на сайте, и
+вы можете увидеть их, заменив расширение <code>.html</code> на <code>.muse</code>, например, для данного расказа это
+будет <a href="./EmacsMuseMyPage.muse">./EmacsMuseMyPage.muse</a>.</p>
+
+<p>Затем определяется проект сайта:</p>
+
+<pre class="src">
+(setq muse-project-alist
+      `(
+        (<span style="color: #008b00;">"my-page"</span>
+         (,@(muse-project-alist-dirs <span style="color: #008b00;">"~/projects/my-page-muse"</span>) <span style="color: #006400;">:default</span> <span style="color: #008b00;">"index"</span>)
+         ,@(muse-project-alist-styles <span style="color: #008b00;">"~/projects/my-page-muse"</span>
+                                      <span style="color: #008b00;">"~/projects/my-page-muse"</span>
+                                      <span style="color: #008b00;">"my-page-html"</span>)
+         (<span style="color: #006400;">:base</span> <span style="color: #008b00;">"my-page-pdf"</span>
+                <span style="color: #006400;">:path</span> <span style="color: #008b00;">"~/projects/my-page-muse/en"</span>
+                <span style="color: #006400;">:include</span> <span style="color: #008b00;">"/alexott-cv-en[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">/]*$"</span>)
+         (<span style="color: #006400;">:base</span> <span style="color: #008b00;">"my-page-pdf"</span>
+                <span style="color: #006400;">:path</span> <span style="color: #008b00;">"~/projects/my-page-muse/ru"</span>
+                <span style="color: #006400;">:include</span> <span style="color: #008b00;">"/alexott-cv-ru[</span><span style="color: #008b00;">^</span><span style="color: #008b00;">/]*$"</span>))))
+</pre>
+
+<p>Сайт выводится в тот же каталог, где находятся исходные файлы (с учетом их расположения в
+иерархии каталогов проекта) &mdash; в данном случае это <code>~/projects/my-page-muse</code>.
+<code>muse-project-alist-dirs</code> генерирует список каталогов проекта для которых будет применяться
+заданный стиль (<code>my-page-html</code>).  А две последних записи используются для генерации
+PDF-версии английского и русского резюме используя стиль <code>my-page-pdf</code>.</p>
+
+<p>Для правильной генерации ссылок на стили и прочие файлы я написал небольшую функцию
+<code>muse-gen-relative-name</code>, которая принимает в качестве параметра имя файла относительно
+корневого каталога проекта, и генерирует имя файла относительно текущего файла:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">muse-gen-relative-name</span> (name)
+  (concat
+   (file-name-directory (muse-wiki-resolve-project-page (muse-project)))
+   name))
+</pre>
+
+<p>Другая функция, <code>muse-mp-detect-language</code>, используется для определения того, какой язык
+используется для данного файла<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">muse-mp-detect-language</span> ()
+  (<span style="color: #a020f0;">let</span> ((lang <span style="color: #008b00;">"NN"</span>)
+        (cur-dir (file-name-directory (muse-current-file)))
+        )
+    (<span style="color: #a020f0;">let</span> ((smatch (string-match <span style="color: #008b00;">"/</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">ru</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">|</span><span style="color: #008b00;">en</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">|</span><span style="color: #008b00;">de</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">/"</span> cur-dir)))
+      (<span style="color: #a020f0;">when</span> smatch
+        (setq lang (substring cur-dir (+ smatch 1) (+ smatch 3)))))
+    lang))
+</pre>
+
+<p>Структура меню, генерируемая для каждой страницы, определяется переменной <code>my-page-menu</code>, и
+представляет собой ассоциативный список, каждый элемент которого состоит из названия языка
+и списка пар, представляющих имя файла (или каталога) и соответствующее название пункта
+меню.</p>
+
+<pre class="src">
+(setq my-page-menu '((<span style="color: #008b00;">"ru"</span> . ( (<span style="color: #008b00;">"index.html"</span> . <span style="color: #008b00;">"&#1043;&#1083;&#1072;&#1074;&#1085;&#1072;&#1103;"</span>)
+                               (<span style="color: #008b00;">"cf/"</span> . <span style="color: #008b00;">"&#1048;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1086;&#1085;&#1085;&#1072;&#1103; &#1073;&#1077;&#1079;&#1086;&#1087;&#1072;&#1089;&#1085;&#1086;&#1089;&#1090;&#1100;"</span>)
+                               (<span style="color: #008b00;">"fp/"</span> . <span style="color: #008b00;">"&#1060;&#1091;&#1085;&#1082;&#1094;&#1080;&#1086;&#1085;&#1072;&#1083;&#1100;&#1085;&#1086;&#1077; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077;"</span>)
+                               (<span style="color: #008b00;">"scheme/"</span> . <span style="color: #008b00;">"Scheme"</span>)
+                               (<span style="color: #008b00;">"lisp/"</span> . <span style="color: #008b00;">"emacs-lisp"</span>)
+                               (<span style="color: #008b00;">"cpp/"</span> . <span style="color: #008b00;">"C++"</span>)
+                               (<span style="color: #008b00;">"oss/"</span> . <span style="color: #008b00;">"Open Source Projects"</span>)
+                               (<span style="color: #008b00;">"emacs/"</span> . <span style="color: #008b00;">"Emacs"</span>)
+                               (<span style="color: #008b00;">"writings/"</span> . <span style="color: #008b00;">"&#1057;&#1090;&#1072;&#1090;&#1100;&#1080;"</span>)))
+                     (<span style="color: #008b00;">"en"</span> . ( (<span style="color: #008b00;">"index.html"</span> . <span style="color: #008b00;">"Main"</span>)
+                               (<span style="color: #008b00;">"cf/"</span> . <span style="color: #008b00;">"Information Security"</span>)
+                               (<span style="color: #008b00;">"fp/"</span> . <span style="color: #008b00;">"Functional programming"</span>)
+                               (<span style="color: #008b00;">"cpp/"</span> . <span style="color: #008b00;">"C++"</span>)
+                               (<span style="color: #008b00;">"oss/"</span> . <span style="color: #008b00;">"Open Source Projects"</span>)
+                               (<span style="color: #008b00;">"emacs/"</span> . <span style="color: #008b00;">"Emacs"</span>)
+                               (<span style="color: #008b00;">"writings/"</span> . <span style="color: #008b00;">"Articles"</span>)))))
+</pre>
+
+<p>И собственно функция для генерации меню на каждой странице, входящей в проект.  Она
+определяет язык страницы, получает имя генерируемого файла, и в процессе генерации меню
+выделяет аттрибутом пункт, соответствующий нужному разделу сайта (например, этот рассказ
+находится в разделе &quot;Статьи&quot;).</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">muse-mp-generate-menu</span> ()
+  (<span style="color: #a020f0;">let*</span> ((menu-lang (muse-mp-detect-language))
+         (menu-struct (assoc menu-lang my-page-menu))
+         (menu-string <span style="color: #008b00;">""</span>)
+         (rel-dir (file-name-directory (muse-wiki-resolve-project-page (muse-project))))
+         (rel-path (<span style="color: #a020f0;">if</span> (&gt; (length rel-dir) 2)   (substring rel-dir 3) <span style="color: #008b00;">""</span>))
+         (cur-path-muse (muse-current-file))
+         (cur-path-html (replace-regexp-in-string <span style="color: #008b00;">"\\.muse"</span> <span style="color: #008b00;">".html"</span> cur-path-muse))
+         )
+      (<span style="color: #a020f0;">when</span> menu-struct
+        (<span style="color: #a020f0;">let</span> ((menu-list (<span style="color: #a020f0;">if</span> (not (null menu-struct)) (cdr menu-struct))))
+          (setq menu-string
+                (concat <span style="color: #008b00;">"&lt;ul class=\"avmenu\"&gt;"</span>
+                        (apply #'concat
+                               (mapcar
+                                (<span style="color: #a020f0;">lambda</span> (x)
+                                  (concat <span style="color: #008b00;">"&lt;li&gt;&lt;a href=\""</span> rel-path (car x)
+                                          (<span style="color: #a020f0;">if</span> (string-match (concat <span style="color: #008b00;">"/"</span> menu-lang <span style="color: #008b00;">"/"</span> (car x))
+                                                            cur-path-html)
+                                              <span style="color: #008b00;">"\" class=\"current\""</span>
+                                            <span style="color: #008b00;">"\""</span>)
+                                          <span style="color: #008b00;">"&gt;"</span> (cdr x) <span style="color: #008b00;">"&lt;/a&gt;&lt;/li&gt;"</span>))
+                                menu-list))
+                        <span style="color: #008b00;">"&lt;/ul&gt;"</span>))))
+      menu-string))
+</pre>
+
+<p>Кроме того, нужна еще одна функция, которая используется в footer для отображения даты
+последнего изменения страницы:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">generate-change-date</span> (file)
+  (<span style="color: #a020f0;">when</span> (file-exists-p file)
+    (<span style="color: #a020f0;">let*</span> ((fa (file-attributes file))
+           (mod-time (nth 6 fa)))
+      (format-time-string <span style="color: #008b00;">"%d.%m.%Y %R"</span> mod-time))))
+</pre>
+
+<p>Вот и все. Все получилось достаточно просто и не требует никаких дополнительных действий
+по изменению сгенеренного html.  Полученные файлы может сразу загружать на сервер.</p>
+
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Реализация этой функции не особо оптимальна и может приводить к ошибкам, но ее можно
+переписать не затрагивая остальной код.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/EmacsMuseMyPage.html';
+var disqus_url = 'http://alexott.net/ru/writings/EmacsMuseMyPage.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>
