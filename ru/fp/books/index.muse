@@ -604,9 +604,10 @@ Haskell), показываются базовые концепции и небо
    показывает практические аспекты применения Haskell, при этом описывает достаточно
    сложные темы, такие как взаимодействие с внешним миром, проектирование программ на
    Haskell и т.д.
- - Издательство O'Reilly планирует выпустить весной 2012-го года книгу
+ - Издательство O'Reilly выпустило весной 2012-го года книгу
    [[http://www.amazon.com/gp/product/1449316972/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449316972][Developing Web Applications with Haskell and Yesod]] посвященную разработке
-   веб-приложений используя фреймворк Yesod.
+   веб-приложений используя фреймворк Yesod.  Эта книжка также свободно доступна на
+   [[http://www.yesodweb.com/book][сайте проекта]].
 
 Кроме напечатанных книг и учебников, имеются и материалы, доступные online.  К наиболее
 интересным можно отнести:
@@ -888,15 +889,24 @@ and Interpretation of Computer Programs и How to Design Programs, в котор
  - Twitter, который активно использует Scala, сделал свободно доступными два ресурса для
    изучения Scala: [[http://twitter.github.com/scala_school/][Scala School! From ∅ to Distributed Service]] и [[http://twitter.github.com/effectivescala/][Effective Scala]] -- оба
    ориентированы на начинающих изучать данный язык.
+ - Весной 2012 года была выпущена книга [[http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321774094][Scala for the Impatient]] - она описывает язык,
+   начиная с простых конструкций, и заканчивая сложными вещами.
+ - Также весной 2012-го года, вышла книга [[http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182706][Scala in Depth]] описывает сложные вопросы
+   использования этого языка.
 
 К изданию планируются следующие книги:
  - издательством Apress будет выпущена книга
    [[http://www.amazon.com/gp/product/143022844X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=143022844X][Pro Scala: Monadic Design Patterns for the Web]];
- - Издатетельство Manning планирует в 2012-м году выпустить две книги по Scala:
-   [[http://www.amazon.com/gp/product/1935182757/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182757][Scala in Action]] должна служить введением в программирование на этом языке, в то время
-   как [[http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182706][Scala in Depth]] описывает более сложные вопросы использования этого языка.  Обе
-   книги доступны в рамках программы раннего доступа (MEAP).
- - Также весной 2012-го будет выпущена книга [[http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321774094][Scala for the Impatient]].
+ - Издатетельство Manning планирует в 2012-м году выпустить несколько книг по Scala:
+   [[http://www.amazon.com/gp/product/1935182757/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182757][Scala in Action]] должна служить введением в программирование на этом языке. Еще одна
+   книга, [[http://manning.com/bjarnason/][Functional Programming in Scala]] не описывает сам язык, но показывает как его
+   использовать для разработки в функциональном стиле программирования.  А книга
+   [[http://www.manning.com/hilton/][Play for Scala]] описывает веб-фреймворк Play.  Все книги доступны в рамках программы
+   раннего доступа (MEAP).
+ - Осенью 2012-го года ожидается выход книги
+   [[http://www.amazon.com/gp/product/1439896666/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1439896666][Introduction to the Art of Programming Using Scala]].  С подробным содержанием этой книги
+   можно ознакомиться на [[http://www.programmingusingscala.net/][специальном сайте]].
+
 
 *** Clojure
 

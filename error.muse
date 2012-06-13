@@ -1,0 +1,8 @@
+#title File not found! Файл не найден!
+
+**Something strange happened - File not found!**
+
+**Файл не найден - странно...**
+
+
+[[/][To main page / На главную страницу]]

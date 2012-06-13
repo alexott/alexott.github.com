@@ -1,8 +1,0 @@
-#title Microsoft Access
-#keywords ms access, file format
-
-MS Access
-
-<div id="rule">[[./index][На главную страницу]]</div>
-
-
