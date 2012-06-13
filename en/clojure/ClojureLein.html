@@ -1,0 +1,429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Using Leiningen to build Clojure code</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, leiningen, clojure, build tool, lein, howto, tutorial" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Using Leiningen to build Clojure code</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Main</a></li><li><a href="../fp/">Functional programming</a></li><li><a href="../clojure/" class="current">Clojure</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../cf/">Information Security</a></li><li><a href="../cpp/">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../writings/">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>This article describes the Leiningen tool for building of projects, written in Clojure.<sup><a class="footref" name="fnr.5" href="#fn.5">5</a></sup></p>
+
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">What is Leiningen?</a>
+</dt>
+<dt>
+<a href="#sec2">Installation</a>
+</dt>
+<dt>
+<a href="#sec3">Structure of Leiningen's project</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec4">Project's example</a>
+</dt>
+<dt>
+<a href="#sec5">How to specify dependencies</a>
+</dt>
+<dt>
+<a href="#sec6">Repositories</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec7">Work with Leiningen</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec8">Basic Leiningen's commands</a>
+</dt>
+<dt>
+<a href="#sec9">Additional commands</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec10">Extending Leiningen's functionality</a>
+</dt>
+<dt>
+<a href="#sec11">Conclusion</a>
+</dt>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+What is Leiningen?</h2>
+
+<p><a href="http://github.com/technomancy/leiningen">Leiningen</a> is a tool for building of code, written in Clojure.  Leiningen is much simpler
+comparing with <a href="ClojureMaven.html">Maven</a> and allows to define project's configuration using Clojure<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.
+Leiningen uses external tools and libraries to resolve dependencies and build a code, so
+it's pretty small.  This tool is getting more popularity between Clojure developers &mdash;
+it's extensible by using additional modules (plugins), such as plugin for compilation of
+Java code, and many others.</p>
+
+<p>Out of box Leiningen implements basic tasks &mdash; compilation of code, testing, creation of
+package, installation, etc.  Besides this, it also provides basic support for work with
+Maven, so you can use packages, built by this tool in other projects.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Installation</h2>
+
+<p class="first">Leiningen's installation procedures for Unix-like OSes and for MS Windows are slightly
+different.  Installation on Unix is quite easy &mdash; you just need to download <a href="http://github.com/technomancy/leiningen/raw/stable/bin/lein">lein</a> script,
+make it executable, copy to directory, listed in <code>PATH</code>, and execute <code>lein self-install</code>
+command.  During execution of this command, Leiningen will download and install all
+packages, that are needed to its work.</p>
+
+<p>To install Leiningen on MS Windows you need to download <a href="http://github.com/downloads/technomancy/leiningen/lein-win32.zip">lein-win32.zip</a> file from project's
+page.  This file contains all necessary programs, so you can unzip it into any directory,
+add this directory into search path, perform <code>lein self-install</code> command, and start to work
+with Leiningen.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Structure of Leiningen's project</h2>
+
+<p class="first">Leiningen uses fixed structure of project &mdash; in the root directory of the project you need
+to have the <code>project.clj</code> file, that contains project's definition.  The only necessary
+component of the definition is <code>defproject</code> &mdash; Clojure's macro, that is expanded into set of
+build instructions.  <code>project.clj</code> can also include other code, written in Clojure, that
+will executed during build process.</p>
+
+<p>Project's source code should be stored in <code>src</code> directory, tests &mdash; in <code>test</code> directory, and
+additional resources, used by project &mdash; in <code>resources</code> directory.  The <code>lib</code> directory is
+used to store libraries, used by project &mdash; they are copied there with the <code>lein deps</code>
+command.  List of libraries is calculated using information about dependencies, declared
+in project.  If you want to use library, that isn't stored in one of the Maven's
+repositories, then you can just copy this library into <code>lib</code> directory, and it will
+available to your project.</p>
+
+<p>But names of directories aren't hard-coded &mdash; you can use <code>defproject</code>'s options
+to change their values:</p>
+
+<dl>
+<dt><strong><code>:source-path</code></strong></dt>
+<dd>name of directory with project's source code (by default &mdash; 
+<code>src</code>);</dd>
+<dt><strong><code>:compile-path</code></strong></dt>
+<dd>name of directory for resulting Java classes (by default &mdash;
+<code>classes/</code>);</dd>
+<dt><strong><code>:resources-path</code></strong></dt>
+<dd>name of directory with project's resources (by default &mdash; 
+<code>resources/</code>);</dd>
+<dt><strong><code>:test-path</code></strong></dt>
+<dd>name of directory with test's source code (by default &mdash; 
+<code>test/</code>);</dd>
+<dt><strong><code>:library-path</code></strong></dt>
+<dd>name of directory, where libraries are stored (by default &mdash; 
+<code>lib/</code>).</dd>
+</dl>
+
+<p>You can also add additional information to project's definition &mdash; description (the
+<code>:description</code> option) and link to project's home page (the <code>:url</code> option).</p>
+
+<p>The fastest way to create a new project is to use <code>lein new</code> command, that accepts one
+required argument &mdash; name of the project.  This command will create a new directory with
+name of the project, and will create inside it the <code>project.clj</code> file with declaration of
+the project (including dependencies on Clojure and <code>clojure-contrib</code>), the <code>README</code> file with
+template of project's description, and two directories &mdash; 
+<code>src</code> and <code>test</code> for source code &amp;
+tests.  Now you can start to work with you project.</p>
+
+<h3><a name="sec4" id="sec4"></a>
+Project's example</h3>
+
+<p class="first">Let look to simple project specified in <code>project.clj</code> with following code (full code of this
+project you can find at <a href="http://github.com/alexott/lein-simple-project/">github</a>):</p>
+
+<pre class="src">
+(defproject test-project <span style="color: #008b00;">"1.0-SNAPSHOT"</span>
+  <span style="color: #00008b;">:description</span> <span style="color: #008b00;">"A test project."</span>
+  <span style="color: #00008b;">:url</span> <span style="color: #008b00;">"http://my-cool-project.com"</span>
+  <span style="color: #00008b;">:dependencies</span> [[org.clojure/clojure <span style="color: #008b00;">"1.1.0"</span>]
+                 [org.clojure/clojure-contrib <span style="color: #008b00;">"1.1.0"</span>]]
+  <span style="color: #00008b;">:dev-dependencies</span> [ [swank-clojure <span style="color: #008b00;">"1.2.0"</span>] ]
+)
+</pre>
+
+<p>We define a project <code>test-project</code> with dependencies on Clojure and <code>clojure-contrib</code>
+libraries, and also have additional dependency on library, that we'll use during
+development &mdash; 
+<code>swank-clojure</code>.</p>
+
+<p>In the <code>src</code> directory there is only one file &mdash; 
+<code>simple.clj</code>, that declares namespace <code>simple</code>
+with following code inside:</p>
+
+<pre class="src">
+(<span style="color: #006400;">ns</span> simple)
+
+(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">hello</span>
+  ([] <span style="color: #008b00;">"Hello world!"</span>)
+  ([name] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> name <span style="color: #008b00;">"!"</span>)))
+</pre>
+
+<p>In the <code>test</code> directory we have file <code>simple_test.clj</code>, that contains test for <code>simple</code>.  We're
+using standard library <code>clojure.test</code> to implement test.  Test's source code looks following
+way:</p>
+
+<pre class="src">
+(<span style="color: #006400;">ns</span> simple-test
+  (<span style="color: #00008b;">:use</span> clojure.test)
+  (<span style="color: #00008b;">:use</span> simple))
+
+(<span style="color: #a020f0;">deftest</span> <span style="color: #0000ff;">simple-test</span>
+  (<span style="color: #0000ff;">is</span> (<span style="color: #8b0000;">=</span> (hello) <span style="color: #008b00;">"Hello world!"</span>))
+  (<span style="color: #0000ff;">is</span> (<span style="color: #8b0000;">=</span> (hello <span style="color: #008b00;">"test"</span>) <span style="color: #008b00;">"Hello test!"</span>)))
+</pre>
+
+<p>This is complete project, and we could execute any Leiningen's command for it.</p>
+
+
+<h3><a name="sec5" id="sec5"></a>
+How to specify dependencies</h3>
+
+<p class="first">One of important parts of <code>defproject</code> is declaration of dependencies on external libraries.
+For code, written in Clojure, main dependency is Clojure itself, as this shown in example
+above.</p>
+
+<p>There are different types of dependencies and different project options for them:</p>
+
+<dl>
+<dt><strong><code>:dependencies</code> option</strong></dt>
+<dd>standard dependencies &mdash; for libraries, that are used in your
+code;</dd>
+<dt><strong><code>:dev-dependencies</code> option</strong></dt>
+<dd>dependencies for libraries, that are used during development.
+For example, dependency on <code>swank-clojure</code>, Leiningen's plugins, etc.</dd>
+</dl>
+
+<p>Besides this, exists <a href="http://github.com/swannodette/native-deps">native-deps</a> plugin, that implements support for dependencies on
+platform-dependent libraries (native libraries).  <a href="http://nakkaya.com/2010/04/05/managing-native-dependencies-with-leiningen/">Here</a> is example of use of this plugin.</p>
+
+<p>Each of these options is a vector, where each element is another vector, holding
+description of concrete library.  This description consists from three elements (you
+already had seen these descriptions in project's example):</p>
+
+<ul>
+<li>symbol, that defines name of library (combination of group name &amp; name of library, same
+as in <a href="ClojureMaven.html">Maven</a>), for example, <code>org.clojure/clojure</code>;</li>
+<li>string, that defines version of library.  To specify version of concrete package, you
+just write version as normal string, <code>&quot;1.1.0&quot;</code> or <code>&quot;1.2.0-master-SNAPSHOT&quot;</code>, for example.
+But you can also list several &quot;supported&quot; versions, if you specify version as vector
+with values, separated by comma, <code>&quot;[1.1,1.2-SNAPSHOT]&quot;</code>, for example;</li>
+<li>options (optional) could be used to adjust dependencies, make them more accurate. For
+example, you can exclude some libraries from dependencies using the <code>:exclusions</code> option.
+Here is example of excluding of some not necessary dependencies for <code>log4j</code> library:</li>
+</ul>
+
+<pre class="src">
+[log4j <span style="color: #008b00;">"1.2.15"</span> <span style="color: #00008b;">:exclusions</span> [javax.mail/mail
+                             javax.jms/jms
+                             com.sun.jdmk/jmxtools
+                             com.sun.jmx/jmxri]]
+</pre>
+
+
+<h3><a name="sec6" id="sec6"></a>
+Repositories</h3>
+
+<p class="first">By default Leiningen uses three repository:</p>
+
+<ul>
+<li>Maven's <a href="http://mvnrepository.com/">standard repository</a>;</li>
+<li><a href="http://build.clojure.org/snapshots/">repository</a> with Clojure's daily builds;</li>
+<li><a href="http://clojars.org/repo/">the Clojars repository</a>, that is used to host libraries, written in Clojure.</li>
+</ul>
+
+<p>Besides this, user can specify additional repositories with <code>:repositories</code> option.  This
+option take one parameter &mdash; map with names and URLs of repositories.  For example, we can
+add repository of <a href="http://apache.org">Apache project</a> with following code:</p>
+
+<pre class="src">
+(defproject test2 <span style="color: #008b00;">"1.0.0-SNAPSHOT"</span>
+  <span style="color: #00008b;">:dependencies</span> [....]
+  <span style="color: #00008b;">:repositories</span> {<span style="color: #008b00;">"apache-releases"</span> <span style="color: #008b00;">"http://repository.apache.org/content/repositories/releases/"</span>}
+  )
+</pre>
+
+
+
+<h2><a name="sec7" id="sec7"></a>
+Work with Leiningen</h2>
+
+<p class="first">Typical workflow when you use Leiningen looks following way:</p>
+
+<ul>
+<li>you create a project (<code>lein new</code>), define dependencies on external libraries and download
+them with <code>lein deps</code> command (you need to run it after each change of dependencies);</li>
+<li>you write your code, periodically running <code>lein compile</code>, <code>lein test</code>, and may be using
+<code>lein repl</code>, <code>lein swank</code> or <code>lein nailgun</code> (depending on your personal preferences) for
+interactive development;</li>
+<li>if you develop a library, that you plan to use in other projects, then you can install
+it into Maven's local repository with <code>lein install</code> command, or you can upload it to
+<a href="http://clojars.org/">Clojars</a> (with <code>scp</code>, as suggested in documentation, or by using the <code>lein-clojars</code> plugin);</li>
+<li>if you develop a program for end-user, then you can pack your code into package with
+<code>lein jar</code> command (only your code, without dependencies), or with <code>lein uberjar</code>, with all
+dependencies included into package &mdash; it's much easier to distribute such packages to
+end users.</li>
+</ul>
+
+<p>This process is pretty simple and you repeat it until your code is complete :-)</p>
+
+<h3><a name="sec8" id="sec8"></a>
+Basic Leiningen's commands</h3>
+
+<p class="first">List of Leiningen's commands isn't fixed &mdash; plugins could add new commands to it.  In
+basic configuration, Leiningen implements following commands, that could be run as <code>lein
+command [options]</code>:</p>
+
+<dl>
+<dt><strong><code>help [command]</code></strong></dt>
+<dd>shows help on Leiningen's usage.  If you specify name of the
+command after <code>help</code>, then description of command will shown (except <code>repl</code>)</dd>
+<dt><strong><code>new project_name [options]</code></strong></dt>
+<dd>creates a new empty project;</dd>
+<dt><strong><code>deps</code></strong></dt>
+<dd>download (if necessary) and copies all dependencies into <code>lib/</code> directory.  <em>This
+command should executed after each change in dependencies!</em>;</dd>
+<dt><strong><code>compile</code></strong></dt>
+<dd>performs compilation of code (AOT, ahead-of-time) into Java classes.  These
+classes are stored in <code>classes/</code> directory.  User can control which namespaces should be
+compiled &mdash; you can use <code>:namespaces</code> option to specify a list of namespaces to compile;</dd>
+<dt><strong><code>test [list_of_namespace]</code></strong></dt>
+<dd>runs tests from all (or only from specified) namespaces;</dd>
+<dt><strong><code>jar</code></strong></dt>
+<dd>creates a package with your code;</dd>
+<dt><strong><code>uberjar</code></strong></dt>
+<dd>create independent package with your code and all dependencies included into
+it (it's much easier to distribute such packages). If you will run this package with
+<code>java -jar ...</code> then entry point will namespace, specified in <code>:main</code> option, specified
+<code>defproject</code>;</dd>
+<dt><strong><code>pom</code></strong></dt>
+<dd>creates <code>pom.xml</code> file, that contains description of project.  This file is needed
+if you plan to use your package in another project;</dd>
+<dt><strong><code>install</code></strong></dt>
+<dd>installs package into Maven's local repository;</dd>
+<dt><strong><code>clean</code></strong></dt>
+<dd>deletes all files, created during build (including libraries from <code>lib/</code>
+directory);</dd>
+<dt><strong><code>repl</code></strong></dt>
+<dd>runs REPL with correctly specified classpath &mdash; it includes libraries from <code>lib/</code>
+directory, and also directories <code>src/</code> and <code>classes/</code>.  During start <code>lein</code><sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup> automatically
+detects presence of jline library, and uses it, so you'll have command history, etc.</dd>
+</dl>
+
+
+<h3><a name="sec9" id="sec9"></a>
+Additional commands</h3>
+
+<p class="first">Additional commands are implemented by <a href="#plugin">plugins</a>, that are used to extend Leiningen's
+functionality.  There are many popular plugins for Leiningen, and you can find short
+description of many of them in <a href="http://blog.licenser.net/2010/04/20/leiningen-the-clojure-build-tool">following blog posting</a>.  For example, this are plugins for
+running of Swank and Nailgun servers, that are implementing interactive work from Emacs or
+Vim.  If you run these servers, then they are using all necessary dependencies, so you
+will work in the same environment, as your program.</p>
+
+<p>To use Swank server you need to add dependency on  <a href="http://clojars.org/swank-clojure">swank-clojure</a><sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup> in <code>:dev-dependencies</code>
+option<sup><a class="footref" name="fnr.4" href="#fn.4">4</a></sup>, and after this you could use <code>lein swank</code> command.  After execution of this
+command you'll get Swank server, running on port 4005 and you can connect to it with
+Emacs' <code>slime-connect</code> command.  And if you prefer to use Vim editor, then you need to add
+dependency on <a href="http://clojars.org/lein-nailgun">lein-nailgun</a> plugin (more about work with Nailgun you can read on
+<a href="http://kotka.de/projects/clojure/vimclojure.html">vimclojure</a>'s site).</p>
+
+<h2><a name="sec10" id="sec10"></a>
+<a name="plugin" id="plugin"></a>Extending Leiningen's functionality</h2>
+
+<p class="first">Leiningen is extensible &mdash; if necessary, you can add your own commands.  To do this you
+need to create a project, in which exists <code>leiningen.command_name</code> namespace, containing
+implementation of your command as a function with name <code>command_name</code>.  This function
+receives project's object as an argument.  More detailed information on writing plugins
+you can find in <a href="http://nakkaya.com/2010/02/25/writing-leiningen-plugins-101/">following blog post</a>.  One of example of plugins for Leiningen is the
+<code>lein-swank</code> plugin, that implements support for Swank server &mdash; you can find it in
+Leiningen's <a href="http://github.com/technomancy/leiningen/tree/master/lein-swank/">repository with source code</a>.</p>
+
+<p>There are several plugins for Leiningen in <a href="http://clojars.org/">Clojars repository</a>.  These plugins implement
+different functionality &mdash; automatic uploading of code into Clojars repository, building
+of Java source code, etc.  Names of these plugins usually starting with <code>lein-</code>, that you
+can use in <a href="http://clojars.org/search?q=lein-">search</a>.  To use these plugins in your project, you need to add them into
+development dependencies (the <code>:dev-dependencies</code> option).</p>
+
+
+<h2><a name="sec11" id="sec11"></a>
+Conclusion</h2>
+
+<p class="first">I hope, that this article helps you in your work with Leiningen.  If you have questions
+you can write me <a href="mailto:alexott@gmail.com">e-mail</a> or leave a comment on site &mdash; I'll try to answer on all of them.</p>
+
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> I should also mention the <a href="http://polyglot.sonatype.org/">Polyglot Maven</a> project, that should allow to describe
+Maven's configurations using different languages &mdash; Clojure, Scala, Groovy, etc.</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> In contrast to other commands, <code>repl</code> is implemented directly in <code>lein</code>, not written in
+Clojure.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> example of <code>swank-clojure</code> dependency you can see in project's example.</p>
+
+<p class="footnote"><a class="footnum" name="fn.4" href="#fnr.4">4.</a> and don't forget to run <code>lein deps</code> after adding this dependency!</p>
+
+<p class="footnote"><a class="footnum" name="fn.5" href="#fnr.5">5.</a> there is also <a href="http://github.com/technomancy/leiningen/blob/master/TUTORIAL.md">small document</a> in Leiningen's distribution, that describes basic
+operations.</p>
+
+
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/clojure/ClojureLein.html';
+var disqus_url = 'http://alexott.net/en/clojure/ClojureLein.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Пакет DVC</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, dvc, version control, git, darcs, bazaar, mercurial, hg, monotone" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Пакет DVC</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/" class="current">Emacs</a></li><li><a href="../../writings/">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Архитектура пакета и поддерживаемые системы контроля версий</a>
+</dt>
+<dt>
+<a href="#sec2">Установка пакета</a>
+</dt>
+<dt>
+<a href="#sec3">Начало работы с пакетом</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec4">Работа с файлами</a>
+</dt>
+<dt>
+<a href="#sec5">Ветки и сторонние репозитории</a>
+</dt>
+<dt>
+<a href="#sec6">Прочие команды</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec7">Настройка пакета</a>
+</dt>
+</dl>
+</div>
+
+
+<p>С распространением распределенных систем контроля версий (distributed version control
+systems), появилась необходимость в реализации их поддержки в Emacs.  Для поддержки
+конктретных реализаций распределенных систем контроля версий были созданы отдельные пакеты,
+которые реализовали поддержку специфической системы, с учетом разницы в идеологии и
+командах.</p>
+
+<p>Однако как упоминалось ранее, для поддержки большинства централизованных систем контроля
+версий существует пакет <em>VC</em>, описанный в разделе <a href="EmacsVC.html">VC</a>, поэтому была начата разработка пакета
+<em>DVC</em>, который должен реализовать общее ядро для поддержки различных распределнных систем
+контроля версий.  Пакет <em>DVC</em> во многом является продолжением разработки пакета <em>Xtla</em>, и
+разрабатывается той же командой разработчиков.  Подробно о пакете можно прочитать на
+<a href="http://download.gna.org/dvc/">сайте проекта</a>.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Архитектура пакета и поддерживаемые системы контроля версий</h2>
+
+<p><em>DVC</em> имеет многоуровневую архитектуру.  На самом верхнем уровне находятся функции
+обеспечивающие автоматическое определение системы контроля версий и выполнение функций,
+общих для всех систем контроля версий.  Уровнем ниже находится функции, специфические для
+каждой из систем контроля версий.  И на самом нижнем уровне находятся функции,
+используемые подсистемами, отвечающими за работу с конкретными системами контроля версий.</p>
+
+<p>В настоящее время <em>DVC</em> поддерживает следующие системы контроля версий:</p>
+
+<table class="muse-table" border="2" cellpadding="5">
+  <thead>
+    <tr>
+      <th>название в <em>DVC</em></th>
+      <th>система контроля версий</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>xhg</td>
+      <td>mercurial (aka hg)</td>
+    </tr>
+    <tr>
+      <td>xgit</td>
+      <td>git</td>
+    </tr>
+    <tr>
+      <td>baz</td>
+      <td>GNU Arch (tla) &amp; Bazaar 1.x</td>
+    </tr>
+    <tr>
+      <td>bzr</td>
+      <td>Bazaar-NG</td>
+    </tr>
+    <tr>
+      <td>xmtn</td>
+      <td>Monotone</td>
+    </tr>
+    <tr>
+      <td>xdarcs</td>
+      <td>Darcs</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Не все системы контроля версий имеют полную поддержку в <em>DVC</em>.  На <a href="http://download.gna.org/dvc/">сайте</a> вы можете
+посмотреть таблицу, в которой перечислены поддерживаемые для каждой из систем функции.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Установка пакета</h2>
+
+<p class="first">Установка пакета достаточно проста &mdash; необходимо скачать дистрибутив с сайта проекта,
+распаковать его, и установить с помощью стандартной последовательности команд:</p>
+
+<pre class="src">
+./configure
+make
+make install
+</pre>
+
+<p>Для того, чтобы воспользоваться функциями пакета необходимо добавить в файл инициализации
+следующие строки:</p>
+
+<pre class="src">
+(add-to-list 'load-path <span style="color: #008b00;">"path_to_installed_package"</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">dvc-autoloads</span>)
+</pre>
+
+<p>выполнение которых приведет к регистрации функций автозагрузки частей пакета при первом
+обращении к ним. После выполнения этих команд можно выполнить настройку пакета (см. раздел
+<a href="#customization">Настройка пакета</a> ), но это не обязательно, поскольку настроек по умолчанию обычно хватает
+для начала работы.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Начало работы с пакетом</h2>
+
+<p><em>DVC</em> можно пользоваться используя общее знание о соответствующей системе контроля версий -
+для всех основных команд системы контроля версий имеются соответствующие функции <em>DVC</em>,
+начинающиеся с префикса <code>dvc-</code><sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.</p>
+
+<p>Основной командой используемой пользователем можно считать команду <code>dvc-status</code> (она
+доступна через глобальное сочетание клавиш <code>C-x V s</code>), которая создает буфер со списком
+измененных файлов с который похож на интерфейс <em>PCL-CVS</em>.  Название буфера зависит от того,
+какая система контроля версий используется для данного репозитория, но в общем виде оно
+выглядит как <code>*VCS-status*</code>, где <code>VCS</code> заменяется на название соответствующего backend,
+реализующего функции работы с конкретной системой контроля версий.</p>
+
+<p>После получения буфера со статусом репозитория, в нем можно производить различные
+операции. В этом буфере автоматически включается режим <code>dvc-diff</code>, для которого определено
+некоторое количество специальных команд.  Интерфейс и управляющие клавиши очень похожи на
+те, которые применяются в <em>PCL-CVS</em>, так что на освоение пакета <em>DVC</em> уходит очень мало
+времени.<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup> Часть операций также доступна для выполения через меню.  <em>DVC</em> создает несколько
+меню &mdash; 
+<code>DVC-Diff</code>, <code>DVC-Buffers</code> и отдельное меню по названию используемой системы контроля
+версий, которое предназначено для выполнения команд, относящихся к конкретной
+системе. <code>DVC-Buffers</code> содержит список открытых буферов <em>DVC</em> и используется для операций над
+этими буферами.  Меню <code>DVC-Diff</code> в свою очередь используется для доступа к командам, общим
+для всех систем контроля версий &mdash; получение изменений, удаление файлов, отмена изменений
+и т.п.</p>
+
+<p>Также как и в <em>PCL-CVS</em>, некоторые команды могут выполняться не над отдельными файлами, а
+над группами.  Для установки пометки используется клавиша <code>m</code>, а для снятия пометки &mdash; 
+<code>u</code>.
+Кроме того, можно воспользоваться клавишей <code>backspace</code>, которая снимает пометку с
+предыдущего файла.</p>
+
+<p>Наиболее часто при работе с репозиторием используется лишь ограниченное количество команд
+&mdash; просмотреть сделанные изменения и подтвердить сделанные изменения (commit) или наоборот
+вернуться к предыдущим версиям, добавить или удалить файлы, просмотреть журнал изменений.
+Для всех этих операций, <em>DVC</em> предоставляет соответствующие команды.</p>
+
+<p>Просмотр файла осуществляется либо с помощью функции <code>dvc-diff-jump-to-change</code> (клавиша
+<code>RET</code>), которая открывает файл и переходит к первой изменённой строке, либо с помощью
+функции <code>diff-goto-source</code> (клавиша o или средняя кнопка мыши).  С помощью команды
+<code>dvc-dired-jump</code> (<code>C-x C-j</code>) можно также перейти к нужному файлу в буфере Dired.</p>
+
+<p>Чтобы откатить сделанные изменения можно воспользоваться командой <code>dvc-revert-files</code>
+(клавиша <code>U</code> или <code>C-x V f R</code>).  А вот подтверждение изменений может быть сделано одной из двух
+команд: <code>dvc-log-edit</code> или <code>dvc-add-log-entry</code>. <code>dvc-log-edit</code> (клавиша <code>c</code> или <code>C-x V c</code>) открывает
+буфер, в который вы можете ввести текст, описывающий изменения, и затем выполнить команду
+<code>dvc-log-edit-done</code> (она привязана к привычному сочетанию клавиш <code>C-c C-c</code>).  Вторая команда
+&mdash; 
+<code>dvc-add-log-entry</code> (<code>t</code> или <code>C-x V a</code>) отличается от первой лишь тем, что сообщение будет
+выглядеть лучше &mdash; в стиле файлов <code>ChangeLog</code>.  Находясь в буфере статуса, можно сохранить
+сделанные изменения в виде отдельного файла.  Это выполняется с помощью функции
+<code>dvc-save-diff</code> (сочетание клавиш <code>W s</code>).</p>
+
+<p>Для просмотра сделанных изменений определено несколько функций.  Для непосредственного
+просмотра изменений из буфера <code>*VCS-status*</code> могут использоваться функции <code>dvc-diff-diff</code>
+(клавиша <code>=</code>) или функция <code>dvc-diff-ediff</code> (клавиша <code>e</code>).  Вторая функция
+отличается тем, что для просмотра изменений запускает ediff.  Для быстрого переключения
+между буфером с изменениями и соответствующим элементом в буфере статуса, может
+использоваться функция <code>dvc-diff-diff-or-list</code> (клавиша <code>j</code>) &mdash; она работает в обоих буферах.
+А с помощью функции <code>dvc-diff-view-source</code> (клавиша <code>v</code>) можно открыть отдельное окно с файлом
+и рассмотреть изменённый участок файла.  Для того, чтобы просматривать содержимое буфера с
+изменениями, не переключаясь в него, определены две функции &mdash;
+<code>dvc-diff-scroll-down-or-diff</code> (<code>M-=</code>) и <code>dvc-diff-scroll-up-or-diff</code> (<code>M-RET</code>),
+которые прокручивают буфер с изменениями вверх и вниз.</p>
+
+<p>Кроме этих функций, определены ещё три функции, которые могут выполняться не из буфера
+<code>*VCS-status*</code> и имеют глобальные привязки клавиш.  Функция <code>dvc-diff</code> (привязана к <code>C-x
+V =</code>) отображает изменения между текущим и предыдущим состояниями репозитория.
+Функции <code>dvc-file-diff</code> (<code>C-x V d</code>) и <code>dvc-file-ediff</code> (<code>C-x V e</code>) показывают изменения для
+конкретного файла, используя буфер или ediff, соответственно.</p>
+
+<p>Для просмотра журнала изменений (log) также определено несколько команд, действующих как в
+буфере статуса, так и привязанных к глобальным сочетаниям клавиш.  Так, команда <code>dvc-log</code> (<code>L</code>
+или <code>C-x V L</code>) показывает список изменений для файла или проекта в сокращённой форме.  Для
+файла, находящегося в текущей позиции буфера статуса, можно посмотреть этот же журнал с
+помощью команды <code>dvc-diff-log</code> (клавиша <code>l</code>).  Полный же журнал изменений можно посмотреть с
+помощью команды <code>dvc-changelog</code> (<code>C-x V l</code>).  Все эти команды могут принимать префиксный
+параметр, определяющий то, сколько последних изменений необходимо показать. По умолчанию
+показываются все изменения.</p>
+
+<h3><a name="sec4" id="sec4"></a>
+Работа с файлами</h3>
+
+<p class="first">Достаточно часто пользователю приходится выполнять и различные работы с файлами &mdash;
+добавлять, удалять их и т.п.  <em>DVC</em> определяет несколько команд, которые предназначены для
+выполнения этих задач.  Команда <code>dvc-add-files</code> (<code>a</code> или <code>C-x V f a</code>) добавляет текущий или
+выбранные файлы в репозиторий.  Для удаления выбранных файлов из репозитория служит
+команда <code>dvc-remove-files</code> (клавиши <code>d</code> или <code>r</code>, или глобальное сочетание <code>C-x V f D</code>).  Есть ещё
+одна команда для удаления файлов &mdash; 
+<code>dvc-purge-files</code> (<code>C-x V f X</code>), которая удаляет файлы с
+диска, не оставляя резервных копий.  Поскольку практически все современные системы
+контроля версий поддерживают операцию переименования файлов, то <em>DVC</em> также предоставляет
+эту возможность с помощью команды <code>dvc-rename</code> (<code>C-x V f M</code>).</p>
+
+<p>Для работы с файлами, которые зарегистрированы в системе контроля версий, но не отображены
+в буфере статуса, пользователь может использовать команду <code>dvc-inventory</code> (<code>C-x V i</code>), которая
+отображает список файлов, известных данной системе контроля версий.  В этом буфере
+пользователь может использовать те же команды, и сочетания клавиш, что и в буфере статуса.</p>
+
+<p>Пользователь может управлять списком объектов (файлов и каталогов), которые будут известны
+системе контроля версий.  Обычно, в каждой из систем контроля версий, существует список
+игнорируемых файлов, который может изменяться пользователем<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.  Для быстрого выполнения
+этой задачи, определено несколько команд.  Команда <code>dvc-ignore-files</code> (<code># i</code> или просто <code>i</code>)
+помещает выбранные файлы в список игнорируемых объектов.  Команда
+<code>dvc-ignore-file-extensions</code> (<code># I</code> или <code>M-I</code>) также изменяет этот список, но туда попадают не
+полные имена файлов, а только их расширения, что часто бывает очень удобным.  Ну а если
+вам необходимо изменить этот список другим способом &mdash; удалить файл из этого списка, или
+добавить сложное регулярное выражение, то тут можно воспользоваться командой
+<code>dvc-edit-ignore-files</code> (<code># e</code>), которая откроет список игнорируемых объектов и позволит его
+отредактировать.  При этом синтаксис файла, зависит от используемой системы контроля
+версий.</p>
+
+<p>Если вы хотите создать новый репозиторий в текущем каталоге, то вы можете использовать
+функцию <code>dvc-init</code> (<code>C-x V I</code>) которая запросит у вас название системы контроля версии,
+которую вы хотите использовать, и затем выполнит все необходимые действия по инициализации
+репозитория.</p>
+
+
+<h3><a name="sec5" id="sec5"></a>
+Ветки и сторонние репозитории</h3>
+
+<p class="first">Работа с разными репозиториями и ветвями является актуальной для пользователей
+распределённых систем контроля версий, поэтому <em>DVC</em> представляет достаточный набор
+возможностей для выполнения этих задач.</p>
+
+<p>Для всех поддерживаемых систем контроля версий имеется общий набор команд, обеспечивающий
+основную функциональность.  Но поскольку <em>DVC</em> является развитием проекта <em>Xtla</em>, то для GNU
+Arch и Bazaar имеется больший набор функций &mdash; закладки для репозиториев и т.п. (описание
+соответствующих функций можно найти в разделе <a href="EmacsXtla.html">Пакет Xtla</a>.  Модули для других систем
+контроля версий также могут предоставлять дополнительные команды.</p>
+
+<p>Общими для всех систем контроля являются следующие команды:</p>
+
+<table class="muse-table" border="2" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Команда</th>
+      <th>Сочетание клавиш</th>
+      <th>Описание</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dvc-missing</code></td>
+      <td><code>M m</code> или <code>C-x V m</code></td>
+      <td>показывает список изменений, присутствующих в удалённом репозитории</td>
+    </tr>
+    <tr>
+      <td><code>dvc-merge</code></td>
+      <td><code>M M</code> или <code>C-x V M</code></td>
+      <td>скачивает и применяет изменения из удалённого репозитория</td>
+    </tr>
+    <tr>
+      <td><code>dvc-pull</code></td>
+      <td><code>M f</code> или <code>C-x V F</code></td>
+      <td>скачивает изменения из удалённого репозитория (не применяя их)</td>
+    </tr>
+    <tr>
+      <td><code>dvc-update</code></td>
+      <td><code>M u</code> или <code>C-x V u</code></td>
+      <td>применяет скачанные изменения к текущему репозиторию</td>
+    </tr>
+    <tr>
+      <td><code>dvc-push</code></td>
+      <td><code>C-x V P</code></td>
+      <td>переносит  изменения из текущего репозитория в удалённый репозиторий</td>
+    </tr>
+    <tr>
+      <td><code>dvc-submit-patch</code></td>
+      <td><code>C-x V p</code></td>
+      <td>отправляет сделанные в текущем репозитории изменения на указанный почтовый адрес</td>
+    </tr>
+    <tr>
+      <td><code>dvc-bookmarks</code></td>
+      <td><code>C-x V b</code></td>
+      <td>открывает буфер, содержащий закладки, с адресами удалённых репозиториев</td>
+    </tr>
+    <tr>
+      <td><code>dvc-clone</code></td>
+      <td><code>C-x V C</code></td>
+      <td>клонирует удаленный репозиторий</td>
+    </tr>
+    <tr>
+      <td><code>dvc-create-branch</code></td>
+      <td><code>C-x V o c</code></td>
+      <td>создает новую ветку разработки</td>
+    </tr>
+    <tr>
+      <td><code>dvc-select-branch</code></td>
+      <td><code>C-x V o s</code></td>
+      <td>переключается на другую ветку разработки</td>
+    </tr>
+    <tr>
+      <td><code>dvc-list-branches</code></td>
+      <td><code>C-x V o l</code></td>
+      <td>показывает список существующих веток разработки</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<h3><a name="sec6" id="sec6"></a>
+Прочие команды</h3>
+
+<p class="first">Чтобы покинуть буфер со статусом репозитория, пользователь может выполнить команду
+<code>dvc-buffer-quit</code> (клавиша <code>q</code>).  А чтобы обновить содержимое буфера, достаточно выполнить
+команду <code>dvc-generic-refresh</code> (клавиша <code>g</code>).</p>
+
+<p>Получить справку по использованию пакета можно используя стандартные средства Emacs &mdash;
+находясь в буфере статуса, нажмите <code>C-h m</code> и вам будет выдано описание действующего режима,
+вместе со списком допустимых клавиш, и названий соответствующих команд.  Список глобальных
+сочетаний клавиш, относящихся к пакету, можно получить с помощью сочетания <code>C-x V C-h</code>.
+Кроме того, в состав пакета входят различные &quot;советы&quot; (tips), с которыми можно
+ознакомиться с помощью команды <code>dvc-tips-next-tip</code>, и в появившемся буфере, можно
+использовать клавиши n и p для перехода к следующему или предыдущему совету.</p>
+
+<p><em>DVC</em> в процессе своей работы открывает некоторое количество буферов, и для того, чтобы было
+легче перемещаться между ними, предоставляет некоторое количество команд.  При просмотре
+вложенных друг в друга изменений можно воспользоваться командой <code>dvc-diff-master-buffer</code>
+(клавиша <code>^</code>) для перехода в главный буфер с изменениями.  <em>DVC</em> также для каждого буфера
+устанавливает специальную переменную, указывающую на буфер-партнёр, связанный с текущим
+буфером общей задачей.  Это позволяет быстро переключаться между этими буферами с помощью
+команды <code>dvc-buffer-pop-to-partner-buffer</code> (клавиша <code>h</code>).</p>
+
+<p>Аналогичным образом можно просматривать и буфера, используемые <em>DVC</em> в своих целях.  Команда
+<code>dvc-open-internal-log-buffer</code> (<code>B L</code>) открывает буфер, содержащий все команды выполненные
+пакетом.  А с помощью команды <code>dvc-show-process-buffer</code> (<code>B p</code>) можно посмотреть на результат
+выполнения внешних команд, вызываемых пакетом для выполнения тех, или иных действий.</p>
+
+<h2><a name="sec7" id="sec7"></a>
+<a name="customization" id="customization"></a>Настройка пакета</h2>
+
+<p class="first">Настройка пакета осуществляется с помощью стандартных механизмов настройки Emacs.
+Соответствующая группа настройки имеет название <code>dvc</code>.</p>
+
+<p>Некоторые режимы, реализуемые пакетом, предоставляют пользователю возможность установки
+параметров буферов путём запуска специальных хуков.  Так например, команда <code>dvc-status</code>
+запускает хук <code>dvc-diff-mode-hook</code> (если он определён) при завершении инициализации буфера
+статуса.</p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Кроме того, каждый из модулей, реализующий поддержку конкретной системы контроля
+версий, определяет собственный набор функций, соответствующих командам этой системы
+контроля версий и который может быть отличным от команд <em>DVC</em>. Например, модуль
+реализующий поддержку Mercurial объявляет функции с префиксом <code>xhg-</code>, которые могут
+напрямую быть вызваны пользователем, если для них нет соответствия среди функций <em>DVC</em>.</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> Стоит отметить, что многие команды также доступны вне буфера <code>*VCS-status*</code>.  Для их
+выполнения надо к соответствующей клавиатурной команде добавить глобальный префикс
+&lt;code>C-x V</code>.  В данном тексте эти команды будут помечаться <em>глобальные</em>.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> Пользователь может видеть игнорируемые файлы в буфере статуса, если установит
+переменной <code>dvc-status-display-ignored</code> в значение <code>t</code>.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 26.04.2012 15:45</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-vcs/EmacsDVC.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-vcs/EmacsDVC.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

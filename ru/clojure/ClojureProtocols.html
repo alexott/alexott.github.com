@@ -1,0 +1,516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Типы и протоколы в Clojure</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, clojure, кложура, datatype, protocol, defprotocol, reify" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Типы и протоколы в Clojure</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Главная</a></li><li><a href="../cf/">Информационная безопасность</a></li><li><a href="../fp/">Функциональное программирование</a></li><li><a href="../lisp/">Lisp</a></li><li><a href="../clojure/" class="current">Clojure</a></li><li><a href="../scheme/">Scheme</a></li><li><a href="../erlang/">Erlang</a></li><li><a href="../cpp/">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../writings/">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>Одно из самых больших изменений в Clojure версии 1.2 &mdash; введение в язык новых артефактов:
+протоколов (protocols) и типов данных (datatypes).  Данные изменения позволяют улучшить
+производительность программ по сравнению с мультиметодами, что в будущем даст возможность
+написать Clojure на Clojure (в данный момент протоколы и типы данных уже активно
+используются при реализации Clojure).</p>
+
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Что это такое и зачем нужно?</a>
+</dt>
+<dt>
+<a href="#sec2">Определение протоколов</a>
+</dt>
+<dt>
+<a href="#sec3">Реализация протоколов</a>
+</dt>
+<dt>
+<a href="#sec4">Определение типов данных</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec5">deftype &amp; defrecord</a>
+</dt>
+<dt>
+<a href="#sec6">reify</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec7">Дополнительные функции и макросы</a>
+</dt>
+<dt>
+<a href="#sec8">Дополнительная информация</a>
+</dt>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+Что это такое и зачем нужно?</h2>
+
+<p class="first">Протоколы и типы данных &mdash; два связанных друг с другом понятия.  Протоколы используются
+для определения полиморфных функций, которые затем могут быть реализованы для конкретных
+типов данных (в том числе и из других библиотек).</p>
+
+<p>Существует несколько причин введения протоколов и типов данных в новую версию языка:</p>
+
+<ul>
+<li>Увеличить скорость работы полиморфных функций, при этом поддерживая большую часть
+функциональности мультиметодов, поскольку для протоколов диспатчеризация выполняется
+только по типу данных;</li>
+<li>Использовать лучшие стороны интерфейсов (только спецификация функций, без реализации,
+реализация нескольких интерфейсов одним типом), в тоже время избегая недостатков
+(список реализуемых интерфейсов задан во время реализации типа данных, создание
+иерархии типов вида <code>isa/instanceof</code>);</li>
+<li>Избежать <a href="http://en.wikipedia.org/wiki/Expression_Problem">Expression problem</a> и дать возможность расширять набор операций над типами
+данных без изменениях определения типов данных (в том числе и чужих) и перекомпиляции
+исходного кода<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>;</li>
+<li>Использовать высокоуровневые абстракции для типов данных и операций над ними<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>, что
+упрощает проектирование программ.</li>
+</ul>
+
+<p>Также как и интерфейсы, протоколы позволяют объединить объявление нескольких полиморфных
+функций (или одной функции) в один объект<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.  Отличием от интерфейсов является то, что вы
+не можете унаследовать новый протокол от существующего протокола.</p>
+
+<p>В отличии от имеющегося в Clojure <code>gen-interface</code> (и соответствующих <code>proxy/gen-class</code>)
+определение протоколов и типов не требует AOT (ahead-of-time) компиляции исходного кода,
+что упрощает распространение программ на Clojure.  Однако при определении протокола,
+Clojure автоматически создает соответствующий интерфейс, который будет доступен для кода,
+написанного на Java.</p>
+
+<p>Типы данных, определенные с помощью <code>deftype</code> или <code>defrecord</code> позволяют программисту на
+Clojure определять свои структуры данных, вместо использования обычных отображений и
+структур, но об этом <a href="#datatypes">ниже</a>.</p>
+
+<p><em>Важно помнить, что протоколы и типы данных с одним и тем же именем могут быть определены в
+разных пространствах имен, так что стоит быть осторожным и не наделать ошибок при импорте
+определений и последующей реализации протоколов!</em></p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Определение протоколов</h2>
+
+<p class="first">Протоколом называется именованный набор функций с определенными сигнатурами.  Для
+определения используется макрос, применение которого выглядит следующим образом:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defprotocol</span> <span style="color: #0000ff;">&#1085;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077;</span> <span style="color: #666666;">"&#1086;&#1087;&#1080;&#1089;&#1072;&#1085;&#1080;&#1077;"</span> &amp; &#1089;&#1080;&#1075;&#1085;&#1072;&#1090;&#1091;&#1088;&#1099;)
+</pre>
+
+<p><code>название</code> &mdash; единственный обязательный параметр, хотя определение протокола без функций не
+имеет особого смысла.  В описании вы можете описать ваш протокол, и это описание будет
+показываться при вызове функции <code>doc</code> для вашего протокола.  Для протокола вы можете указать
+одну или несколько сигнатур функций, где каждая сигнатура выглядит следующим образом:</p>
+
+<pre class="src">
+(&#1080;&#1084;&#1103; [&#1072;&#1088;&#1075;&#1091;&#1084;&#1077;&#1085;&#1090;&#1099;+]+ <span style="color: #008b00;">"&#1086;&#1087;&#1080;&#1089;&#1072;&#1085;&#1080;&#1077;"</span>)
+</pre>
+
+<p>Вы можете определять одну функцию, которая будет принимать различное количество
+параметров, но первым аргументом функции всегда является объект, на основании которого
+будет выполняться диспатчеризация, и к которому эта функция будет применяться.  Вы можете
+рассматривать его как <code>this</code> в Java и C++.  В дополнение к сигнатурам, вы можете описать
+вашу функцию, но это необязательно.</p>
+
+<p>Давайте посмотрим на стандартный пример:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defprotocol</span> <span style="color: #0000ff;">AProtocol</span>
+  <span style="color: #666666;">"A doc string for AProtocol abstraction"</span>
+  (bar [a b] <span style="color: #008b00;">"bar docs"</span>)
+  (baz [a] [a b] [a b c] <span style="color: #008b00;">"baz docs"</span>))
+</pre>
+
+<p>Данный протокол определяет две функции: <code>bar</code> &mdash; с двумя параметрами, и <code>baz</code> &mdash; с одним,
+двумя или тремя параметрами.</p>
+
+<p><code>defprotocol</code> также создаст соответствующий интерфейс, с тем же самым именем что и протокол.
+Данный интерфейс будет иметь те же самые функции, что и протокол.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Реализация протоколов</h2>
+
+<p class="first">Протокол сам по себе ни на что не влияет &mdash; чтобы использовать его, мы должны добавить его
+специализации для типов данных или классов JVM.  Для этого может использоваться функция
+<code>extend</code>, использование которой выглядит следующим образом:</p>
+
+<pre class="src">
+(<span style="color: #8b0000;">extend</span> &#1090;&#1080;&#1087;-&#1080;&#1083;&#1080;-&#1082;&#1083;&#1072;&#1089;&#1089;
+  &#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;-1
+   {<span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-1</span> &#1091;&#1078;&#1077;-&#1086;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1077;&#1085;&#1085;&#1072;&#1103;-&#1092;&#1091;&#1085;&#1082;&#1094;&#1080;&#1103;
+    <span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-2</span> (<span style="color: #8b0000;">fn</span> [a b] ...)
+    <span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-3</span> (<span style="color: #8b0000;">fn</span> ([a]...) ([a b] ...)...)}
+  &#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;-2
+    {...}
+...)
+</pre>
+
+<p>Для этой функции вы указываете имя типа данных или класса (или <code>nil</code>), и передаете список
+состоящий из названий протоколов (<code>протокол-1</code> и т.д.) и отображений, которые связывают
+функции протокола (<code>метод-1</code> и т.д.) с их реализациями &mdash; анонимными или именованными
+функциями.</p>
+
+<p>Стоит отметить, что функция <code>extend</code> является низкоуровневым инструментом реализации
+протоколов.  Кроме этого, в состав языка введены макросы <code>extend-protocol</code> &amp; <code>extend-type</code>,
+которые немного упрощают реализацию протоколов<sup><a class="footref" name="fnr.4" href="#fn.4">4</a></sup>.  Протокол также может быть реализован
+непосредственно при <a href="#datatypes">объявлении типа данных</a>.</p>
+
+<p>Использование <code>extend-type</code> выглядит практически также как и использование <code>extend</code>, но
+пользователь записывает реализации в более удобном виде (<code>extend-type</code> раскрывается в
+соответствующий вызов <code>extend</code>):</p>
+
+<pre class="src">
+(<span style="color: #8b0000;">extend-type</span> &#1090;&#1080;&#1087;-&#1080;&#1083;&#1080;-&#1082;&#1083;&#1072;&#1089;&#1089;
+  &#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;-1
+    (&#1084;&#1077;&#1090;&#1086;&#1076;-2 [a b] ...)
+    (&#1084;&#1077;&#1090;&#1086;&#1076;-3 ([a]...)
+             ([a b] ...)...)
+  &#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;-2
+    (....)
+...)
+</pre>
+
+<p>Макрос <code>extend-protocol</code> использоваться в тех случаях, если вы хотите реализовать один
+протокол для нескольких типов данных или классов.  В общем виде использование
+<code>extend-protocol</code> выглядит следующим образом:</p>
+
+<pre class="src">
+(<span style="color: #8b0000;">extend-protocol</span> &#1085;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077;-&#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;&#1072;
+  &#1058;&#1080;&#1087;-&#1080;&#1083;&#1080;-&#1050;&#1083;&#1072;&#1089;&#1089;-1
+   (&#1084;&#1077;&#1090;&#1086;&#1076;-1 ...)
+   (&#1084;&#1077;&#1090;&#1086;&#1076;-2 ...)
+  &#1058;&#1080;&#1087;-&#1080;&#1083;&#1080;-&#1050;&#1083;&#1072;&#1089;&#1089;-2
+   (&#1084;&#1077;&#1090;&#1086;&#1076;-1 ...)
+   (&#1084;&#1077;&#1090;&#1086;&#1076;-2 ...)
+...)
+</pre>
+
+<p>При использовании, <code>extend-protocol</code> раскрывается в серию вызовов <code>extend-type</code> для каждого из
+используемых типов.</p>
+
+<p>Давайте рассмотрим небольшой пример.  Пусть мы объявим следующий простой протокол:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defprotocol</span> <span style="color: #0000ff;">Hello</span> <span style="color: #666666;">"Test of protocol"</span>
+  (hello [this] <span style="color: #008b00;">"hello function"</span>))
+</pre>
+
+<p>Мы можем использовать <code>extend</code>, <code>extend-protocol</code>, или <code>extend-type</code> для его специализации для
+класса <code>String</code>:</p>
+
+<pre class="src">
+(<span style="color: #8b0000;">extend</span> <span style="color: #006400;">String</span>
+  <span style="color: #006400;">Hello</span>
+  {<span style="color: #00008b;">:hello</span> (<span style="color: #8b0000;">fn</span> [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>))})
+
+(<span style="color: #8b0000;">extend-protocol</span> <span style="color: #006400;">Hello</span> <span style="color: #006400;">String</span>
+                 (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>)))
+
+(<span style="color: #8b0000;">extend-type</span> <span style="color: #006400;">String</span> <span style="color: #006400;">Hello</span>
+             (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>)))
+</pre>
+
+<p>При использовании любой из этих реализаций для объекта класса <code>String</code> мы получим один и тот
+же ответ:</p>
+
+<pre class="src">
+user&gt; (hello <span style="color: #008b00;">"world"</span>)
+<span style="color: #008b00;">"Hello world!"</span>
+</pre>
+
+<p>Стоит отметить, что если вы не реализовали протокол для определенного типа данных, то при
+вызове функции будет сгенерировано исключение.  В том случае, если вам необходима
+&quot;реализация по умолчанию&quot;, то вы можете специализировать протокол для класса <code>Object</code>.</p>
+
+<h2><a name="sec4" id="sec4"></a>
+<a name="datatypes" id="datatypes"></a>Определение типов данных</h2>
+
+<p class="first">В Clojure 1.2 введены два метода определения новых именованных типов данных (<code>deftype</code> и
+<code>defrecord</code>), которые реализуют абстракции, определенные протоколами и/или интерфейсами (к
+типам данных относится также <code>reify</code>, который описан ниже).</p>
+
+<p><code>deftype</code> и <code>defrecord</code> динамически создают именованный класс, который имеет набор заданных
+полей и (необязательно) методов для одного или нескольких протоколов и/или интерфейсов.
+Поскольку они не требуют явной компиляции, то это дает возможность их использования в
+интерактивной разработке.  С точки зрения разработчика <code>deftype</code> и <code>defrecord</code> похожи на
+<code>defstruct</code>, но во многом они отличаются:</p>
+
+<ul>
+<li>они создают уникальный класс с соответствующими полями;</li>
+<li>созданный класс имеет конкретный тип;</li>
+<li>имеется конструктор;</li>
+<li>для полей можно указывать типы (это будет использоваться для оптимизации и ограничения
+типов в конструкторе).</li>
+</ul>
+
+<p><code>deftype</code> является &quot;базовым&quot; инструментом для определения типов данных &mdash; созданный тип
+имеет только конструктор, и ничего больше &mdash; все остальное должен реализовывать
+разработчик.  Но при этом, <code>deftype</code> может иметь изменяемые поля, чего не имеет <code>defrecord</code>.</p>
+
+<p>В отличии от <code>deftype</code>, <code>defrecord</code> более прост в использовании, поскольку создаваемый тип
+данных имеет большую функциональность (по большей части за счет реализации интерфейсов
+<code>IKeywordLookup</code>, <code>IPersistentMap</code>, <code>Serializable</code> и т.д.):</p>
+
+<ul>
+<li>автоматически генерируемые функции <code>hashCode</code> и <code>equals</code>;</li>
+<li>возможность указания мета-информации;</li>
+<li>доступ к полям с помощью ключевых символов;</li>
+<li>вы можете добавлять поля, не указанные в определении.</li>
+</ul>
+
+<p><code>deftype</code> и <code>defrecord</code> обычно имеют разные области применения: <code>deftype</code> в основном
+используется для &quot;системных&quot; вещей &mdash; коллекций, и т.п., тогда как <code>defrecord</code> в основном
+используется для хранения информации из &quot;проблемной области&quot; &mdash; данных о заказчиках,
+записях в БД и т.п. &mdash; то, для чего использовались отображения в версиях 1.0 и 1.1.</p>
+
+<p>Давайте рассмотрим как использовать конкретные средства для создания типов данных.</p>
+
+<h3><a name="sec5" id="sec5"></a>
+deftype &amp; defrecord</h3>
+
+<p class="first">В общей форме использование макросов <code>deftype</code> и <code>defrecord</code> выглядит следующим образом:</p>
+
+<pre class="src">
+(deftype &#1080;&#1084;&#1103; [&amp; &#1087;&#1086;&#1083;&#1103;] &amp; &#1089;&#1087;&#1077;&#1094;&#1080;&#1092;&#1080;&#1082;&#1072;&#1094;&#1080;&#1080;)
+(defrecord &#1080;&#1084;&#1103; [&amp; &#1087;&#1086;&#1083;&#1103;] &amp; &#1089;&#1087;&#1077;&#1094;&#1080;&#1092;&#1080;&#1082;&#1072;&#1094;&#1080;&#1080;)
+</pre>
+
+<p>Для обоих макросов обязательным параметром является лишь имя, которое становится именем
+класса.  Поля, которые станут членами класса, перечисляются в векторе, следующем за
+именем, и могут содержать объявления типов.  После этого вектора, можно указать список
+реализуемых интерфейсов и протоколов, вместе с реализацией (это не обязательно, поскольку
+для этого вы позже можете использовать <code>extend-protocol</code> &amp; <code>extend-type</code>).</p>
+
+<p>Спецификации протоколов/интерфейсов выглядят следующим образом:</p>
+
+<pre class="src">
+&#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;/&#1080;&#1085;&#1090;&#1077;&#1088;&#1092;&#1077;&#1081;&#1089;
+(&#1085;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077;-&#1084;&#1077;&#1090;&#1086;&#1076;&#1072; [&#1072;&#1088;&#1075;&#1091;&#1084;&#1077;&#1085;&#1090;&#1099;*] &#1088;&#1077;&#1072;&#1083;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103;)*
+</pre>
+
+<p>Вы можете указать любое количество протоколов/интерфейсов, которые будут реализованы
+данным типом данных.  Давайте посмотрим на простейший тип данных, который реализует
+протокол <code>Hello</code>:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">deftype</span> <span style="color: #0000ff;">A</span> []
+  <span style="color: #006400;">Hello</span>
+  (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello A!"</span>)))
+</pre>
+
+<p>Мы можем вызвать функцию <code>hello</code> для нашего объекта, и получим следующий вывод:</p>
+
+<pre class="src">
+user&gt; (hello (<span style="color: #006400;">A.</span>))
+<span style="color: #008b00;">"Hello A!"</span>
+</pre>
+
+<p>Мы можем также создать тип с помощью <code>defrecord</code>:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defrecord</span> <span style="color: #0000ff;">B</span> [name]
+  <span style="color: #006400;">Hello</span>
+  (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> name <span style="color: #008b00;">"!"</span>)))
+</pre>
+
+<p>и вызвать метод <code>hello</code> для этого типа:</p>
+
+<pre class="src">
+user&gt; (hello (<span style="color: #006400;">B.</span> <span style="color: #008b00;">"world"</span>))
+<span style="color: #008b00;">"Hello world!"</span>
+</pre>
+
+<p>Как уже отмечалось выше, создаваемые поля по умолчанию являются неизменяемыми, но если вы
+создаете тип с помощью <code>deftype</code>, то вы можете пометить некоторые поля как изменяемые,
+используя метаданные (с помощью ключевого символа <code>:volatile-mutable</code> или
+<code>:unsynchronized-mutable</code>).  Для таких полей вы сможете использовать оператор <code>(set! afield
+aval)</code> для изменения данных.  Давайте посмотрим как это делается на примере &mdash; если мы
+создадим следующий протокол и тип данных:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defprotocol</span> <span style="color: #0000ff;">Setter</span>
+  (set-name [this new-name]))
+(<span style="color: #a020f0;">deftype</span> <span style="color: #0000ff;">AM</span> [^{<span style="color: #00008b;">:volatile-mutable</span> true} mfield]
+  <span style="color: #006400;">Hello</span>
+  (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> mfield <span style="color: #008b00;">"!"</span>))
+  <span style="color: #006400;">Setter</span>
+  (set-name [this new-name] (set! mfield new-name)))
+</pre>
+то мы сможем изменять значение поля:
+
+<pre class="src">
+user&gt; (def am (AM. <span style="color: #008b00;">"world"</span>))
+#'user/am
+user&gt; (hello am)
+<span style="color: #008b00;">"Hello world!"</span>
+user&gt; (set-name am <span style="color: #008b00;">"peace"</span>)
+<span style="color: #008b00;">"peace"</span>
+user&gt; (hello am)
+<span style="color: #008b00;">"Hello peace!"</span>
+</pre>
+
+
+<h3><a name="sec6" id="sec6"></a>
+reify</h3>
+
+<p><code>reify</code> используется тогда, когда вам нужно реализовать протокол или интерфейс только в
+одном месте &mdash; когда вы используете <code>reify</code> вы одновременно объявляете тип, и сразу создаете
+объект этого типа. Функция <code>reify</code> по своему использованию очень похожа на <code>proxy</code>, но с
+некоторыми исключениями:</p>
+
+<ul>
+<li>можно использовать только для интерфейсов и протоколов;</li>
+<li>реализуемые методы являются методами результирующего класса, и они вызываются напрямую,
+без поиска в отображении, но при этом не поддерживается подмена методов в отображении.</li>
+</ul>
+
+<p>Эти отличия позволяют получить более высокую производительность по сравнению с <code>proxy</code>, и
+при создании и при выполнении.</p>
+
+<p>Вот небольшой пример реализации протокола <code>Hello</code> для конкретного объекта:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">int-reify</span> (<span style="color: #8b0000;">reify</span> <span style="color: #006400;">Hello</span>
+                 (hello [this] <span style="color: #008b00;">"Hello integer!"</span>)))
+</pre>
+
+<p>И при вызове <code>hello</code> для этого объекта, мы получим соответствующий результат:</p>
+
+<pre class="src">
+user&gt; (hello int-reify)
+<span style="color: #008b00;">"Hello integer!"</span>
+</pre>
+
+
+
+<h2><a name="sec7" id="sec7"></a>
+Дополнительные функции и макросы</h2>
+
+<p class="first">Для работы с протоколами и типами данных определено некоторое количество вспомогательных
+функций, которые могут вам понадобиться:</p>
+
+<dl>
+<dt><strong><code>extends?</code></strong></dt>
+<dd>возвращает <code>true</code> если данный тип данных (2-й аргумент) реализует интерфейс,
+заданный первым аргументом;</dd>
+<dt><strong><code>extenders</code></strong></dt>
+<dd>возвращает коллекцию типов, реализующих заданный протокол;</dd>
+<dt><strong><code>satisfies?</code></strong></dt>
+<dd>возвращает <code>true</code> если данный протокол (1-й аргумент) применим к данному
+объекту (2-й аргумент);</dd>
+</dl>
+
+
+<h2><a name="sec8" id="sec8"></a>
+Дополнительная информация</h2>
+
+<p class="first">Как всегда, основной источник информации &mdash; сайт языка: ознакомьтесь с разделами <a href="http://clojure.org/protocols">protocols</a>
+и <a href="http://clojure.org/datatypes">datatypes</a>.  Хорошее описание протоколов и типов данных можно найти в 13-й главе недавно
+вышедшей книги <a href="http://www.amazon.com/gp/product/1430272317?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1430272317">Practical Clojure. The Definitive Guide</a>, а также в <a href="http://www.amazon.com/gp/product/1935182595?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1935182595">Clojure in Action</a> и
+<a href="http://www.amazon.com/gp/product/1935182641?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1935182641">The Joy of Clojure. Thinking the Clojure Way</a>, которые будут выпущены в ближайшее время.</p>
+
+<p>Stuart Halloway создал очень <a href="http://vimeo.com/11236603">интересный скринкаст</a> в котором он рассказывает о том, зачем
+были созданы протоколы и data types, и демонстрирует их применение на небольших примерах.</p>
+
+<p>Введение новых возможностей в язык не обходится без статей в блогах.  Вот ссылки на
+некоторые интересные статьи на эту тему:</p>
+
+<ul>
+<li><a href="http://www.ibm.com/developerworks/java/library/j-clojure-protocols/index.html">Статья Stuart Sierra</a> на IBM developerWorks;</li>
+<li><a href="http://www.infoq.com/presentations/Clojure-Expression-Problem">Clojure's Solutions to the Expression Problem</a> &mdash; выступление Chris Houser на
+конференции Strange Loop 2010;</li>
+<li>Серия из 3-х статей (<a href="http://www.objectcommando.com/blog/2010/03/26/clojure-protocols-part-1/">1</a>, <a href="http://www.objectcommando.com/blog/2010/03/29/clojure-protocols-part-2/">2</a>, <a href="http://www.objectcommando.com/blog/2010/04/12/clojure-protocols-part-3/">3</a>) о протоколах в блоге Object Commando;</li>
+<li><a href="http://freegeek.in/blog/2010/05/clojure-protocols-datatypes-a-sneak-peek/">Краткое введение</a> в протоколы, написанное Baishampayan Ghose;</li>
+<li><a href="http://formpluslogic.blogspot.com/2010/08/clojure-protocols-and-expression.html">Clojure Protocols and Expression Problem</a>;</li>
+<li>Два постинга от Sean Devlin &mdash; <a href="http://fulldisclojure.blogspot.com/2010/08/thoughts-on-protocols.html">Protocol Implementation Awesomeness</a> и
+<a href="http://fulldisclojure.blogspot.com/2010/08/partially-implemented-protocols.html">Partially Implemented Protocols</a>;</li>
+<li><a href="http://blog.higher-order.net/2010/05/05/circuitbreaker-clojure-1-2/">Пример реализации паттерна &quot;Circuit Breaker&quot;</a> с помощью протоколов;</li>
+<li><a href="http://kotka.de/blog/2010/03/memoize_done_right.html#protocols">Пример использования протоколов</a> для мемоизации;</li>
+<li><a href="http://bestinclass.dk/index.clj/2010/04/prototurtle-the-tale-of-the-bleeding-turtle.html">Еще пример</a> использования протоколов для реализации turtle graphics;</li>
+<li><a href="http://kirindave.tumblr.com/post/658770511/monkey-patching-gorilla-engineering-protocols-in">Небольшое сравнение</a> Monkey Patching в Ruby с протоколами в Clojure;</li>
+<li>Пример реализации стека с помощью протоколов (<a href="http://www.viksit.com/content/stack-implementation-clojure-using-protocols-and-records">1</a>, <a href="http://www.viksit.com/content/stack-implementation-clojure-ii-functional-approach">2</a>), написанный Viksit Gaur;</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Стоит однако отметить, что протоколы не реализуют monkey patching и внедрение методов
+(injection) в существующие типы данных.</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> Возможность реализации абстракций на Clojure и высокая скорость работы протоколов
+позволит в будущем написать Clojure на самой Clojure, без использования исходного кода
+на Java.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> Люди знакомые с Haskell могут рассматривать протоколы как некоторое подобие типов
+классов (typeclasses) в этом языке, правда при этом нельзя определять реализации по
+умолчанию для методов.</p>
+
+<p class="footnote"><a class="footnum" name="fn.4" href="#fnr.4">4.</a> Но <code>extend</code> может использоваться в тех случаях, когда вы хотите использовать одни и те
+же реализации для разных типов данных &mdash; в этом случае, вы можете создать отображение
+с нужными функциями, и использовать его для разных типов, например, как описано в
+<a href="http://fulldisclojure.blogspot.com/2010/08/thoughts-on-protocols.html">следующем блог-постинге</a>.</p>
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/clojure/ClojureProtocols.html';
+var disqus_url = 'http://alexott.net/ru/clojure/ClojureProtocols.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

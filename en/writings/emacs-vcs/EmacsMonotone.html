@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Support of Monotone</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, monotone, emacs" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Support of Monotone</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Installation of monotone.el</a>
+</dt>
+<dt>
+<a href="#sec2">Work with package</a>
+</dt>
+<dt>
+<a href="#sec3">Customization of package</a>
+</dt>
+</dl>
+</div>
+
+
+<p><a href="http://monotone.ca/">Monotone</a> &mdash; distributed version control system, using same concepts like other distributed
+VCS, like <em>GNU Arch</em>, <em>Darcs</em> and other.  Work with <em>Monotone</em> from Emacs implemented by
+<em>monotone.el</em> package, that come together with <em>Monotone</em> distribution.  There is also support
+for <em>Monotone</em> in <em>DVC</em> package, that described in the section <a href="EmacsDVC.html">Work with DVC</a>.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Installation of monotone.el</h2>
+
+<p class="first">You can find <em>monotone.el</em> in Monotone's distribution.  It located in <code>contrib</code> directory of
+distribution. This package was tested with GNU Emacs 22.1, but it should works with other
+Emacs's versions.  To work with it you need to place file to location, where Emacs find
+it, and add following commands to initialization file:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">monotone</span>)
+(monotone-set-vc-prefix-key <span style="color: #008b00;">"\C-xv"</span>)
+(setq monotone-passwd-remember t)
+</pre>
+
+<p>First line of code loads package, second sets prefix for key bindings, and third &mdash; force
+package to remember passwords entered by user<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup></p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Work with package</h2>
+
+<p class="first">Commands, implemented by package, are accessible via menu, key bindings and by their
+direct call via <code>M-x</code> (all implemented commands have prefix <code>monotone</code>).  By default prefix
+for key bindings is not defined, so you need to set it during package initialization.
+This could be done with <code>monotone-set-vc-prefix-key</code> function, and in the example above, it
+set to <code>C-x v</code>, and in the text below, this prefix always will used.  All commands are
+executed in the buffer called <code>*monotone*</code>.</p>
+
+<p>Registration of file in repository is performed with <code>monotone-vc-register</code> command (<code>C-x v
+i</code>).  You can commit changes with <code>monotone-vc-commit</code> command, that bound to <code>C-x v q</code> or <code>C-x
+v C-q</code>.</p>
+
+<p>Work with remote repositories is performed with following commands: the <code>monotone-pull</code>
+command (<code>C-x v p</code>) &mdash; fetches changes from server, the <code>monotone-push</code> command (<code>C-x v P</code>) &mdash;
+push changes to server, and the <code>monotone-sync</code> command sync current repository with remote
+one.</p>
+
+<p>User can obtain list changes for file with <code>monotone-vc-diff</code> command, that bound to
+<code>C-x v =</code>.  If you pass a numerical argument to this command, then changes will
+shown for repository, instead of single file.</p>
+
+<p>There are several commands to retrieve information about registered objects.  The main
+command is <code>monotone-vc-status</code> (<code>C-x v s</code>), that outputs information about current branch.
+With the <code>monotone-vc-print-log</code> command (<code>C-x v l</code>) you can obtain log for current file (and
+if you give a numerical argument, then log will obtained for whole project).  You can also
+retrieve identifier of current object with <code>monotone-grab-id</code> command (<code>C-x v 6</code>) &mdash; this
+command stores object's identifier in the kill ring, from which you can paste with
+standard Emacs commands (for example, with <code>C-y</code>).</p>
+
+<p>There is also one general purpose command &mdash; 
+<code>monotone</code> (it bound to <code>C-x v x</code>), that allows
+to execute any command of <em>Monotone</em>, entered in the mini-buffer.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Customization of package</h2>
+
+<p class="first">You can customize package by setting some variables.  One of these variables, we already
+used &mdash; the <code>monotone-passwd-remember</code> variable, that caches passwords, entered by user.  If
+this variable has non-<code>nil</code> value, then all passwords will be stored in
+<code>monotone-passwd-alist</code> variable.  There is also <code>monotone-program</code> variable, that keeps name
+of the Monotone's executable.</p>
+
+<p>Address and remote server, and names of collections user can set in <code>monotone-server</code> and
+<code>monotone-collection</code> variables.  Already used servers and collections are stored in
+<code>monotone-server-hist</code> and <code>monotone-collection-hist</code> variables.</p>
+
+<p>There are also other variables, that are usually not changed by user, but it's better to
+know what information they keep.  If you set value of <code>monotone-cmd-show</code> variable to <code>t</code>,
+then results of execution of <em>Monotone</em> commands will shown.  With
+<code>monotone-program-args-always</code> variable you can set command-line options, that will always
+passed to <em>Monotone</em>.  If variable <code>monotone-msg</code> has non-<code>nil</code> value, then all messages from
+<em>monotone.el</em> will printed to the <code>*Messages*</code> buffer (this is very useful for debugging).</p>
+
+<p>There are also two hooks, that allow to perform fine-grained customization &mdash;
+<code>monotone-output-mode-hook</code> and <code>monotone-commit-mode-hook</code>.  First of them will called, when
+data will printed, and second, when buffer for entering of commit messages will created.</p>
+
+<div id="rule"><a href="index.html">To main page</a></div>
+
+
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Passwords are stored only for the current sessions, and if you restart Emacs, then
+package will again ask you about passwords.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/emacs-vcs/EmacsMonotone.html';
+var disqus_url = 'http://alexott.net/en/writings/emacs-vcs/EmacsMonotone.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

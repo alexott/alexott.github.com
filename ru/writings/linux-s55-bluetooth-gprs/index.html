@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Настройка доступа в Internet через GPRS на Linux используя Siemens S55 и Bluetooth</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, linux, article, bluetooth" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Настройка доступа в Internet через GPRS на Linux используя Siemens S55 и Bluetooth</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p><strong><em>Статья достаточно старая &mdash; она была написана в 2002-м году.  с 2004-го года я ни разу
+не пользовался модемными линиями!</em></strong><br><br></p>
+
+<p>Все началось с того, что дома у меня плохая телефонная линия, которую не видит мой модем
+серии Eline на 57.6kbit (кроме модема ее не видели еще несколько моделей телефонов).
+Кабель в квартиру мне тоже не светил, поэтому было решено попытать счастья со связью через
+мобильный телефон.  В рамках планового апгрейда телефона, был закуплен Siemens S55 &mdash; в
+качестве решающих факторов было наличие голубого зуба (bluetooth), irda, j2me, ну и
+конечно поддержки GPRS.  Оператором сотовой связи является Beeline.</p>
+
+<p>Со стороны компьютера для общения с телефоном использовался Bluetooth USB Adapter Tekram
+TM-300.  В качестве операционной системы используется ALTLinux Master 2.2, который раз в
+неделю обновляется из Sisyphus (поскольку я являюсь одним из разработчиков данного
+дистрибутива).  Использовалось ядро Linux 2.4.22 (сборка 2.4.22-std-up-alt13).</p>
+
+<p>Сначала я приступил к настройке bluetooth на Linux.  Для работы с ним, в систему были
+установлены пакеты libbluez 2.4, bluez-sdp 1.5, bluez-pan 1.1, bluez-hciemu 1.0,
+bluez-utils 2.3.  После изучения доступной документации, началась настройка:</p>
+
+<ul>
+<li>В файл <code>/etc/modules.conf</code> было добавлены строки, которые подключают модули поддержки
+bluetooth и</li>
+</ul>
+
+<pre class="example">
+alias net-pf-31 bluez
+alias tty-ldisc-15 hci_uart
+alias bt-proto-0 l2cap
+alias bt-proto-2 sco
+alias bt-proto-3 rfcomm
+alias bt-proto-5 bnep
+</pre>
+
+<ul>
+<li>Вносим изменения в <code>/etc/bluetooth/hcid.conf</code>, чтобы общение по bluetooth шифровалось, а
+также была указана программа, которая по запросу выдавала pin-код телефону. Это была
+директива <code>pin_helper</code> в разделе <code>options</code> и она стала выглядеть следующим образом:</li>
+</ul>
+
+<pre class="example">
+pin_helper /etc/bluetooth/bluepin;
+</pre>
+
+<ul>
+<li>Создаем сам файл <code>/etc/bluetooth/bluepin</code> следующего содержания:</li>
+</ul>
+
+<pre class="src">
+<span style="color: #666666;">#</span><span style="color: #666666;">/bin/sh
+</span>
+<span style="color: #006400;">echo</span> <span style="color: #008b00;">"PIN:00"</span>
+</pre>
+
+<ul>
+<li>Тестируем работу USB Bluetooth адаптера. С помощью утилиты <code>hciconfig</code>, был получен
+список bluetooth устройств (в моем случае это был <code>hci0</code>).</li>
+<li>Выполняем сканирование окружающей среды на предмет наличия bluetooth устройств:</li>
+</ul>
+
+<pre class="example">
+# hcitool scan
+Scanning ...
+        00:01:E3:70:E0:AF       OttAlex
+</pre>
+
+<p>это и был мой телефон.</p>
+
+<ul>
+<li>Убеждаемся в том, что телефон поддерживает dial-up networking, что было и сделано с
+помощью команды:</li>
+</ul>
+
+<pre class="example">
+# sdptool search DUN
+Inquiring ...
+Searching for DUN on 00:01:E3:70:E0:AF ...
+Service Name: Dial-up networking
+Service RecHandle: 0x11103
+Service Class ID List:
+  &quot;Dialup Networking&quot; (0x1103)
+  &quot;Generic Networking&quot; (0x1201)
+Protocol Descriptor List:
+  &quot;L2CAP&quot; (0x0100)
+  &quot;RFCOMM&quot; (0x0003)
+    Channel: 1
+Language Base Attr List:
+  code_ISO639: 0x656e
+  encoding:    0x6a
+  base_offset: 0x100
+Profile Descriptor List:
+  &quot;Dialup Networking&quot; (0x1103)
+    Version: 0x0100
+</pre>
+
+<p>Аналогичным образом можно получить информацию о том, какие сервисы поддерживает телефон с
+помощью команды sdptool browse</p>
+
+<ul>
+<li>и протестируем подключение к телефону с помощью <code>l2ping</code>:</li>
+</ul>
+
+<pre class="example">
+# l2ping 00:01:E3:70:E0:AF
+Ping: 00:01:E3:70:E0:AF from 00:0A:94:00:03:EC (data size 20) ...
+0 bytes from 00:01:E3:70:E0:AF id 200 time 36.57ms
+0 bytes from 00:01:E3:70:E0:AF id 201 time 31.55ms
+.............
+5 sent, 5 received, 0% loss
+</pre>
+
+<ul>
+<li>Теперь можно подключиться к телефону. Это делается через <code>rfcomm</code>. Для этого используется
+команда вида:</li>
+</ul>
+
+<pre class="example">
+# rfcomm bind 0 00:01:E3:70:E0:AF 1
+</pre>
+
+<p>которая заставляет подключить устройство 0 к bluetooth устройству <code>00:01:E3:70:E0:AF</code> к
+первому каналу.</p>
+
+<p>Можно проверить подключение с помощью команды <code>rfcomm show</code>.</p>
+
+<p>В том случае, если у вас нет файлов устройств <code>/dev/rfcomm*</code>, то вам необходимо их создать с
+помощью команды вида:</p>
+
+<pre class="example">
+# mknod /dev/rfcomm0 c 216 0
+</pre>
+
+<p>у меня они уже были созданы при установке системы.</p>
+
+<ul>
+<li>Проверяем работу подключения с помощью <code>minicom</code>. Запускаем его, настраиваем на работу с
+<code>/dev/rfcomm0</code> вместо <code>/dev/modem</code> и пробуем набрать команду:</li>
+</ul>
+
+<pre class="example">
+    ATDT+79031234567
+</pre>
+
+<p>вместо <code>1234567</code> я указал свой номер, и телефон начал звонить показывая, что я вызываю сам
+себя :-)</p>
+
+<ul>
+<li>Теперь приступаем к настройке <code>pppd</code>.  Создаем файл <code>/etc/ppp/peers/gprs</code> следующего
+содержания:</li>
+</ul>
+
+<pre class="example">
+/dev/rfcomm0 57600
+connect '/usr/sbin/chat -v -f /etc/ppp/chat/gprs'
+noauth
+defaultroute
+lock
+debug
+novjccomp
+nopcomp
+noaccomp
+nodeflate
+novj
+nobsdcomp
+default-asyncmap
+ipcp-accept-local
+ipcp-accept-remote
+usepeerdns
+user beeline
+nodetach
+</pre>
+
+<p>При этом отключается всякое сжатие, как указано в рекомендациях сервисной службы Beeline,
+и не происходит отключение от управляющего терминала, так что <code>pppd</code> можно остановить с
+помощью Ctrl-C</p>
+
+<p>В файл <code>/etc/ppp/chat/gprs</code> записываем команды программы <code>chat</code>:</p>
+
+<pre class="example">
+TIMEOUT 5
+ECHO    ON
+ABORT   '\nBUSY\r'
+ABORT   '\nERROR\r'
+ABORT   '\nNO ANSWER\r'
+ABORT   '\nNO CARRIER\r'
+ABORT   '\nNO DIALTONE\r'
+ABORT   '\nRINGING\r\n\r\nRINGING\r'
+''              \rAT
+TIMEOUT 12
+OK              ATH
+OK              ATE1
+OK              AT+CGDCONT=1,&quot;IP&quot;,&quot;internet.beeline.ru&quot;
+OK              ATD*99***1#
+CONNECT
+</pre>
+
+<p>И в файл <code>/etc/ppp/pap-secrets</code> добавляем строку:</p>
+
+<pre class="example">
+beeline  ppp0  &quot;beeline&quot;
+</pre>
+
+<p>и все, можно пробовать подключиться к интернету с помощью команды</p>
+
+<pre class="example">
+# pppd call gprs
+</pre>
+
+<p>запущенной из под пользователя <em>root</em>.</p>
+
+<ul>
+<li>Дополнительная настройка может заключаться в том, что в каталоги <code>/etc/ppp/ip-up.d</code> и
+<code>/etc/ppp/ip-down.d</code> можно поместить скрипты, которые будут запускаться при поднятии и
+закрытии соединения. У меня это команды, которые запускают и останавливают <code>fetchmail</code>.</li>
+</ul>
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/linux-s55-bluetooth-gprs/index.html';
+var disqus_url = 'http://alexott.net/ru/writings/linux-s55-bluetooth-gprs/index.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Work with ClearCase</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, clearcase" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Work with ClearCase</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Installation</a>
+</dt>
+<dt>
+<a href="#sec2">Work with <em>clearcase</em> package</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec3">Work with files and versions</a>
+</dt>
+<dt>
+<a href="#sec4">Work with changes</a>
+</dt>
+<dt>
+<a href="#sec5">Obtaining an information</a>
+</dt>
+<dt>
+<a href="#sec6">Work with <em>ClearCase's</em> external tools</a>
+</dt>
+<dt>
+<a href="#sec7">Other functions</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec8">Customization</a>
+</dt>
+</dl>
+</div>
+
+
+<p>User can work with <em>ClearCase</em> from Emacs using either backend module for <em>VC</em> package, either
+using specialized package called <em>clearcase</em>.  Last package has more features, comparing
+backend for <em>VC</em> and for users it's better to use it.  This package supports following functions:</p>
+
+<ul>
+<li>key bindings compatibility with <em>VC</em> package;</li>
+<li>context menu;</li>
+<li>execution of graphical  <em>ClearCase's</em> tools;</li>
+<li>completion of version strings and other parameters;</li>
+<li>work with snapshots;</li>
+<li>special modes for editing comments and settings;</li>
+<li>execution of almost all operations directly from Emacs.</li>
+</ul>
+
+<h2><a name="sec1" id="sec1"></a>
+Installation</h2>
+
+<p class="first">The <em>clearcase</em> package is available for download from <a href="http://members.verizon.net/kevin.a.esler/EmacsClearCase/">author's page</a>.  It could be used with
+GNU Emacs 20.4 or higher, and with latest versions of XEmacs.  It could work with
+different operating systems &mdash; with different MS Windows, and with Unix-like OSes.  To use
+package you need to download file to place where Emacs find it, and execute following
+command:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">clearcase</span>)
+</pre>
+
+<p><em>Warning</em>: this package sometimes has problems with old versions of <em>vc-hooks</em> package, as
+they use incompatible versions of <em>tq</em> package.  But this happens not so often.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Work with <em>clearcase</em> package</h2>
+
+<p class="first">The <em>clearcase</em> package tries to keep compatibility with <em>VC</em> package in key bindings.  But
+interface, that is implemented by package, is more powerful and better reflects ideology
+of <em>ClearCase</em> than backend for <em>VC</em> package.</p>
+
+<p>Besides functions and key bindings user can use <code>ClearCase</code> menu, that is added to menu bar
+when he edit files with <em>ClearCase</em> minor-mode enabled.  User can perform all basic commands
+directly from Emacs, and also can run external utilities from  <em>ClearCase</em> distribution.</p>
+
+<p>Many operations could be performed in the <em>Dired</em> mode &mdash; view tree of files versions, work
+with several files (checking them in and out), etc.  To work with directories, that are
+registered in <em>ClearCase</em> the <em>clearcase</em> package defines special mode &mdash;
+<code>clearcase-dired-mode</code>.</p>
+
+<p>For all key bindings the <em>clearcase</em> package use prefix key <code>C-x v</code>.  To avoid problems with
+<em>VC's</em> key bindings, the <em>clearcase</em> package removes needless key bindings, when you work with
+files, registered in <em>ClearCase</em>.</p>
+
+<p>All functions we can split into several logical groups &mdash; work with files, work with
+changes, work with external utilities, and other functions.  For almost any function, that
+works with current file (they have suffix <code>-current-buffer</code>) there is also function that
+provides work with file from <em>Dired</em> buffer (such functions have suffix <code>-dired-file</code>).
+Usually both variants has same key bindings, that call appropriate function, depending on
+places in which they was pressed &mdash; current file, or <em>Dired</em> buffer.</p>
+
+<h3><a name="sec3" id="sec3"></a>
+Work with files and versions</h3>
+
+<p class="first">The <em>clearcase</em> package tries to keep work logic of <em>VC</em> package as much as possible.  It
+defines two functions &mdash; 
+<code>clearcase-next-action-current-buffer</code> (<code>C-x v v</code>) and
+<code>clearcase-next-action-dired-files</code> (same key binding, but in <em>Dired</em> mode), that performs
+following operation on current file (or selected files).  To change state of current file
+you can use <code>clearcase-toggle-read-only</code> function (<code>C-x C-q</code>), that either allow modification
+of file, either switch it to read-only state.</p>
+
+<p>The package allows user to perform bulk operations of getting data from repository and
+committing them back.  To retrieve data from repository user can use following functions:
+<code>clearcase-checkout-current-buffer</code>, <code>clearcase-checkout-dired-files</code> and
+<code>clearcase-dired-checkout-current-dir</code>, that retrieve actual versions for current file,
+selected files and current directory.  And to commit data back to repository there are
+functions with similar names &mdash; 
+<code>clearcase-checkin-current-buffer</code>,
+<code>clearcase-checkin-dired-files</code> and <code>clearcase-dired-checkin-current-dir</code>.  To cancel changes
+user can use either <code>clearcase-uncheckout-current-buffer</code> function (it bound to <code>C-x v c</code> or
+<code>C-x v u</code>), or <code>clearcase-uncheckout-dired-files</code> function (it has same key bindings, but work
+only in <code>clearcase-dired-mode</code>), or <code>clearcase-dired-uncheckout-current-dir</code> function.</p>
+
+<p>To register files in the <em>ClearCase</em> user can use either <code>clearcase-mkelem-current-buffer</code>
+function (<code>C-x v i</code>), that register current file, or <code>clearcase-mkelem-dired-files</code> function,
+that register selected files.</p>
+
+<p>To update data from repository we can use <code>clearcase-update-current-buffer</code>,
+<code>clearcase-update-default-directory</code>, <code>clearcase-update-dired-files</code> or <code>clearcase-update-view</code>
+functions, that update corresponding object &mdash; current file, selected files, directory or
+view.  And we can also can get concrete file version with <code>clearcase-version-other-window</code>
+function, that bound to <code>C-x v ~</code>.</p>
+
+<p>We also can create a new branch with <code>clearcase-mkbrtype</code> function, that bound to <code>C-x v m</code>.
+Other branch manipulations are performed the same way as in <a href="EmacsVC.html#branches">VC</a>.</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Work with changes</h3>
+
+<p class="first">All functions, that implement work with changes we can split into two groups.  First group
+use usual <code>diff</code> to get changes between versions (their names started with <code>clearcase-diff</code>),
+while second group use <em>ediff</em> package (and their names start with <code>clearcase-ediff</code>).  I
+describe only functionss from first group, as there are no differences between them, except
+the names.</p>
+
+<ul>
+<li><code>clearcase-diff-pred-current-buffer</code> (<code>C-x v =</code>) and
+<code>clearcase-diff-pred-dired-file</code> functions compare current file (or selected files)
+with their previous versions;</li>
+<li><code>clearcase-diff-branch-base-current-buffer</code> and <code>clearcase-diff-branch-base-dired-file</code>
+compare current file (or selected files) with their base versions in the current
+branch;</li>
+<li><code>clearcase-diff-named-version-current-buffer</code> and <code>clearcase-diff-named-version-dired-file</code>
+compare current file (or selected files) with concrete named version of files.</li>
+</ul>
+
+
+<h3><a name="sec5" id="sec5"></a>
+Obtaining an information</h3>
+
+<p class="first">To get information about files we can use several functions.  The
+<code>clearcase-describe-current-buffer</code> function (<code>C-x v ?</code>) could be used to get description of
+current file, while <code>clearcase-describe-dired-file</code> is used to get information about
+selected files.</p>
+
+<p>User can also get annotated copy of file(s) with <code>clearcase-annotate-current-buffer</code> (<code>C-x v
+g</code>) or <code>clearcase-annotate-dired-file</code> functions.  And to get history of changes, he can use
+functions <code>clearcase-list-history-current-buffer</code> (<code>C-x v l</code>) or
+<code>clearcase-list-history-dired-file</code>.</p>
+
+<p>User can also use <em>clearcase</em> package to work with <em>ClearCase</em> file's properties, that could
+be assigned to each registered file.  User can view them with
+<code>clearcase-fprop-display-properties</code> function, and insert them into current buffer with
+<code>clearcase-fprop-dump-to-current-buffer</code> function.</p>
+
+
+<h3><a name="sec6" id="sec6"></a>
+Work with <em>ClearCase's</em> external tools</h3>
+
+<p class="first">User can use <em>clearcase</em> package to run many utilities from <em>ClearCase's</em> distribution without
+leaving Emacs:</p>
+
+<ul>
+<li><code>clearcase-gui-clearexplorer</code> &mdash; runs <code>ClearExplorer</code></li>
+<li><code>clearcase-gui-deliver</code></li>
+<li><code>clearcase-gui-merge-manager</code> &mdash; runs merge manager;</li>
+<li><code>clearcase-gui-project-explorer</code> &mdash; runs utility that works with projects</li>
+<li><code>clearcase-gui-rebase</code></li>
+<li><code>clearcase-gui-snapshot-view-updater</code></li>
+<li><code>clearcase-gui-vtree-browser-current-buffer</code> &mdash; runs project tree browser for current buffer;</li>
+<li><code>clearcase-gui-vtree-browser-dired-file</code> &mdash; runs project tree browser for selected files.</li>
+</ul>
+
+<p>It also allows to use external utilities with graphical interface to view changes in
+files:</p>
+
+<ul>
+<li><code>clearcase-gui-diff-branch-base-current-buffer</code> &mdash; show difference between current file
+and its base version;</li>
+<li><code>clearcase-gui-diff-branch-base-dired-file</code> &mdash; show difference between selected files and
+their base versions;</li>
+<li><code>clearcase-gui-diff-pred-current-buffer</code> &mdash; show difference between current file and its
+previous version;</li>
+<li><code>clearcase-gui-diff-pred-dired-file</code> &mdash; show difference between selected files and their
+previous versions.</li>
+</ul>
+
+
+<h3><a name="sec7" id="sec7"></a>
+Other functions</h3>
+
+<p class="first">User can edit <em>ClearCase</em> configuration with functions, those names starts with
+<code>clearcase-edcs</code>.  For editing configurations, there is a special mode &mdash;
+<code>clearcase-edcs-mode</code>, that could be enabled by function with the same name.  User can edit
+configuration with <code>clearcase-edcs-edit</code> function (<code>C-x v e</code>), and save changes with
+<code>clearcase-edcs-save</code>.  To finish work with configuration there is special function &mdash;
+<code>clearcase-edcs-finish</code>.</p>
+
+<p>If there are some problems with package, then user can trace state of package with special
+functions.  To enable tracing user can use <code>clearcase-enable-tracing</code> function, and to
+disable &mdash; 
+<code>clearcase-disable-tracing</code> function.  User can also get data about package's
+internal state with <code>clearcase-dump</code> function.  But this is happen not so often. And if you
+find a bug in package, then you can set bug report with <code>clearcase-submit-bug-report</code>
+function, that collects all needed data (values of variables, version of Emacs, etc.) and
+prepare it to sending.</p>
+
+
+
+<h2><a name="sec8" id="sec8"></a>
+Customization</h2>
+
+<p class="first">As for many other packages, the <em>clearcase</em> package supports customization via standard
+Emacs routines.  User just need to execute <code>M-x customize-group clearcase</code> to do this.  He
+can set many parameters, for example, which program will be used as <code>diff</code>, etc.  User can
+also set (and remove) special hooks with <code>clearcase-integrate</code> and <code>clearcase-unintegrate</code>
+functions.</p>
+
+
+<div id="rule"><a href="index.html">Back to main page</a></div>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/emacs-vcs/EmacsClearCase.html';
+var disqus_url = 'http://alexott.net/en/writings/emacs-vcs/EmacsClearCase.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

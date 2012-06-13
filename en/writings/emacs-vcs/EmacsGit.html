@@ -1,0 +1,746 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Working with Git from Emacs</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, git, magit, git.el, gitsum, git-emacs, egg, git-blame, egit" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Working with Git from Emacs</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">The git.el package</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec2">Installation of package</a>
+</dt>
+<dt>
+<a href="#sec3">Working with git.el</a>
+</dt>
+<dt>
+<a href="#sec4">Customization</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec5">The git-emacs package</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec6">Installation and customisation</a>
+</dt>
+<dt>
+<a href="#sec7">Work with existing repository</a>
+</dt>
+<dt>
+<a href="#sec8">Creation of new repositories</a>
+</dt>
+<dt>
+<a href="#sec9">Work with changes</a>
+</dt>
+<dt>
+<a href="#sec10">History of changes</a>
+</dt>
+<dt>
+<a href="#sec11">Work with tags &amp; branches</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec12">The magit package</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec13">Installation and customisation</a>
+</dt>
+<dt>
+<a href="#sec14">Basics of work with package</a>
+</dt>
+<dt>
+<a href="#sec15">Work with changes</a>
+</dt>
+<dt>
+<a href="#sec16">Work with history of changes</a>
+</dt>
+<dt>
+<a href="#sec17">Tags, branches, and remote repositories</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec18">The egg package</a>
+</dt>
+<dt>
+<a href="#sec19">Auxiliary packages</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec20">git-blame</a>
+</dt>
+<dt>
+<a href="#sec21">gitsum</a>
+</dt>
+<dt>
+<a href="#sec22">egit</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+<p>Creation and popularity of <em>Git</em> is closely related to development of Linux.  At first it
+was used to for Linux kernel development, but now it's used in the many other open source
+projects.</p>
+
+<p>We can work with <em>Git</em> from Emacs using several packages &mdash; either use modules for <em>VC</em> и <em>DVC</em>
+packages, or use specialized packages, like: <em>git.el</em>, <em>emacs-git</em>, <em>magit</em> &amp; <em>egg</em>.  In first
+case we work with <em>Git</em> through standard interfaces of <em>VC</em> &amp; <em>DVC</em>, while other packages
+implement interfaces, that allow user to get access to full <em>Git</em> power.  In this article
+I'll describe only specialized packages.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+The git.el package</h2>
+
+<h3><a name="sec2" id="sec2"></a>
+Installation of package</h3>
+
+<p class="first">Installation of <em>git.el</em> is very simple &mdash; it comes as part of the <em>Git's</em> distribution and
+stored in <code>contrib/emacs/</code> subdirectory.  To compile package you need just run <code>make</code> command,
+that could also be used to install the package (by default, package is installed into
+<code>$HOME/share/emacs/site-lisp</code>, but you can change this behaviour by passing <code>emacslispdir</code>
+parameter to <code>make</code>, or just copy all files to the directory, where Emacs can find them).</p>
+
+<p>To use <em>git.el</em>, you need to put following line into your initialization file:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">git</span>)
+</pre>
+
+<p>and after evaluation, you'll get access all commands, provided by this package.</p>
+
+
+<h3><a name="sec3" id="sec3"></a>
+Working with git.el</h3>
+
+<p class="first">Work with package always starts with execution of <code>git-status</code> command, that asks user about
+directory name in which it will search for <em>Git</em> repository. After that, it will perform
+analysis of repository state.  After this analysis, the package creates the <code>*git-status*</code>
+buffer, that will be used to perform commands on files. On the picture below you can see
+how this buffer looks like (at the bottom of picture you can see output of <code>diff</code> command).
+In this buffer the <code>git-status-mode</code> is enabled, that defines set of commands (and
+corresponding key bindings, many of them match the key bindings of <em>PCL-CVS</em> package &mdash; this
+make transition to <em>Git</em> more easy).  All these commands are available only in this buffer,
+and couldn't be used outside of it.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/git-status.png" alt="">
+</div>
+
+<p>User can navigate in the buffer using arrow keys, or with commands <code>git-next-file</code> (keys <code>n</code>
+or <code>SPC</code>) and <code>git-prev-file</code> (<code>p</code> key).  For many commands user can specify numeric prefix,
+that will change behaviour of command.</p>
+
+<p>By default, all commands are executed on file under cursor.  But user can also select
+several files and commands will be executed on them.  Selection is performed with
+following commands and key bindings: <code>m</code> key (<code>git-mark-file</code>) marks current file and moves
+cursor one line below, <code>M</code> key (<code>git-mark-all</code>) marks all files in this buffer.  To remove
+selection mark you can use <code>u</code> key (<code>git-unmark-file</code>) or <code>DEL</code> key (<code>git-unmark-file-up</code>), but
+first command moves cursor one string down after removing of selection, but the second, do
+this to one string up.  To remove selection mark from all files you can use the <code>git-unmark-all</code>
+command (<code>M-DEL</code> key binding).  To inverse selection you can use the <code>git-toggle-all-marks</code>
+command(<code>T</code> key).</p>
+
+<p>The same as in the <em>PCL-CVS</em> package, you can open current file with the <code>git-find-file</code>
+command (key <code>RET</code> or <code>f</code>).  To open file for view you can use the <code>v</code> key (<code>git-view-file</code>).  In
+case, if you've got conflicts during merge, you can run conflict resolving command &mdash;
+<code>git-resolve-file</code> (<code>R</code> key).</p>
+
+<p>You can add new files to repository with the <code>git-add-file</code> command (<code>a</code> key), and remove
+files with the <code>git-remove-file</code> command (<code>r</code> key).  To get reed from files that are stored in
+directory, but not registered in repository, you can put them into list of ignored files.
+This could be done with the <code>git-ignore-file</code> command (<code>i</code>).</p>
+
+<p>Committing of changes is performed with the <code>git-commit-file</code> command (<code>c</code> key), and reverting
+of changes &mdash; with the <code>git-revert-file</code> command (<code>U</code> key).  User can view change log for
+repository with the <code>git-log-file</code> command (<code>l</code> key).</p>
+
+<p>The <code>d</code> key is prefix key for all changes-related commands.  Most important command among
+them is the <code>git-diff-file</code> command, that you can call with the <code>=</code> or <code>d
+=</code> keys.  The <code>git-diff-file-base</code> command (<code>d b</code>) allows you to find differences
+between current and base file.  And with the <code>git-diff-file-idiff</code> command (<code>d e</code>) you can
+interactively view changes in current file. The <code>git-find-file-imerge</code> command (<code>d E</code>) allows
+user to open current file for interactive application of changes.  Other commands allow
+you to see changes relative to main branch &mdash; 
+<code>git-diff-file-merge-head</code> command (<code>d h</code>),
+relative to versions of files before merges &mdash; 
+<code>git-diff-file-mine</code> command (<code>d m</code>), etc.
+Full list of commands you can get from help for this mode (<code>C-h m</code> key).</p>
+
+<p>Other command allow to refresh status buffer &mdash; 
+<code>git-refresh-status</code> command (<code>g</code> key), resign
+from the buffer &mdash; 
+<code>git-status-quit</code> (<code>q</code>), remove processed files from list &mdash;
+<code>git-remove-handled</code> (<code>x</code>) and get help about mode &mdash; 
+<code>git-help</code> (<code>h</code> or <code>?</code> keys).</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Customization</h3>
+
+<p class="first">You can customize package with standard customization routines of Emacs.  Corresponding
+customization group has name <code>git</code> and allow to specify different <em>Git</em> settings and faces
+that are used to display data.</p>
+
+<h2><a name="sec5" id="sec5"></a>
+<a name="git-emacs" id="git-emacs"></a>The git-emacs package</h2>
+
+<p class="first">The <em>git-emacs</em> package implements almost the same functionality, as the <em>git.el</em> package, but
+it also has some improvements, mostly in the user interface.<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup> The <a href="http://tsgates.cafe24.com/git/git-emacs.html">package's home page</a>
+contains detailed illustrated user manual, so user can quickly start to work with this
+package.</p>
+
+<h3><a name="sec6" id="sec6"></a>
+Installation and customisation</h3>
+
+<p class="first">You can download the <em>git-emacs</em> package, together with auxiliary packages, from the
+<a href="http://github.com/tsgates/git-emacs/tree/master">developer's repository</a>, and after download, just put them in corresponding directory, and
+add following line of code in Emacs's initialisation file:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">git-emacs</span>)
+</pre>
+
+<p>Initial customisation of package could be performed with the <code>git-config-init</code> command, that
+will set several variables, that are necessary for work with <em>Git</em>.  Values for other
+variables could be installed via customisation group with name <code>git</code>.</p>
+
+
+<h3><a name="sec7" id="sec7"></a>
+Work with existing repository</h3>
+
+<p class="first">User can start to work with existing repository by running the <code>git-status</code> command, and
+after execution a new buffer will be created.  This buffer is used to display information
+about repository's state.  For this buffer the <code>git-status-mode</code> major mode is used, and
+there are lot of commands for work with files and repository itself.  Commands could be
+executed via key bindings, or by using corresponding items in <code>Emacs-Git</code> menu, that will
+displayed when <code>git-status-mode</code> is enabled.</p>
+
+<p>Navigation between buffer's objects is could be performed with several commands: besides
+traditional commands like <code>n</code> (<code>git---status-view-next-line</code>) and <code>p</code>
+(<code>git--status-view-prev-line</code>), that are used to move to next and previous file, there are
+also commands <code>N</code> (<code>git--status-view-next-meaningfull-line</code>) and <code>P</code>
+(<code>git--status-view-prev-meaningfull-line</code>), that move cursor between modified files.  Also
+exists commands to move to first &mdash; the <code>&lt;</code> key (<code>git--status-view-first-line</code>), and last &mdash;
+the <code>&gt;</code> key (<code>git--status-view-last-line</code>) line in files list.</p>
+
+<p>As in other packages for work with version control systems, user can open file by moving
+to it, and pressing <code>o</code> or <code>RET</code> keys (<code>git--status-view-open-file</code>).  Besides this, user can
+open file for view with <code>v</code> key (<code>git--status-view-view-file</code>).</p>
+
+<p>Operations could be performed as with separate files, and with groups of marked files.  To
+set mark on concrete file you can use <code>m</code> key (<code>git--status-view-mark-and-next</code>).  To remove
+mark from file user can use <code>u</code> key (<code>git--status-view-unmark-and-next</code>), that removes mark
+and move cursor to the next file.  The <code>SPC</code> key (<code>git--status-view-toggle-and-next</code>) is used
+to toggle mark on file.  Besides this, with the <code>*</code> key(<code>git--status-view-mark-reg</code>) user can
+mark files, whose names match to given regular expression.</p>
+
+<p>To perform operations on files there are several commands.  Addition and removal of files
+is performed with commands <code>git--status-view-add</code> (the <code>a</code> key) and <code>git--status-view-rm</code> (the <code>d</code>
+key).  If you want to rename file, you can use the <code>git--status-view-rename</code> command, that
+is bound to <code>r</code> key.  And sometime, when in directory exists files, not registered in
+repository, you can use special command to put them into list of ignored objects.  This
+command is bound to <code>i</code> key (<code>git--status-view-add-ignore</code>), and execution of this command
+will lead to creation of new entry in the <code>.gitignore</code> file.</p>
+
+
+<h3><a name="sec8" id="sec8"></a>
+Creation of new repositories</h3>
+
+<p class="first">The <em>git-emacs</em> package allows to create new repositories using two different ways &mdash; by
+cloning existing repository, or by importing files from the given archive file.</p>
+
+<p>To clone existing repository exists the <code>git-clone</code> command, that asks user for a name of
+directory, where new repository will created, URL of existing repository, and if
+necessary, then also ask for user's name and e-mail.  After entering of all needed
+information, the asynchronous process of cloning will run, and after it will finished,
+user will see message in mini-buffer.</p>
+
+<p>To import files from archive file, user can run the <code>git-init-from-archive</code> command, that
+after run will ask for archive file name, name for directory for new repository, and other
+needed data, and starts process of import of files from archive.  And at the end of this
+process, user should enter message with description of this change, and confirm import
+with <code>C-c C-c</code> keybinding, as for normal commit.</p>
+
+
+<h3><a name="sec9" id="sec9"></a>
+Work with changes</h3>
+
+<p class="first">To view changes in repository, user can execute command <code>git--status-view-diff-file</code> (the
+<code>=</code> key), that will create a new buffer, containing changes in current file.
+This operation could be also performed with global <code>git-diff</code> command.  Both commands ask
+user for revision number to compare with, and than use <em>ediff</em> to display changes.</p>
+
+<p>To commit changes to repository exists command <code>git-commit-all</code> (the <code>c</code> key)<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>, that after
+run, will create a new buffer, where user can enter description of the change, and finish
+operation with <code>C-c C-c</code> keys.</p>
+
+<p>Often is required to merge changes from other branches of development.  This task could be
+performed with the <code>git-merge</code> command, that , when executed, will ask for name of branch or
+tag from which you want to merge changes, and than, after confirmation of your choice, the
+merge will executed.  And if during merge process, repository become to conflicting state,
+then user can use the <code>!</code> key (<code>git--status-view-resolve-merge</code>) to start process of conflicts
+resolving, using <code>ediff-merge</code>.</p>
+
+
+<h3><a name="sec10" id="sec10"></a>
+History of changes</h3>
+
+<p class="first">To get information about history of changes in repository, the <em>git-emacs</em> package defines
+several commands: the <code>git-history</code> command is used to get history of changes for whole
+project.  And to get information about history of changes in concrete files, user can use
+the <code>git-log</code> command.  Both these commands create a separate buffer, that contains detailed
+information about changes.</p>
+
+<p>Users, who like the <code>gitk</code> utility, can run it directly from Emacs.  This could be done
+either directly from the status buffer, using the <code>k</code> key (<code>git--status-view-gitk</code>), either
+using the <code>gitk</code> command.</p>
+
+<p>User also can see information about which parts of file was changed in concrete version.
+In <em>Git</em> user can obtain this information with the <code>git blame</code> command, and for integration
+with Emacs the <em>git-blame</em> package was created (it's described <a href="#git-blame">below</a>).  User can obtain this
+information by navigating to needed file in the status buffer, and pressing the <code>?</code> key
+(<code>git--status-view-blame</code>).  This will lead to opening of file and enabling in it the
+<code>git-blame-mode</code> minor mode, that is used to display corresponding information.</p>
+
+
+<h3><a name="sec11" id="sec11"></a>
+Work with tags &amp; branches</h3>
+
+<p class="first">The <em>git-emacs</em> package also supports work with several branches of development in the same
+repository.  To work with them, user can run the <code>git-branch</code> command, and after it
+execution, a new buffer will created, holding list of all existing branches in current
+repository.  User can work with branches using key bindings, or items from the <code>Git-Branch</code>
+menu, that is displayed when buffer is created.  The current branch is always marked with
+<code>*</code> symbol.</p>
+
+<p>Pressing of the <code>c</code> key will lead to prompting of user for a name and creation of new
+branch.  To switch to another branch user can navigate to needed item in list, and
+pressing <code>s</code> or <code>RET</code>.  And from this buffer, user can also delete unneeded branches by
+pressing the <code>d</code> key.</p>
+
+<p>If you hadn't performed the <code>git-branch</code> command, then you can still create a new branch.
+This could be done with <code>git-create-branch</code> or <code>git-checkout-to-new-branch</code> commands.</p>
+
+<p>User also can work with branches directly from the status buffer.  Pressing to the <code>z</code> key
+(<code>git-branch</code>) will lead to creation of a new buffer, as when user directly execute the
+<code>git-branch</code> command.  And to switch to another branch, user can simply press the <code>b</code> key
+(<code>git--status-view-switch-branch</code>).</p>
+
+<p>Work with tags is also pretty simple &mdash; you need to execute one of the <code>git-tag</code> or
+<code>git-snapshot</code> commands, that will ask for tag name, and create it.  And later you can
+return to given tag by executing the <code>git-checkout</code> command and specifying name of tag.  You
+can also use tags as a starting point of new branches.  To do this, you need to specify
+name of the tag as a parameter for the <code>git-checkout-to-new-branch</code> command.</p>
+
+<h2><a name="sec12" id="sec12"></a>
+<a name="magit" id="magit"></a>The magit package</h2>
+
+<p class="first">The <a href="http://zagadka.vm.bytemark.co.uk/magit/">magit</a> package provides interface for work with <em>Git</em> from Emacs.  Comparing with other
+packages, this package provides more precise mapping of <em>Git's</em> ideology to Emacs interface,
+but use slightly different, comparing with other packages, set of key bindings, so it's
+recommended to read user's manual first.</p>
+
+<h3><a name="sec13" id="sec13"></a>
+Installation and customisation</h3>
+
+<p class="first">Installation of package is very simple &mdash; you need to retrieve sources from the
+repository, specified on the <a href="http://zagadka.vm.bytemark.co.uk/magit/">project's home page</a>, and install it, using following
+commands:</p>
+
+<pre class="src">
+sh ./autogen.sh
+./configure [&#1086;&#1087;&#1094;&#1080;&#1080;]
+make &amp;&amp; make install
+</pre>
+
+<p>After installation, just add following line to your initialisation file:</p>
+
+<pre class="src">
+(autoload 'magit-status <span style="color: #008b00;">"magit"</span> nil t)
+</pre>
+
+<p>This command will load package when on first call of the <code>magit-status</code> command.</p>
+
+
+<h3><a name="sec14" id="sec14"></a>
+Basics of work with package</h3>
+
+<p class="first">Like in other version control support packages, work with repository is starting by
+executing one command.  For <em>magit</em> package this is the <code>magit-status</code> command, that, when
+executed, will ask for name of directory with repository, and than will create a new
+buffer with name <code>*magit: directory_name*</code>, that will hold information about actual state of
+repository.  All commands are executed from this buffer, either by using key bindings,
+either via the <code>Magit</code> menu.  The buffer <code>*magit: directory_name*</code> will look like this:</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/magit-status.png" alt="">
+</div>
+
+<p>This buffer contains several lists of objects, matching to different states of objects in
+<em>Git's</em> repository:</p>
+
+<ul>
+<li>unknown objects (<em>untracked</em>)</li>
+<li>saved (<em>stashed</em>) objects</li>
+<li>modified object, but not added to commit list (<em>unstaged</em>)</li>
+<li>modified objects, added to commit list (<em>staged</em>)</li>
+<li>committed changes, but not pushed to source repository (<em>unpushed</em>).</li>
+</ul>
+
+<p>Besides this, if lists <em>staged</em> &amp; <em>unstaged</em> aren't exists, then all modified files are listed
+in list with status <em>changed</em>.</p>
+
+<p>User can move between objects in list by using arrow keys, or keys <code>n</code> &amp; <code>p</code>.  Besides this,
+user can quickly move between groups of files with different states by using numerical
+keys: <code>1</code> (<code>magit-jump-to-untracked</code>), <code>2</code> (<code>magit-jump-to-unstaged</code>), <code>3</code> (<code>magit-jump-to-staged</code>)
+and <code>4</code> (<code>magit-jump-to-unpushed</code>).</p>
+
+<p>Some operations, that could be performed on objects, behave differently depending on state
+of object.  For example, if you press the <code>k</code> key (<code>magit-discard-item</code>) on unknown object,
+then it will deleted, but if you press it on modified object, this will only lead to drop
+changes from that object.  And if you'll apply it to the saved (<em>stashed</em>) change, then this
+change will deleted.</p>
+
+<p>If you don't want to delete unknown objects, and don't want to register them in
+repository, then you can ignore them with one of two defined commands: the <code>i</code> key
+(<code>magit-ignore-item</code>) will put current object into ignore list located in the <code>.gitignore</code>
+file, and the <code>I</code> key (<code>magit-ignore-item-locally</code>) will put current object into the
+<code>.git/info/exclude</code> file, that is used to ignore objects only in current repository.
+Besides this, if you'll specify prefix argument before pressing one of these keys, then
+commands will ask for name of file to ignore, and you can enter name or regular
+expression as answer.</p>
+
+<p>And, as usually, you can open current object by pressing the <code>RET</code> key (<code>magit-visit-item</code>).</p>
+
+
+<h3><a name="sec15" id="sec15"></a>
+Work with changes</h3>
+
+<p class="first">User can commit by using one of two commands &mdash; either <code>c</code> (<code>magit-log-edit</code>), or <code>C</code>
+(<code>magit-add-log</code>).  They both open a new buffer, where user should enter description of
+change, but slightly differs in decoration of this description.  For first command, user
+can enter description as free form text, while for second, buffer will contain name of
+files, so log will look like standard <code>ChangeLog</code> files.</p>
+
+<p>But I need to mention, that changes are committed differently, depending on the state of
+repository.  If exists only list of modified (<em>changed</em>) objects, then these commands will
+commit changes for files in this list.  If user wants to commit only some objects, then he
+need to move them into the list of objects to commit (<em>staged</em>), and perform commit only
+after this operation.  To move object into commit list, user can use the <code>s</code>
+key(<code>magit-stage-item</code>), (for unknown (<em>untracked</em>) objects, this will add object into
+repository), and remove file from this list, user can with the <code>u</code> key (<code>magit-unstage-item</code>).
+To move all objects into commit list, we can use the <code>S</code> key (<code>magit-stage-all</code>), and to
+perform reverse operations &mdash; the <code>U</code> key (<code>magit-unstage-all</code>).</p>
+
+<p>Besides this, the package also can save changes without committing them into repository,
+so user can apply them some time later.  This is very useful, when you don't want to
+commit changes, but you want to perform some operation, that requires &quot;clean&quot; repository.
+You can save changes by executing the <code>magit-stash</code> command, that is bound to <code>z</code> key, and
+that puts changes into list of saved (<em>stashed</em>) changes.  Than you can perform all needed
+operations, and after them, apply saved changes to repository (this is could be done by
+using the <code>a</code> key).  And, as was mentioned above, you can delete saved changes using the <code>k</code>
+key.</p>
+
+<p>The <em>magit</em> package can display changes using several ways.  To view changes in concrete
+object, we can use the <code>TAB</code> key (<code>magit-toggle-section</code>), that will display changes in
+current object.  To hide changes, user can use the same key.</p>
+
+<p>To view changes, made in the current branch, user can press <code>d</code> key
+(<code>magit-diff-working-tree</code>), and after asking a name of branch, with which the comparison
+should be performed, it will create a new buffer, containing information between current
+version and given branch.  To make comparison between two arbitrary branches (or tags),
+user can use the <code>D</code> key(<code>magit-diff</code>), which will ask for name of two branches, and perform
+comparison.  To scroll the content of buffer, user can use keys <code>SPC</code> (scroll down) and <code>DEL</code>
+(scroll up).</p>
+
+<p>And if user wants, he could return to the clear state of repository by discarding the
+changes with the <code>x</code> key(<code>magit-reset-head</code>), that will rollback repository to the given
+changeset (by default this is last committed changeset).  There is also
+<code>magit-reset-working-tree</code> command (the <code>X</code> key), that will revert changes and return
+repository to the last committed change, without asking for name of changeset.</p>
+
+
+<h3><a name="sec16" id="sec16"></a>
+Work with history of changes</h3>
+
+<p class="first">To see history of changes in repository, user can use either <code>l</code> key (<code>magit-log-head</code>), or <code>L</code>
+key (<code>magit-log</code>).  First command displays history of changes for current branch of
+development, while second, displays history for range, that it asks from user.  Example of
+output, produced by these commands, you can see on the picture below.  I want to mention,
+that <em>magit</em> tries to display changes in different branches, like the <code>gitk</code> command do.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/magit-history.png" alt="">
+</div>
+
+<p>When moving along the history of changes, user can get detailed information about
+changeset under point by pressing the <code>RET</code> key.  Besides this, user can view changes
+between any two changesets.  To do this, he need to move to first changeset and mark it
+with the <code>.</code> key (<code>magit-mark-item</code>), and than, move to the other changeset, and display the
+changes by pressing the <code>=</code> key (<code>magit-diff-with-mark</code>).  This will create a new
+buffer, where corresponding information will displayed.</p>
+
+<p>User can execute different commands on changesets.  Using the <code>a</code> key (<code>magit-apply-item</code>) he
+can apply current changeset (changeset under point) to current branch of development.  But
+he will need to explicitly commit new changes, or use the <code>A</code> key (<code>magit-cherry-pick-item</code>),
+that will also apply current changeset, but also will automatically commit changes to
+repository.  And to revert changes, done in changeset under point, user can use the <code>v</code> key
+(<code>magit-revert-item</code>), that will apply patch in revert order.</p>
+
+<p>Besides working with history of changes for whole repository, user can also look
+changesets in local history (<em>reflog</em>). To do this, he can use either <code>h</code> key
+(<code>magit-reflog-head</code>), that displays <em>reflog</em> for current branch of development, or <code>H</code> key
+(<code>magit-reflog</code>), that displays changesets for any two points in local history. Both
+commands create a new buffer, in which user can execute commands, described above.</p>
+
+<p>There is also set of commands, that allows user to rewrite history of changes. This set of
+commands is more handy than combination of <code>x</code> (reset head) and <code>a</code> (cherry pick). All
+commands in this set have <code>r</code> as common prefix. To start work, you need to press <code>r s</code>, and
+you will asked for name of revision, starting from which you can start rewriting. And all
+following changesets will put into special list of <em>pending</em> changes. Than you can use <code>a</code>, <code>A</code>
+&amp; <code>v</code> keys to apply and revert changes in order, that you need. And applied changesets will
+change their status from <code>*</code> to <code>.</code> (dot). You can also explicitly change status of changeset
+with <code>r .</code> and <code>r *</code> keys.</p>
+
+<p>If something goes wrong, you can return to start of work by pressing <code>r a</code>, and work will
+started from the revision, those name you enter with <code>r s</code>. And you can finish work by
+pressing <code>r f</code>, that will apply rest of changeset in the same order, as they were in the
+history of changes.</p>
+
+
+<h3><a name="sec17" id="sec17"></a>
+Tags, branches, and remote repositories</h3>
+
+<p class="first">The <em>magit</em> package also provides enough set of commands for work with branches, tags &amp;
+remote repositories, so almost all operations could be performed from the Emacs.</p>
+
+<p>To create tags user can use keys <code>t</code> (<code>magit-tag</code>) and <code>T</code> (<code>magit-annotated-tag</code>). They both ask
+user for a name of tag, but the second command will also ask for more detailed description
+of the tag, so it could be much easier to find it later. After entering of tag's name,
+package will create tag with given name, and using current repository state.</p>
+
+<p>Work with branches is also simple. To create a new branch (and switching to it) user can
+use <code>B</code> key (<code>magit-create-branch</code>) &mdash; it will ask user for a name of the new branch. To
+switching between existing branches, user can use <code>b</code> key (<code>magit-checkout</code>), that will ask
+for name of the existing branch (you can use name completion) and will switch to given
+branch. And to perform <code>git rebase</code> user can use the <code>R</code> key (<code>magit-rebase-step</code>).</p>
+
+<p>We can merge the changes between the branches. To perform automatic merge of changes from
+given branch, user can use the <code>M</code> key (<code>magit-automatic-merge</code>), that will perform all
+missing changesets, and commit them into repository. And if you want to review changes
+before merging, then you can use the <code>m</code> key (<code>magit-manual-merge</code>). Both these commands
+accept name of branch as an argument.</p>
+
+<p>There are also several commands to work with remote repositories. The <code>f</code> key
+(<code>magit-remote-update</code>) gets from remote (<em>origin</em>) repository list of changesets, missing in
+current repository. These changes could be downloaded and applied with the <code>F</code> key
+(<code>magit-pull</code>). Besides this, if user did right customization of repository, then user can
+also use <code>P</code> key (<code>magit-push</code>) to push changesets into remote repository (currently,
+supported only pushing into <em>origin</em>.</p>
+
+<p>Some time ago, the support of the <code>git svn</code> was added to the package. If current repository
+was created from the Subversion, then user will get access to the two additional commands:
+<code>N r</code> (<code>magit-svn-rebase</code>) will perform <code>git svn rebase</code> command, that performs synchronisation
+with the Subversion, and <code>N c</code> (<code>magit-svn-dcommit</code>), that will push your changesets from
+the <em>Git</em> to Subversion.</p>
+
+
+
+<h2><a name="sec18" id="sec18"></a>
+The egg package</h2>
+
+<p class="first">The <em>egg</em> package is the fork of the <a href="#magit">magit</a> package, described above. Main difference from
+<em>magit</em> is an improvements in the users interface (example of interface to work with history
+of changes you can see on the picture below) and correct work on MS Windows, all other
+functional is almost the same as in <em>magit</em>. This package is available to download from the
+<a href="http://github.com/bogolisk/egg/tree/master">developer's site</a>.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/egg-history.png" alt="">
+</div>
+
+
+
+<h2><a name="sec19" id="sec19"></a>
+Auxiliary packages</h2>
+
+<p class="first">In this section I'll describe some of the auxiliary packages, that implements some
+functionality, missing in the many packages for work with <em>Git</em>.</p>
+
+<h3><a name="sec20" id="sec20"></a>
+<a name="git-blame" id="git-blame"></a>git-blame</h3>
+
+<p class="first">This package was written by David Kågedal and it's available as a part of <em>git-emacs</em>
+package, described <a href="#git-emacs">above</a>.  To load the package, put following line into your
+initialization file:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">git-blame</span>)
+</pre>
+
+<p>or you can use following, if you don't want to load package until first call:</p>
+
+<pre class="src">
+(autoload 'git-blame-mode <span style="color: #008b00;">"git-blame"</span> <span style="color: #666666;">"Minor mode for incremental blame for Git."</span> t)
+</pre>
+
+<p>To use this package in some buffer, user should enable in it the <code>git-blame-mode</code> minor
+mode.  This will lead to change buffer's decoration &mdash; each line of buffer, will have
+their own decoration, depending in which version it was modified.  And when you'll
+navigate through buffer's lines, the mini-buffer will display information about version,
+in which current line was modified.</p>
+
+
+<h3><a name="sec21" id="sec21"></a>
+gitsum</h3>
+
+<p class="first">The <em>gitsum</em> package allows to perform partial commits into the <em>Git</em> repository, like when
+you working with <em>darcs</em> via the <a href="EmacsDarcs.html">darcsum</a> package.  To install this package, you need to
+download it from <a href="http://github.com/chneukirchen/gitsum/tree/master">repository</a>, put into directory, where Emacs will able to find it, and put
+following line into initialization file:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">gitsum</span>)
+</pre>
+
+<p>The <em>gitsum</em> package provides to user only one command &mdash; 
+<code>gitsum</code>, that allows user to
+perform partial commits from Emacs.  To do this, user should run this command from buffer
+with file, registered in the <em>Git</em> repository.  And after execution of this command, a new
+buffer will created, containing all changes, made in current repository.</p>
+
+<p>In this buffer, user can move between separate changes (by using <code>n</code> &amp; <code>p</code> keys), and between
+modified files (by pressing <code>N</code> &amp; <code>P</code> keys).  If you don't want to include some changes into
+commit, then you can press <code>k</code> to hide them.  If you don't want to include all changes from
+some file, you can press <code>K</code> to exclude all changes from commit.  And after you'll prepare
+list of changes to commit, you can press <code>c</code> or <code>C-c C-c</code> to do actual commit (after entering
+of description for change).  Besides this, there is also one very useful key binding &mdash;
+<code>C-c C-s</code>, that splits one change into two, so you could commit them separately.</p>
+
+<p>I want to mention, that <em>gitsum</em> package can automatically plug into <em>git.el</em> package, so you
+could call it from the <em>git.el's</em> status buffer by pressing the <code>s</code> key.</p>
+
+
+<h3><a name="sec22" id="sec22"></a>
+egit</h3>
+
+<p class="first">This package implements functionality, currently missing from the <em>git.el</em> package.  This is
+mostly extensions for work with history of changes, and with concrete changes.  To install
+package, you need to download it from <a href="http://github.com/jimhourihan/egit/tree/master">repository</a>, install it into right directory, and add
+following code to the initialization file:</p>
+
+<pre class="src">
+(autoload 'egit <span style="color: #008b00;">"egit"</span> <span style="color: #666666;">"Emacs git history"</span> t)
+(autoload 'egit-file <span style="color: #008b00;">"egit"</span> <span style="color: #666666;">"Emacs git history file"</span> t)
+(autoload 'egit-dir <span style="color: #008b00;">"egit"</span> <span style="color: #666666;">"Emacs git history directory"</span> t)
+</pre>
+
+<p>The package defines three commands, that have similar functionality, but working with
+different objects.  The <code>egit</code> command works with whole repository, the <code>egit-dir</code> &mdash; with
+concrete directory in repository, and the <code>egit-file</code> with concrete file in repository.  One
+difference between them is that <code>egit</code> will ask user for information about branch or tag
+name for which it should display information, and also about number of records to display.</p>
+
+<p>All three commands create a separate buffer, that is used to display history of changes,
+and in which the <code>egit-mode</code> mode is enabled.  This mode allows user to execute different
+commands either by using key bindings, or by selecting them from the <code>EGit</code> menu.  An
+example of this buffer you can see on picture below.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/egit.png" alt="">
+</div>
+
+<p>To move inside the buffer user can use keys <code>n</code> (<code>C-n</code>) and <code>p</code> (<code>C-p</code>), or arrow keys.  By
+default, when you move between records, the package shows a basic information about
+current changeset &mdash; author's name, date of commit, short description of the change, etc.
+Besides this, user can see full description of change by pressing <code>RET</code> or right arrow key,
+or list of modified files (the <code>f</code> key), or diff between this and previous version by
+pressing the <code>d</code> key (the example you can see on picture below).</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/egit-diff.png" alt="">
+</div>
+
+<p>Besides looking for history of changes, user can also apply selected changesets to the
+current repository with the <code>egit-cherry-pick</code> command (the <code>c</code> key).  And it's also possible
+to rollback some changes by executing the <code>egit-revert</code> command, that has no key binding,
+and only item in the <code>EGit</code> menu.</p>
+
+
+<div id="rule"><a href="index.html">To main page</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> I need to mention, that it has some inconvenience &mdash; some commands are same as in the
+&lt;em>git.el</em> package, so you couldn't use them simultaneously.  And also, this package
+explicitly set global <em>ido-mode</em>, so not always handy for users, that are using another
+packages.</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> This command could be executed not only from the status buffer, but also via global
+key binding <code>C-x v v</code>.</p>
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 03.04.2012 11:43</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/emacs-vcs/EmacsGit.html';
+var disqus_url = 'http://alexott.net/en/writings/emacs-vcs/EmacsGit.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

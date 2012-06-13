@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://www.blogger.com/styles/atom.css" type="text/css"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title type="text">Alex Ott's Page. News - git</title>
+  <subtitle type="text">Site News</subtitle>
+  <updated>2010-01-21T11:02:30+01:00</updated>
+  <id>http://xtalk.msk.su/~ott/en/news/</id>
+  <link rel="alternate" type="text/html" hreflang="en" href="http://xtalk.msk.su/~ott/en/news/" />
+  <link rel="self" type="application/atom+xml" href="http://xtalk.msk.su/~ott/en/news/git.xml" />
+  <rights>Copyright (c) 2010 Alex Ott</rights>
+  <generator uri="http://www.cognition.ens.fr/~guerry/u/blorg.el" version="0.75e">
+    Done with blorg 0.75e -- org-mode 6.34 and GNU Emacs 23.1.91.1
+  </generator>
+
+<entry>
+  <title>Updates in article about Emacs and Git</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/en/news/Updates-in-article-about-Emacs-and-Git.html"/>
+  <id>http://xtalk.msk.su/~ott/en/news/Updates-in-article-about-Emacs-and-Git.html</id>
+  <updated>2008-11-19T00:00:00+01:00</updated>
+  <published>2010-01-21T11:02:30+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/en/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="en" xml:base="http://xtalk.msk.su/~ott/en/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+The article about [[http://xtalk.msk.su/~ott/en/writings/emacs-vcs/EmacsGit.html][Emacs and Git]] was updated with description of the git-emacs, magit &
+some auxiliary packages.
+</p>
+    </div>
+  </summary>
+</entry>
+
+
+<entry>
+  <title>Updates in article about Emacs and Mercurial</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/en/news/Updates-in-article-about-Emacs-and-Mercurial.html"/>
+  <id>http://xtalk.msk.su/~ott/en/news/Updates-in-article-about-Emacs-and-Mercurial.html</id>
+  <updated>2008-11-19T00:00:00+01:00</updated>
+  <published>2010-01-21T11:02:30+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/en/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="en" xml:base="http://xtalk.msk.su/~ott/en/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+The article about [[http://xtalk.msk.su/~ott/en/writings/emacs-vcs/EmacsMercurial.html][Emacs and Mercurial]] was updated with section about aHg package.
+</p>
+    </div>
+  </summary>
+</entry>
+
+</feed>

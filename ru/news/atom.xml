@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://www.blogger.com/styles/atom.css" type="text/css"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title type="text">Alex Ott's Page. Новости сайта</title>
+  <subtitle type="text">Новости сайта</subtitle>
+  <updated>2010-01-21T11:02:27+01:00</updated>
+  <id>http://xtalk.msk.su/~ott/ru/news/</id>
+  <link rel="alternate" type="text/html" hreflang="ru" href="http://xtalk.msk.su/~ott/ru/news/" />
+  <link rel="self" type="application/atom+xml" href="http://xtalk.msk.su/~ott/ru/news/atom.xml" />
+  <rights>Copyright (c) 2010 Alex Ott</rights>
+  <generator uri="http://www.cognition.ens.fr/~guerry/u/blorg.el" version="0.75e">
+    Done with blorg 0.75e -- org-mode 6.34 and GNU Emacs 23.1.91.1
+  </generator>
+
+<entry>
+  <title>Новости сайта закрыты...</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/.html"/>
+  <id>http://xtalk.msk.su/~ott/ru/news/.html</id>
+  <updated>2010-01-21T00:00:00+01:00</updated>
+  <published>2010-01-21T11:02:27+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/ru/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="ru" xml:base="http://xtalk.msk.su/~ott/ru/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+Я решил закрыть раздел "Новости сайта", поскольку все равно информация публикуется в
+основном блоге на http://alexott-ru.blogspot.com
+</p>
+    </div>
+  </summary>
+</entry>
+
+
+<entry>
+  <title>Добавлен рассказ про работу с Cedet</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/-----Cedet.html"/>
+  <id>http://xtalk.msk.su/~ott/ru/news/-----Cedet.html</id>
+  <updated>2009-02-02T00:00:00+01:00</updated>
+  <published>2010-01-21T11:02:27+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/ru/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="ru" xml:base="http://xtalk.msk.su/~ott/ru/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+К статье [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/][Emacs как рабочее средство разработчика ПО]] добавлен [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsCedet.html][рассказ про работу с пакетом
+Cedet]].  Это первая версия рассказа, которая будет в дальнейшем развиваться.
+</p>
+    </div>
+  </summary>
+</entry>
+
+
+<entry>
+  <title>Обновлен рассказ про Emacs и Git</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/---Emacs--Git.html"/>
+  <id>http://xtalk.msk.su/~ott/ru/news/---Emacs--Git.html</id>
+  <updated>2008-11-19T00:00:00+01:00</updated>
+  <published>2010-01-21T11:02:27+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/ru/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="ru" xml:base="http://xtalk.msk.su/~ott/ru/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+Статья про [[http://xtalk.msk.su/~ott/ru/writings/emacs-vcs/EmacsGit.html][Emacs & Git]] была сильно обновлена -- добавлены описания пакетов git-emacs,
+magit и некоторых вспомогательных пакетов
+</p>
+    </div>
+  </summary>
+</entry>
+
+
+<entry>
+  <title>Рассказ про пакет aHg</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/---aHg.html"/>
+  <id>http://xtalk.msk.su/~ott/ru/news/---aHg.html</id>
+  <updated>2008-10-13T00:00:00+02:00</updated>
+  <published>2010-01-21T11:02:27+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/ru/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="ru" xml:base="http://xtalk.msk.su/~ott/ru/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+В рассказ про работу с Mercurial добавил [[http://xtalk.msk.su/~ott/ru/writings/emacs-vcs/EmacsMercurial.html#sec5][раздел про пакет aHg]]
+</p>
+    </div>
+  </summary>
+</entry>
+
+
+<entry>
+  <title>Окончательная версия статьи про Emacs и Erlang</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/----Emacs--Erlang.html"/>
+  <id>http://xtalk.msk.su/~ott/ru/news/----Emacs--Erlang.html</id>
+  <updated>2008-08-25T00:00:00+02:00</updated>
+  <published>2010-01-21T11:02:27+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/ru/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="ru" xml:base="http://xtalk.msk.su/~ott/ru/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+Закончил статью про [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsErlang.html][использование Emacs для разработки на языке Erlang]]. Замечания и
+предложения приветствуются
+</p>
+    </div>
+  </summary>
+</entry>
+
+
+<entry>
+  <title>Вторая бета статьи про Emacs и Erlang</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/----Emacs--Erlang.html"/>
+  <id>http://xtalk.msk.su/~ott/ru/news/----Emacs--Erlang.html</id>
+  <updated>2008-08-21T00:00:00+02:00</updated>
+  <published>2010-01-21T11:02:27+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/ru/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="ru" xml:base="http://xtalk.msk.su/~ott/ru/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+Обновил статью про использование Emacs для работы с Erlang.  Добавились описания distel &
+erlware-mode...
+</p>
+    </div>
+  </summary>
+</entry>
+
+
+<entry>
+  <title>Драфт статьи про Emacs и Erlang</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/---Emacs--Erlang.html"/>
+  <id>http://xtalk.msk.su/~ott/ru/news/---Emacs--Erlang.html</id>
+  <updated>2008-08-06T00:00:00+02:00</updated>
+  <published>2010-01-21T11:02:27+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/ru/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="ru" xml:base="http://xtalk.msk.su/~ott/ru/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+выложил на сайт драфт [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/EmacsErlang.html][статьи про работу с Erlang в Emacs]]. В следующей вресии будет
+добавлено описание erlware-mode и distel.
+</p>
+    </div>
+  </summary>
+</entry>
+
+
+<entry>
+  <title>Прикрутил к сайту ленту новостей через blorg</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/------blorg.html"/>
+  <id>http://xtalk.msk.su/~ott/ru/news/------blorg.html</id>
+  <updated>2008-08-04T00:00:00+02:00</updated>
+  <published>2010-01-21T11:02:27+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/ru/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="ru" xml:base="http://xtalk.msk.su/~ott/ru/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+С помощью [[http://lumiere.ens.fr/~guerry/u/blorg.html][blorg]] прикрутил к сайту публикацию ленты новостей из файлов org-mode.  Так что
+можете подписаться и получать новости об обновлениях статей и т.п.  Ссылки на
+соответствующие ленты находятся на каждой странице сайта.
+</p>
+
+<a class="read-more" href="------blorghtml.html">Read more</a>
+    </div>
+  </summary>
+</entry>
+
+
+<entry>
+  <title>Обновление статьи про Emacs + Scheme</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/---Emacs---Scheme.html"/>
+  <id>http://xtalk.msk.su/~ott/ru/news/---Emacs---Scheme.html</id>
+  <updated>2008-08-04T00:00:00+02:00</updated>
+  <published>2010-01-21T11:02:27+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/ru/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="ru" xml:base="http://xtalk.msk.su/~ott/ru/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+Выложено обновление для [[http://xtalk.msk.su/~ott/ru/writings/emacs-devenv/][статьи про использование Emacs для работы с языком Scheme]] --
+добавлено краткое описание настройки пакета SLIME для работы со Scheme.
+</p>
+    </div>
+  </summary>
+</entry>
+
+
+<entry>
+  <title>Добавил раздел про Erlang</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/ru/news/---Erlang.html"/>
+  <id>http://xtalk.msk.su/~ott/ru/news/---Erlang.html</id>
+  <updated>2008-08-04T00:00:00+02:00</updated>
+  <published>2010-01-21T11:02:27+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/ru/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="ru" xml:base="http://xtalk.msk.su/~ott/ru/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+Добавил на сайт [[http://xtalk.msk.su/~ott/ru/erlang/][раздел про программирование на Erlang]].  В этом разделе будут публиковаться
+различные записки, связанные с программированием на Erlang
+</p>
+    </div>
+  </summary>
+</entry>
+
+</feed>

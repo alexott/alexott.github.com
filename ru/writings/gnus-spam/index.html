@@ -1,0 +1,484 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Настройка Emacs Gnus для обработки спама</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, gnu emacs, xemacs, gnus, spam catching, борьба со спамом, гнус, емакс" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Настройка Emacs Gnus для обработки спама</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>Данная статья является небольшим введением в технологию борьбы со спамом средствами пакета
+<em>Gnus</em>.  Данная статья основывается на возможностях пакета, которые появились начиная с
+ветки <em>Oort Gnus</em>, существуют в текущей стабильной версии 5.10.x и сейчас развивается в
+версии <em>NoGnus</em>.</p>
+
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Базовые понятия</a>
+</dt>
+<dt>
+<a href="#sec2">Обработка спама</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec3">Основы настройки</a>
+</dt>
+<dt>
+<a href="#sec4">Схема обработки спама</a>
+</dt>
+<dt>
+<a href="#sec5">Методы обработки спама</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec6">Настройка</a>
+</dt>
+<dt>
+<a href="#sec7">Настройка конкретных методов пакета spam</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec8">spam-stat</a>
+</dt>
+<dt>
+<a href="#sec9">Черные и белые списки</a>
+</dt>
+<dt>
+<a href="#sec10">Белые списки из BBDB</a>
+</dt>
+<dt>
+<a href="#sec11">Внешние источники черных списков (blackholes)</a>
+</dt>
+<dt>
+<a href="#sec12">Соответствие заголовков регулярным выражениям</a>
+</dt>
+<dt>
+<a href="#sec13">Обработка спама с помощью bogofilter</a>
+</dt>
+<dt>
+<a href="#sec14">Обработка спама с помощью ifile</a>
+</dt>
+<dt>
+<a href="#sec15">Обработка спама с помощью SpamOracle</a>
+</dt>
+<dt>
+<a href="#sec16">Дополнительные методы</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec17">Другие методы обработки</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec18">Обработка спама с помощью SpamAssassin</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+Базовые понятия</h2>
+
+<p class="first">Для правильного понимания того, как производить настройку и работать с <em>Gnus</em>, необходимо
+уточнить некоторые понятия:</p>
+
+<dl>
+<dt><strong>пометка (mark)</strong></dt>
+<dd>символьный атрибут, который устанавливается на статью;</dd>
+<dt><strong>функция разбиения (splitter)</strong></dt>
+<dd>функция, которая для каждого письма должна вернуть имя
+группы в которую его необходимо перенести, или <code>nil</code>, если продолжать обработку дальше;</dd>
+<dt><strong>хук (hook)</strong></dt>
+<dd>функция, выполняемая при возникновении какого-то условия и
+включении/выключении режима.  Используется для предоставления пользователю возможности
+выполнять дополнительную настройку или другие действия.</dd>
+</dl>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Обработка спама</h2>
+
+<h3><a name="sec3" id="sec3"></a>
+Основы настройки</h3>
+
+<p class="first">Настройка анти-спама производится в несколько этапов, для выполнения которых необходимо в
+файл <code>~/.gnus</code> добавить несколько команд:</p>
+
+<ul>
+<li>Сначала надо задать метод обработки. <em>Gnus</em> предоставляет несколько методов, которые
+могут быть использованы для определения спама &mdash; статистический метод, <em>bogofilter</em>,
+<em>ifile</em>, черные и белые списки адресов.  Для статистического метода команда задания будет
+выглядеть так:</li>
+</ul>
+
+<pre class="src">
+(setq spam-install-hooks t) <span style="color: #666666;">;; </span><span style="color: #666666;">&#1079;&#1072;&#1089;&#1090;&#1072;&#1074;&#1080;&#1084; &#1091;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1080;&#1090;&#1100; &#1074;&#1089;&#1077; &#1085;&#1091;&#1078;&#1085;&#1099;&#1077; &#1093;&#1091;&#1082;&#1080;
+</span>(setq spam-use-stat t) <span style="color: #666666;">;; </span><span style="color: #666666;">&#1084;&#1099; &#1073;&#1091;&#1076;&#1077;&#1084; &#1080;&#1089;&#1087;&#1086;&#1083;&#1100;&#1079;&#1086;&#1074;&#1072;&#1090;&#1100; &#1089;&#1090;&#1072;&#1090;&#1080;&#1089;&#1090;&#1080;&#1095;&#1077;&#1089;&#1082;&#1080;&#1081; &#1084;&#1077;&#1090;&#1086;&#1076;
+</span></pre>
+
+<ul>
+<li>Затем необходимо загрузить нужные модули <em>Gnus</em>:</li>
+</ul>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">spam-stat</span>) <span style="color: #666666;">;; </span><span style="color: #666666;">&#1076;&#1083;&#1103; &#1080;&#1089;&#1087;&#1086;&#1083;&#1100;&#1079;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103; spam-stat
+</span>(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">spam</span>)
+</pre>
+
+<ul>
+<li>Теперь надо выполнять проверку входящей почты на содержание спама. Обычно при обработке
+спама используется fancy-разбиение, которое позволяет использовать произвольный код
+ELisp внутри обработчика.  Так, например, для nnmail разбиение будет выглядеть так
+(минимальная версия):</li>
+</ul>
+
+<pre class="src">
+(setq nnmail-split-methods 'nnmail-split-fancy)
+(setq nnmail-split-fancy
+      '(|
+          <span style="color: #666666;">;; </span><span style="color: #666666;">&#1087;&#1077;&#1088;&#1077;&#1093;&#1074;&#1072;&#1090;&#1099;&#1074;&#1072;&#1077;&#1084; &#1089;&#1087;&#1072;&#1084;
+</span>          (: spam-split)
+          <span style="color: #666666;">;; </span><span style="color: #666666;">&#1074;&#1089;&#1077; &#1086;&#1089;&#1090;&#1072;&#1083;&#1100;&#1085;&#1086;&#1077; &#1082;&#1083;&#1072;&#1076;&#1077;&#1084; &#1074; &#1087;&#1072;&#1087;&#1082;&#1091; inbox
+</span>          <span style="color: #008b00;">"inbox"</span>))
+</pre>
+
+<p>Аналогичным образом может быть настроена и функция разбиения для метода доступа nnimap.</p>
+
+<ul>
+<li>После этого, при обработке почты письма, определенные как спам, будут идти в
+специальную группу <code>spam</code>, значение которой пользователь может переопределить.</li>
+<li>Однако, особено в начале эксплуатации, спам все равно может проходить сквозь
+фильтры. Поэтому, пользователь может вручную помечать письма содержащие спам, и при
+выходе из группы для этих писем будет вызываться обработчик, специфический для
+конкретного метода обработки спама &mdash; 
+<em>spam-stat</em>, <em>bogofilter</em>, <em>ifile</em> и другие. После
+этого, указанные спамерские письма будут учитываться при обработке следующих писем.</li>
+</ul>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Схема обработки спама</h3>
+
+<p class="first">Схема обработки почты Gnus'ом показана на рисунке:</p>
+
+<p class="image"><img src="./gnus-spam-ru.png" alt=""></p>
+
+<p>Здесь можно выделить несколько этапов:</p>
+
+<ul>
+<li>Новая почта получается из настроенных источников и передается на обработку в функцию
+разбиения.  Функция разбиения, кроме прочих задач, настроена еще и на обнаружение спама
+(эта часть показана в виде выбора &quot;Спам?&quot;);</li>
+<li>В функции разбиения принимается решение о том к какой группе отнести обрабатываемое
+письмо. В зависимости от решения, письмо перемещается либо в группу для спама (красная,
+пунктирная черта), либо в группу для обычной не классифицированной почты. Эти операции
+производятся автоматически;</li>
+<li>Затем, пользователь читает почту из группы с обычной почтой, и помечает спам (обычно
+это выполняется с помощью клавиши <code>M-d</code>);</li>
+<li>После выхода из группы с обычными письмами происходит обработка оставшихся писем с
+помощью соответствующих процессоров.  Письма помеченные как спам передаются на
+обработку процессору спама, и затем помечаются как <em>expirable</em>, или перемещаются в другую
+группу.  А обычные письма передаются другому процессору, которые добавляет обычные
+письма в соответствующую базу.</li>
+</ul>
+
+
+<h3><a name="sec5" id="sec5"></a>
+Методы обработки спама</h3>
+
+<p><em>Gnus</em> поддерживает разные методы и программы для определения писем со спамом. Вот список
+поддерживаемых методов:</p>
+
+<ul>
+<li>Черные и белые списки. Позволяют пользователю задавать списки адресов, которые будет
+считаться либо спамом (черный список), либо нормальным письмом (белый список). У
+данного метода есть несколько вариантов, как например белые списки из <em>BBDB</em>, когда все
+письма с адресов, которые имеются в <em>BBDB</em> рассматриваются как нормальная почта. Также
+есть модификация данного метода, когда в качестве признака нормальных писем
+используются токены <code>Hashcash</code>, а не почтовые адреса. Кроме этого, черные списки могут
+получаться из внешних источников;</li>
+<li>Соответствие заголовков регулярным выражениям. Данный метод позволяет пользователю
+задавать регулярные выражения, относительно которых будут проверяться заголовки писем,
+и по этим признакам письмо будет относится к нормальным письмам или письмам со спамом;</li>
+<li>Внешние программы &mdash; 
+<em>bogofilter</em>, <em>ifile</em> и SpamOracle. В качестве фильтра спама
+используются соответствующие программы, которым для корректировки работы передаются
+письма вручную помеченные пользователем. Эти программы являются разными реализациями
+анти-спамовых систем на основе алгоритма Байеса;</li>
+<li>Пакет <em>spam-stat</em>. Собственная реализация алгоритма Баейса на Emacs Lisp.  Работает на
+любой платформе, на которой существует Emacs, но медленнее чем соответствующие аналоги,
+и требует работы больше оперативной памяти<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.</li>
+</ul>
+
+
+
+<h2><a name="sec6" id="sec6"></a>
+Настройка</h2>
+
+<p class="first">Настройка обработчиков писем со спамом и нормальных писем (как и прочих параметров
+обработки спама) производится с помощью параметров из группы spam (используйте команду <code>M-x
+customize-group</code> <code>spam</code>). В этой группе настройки пользователь может вручную указать какой
+метод обработки использовать, куда складывать письма со спамом, а также другие параметры.</p>
+
+<p>Настройку обработки спама можно разделить на две большие группы &mdash; использование
+возможностей пакета <em>spam</em> и использование комбинации стандартных возможностей <em>Gnus</em>.</p>
+
+
+<h2><a name="sec7" id="sec7"></a>
+Настройка конкретных методов пакета spam</h2>
+
+<p class="first">Как уже упоминалось выше, настройка конкретных методов обработки спама производится
+установкой переменной, соответствующей нужному методу.  Ниже перечислены имена
+соответствующих переменных, а также приведены дополнительные настройки для конкретных
+методов.</p>
+
+<h3><a name="sec8" id="sec8"></a>
+spam-stat</h3>
+
+<p class="first">При использовании метода <em>spam-stat</em> настройка может выглядеть так:</p>
+
+<pre class="src">
+<span style="color: #666666;">;; </span><span style="color: #666666;">&#1091;&#1089;&#1090;&#1072;&#1085;&#1072;&#1074;&#1083;&#1080;&#1074;&#1072;&#1077;&#1084; &#1087;&#1072;&#1088;&#1072;&#1084;&#1077;&#1090;&#1088;&#1099;, &#1084;&#1077;&#1090;&#1086;&#1076; &#1086;&#1073;&#1088;&#1072;&#1073;&#1086;&#1090;&#1082;&#1080; &#1080; &#1079;&#1072;&#1075;&#1088;&#1091;&#1078;&#1072;&#1077;&#1084; &#1084;&#1086;&#1076;&#1091;&#1083;&#1080;
+</span>(setq spam-install-hooks t)
+(setq spam-use-stat t)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">spam-stat</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">spam</span>)
+<span style="color: #666666;">;; </span><span style="color: #666666;">&#1079;&#1072;&#1075;&#1088;&#1091;&#1078;&#1072;&#1077;&#1084; &#1092;&#1072;&#1081;&#1083; &#1089;&#1086; &#1089;&#1090;&#1072;&#1090;&#1080;&#1089;&#1090;&#1080;&#1082;&#1086;&#1081; &#1087;&#1086; &#1089;&#1083;&#1086;&#1074;&#1072;&#1084;
+</span>(<span style="color: #a020f0;">when</span> (file-exists-p spam-stat-file)
+  (spam-stat-load))
+<span style="color: #666666;">;; </span><span style="color: #666666;">&#1079;&#1072;&#1076;&#1072;&#1077;&#1084; &#1080;&#1084;&#1103; &#1075;&#1088;&#1091;&#1087;&#1087;&#1099; &#1076;&#1083;&#1103; &#1089;&#1087;&#1072;&#1084;&#1072;
+</span>(setq spam-stat-split-fancy-spam-group <span style="color: #008b00;">"spam"</span>)
+
+<span style="color: #666666;">;; </span><span style="color: #666666;">&#1040; &#1101;&#1090;&#1072; &#1092;&#1091;&#1085;&#1082;&#1094;&#1080;&#1103; &#1085;&#1091;&#1078;&#1085;&#1072; &#1074; &#1086;&#1089;&#1085;&#1086;&#1074;&#1085;&#1086;&#1084; &#1076;&#1083;&#1103; &#1087;&#1077;&#1088;&#1074;&#1086;&#1085;&#1072;&#1095;&#1072;&#1083;&#1100;&#1085;&#1086;&#1075;&#1086; &#1086;&#1073;&#1091;&#1095;&#1077;&#1085;&#1080;&#1103;
+</span><span style="color: #666666;">;; </span><span style="color: #666666;">&#1073;&#1072;&#1081;&#1077;&#1089;&#1086;&#1074;&#1089;&#1082;&#1086;&#1075;&#1086; &#1092;&#1080;&#1083;&#1100;&#1090;&#1088;&#1072;.
+</span>(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-spam-stat-learn</span> ()
+  <span style="color: #666666;">"Learn about my spam and non-spam"</span>
+  (interactive)
+  (<span style="color: #a020f0;">let</span> ((starting (current-time-string)))
+    <span style="color: #666666;">;; </span><span style="color: #666666;">&#1086;&#1073;&#1088;&#1072;&#1073;&#1072;&#1090;&#1099;&#1074;&#1072;&#1077;&#1084; &#1089;&#1087;&#1072;&#1084;
+</span>    (spam-stat-process-spam-directory <span style="color: #008b00;">"~/Mail/spam"</span>)
+    <span style="color: #666666;">;; </span><span style="color: #666666;">&#1086;&#1073;&#1088;&#1072;&#1073;&#1072;&#1090;&#1099;&#1074;&#1072;&#1077;&#1084; &#1085;&#1086;&#1088;&#1084;&#1072;&#1083;&#1100;&#1085;&#1099;&#1077; &#1087;&#1080;&#1089;&#1100;&#1084;&#1072; &#1080;&#1079; &#1088;&#1072;&#1079;&#1085;&#1099;&#1093; &#1082;&#1072;&#1090;&#1072;&#1083;&#1086;&#1075;&#1086;&#1074;
+</span>    (<span style="color: #a020f0;">let</span> ((ham-groups '(<span style="color: #008b00;">"inbox"</span> <span style="color: #008b00;">"Gnus-ding"</span> <span style="color: #008b00;">"Emacs"</span>)))
+      (mapc (<span style="color: #a020f0;">lambda</span> (x)
+              (spam-stat-process-non-spam-directory
+               (format <span style="color: #008b00;">"~/Mail/%s"</span> x)))
+            ham-groups))
+    (spam-stat-reduce-size)
+    (spam-stat-save)
+    (message <span style="color: #008b00;">"my-spam-stat-learn:  started at %s, ended at %s"</span>
+             starting (current-time-string))))
+</pre>
+
+<p>Часто у пользователя уже есть письма со спамом.  Для обучения по ним, и предназначена
+функция <code>my-spam-stat-learn</code>, которую можно вызвать интерактивно.  Предполагается, что спам
+хранится в каталоге <code>~/Mail/spam</code>, а нормальные письма берутся из каталогов <code>~/Mail/inbox</code>,
+<code>~/Mail/Gnus-ding</code> и <code>~/Mail/Emacs</code> (вы можете подставить пути к своим каталогам, или удалить
+лишние записи в списке <code>(&quot;inbox&quot; &quot;Gnus-ding&quot; &quot;Emacs&quot;))</code>.  Функцию <code>my-spam-stat-learn</code>
+достаточно запустить один раз, при этом сформируется база с весами слов, и затем она будет
+дополняться по результатам ручной обработки почты &mdash; через соответствующие обработчики при
+выходе из группы.</p>
+
+
+<h3><a name="sec9" id="sec9"></a>
+Черные и белые списки</h3>
+
+<p class="first">Для использования черных или белых списков надо присвоить истинное значение одной из
+переменных:</p>
+
+<ul>
+<li><code>spam-use-blacklist</code> &mdash; для использования черных списков, когда письма от отправителя,
+чей адрес находится в черном списке, будут считаться спамом и отправляться в
+соответствующую группу;</li>
+<li><code>spam-use-whitelist</code> &mdash; для использования белых списков. В этом случае, письма от
+пользователей, адресов от которых нет в указанном списке, передаются следующему
+обработчику спама;</li>
+<li><code>spam-use-whitelist-exclusive</code> &mdash; для неявного использования белых списков. При
+использовании данного метода, письма от отправителей не перечисленных в белом списке,
+будут рассматриваться как спам.  Осторожно используйте данный метод.</li>
+</ul>
+
+
+<p>Вы можете явно задать значения в файлах с белыми и черными списками, отредактировав файлы,
+на которые ссылаются переменные <code>spam-whitelist</code> и <code>spam-blacklist</code>.</p>
+
+
+<h3><a name="sec10" id="sec10"></a>
+Белые списки из BBDB</h3>
+
+<p class="first">Данный метод аналогичен по работе использованию белых списков, но белые списки при этом
+берутся из базы <a href="http://bbdb.sf.net">BBDB</a>.  Аналогично обычным белым спискам, для настройки используются две
+переменных: <code>spam-use-BBDB</code> и <code>spam-use-BBDB-exclusive</code>, которые заставляют <em>Gnus</em> работать
+также, как и при использовании <code>spam-use-whitelist</code> и <code>spam-use-whitelist-exclusive</code>.</p>
+
+
+<h3><a name="sec11" id="sec11"></a>
+Внешние источники черных списков (blackholes)</h3>
+
+<p><em>Gnus</em> может проверять адреса в письмах относительно внешних, распределенных систем
+обработки спама. Для включения данного метода, вам необходимо присвоить истинное значение
+переменной spam-use-blackholes, например так:</p>
+
+<pre class="src">
+(setq spam-use-blackholes t)
+</pre>
+
+<p>Кроме этого, пользователь может указать список серверов, относительно которых будет
+производиться проверка (с помощью переменной <code>spam-blackhole-servers</code>)<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>.</p>
+
+
+<h3><a name="sec12" id="sec12"></a>
+Соответствие заголовков регулярным выражениям</h3>
+
+<p class="first">Данный метод позволяет пользователю использовать регулярные выражения для проверки
+заголовков писем.  Пользователь может использовать регулярные выражения как для
+определения писем со спамом, так и для определения нормальных писем.</p>
+
+<p>Для использования данного метода нужно установить в истинное значение переменную
+<code>spam-use-regex-headers</code>.  Переменные <code>spam-regex-headers-spam</code> и <code>spam-regex-headers-ham</code>
+должны содержать в себе списки регулярных выражений для спама и обычной почты<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.</p>
+
+
+<h3><a name="sec13" id="sec13"></a>
+Обработка спама с помощью bogofilter</h3>
+
+<p class="first">Для данной программы возможно использование двух взаимоисключающих вариантов
+подключения. Первый вариант, который управляется переменной <code>spam-use-bogofilter</code>, запускает
+<em>bogofilter</em> для обрабатываемого письма и использует накопленную базу статистики. Второй
+метод, который включается переменной <code>spam-use-bogofilter-headers</code>, при фильтрации
+использует уже установленный заголовок <code>X-Bogosity</code> (например, он может быть установлен во
+время обработки письма с помощью <em>procmail</em>).  Для использования одного из методов,
+необходимо установить соответствующую переменную в истинное значение.</p>
+
+<p>Кроме основных переменных, включающих данный метод, пользователь имеет возможно задать
+расположение баз <em>bogofilter</em>.  Оно задается с помощью переменной
+<code>spam-bogofilter-database-directory</code>.</p>
+
+
+<h3><a name="sec14" id="sec14"></a>
+Обработка спама с помощью ifile</h3>
+
+<p class="first">Использование <em>ifile</em> выполняется путем присвоения истинного значения переменной
+<code>spam-use-ifile</code>. Кроме того, как и в случае с <em>bogofilter</em>, с помощью переменной
+<code>spam-ifile-database-path</code> пользователь может задать путь к базам <em>ifile</em>.</p>
+
+
+<h3><a name="sec15" id="sec15"></a>
+Обработка спама с помощью SpamOracle</h3>
+
+<p class="first">Аналогично другим методам, использующим внешние программы, настройка <em>SpamOracle</em>
+производится установкой переменной с именем <code>spam-use-spamoracle</code>. Пользователь также может
+задать путь к базе <em>SpamOracle</em> с помощью переменной <code>spam-spamoracle-database</code>.</p>
+
+
+<h3><a name="sec16" id="sec16"></a>
+Дополнительные методы</h3>
+
+<p class="first">Кроме перечисленных методов <em>Gnus</em> позволяет пользователю достаточно просто добавить свои
+обработчики спама.  Для того, чтобы узнать как это делать, прочитайте раздел &quot;Extending
+the Spam ELisp package&quot; в руководстве <em>Gnus</em>.</p>
+
+
+
+<h2><a name="sec17" id="sec17"></a>
+Другие методы обработки</h2>
+
+<p class="first">Кроме использования пакета spam, можно фильтровать спам и с помощью других
+средств. Например, так выполняется фильтрация спама при помощи <em>SpamAssassin</em>.</p>
+
+<h3><a name="sec18" id="sec18"></a>
+Обработка спама с помощью SpamAssassin</h3>
+
+<p class="first">Данный метод напрямую не использует пакет <em>spam</em>, а использует стандартные возможности <em>Gnus</em>,
+такие как выполнение команд при заборе почты, и стандартные средства разбиения почты по
+заголовкам.</p>
+
+<p>Сначала необходимо внести изменения в настройку источников почты. Нужно добавить
+обработчики <code>:prescript</code> и <code>:postscript</code>, используя команды, аналогичные приведенным в
+примере:</p>
+
+<pre class="src">
+(setq mail-sources
+      '((file <span style="color: #006400;">:prescript</span> <span style="color: #008b00;">"formail -bs spamassassin &lt; /var/mail/%u"</span>)
+        (pop <span style="color: #006400;">:user</span> <span style="color: #008b00;">"testuser"</span>
+             <span style="color: #006400;">:server</span> <span style="color: #008b00;">"myhost"</span>
+             <span style="color: #006400;">:postscript</span>
+             <span style="color: #008b00;">"mv %t /tmp/testuserfile; formail -bs spamc &lt; /tmp/testuserfile &gt; %t"</span>)))
+</pre>
+
+<p>Это приведет к тому, что у пользователя окажется почта, в которой вставлены дополнительные
+заголовки SpamAssassin.</p>
+
+<p>Затем пользователь может использовать стандартные средства разбиения почты, проверяя
+наличие заголовка <code>X-Spam-Flag</code>, как это показано в примере:</p>
+
+<pre class="src">
+(setq nnmail-split-methods '((<span style="color: #008b00;">"spam"</span>  <span style="color: #008b00;">"^X-Spam-Flag: YES"</span>)
+                             ...))
+</pre>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> По собственному опыту могу заметить, что этот метод очень эффективно отлавливает
+спам. За неделю сквозь фильтр проходит 1-2 писем со спамом, при общем потоке спама в
+100-200 писем в неделю (того, который не ловится внешним <em>SpamAssassin</em>).</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> Для данного метода не предусмотрено обработчиков спама и нормальной почты.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> Для данного метода не предусмотрено обработчиков спама и нормальной почты.</p>
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/gnus-spam/index.html';
+var disqus_url = 'http://alexott.net/ru/writings/gnus-spam/index.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

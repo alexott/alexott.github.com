@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Emacs</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, gnus, gnu emacs, xemacs" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Emacs</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Главная</a></li><li><a href="../cf/">Информационная безопасность</a></li><li><a href="../fp/">Функциональное программирование</a></li><li><a href="../lisp/">Lisp</a></li><li><a href="../clojure/">Clojure</a></li><li><a href="../scheme/">Scheme</a></li><li><a href="../erlang/">Erlang</a></li><li><a href="../cpp/">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../emacs/" class="current">Emacs</a></li><li><a href="../writings/">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>Emacs активно используется мной уже более 10 лет (в последние 7 лет я пользуюсь GNU Emacs,
+но до этого использовал и XEmacs).  Emacs для меня служит чем-то вроде швейцарского
+перочинного ножа &mdash; я выполняю с его помощью практически все операции &mdash; программирую,
+пишу статьи, читаю почту и usenet news, общаюсь в irc &amp; jabber, а также делаю еще кучу дел
+(и <a href="../writings/EmacsMuseMyPage.html">мой сайт сделан</a> с помощью <a href="http://mwolson.org/projects/EmacsMuse.html">Muse</a> &mdash; пакета a-la wiki для Emacs).</p>
+
+<h2>Статьи про Emacs</h2>
+
+<p class="first">Я написал (и продолжаю писать) серию статей посвященную использованию редактора Emacs для
+выполнения различных задач.</p>
+
+<ul>
+<li><a href="../writings/emacs-22/index.html">Статья с обзором новых возможностей GNU Emacs 22</a></li>
+<li><a href="../writings/altlinux-emacs/index.html">Статья</a> для руководства пользователя дистрибутивов <a href="http://www.altlinux.ru">ALTLinux</a></li>
+<li><a href="../writings/altlinux-gnus/index.html">Статья</a> про использование Emacs для работы с почтой и новостями, также для руководства
+пользователя дистрибутивов ALTLinux</li>
+<li><a href="../writings/gnus-spam/index.html">Рассказ отлов спама с помощью Gnus'а</a></li>
+<li><a href="../writings/emacs-im/index.html">Рассказ про использование средств обмена сообщениями (ICQ, Jabber, IRC, ...) в Emacs</a></li>
+<li><a href="../writings/emacs-vcs/index.html">Рассказ про использование Emacs с системами контроля версий</a></li>
+<li><a href="../writings/emacs-tex/index.html">Рассказ про использование Emacs для работы с TeX/LaTeX</a></li>
+<li><a href="../writings/emacs-devenv/index.html">Альфа-версия статьи &quot;Emacs как среда разработки ПО&quot;</a></li>
+<li>Небольшой рассказ про <a href="../writings/EmacsMuseMyPage.html">создание данного сайта с помощью Emacs Muse</a></li>
+<li>Небольшая заметка о <a href="../writings/EmacsMacOSXAndGrowl.html">взаимодействии с Growl из Emacs</a></li>
+</ul>
+
+<p>Вы также можете ознакомиться и с <a href="../writings/">другими моими статьями</a>.</p>
+
+
+<h2>Переводы документации</h2>
+
+<p class="first">Кроме написания собственных статей, принимал участие в переводах на русский язык различных
+материалов по Emacs:</p>
+
+<ul>
+<li><a href="ru-refcard.pdf">Перевод GNU Emacs Refcard</a> (<a href="ru-refcard.tex.gz">исходный текст</a>).  Перевод уже включен в состав GNU Emacs.</li>
+<li><a href="TUTORIAL.ru">Перевод учебника для GNU Emacs</a> на русский язык, выполненный мной на основе перевода
+учебника для XEmacs, сделанного Владимиром Бормотовым. Перевод вошел в официальную
+поставку GNU Emacs.</li>
+<li>Я участвовал в переводе руководства по GNU Emacs 20.x на русский язык. Данный перевод
+выпущен в виде бумажной книги и его можно купить в интернет-магазинах. Кроме этого,
+доступна <a href="emacs-manual/emacs_toc.html">электронная версия</a> данного перевода.</li>
+<li>Финальная версия <a href="elisp-intro/elisp-intro-ru.html">перевода введения в программирование на Emacs Lisp</a> (я участвовал в
+вычитке этого документа)</li>
+<li>Переводы <a href="http://www.linux.org.ru/books/HOWTO/Emacs-Beginner-HOWTO.html">Emacs Beginner HOWTO</a> и <a href="http://www.linux.org.ru/books/HOWTO/LinuxDoc+Emacs+Ispell-HOWTO.html">LinuxDoc+Emacs+Ispell HOWTO</a> уже наверное можно считать
+устаревшими, но в свое время они были практически единственными документами про Emacs
+на русском языке.</li>
+</ul>
+
+
+<h2>Код для Emacs</h2>
+
+<p class="first">На этом сайте доступно некоторое количество кода, написанного мной для Emacs:</p>
+
+<ul>
+<li><a href="../../common/emacs/hs-lint.el">hs-lint.el</a> &mdash; модуль поддержки <a href="http://www-users.cs.york.ac.uk/%7Endm/hlint/">HLint</a> в Emacs (этот пакет также включен в состав HLint).
+Позволяет получить список замечаний и осуществляет навигацию по этому списку.
+Используется следующим образом (для запуска команды <code>hs-lint</code> используется сочетание
+клавиш <code>C-c l</code>):</li>
+</ul>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">hs-lint</span>)
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-haskell-mode-hook</span> ()
+   (local-set-key <span style="color: #008b00;">"\C-cl"</span> 'hs-lint))
+(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
+</pre>
+
+<ul>
+<li><a href="../../common/emacs/blorg.el">Исправленная версия blorg.el</a> &mdash; исправлено несколько ошибок, в основном в части
+оформления текста</li>
+</ul>
+
+
+<h2>Небольшие советы</h2>
+
+<p class="first">Данные советы по большей части применимы для GNU Emacs версии 21.x и старше:</p>
+
+<ul>
+<li>При использовании desktop.el для сохранения списка файлов и переменных при выходе
+изEmacs может быть полезен такой код, который к сохраняемым данным добавляет еще и
+кодировку с которой использовался буфер.</li>
+</ul>
+
+<pre class="src">
+(add-to-list 'desktop-locals-to-save 'buffer-file-coding-system)
+</pre>
+
+<ul>
+<li>Emacs позволяет указывать нужную кодировку для определенных типов файлов. Это делается
+добавлением записей в переменную <code>file-coding-system-alist</code>. Записи представляют собой
+пары значений <code>регулярное выражение/кодировка</code>. Эту переменную можно установить с помощью
+команды <code>customize-variable</code>.</li>
+
+<li>Отправка почты на сервера требующие SMTP Auth делается согласно инструкциям на
+<a href="http://josefsson.org/emacs-rfc2554.html">этой странице</a>.</li>
+</ul>
+
+<p>Большее число различных советов и вариантов настройки вы можете найти в моем блоге, в
+<a href="http://alexott-ru.blogspot.com/search/label/emacs">разделе посвященном Emacs</a>, и в блоге <a href="http://emacs-tips.blogspot.com/">Emacs Tips</a>.</p>
+
+
+<h2>Мой конфигурационный файл</h2>
+
+<p class="first">Мою конфигурацию GNU Emacs можно найти на <a href="https://github.com/alexott/emacs-configs">Github</a>. <em>Хотелось бы отметить, что данная
+конфигурация не является &quot;оптимальной&quot; и многие части просто устарели. Но у меня пока нет
+времени, чтобы это все взять и переписать</em></p>
+
+
+<h2>Полезные ссылки</h2>
+
+<p class="first">Эти ссылки могут быть полезны для поиска информации об использовании Emacs:</p>
+
+<ul>
+<li><a href="http://www.emacswiki.org/cgi-bin/emacs-ru">Русская часть</a> сайта <a href="http://www.emacswiki.org/">EmacsWiki</a>, где вы можете прочитать про руссификацию Emacs, а также
+найти ссылки на ресурсы на русском языке, посвященные Emacs.</li>
+<li><a href="http://planet.emacsen.org/">Planet Emacsen</a> &mdash; агрегатор блогов людей, использующих Emacs;</li>
+<li><a href="http://planet.emacsen.org/ru/">Русская планета Emacs</a>;</li>
+<li><a href="http://www.anc.ed.ac.uk/~stephen/emacs/ell.html">Emacs Lisp List</a> &mdash; коллекция ссылок на различные режимы и пакеты, расширяющие
+возможности Emacs.</li>
+</ul>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/emacs/index.html';
+var disqus_url = 'http://alexott.net/ru/emacs/index.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

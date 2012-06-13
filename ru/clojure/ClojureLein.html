@@ -1,0 +1,437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Использование Leiningen для сборки кода на Clojure</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, leiningen, clojure, build tool, кложура, русская, русская документация, документация, описание, учебник" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Использование Leiningen для сборки кода на Clojure</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Главная</a></li><li><a href="../cf/">Информационная безопасность</a></li><li><a href="../fp/">Функциональное программирование</a></li><li><a href="../lisp/">Lisp</a></li><li><a href="../clojure/" class="current">Clojure</a></li><li><a href="../scheme/">Scheme</a></li><li><a href="../erlang/">Erlang</a></li><li><a href="../cpp/">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../writings/">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>В данной заметке рассматривается использование утилиты Leiningen для сборки проектов,
+написанных на Clojure.<sup><a class="footref" name="fnr.5" href="#fn.5">5</a></sup></p>
+
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Что это такое?</a>
+</dt>
+<dt>
+<a href="#sec2">Установка</a>
+</dt>
+<dt>
+<a href="#sec3">Начало работы и структура проекта</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec4">Пример проекта</a>
+</dt>
+<dt>
+<a href="#sec5">Задание зависимостей</a>
+</dt>
+<dt>
+<a href="#sec6">Репозитории</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec7">Использование Leiningen</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec8">Основные команды Leiningen</a>
+</dt>
+<dt>
+<a href="#sec9">Дополнительные команды</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec10">Расширение функциональности Leiningen</a>
+</dt>
+<dt>
+<a href="#sec11">Заключение</a>
+</dt>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+Что это такое?</h2>
+
+<p><a href="http://github.com/technomancy/leiningen">Leiningen</a> &mdash; утилита для сборки кода написанного на Clojure.  Leiningen намного проще по
+сравнению с <a href="ClojureMaven.html">Maven</a> и позволяет описывать конфигурацию проекта и его зависимости используя
+сам язык Clojure<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.  Leiningen использует внешние утилиты и библиотеки для работы с
+зависимостями и сборки кода, поэтому он имеет достаточно небольшой размер исходного
+кода. В последнее время эта система становится все более популярной &mdash; она имеет
+возможности расширения с помощью дополнительных модулей, например, для компиляции кода на
+Java и т.п.</p>
+
+<p>Из коробки Leiningen позволяет выполнять базовые задачи &mdash; компиляцию кода, тестирование,
+упаковку кода в jar-архив, сборку jar-архива со всеми зависимостями и т.д.  Кроме того,
+имеется базовая поддержка работы с Maven, что позволяет использовать собранный код в
+других проектах.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Установка</h2>
+
+<p class="first">Установка Leiningen на Unix-подобные ОС и на MS Windows немного различаются. Установка
+Leiningen на Unix достаточно проста &mdash; вам нужно скачать скрипт <a href="http://github.com/technomancy/leiningen/raw/stable/bin/lein">lein</a>.  После этого,
+поместите скрипт в каталог, перечисленный в путях поиска программ, сделайте его
+выполняемым, и выполните команду <code>lein self-install</code> для завершения процедуры установки.  В
+процессе этой процедуры, Leiningen скачает и установит все компоненты, необходимые для его
+работы.</p>
+
+<p>Для установки на MS Windows необходимо скачать файл <a href="http://github.com/downloads/technomancy/leiningen/lein-win32.zip">lein-win32.zip</a> со страницы проекта,
+который содержит все необходимые для работы утилиты, распаковать его в нужный каталог, и
+добавить этот каталог в пути поиска, и выполните команду <code>lein self-install</code>.  После этого
+вы можете начать использовать Leiningen.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Начало работы и структура проекта</h2>
+
+<p class="first">Для своей работы Leiningen предполагает использование проекта определенной структуры &mdash; в
+корне проекта должен находиться файл <code>project.clj</code>, который содержит определение проекта.
+Единственной обязательной конструкцией является <code>defproject</code> &mdash; макрос Clojure, который
+раскрывается в набор инструкций по сборке.  <code>project.clj</code> также может содержать произвольный
+код на Clojure, который будет выполнен в процессе сборки.</p>
+
+<p>Исходный код проекта должен находиться в каталоге <code>src</code>, тесты &mdash; в каталоге <code>test</code>, а
+дополнительные ресурсы &mdash; в каталоге <code>resources/</code>.  Каталог <code>lib</code> содержит библиотеки, нужные
+для работы проекта &mdash; они копируются туда с помощью команды <code>lein deps</code>, используя
+информацию о зависимостях, определенных в описании проекта.  В том случае, если какая-то
+из библиотек отсутствует в репозиториях, то вы можете просто скопировать ее в каталог <code>lib</code>,
+и она станет доступна при работе с проектом.</p>
+
+<p>Однако названия каталогов не являются неизменяемыми &mdash; вы можете использовать опции
+<code>defproject</code> для изменения этих значений:</p>
+
+<dl>
+<dt><strong><code>:source-path</code></strong></dt>
+<dd>название каталога с исходным кодом проекта (по умолчанию &mdash; 
+<code>src</code>);</dd>
+<dt><strong><code>:compile-path</code></strong></dt>
+<dd>название каталога для хранения откомпилированного кода (по умолчанию &mdash;
+<code>classes/</code>);</dd>
+<dt><strong><code>:resources-path</code></strong></dt>
+<dd>название каталога с ресурсами проекта (по умолчанию &mdash; 
+<code>resources/</code>);</dd>
+<dt><strong><code>:test-path</code></strong></dt>
+<dd>название каталога с тестами (по умолчанию &mdash; 
+<code>test/</code>);</dd>
+<dt><strong><code>:library-path</code></strong></dt>
+<dd>название каталога для хранения библиотек (по умолчанию &mdash; 
+<code>lib/</code>).</dd>
+</dl>
+
+<p>Вы также можете добавить в определение проекта его описание (опция <code>:description</code>) и ссылку
+на домашнюю страницу (опция <code>:url</code>).</p>
+
+<p>Самым простым способом создать новый проект является использование команды <code>lein new</code>,
+которая принимает один обязательный аргумент &mdash; название проекта. Данная команда создаст
+новый каталог, чье имя совпадает с именем проекта, и внутри него создаст файл <code>project.clj</code>
+с зависимостями от Clojure и <code>clojure-contrib</code>, файл <code>README</code> с описанием проекта, а также два
+каталога &mdash; 
+<code>src</code> и <code>test</code> для исходного кода и тестов, соответственно.  После этого вы можете
+начать работать с данным проектом.</p>
+
+<h3><a name="sec4" id="sec4"></a>
+Пример проекта</h3>
+
+<p class="first">Рассмотрим простой проект, описанный в файле <code>project.clj</code> следующим кодом (полный код для
+данного проекта вы можете найти <a href="http://github.com/alexott/lein-simple-project/">тут</a>):</p>
+
+<pre class="src">
+(defproject test-project <span style="color: #008b00;">"1.0-SNAPSHOT"</span>
+  <span style="color: #00008b;">:description</span> <span style="color: #008b00;">"A test project."</span>
+  <span style="color: #00008b;">:url</span> <span style="color: #008b00;">"http://my-cool-project.com"</span>
+  <span style="color: #00008b;">:dependencies</span> [[org.clojure/clojure <span style="color: #008b00;">"1.1.0"</span>]
+                 [org.clojure/clojure-contrib <span style="color: #008b00;">"1.1.0"</span>]]
+  <span style="color: #00008b;">:dev-dependencies</span> [ [swank-clojure <span style="color: #008b00;">"1.2.0"</span>] ]
+)
+</pre>
+
+<p>который определяет новый проект <code>test-project</code> с зависимостями от Clojure и набора библиотек
+<code>clojure-contrib</code>, а также зависимостью, которая используется в процессе разработки &mdash;
+<code>swank-clojure</code>.</p>
+
+<p>В каталоге <code>src</code> находится один файл &mdash; 
+<code>simple.clj</code>, определяющий модуль <code>simple</code> и внутри
+него, одну функцию следующего вида:</p>
+
+<pre class="src">
+(<span style="color: #006400;">ns</span> simple)
+
+(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">hello</span>
+  ([] <span style="color: #008b00;">"Hello world!"</span>)
+  ([name] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> name <span style="color: #008b00;">"!"</span>)))
+</pre>
+
+<p>В каталоге <code>test</code> находится файл <code>simple_test.clj</code>, содержащий тест для модуля <code>simple</code>.  Для
+тестирования используется стандартный модуль <code>clojure.test</code>.  Исходный код теста выглядит
+следующим образом:</p>
+
+<pre class="src">
+(<span style="color: #006400;">ns</span> simple-test
+  (<span style="color: #00008b;">:use</span> clojure.test)
+  (<span style="color: #00008b;">:use</span> simple))
+
+(<span style="color: #a020f0;">deftest</span> <span style="color: #0000ff;">simple-test</span>
+  (<span style="color: #0000ff;">is</span> (<span style="color: #8b0000;">=</span> (hello) <span style="color: #008b00;">"Hello world!"</span>))
+  (<span style="color: #0000ff;">is</span> (<span style="color: #8b0000;">=</span> (hello <span style="color: #008b00;">"test"</span>) <span style="color: #008b00;">"Hello test!"</span>)))
+</pre>
+
+<p>Это полный проект для которого можно выполнять все команды поддерживаемые Leiningen.</p>
+
+
+<h3><a name="sec5" id="sec5"></a>
+Задание зависимостей</h3>
+
+<p class="first">Одной из важных и наиболее часто используемых частей <code>defproject</code> является определение
+зависимостей от других библиотек, находящихся во внешних репозиториях.  Для проектов
+написанных на Clojure это в первую очередь зависимость от самого языка, как это показано в
+примере.</p>
+
+<p>Различают разные виды зависимостей для которых используются разные опции проекта:</p>
+
+<dl>
+<dt><strong><code>:dependencies</code></strong></dt>
+<dd>стандартные зависимости &mdash; для библиотек, которые используются в
+программе;</dd>
+<dt><strong><code>:dev-dependencies</code></strong></dt>
+<dd>зависимости для библиотек, которые используются во время разработки
+программы, например, зависимость от <code>swank-clojure</code> и т.п. библиотек.</dd>
+</dl>
+
+<p>Кроме этого, имеется плагин <a href="http://github.com/swannodette/native-deps">native-deps</a>, который реализует поддержку зависимостей от
+непереносимых библиотек (специфических для конкретных платформ).  <a href="http://nakkaya.com/2010/04/05/managing-native-dependencies-with-leiningen/">Вот пример</a> использования
+этого плагина.</p>
+
+<p>Каждая из перечисленных опций является вектором, каждый элемент которого является вектором
+с описанием библиотеки.  Это описание состоит из (вы уже видели эти определения в примере
+проекта):</p>
+
+<ul>
+<li>символа, определяющего имя библиотеки (группа и название библиотеки, также как и в
+<a href="ClojureMaven.html">Maven</a>), например, <code>org.clojure/clojure</code>;</li>
+<li>строки с версией библиотеки. Для указания конкретной версии пакета используется обычное
+значение, например, <code>&quot;1.1.0&quot;</code> или <code>&quot;1.2.0-master-SNAPSHOT&quot;</code>. Но также можно указать
+несколько версий, записав их в виде вектора версий, перечисленных через запятую,
+например, <code>&quot;[1.1,1.2-SNAPSHOT]&quot;</code>;</li>
+<li>необязательных опций.  Опции могут использоваться для уточнения зависимостей. Например,
+для указания того, какие библиотеки должны быть исключены из зависимостей, если указана
+опция <code>:exclusions</code>. Вот пример исключения лишних зависимостей для библиотеки <code>log4j</code>:</li>
+</ul>
+
+<pre class="src">
+[log4j <span style="color: #008b00;">"1.2.15"</span> <span style="color: #00008b;">:exclusions</span> [javax.mail/mail
+                             javax.jms/jms
+                             com.sun.jdmk/jmxtools
+                             com.sun.jmx/jmxri]]
+</pre>
+
+
+<h3><a name="sec6" id="sec6"></a>
+Репозитории</h3>
+
+<p class="first">Leiningen по умолчанию подключает три репозитория:</p>
+
+<ul>
+<li><a href="http://mvnrepository.com/">стандартный репозиторий</a> Maven;</li>
+<li><a href="http://build.clojure.org/snapshots/">репозиторий</a> с ежедневными сборками Clojure;</li>
+<li><a href="http://clojars.org/repo/">репозиторий Clojars</a>, предназначенный для распространения кода, написанного на Clojure.</li>
+</ul>
+
+<p>Помимо этого, пользователь может указать дополнительные репозитории с помощью опции
+<code>:repositories</code>.  В качестве параметров для этой опции указывается отображение (map)
+состоящее из имени репозитория и его адреса (URL).  Например, вот так подключается
+репозиторий <a href="http://apache.org">проекта Apache</a>:</p>
+
+<pre class="src">
+(defproject test2 <span style="color: #008b00;">"1.0.0-SNAPSHOT"</span>
+  <span style="color: #00008b;">:dependencies</span> [....]
+  <span style="color: #00008b;">:repositories</span> {<span style="color: #008b00;">"apache-releases"</span> <span style="color: #008b00;">"http://repository.apache.org/content/repositories/releases/"</span>}
+  )
+</pre>
+
+
+
+<h2><a name="sec7" id="sec7"></a>
+Использование Leiningen</h2>
+
+<p class="first">Типичное использование Leiningen выглядит следующим образом:</p>
+
+<ul>
+<li>вы создаете проект (<code>lein new</code>), определяете зависимости от внешних библиотек и
+загружаете их к себе с помощью <code>lein deps</code> (эту команду надо выполнять после каждого
+изменения списка зависимостей);</li>
+<li>пишете код регулярно запуская <code>lein compile</code>, <code>lein test</code>, а также пользуясь при
+необходимости <code>lein repl</code>, <code>lein swank</code> или <code>lein nailgun</code> (в зависимости от предпочтений)
+для интерактивной разработки;</li>
+<li>если вы разрабатываете библиотеку, которую планируете использовать в других проектах,
+то вы можете установить ее в локальный репозиторий с помощью <code>lein install</code> или залить на
+<a href="http://clojars.org/">Clojars</a> (с помощью <code>scp</code>, как предлагается на сайте, или при помощи плагина <code>lein-clojars</code>);</li>
+<li>если вы разрабатываете программу для конечного пользователя, то вы упаковываете код в
+архив с помощью <code>lein jar</code> &mdash; только ваш код, без зависимостей, или с помощью команды
+<code>lein uberjar</code> создаете архив с вашим кодом и всеми зависимостями &mdash; такой архив намного
+проще распространять.</li>
+</ul>
+
+<p>Этот процесс достаточно прост и повторяется до полной готовности вашего кода :-)</p>
+
+<h3><a name="sec8" id="sec8"></a>
+Основные команды Leiningen</h3>
+
+<p class="first">Список команд, которые могут быть выполнены Leiningen не является фиксированным &mdash;
+дополнительные плагины могут добавлять новые команды.  В минимальной конфигурации
+Leiningen реализует следующие команды, которые запускаются как <code>lein имя_команды [опции]</code>:</p>
+
+<dl>
+<dt><strong><code>help [имя_команды]</code></strong></dt>
+<dd>показывает справку об использовании Leiningen или по конкретной
+команде (за исключением <code>repl</code>) , если ее имя указано в командной строке</dd>
+<dt><strong><code>new имя проекта [опции]</code></strong></dt>
+<dd>создает новый пустой проект;</dd>
+<dt><strong><code>deps</code></strong></dt>
+<dd>копирует все зависимости в каталог <code>lib/</code>.  Эта команда должна выполняться после
+каждого изменения зависимостей, чтобы остальные команды имели доступ к правильным
+пакетам;</dd>
+<dt><strong><code>compile</code></strong></dt>
+<dd>выполняет компиляцию кода (AOT, ahead-of-time) в классы Java.  Полученные
+классы помещаются в каталог <code>classes/</code>.  Пользователь может управлять тем, какие
+пространства имен будут откомпилированы &mdash; для этого имеется опция <code>:namespaces</code>, в
+которой надо указать список пространств имен для которых будет производиться компиляция;</dd>
+<dt><strong><code>test [список пространств имен]</code></strong></dt>
+<dd>выполняет тесты из указанных пространств имен, или все
+тесты, если список пространств имен не указан;</dd>
+<dt><strong><code>jar</code></strong></dt>
+<dd>создает пакет (jar) с кодом проекта;</dd>
+<dt><strong><code>uberjar</code></strong></dt>
+<dd>создает автономный пакет (jar) с кодом проекта и всеми зависимостями.  Это
+позволяет достаточно просто распространять ваши программы. При запуске с помощью команды
+<code>java -jar ...</code> точкой входа является пространство имен, указанное в опции <code>:main</code> в
+<code>defproject</code>;</dd>
+<dt><strong><code>pom</code></strong></dt>
+<dd>создает файл <code>pom.xml</code>, содержащий описание проекта.  Этот файл нужен если вы хотите
+использовать ваш пакет в другом проекте;</dd>
+<dt><strong><code>install</code></strong></dt>
+<dd>устанавливает собранный пакет в локальный репозиторий Maven;</dd>
+<dt><strong><code>clean</code></strong></dt>
+<dd>удаляет все файлы, созданные в процессе сборки (включая библиотеки из каталога <code>lib/</code>);</dd>
+<dt><strong><code>repl</code></strong></dt>
+<dd>запускает цикл ввода команд (REPL) с правильно выставленными путями поиска
+библиотек (classpath) &mdash; в него включаются библиотеки из каталога <code>lib/</code>, а также каталоги
+<code>src/</code> и <code>classes/</code>.  При запуске <code>lein</code><sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup> автоматически определяет наличие библиотеки jline,
+так что вам становится доступна история введенных команд.</dd>
+</dl>
+
+
+<h3><a name="sec9" id="sec9"></a>
+Дополнительные команды</h3>
+
+<p class="first">Дополнительные команды реализуются <a href="#plugin">плагинами</a>, расширяющими возможности Leiningen.
+Существует некоторое количество популярных плагинов доступных для Leiningen, обзор которых
+вы можете найти в <a href="http://blog.licenser.net/2010/04/20/leiningen-the-clojure-build-tool">следующем постинге</a>.  Сюда можно отнести и плагины для запуска серверов
+Swank и Nailgun, которые реализуют интерактивную работу из привычной среды Emacs или Vim.
+При этом происходит автоматическое подключение всех указанных зависимостей, так что вы
+работаете в том же окружении, как и ваша программа.</p>
+
+<p>Для работы с сервером Swank вам необходимо указать в модуль <a href="http://clojars.org/swank-clojure">swank-clojure</a><sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup> в списке
+зависимостей используемых при разработке (<code>:dev-dependencies</code>)<sup><a class="footref" name="fnr.4" href="#fn.4">4</a></sup>.  После этого вам станет
+доступна команда <code>lein swank</code>, выполнив которую на порту 4005 будет запущен сервер Swank, к
+которому вы можете подключиться используя команду Emacs <code>slime-connect</code>.  Если же вы
+пользователь Vim, то вам необходимо указать в зависимостях модуль <a href="http://clojars.org/lein-nailgun">lein-nailgun</a>, о работе с
+которым вы можете прочитать на странице проекта <a href="http://kotka.de/projects/clojure/vimclojure.html">vimclojure</a>.</p>
+
+<h2><a name="sec10" id="sec10"></a>
+<a name="plugin" id="plugin"></a>Расширение функциональности Leiningen</h2>
+
+<p class="first">Leiningen является расширяемой системой. В случае необходимости вы можете реализовывать
+свои команды &mdash; для этого необходимо создать проект, определяющий пространство имен
+<code>leiningen.имя_команды</code> и содержащий реализацию в виде функции <code>имя_команды</code>, принимающей
+описание проекта в качестве аргумента.  Подробнее про написание плагинов вы можете
+прочитать в <a href="http://nakkaya.com/2010/02/25/writing-leiningen-plugins-101/">следующем постинге</a>.  Одним из примеров расширения функциональности Leiningen
+является плагин <code>lein-swank</code>, который реализует поддержку сервера Swank, и
+<a href="http://github.com/technomancy/leiningen/tree/master/lein-swank/">находится прямо в репозитории</a> Leiningen.</p>
+
+<p>В <a href="http://clojars.org/">репозитории Clojars</a> имеется достаточное количество плагинов, которые были написаны для
+расширения базовой функциональности Leiningen &mdash; автоматической заливки кода в репозиторий
+Clojars, сборки кода написанного на Java, и т.д.  Обычно их имя начинается со слова <code>lein-</code>,
+которое вы можете использовать <a href="http://clojars.org/search?q=lein-">в поиске</a>.  Для использования этих плагинов вы должны
+указать их в качестве зависимостей, используемых при разработке (опция <code>:dev-dependencies</code>).</p>
+
+
+<h2><a name="sec11" id="sec11"></a>
+Заключение</h2>
+
+<p class="first">Я очень надеюсь, что данный рассказ поможет вам в работе с Leiningen при разработке на
+Clojure.  Если у вас имеются вопросы, то вы можете оставить комментарии на сайте или
+написать мне по <a href="mailto:alexott@gmail.com">электронной почте</a> &mdash; я постараюсь на них ответить.</p>
+
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> стоит также отметить, что существует проект <a href="http://polyglot.sonatype.org/">Polyglot Maven</a>, целью которого является
+предоставление возможностей описания конфигураций Maven на разных языках &mdash; Clojure,
+Scala, Groovy и др.</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> в отличии от других команд <code>repl</code> реализована напрямую в скрипте <code>lein</code>, а не написана на
+Clojure</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> пример подключения <code>swank-clojure</code> вы можете увидеть в нашем тестовом примере.</p>
+
+<p class="footnote"><a class="footnum" name="fn.4" href="#fnr.4">4.</a> и не забудьте выполнить команду <code>lein deps</code> после добавления этой зависимости!</p>
+
+<p class="footnote"><a class="footnum" name="fn.5" href="#fnr.5">5.</a> в составе Leiningen <a href="http://github.com/technomancy/leiningen/blob/master/TUTORIAL.md">также имеется небольшой документ</a>, описывающий начала работы с <code>lein</code>.</p>
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/clojure/ClojureLein.html';
+var disqus_url = 'http://alexott.net/ru/clojure/ClojureLein.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Работа с Darcs</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, darcs" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Работа с Darcs</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Установка пакета</a>
+</dt>
+<dt>
+<a href="#sec2">Использование пакета <em>darcsum</em></a>
+</dt>
+<dt>
+<a href="#sec3">Настройка</a>
+</dt>
+</dl>
+</div>
+
+
+<p>Работа с системой контроля версий <em>Darcs</em> обеспечивается несколькими пакетами, которые
+несколько отличаются друг от друга по функциональности.  Пакет <em>darcsum</em>, который вы можете
+загрузить со <a href="http://www.newartisans.com/johnw/Emacs/darcsum.el">страницы автора</a>, реализует интерфейс к командам <em>darcs</em>, и отражает идеологию
+этой системы.  Кроме этого, существует модуль поддержки <em>Darcs</em> для пакета <em>VC</em>, о котором вы
+можете прочитать в разделе <a href="EmacsVC.html">Работа с VC</a>.  Также ведется разработка модуля для пакета <em>dvc</em>,
+который описан в разделе <a href="EmacsDVC.html">Работа с DVC</a>.</p>
+
+<p>Пакет <em>darcsum</em> имеет больше возможностей чем пакет <em>darcs</em>, и поэтому в дальнейшем наш
+рассказ будет вестись о нем.  Пакет предоставляет пользователю для работы интерфейс, во
+многом сходный с уже привычным интерфейсом пакета <em>PCL-CVS</em>.  Имеются только некоторые
+отличия, обусловленные самой архитектурой системы <em>Darcs</em>.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Установка пакета</h2>
+
+<p class="first">Установка пакета не отличается от установки других пакетов для Emacs &mdash; вам лишь
+необходимо загрузить с <a href="http://www.newartisans.com/johnw/emacs.html">сайта</a> последнюю версию пакета, поместить ее туда, где ее найдет
+Emacs, и прописать загрузку пакета в вашем файле инициализации, например, с помощью такой
+вот команды:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">darcsum</span>)
+</pre>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Использование пакета <em>darcsum</em></h2>
+
+<p class="first">Вся работа с пакетом происходит в буфере <code>*darcs*</code>, который создается командой <code>M-x
+darcsum-whatsnew</code>.  Пример окна создаваемого этой командой вы можете видеть на рисунке
+ниже.  Многие команды, доступные в данном буфере, совпадают по действию с командами пакета
+<em>PCL-CVS</em>.  Команды могут выполняться над текущими изменениями, или над отмеченными<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.
+Пометка и ее снятие производится с помощью клавиши <code>m</code>, которая выполняет команду
+<code>darcsum-toggle-mark</code>.  Перемещение между файлами и изменениями в буфере производится с
+помощью команд <code>darcsum-next-line</code> (клавиша <code>n</code>), и <code>darcsum-previous-line</code> (клавиша <code>p</code>), или с
+помощью клавиш управления курсором.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/darcs.png" alt="">
+</div>
+
+<p>Работа с изменениями производится по следующему сценарию: после получения списка
+измененных файлов, вам нужно отобразить конкретные изменения внесенные в файлы, выбрать
+нужные изменения, и затем выполнять над ними необходимые команды.  Отображение изменений
+внесенных в файл производится с помощью команды <code>darcsum-toggle</code>, которая привязана к
+клавише <code>RET</code>.</p>
+
+<p>Выбранные изменения могут быть сохранены с помощью команды <code>darcsum-record</code> (клавиши <code>c</code> или
+<code>R</code>), после выполнения которой появится буфер в котором пользователь может ввести имя для
+данного изменения (первая строка буфера) и длинное описание данного изменения (следующие
+за первой строки).  После ввода описания, с помощью сочетания клавиш <code>C-c C-c</code>, изменения
+будут сохранены.</p>
+
+<p>Изменения могут быть удалены из буфера <code>*darcs*</code> с помощью команды <code>darcsum-remove</code> (клавиша
+<code>r</code>), или перемещены в другой буфер <em>darcsum</em>, с помощью команды <code>darcsum-move</code> (клавиша <code>M</code>).
+Откат к предыдущей версии данных производится с помощью команды <code>darcsum-revert</code>, которая
+привязана к клавише <code>U</code>.</p>
+
+<p>Для более удобного просмотра изменений, пакет <em>darcsum</em> определяет набор команд, которые
+позволяют просмотреть результат выполнения команды <code>diff</code> (или ее аналогов) &mdash; команда
+<code>darcsum-diff</code> (клавиша <code>=</code>), просмотреть изменения с помощью пакета <em>Ediff</em> &mdash;
+команда <code>darcsum-ediff</code> (клавиша e), или даже выполнить трехстороннее слияние изменений с
+помощью команды <code>darcsum-ediff-merge</code> (клавиша <code>E</code>).</p>
+
+<p>Чтобы обновить содержимое буфера, используется команда <code>darcsum-redo</code>, которая заново
+выполняет команду <code>darcs whatsnew</code>.  Для окончания работы с изменениями, используется
+команда <code>darcsum-quit</code>, которая привязана к клавише <code>q</code>.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Настройка</h2>
+
+<p class="first">Настройка пакета производится с помощью стандартных возможностей Emacs.  Просто выполните
+команду <code>M-x customize-group darcsum</code>, и перед вами появится окно настройки.  Вы можете
+задать имя для исполняемого файла <code>darcs</code>, а также изменить начертания шрифтов, которыми
+отображаются данные в буфере <code>*darcs*</code>.</p>
+
+<p>Кроме настройки переменных и параметров начертаний, пакет предоставляет хук
+<code>darcsum-mode-hook</code>, в который вы можете поместить нужные вам команды, которые будут
+выполнены после выполнения хуков для режима <code>text</code>, от которого унаследован <code>darcsum-mode</code>.</p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> <em>Darcs</em> позволяет работать не только с измененными файлами, но и с отдельными
+изменениями в этих файлах.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-vcs/EmacsDarcs.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-vcs/EmacsDarcs.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

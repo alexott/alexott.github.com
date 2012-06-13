@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Пакет Preview-LaTeX</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, preview-latex, emacs, xemacs, gnu emacs, latex, tex, auctex" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Пакет Preview-LaTeX</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p><em>Preview-LaTeX</em> &mdash; это специальный режим, который позволяет показывать формулы и рисунки,
+описанные в исходном тексте LaTeX прямо в буфере Emacs.  Это позволяет сразу видеть как
+будет выглядеть формула, что уменьшает время на поиск и исправление ошибок.</p>
+
+<p>Данный пакет работает в фоновом режиме, компилируя части вашего документа и преобразовывая
+их в графические файлы <em>PNG</em> для показа в буфере. Для преобразования файлов может
+использоваться как обычный способ &mdash; 
+<code>dvips</code> + <code>ghostscript</code>, так и специальная утилита
+<code>dvipng</code>, которую можно найти на странице пакета, и которая напрямую преобразовывает формулу
+в рисунок, уменьшая загрузку компьютера.</p>
+
+<h2>Установка пакета</h2>
+
+<p class="first">В настоящее время этот пакет входит в состав пакета <a href="AUCTeX.html">AUCTeX</a> и устанавливается вместе с ним.
+Пакет состоит из двух частей &mdash; одна обеспечивает работу в Emacs, а вторая обеспечивает
+взаимодействие с LaTeX.</p>
+
+<p>Для загрузки пакета надо просто использовать команду:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">preview-latex</span>)
+</pre>
+
+<p>(не забудьте что этот файл должен быть помещен в пути поиска библиотек Emacs).</p>
+
+
+<h2>Использование</h2>
+
+<p class="first">При правильной установке пакета, он будет автоматически загружаться при первой загрузке
+файла LaTeX.  После загрузки пакета пользователю доступно меню <code>Preview</code>, которое может
+использоваться пользователем для выполнения команд.  Все команды можно разделить на
+несколько частей.  В первую входят команды генерации изображений для просмотра, во вторую
+входят команды удаления сгенерированных изображений, а в третью группу &mdash; все оставшиеся
+команды.</p>
+
+<p>Пакет для своих команд использует префикс <code>C-e C-p</code>, при этом команды удаления изображений
+совпадают в последнем сочитании с командами генерации изображений, но используют префикс
+<code>C-c C-p C-c</code>.  Пакет позволяет генерировать изображения для следующих объектов: текущей
+точки (<code>C-c C-p C-p</code>), окружения LaTeX (<code>C-c C-p C-e</code>), раздела (<code>C-c C-p C-s</code>), выделенной
+области файла (<code>C-c C-p C-r</code>), буфера (<code>C-c C-p C-b</code>) и всего документа (<code>C-c C-p C-d</code>).</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-tex/preview-latex.png" alt="">
+</div>
+
+<p>В результате генерации изображений, среда работы пользователя будет выглядеть как показано
+на рисунке выше.  В своей работе пакет может кэшировать преамбулу файла LaTeX, что
+повышает скорость работы пакета при последующих его запусках.  Вы можете включить
+кэширование преамбулы с помощью команды <code>preview-cache-preamble</code> (сочетание клавиш <code>C-c C-p
+C-f</code>), или отключить с помощью команды <code>preview-cache-preamble-off</code>.</p>
+
+
+<h2>Настройка</h2>
+
+<p class="first">Настройка пакета может производиться с помощью стандартных средств настройки Emacs.
+Используя эти средства пользователь может задать пути к используемым программам, и прочие
+настройки.  Группа настройки для данного пакета называется <code>preview</code>.  Кроме этого,
+пользователь может управлять созданием изображений используя различные опции стилевого
+файла <code>preview</code>, который устанавливается вместе с пакетом.</p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-tex/PreviewLaTeX.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-tex/PreviewLaTeX.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Work with Exmap</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, bugs finding, exmap, article, memory leaks, linux" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Work with Exmap</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Introduction</a>
+</dt>
+<dt>
+<a href="#sec2">Installation</a>
+</dt>
+<dt>
+<a href="#sec3">gexmap</a>
+</dt>
+<dt>
+<a href="#sec4">exmap-console</a>
+</dt>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+Introduction</h2>
+
+<p><a href="http://www.berthels.co.uk/exmap">Exmap</a> is utility that allow user to get information about real executed program's memory
+consumption.  To obtain this information a special module for Linux kernel is used.
+Information collected by kernel module may be obtained by user via user-space utilities.</p>
+
+<p>For executable files, containing debug information, module can obtain information with
+symbol-level details, and for all other files(without debug information), information
+provided with section-level details.</p>
+
+<p>For analysis of collected data there are several programs.  In Exmap's distribution there
+is <code>gexmap</code> utility, that provide access to information via graphical user interface.
+Besides this, there is also <code>exmap-console</code> tool, that allow to get information with
+command-line utilities, and allow to get access to information on remote host.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Installation</h2>
+
+<p class="first">In some Linux distributions this package could be installed from central repositories, but
+for all others, user need to build it yourself.  To do this, user need to download source
+codes from <a href="http://www.berthels.co.uk/exmap">exmap</a> site, unpack them and execute two commands:</p>
+
+<dl>
+<dt><strong><code>make</code></strong></dt>
+<dd>to build kernel module and <code>gexmap</code> tool</dd>
+<dt><strong><code>sudo insmod kernel/exmap.ko</code></strong></dt>
+<dd>to load kernel module</dd>
+</dl>
+
+<p>After execution of these commands, user can start to use user-level utilities to get
+information about memory consumption.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+gexmap</h2>
+
+<p class="first">Exmap's distribution contain also  <code>gexmap</code> utility, that used for graphical representation
+of data, collected by kernel module.  Example of work with <code>gexmap</code> you can see on
+screenshot below.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/prog-checking/exmap.png" alt="">
+</div>
+
+<p>As you can see on picture, information displayed in several windows:</p>
+
+<ul>
+<li>in first window displayed summary information for each of executed processes</li>
+<li>in second window you can see more detailed information about memory consumption in one
+of component of selected (in first window) program &mdash; memory allocation on heap,
+library loaded by program, etc.</li>
+<li>in next window displayed information about ELF segments for selected component</li>
+<li>in the last window, displayed information for each object in selected segment of ELF
+file</li>
+</ul>
+
+<p>So, user can get information about memory consumption for all program, or for selected
+components and objects.</p>
+
+
+<h2><a name="sec4" id="sec4"></a>
+exmap-console</h2>
+
+<p class="first">Usage of graphical user interface not always convenient for developer.  This was main
+reason for development of separate utility, called <a href="http://labs.o-hand.com/exmap-console/">exmap-console</a>, that implements
+command-line utility for retrieving information from kernel module, and also some programs
+for access this information on remote servers.</p>
+
+<p>Installation of this package is pretty simple &mdash; you need to download source code from
+<a href="http://labs.o-hand.com/sources/exmap-console/">project's home page</a>, unpack them and execute standard build sequence (<code>./configure ; make ;
+make install</code>) to build &amp; install this program.</p>
+
+<p>After building of package user can use several commands:</p>
+
+<dl>
+<dt><strong><code>exmap</code></strong></dt>
+<dd>command-line utility, that accesses to kernel module and prints information in
+text form.  This program can also be used in interactive mode.  Besides this, <code>exmap</code>
+could be used to access to information on remote server, that executes the <code>exmapserver</code>
+tool.</dd>
+
+<dt><strong><code>exmapserver</code></strong></dt>
+<dd>provide remote access to information collected by kernel module.</dd>
+
+<dt><strong><code>exmapd</code></strong></dt>
+<dd>is used to run <code>exmap</code> periodically and stores collected information in given
+directory.</dd>
+</dl>
+
+<p>Detailed information about work with these utilities you can find in manual pages,
+distributed together with source code.</p>
+
+<div id="rule"><a href="index.html">Back to main page</a></div>
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/prog-checking/Exmap.html';
+var disqus_url = 'http://alexott.net/en/writings/prog-checking/Exmap.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

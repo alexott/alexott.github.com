@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://www.blogger.com/styles/atom.css" type="text/css"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title type="text">Alex Ott's Page. News - site</title>
+  <subtitle type="text">Site News</subtitle>
+  <updated>2010-01-21T11:02:30+01:00</updated>
+  <id>http://xtalk.msk.su/~ott/en/news/</id>
+  <link rel="alternate" type="text/html" hreflang="en" href="http://xtalk.msk.su/~ott/en/news/" />
+  <link rel="self" type="application/atom+xml" href="http://xtalk.msk.su/~ott/en/news/site.xml" />
+  <rights>Copyright (c) 2010 Alex Ott</rights>
+  <generator uri="http://www.cognition.ens.fr/~guerry/u/blorg.el" version="0.75e">
+    Done with blorg 0.75e -- org-mode 6.34 and GNU Emacs 23.1.91.1
+  </generator>
+
+<entry>
+  <title>Add news feed to the site</title>
+  <link rel="alternate" type="text/html" href="http://xtalk.msk.su/~ott/en/news/Add-news-feed-to-the-site.html"/>
+  <id>http://xtalk.msk.su/~ott/en/news/Add-news-feed-to-the-site.html</id>
+  <updated>2008-08-04T00:00:00+02:00</updated>
+  <published>2010-01-21T11:02:30+01:00</published>
+  <author>
+    <name>Alex Ott</name>
+    <uri>http://xtalk.msk.su/~ott/en/</uri>
+    <email></email>
+  </author>
+  <summary type="xhtml" xml:lang="en" xml:base="http://xtalk.msk.su/~ott/en/news/">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+
+<p>
+Now you can obtain information about important updates on my site (new and updated
+articles, etc.) from news feed.  It was created with [[http://lumiere.ens.fr/~guerry/u/blorg.html][blorg]] and org-mode and automatically
+generated when i publish site from muse.
+</p>
+    </div>
+  </summary>
+</entry>
+
+</feed>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>What is Boost.Asio, and why we should use it</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, boost, asio, boost::asio" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>What is Boost.Asio, and why we should use it</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Main</a></li><li><a href="../fp/">Functional programming</a></li><li><a href="../clojure/">Clojure</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../cf/">Information Security</a></li><li><a href="../cpp/" class="current">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../writings/">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>Writing portable networking code in С++ is problem with long history, and was developed
+many libraries, that tried to solve this problem. But i could say, that <a href="http://asio.sf.net">Boost.Asio</a> is the
+best implementation between existing. On the base of Boost.Asio already exists some number
+of libraries and applications (<a href="http://www.pion.org/projects/pion-network-library">libpion</a>, <a href="http://cpp-netlib.sf.net">cpp-netlib</a>), and development of some new is in
+progress. Beside this, on the base of Boost.Asio i had projected and developed a filtering
+subsystem for web-filtering product SKVT &quot;Dozor-Jet&quot; aka WebBoss.</p>
+
+<p>Boost.Asio has following main features:</p>
+
+<ul>
+<li>ability to write cross-platform networking code, working on the most of existing
+platforms - Windows, Unix-like, Tru64, QNX, etc..</li>
+<li>supports both IPv4 and IPv6</li>
+<li>support for TCP &amp; UDP</li>
+<li>support for asynchronous operations</li>
+<li>provide std::iostream compatible interfaces</li>
+<li>support for SSL connections</li>
+<li>support for delayed operations (timers)</li>
+</ul>
+
+<p>For me, main advantage of Boost.Asio (besides cross-platform work) is, that on each
+platform, it use most effective strategy (<code>epoll</code> on Linux 2.6, <code>kqueue</code> on FreeBSD/MacOSX,
+Overlapped IO on MS Windows), and that, library allow to use different strategies -
+synchronous and asynchronous work with sockets, usage of streaming input/output,
+compatible with <code>std::iostream</code>. And these strategies could be mixed in one application, for
+example, accept connections in async mode, and than run thread, which will do input/output
+in sync mode (<a href="../../common/asio-notes/test-otpc.cpp.html">test-otpc.cpp</a> example).</p>
+
+<p>For demonstration of Boost.Asio's features i wrote (some of parts was adopted from
+Boost.Asio examples) several examples, implementing different data handling strategies
+(more examples could be found on the home page of Boost.Asio). I had used these examples
+for selecting appropriate data handling strategies for my own applications. All these
+examples implements &quot;stupid&quot; web-server, that read request and return back single page,
+independent on address, that was specified in request. Currently published following
+examples (all sources include file <a href="../../common/asio-notes/common.h.html">common.h</a>):</p>
+
+<ul>
+<li><a href="../../common/asio-notes/test-mcmt.cpp.html">test-mcmt.cpp</a> &mdash; implements data handling strategy Many Connections/Many Threads - it
+run several threads, each of them accept connections and perform input/output in async
+mode;</li>
+<li><a href="../../common/asio-notes/test-otpc.cpp.html">test-otpc.cpp</a> &mdash; implements strategy One Thread per Connection - one thread accepts
+connections in async mode, and than run thread, in which input/output performed in sync
+mode (code, performing this is in files <a href="../../common/asio-notes/test-otpc-conn.cpp.html">test-otpc-conn.cpp</a> &amp; <a href="../../common/asio-notes/test-otpc-conn.hpp.html">test-otpc-conn.hpp</a>);</li>
+<li><a href="../../common/asio-notes/test-otpc-tp.cpp.html">test-otpc-tp.cpp</a> &mdash; almost same as <a href="../../common/asio-notes/test-otpc.cpp.html">test-otpc.cpp</a>, but instead of dedicated thread for
+every connection, used pool of threads, implemented by <a href="http://threadpool.sf.net">threadpool</a> library.</li>
+</ul>
+
+<p>To build examples (all sources are <a href="../../common/asio-notes/sources.tar.gz">here</a>) you need at least boost version 1.35, that
+contain Boost.Asio.</p>
+
+<p>I think, that on the base of this note it will possible to write more complete article,
+but this is future task, but now you can ask me about boost.asio directly :-)</p>
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/cpp/BoostAsioNotes.html';
+var disqus_url = 'http://alexott.net/en/cpp/BoostAsioNotes.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

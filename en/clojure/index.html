@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Clojure</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, clojure, lisp, common lisp, functional programming, intro into clojure, tutorial" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Clojure</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Main</a></li><li><a href="../fp/">Functional programming</a></li><li><a href="../clojure/" class="current">Clojure</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../cf/">Information Security</a></li><li><a href="../cpp/">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../writings/">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>I'm using the <a href="http://clojure.org">Clojure</a> programming language to develop programs for JVM platform (I don't
+like the Java language, as it too restrictive &amp; too verbose).  Although Clojure is
+relatively young language, but it has many interesting features, such as immutable data,
+simple concurrency model &amp; many features of Lisp, while work on JVM provides access to
+numerous libraries, developed for this platform.</p>
+
+<p>I'm mostly using this language to analyze numerical &amp; textual data for information
+retrieval &amp; data mining.  In my work I use <a href="http://incanter.org">Incanter</a> - very useful library for data
+analysis, numerical calculation, etc.</p>
+
+<h3>Where to find information about Clojure</h3>
+
+<p class="first">Main source of information about this language is <a href="http://clojure.org">language's site</a> and <a href="http://groups.google.com/group/clojure">mailing list</a>.
+Another useful source of information is <a href="http://planet.clojure.in">Planet Clojure</a> &mdash; blogs aggregator.  There is also
+<a href="http://github.com/relevance/labrepl">labrepl</a> project that contains everything necessary for quick start.</p>
+
+<p>There are several books about Clojure:</p>
+
+<ul>
+<li><a href="http://www.amazon.com/gp/product/1934356336?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1934356336">Programming Clojure</a> &mdash; first book on Clojure, that describes version 1.0 of the
+language and covers all necessary parts of it.  In the near future, the second edition
+will be released;</li>
+<li>In May 2010th the book <a href="http://www.amazon.com/gp/product/1430272317?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1430272317">Practical Clojure. The Definitive Guide</a> was released &mdash; although
+it's called &quot;Practical&quot;, it mostly provides succinct description of language with not
+so much examples. But it covers version 1.2 of language &mdash; huge advantage over
+&quot;Programming Clojure&quot;;</li>
+<li><a href="https://www.amazon.com/dp/1935182595/ref=as_li_ss_til?tag=aleottshompag-20&amp;camp=0&amp;creative=0&amp;linkCode=as4&amp;creativeASIN=1935182595&amp;adid=0EN4M85RVZ6TQYX5EEFH&amp;">Clojure in Action</a> &mdash; introduction to Clojure language for beginners;</li>
+<li><a href="https://www.amazon.com/dp/1935182641/ref=as_li_ss_til?tag=aleottshompag-20&amp;camp=0&amp;creative=0&amp;linkCode=as4&amp;creativeASIN=1935182641&amp;adid=1F49V87XC9J4QWFXNKND&amp;">Joy of Clojure. Thinking the Clojure Way</a>&mdash; book for people, who already know something
+about this language, but want to improve their skills;</li>
+<li>in April 2012th, the O'Reilly will publish the <a href="http://www.amazon.com/dp/1449394701/ref=as_li_ss_til?tag=aleottshompag-20&amp;camp=0&amp;creative=0&amp;linkCode=as4&amp;creativeASIN=1449394701&amp;adid=1ZZPN494JKRN0BEH8G63">Clojure Programming</a> book that should
+provide good introduction to language and many its libraries.</li>
+</ul>
+
+<p>I'm also collecting links to video-lectures &amp; screencasts about Clojure.  You can find
+them on <a href="video.html">separate page</a>.</p>
+
+
+<h3>Some articles about Clojure</h3>
+
+<p class="first">I wrote several articles about Clojure (other notes about Clojure you can find in
+<a href="http://alexott.blogspot.com/search/label/clojure">my blog</a>):</p>
+
+<ul>
+<li><a href="ClojureMaven.html">How to use Maven to build Clojure code</a></li>
+<li><a href="ClojureLein.html">Using Leiningen to build  Clojure code</a></li>
+<li><a href="ClojureHadoop.html">Programming  Hadoop with Clojure</a></li>
+</ul>
+
+<p>I also wrote an introduction-level article (in Russian) for
+<a href="http://fprog.ru/2010/issue4/">4th issue of Russian Magazine &quot;Practice of Functional Programming&quot;</a> &mdash; I plan to translate
+it to English some time later.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/clojure/index.html';
+var disqus_url = 'http://alexott.net/en/clojure/index.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

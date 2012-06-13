@@ -1,0 +1,459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>How to use Maven to build Clojure code</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, maven, clojure, build tool, howto, tutorial" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>How to use Maven to build Clojure code</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Main</a></li><li><a href="../fp/">Functional programming</a></li><li><a href="../clojure/" class="current">Clojure</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../cf/">Information Security</a></li><li><a href="../cpp/">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../writings/">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>This article describes how to use Maven to build projects, written in Clojure (or in
+Clojure &amp; Java).</p>
+
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">What is Maven?</a>
+</dt>
+<dt>
+<a href="#sec2">Maven and Clojure</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec3">Goals, defined in <code>clojure-maven-plugin</code></a>
+</dt>
+<dt>
+<a href="#sec4">Clojure-related repositories</a>
+</dt>
+<dt>
+<a href="#sec5">Dependencies</a>
+</dt>
+<dt>
+<a href="#sec6">Plugin's configuration</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec7">Conclusion</a>
+</dt>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+What is Maven?</h2>
+
+<p><a href="http://maven.apache.org">Maven</a> is a software project management and comprehension tool.  It implements dependency
+resolving (with automatic download from repositories), building &amp; testing of code,
+deploying of software, etc.  Maven's functionality is extensible with plugins, so it's
+possible to use it not only for Java code (primary goal of this tool), but also for code,
+written in other languages. You can read more about Maven in <a href="http://www.sonatype.com/products/maven/documentation/book-defguide">following books</a> (freely
+available).</p>
+
+<p>Maven differs from other tools, such as Ant &mdash; it describes <em>what</em> we want to do, in
+contrast with Ant, that describes <em>how</em> to do something.  Maven describes tasks to execute
+in declarative style, and all described tasks are performed by corresponding plugins.</p>
+
+<p>Description of software lifecycle and project's information are stored in <code>pom.xml</code> file,
+that should exist in root directory of the project (and in root directories of
+sub-projects, if your project is separated into several modules).  Project's information
+includes name, identifier and version of the project, and often includes other
+information: URL of project's site, information about source code repository (so you can
+use <code>mvn scm:update</code> goal to update code, for example), etc.</p>
+
+<p>Project Object Model (POM) defines set of stages for project's lifecycle &mdash; lifecycle
+phases.  Each of lifecycle phase could include several tasks (goals), that define what
+will performed on given stage of lifecycle.  There are several common stages: compilation
+(<code>compile</code>), testing (<code>test</code>), creation of package (<code>package</code>) and installation (<code>install</code>).  Each
+of these lifecycle phases has dependencies on other phases, that should be executed before
+its invocation (compilation should be executed before testing, testing before packaging,
+etc.).</p>
+
+<p>Usually developer uses phase's name to invoke build process.  For example, <code>mvn package</code> or
+<code>mvn install</code>, etc.  But developer can also invoke concrete Maven's goal.  To do this, he
+should specify name of plugin, that implements concrete goal, and task name in given
+plugin.  For example, <code>mvn clojure:run</code> will run Clojure and execute script, specified in
+configuration.  We need to mention, that list of goals, that are executed for concrete
+lifecycle phase isn't constant &mdash; you can change this list by modifying plugin's
+configuration.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Maven and Clojure</h2>
+
+<p class="first">Clojure's support in Maven is implemented by <a href="http://github.com/talios/clojure-maven-plugin">clojure-maven-plugin</a>, that is available in
+Maven's central repository, so it automatically when it required.  As a base for your
+projects you can use <code>pom.xml</code> file from <a href="http://github.com/talios/clojure-maven-example">clojure-maven-example</a> project.</p>
+
+<p>If you already have <code>pom.xml</code> in your project, then to enable this plugin you need to add
+following code into <code>&lt;plugins&gt;</code> section of <code>pom.xml</code>:</p>
+
+<pre class="src">
+  &lt;<span style="color: #0000ff;">plugin</span>&gt;
+    &lt;<span style="color: #0000ff;">groupId</span>&gt;com.theoryinpractise&lt;/<span style="color: #0000ff;">groupId</span>&gt;
+    &lt;<span style="color: #0000ff;">artifactId</span>&gt;clojure-maven-plugin&lt;/<span style="color: #0000ff;">artifactId</span>&gt;
+    &lt;<span style="color: #0000ff;">version</span>&gt;1.3.6&lt;/<span style="color: #0000ff;">version</span>&gt;
+  &lt;/<span style="color: #0000ff;">plugin</span>&gt;
+</pre>
+
+<p><em>Attention:</em> version number could be changed as development continues.  To find latest
+plugin's version number you can use sites <a href="http://mvnrepository.com/artifact/com.theoryinpractise/clojure-maven-plugin">mvnrepository</a> or <a href="http://jarvana.com/jarvana/">Jarvana</a>, that contains
+information about packages, registered in Maven's repositories.  Besides this, you can
+omit plugin version &mdash; in this case, Maven will automatically use latest available
+version.</p>
+
+<p>Declaration of this plugin will give you all functionality &mdash; compilation, testing &amp;
+running of code, written in Clojure.  But out of box you'll need to use full goals names,
+such as <code>clojure:compile</code>, <code>clojure:test</code> &amp; <code>clojure:run</code>.  Although you can make your life
+easier if you'll add these goals into list of goals of concrete lifecycle phases (<code>compile</code>
+and <code>test</code>).  To do this you need to add section <code>&lt;executions&gt;</code> into plugin's description, as
+in following example:</p>
+
+<pre class="src">
+ &lt;<span style="color: #0000ff;">plugin</span>&gt;
+   &lt;<span style="color: #0000ff;">groupId</span>&gt;com.theoryinpractise&lt;/<span style="color: #0000ff;">groupId</span>&gt;
+   &lt;<span style="color: #0000ff;">artifactId</span>&gt;clojure-maven-plugin&lt;/<span style="color: #0000ff;">artifactId</span>&gt;
+   &lt;<span style="color: #0000ff;">version</span>&gt;1.3.6&lt;/<span style="color: #0000ff;">version</span>&gt;
+   &lt;<span style="color: #0000ff;">executions</span>&gt;
+     &lt;<span style="color: #0000ff;">execution</span>&gt;
+       &lt;<span style="color: #0000ff;">id</span>&gt;compile&lt;/<span style="color: #0000ff;">id</span>&gt;
+       &lt;<span style="color: #0000ff;">phase</span>&gt;compile&lt;/<span style="color: #0000ff;">phase</span>&gt;
+       &lt;<span style="color: #0000ff;">goals</span>&gt;
+         &lt;<span style="color: #0000ff;">goal</span>&gt;compile&lt;/<span style="color: #0000ff;">goal</span>&gt;
+       &lt;/<span style="color: #0000ff;">goals</span>&gt;
+     &lt;/<span style="color: #0000ff;">execution</span>&gt;
+     &lt;<span style="color: #0000ff;">execution</span>&gt;
+       &lt;<span style="color: #0000ff;">id</span>&gt;test&lt;/<span style="color: #0000ff;">id</span>&gt;
+       &lt;<span style="color: #0000ff;">phase</span>&gt;test&lt;/<span style="color: #0000ff;">phase</span>&gt;
+       &lt;<span style="color: #0000ff;">goals</span>&gt;
+         &lt;<span style="color: #0000ff;">goal</span>&gt;test&lt;/<span style="color: #0000ff;">goal</span>&gt;
+       &lt;/<span style="color: #0000ff;">goals</span>&gt;
+     &lt;/<span style="color: #0000ff;">execution</span>&gt;
+   &lt;/<span style="color: #0000ff;">executions</span>&gt;
+ &lt;/<span style="color: #0000ff;">plugin</span>&gt;
+</pre>
+
+<p>In this case, source code, written in Clojure will compiled &mdash; this useful if you
+implement <code>gen-class</code> that will be used from Java, or if you don't want to provide source
+code for your application.  But sometimes it much better just to pack source code into
+jar, and it will compiled during loading of package.  This allows to avoid binary
+incompatibility between different versions of Clojure.  To put source code into jar, you
+need to add following code into <code>resources</code> section:</p>
+
+<pre class="src">
+ &lt;<span style="color: #0000ff;">resource</span>&gt;
+   &lt;<span style="color: #0000ff;">directory</span>&gt;src/main/clojure&lt;/<span style="color: #0000ff;">directory</span>&gt;
+ &lt;/<span style="color: #0000ff;">resource</span>&gt;
+</pre>
+
+<p>By default Clojure's source code is placed in the <code>src/main/clojure</code> directory of the
+project with sub-directories, according to structure of your program. While source for
+tests are placed in the <code>src/test/clojure</code> directory.  These default values could be changed
+in <a href="#configure">plugin's configuration</a>.</p>
+
+<h3><a name="sec3" id="sec3"></a>
+Goals, defined in <code>clojure-maven-plugin</code></h3>
+
+<p class="first">clojure-maven-plugin implements several commands (goals) that could be divided into two
+groups:</p>
+
+<ul>
+<li>Goals that works with source code (usually they are linked with corresponding phases of
+lifecycle, as it shown above):
+
+<dl>
+<dt><strong><code>clojure:compile</code></strong></dt>
+<dd>implements compilation of source code, written in Clojure;</dd>
+<dt><strong><code>clojure:test</code></strong></dt>
+<dd>executes tests, written in Clojure.</dd>
+</dl></li>
+
+<li>Goals, related to execution of project's code:
+
+<dl>
+<dt><strong><code>clojure:run</code></strong></dt>
+<dd>executes script (or scripts) defined by <code>script</code> and/or <code>scripts</code>
+configuration directives.  This goals is often to run project with proper dependencies;</dd>
+<dt><strong><code>clojure:repl</code></strong></dt>
+<dd>run Clojure REPL with all dependencies, specified in project.  If
+necessary, it also executes script, specified in configuration option <code>replScript</code> &mdash; you
+can put some initialization code into it.  If the JLine library was listed in
+dependencies, then it will loaded automatically, making your work in REPL more
+comfortable;</dd>
+<dt><strong><code>clojure:swank</code></strong></dt>
+<dd>run Swank server, so you can connect to it from Emacs Slime.  By
+default, this server is running on port 4005 (this value could be changed with system
+option <code>clojure.swank.port</code>);</dd>
+<dt><strong><code>clojure:nailgun</code></strong></dt>
+<dd>run Nailgun server, so you can connect to it from Vim with
+<a href="http://kotka.de/projects/clojure/vimclojure.html">vimclojure</a>.  By default, this server is running on port 2113 (this value could be
+changed with system option <code>clojure.nailgun.port</code>).</dd>
+</dl></li>
+</ul>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Clojure-related repositories</h3>
+
+<p class="first">There are several Clojure-related repositories.  First, this is
+<a href="http://build.clojure.org/releases/">http://build.clojure.org/releases/</a> with release versions of Clojure and <code>clojure-contrib</code>,
+and <a href="http://build.clojure.org/snapshots/">http://build.clojure.org/snapshots/</a>, with experimental versions.  Second popular
+repository is <a href="http://clojars.org">Clojars</a>, that is used by Clojure community to publish their projects<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.</p>
+
+<p>To use these repositories you need to add following code into <code>repositories</code> section in
+<code>pom.xml</code>:</p>
+
+<pre class="src">
+ &lt;<span style="color: #0000ff;">repository</span>&gt;
+   &lt;<span style="color: #0000ff;">id</span>&gt;clojure-releases&lt;/<span style="color: #0000ff;">id</span>&gt;
+   &lt;<span style="color: #0000ff;">url</span>&gt;http://build.clojure.org/releases&lt;/<span style="color: #0000ff;">url</span>&gt;
+ &lt;/<span style="color: #0000ff;">repository</span>&gt;
+ &lt;<span style="color: #0000ff;">repository</span>&gt;
+   &lt;<span style="color: #0000ff;">id</span>&gt;clojars&lt;/<span style="color: #0000ff;">id</span>&gt;
+   &lt;<span style="color: #0000ff;">url</span>&gt;http://clojars.org/repo/&lt;/<span style="color: #0000ff;">url</span>&gt;
+ &lt;/<span style="color: #0000ff;">repository</span>&gt;
+</pre>
+
+<p>In this example we add repository with release versions of Clojure, and if you want to use
+bleeding edge version, then you need to change first address to
+<a href="http://build.clojure.org/snapshots/">http://build.clojure.org/snapshots/</a>.</p>
+
+
+<h3><a name="sec5" id="sec5"></a>
+Dependencies</h3>
+
+<p class="first">Maven automatically downloads all necessary dependencies from default repository &amp;
+repositories, specified by user (as shown above).  Downloaded packages are stored in
+user's home directory and could be used by other projects without additional downloading
+of them.  Each package is uniquely identified by combination of three parameters &mdash;
+group's name (<code>groupId</code> tag), artifact name (<code>artifactId</code> tag), and version (<code>version</code> tag).</p>
+
+<p>To use Clojure in your project you need at least specify dependency on language itself.
+Besides Clojure, the <code>clojure-contrib</code> library is often used in many projects, so they are
+often specified together.  Currently, the stable version of both packages is version
+1.2.0, that is in the release-repository of Clojure.  To declare these dependencies add
+following code into  <code>dependencies</code> section of <code>pom.xml</code> file:</p>
+
+<pre class="src">
+ &lt;<span style="color: #0000ff;">dependency</span>&gt;
+   &lt;<span style="color: #0000ff;">groupId</span>&gt;org.clojure&lt;/<span style="color: #0000ff;">groupId</span>&gt;
+   &lt;<span style="color: #0000ff;">artifactId</span>&gt;clojure&lt;/<span style="color: #0000ff;">artifactId</span>&gt;
+   &lt;<span style="color: #0000ff;">version</span>&gt;1.2.0&lt;/<span style="color: #0000ff;">version</span>&gt;
+ &lt;/<span style="color: #0000ff;">dependency</span>&gt;
+ &lt;<span style="color: #0000ff;">dependency</span>&gt;
+   &lt;<span style="color: #0000ff;">groupId</span>&gt;org.clojure&lt;/<span style="color: #0000ff;">groupId</span>&gt;
+   &lt;<span style="color: #0000ff;">artifactId</span>&gt;clojure-contrib&lt;/<span style="color: #0000ff;">artifactId</span>&gt;
+   &lt;<span style="color: #0000ff;">version</span>&gt;1.2.0&lt;/<span style="color: #0000ff;">version</span>&gt;
+ &lt;/<span style="color: #0000ff;">dependency</span>&gt;
+</pre>
+
+<p>If you want to use latest version of the language, then you need to add corresponding
+repository (snapshots) and use version number <code>1.4.0-SNAPSHOTS</code> (or other actual in current
+time) instead of version <code>1.2.0</code>.</p>
+
+<p>To perform some tasks, implemented by clojure-maven-plugin, you need to specify additional
+dependencies:</p>
+
+<ul>
+<li>if you will use <code>clojure:swank</code> goal, then you need to specify dependency on <code>swank-clojure</code> package:</li>
+</ul>
+
+<pre class="src">
+ &lt;<span style="color: #0000ff;">dependency</span>&gt;
+  &lt;<span style="color: #0000ff;">groupId</span>&gt;swank-clojure&lt;/<span style="color: #0000ff;">groupId</span>&gt;
+  &lt;<span style="color: #0000ff;">artifactId</span>&gt;swank-clojure&lt;/<span style="color: #0000ff;">artifactId</span>&gt;
+  &lt;<span style="color: #0000ff;">version</span>&gt;1.3.0&lt;/<span style="color: #0000ff;">version</span>&gt;
+&lt;/<span style="color: #0000ff;">dependency</span>&gt;
+</pre>
+
+<ul>
+<li>if you will use <code>clojure:nailgun</code> task, then you need to download distribution from
+<a href="http://kotka.de/projects/clojure/vimclojure.html">vimclojure</a>'s site, build it, as described in documentation, and install into local
+Maven repository.  And after this, you need to add following dependency on
+<code>vimclojure</code> with following code:</li>
+</ul>
+
+<pre class="src">
+ &lt;<span style="color: #0000ff;">dependency</span>&gt;
+  &lt;<span style="color: #0000ff;">groupId</span>&gt;de.kotka&lt;/<span style="color: #0000ff;">groupId</span>&gt;
+  &lt;<span style="color: #0000ff;">artifactId</span>&gt;vimclojure&lt;/<span style="color: #0000ff;">artifactId</span>&gt;
+  &lt;<span style="color: #0000ff;">version</span>&gt;X.X.X&lt;/<span style="color: #0000ff;">version</span>&gt;
+ &lt;/<span style="color: #0000ff;">dependency</span>&gt;
+</pre>
+
+<ul>
+<li>Presence of the JLine library isn't necessary, but it could be useful if you plan to use REPL &mdash;
+this library implements history of commands, etc.  Presence of this library is detected
+automatically when  <code>mvn clojure:repl</code> goal is executed, so you can add dependency for
+this library with following code:</li>
+</ul>
+
+<pre class="src">
+ &lt;<span style="color: #0000ff;">dependency</span>&gt;
+  &lt;<span style="color: #0000ff;">groupId</span>&gt;jline&lt;/<span style="color: #0000ff;">groupId</span>&gt;
+  &lt;<span style="color: #0000ff;">artifactId</span>&gt;jline&lt;/<span style="color: #0000ff;">artifactId</span>&gt;
+  &lt;<span style="color: #0000ff;">version</span>&gt;0.9.94&lt;/<span style="color: #0000ff;">version</span>&gt;
+ &lt;/<span style="color: #0000ff;">dependency</span>&gt;
+</pre>
+
+<h3><a name="sec6" id="sec6"></a>
+<a name="configure" id="configure"></a>Plugin's configuration</h3>
+
+<p class="first">Developer can change plugin's configuration options, such as location of source code,
+scripts names, etc.  To change some parameter, you need to add its new value into
+<code>configuration</code> section in the plugin's description.  For example, you can specify name of
+the script, that will executed during testing, with following code:</p>
+
+<pre class="src">
+ &lt;<span style="color: #0000ff;">plugin</span>&gt;
+   &lt;<span style="color: #0000ff;">groupId</span>&gt;com.theoryinpractise&lt;/<span style="color: #0000ff;">groupId</span>&gt;
+   &lt;<span style="color: #0000ff;">artifactId</span>&gt;clojure-maven-plugin&lt;/<span style="color: #0000ff;">artifactId</span>&gt;
+   &lt;<span style="color: #0000ff;">version</span>&gt;1.3.6&lt;/<span style="color: #0000ff;">version</span>&gt;
+   &lt;<span style="color: #0000ff;">configuration</span>&gt;
+     &lt;<span style="color: #0000ff;">testScript</span>&gt;src/test/clojure/test.clj&lt;/<span style="color: #0000ff;">testScript</span>&gt;
+   &lt;/<span style="color: #0000ff;">configuration</span>&gt;
+   .....
+ &lt;/<span style="color: #0000ff;">plugin</span>&gt;
+</pre>
+
+<p>Following options are used to specify options related to source code &amp; compilation:</p>
+
+<dl>
+<dt><strong><code>sourceDirectories</code></strong></dt>
+<dd>this option defines list of directories (each of them should be
+wrapped into <code>sourceDirectory</code> tag) with source code in Clojure, that will packed into
+resulting jar (and compiled, if corresponding option is specified);
+
+<dl>
+<dt><strong><code>testSourceDirectories</code></strong></dt>
+<dd>defines list of directories (each of them should be wrapped into
+<code>testSourceDirectory</code> tag) with tests, written in Clojure;</dd>
+<dt><strong><code>warnOnReflection</code></strong></dt>
+<dd>option that enables (<code>true</code>) or disables (<code>false</code>) warnings about
+reflection when compiling source code.</dd>
+</dl></dd>
+</dl>
+
+<p>Besides this, you can control which namespaces will compiled and/or for which namespaces
+testing of source code will performed.  To do this, you need to add <code>namespaces</code> tag into
+configuration and inside it list corresponding namespaces (each of item should be wrapped
+into <code>namespace</code> tag).  You can use regular expressions to specify all necessary namespace,
+and you can also use <code>!</code> to exclude namespaces from this list.  In addition to this option,
+you can use other two: <code>compileDeclaredNamespaceOnly</code> ad <code>testDeclaredNamespaceOnly</code> (with
+values <code>true</code> or <code>false</code>), that control, will these namespace limitations applied during
+compilation and/or testing.</p>
+
+<p>There are also several options that are used to specify parameters for execution of your
+code and/or tests:</p>
+
+<dl>
+<dt><strong><code>script</code> and <code>scripts</code></strong></dt>
+<dd>defines one (<code>script</code> tag) or several (<code>scripts</code> tag with nested <code>script</code>
+tags) names of scripts with code, that will executed when you'll run the <code>clojure:run</code>
+task;</dd>
+<dt><strong><code>testScript</code></strong></dt>
+<dd>defines name of script that will executed when you run <code>clojure:test</code> task.  If there
+was no value specified in configuration of plugin, then plugin will automatically
+generate run script for all tests, found in project;</dd>
+<dt><strong><code>replScript</code></strong></dt>
+<dd>defines name of script, that will executed if you'll run <code>clojure:repl</code> task
+(it also used by <code>clojure:swank</code> and <code>clojure:nailgun</code> tasks).  This code will executed
+before entering into REPL, so you can use it to specify initialization code for your
+working environment;</dd>
+<dt><strong><code>runWithTests</code></strong></dt>
+<dd>enable (<code>true</code>) or disable (<code>false</code>) executions of tests if you run REPL or
+your code via Maven.  You can also change this value by using Maven's command-line
+option.  For example, with following command <code>mvn clojure:repl</dd>
+</dl>
+  -Dclojure.runwith.test=false</code>;
+
+<dl>
+<dt><strong><code>clojureOptions</code></strong></dt>
+<dd>using this option you can specify command-line options that will be
+passed to <code>java</code> process on every invocation.</dd>
+</dl>
+
+
+
+<h2><a name="sec7" id="sec7"></a>
+Conclusion</h2>
+
+<p class="first">I think, that this article provides enough information to you to start use Maven together
+with Clojure.  If you have Clojure-only project, and you don't plan to use all power of
+Maven, then may be you need to look to the <a href="ClojureLein.html">Leiningen</a> &mdash; this is tool, that was created to
+build projects, written only in Clojure.  Another interesting project is <a href="http://polyglot.sonatype.org/">Polyglot Maven</a>,
+the main goal of it is creation of special DSL (Domain Specificl Languages) in different
+languages (Clojure, Scala, Groovy) for description of Maven's configurations (for Clojure
+this language is almost same as language implemented in Leiningen).</p>
+
+<p>Other examples of use  Maven with Clojure you can find in different projects: <a href="http://github.com/liebke/incanter/tree/1.0.x">Incanter</a>
+(as example of project, consisting from several modules), <a href="http://github.com/relevance/labrepl">labrepl</a> and
+<a href="http://github.com/talios/clojure-maven-example">clojure-maven-example</a>.  More information about Clojure and Maven you can also find in
+following bog posts:</p>
+
+<ul>
+<li><a href="http://muckandbrass.com/web/display/~cemerick/2010/03/25/Why+using+Maven+for+Clojure+builds+is+a+no-brainer">Why using Maven for Clojure builds is a no-brainer</a> (including video, that shows how to
+work with <code>clojure-maven-plugin</code>);</li>
+<li><a href="http://pupeno.com/blog/how-to-create-a-clojure-application/">How to create a Clojure application</a>;</li>
+<li><a href="http://stuartsierra.com/2009/09/03/mavens-not-so-bad">Maven’s Not So Bad</a>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Clojars also provides downloading of Clojure &amp; <code>clojure-contrib</code>, so you can add only
+one entry into list of repositories.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/clojure/ClojureMaven.html';
+var disqus_url = 'http://alexott.net/en/clojure/ClojureMaven.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

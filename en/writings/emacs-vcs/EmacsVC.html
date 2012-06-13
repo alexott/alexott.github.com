@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>VC package</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, vc, cvs, subversion, rcs, version control, hg, mercurial, darcs" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>VC package</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Basic concepts and approaches</a>
+</dt>
+<dt>
+<a href="#sec2">Work with package</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec3">Basic work sequence</a>
+</dt>
+<dt>
+<a href="#sec4">Work with changes</a>
+</dt>
+<dt>
+<a href="#sec5">Work with files</a>
+</dt>
+<dt>
+<a href="#sec6">Use VC together with Dired</a>
+</dt>
+<dt>
+<a href="#sec7">Work with branches</a>
+</dt>
+<dt>
+<a href="#sec8">Work with remote repositories</a>
+</dt>
+<dt>
+<a href="#sec9">Work with snapshots</a>
+</dt>
+<dt>
+<a href="#sec10">Other functions</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec11">Customization</a>
+</dt>
+<dt>
+<a href="#sec12">Additional information</a>
+</dt>
+</dl>
+</div>
+
+
+<p>The <em>VC</em> package provides to user ability to work with different version control systems
+(VCS) via unified user interfaces.  Now it supports following VCS (via VCS-specific
+modules): <em>rcs</em>, <em>CVS</em>, <em>MetaCVS</em>, <em>Subversion</em>, <em>GNU Arch</em>, <em>sccs</em>, <em>Darcs</em>, <em>SourceSafe</em>, <em>ClearCase</em>, <em>Git</em>
+and <em>Mercurial</em> (some of them available only in GNU Emacs 22.0, development repository of
+GNU Emacs or at author's sites)<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Basic concepts and approaches</h2>
+
+<p class="first">Design of <em>VC</em> package took many things from the design of <em>rcs</em> version control system.  So
+many concepts tightly coupled with concepts of this VCS.</p>
+
+<p>When file is under control of VCS, then we say that it &quot;registered&quot; in VCS.  For each file
+exists &quot;main&quot; file, that contain data and history of changes.  For each &quot;main&quot; file could
+exists &quot;work&quot; file, that could be modified.  In some VCS you need to block work file
+before add any change.  In other VCS you can add changes to your copy of work file, and
+than explicitly commit changes to repository.  For systems, that require explicit locking
+of files, to add a change to a file, you need to switch file from read-only state to
+read-write state.  And usually, in such systems, only one user can make changes into
+locked files, and other users should wait until that user finish modification of files and
+remove block on file(s).</p>
+
+<p>When you work with <em>VC</em> some information about its state is displayed in status line.
+Information is represented in following form: at first is short name of VCS, used for
+current file, next is displayed symbol, describing file's state, and then file's version
+number is displayed.  If state symbol is equal to <code>-</code>, then file is not blocked or changed.
+If file is blocked or modified, then symbol is changed to <code>:</code>.  If file is blocked by other
+user, then status field will displayed as <code>:user:</code>.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Work with package</h2>
+
+<h3><a name="sec3" id="sec3"></a>
+Basic work sequence</h3>
+
+<p class="first">The main function of <em>VC</em> package is <code>vc-next-action</code> (<code>C-x v v</code>), that performs next logical
+command of version control system.  Depending on used VCS, order of commands in this
+sequence could differ.  For systems, that require blocking of file (<em>rcs</em>, <em>sccs</em>, and <em>CVS</em>
+with corresponding setup), order of executions is following:</p>
+
+<ul>
+<li>if file is not registered in VCS, then register it;</li>
+<li>if file is registered, but not blocked, then fetch latest version from repository and
+block it;</li>
+<li>if file was blocked by current user, but not changed, then it fetches new version and
+updates buffer;</li>
+<li>if file was changed, then display a new buffer to enter comment about change, and
+commit changes;</li>
+<li>if file was blocked by other user, then <em>VC</em> tries to block it.</li>
+</ul>
+
+<p>For systems, that doesn't support explicit blocking, order of execution is slightly different:</p>
+
+<ul>
+<li>if file is not registered in VCS, then register it, but doesn't commit it;</li>
+<li>if file already was added, but not committed, then commit it;</li>
+<li>if file was changed, then display a new buffer to enter comment about change, and
+commit changes;</li>
+<li>if file was changed in repository, then ask user, and perform merging of changes in
+your copy of work file.</li>
+</ul>
+
+<p>User can pass prefix argument to <code>vc-next-action</code> function.  Passing of this argument allow
+user to change behaviour of function &mdash; for example, user can set version number for new
+file, or for file, that will fetched from repository, or change version control system (if
+file was registered in different VCS).</p>
+
+<p>Entering of commit message is performed in special buffer with name <code>*VC-Log*</code>.  User can
+enter message, and commit changes by pressing <code>C-c C-c</code>.  If you doesn't want to commit
+changes, just leave this buffer without pressing <code>C-c C-c</code>.  And if you want use same commit
+message for several files, then you can use <code>M-n</code>, <code>M-p</code>, <code>M-s</code> and <code>M-r</code> key bindings, that allow
+you to navigate in messages history.</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Work with changes</h3>
+
+<p class="first">User can use <em>VC</em> to view changes, that he did during work with files.  To get list of
+changes between work copy and latest committed version, user can use <code>vc-diff</code> function
+(<code>C-x v =</code>).  If user runs this function with prefix argument, then he can
+obtain list of changes between any two versions. The <code>vc-version-other-window</code> function (<code>C-x
+v ~</code>) allows to get from repository any version of file, and show it in separate buffer.
+In some VCS you can obtain annotated versions of files, and <em>VC</em> also support this feature
+with <code>vc-annotate</code> function, that bound to <code>C-x v g</code>.  With annotated version you can see who
+make concrete changes, in which version they was made, etc.</p>
+
+<p>User can cancel with <code>vc-revert-buffer</code> function (<code>C-x v u</code>), that remove changes and return
+current file to actual version from repository.  After execution of <code>vc-revert-buffer</code> file
+is not blocked, so you need to block it to make new changes.</p>
+
+
+<h3><a name="sec5" id="sec5"></a>
+Work with files</h3>
+
+<p class="first">Registration of file in repository is performed with <code>vc-register</code> function (<code>C-x v i</code>).
+Selection of version control systems depends on several parameters.  If in the directory
+there are files, already registered in some VCSs, then file will registered in this
+system.  If in directory there are files, registered in several VCSs, then file will
+registered in system, that is first in the list <code>vc-handled-backends</code>.  And if there are no
+registered files in directory, then <em>VC</em> take first name from <code>vc-handled-backends</code> list.  For
+example, you can register file in <em>CVS</em> only if you explicitly specify name of VCS. By
+default, new file gets version number equal 1.1.  You can set another version number if
+you supply prefix argument to <code>vc-register</code> function.  If <code>vc-initial-comment</code> variable has
+non-<code>nil</code> value, then this function also ask user for comment, that will used as description
+of this file.</p>
+
+<p>The  <em>VC</em> package also supports renaming of registered files.  To do this you can use
+<code>vc-rename-file</code> function, that renames you working file, and also &quot;main&quot; file.  This
+function also update all snapshots, so they will point to the correct file name. But you
+couldn't use this function for blocked files.</p>
+
+<p>User can also get information about current file by using <code>vc-print-log</code> function, that
+bound to <code>C-x v l</code>.  This command shows history of changes together with text of comments
+for each of change.</p>
+
+
+<h3><a name="sec6" id="sec6"></a>
+Use VC together with Dired</h3>
+
+<p class="first">Functions, that was described before, was designed to work with separate files.  But for
+big projects it's often need to work with sets of files &mdash; see which files was modified,
+display list of changes for whole project, etc.  To allow user to do this, <em>VC</em> package
+implements special mode &mdash; 
+<code>vc-dired-mode</code>.  To create a buffer, that work in this mode,
+user could use <code>vc-directory</code> function (<code>C-x v d</code>).  The buffer, created by this command, has
+almost no differs from usual <em>Dired's</em> buffer.  In this buffer user can see recursive list
+of files, registered in VCS.</p>
+
+<p>During work with <em>Dired's</em> buffer we can display data in short or full mode.  In short
+display mode, in buffer are displayed only modified or not updated files.  In full display
+mode, in buffer are displayed all files registered in VCS.  User can switch between short
+and full display modes with <code>v t</code> key binding.  In buffer also displayed information about
+user, who had blocked file (for systems, that support this feature) or file status (for
+all other systems).  In the buffer with <code>vc-dired-mode</code> work all <em>Dired's</em> functions and keys,
+except <code>v</code> key, that is used as prefix key for all <em>VC</em> functions.  For user available all <em>VC</em>
+functions, as described in other section, but they doesn't use <code>C-x</code> prefix, and could be
+applied for file sets.</p>
+
+<h3><a name="sec7" id="sec7"></a>
+<a name="branches" id="branches"></a>Work with branches</h3>
+
+<p class="first">Like other packages, that allows to work with VCS, the <em>VC</em> package also supports work with
+different branches of one project.  Package supports creation of branches, switching
+between them, and also merging of changes between different branches.  To switch to other
+branch you just need to supply prefix argument to the <code>vc-next-action</code> function.  User may
+use branch version instead of concrete version of file.  Next operations will performed on
+selected branch.  Creation of new branch is performed similar way &mdash; when you commit data
+with <code>vc-next-action</code>, you just need to supply prefix argument and version number.  If you
+supply non-existing branch number, then it will created.  After creation of the branch,
+all work will performed in it, and user will need to explicitly switch to other branch, if
+he need this.</p>
+
+<p>To merge changes from another branch you can use <code>vc-merge</code> function, that bound to <code>C-x v m</code>.
+This command will ask you about branch from which you want merge changes, and apply them
+to your current brunch.  If you doesn't specify branch version, then changes will taken
+from repository, from your current branch, if somebody commit them during your work.  If
+during merge arise some conflicts, then package will notify you, and mark them in the
+file, or run <em>Ediff</em> to resolve them.  You can also use <code>vc-resolve-conflicts</code> function to
+resolve existing conflicts.  This function run new <em>Ediff</em> session, where you can see all
+conflicts, and accept or cancel proposed solutions.</p>
+
+
+<h3><a name="sec8" id="sec8"></a>
+Work with remote repositories</h3>
+
+<p class="first">Some of VCS supports &quot;central repository&quot; concept, that is used to keep &quot;main&quot; versions of
+file, together with history of changes.  Repository could be local, or located on remote
+server.  <em>VC</em> automatically detects cases, when repository is located on remote server, and
+does some things, that allow to effectively work with data, especially if connection to
+server is very slow or unstable.  When user make a first change in file, the local copy of
+original file is created.  This allow to execute functions for getting reverting changes
+without establishing network connection.  File with original version has name
+<code>FILE.~VERSION.~</code>.  When you commit changes to repository, local copy of original file will
+deleted.  User can also manually create reserve copy of file using <code>vc-version-other-window</code>
+function.  Difference between these two copies is that automatic copy has additional <code>.</code>
+char before <code>~</code>.  Many <em>VC</em> functions can use both copies of file if their exists.</p>
+
+
+<h3><a name="sec9" id="sec9"></a>
+Work with snapshots</h3>
+
+<p class="first">Snapshot is named set of files with concrete versions, that could be used as separate
+object.  Some VCSs support this concept internally, so <em>VC</em> just use existing functionality.
+For all other systems, <em>VC</em> implements this functionality, so snapshots will visible only if
+<em>VC</em> package is used.  To work with snapshots <em>VC</em> package provides two functions.  The
+<code>vc-create-snapshot</code> function (<code>C-x v s</code>) create a new snapshot using versions of files
+existing in current directory (and all sub-directories).  The <code>vc-retrieve-snapshot</code>
+function (<code>C-x v r</code>) allows user to retrieve snapshot with given name.  Many <em>VC's</em> functions
+allow user to use snapshot's names as argument, instead of using version numbers.  This is
+especially useful when you look list of changes between two releases of program.</p>
+
+
+<h3><a name="sec10" id="sec10"></a>
+Other functions</h3>
+
+<p class="first">Usually for files, registered in some VCS history of changes is kept for each file
+separately.  But in GNU projects, usually change logs are kept for whole project or on per
+directory basis.  To allow to work with such change logs, <em>VC</em> package implements
+<code>vc-update-change-log</code> function (<code>C-x v a</code>), that updates common change log with change logs
+for all modified files.  When this command gets a prefix argument, then it can update
+common change log with entries from concrete files.</p>
+
+<p>You can also insert special headers into your files.  These headers depends on concrete
+VCS, and in some VCSs could be used for auxiliary goals.  To insert such header, you can
+use <code>vc-insert-headers</code> function (<code>C-x v h</code>).  <em>VC</em> automatically selects header, suitable for
+current VCS.  All headers are kept in <code>vc-BACKEND-header</code> variables, so you can modify them
+to allow insertion of your own headers.</p>
+
+
+
+<h2><a name="sec11" id="sec11"></a>
+Customization</h2>
+
+<p class="first">User can customize behaviour of <em>VC</em> package using standard Emacs's customization routines.
+He just need to execute <code>M-x customize-group vc</code> to do this.  Some of options, applicable
+for all supported VCSs, but some are applicable only to concrete backends.  Full
+description of customization variables you can find in <em>VC's</em> manual.</p>
+
+
+<h2><a name="sec12" id="sec12"></a>
+Additional information</h2>
+
+<p class="first">Detailed description of <em>VC</em> package is provided as part of Emacs's documentation.  Besides
+this, you can find more information about  <em>VC</em> package at  <a href="http://www.emacswiki.org/cgi-bin/wiki/CategoryVersionControl">Emacs WiKi</a>.</p>
+
+<p>Some of modules, that provides integration of <em>VC</em> with concrete VCS are not included into
+GNU Emacs or XEmacs distributions.  You can find them on the author's sites:</p>
+
+<ul>
+<li><em>vc-darcs</em> &mdash; <a href="http://www.emacswiki.org/elisp/vc-darcs.el">http://www.emacswiki.org/elisp/vc-darcs.el</a></li>
+<li><em>vc-vss</em> &mdash; <a href="http://www.chezmarshall.freeserve.co.uk/elisp/vcvss.html">http://www.chezmarshall.freeserve.co.uk/elisp/vcvss.html</a></li>
+<li><em>vc-clearcase</em> &mdash; <a href="http://www.fukt.hk-r.se/~flognat/vc/">http://www.fukt.hk-r.se/~flognat/vc/</a></li>
+</ul>
+
+<div id="rule"><a href="index.html">Back to main page</a></div>
+
+
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Some modules lacks implementation of some commands, provided by <em>VC</em>.  For example,
+&lt;em>vc-arch</em> doesn't support <code>vc-cancel-version</code> function, and some other, not so important.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/emacs-vcs/EmacsVC.html';
+var disqus_url = 'http://alexott.net/en/writings/emacs-vcs/EmacsVC.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Пакет PCL-CVS</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, cvs, pcl-cvs" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Пакет PCL-CVS</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Основные понятия и принципы работы</a>
+</dt>
+<dt>
+<a href="#sec2">Основные команды и привязки клавиш</a>
+</dt>
+<dt>
+<a href="#sec3">Команды перемещения в буфере и пометки файлов</a>
+</dt>
+<dt>
+<a href="#sec4">Добавление, удаление, редактирование и обновление файлов</a>
+</dt>
+<dt>
+<a href="#sec5">Работа с изменениями</a>
+</dt>
+<dt>
+<a href="#sec6">Получение информации о файлах и прочие команды</a>
+</dt>
+<dt>
+<a href="#sec7">Настройка</a>
+</dt>
+</dl>
+</div>
+
+
+<p>Пакет <em>PCL-CVS</em> предоставляет пользователю эффективные средства с системой контроля версий
+<em>CVS</em>, которая широко распространена в мире свободного программного обеспечения.  Кроме
+стандартных возможностей, которые реализованы пакетом <em>VC</em>, данный пакет предоставляет
+следующие возможности:</p>
+
+<ul>
+<li>просмотр состояния файлов для выбранного проекта;</li>
+<li>работа с изменениями для данного проекта;</li>
+<li>работа со всеми, или выбранными объектами вашего проекта.</li>
+</ul>
+
+<p>Данный пакет является частью поставки GNU Emacs начиная с версии 21, а также доступен в
+виде пакета для XEmacs.  Для других версий Emacs вы можете найти исходные тексты по адресу
+<a href="ftp://flint.cs.yale.edu/pub/monnier/pcl-cvs">ftp://flint.cs.yale.edu/pub/monnier/pcl-cvs</a>.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Основные понятия и принципы работы</h2>
+
+<p class="first">Вся работа с пакетом осуществляется в специальном буфере, создаваемом командами <em>PCL-CVS</em>.
+Этот буфер называется <code>*cvs*</code>, и в нем отображается состояние файлов, находящихся в
+выбранном каталоге, который содержит ваш проект.  Пакет работает только с проектами, уже
+извлеченными из репозитория, так что вам нужно это сделать перед выполнением команд
+<em>PCL-CVS</em>.</p>
+
+<p>В процессе работы вы можете перемещаться по созданному буферу и выполнять разные команды с
+выбранными файлами, или файлами на которых находится курсор.</p>
+
+<p>При работе с файлами в проекте, каждому из файлов присваивается определенный статус, и
+список доступных команд может зависеть от статуса файла.</p>
+
+<p>Данные в буфере отображаются в несколько колонок:</p>
+
+<ul>
+<li>номер последней версии в репозитории, и кроме этого дополнительный статус файла
+(необязательно);</li>
+<li>звездочка, показывающая пометку для отмеченного файла;</li>
+<li>статус файла, расшифровка которого будет приведена ниже;</li>
+<li>версия файла, находящегося в выбранном каталоге (необязательно);</li>
+<li>имя файла.</li>
+</ul>
+
+<p>Поле статуса может содержать следующие значения:</p>
+
+<dl>
+<dt><strong><em>Added</em></strong></dt>
+<dd>файл был добавлен, но изменения еще не были подтверждены в репозиторий;</dd>
+<dt><strong><em>Removed</em></strong></dt>
+<dd>файл был удален, но изменения еще не были подтверждены в репозиторий;</dd>
+<dt><strong><em>Modified</em></strong></dt>
+<dd>данный файл был изменен.  Для этого статуса может быть показан дополнительный
+статус <em>merged</em>, который обозначает что были внесены изменения в репозиторий, и они были
+совмещены с вашими изменениями безо всяких конфликтов;</dd>
+<dt><strong><em>Conflict</em></strong></dt>
+<dd>был обнаружен конфликт между вашими изменениями в проекте, и изменениями в
+репозитории. Обе версии изменений записываются в файл, но при этом сохраняется
+оригинальный файл, который именуется как <code>.#FILE.VERSION</code>.  Конфликты также могут
+возникать по другим причинам, которые вы можете узнать посмотрев на дополнительный
+статус данного файла. Дополнительный статус может иметь следующие значения: <em>removed</em> &mdash;
+вы удалили файл, но кто-то внес в репозиторий новую версию; <em>added</em> &mdash; вы добавили файл,
+но кто-то тоже добавил файл в репозиторий; <em>modified</em> &mdash; вы изменили файл, но кто-то
+другой удалил этот файл из репозитория.</dd>
+<dt><strong><em>Unknown</em></strong></dt>
+<dd>файл не зарегистрирован, и не входит в список игнорируемых файлов;</dd>
+<dt><strong><em>Up-to-date</em></strong></dt>
+<dd>файл соответствует версии в репозитории.  Поле дополнительного статуса
+может сообщить дополнительную информацию о файле: <em>added</em> &mdash; вы только что добавили файл
+в репозиторий; <em>updated</em> &mdash; файл был обновлен в соответствии с данными репозитория;
+<em>patched</em> &mdash; аналогично статусу <em>updated</em>, но обновление происходило более эффективным
+методом, это происходит в тех случаях, если вы изменяли файл; <em>commited</em> &mdash; вы
+подтвердили изменения в репозиторий;</dd>
+<dt><strong><em>Need-Update</em></strong></dt>
+<dd>репозиторий содержит более свежую версию, или файл был добавлен в
+репозиторий и у вас его еще нет;</dd>
+<dt><strong><em>Need-Merge</em></strong></dt>
+<dd>вы внесли изменения в файл, и кто-то также внес изменения в файл в
+репозитории, так что необходимо совместить эти изменения;</dd>
+<dt><strong><em>Missing</em></strong></dt>
+<dd>файл был внезапно удален из вашего каталога, но для него не была выполнена
+команда <code>cvs remove</code>.</dd>
+</dl>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Основные команды и привязки клавиш</h2>
+
+<p class="first">Команды, предоставляемые пакетом <em>PCL-CVS</em> имеют префикс <code>cvs-</code> и имена, аналогичные
+подкомандам команды <em>CVS</em>.  Для выполнения части команд необходимо наличие буфера <code>*cvs*</code>,
+который создается следующими командами (команды выполняются с помощью сочетания M-x или
+через меню <code>Tools</code>):</p>
+
+<dl>
+<dt><strong><code>cvs-update</code></strong></dt>
+<dd>выполняет <code>cvs update</code> для указанного вами каталога;</dd>
+<dt><strong><code>cvs-examine</code></strong></dt>
+<dd>выполняет команду <code>cvs -n update</code>, которая только проверяет что необходимо
+сделать, не внося никаких изменений;</dd>
+<dt><strong><code>cvs-status</code></strong></dt>
+<dd>выполняет команду <code>cvs status</code> для указанного вами каталога;</dd>
+<dt><strong><code>cvs-checkout</code></strong></dt>
+<dd>выполняет команду <code>cvs checkout</code> для указанного вами модуля;</dd>
+<dt><strong><code>cvs-quickdir</code></strong></dt>
+<dd>создает буфер <code>*cvs*</code> считывая данные из файлов <code>CVS/Entries</code>.  Эта команда
+аналогична <code>cvs-examine</code>, но не осуществляет доступа к репозиторию, что иногда очень
+полезно.</dd>
+</dl>
+
+<p>Эти команды могут выполняться также и из буфера <code>*cvs*</code> &mdash; вы можете использовать <code>M-u</code> для
+выполнения <code>cvs-update</code>, <code>M-e</code> для <code>cvs-examine</code> и <code>M-s</code> для <code>cvs-status</code>.  Кроме этого, вы можете
+использовать соответствующие команды только для выбранных файлов &mdash; 
+<code>O</code> (<code>cvs-mode-update</code>)
+для обновления файлов, <code>e</code> (<code>cvs-mode-examine</code>) для обновления информации о файлах и <code>s</code>
+(<code>cvs-mode-status</code>) для получения информации о выбранных файлах.</p>
+
+<p>По умолчанию, эти команды выполняются рекурсивно, но вы    можете изменить это поведение,
+используя флаг <code>-l</code>    для команд <em>CVS</em>.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Команды перемещения в буфере и пометки файлов</h2>
+
+<p class="first">Для перемещения по буферу <code>*cvs*</code> используются команды <code>cvs-mode-next-line</code> (клавиша <code>n</code>) &mdash; для
+перемещения на следующую строку и <code>cvs-mode-previous-line</code> (клавиша <code>p</code>), которая приводит к
+переходу на предыдущую строку.</p>
+
+<p>Для работы с пометками используются множество разных команд. Для пометки одного файла
+используется команда <code>cvs-mode-mark</code> (клавиша <code>m</code>), а для снятия пометки &mdash; команда
+<code>cvs-mode-unmark</code> (клавиша <code>u</code>).  Для пометки всех файлов используется клавиша <code>M</code> (команда
+<code>cvs-mode-mark-all-files</code>), а противоположной ей командой является
+<code>cvs-mode-unmark-all-files</code>, которая привязана к сочетанию клавиш <code>M-DEL</code>.  Вы также можете
+пометить файлы, имена которых подпадают под заданное регулярное выражение &mdash; команда
+<code>cvs-mode-mark-matching-files</code> (клавиша <code>%</code>), или которые имеют определенный статус &mdash; команда
+<code>cvs-mode-mark-on-state</code> (клавиша <code>S</code>).</p>
+
+
+<h2><a name="sec4" id="sec4"></a>
+Добавление, удаление, редактирование и обновление файлов</h2>
+
+<p class="first">Добавление файлов производится очень простым способом &mdash; просто отметьте все нужные файлы
+(обычно они имеют статус <em>Unknown</em>), и нажмите на клавишу a (команда <code>cvs-mode-add</code>).  Статус
+файлов будет изменен на <em>Added</em>, и затем вы должны подтвердить изменения в репозиторий
+(см. раздел <a href="#changes">Работа с изменениями</a>).  Вы также можете использовать эту команду и для файлов
+со статусом <em>Removed</em>, что приведет к их восстановлению.</p>
+
+<p>Удаление файлов производится аналогичным образом &mdash; вы помечаете файлы, и выполняете
+команду <code>cvs-mode-remove-file</code> (клавиша <code>r</code>).  При выполнении этой команды у вас будет
+запрошено подтверждение, и затем файлы будут удалены из каталога.  В том случае, если
+файлы находятся под контролем <em>CVS</em>, то для них также будет выполнена команда <code>cvs remove</code>.
+Как и в предыдущем случае, вам также нужно будет подтвердить изменения в репозиторий.</p>
+
+<p>Обновление файлов производится с помощью команды <code>cvs-mode-update</code>, которая привязана к
+клавише <code>O</code>.  Это заставляет выполнить команду <code>cvs update</code> для файлов имеющих статус
+<em>Need-update</em>.</p>
+
+<p>Иногда, вам требуется хранить в каталогах проекта, файлы, не зарегистрированные в
+репозитории.  Такие файлы обычно отображаются со статусом <em>Unknown</em>, но вы можете сообщить
+<em>CVS</em>, что эти файлы необходимо игнорировать при выполнении команд, просто перечислив их в
+файле <code>.cvsignore</code>.  Для помещения выбранного файла в этот файл, используется команда
+<code>cvs-mode-ignore</code>, которая привязана к клавише <code>i</code>.  Используя ее, вы можете быстро поместить
+мешающие файлы в список игнорируемых объектов.</p>
+
+<h2><a name="sec5" id="sec5"></a>
+<a name="changes" id="changes"></a>Работа с изменениями</h2>
+
+<p class="first">Для подтверждения изменений в репозиторий вам нужно лишь выбрать файлы, изменения для
+которых вы хотите подтвердить, а зачем нажать <code>c</code> (<code>cvs-mode-commit</code>) или <code>C</code>
+(<code>cvs-mode-commit-setup</code>).  Это приведет к возникновению нового буфера с именем
+<code>*cvs-commit*</code>, в котором вы можете ввести описание вносимых изменений.  После ввода
+сообщения, вам необходимо лишь нажать <code>C-c C-c</code> и изменения будут внесены в репозиторий.  Вы
+можете прервать этот процесс в любое время, просто не выполняя команду <code>C-c C-c</code>.  Разница
+между командами <code>c</code> и <code>C</code> заключается в том, как они относятся к содержимому буфера
+<code>*cvs-commit*</code>.  Первая команда сохраняет предыдущее содержимое буфера, в то время как
+вторая команда создает буфер заново.</p>
+
+<p>Если вы изменили файл, но не хотите вносить данные изменения в репозиторий, то вы можете
+использовать команду <code>cvs-mode-undo-local-changes</code>, которая привязана к клавише <code>U</code>.  Эта
+команда удаляет файл с вашими изменениями, и получает последнюю версию из репозитория.</p>
+
+<p>Вы можете просмотреть изменения внесенные в файл с помощью нескольких команд.  Наиболее
+часто используемой командой является <code>cvs-mode-diff</code>, которая вызывается с помощью клавиши
+<code>=</code> или сочетания <code>d =</code>.  Эта команда показывает между измененным
+файлом и его базовой версией.  Кроме этого, также определен набор команд, которые
+выполняют следующие действия:</p>
+
+<dl>
+<dt><strong><code>cvs-mode-diff-head</code> (<code>d h</code>)</strong></dt>
+<dd>показывает изменения между выбранными файлами и головной
+(HEAD) версией соответствующего файла данной ветви разработки;</dd>
+<dt><strong><code>cvs-mode-diff-repository</code> (<code>d r</code>)</strong></dt>
+<dd>показывает изменения между базовой и головной версиями
+выбранных файлов в текущей ветке разработки;</dd>
+<dt><strong><code>cvs-mode-diff-backup</code> (<code>d b</code>)</strong></dt>
+<dd>показывает изменения между резервной версией файла и
+файлом. Эта команда особенно полезна в случаях возникновения конфликтов при слиянии
+изменений между файлами;</dd>
+<dt><strong><code>cvs-mode-diff-vendor</code> (<code>d v</code>)</strong></dt>
+<dd>показывает изменения между выбранными файлами и головной
+версией в ветви производителя (vendor branch);</dd>
+<dt><strong><code>cvs-mode-diff-yesterday</code> (<code>d y</code>)</strong></dt>
+<dd>показывает изменения между выбранными файлами и
+вчерашней головной версией файлов.</dd>
+</dl>
+
+<p>Также, для работы с изменениями вы можете использовать утилиты <em>Ediff</em> и <em>Emerge</em>.  Команда
+<code>cvs-mode-idiff</code> (привязана к сочетанию клавиш <code>d e</code>) запускает <em>Ediff</em> или <em>Emerge</em> (зависит от
+выбранных настроек), что позволяет вам интерактивно работать с изменениями.  При
+использовании команды <code>cvs-mode-imerge</code> (сочетание клавиш <code>d E</code>) вы можете выполнить
+трехстороннее интерактивное слияние изменений, но если уже существует конфликт в выбранных
+файлах, то их содержимое не будет использоваться при работе, и после завершения работы,
+все изменения сделанные <em>CVS</em>, будут затерты.</p>
+
+
+<h2><a name="sec6" id="sec6"></a>
+Получение информации о файлах и прочие команды</h2>
+
+<p class="first">Для получения информации о файлах может использоваться две команды.  Команда <code>cvs-mode-log</code>
+(клавиша <code>l</code>) выполняет команду <code>cvs log</code> для выбранных файлов и результат отображается в
+буфере <code>*cvs-info*</code>. А команда <code>cvs-mode-status</code> (клавиша <code>s</code>) выполняет <code>cvs status</code> для
+выбранных файлов и результат отображается в буфере <code>*cvs-info*</code>.</p>
+
+<p>Команда <code>cvs-mode-tag</code> (клавиша <code>t</code>) позволяет вам установить тег на выбранные файлы. По
+умолчанию, данная команда применяется только к каталогам, но это поведение зависит от
+настроек клиента.</p>
+
+<p>Иногда вам может понадобиться, чтобы в буфере <code>*cvs*</code> не отображались некоторые записи.  Вы
+можете сделать это двумя способами &mdash; использовать команду <code>cvs-mode-remove-handled</code>
+(клавиша <code>x</code>), которая удаляет из буфера уже обработанные записи, например, файлы со
+статусом <em>Up-to-date</em>, или использовать команду <code>cvs-mode-acknowledge</code> (она привязана к
+сочетанию <code>C-k</code>), которая просто удаляет нужные строки.  Обработанные записи могут удаляться
+автоматически, в том случае, если переменная <code>cvs-auto-remove-handled</code> имеет значение не
+равное <code>nil</code>.</p>
+
+<p>Чтобы обновить содержимое буфера <code>*cvs*</code>, вы можете использовать команду
+<code>cvs-mode-revert-buffer</code>, которая привязана к клавише <code>g</code>.  А для выхода из буфера <code>*cvs*</code>
+используется команда <code>cvs-mode-quit</code>, которая привязана к клавише <code>q</code>.</p>
+
+<p>Пакет <em>PCL-CVS</em> также определяет несколько дополнительных режимов &mdash; для редактирования
+сообщений для журнала изменений, а также режим для просмотра журнала изменений.</p>
+
+
+<h2><a name="sec7" id="sec7"></a>
+Настройка</h2>
+
+<p class="first">Выполнение команд <em>PCL-CVS</em> зависит от значения некоторых переменных, настройку которых
+легче всего осуществить с помощью команды <code>M-x customize-group pcl-cvs</code>.  В эти настройки
+входит как настройка самих переменных, так и свойств начертаний, который используются для
+отображения информации в буферах данного режима.</p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-vcs/EmacsPCLCVS.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-vcs/EmacsPCLCVS.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

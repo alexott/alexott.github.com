@@ -1,0 +1,725 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Настройка Emacs & CEDET для программирования на C & C++</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, c, c++, emacs, cedet, programming, semantic, ede, программирование, ide, integrated development environment" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Настройка Emacs & CEDET для программирования на C & C++</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>Этот рассказ не претендует на звание полного описания настройки Emacs как среды разработки
+на разных языках (это будет <a href="../../../en/writings/emacs-devenv/index.html">отдельная статья</a>), а является попыткой написать краткий
+рассказ о настройке пакета <a href="http://cedet.sf.net">CEDET</a> для работы с языками программирования C &amp; C++, хотя
+большая часть изложенного подходит и к работе с другими языками, поддерживаемыми пакетом
+CEDET.</p>
+
+<p>Имейте ввиду, что эта статья не описывает CEDET который поставляется вместе с GNU Emacs &mdash;
+он имеет другую структуру пакетов, и другой метод их активации.  Этот метод активации
+станет методом по умолчанию только после того, как разработка CEDET переключится на ветку
+<code>newtrunk</code>.  Но вы можете посмотреть в <a href="https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet-new.el">мой конфигурационный файл</a> чтобы понять как настроить
+CEDET для работы с веткой <code>newtrunk</code>.</p>
+
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Что такое CEDET?</a>
+</dt>
+<dt>
+<a href="#sec2">Установка CEDET</a>
+</dt>
+<dt>
+<a href="#sec3">Базовая настройка пакета</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec4">Настройка Semantic</a>
+</dt>
+<dt>
+<a href="#sec5">Настройка Semanticdb</a>
+</dt>
+<dt>
+<a href="#sec6">Настройка Semantic для работы с проектами на C &amp; C++</a>
+</dt>
+<dt>
+<a href="#sec7">Обработка кода препроцессором</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec8">Использование Semantic</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec9">Дополнение имен</a>
+</dt>
+<dt>
+<a href="#sec10">Получение информации о тагах</a>
+</dt>
+<dt>
+<a href="#sec11">Навигация по коду</a>
+</dt>
+<dt>
+<a href="#sec12">Поиск использования функции</a>
+</dt>
+<dt>
+<a href="#sec13">Свертывание (folding) кода</a>
+</dt>
+<dt>
+<a href="#sec14">Прочие команды Senator</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec15">Работа с Srecode</a>
+</dt>
+<dt>
+<a href="#sec16">Дополнительные пакеты</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec17">Пакет eassist</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+Что такое CEDET?</h2>
+
+<p class="first">Пакет CEDET объединяет в своем составе несколько пакетов, реализующих различную
+функциональность, но объединенных вокруг одной задачи по работе с исходным кодом на
+различных языках программирования.</p>
+
+<ul>
+<li>Semantic &mdash; является основой для построения анализаторов для различных языков
+программирования, позволяя использовать общее представление извлеченной информации для
+разных языков, используя которую реализуется остальной функционал не только CEDET, но и
+других пакетов &mdash; <a href="http://jdee.sourceforge.net/">JDEE</a> и <a href="http://ecb.sf.net">ECB</a>, которые являются попыткой создать среды разработки,
+близкие по виду к имеющимся на рынке (Eclipse, NetBeans и т.п.);</li>
+<li>SemanticDB &mdash; входит в состав Semantic, и реализует интерфейсы к разным модулям
+хранения информации, используемой при дополнении имен, навигации по коду и т.п.
+Синтаксическая информация может сохраняться между сессиями работы в Emacs, что
+уменьшает потребность в регулярном разборе одного и того же кода;</li>
+<li>Senator &mdash; реализует функциональность для навигации по синтаксической информации,
+извлеченной Semantic;</li>
+<li>Srecode &mdash; библиотека для генерации кода основываясь на существующей синтаксической
+информации, в том числе и полученной в результате работы Semantic;</li>
+<li>EDE &mdash; реализует набор расширений, которые позволяют работать с проектами &mdash; управлять
+списком целей для сборки, выполнять сборку проекта и т.п.  Кроме того, используя
+концепцию проекта, существует возможность более точного использования Semantic для
+дополнения имен и другой функциональности;</li>
+<li>Speedbar &mdash; используется для отображения информации о текущем буфере, основываясь на
+данных из различных источниках &mdash; Semantic, специализированные провайдеры информации
+(например, для texinfo &amp; html) и т.п.</li>
+<li>Eieio &mdash; реализация CLOS-like (Common Lisp Object System) инфраструктуры для Emacs
+Lisp;</li>
+<li>Cogre &mdash; библиотека для отрисовки UML-подобных диаграм в буфере Emacs с базовой
+интеграцией с Semantic.</li>
+</ul>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Установка CEDET</h2>
+
+<p class="first">Лучше всего в настоящее время пользоваться версией CEDET находящейся в репозитории на
+<a href="http://sourceforge.net/projects/cedet/develop">Sourceforge.net</a>.  После загрузки данных из репозитория, необходимо перейти в нужный
+каталог и скомпилировать пакет с помощью следующей команды:</p>
+
+<pre class="src">
+emacs -Q -l cedet-build.el -f cedet-build
+</pre>
+
+<p>или, использовать следующую комманду для компиляции пакета в окне терминала и выхода после
+компиляции:</p>
+
+<pre class="src">
+emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
+</pre>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Базовая настройка пакета</h2>
+
+<p class="first">Загрузка пакета целиком осуществляется с помощью скрипта <code>cedet.el</code>, поэтому добавьте
+следующую строку в ваш файл инициализации<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>:</p>
+
+<pre class="src">
+(load-file <span style="color: #008b00;">"~/emacs/cedet/common/cedet.el"</span>)
+</pre>
+
+<p>Если планируете использовать проекты, то необходимо включить соответствующий режим,
+реализуемый пакетом EDE:</p>
+
+<pre class="src">
+(global-ede-mode t)
+</pre>
+
+<h3><a name="sec4" id="sec4"></a>
+Настройка Semantic</h3>
+
+<p class="first">В зависимости от того, какие возможности вы хотите получить от Semantic, вы можете
+воспользоваться одной из команд для загрузки соответствующих наборов функциональности (они
+перечислены в порядке возрастания реализованных функций, и каждый следующий включает в
+себя предыдущие наборы функциональности):</p>
+
+<ul>
+<li><code>semantic-load-enable-minimum-features</code> &mdash; включает только необходимый минимум
+возможностей &mdash; поддержание актуальности синтаксической информации для текущего буфера,
+сохранение синтаксической информации для последующего использования (Semanticdb) и
+подгрузку существующей информации Semanticdb и Ebrowse;</li>
+<li><code>semantic-load-enable-code-helpers</code> &mdash; включает <code>senator-minor-mode</code> для навигации по
+буферу, <code>semantic-mru-bookmark-mode</code> для запоминания и навигации между тагами, и
+<code>semantic-idle-summary-mode</code>, который показывает информацию для тага под курсором;</li>
+<li><code>semantic-load-enable-gaudy-code-helpers</code> &mdash; включает <code>semantic-stickyfunc-name</code> для
+отображения имени текущей функции в самой верхней строке буфера,
+<code>semantic-decoration-mode</code> для декорирования тагов, используя различные аттрибуты, и
+<code>semantic-idle-completion-mode</code> для генерации списка возможных дополнений имен, если
+пользователь останавливает свою работу на некоторое время;</li>
+<li><code>semantic-load-enable-excessive-code-helpers</code> &mdash; подключает <code>which-func-mode</code>, который
+отображает имя текущей функции в строке состояния;</li>
+<li><code>semantic-load-enable-semantic-debugging-helpers</code> &mdash; включает несколько режимов, которые
+полезны при отладке Semantic &mdash; показ ошибок разбора кода, состояния парсера и т.п.</li>
+</ul>
+
+<p>Таким образом, вам необходимо поместить вызов одной из функций в файл инициализации после
+загрузки CEDET.  Например, вот так</p>
+
+<pre class="src">
+(semantic-load-enable-excessive-code-helpers)
+</pre>
+
+<p>Чтобы использовать возможности по дополнению имен и показу информации о функциях и
+классах, вам необходимо загрузить пакет <code>semantic-ia</code> с помощью следующей команды:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-ia</span>)
+</pre>
+
+<p>После загрузки этого пакета, вы получите возможность использования соответствующего
+функционала, описанного ниже.</p>
+
+<h4>Системные подключаемые файлы</h4>
+
+<p class="first">Для полноценной работы с системными библиотеками, Semantic должен иметь информацию о
+подключаемых файлах, которые содержат информацию о функциях и типах данных,
+предоставляемых этими библиотеками.</p>
+
+<p>Если вы используете GCC для программирования на C &amp; C++, то пакет может автоматически
+получить данные о нахождении системных подключаемых файлов.  Для этого вам нужно загрузить
+пакет <code>semantic-gcc</code> с помощью следующей команды:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-gcc</span>)
+</pre>
+
+<p>Вы также можете явно задать дополнительные пути поиска подключаемых файлов, которые будут
+использоваться при работе в определенном режиме.  Для этого используется команда
+<code>semantic-add-system-include</code>, которой передается два параметра &mdash; путь к заголовочным
+файлам, и имя режима в котором этот путь будет использоваться.  Например:</p>
+
+<pre class="src">
+(semantic-add-system-include <span style="color: #008b00;">"~/exp/include/boost_1_37"</span> 'c++-mode)
+</pre>
+
+
+<h4>Оптимизация работы Semantic</h4>
+
+<p class="first">Для оптимизации поиска тагов вы можете использовать несколько приемов:</p>
+
+<ul>
+<li>Ограничить область поиска путем настройки проекта EDE, как это описано ниже;</li>
+<li>Явно указать список корневых каталогов для ваших проектов, так что Semantic будет
+использовать ограниченное количество баз тагов;</li>
+<li>Заранее сгенерировать базы данных тагов для часто используемых каталогов (<code>/usr/include</code>,
+<code>/usr/local/include</code>, и т.п.) с помощью команд <code>semanticdb-create-ebrowse-database</code> или
+<code>semanticdb-create-cscope-database</code>;</li>
+<li>Ограничить диапазон поиска с помощью настройки переменной
+<code>semanticdb-find-default-throttle</code> для конкретных режимов, например, не использовать
+информацию о системных подключаемых файлов, убрав директиву <code>system</code> из списка объектов
+поиска для режима <code>c-mode</code>:</li>
+</ul>
+
+<pre class="src">
+(setq-mode-local c-mode semanticdb-find-default-throttle
+                                                                 '(project unloaded system recursive))
+</pre>
+
+<p>Кроме того, вы можете указать Semantic, что он должен извлекать синтаксическую информацию
+из текущего буфера только тогда, когда Emacs ничего не делает.  Для этого вам необходимо
+включить <code>semantic-idle-scheduler-mode</code>, а для настройки времени ожидания (в секундах)
+используется переменная <code>semantic-idle-scheduler-idle-time</code>.</p>
+
+
+<h4>Интеграция с <em>imenu</em></h4>
+
+<p class="first">Пакет Semantic умеет интегрироваться с пакетом <em>imenu</em>, который позволяет отображать меню со
+списком функций, переменных и т.п. информацией.  Для включения этой поддержки, вам
+необходимо добавить следующий код в файл инициализации:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-semantic-hook</span> ()
+  (imenu-add-to-menubar <span style="color: #008b00;">"TAGS"</span>))
+(add-hook 'semantic-init-hooks 'my-semantic-hook)
+</pre>
+
+
+
+<h3><a name="sec5" id="sec5"></a>
+Настройка Semanticdb</h3>
+
+<p class="first">Если вы использовали стандартный механизм загрузки компонентов CEDET, то Semanticdb будет
+загружен автоматически.  Иначе, вы можете загрузить и включить его с помощью следующих
+команд:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semanticdb</span>)
+(global-semanticdb-minor-mode 1)
+</pre>
+
+<p>Для настройки поведения Semanticdb используется некоторое количество переменных, которые
+позволяет указать вам куда сохранять данные, а также другие параметры.  Эти переменные
+можно настроить через группу настройки <code>semanticdb</code>.</p>
+
+<p>Кроме того, Semanticdb может использовать базы данных, сгенерированные внешними утилитами
+&mdash; 
+<code>gtags</code> из состава <a href="http://www.gnu.org/software/global/">GNU Global</a>, <code>ctags</code>, <code>ebrowse</code> &amp; <code>cscope</code>.  Для активации этой поддержки, вы
+можете использовать следующий код:</p>
+
+<pre class="src">
+<span style="color: #666666;">;; </span><span style="color: #666666;">&#1077;&#1089;&#1083;&#1080; &#1074;&#1099; &#1093;&#1086;&#1090;&#1080;&#1090;&#1077; &#1074;&#1082;&#1083;&#1102;&#1095;&#1080;&#1090;&#1100; &#1087;&#1086;&#1076;&#1076;&#1077;&#1088;&#1078;&#1082;&#1091; gnu global
+</span>(<span style="color: #a020f0;">when</span> (cedet-gnu-global-version-check t)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semanticdb-global</span>)
+  (semanticdb-enable-gnu-global-databases 'c-mode)
+  (semanticdb-enable-gnu-global-databases 'c++-mode))
+
+<span style="color: #666666;">;; </span><span style="color: #666666;">&#1074;&#1082;&#1083;&#1102;&#1095;&#1080;&#1090;&#1100; &#1087;&#1086;&#1076;&#1076;&#1077;&#1088;&#1078;&#1082;&#1091; ctags &#1076;&#1083;&#1103; &#1086;&#1089;&#1085;&#1086;&#1074;&#1085;&#1099;&#1093; &#1103;&#1079;&#1099;&#1082;&#1086;&#1074;:
+</span><span style="color: #666666;">;;  </span><span style="color: #666666;">Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
+</span>(<span style="color: #a020f0;">when</span> (cedet-ectag-version-check)
+  (semantic-load-enable-primary-exuberent-ctags-support))
+</pre>
+
+
+
+<h3><a name="sec6" id="sec6"></a>
+Настройка Semantic для работы с проектами на C &amp; C++</h3>
+
+<p class="first">Для правильной работы Semantic с кодом на С &amp; C++ рекомендуется воспользоваться пакетом
+EDE (работа с проектами и т.п.) также из поставки CEDET.  Для этих языков, EDE определяет
+специальный тип проекта &mdash; 
+<code>ede-cpp-root-project</code>, который предоставляет Semantic
+дополнительную информацию, используемую для анализа исходных текстов вашего проекта, и
+последующего использования информации только для вашего проекта.  Для этого, необходимо
+включить соответствующий режим при загрузке пакета.</p>
+
+<p>Для определения проекта используется следующий код:</p>
+
+<pre class="src">
+(ede-cpp-root-project <span style="color: #008b00;">"Test"</span>
+                <span style="color: #006400;">:name</span> <span style="color: #008b00;">"Test Project"</span>
+                <span style="color: #006400;">:file</span> <span style="color: #008b00;">"~/work/project/CMakeLists.txt"</span>
+                <span style="color: #006400;">:include-path</span> '(<span style="color: #008b00;">"/"</span>
+                                <span style="color: #008b00;">"/Common"</span>
+                                <span style="color: #008b00;">"/Interfaces"</span>
+                                <span style="color: #008b00;">"/Libs"</span>
+                               )
+                <span style="color: #006400;">:system-include-path</span> '(<span style="color: #008b00;">"~/exp/include"</span>)
+                <span style="color: #006400;">:spp-table</span> '((<span style="color: #008b00;">"isUnix"</span> . <span style="color: #008b00;">""</span>)
+                             (<span style="color: #008b00;">"BOOST_TEST_DYN_LINK"</span> . <span style="color: #008b00;">""</span>)))
+</pre>
+
+<p>В качестве параметра <code>:file</code> вам надо указать любой из файлов, находящихся в корневом
+каталоге проекта.  Этот файл никак не анализируется, а служит только отправной точкой для
+поиска файлов.</p>
+
+<p>Для поиска подключаемых файлов используется каталоги из двух списков, которые могут быть
+определены в проекте.  Параметр <code>:system-include-path</code> используется для задания списка
+полных путей каталогов, в которых будет производиться поиск &quot;системных&quot; подключаемых
+файлов.  А параметр <code>:include-path</code> задает список каталогов, относительно корневого каталога
+проекта, в которых будет производиться поиск подключаемых файлов, специфичных для вашего
+проекта (заметьте, что имена начинаются со знака <code>/</code>, что означает, что имена задаются
+относительно корневого каталога проекта).  Вместо явного задания каталогов, вы также
+можете задать функцию, которая будет заниматься поиском файлов вашего проекта.  Об этом вы
+можете прочитать в руководстве EDE.</p>
+
+<p>Еще один параметр, который может быть задан в проекте &mdash; список определений, которые будут
+использоваться при обработке кода препроцессором.  Параметр <code>:spp-table</code> позволяет
+определить список пар, состоящих из имени символа и связанного с ним значения.  В нашем
+примере мы определяем два символа <code>isUnix</code> и <code>BOOST_TEST_DYN_LINK</code>, которые будут переданы
+препроцессору, что позволит произвести правильный разбор кода.</p>
+
+<p>В том случае, если это необходимо, пользователь может переопределить для проекта некоторые
+переменные путем указания параметра <code>:local-variables</code>, указав набор пар вида имя
+символа/значение, и эти значения будут установлены для файлов, входящих в проект.</p>
+
+
+<h3><a name="sec7" id="sec7"></a>
+Обработка кода препроцессором</h3>
+
+<p class="first">Более подробно про определения символов препроцессора вы можете прочитать в документации
+на переменную <code>semantic-lex-c-preprocessor-symbol-map</code>, а список символов препроцессора,
+определенных для какого-то файла, можно получить с помощью команды
+<code>semantic-lex-spp-describe</code>, и использовать нужные значения для настройки проекта.</p>
+
+<p>Многие библиотеки перечисляют все используемые макросы в одном заголовочном файле, и
+поэтому вы можете воспользоваться существующими определениями.  Для этого, вы должны
+указать необходимые файлы в переменной <code>semantic-lex-c-preprocessor-symbol-file</code>, и при
+проведении анализа, значения из этих файлов будут автоматически учтены.  По умолчанию, эта
+переменная содержит только одно значение &mdash; файл с определениями для стандартной
+библиотеки C++.  В качестве примера я хочу привести настройку CEDET для работы с
+библиотекой Qt4:</p>
+
+<pre class="src">
+(setq qt4-base-dir <span style="color: #008b00;">"/usr/include/qt4"</span>)
+(semantic-add-system-include qt4-base-dir 'c++-mode)
+(add-to-list 'auto-mode-alist (cons qt4-base-dir 'c++-mode))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #008b00;">"/Qt/qconfig.h"</span>))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #008b00;">"/Qt/qconfig-dist.h"</span>))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #008b00;">"/Qt/qglobal.h"</span>))
+</pre>
+
+<p>После добавления этого кода в ваш файл инициализации, вы сможете использовать механизмы
+дополнения для классов, определенных в Qt4.  Пример дополнения вы можете увидеть на
+рисунке ниже.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-devenv/cedet-qt-name-completion.png" alt="">
+</div>
+
+
+
+
+<h2><a name="sec8" id="sec8"></a>
+Использование Semantic</h2>
+
+<p class="first">С точки зрения пользователя Semantic реализует несколько основных функции &mdash; дополнение
+имен, получение информации о тагах (переменных, функциях и т.д.) и навигацию по исходному
+коду.  Часть команд реализуется пакетом <code>semantic-ia</code>, часть пакетом Senator, и часть &mdash;
+ядром самого Semantic.</p>
+
+<p>Часть команд не имеет стандартных привязок клавиш, поэтому вам лучше самим выбрать удобные
+для вас привязки и привязать к ним нужные команды, например вот так:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-cedet-hook</span> ()
+  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
+  (local-set-key <span style="color: #008b00;">"\C-c?"</span> 'semantic-ia-complete-symbol-menu)
+  (local-set-key <span style="color: #008b00;">"\C-c&gt;"</span> 'semantic-complete-analyze-inline)
+  (local-set-key <span style="color: #008b00;">"\C-cp"</span> 'semantic-analyze-proto-impl-toggle))
+(add-hook 'c-mode-common-hook 'my-cedet-hook)
+</pre>
+
+<p><em>Я хотел бы отметить, что работа над Semantic ведется достаточно активно, и в случае
+неправильной работы каких-либо компонент, просьба отправлять примеры кода в
+<a href="https://lists.sourceforge.net/lists/listinfo/cedet-devel">список рассылки cedet-devel</a> &mdash; автор реагирует на баг-репорты достаточно оперативно.</em></p>
+
+<h3><a name="sec9" id="sec9"></a>
+Дополнение имен</h3>
+
+<p class="first">Дополнение имен функций и классов &mdash; достаточно востребованная и часто используемая
+функция<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>.  В составе Semantic идет два пакета реализующих данную функциональность &mdash;
+<code>semantic-ia</code> и Senator.  Функции реализованные в составе <code>semantic-ia</code> используют для
+определения списка возможных дополнений функцию <code>semantic-analyze-possible-completions</code>,
+которая учитывает достаточно много параметров &mdash; области видимости определений, и т.п., и
+кроме того, она может быть переопределена пользователем для более точной генерации списка
+имен.  В то время как функции Senator используют более простой механизм определения списка
+возможных дополнений (в основном используя информацию об определениях в текущем файле),
+что иногда ведет к неправильному его формированию, хотя и работает намного быстрее чем
+функции <code>semantic-ia</code>.</p>
+
+<p>Использование функции <code>semantic-ia-complete-symbol</code> при наборе кода приведет к дополнению
+соответствующего имени &mdash; функции, переменной или переменной-члена класса, в зависимости
+от контекста в котором она была вызвана.  Если существует несколько вариантов, то имя
+будет дополнено до наибольшей общей части имени, а при повторном вызове команды, будет
+показан буфер со списком всех возможных вариантов имени.  Пользователь может также
+воспользоваться функцией <code>semantic-ia-complete-symbol-menu</code>, которая также анализирует
+контекст в котором она вызвана, и отображает варианты дополнений в виде графического меню,
+перемещаясь по которому пользователь может выбрать нужный вариант дополнения<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.  Кроме
+того, существует функция <code>semantic-ia-complete-tip</code>, которая отображает список возможных
+дополнений в виде всплывающей подсказки (tooltip).</p>
+
+<p>Как упоминалось выше, Senator также предоставляет функции для дополнения имен, которые
+работают более быстро, но учитывают меньше параметров при генерации списка дополнений.
+Функция <code>senator-complete-symbol</code> (<code>C-c , TAB</code>) дополняет имя для текущего тага, при этом она
+сразу подставляет имя первого варианта из списка всех возможных вариантов.  Если вам это
+не подходит, то вы можете продолжать вызывать эту функцию для перебора всех вариантов
+дополнения имен (что не всегда удобно). В том случае, если вариантов имен много, или вы
+хотите посмотреть полный список функций и переменных для какого-то класса, то лучше
+воспользоваться функцией <code>senator-completion-menu-popup</code> (<code>C-c , SPC</code>), которая отображает
+список возможных вариантов дополнений в виде графического меню.</p>
+
+<p>Помимо этого, для отдельных языков пользователь может включить специальный режим &mdash;
+<code>semantic-idle-completions-mode</code> (или воспользоваться функцией
+<code>global-semantic-idle-scheduler-mode</code> чтобы включить его для всех режимов) при котором
+дополнения имен начинают показываться спустя некоторое время бездействия.  При этом, в
+качестве варианта предлагается первое значение из списка возможных дополнений, и
+пользователь может использовать клавишу <code>TAB</code> для перебора вариантов.</p>
+
+<p>Для языков с C-подобным синтаксисом, пользователь может воспользоваться командой
+<code>semantic-complete-self-insert</code>, привязанной к клавишам <code>.</code> и <code>&gt;</code>, как это показано ниже:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-c-mode-cedet-hook</span> ()
+ (local-set-key <span style="color: #008b00;">"."</span> 'semantic-complete-self-insert)
+ (local-set-key <span style="color: #008b00;">"&gt;"</span> 'semantic-complete-self-insert))
+(add-hook 'c-mode-common-hook 'my-c-mode-cedet-hook)
+</pre>
+
+<p>Использование этого кода приведет к тому, что при нажатии <code>.</code> или <code>&gt;</code> после переменных,
+экземпляров класса, будет показан список возможных дополнений для данного класса.</p>
+
+
+<h3><a name="sec10" id="sec10"></a>
+Получение информации о тагах</h3>
+
+<p class="first">Пакет <code>semantic-ia</code> реализует несколько команд, которые позволяют разработчику получать
+информацию о классах, функциях и переменных.  В качестве документации используются
+комментарии, извлеченные из исходного кода, в том числе и используемые для генерации
+документации с помощью Doxygen.  В настоящее время реализованы следующие функции:</p>
+
+<dl>
+<dt><strong><code>semantic-ia-show-doc</code></strong></dt>
+<dd>показывает документацию для функции или переменной чье имя
+находится под курсором.  Документация показывается в отдельном буфере.  Для переменных
+показывается их объявление, включающее тип, и строка документации, если она есть.  Для
+функций показывается их прототип, и документация по аргументам функции и возвращаемому
+значению;</dd>
+<dt><strong><code>semantic-ia-show-summary</code></strong></dt>
+<dd>показывает документацию для символа под курсором, но при
+информация отображается в мини-буфере, так что пользователь увидит только объявление
+переменной или функции;</dd>
+<dt><strong><code>semantic-ia-describe-class</code></strong></dt>
+<dd>запрашивает у пользователя имя класса и возвращает список
+функций и переменных определенных в данном классе и всех родительских классах.</dd>
+</dl>
+
+
+<h3><a name="sec11" id="sec11"></a>
+Навигация по коду</h3>
+
+<p class="first">Одной из самых полезных функций для навигации является функция <code>semantic-ia-fast-jump</code>,
+которая позволяет переходить к объявлению переменной или функции, чье имя находится под
+курсором.  Вернуться назад вы сможете использовав функцию <code>semantic-mrub-switch-tag</code> (<code>C-x
+B</code>), которая доступна при использовании <code>semantic-mru-bookmark-mode</code>.</p>
+
+<p>Также в Semantic определено две функции для перехода к объявлению функции или переменной
+находящемся в текущем файле &mdash; 
+<code>semantic-complete-jump-local</code> (<code>C-c , j</code>), или в области
+видимости всего проекта &mdash; 
+<code>semantic-complete-jump</code> (<code>C-c , J</code>).  Обе эти функции позволяют
+ввести имя функции или переменной (включая локальные для функций), используя механизмы
+дополнения имен, и перейти к данному определению.</p>
+
+<p>Функция <code>semantic-analyze-proto-impl-toggle</code> позволяет &quot;прыгать&quot; между объявлением функции и
+ее реализацией для языков, поддерживающих раздельное объявление и реализацию.  Еще одной
+полезной функцией является <code>semantic-decoration-include-visit</code>, которая позволяет
+переключиться в заголовочный файл, чье имя находится под курсором.</p>
+
+<p>Senator также реализует несколько функций для навигации в исходном коде.  Сюда относятся
+функции <code>senator-next-tag</code> (<code>C-c , n</code>) и <code>senator-previous-tag</code> (<code>C-c , p</code>), которые перемещаются
+к следующему или предыдущему тагу, а также функция <code>senator-go-to-up-reference</code> (<code>C-c , u</code>),
+которая переходит к &quot;родительскому&quot; тагу  (например, для функции-члена класса,
+&quot;родительским&quot; тагом будет объявление класса).</p>
+
+
+<h3><a name="sec12" id="sec12"></a>
+Поиск использования функции</h3>
+
+<p class="first">Недавно в Semantic была добавлена полезная команда &mdash; 
+<code>semantic-symref</code>, которая позволяет
+найти где символ, чье имя находится под курсором, используется в проекте.  В том случае,
+если вы хотите найти данные для символа с произвольным именем, то вам стоит
+воспользоваться функцией <code>semantic-symref-symbol</code>, которая позволяет вам ввести имя символа
+вручную.</p>
+
+<p>При этом, если вхождения символа в соответствующей базе данных (GNU Global и т.п.) не
+найдены, то команда попытается найти использование заданного символа с помощью команды
+<code>find-grep</code>.  В итоге создается вот такой вот буфер с найдеными результатами, используя
+который пользователь может перемещаться к нужным частям кода:</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-devenv/cedet-symref.png" alt="">
+</div>
+
+
+<h3><a name="sec13" id="sec13"></a>
+Свертывание (folding) кода</h3>
+
+<p class="first">Поскольку Semantic имеет практически полную синтаксическую информацию об исходных текстах,
+то это позволяет реализовать практически такую же функциональность по свертыванию кусков
+кода, которая реализуется пакетом <em>hideshow</em>.  Для получения этой функциональности вам
+необходимо выполнить настройку переменной <code>global-semantic-tag-folding-mode</code>.  Это приведет
+к появлению небольших треугольников в области значков (<em>fringle</em>), нажимая на которые можно
+сворачивать или разворачивать соответствующий кусок текста (не только исходного текста, но
+и комментариев и других объектов).</p>
+
+<p>В Senator также имеется схожая функциональность, но она в основном предназначена для
+работы с объектами верхнего уровня &mdash; функциями, классами и т.п.  Сворачивание участка
+кода производится с помощью функции <code>senator-fold-tag</code> (<code>C-c , -</code>), а разворачивание с помощью
+функции <code>senator-unfold-tag</code> (<code>C-c , +</code>).</p>
+
+
+<h3><a name="sec14" id="sec14"></a>
+Прочие команды Senator</h3>
+
+<p class="first">Пакет Senator определяет некоторое количество команд для работы с тагами &mdash; вырезать или
+скопировать текущий таг, вставить его в другом месте, и т.д.  Для вырезания текущего тага
+(обычно это определение функции) определена функция <code>senator-kill-tag</code> (<code>C-c , C-w</code>).
+Вставить таг целиком в другом месте можно с помощью стандартной комбинации клавиш <code>C-y</code>, в
+то время как функция <code>senator-yank-tag</code> (<code>C-c , C-y</code>) вставляет лишь определение данного тага,
+без тела.  Еще одной полезной функцией является <code>senator-copy-tag</code> (<code>C-c , M-w</code>), которая
+копирует текущий таг для последующей вставки (с помощью <code>C-c , C-y</code>), что очень удобно для
+вставки объявлений функций в заголовочных файлах, а полный текст скопированного тага,
+вставляется с помощью <code>C-y</code>.</p>
+
+<p>Senator позволяет изменить поведение стандартных функций поиска (<code>re-search-forward</code>,
+<code>isearch-forward</code> и др.) при работе с исходным кодом таким образом, что функции будут
+производить поиск только в соответствующих тагах.  Чтобы включить этот режим вы можете
+использовать функцию <code>senator-isearch-toggle-semantic-mode</code> (<code>C-c , i</code>), а с помощью функции
+<code>senator-search-set-tag-class-filter</code> (<code>C-c , f</code>) вы можете ограничить пространство поиска
+только указанными классами тагов &mdash; 
+<code>function</code> для функций, <code>variable</code> для переменных, и т.д.</p>
+
+<p>Вы также можете воспользоваться поиском по тагам не переключаясь явно в режим ограничения
+поиска.  Вам нужно лишь вызвать одну из функций: <code>senator-search-forward</code> или
+<code>senator-search-backward</code>.</p>
+
+
+
+<h2><a name="sec15" id="sec15"></a>
+Работа с Srecode</h2>
+
+<p class="first">Пакет Srecode позволяет пользователю определять различные шаблоны, но в отличии от других
+систем для работы с шаблонами, вставка новых кусков текста, может сильно зависеть от
+текущего контекста, например, вставка пары <code>get/set</code> может производиться только внутри
+объявления класса, или вставка объявления новой функции может производиться только вне
+какой-либо другой функции.</p>
+
+<p>Основной командой, используемой для вставки шаблонов, является функция <code>srecode-insert</code>,
+которая привязана к сочетанию клавиш <code>C-c / /</code>.  Эта функция запросит у вас имя шаблона,
+которое вы можете ввести, используя механизмы дополнения.  В зависимости от текущего
+контекста, список доступных шаблонов может меняться.  Если вы хотите вставить тот же самый
+шаблон еще раз, то в можете воспользоваться командой <code>srecode-insert-again</code> (<code>C-c / .</code>),
+которая вставит последний использованный шаблон.</p>
+
+<p>Шаблоны также могут определять собственные привязки клавиш &mdash; для них зарегистрирован
+диапазон сочетаний <code>C-c / [a..z]</code>, и пользователь может указать в шаблоне какая клавиша
+будет к нему привязана &mdash; например, для C++ использование сочетания <code>C-c / c</code> приведет к
+вставке шаблона для класса.</p>
+
+<p>Сочетания клавиш, использующие заглавные буквы, зарезервированы для шаблонов и команд,
+определенных в Srecode.  Например, <code>C-c / G</code> (<code>srecode-insert-getset</code>) вставляет пару функций
+<code>get/set</code> для заданной переменной-члена класса, а <code>C-c / E</code> (<code>srecode-edit</code>) используется для
+редактирования шаблонов.  Число этих команд регулярно меняется, поэтому для получения
+полного их списка, лучше посмотреть в документацию.</p>
+
+<p>Кроме шаблонов поставляемых вместе с CEDET, пользователь может определять собственные
+шаблоны и сохранять их в каталоге <code>~/.srecode</code>, где CEDET найдет их автоматически.  Про
+создание шаблонов вы можете прочитать в руководстве для данного пакета, которое входит в
+состав документации, поставляемой вместе с CEDET.</p>
+
+
+<h2><a name="sec16" id="sec16"></a>
+Дополнительные пакеты</h2>
+
+<p class="first">Вместе с CEDET поставляется некоторое количество дополнительных пакетов, часто находящихся
+в каталоге <code>contrib</code> дистрибутива, который автоматически добавляется в пути поиска пакетов,
+поэтому загрузка нужных пакетов производится без дополнительных действий.</p>
+
+<h3><a name="sec17" id="sec17"></a>
+Пакет eassist</h3>
+
+<p class="first">Пакет <em>eassist</em> реализует несколько дополнительных команд, которые в своей работе используют
+информацию, полученную от Semantic.  По умолчанию эти команды не имеют предопределенных
+привязок клавиш, поэтому вам необходимо самим назначить нужные клавиши, если вы планируте
+пользоваться этими командами.</p>
+
+<p>Функция <code>eassist-list-methods</code>, запущенная в файле с исходным кодом, показывает список
+функций в этом файле, позволяя выполнить быстрый переход к выбранной функции.</p>
+
+<p>При разработке на языках C и C++ полезной может оказаться функция <code>eassist-switch-h-cpp</code>,
+которая выполняет переключение между подключаемым файлом и файлом реализации (если они
+имеют одинаковые имена, но разные расширения файлов).</p>
+
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> D моеv репозитории с конфигурацией Emacs вы можете найти мой <a href="http://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet.el">файл инициализации CEDET</a>
+который можно использовать в качестве основы для дальнейшей работы (хотя там
+достаточно много лишнего).</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> Существует также функция <code>semantic-complete-analyze-inline</code>, которая отображает список
+возможных дополнений в отдельном окне, часто более удобно чем использование
+графического меню.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> В том случае, если дополнение имен работает неправильно, то попробуйте
+проанализировать почему это происходит, и лишь затем отправлять сообщение об ошибке в
+список рассылки.  Описание процесса отладки вы можете найти в Semantic User Guide в
+разделе <em>Smart Completion Debugging</em>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 03.04.2012 09:35</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-devenv/EmacsCedet.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-devenv/EmacsCedet.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Пакет iTe</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, ite, latex, tex, emacs, gnu emacs, xemacs" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Пакет iTe</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p><em>iTe</em> &mdash; это режим, обеспечивающий интерактивное создание и редактирование документов TeX и
+LaTeX.  При работе с ним, можно выбрать отдельные фрагменты, такие как формулы, картинки,
+подписи и т.п., и затем перемещать, вращать и изменять их размеры.  Сам пакет не
+обеспечивает предварительный просмотр создаваемого документа, но делает работу более
+удобной.</p>
+
+<p>Домашнюю страницу данного пакета можно найти на <a href="http://www.ctan.org/tex-archive/support/ite/">сайте CTAN</a>.  Она содержит дистрибутив
+данного пакета, подробное руководство по установке и использованию пакета, а также примеры
+получаемых документов.</p>
+
+<h2>Установка пакета</h2>
+
+<p class="first">Для установки пакета сначала скачайте его с домашней страницы проекта, распакуйте.  В
+составе пакета идет набор стилевых файлов LaTeX, которые должны быть доступны при
+компиляции исходных текстов.  Для подключения пакета поместите в файл инициализации Emacs
+следующие команды:</p>
+
+<pre class="src">
+(add-to-list 'load-path <span style="color: #008b00;">"path_to_ite"</span>)
+(autoload 'ite <span style="color: #008b00;">"ite"</span>
+   <span style="color: #666666;">"Start the interactive TeX editor if invoked on a (La)TeX file.
+   Otherwise, display help."</span> t)
+(setq ite-config-files (list <span style="color: #008b00;">"path_to_ite/ite.conf"</span> <span style="color: #008b00;">"~/iTe/ite_local.conf"</span>))
+</pre>
+
+<p>первая команда помещает каталог с <em>iTe</em> в список каталогов для поиска пакетов Emacs, вторая
+команда позволяет загрузить <em>iTe</em> при первом его вызове, а последняя &mdash; задает список файлов
+конфигурации <em>iTe</em>.</p>
+
+
+<h2>Использование пакета <em>iTe</em></h2>
+
+<p class="first">Для начала работы с пакетом, необходимо лишь выполнить <code>M-x ite</code>, и пакет будет загружен и
+начнет работать.</p>
+
+<p>Для обеспечения связи между исходным текстом и результирующим файлом используются
+специальные команды LaTeX<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.  Для использования данных команд необходимо подключить
+стилевой файл <code>ite.sty</code> (с помощью команды <code>\usepackage{ite}</code>).</p>
+
+<p>Активные объекты (те, с которыми можно проводить манипуляции) определяются командой <code>\ite</code>,
+которая вначале задается без параметров, а после визуального редактирования, содержит
+параметры расположения, размера и наклона.  Список управляющих клавиш, с помощью которых
+производится работа с объектами, приведен в файле <code>bindings.html</code> дистрибутива <em>iTe</em>.</p>
+
+<p>Действия с активными объектами проводятся в рамках специального окружения <code>iteblock</code>,
+которое задает размеры области в которой будут проводиться действия.  Если вы не хотите
+задавать размеры области, то <em>iTe</em> это может сделать за вас, но для этого необходимо
+подключить стилевой файл <code>trig.sty</code></p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> стоит отметить, что <em>iTe</em> позволяет работать и с Plain TeX, но обычно эта возможность
+редко используется</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-tex/iTe.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-tex/iTe.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

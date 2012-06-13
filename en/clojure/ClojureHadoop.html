@@ -1,0 +1,492 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Programming  Hadoop with Clojure</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, hadoop, clojure" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Programming  Hadoop with Clojure</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Main</a></li><li><a href="../fp/">Functional programming</a></li><li><a href="../clojure/" class="current">Clojure</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../cf/">Information Security</a></li><li><a href="../cpp/">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../writings/">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>This article is a short introduction into programming  Hadoop using Clojure language.</p>
+
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Introduction</a>
+</dt>
+<dt>
+<a href="#sec2">Installation and configuration</a>
+</dt>
+<dt>
+<a href="#sec3">Parts of clojure-hadoop</a>
+</dt>
+<dt>
+<a href="#sec4">How to program with clojure-hadoop</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec5">Using clojure-hadoop.gen</a>
+</dt>
+<dt>
+<a href="#sec6">Using clojure-hadoop.wrap</a>
+</dt>
+<dt>
+<a href="#sec7">Using clojure-hadoop.job</a>
+</dt>
+<dt>
+<a href="#sec8">Using clojure-hadoop.defjob</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec9">Full example</a>
+</dt>
+<dt>
+<a href="#sec10">Additional information</a>
+</dt>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+Introduction</h2>
+
+<p class="first">The <a href="http://hadoop.apache.org/">Hadoop</a> is free implementation of infrastructure for scalable, distributed computing.
+It was started as implementation of ideas of MapReduce and GFS, that was introduced by
+Google, but later, many different projects were included into it.  Hadoop is actively used
+by many projects, including commercial companies &mdash; Yahoo, LinkedIn, etc., and it allows
+to process big amounts of data using &quot;standard&quot; equipment.</p>
+
+<p>Hadoop is written in Java, and this allows to easily use it from Clojure.  To simplify
+Hadoop programming in Clojure, <a href="http://stuartsierra.com/">Stuart Sierra</a> developed simple, but powerful package
+<code>clojure-hadoop</code>, that will be described in this article.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Installation and configuration</h2>
+
+<p class="first">Process of minimal Hadoop installation is pretty simple and described in <a href="http://hadoop.apache.org/common/docs/current/quickstart.html">documentation</a>.
+Customization of Hadoop for work in clustered environment is slightly complicated, but
+described in details in <a href="http://hadoop.apache.org/common/docs/current/cluster_setup.html">following document</a>.</p>
+
+<p>I want to mention, that the Cloudera company <a href="http://www.cloudera.com/developers/downloads/">provides ready-to-work packages</a> for different
+Linux distributions, so you can setup Hadoop and other packages using your favorite
+package manager.  Besides this, Cloudera provides ready-to-use installation as disk image
+for VMWare, so you can download one archive, and get working environment.</p>
+
+<p>The source code of <code>clojure-hadoop</code> is available from <a href="http://github.com/stuartsierra/clojure-hadoop">github</a> &mdash; this version works with
+Hadoop version 0.19 and Clojure 1.1.0.  If you want to use Hadoop 0.20, or newer, and/or
+Clojure 1.2.0, then you can take <a href="http://github.com/alexott/clojure-hadoop">version with my changes</a>.  Build and installation is
+performed with Maven &mdash; you just need to execute the <code>mvn install</code> command.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Parts of clojure-hadoop</h2>
+
+<p><code>clojure-hadoop</code> has several levels of abstraction.  Each of these levels provided as
+separate namespace, that are described in abstraction increase order:</p>
+
+<dl>
+<dt><strong><code>clojure-hadoop.gen</code></strong></dt>
+<dd>implements set of macros, that are used to generate classes for
+definition of MapReduce job.  The mapper and reducer functions have the same set of
+arguments, as Java functions, and should have fixed names &mdash; 
+<code>mapper-map</code> and
+<code>reduce-reducer</code>.  The initialization of job, specification of input and output data, and
+other options, should be implemented inside the  <code>tool-run</code> function.</dd>
+<dt><strong><code>clojure-hadoop.wrap</code></strong></dt>
+<dd>implements wrapper functions, that simplify conversion of input
+and output data, making mapper and reducer functions more Clojurish. All other things
+are implemented the same way as in previous case.</dd>
+<dt><strong><code>clojure-hadoop.job</code></strong></dt>
+<dd>implements all necessary functions (<code>mapper-map</code>, <code>reduce-reducer</code> and
+<code>tool-run</code>) and allows to use command line options to specify any mapper and reducer
+functions (written in Clojure), input and output data, and other parameters.</dd>
+<dt><strong><code>clojure-hadoop.defjob</code></strong></dt>
+<dd>defines the <code>defjob</code> macro, that allows to define MapReduce job
+using Clojure code.  You can specify some parameters using command line options
+(usually this is input and output data), while using this macro you can specify <code>map</code> and
+<code>reduce</code> functions, input/output data conversion functions, etc.</dd>
+</dl>
+
+<p>Besides these namespaces, there is also <code>clojure-hadoop.imports</code> namespace, that provides
+functions for importing of Hadoop's classes and interfaces, that makes developer's life
+much easier &mdash; these functions are used in all programs (all, or only some of them),
+independent on selected level of abstraction.  Now following functions are defined:</p>
+
+<ul>
+<li><code>import-io</code> &mdash; to import classes and interfaces from <code>org.apache.hadoop.io</code> package;</li>
+<li><code>import-io-compress</code> &mdash; to import classes and interfaces from
+<code>org.apache.hadoop.io.compress</code> package;</li>
+<li><code>import-fs</code> &mdash; to import classes and interfaces from <code>org.apache.hadoop.fs</code> package;</li>
+<li><code>import-mapred</code> &mdash; to import classes and interfaces from <code>org.apache.hadoop.mapred</code>
+package;</li>
+<li><code>import-mapred-lib</code> &mdash; to import classes and interfaces from <code>org.apache.hadoop.mapred.lib</code>
+package.</li>
+</ul>
+
+
+<h2><a name="sec4" id="sec4"></a>
+How to program with clojure-hadoop</h2>
+
+<p class="first">Depending of selected level of abstraction, you need to use different styles of
+programming.  In most cases it's enough to use <code>defjob</code>, that hides most of the low-level
+details behind its interface, so you only need to implement logic as two functions.  But I
+put here description of all namespaces, because sometimes you'll need to get access to
+low-level interfaces.  All sections have links to examples, that you can find in
+<a href="http://github.com/stuartsierra/clojure-hadoop/tree/master/src/examples/clojure/clojure_hadoop/examples/">clojure-hadoop's distribution</a>.</p>
+
+<h3><a name="sec5" id="sec5"></a>
+Using clojure-hadoop.gen</h3>
+
+<p class="first">Only two objects are defined in <code>clojure-hadoop.gen</code> namespace: the <code>gen-job-classes</code> macro
+and the <code>gen-main-method</code> function.</p>
+
+<p>The <code>gen-job-classes</code> creates three classes, that are implementing
+<code>org.apache.hadoop.mapred.Mapper</code>, <code>org.apache.hadoop.mapred.Reducer</code> and
+<code>org.apache.hadoop.util.Tool</code> interfaces, correspondingly.  Developer must define three
+functions: <code>mapper-map</code>, <code>reducer-reduce</code> and <code>tool-run</code>, that will be used as implementation of
+corresponding methods in concrete interfaces.  The <code>mapper-map</code> function implements mapping
+of input data into intermediate data (the <code>map</code> part of MapReduce), the <code>reducer-reduce</code>
+function receives intermediate data and produces output data (the <code>reduce</code> part of
+MapReduce), and the <code>tool-run</code> function defines  Hadoop's job options, prepares input and
+output parameters, etc.  All function's parameters match to corresponding parameters of
+functions, defined in Hadoop interfaces.  So, for detail information it's better to look
+into Hadoop's API.</p>
+
+<p>The <code>gen-main-method</code> function creates standard <code>main</code> method, that executes the <code>tool-run</code>
+function using <code>run</code> method from <code>org.apache.hadoop.util.ToolRunner</code> class.</p>
+
+<p>Complete example of code you can find in <a href="http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount1.clj">wordcount1</a> example.</p>
+
+
+<h3><a name="sec6" id="sec6"></a>
+Using clojure-hadoop.wrap</h3>
+
+<p class="first">Use of functions, defined in <code>clojure-hadoop.wrap</code> allows to simplify implementation of
+mapper and reducer functions, make them more clojurish, because you'll work with Clojure
+data types, not with Hadoop classes.  The <code>wrap-map</code> function implements wrapper for <code>map</code>
+function, and <code>wrap-reduce</code> &mdash; for <code>reduce</code>.  Each of these functions could have from 1 to 3
+arguments.  First, mandatory argument &mdash; function to wrap. Second argument &mdash; function,
+that implements reading of data, and third argument &mdash; function, that implements writing
+of data.  Library provides number of functions for reading and writing, and you can easily
+use them in your code.</p>
+
+<p>Function, that implements the map part, receives two parameters &mdash; key and value, while
+reducer function receives key and list of values, generated by mapper function.</p>
+
+<p>I need to mention, that the <code>tool-run</code> function should be implemented the same way as in
+previous case, and results of wrapped functions should have names <code>mapper-map</code> and
+<code>reducer-reduce</code>.</p>
+
+<p>Example of code you can find in <a href="http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount2.clj">wordcount2</a>.</p>
+
+
+<h3><a name="sec7" id="sec7"></a>
+Using clojure-hadoop.job</h3>
+
+<p class="first">The code, implemented in <code>clojure-hadoop.job</code> namespace, additionally simplifies
+implementation of Hadoop jobs.  It implements all necessary functions, so all you need &mdash;
+is to implement of <code>map</code> and <code>reduce</code> function, and specify them in command line options,
+together with other parameters.  All details are handled by the <code>clojure_hadoop.job</code> class,
+that performs analysis of command line options and bind them with corresponding job's
+parameter.</p>
+
+<p>Command line options are specified as <code>-key value</code> pairs separated by space.  Following
+options are required:</p>
+
+<dl>
+<dt><strong><code>-input</code></strong></dt>
+<dd>comma-separated list of input paths;</dd>
+<dt><strong><code>-output</code></strong></dt>
+<dd>directory name for output data;</dd>
+<dt><strong><code>-map</code></strong></dt>
+<dd>full name of mapper function as <code>namespace/name</code>, or as class name, that implements
+the <code>org.apache.hadoop.mapred.Mapper</code> interface. You can also use the
+<code>identity</code> function, and input data will passed to reducer without processing;</dd>
+<dt><strong><code>-reduce</code></strong></dt>
+<dd>full name of mapper function as <code>namespace/name</code>, or as class name, that
+implements the <code>org.apache.hadoop.mapred.Reducer</code> interface. You can also use the <code>identity</code>
+or <code>none</code> functions, and output data will written without any processing.</dd>
+</dl>
+
+<p>There are also optional command line parameters:</p>
+
+<dl>
+<dt><strong><code>-input-format</code></strong></dt>
+<dd>defines format for input data. Possible values &mdash; 
+<code>text</code> for text data,
+<code>seq</code> for <code>SequenceFile</code>, or class name that implements corresponding format;</dd>
+<dt><strong><code>-output-format</code></strong></dt>
+<dd>defines format for output data with same possible values as for
+<code>-input-format</code>;</dd>
+<dt><strong><code>-output-key</code></strong></dt>
+<dd>class name for output data keys (output of <code>reduce</code> function);</dd>
+<dt><strong><code>-output-value</code></strong></dt>
+<dd>class name for output data values (output of <code>reduce</code> function);</dd>
+<dt><strong><code>-map-output-key</code></strong></dt>
+<dd>class name for intermediate data keys (output of <code>map</code> function);</dd>
+<dt><strong><code>-map-output-value</code></strong></dt>
+<dd>class name for intermediate data keys values (output of <code>map</code> function);</dd>
+<dt><strong><code>-map-reader</code></strong></dt>
+<dd>name of function that performs reading of input data (input of <code>map</code>
+function), as <code>namespace/name</code>;</dd>
+<dt><strong><code>-map-writer</code></strong></dt>
+<dd>name of function that performs writing of intermediate data (output of <code>map</code>
+function), as <code>namespace/name</code>;</dd>
+<dt><strong><code>-reduce-reader</code></strong></dt>
+<dd>name of function that performs reading of intermediate data (input of
+<code>reduce</code> function), as <code>namespace/name</code>;</dd>
+<dt><strong><code>-reduce-writer</code></strong></dt>
+<dd>name of function that performs writing of output data (output of <code>reduce</code>
+function) , as <code>namespace/name</code>;</dd>
+<dt><strong><code>-combine</code></strong></dt>
+<dd>full name of combiner function as <code>namespace/name</code>, or as class name, that
+implements the <code>org.apache.hadoop.mapred.Reducer</code> interface. This function works like
+<code>reduce</code>, but it's used to combine map's results only on local node.  This allows to
+decrease amount of data, transferred via network, and increase speed of processing.
+This function should accept data of the same type as <code>reduce</code>, and output data in the same
+format as a <code>map</code>!  (<em>This functionality is implemented only in my version of
+clojure-hadoop</em>);</dd>
+<dt><strong><code>-name</code></strong></dt>
+<dd>set job's name that will displayed in Hadoop's administrative interface;</dd>
+<dt><strong><code>-replace</code></strong></dt>
+<dd>if it set to <code>true</code> then job will remove directory with output data;</dd>
+<dt><strong><code>-compress-output</code></strong></dt>
+<dd>if it set to <code>true</code> job will perform compression of output data;</dd>
+<dt><strong><code>-output-compressor</code></strong></dt>
+<dd>compression method &mdash;  
+<code>gzip</code>, <code>bzip2</code>, <code>default</code> or class name;</dd>
+<dt><strong><code>-compression-type</code></strong></dt>
+<dd>compression type for <code>SequenceFile</code> &mdash; 
+<code>block</code>, <code>record</code> or <code>none</code>.</dd>
+</dl>
+
+<p>You can find example of this approach in <a href="http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount3.clj">wordcount3</a> file &mdash; it consists only from two
+functions, and all parameters are specified via command-line options.</p>
+
+
+<h3><a name="sec8" id="sec8"></a>
+Using clojure-hadoop.defjob</h3>
+
+<p class="first">The <code>defjob</code> macro, defined in namespace with the same name, allows to specify some part of
+<code>clojure-hadoop.job</code>'s configuration parameters directly in source code, while
+rest of parameters could be specified from command line on invocation.
+<code>defjob</code>'s options are specified as keywords wit the same names as
+corresponding command line options, but without minus sign at start of option.  The only
+required parameter for macro is name of job.</p>
+
+<p>For example, following code could be used to define job with name <code>job</code>:</p>
+
+<pre class="src">
+(defjob/defjob job
+  <span style="color: #00008b;">:map</span> my-map
+  <span style="color: #00008b;">:map-reader</span> wrap/int-string-map-reader
+  <span style="color: #00008b;">:reduce</span> my-reduce
+  <span style="color: #00008b;">:input-format</span> <span style="color: #00008b;">:text</span>)
+</pre>
+
+<p>and after definition, we can run this job using command line option <code>-job job-name</code> (as full
+with namespace), instead of specifying separate options <code>-map</code> and <code>-reduce</code>.</p>
+
+<p>Usage of <code>defjob</code> macro is shown in <a href="http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount4.clj">wordcount4</a> and <a href="http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount5.clj">wordcount5</a> examples.  The only different
+between them is that in <code>wordcount5</code> in job's definition the reader and writer functions are
+specified.  Full example with <code>defjob</code> you can see below.</p>
+
+
+
+<h2><a name="sec9" id="sec9"></a>
+Full example</h2>
+
+<p class="first">As example, I want to show small program, that generates sets of <a href="https://secure.wikimedia.org/wikipedia/en/wiki/N-gram">N-Grams</a> from given files
+&mdash; I use generated databases for document classification tasks.  The source code is
+available on <a href="http://github.com/alexott/clojure-examples">github</a>, in <code>hadoop1</code> directory.  This example uses <code>defjob</code> macro to describe job
+and user-defined mapper &amp; reducer functions.</p>
+
+<p>All example consists from one file with source code, that implements functions <code>my-map</code> and
+<code>my-reduce</code>, that are used in job's specification together with input and output formats
+specifications, etc.  As usual in MapReduce, the <code>my-map</code> function accepts two parameters &mdash;
+key (integer number) and value (string) and produces list of pairs of string/integer,
+where string is n-gram. The <code>my-reduce</code> function is very simple &mdash; it just sum all entries
+for given key.</p>
+
+<pre class="src">
+(<span style="color: #006400;">ns</span> hadoop1
+    (<span style="color: #00008b;">:require</span> [clojure-hadoop.wrap <span style="color: #00008b;">:as</span> wrap]
+              [clojure-hadoop.defjob <span style="color: #00008b;">:as</span> defjob]
+              [clojure-hadoop.imports <span style="color: #00008b;">:as</span> imp])
+    (<span style="color: #00008b;">:use</span> clojure.contrib.seq-utils)
+    (<span style="color: #00008b;">:require</span> [clojure.contrib.str-utils2 <span style="color: #00008b;">:as</span> str2])
+    (<span style="color: #00008b;">:import</span> (java.util <span style="color: #006400;">StringTokenizer</span>)))
+
+(imp/import-io)
+(imp/import-mapred)
+
+(<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">delimiters</span> <span style="color: #008b00;">"0123456789[ \t\n\r!\"#$%&amp;'()*+,./:;&lt;=&gt;?@\\^`{|}~-]+"</span>)
+
+(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">gen-n-grams</span> [<span style="color: #0000ff;">#^String</span> s <span style="color: #0000ff;">#^Integer</span> n]
+  (<span style="color: #006400;">when</span> (<span style="color: #8b0000;">&gt;</span> (<span style="color: #006400;">.length</span> s) 0)
+      (<span style="color: #006400;">let</span> [str (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">" "</span> s (<span style="color: #006400;">String.</span> ) (str2/repeat <span style="color: #008b00;">" "</span> (<span style="color: #8b0000;">-</span> n 1)))]
+        (<span style="color: #8b0000;">reduce</span> (<span style="color: #8b0000;">fn</span> [val elem]
+                  (<span style="color: #8b0000;">conj</span> val (<span style="color: #006400;">.substring</span> str elem (<span style="color: #8b0000;">+</span> elem n))))
+                []
+                (<span style="color: #8b0000;">range</span> 0 (<span style="color: #8b0000;">+</span> 1 (<span style="color: #006400;">.length</span> s)))))))
+
+(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">my-map</span> [key <span style="color: #0000ff;">#^String</span> value]
+  (<span style="color: #8b0000;">map</span> (<span style="color: #8b0000;">fn</span> [token] [token 1])
+       (<span style="color: #8b0000;">flatten</span> (<span style="color: #8b0000;">map</span> #(gen-n-grams %1 3)
+                     (<span style="color: #8b0000;">enumeration-seq</span> (<span style="color: #006400;">StringTokenizer.</span> value delimiters))))))
+
+(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">my-reduce</span> [key values-fn]
+  [ [key (<span style="color: #8b0000;">reduce</span> + (values-fn))] ])
+
+(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">string-long-writer</span> [<span style="color: #0000ff;">#^OutputCollector</span> output
+                          <span style="color: #0000ff;">#^String</span> key value]
+  (<span style="color: #006400;">.collect</span> output (<span style="color: #006400;">Text.</span> key) (<span style="color: #006400;">LongWritable.</span> value)))
+
+(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">string-long-reduce-reader</span> [<span style="color: #0000ff;">#^Text</span> key wvalues]
+  [(<span style="color: #006400;">.toString</span> key)
+   (<span style="color: #8b0000;">fn</span> [] (<span style="color: #8b0000;">map</span> (<span style="color: #8b0000;">fn</span> [<span style="color: #0000ff;">#^LongWritable</span> v] (<span style="color: #006400;">.get</span> v))
+               (<span style="color: #8b0000;">iterator-seq</span> wvalues)))])
+
+(defjob/defjob job
+  <span style="color: #00008b;">:map</span> my-map
+  <span style="color: #00008b;">:map-reader</span> wrap/int-string-map-reader
+  <span style="color: #00008b;">:map-writer</span> string-long-writer
+  <span style="color: #00008b;">:reduce</span> my-reduce
+  <span style="color: #00008b;">:reduce-reader</span> string-long-reduce-reader
+  <span style="color: #00008b;">:reduce-writer</span> string-long-writer
+  <span style="color: #00008b;">:output-key</span> <span style="color: #006400;">Text</span>
+  <span style="color: #00008b;">:output-value</span> <span style="color: #006400;">LongWritable</span>
+  <span style="color: #00008b;">:input-format</span> <span style="color: #00008b;">:text</span>
+  <span style="color: #00008b;">:output-format</span> <span style="color: #00008b;">:text</span>
+  <span style="color: #00008b;">:compress-output</span> false)
+</pre>
+
+<p>This code is based on <a href="http://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount5.clj">wordcount5</a> example from <code>clojure-hadoop</code> distribution.  To build it
+we're using following project for Leiningen:</p>
+
+<pre class="src">
+(defproject hadoop1 <span style="color: #008b00;">"1.0"</span>
+  <span style="color: #00008b;">:description</span> <span style="color: #008b00;">"hadoop1"</span>
+  <span style="color: #00008b;">:dependencies</span> [[org.clojure/clojure <span style="color: #008b00;">"1.1.0"</span>]
+                 [org.clojure/clojure-contrib <span style="color: #008b00;">"1.1.0"</span>]
+                 [com.stuartsierra/clojure-hadoop <span style="color: #008b00;">"1.2.0-SNAPSHOT"</span>]]
+  )
+</pre>
+
+<p>To run this job, we need to combine all code into one archive, so we need to use <code>lein
+uberjar</code> to combine our Clojure code with all necessary libraries<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.  After this, you can run
+this job either in autonomous mode, without running Hadoop and working with local
+files<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>, or in cluster mode.  To run job in autonomous mode you can use following command:</p>
+
+<pre class="src">
+java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input FILE -output out
+</pre>
+
+<p>specify any text file instead of  <code>FILE</code> argument, and after execution, you'll get generated
+file with n-grams in the <code>out</code> directory.  This file can be used as database for language
+detection &amp; text classification tasks.</p>
+
+<p>To run your code in Hadoop cluster, you need to put files onto HDFS (into <code>input</code> directory,
+in our example), and run task with following command:</p>
+
+<pre class="src">
+hadoop jar hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input input -output output
+</pre>
+
+<p>And after finishing of task, data will put into the <code>output</code> directory<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup> on HDFS, and you
+can get access to them with standard HDFS commands.</p>
+
+<h2><a name="sec10" id="sec10"></a>
+<a name="more-info" id="more-info"></a>Additional information</h2>
+
+<p class="first">This information is just an introduction into use of Clojure for Hadoop
+programming. Additional examples of <code>clojure-hadoop</code> usage you can find in following
+materials:</p>
+
+<ul>
+<li><a href="http://vimeo.com/7669741">Video-lecture about Clojure and Hadoop at HadoopWorld NYC</a> (<a href="http://stuartsierra.com/2009/10/02/clojurehadoop-slides">slides</a>);</li>
+<li><a href="http://www.bestinclass.dk/index.php/2010/01/hadoop-feeding-reddit-to-hadoop/">Hadoop - Feeding Reddit to Hadoop</a> &mdash; blog note, that shows how to use Clojure &amp; Hadoop
+to analyze data, collected from Reddit;</li>
+<li><a href="http://github.com/stuartsierra/clojure-hadoop/tree/master/src/examples/clojure/clojure_hadoop/examples/">Examples</a> from <code>clojure-hadoop</code> distribution.</li>
+</ul>
+
+<p>Additional information about programming for Hadoop and MapReduce you can find in
+following materials:</p>
+
+<ul>
+<li><a href="http://www.cloudera.com/hadoop-training-programming-with-hadoop">Video-lecture about programming with Hadoop</a>;</li>
+<li><a href="http://www.cloudera.com/hadoop-training-basic">Study materials about Hadoop created by the Cloudera company</a>;</li>
+<li><a href="http://hadoop.apache.org/common/docs/current/mapred_tutorial.html">Map/Reduce Tutorial</a>;</li>
+<li><a href="http://www.amazon.com/gp/product/0596521979?ie=UTF8&amp;amp;tag=aleottshompag-20&amp;amp;linkCode=as2&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=0596521979">Hadoop: The Definitive Guide</a> &mdash; very good book about programming for Hadoop, and about
+related projects &mdash; Pig, HBase, и других;</li>
+<li><a href="http://www.amazon.com/gp/product/1608453421?ie=UTF8&amp;amp;tag=aleottshompag-20&amp;amp;linkCode=as2&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=1608453421">Data-Intensive Text Processing with MapReduce</a> &mdash; book about use of Map/Reduce for
+analysis of big amounts of text data, including examples for Hadoop.</li>
+</ul>
+
+<p>It also worth to mention the <a href="http://github.com/nathanmarz/cascalog">Cascalog</a> project, that implements DSL, that allows to query
+data in Hadoop using Clojure.</p>
+
+
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> You can also use the <code>lein hadoop</code> command (implemented by <a href="http://github.com/ndimiduk/lein-hadoop">lein-hadoop</a> plugin), that
+creates correct archive with Hadoop task (packing all dependencies and necessary
+information).</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> Execution of job in autonomous is very handy for debugging your code, because it
+executed in separate JVM instance and works with local files.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> Output directory shouldn't exists, or job will not run. If you don't need files output
+directory, then you can use command line option <code>-replace true</code>.</p>
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/clojure/ClojureHadoop.html';
+var disqus_url = 'http://alexott.net/en/clojure/ClojureHadoop.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

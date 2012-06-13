@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>The PCL-CVS package</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, cvs, pcl-cvs" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>The PCL-CVS package</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Basic concepts and principles</a>
+</dt>
+<dt>
+<a href="#sec2">Main functions and key bindings</a>
+</dt>
+<dt>
+<a href="#sec3">Navigation and files selection</a>
+</dt>
+<dt>
+<a href="#sec4">Work with files</a>
+</dt>
+<dt>
+<a href="#sec5">Work with changes</a>
+</dt>
+<dt>
+<a href="#sec6">Getting information about files, and other functions</a>
+</dt>
+<dt>
+<a href="#sec7">Customization</a>
+</dt>
+</dl>
+</div>
+
+
+<p>The <em>PCL-CVS</em> package provides to user very effective way to work with the <em>CVS</em>, that widely
+used for software development, especially for open source projects<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.  Besides standard
+features, provided, the <em>VC</em> package, this package implements following:</p>
+
+<ul>
+<li>view state of files for given project;</li>
+<li>work with changes in given project;</li>
+<li>work with all, or selected, objects of your project;</li>
+<li>very handy user interface for performing all of these tasks.</li>
+</ul>
+
+<p>This package is included into GNU Emacs's distribution starting with version 21.  It also
+available as a package for XEmacs.  For other Emacs's versions you can find source code at
+<a href="ftp://flint.cs.yale.edu/pub/monnier/pcl-cvs">ftp://flint.cs.yale.edu/pub/monnier/pcl-cvs</a>.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Basic concepts and principles</h2>
+
+<p class="first">All work with package is performed in special buffer, created by <em>PCL-CVS</em> functions.  This
+buffer is called <code>*cvs*</code>, and used to display files, their statuses and other information.
+Some of package's functions work only with existing directories, so you need to fetch data
+from a repository before running any <em>PCL-CVS</em> function.</p>
+
+<p>During work you can navigate in buffer and perform different functions on selected (or file
+where cursor is placed) files.  For each file in project some status is assigned, and list
+of available functions depends on this status.</p>
+
+<p>Information in buffer is separated between several columns:</p>
+
+<ul>
+<li>number of latest revision in repository and additional file status (optional);</li>
+<li><code>*</code> sign for marked files;</li>
+<li>file status, described bellow;</li>
+<li>version number for file (optional);</li>
+<li>file name.</li>
+</ul>
+
+<p>File status can has one of following values:</p>
+
+<dl>
+<dt><strong><em>Added</em></strong></dt>
+<dd>file was added, but not yet committed to repository;</dd>
+<dt><strong><em>Removed</em></strong></dt>
+<dd>file was deleted, but not yet committed to repository;</dd>
+<dt><strong><em>Modified</em></strong></dt>
+<dd>file was changed.  For this status, could be displayed additional status &mdash;
+<em>merged</em>, that means, that new changes from repository was merged with your changes
+without any conflicts;</dd>
+<dt><strong><em>Conflict</em></strong></dt>
+<dd>during merging of changes, a conflict was detected.  Both versions of changes
+are written to the file, and content of original file is stored as <code>.#FILE.VERSION</code>.
+Besides conflicts due the different content of change, there are other types of
+conflicts, displayed as additional status: <em>removed</em> &mdash; you removed file, but somebody
+change it in repository; <em>added</em> &mdash; you added file, but somebody also add and commit it;
+<em>modified</em> &mdash; you changed the file, but somebody removes it from repository;</dd>
+<dt><strong><em>Unknown</em></strong></dt>
+<dd>file is not registered in repository, and also not listed as ignored file;</dd>
+<dt><strong><em>Up-to-date</em></strong></dt>
+<dd>file matches the version in repository.  Additional status field provide
+more information about it: <em>added</em> &mdash; you just added it to repository; <em>updated</em> &mdash; file
+was updated from repository; <em>patched</em> &mdash; similar to <em>updated</em>, but the changes from
+repository was merged with your changes; <em>committed</em> &mdash; you just committed changes to
+repository;</dd>
+<dt><strong><em>Need-Update</em></strong></dt>
+<dd>repository has more up to date version of file, or file was added to
+repository, but not fetched to your copy;</dd>
+<dt><strong><em>Need-Merge</em></strong></dt>
+<dd>you changed file, and there are other changes in repository, so you have to
+merge with them;</dd>
+<dt><strong><em>Missing</em></strong></dt>
+<dd>file was removed from disk, but the <code>cvs remove</code> command for it wasn't
+performed.</dd>
+</dl>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Main functions and key bindings</h2>
+
+<p class="first">Many of functions, implemented by the <em>PCL-CVS</em> package has the <code>cvs-</code> prefix and names,
+similar to names of <em>CVS</em> commands.  Some functions could be executed only in the <code>*cvs*</code>
+buffer, that could be created one of following functions (functions usually run via <code>M-x</code> key
+binding, either via <code>Tools</code> menu):</p>
+
+<dl>
+<dt><strong><code>cvs-update</code></strong></dt>
+<dd>run <code>cvs update</code> on specified directory;</dd>
+<dt><strong><code>cvs-examine</code></strong></dt>
+<dd>run <code>cvs -n update</code> command, that just check state of directory without
+changing directory;</dd>
+<dt><strong><code>cvs-status</code></strong></dt>
+<dd>run <code>cvs status</code> command on specified directory;</dd>
+<dt><strong><code>cvs-checkout</code></strong></dt>
+<dd>run <code>cvs checkout</code> command for specified module;</dd>
+<dt><strong><code>cvs-quickdir</code></strong></dt>
+<dd>creates the <code>*cvs*</code> buffer, using data from <code>CVS/Entries</code> files.  This
+function is similar to the <code>cvs-examine</code> function, but it doesn't require access to
+repository.</dd>
+</dl>
+
+<p>These functions could be also executed in the <code>*cvs*</code> buffer &mdash; you can use <code>M-u</code> for
+<code>cvs-update</code>, <code>M-e</code> for <code>cvs-examine</code>, and <code>M-s</code> for <code>cvs-status</code>.  You can also perform
+corresponding commands on selected files &mdash; 
+<code>O</code> (<code>cvs-mode-update</code>) to update files, <code>e</code>
+(<code>cvs-mode-examine</code>) to update information about files, and  <code>s</code> (<code>cvs-mode-status</code>) to get
+status information for selected files.</p>
+
+<p>By default, all these functions are performed recursively, but you can change this
+behaviour if you pass the <code>-l</code> option to <em>CVS</em>.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Navigation and files selection</h2>
+
+<p class="first">To navigation inside the <code>*cvs*</code> buffer user can use following functions: <code>cvs-mode-next-line</code>
+(<code>n</code> key) &mdash; to move to the next line, and <code>cvs-mode-previous-line</code> (<code>p</code> key) that move to
+previous line.</p>
+
+<p>There are several functions to work with marks.  To mark one file, you can use the
+<code>cvs-mode-mark</code> function (<code>m</code> key). To remove mark from file there is the <code>cvs-mode-unmark</code>
+function (<code>u</code> key).  To mark all files user can use <code>M</code> key (<code>cvs-mode-mark-all-files</code> function),
+and to remove selection from all files, user can execute <code>cvs-mode-unmark-all-files</code>
+function, that bound to <code>M-DEL</code>.  You can also use the <code>cvs-mode-mark-matching-files</code> function
+(<code>%</code> key) to mark files, which names matches given regular expressions.  There is also
+<code>cvs-mode-mark-on-state</code> function (<code>S</code> key), that mark files with given status.</p>
+
+
+<h2><a name="sec4" id="sec4"></a>
+Work with files</h2>
+
+<p class="first">Addition of files is very simple &mdash; just mark all needed files (usually they have <em>Unknown</em>
+status), and press <code>a</code> key (<code>cvs-mode-add</code> function).  Status of files will changed to <em>Added</em>,
+and you will need to commit these changes to repository (see section <a href="#changes">Work with changes</a>).
+You can also use this function for files with <em>Removed</em> status &mdash; this restore them.</p>
+
+<p>To delete files you need to perform almost same sequence &mdash; you need to mark files, and to
+execute the <code>cvs-mode-remove-file</code> function (<code>r</code> key).  You will asked for confirmation, and if
+you answer <em>yes</em>, then files will removed from your directory.  If files are registered in
+<em>CVS</em>, then the <code>cvs remove</code> command also will performed.  You also need to commit these
+changes to repository.</p>
+
+<p>To update files you can run the <code>cvs-mode-update</code> function, that bound to <code>O</code> key.  This will
+execute <code>cvs update</code> command for all files with <em>Need-update</em> status.</p>
+
+<p>Sometimes, you need to keep some files, not registered in repository.  Such files are
+displayed with <em>Unknown</em> status, but you can say <em>CVS</em> to ignore that files, just list them in
+the <code>.cvsignore</code> file.  To put selected files into this file, you can use the
+<code>cvs-mode-ignore</code> function, that bound to <code>i</code> key.</p>
+
+<h2><a name="sec5" id="sec5"></a>
+<a name="changes" id="changes"></a>Work with changes</h2>
+
+<p class="first">To commit changes to repository you just need to select needed files, and than press <code>c</code> key
+(<code>cvs-mode-commit</code>) or <code>C</code> key (<code>cvs-mode-commit-setup</code>).  They will create a new buffer, called
+<code>*cvs-commit*</code>, in which you can enter your commit message.  After you enter message, you
+need to press <code>C-c C-c</code>, and changes will committed to repository.  You can abort this
+procedure, if you want, just simply not executing <code>C-c C-c</code>.  Difference between <code>c</code> and <code>C</code> is
+that first function preserve old content of <code>*cvs-commit*</code> buffer, but second &mdash; not.</p>
+
+<p>If you change file, but doesn't want put changes into repository, then you can revert them
+by using the <code>cvs-mode-undo-local-changes</code> function, that bound to <code>U</code> key.  This function
+remove modified file, and retrieve latest version from repository.</p>
+
+<p>You can view what was changed using one of several functions.  Most often used function is
+<code>cvs-mode-diff</code>, that bound to <code>=</code> key (and also to <code>d =</code>).  This
+function show differences between modified file and it version in repository.  There are
+also several functions to display changes:</p>
+
+<dl>
+<dt><strong><code>cvs-mode-diff-head</code> (<code>d h</code>)</strong></dt>
+<dd>show difference between selected files and head version of
+corresponding files;</dd>
+<dt><strong><code>cvs-mode-diff-repository</code> (<code>d r</code>)</strong></dt>
+<dd>show differences between repository version of file in
+current branch and its head version;</dd>
+<dt><strong><code>cvs-mode-diff-backup</code> (<code>d b</code>)</strong></dt>
+<dd>show differences between backup version of file and current
+version.  It's very useful when you resolve conflicts in files;</dd>
+<dt><strong><code>cvs-mode-diff-vendor</code> (<code>d v</code>)</strong></dt>
+<dd>show differences between selected files and its versions in
+vendor branch;</dd>
+<dt><strong><code>cvs-mode-diff-yesterday</code> (<code>d y</code>)</strong></dt>
+<dd>show differences between selected files, and their
+yesterdays copies.</dd>
+</dl>
+
+<p>To work with changes you can also use <em>Ediff</em> and <em>Emerge</em>.  The <code>cvs-mode-idiff</code> function (<code>d e</code>)
+run <em>Ediff</em> or <em>Emerge</em> (depending on current settings), that allow you interactively work
+with changes.  If you run the <code>cvs-mode-imerge</code> function (<code>d E</code>), then you can perform
+interactive 3-way merge of changes.</p>
+
+
+<h2><a name="sec6" id="sec6"></a>
+Getting information about files, and other functions</h2>
+
+<p class="first">To retrieve information about files you can use two functions.  The <code>cvs-mode-log</code> function (<code>l</code>
+key) performs <code>cvs log</code> for selected files, and result is displayed in the <code>*cvs-info*</code>
+buffer.  And the <code>cvs-mode-status</code> function (<code>s</code> key) performs <code>cvs status</code> for selected files
+and also displays data in the <code>*cvs-info*</code> buffer.</p>
+
+<p>With <code>cvs-mode-tag</code> function (<code>t</code>) you can set a tag to selected files.  By default, this
+function applied only to directories, but this behaviour from the client's settings.</p>
+
+<p>Sometimes you doesn't want to display some lines in the <code>*cvs*</code> buffer.  You can do this
+with either <code>cvs-mode-remove-handled</code> function (<code>x</code>), that deletes from buffer already
+processed line (for example, files with <em>Up-to-date</em> status), or with <code>cvs-mode-acknowledge</code>
+function (it bound to <code>C-k</code>), that simply deletes lines.  Processed files can be deleted
+automatically if the <code>cvs-auto-remove-handled</code> variable has non-<code>nil</code> value.</p>
+
+<p>To refresh <code>*cvs*</code> buffer, you can use <code>cvs-mode-revert-buffer</code> function, that bound to <code>g</code> key.
+And to leave this buffer, you can use <code>cvs-mode-quit</code> function (<code>q</code> key).</p>
+
+
+<h2><a name="sec7" id="sec7"></a>
+Customization</h2>
+
+<p class="first">Behaviour of <em>PCL-CVS</em> functions depends on values of several variables, that you can
+customize with <code>M-x customize-group pcl-cvs</code> function.  You can customize values of
+variables, faces, used to display information, etc.</p>
+
+<div id="rule"><a href="index.html">Back to main page</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> This situation is started to change.  Many new free version control systems was
+developed and used &mdash; Subversion, Git, Darcs, Mercurial, etc.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/emacs-vcs/EmacsPCLCVS.html';
+var disqus_url = 'http://alexott.net/en/writings/emacs-vcs/EmacsPCLCVS.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

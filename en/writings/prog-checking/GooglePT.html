@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Work with Google performance tools</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, memory leak, performance analysis, google performance tools, GPT" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Work with Google performance tools</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Installation</a>
+</dt>
+<dt>
+<a href="#sec2">Basics of work with GPT</a>
+</dt>
+<dt>
+<a href="#sec3">Finding memory leaks</a>
+</dt>
+<dt>
+<a href="#sec4">Analyse memory consumption</a>
+</dt>
+<dt>
+<a href="#sec5">Performance analysis</a>
+</dt>
+<dt>
+<a href="#sec6">The <code>pprof</code> utility</a>
+</dt>
+</dl>
+</div>
+
+
+<p><a href="http://code.google.com/p/google-perftools/">Google Performance Tools</a> (GPT) &mdash; is a set of tools, that allow to make performance
+analysis, analyse memory allocation and find memory leaks.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Installation</h2>
+
+<p class="first">GPT works on almost all Unix-like operating systems &mdash; Linux, FreeBSD, Solaris, Mac OS X
+(Darwin), including support for different processors<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup> &mdash; x86, x86_64 &amp; PowerPC.  Besides
+this, user can compile <code>tcmalloc</code> on MS Windows and perform memory allocation analysis and
+memory leaks detection for programs, that works under MS Windows.</p>
+
+<p>Installation on Unix-like systems is very easy &mdash; package use standard autotools
+infrastructure, so you just need to download sources from <a href="http://code.google.com/p/google-perftools/">project's site</a> and perform
+following commands:</p>
+
+<pre class="src">
+./configure
+make
+make install
+</pre>
+
+<p>that will configure sources, build and install programs and libraries.  You can install
+package to any destination, using command-line options to <code>./configure</code>.<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup></p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Basics of work with GPT</h2>
+
+<p class="first">Google Performance Tools consists from two libraries<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>:</p>
+
+<dl>
+<dt><strong><strong>tcmalloc</strong> (Thread-Caching Malloc)</strong></dt>
+<dd>tcmalloc &mdash; very quick implementation of <code>malloc</code>
+function (much faster than <code>malloc</code> in glibc 2.3).  This library is used to analyse memory
+consumption and search for memory leaks.  On the <a href="http://google-perftools.googlecode.com/svn/trunk/doc/tcmalloc.html">project's site</a> you can read about
+internal structure of tcmalloc.</dd>
+
+<dt><strong><strong>profiler</strong></strong></dt>
+<dd>this library implements performance analysis of executable code.</dd>
+</dl>
+
+<p>User can use these libraries any of two ways &mdash; either supply library name during linking
+of code (using <code>-l</code> flag), or by loading it with <code>LD_PRELOAD</code>.  Package's developers recommend
+to use first way, and use second only if you doesn't have access to source code.</p>
+
+<p>I need to mention, that loading (or linking) of libraries doesn't enable profiling
+functions automatically.  To enable these functions, you need to set some environment
+variables, that are described below.  During some operations, libraries can create text
+files, that will hold collected information.  To analyze these data, there is <code>pprof</code>
+utility, that also described below.</p>
+
+<p>Developers also can use functions from GPT in their programs to enable or disable checks
+in some places of programs.  Information about these functions you can find in
+<a href="http://google-perftools.googlecode.com/svn/trunk/doc/index.html">package's documentation</a>.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Finding memory leaks</h2>
+
+<p class="first">Searching for memory leaks with <code>tcmalloc</code> is very simple &mdash; you need to link program with
+this library, and run it as in following example:</p>
+
+<pre class="example">
+# HEAPCHECK=normal ./your-program
+</pre>
+
+<p>or as in this example (with linking):</p>
+
+<pre class="example">
+# LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 HEAPCHECK=normal ./your-program
+</pre>
+
+<p>and after program's finish you get a report about found memory leaks.  For example:</p>
+
+<pre class="example">
+# LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 HEAPCHECK=normal ./test-hashes 1000000
+
+HeapChecker: Starting check &quot;_main_&quot;
+HeapChecker: Ignoring 12 reachable objects of 275 bytes
+.... Вывод программы .....
+HeapChecker: Checking for whole-program memory leaks
+HeapChecker: Ending check &quot;_main_&quot;
+HeapChecker: Ignoring 32 reachable objects of 1679 bytes
+HeapChecker: Heap memory leaks of 1000 bytes and/or 1 allocations detected by check &quot;_main_&quot;.
+
+HeapChecker: To investigate leaks manually use e.g.
+cd /home/ott/projects/cpp-tests; /usr/bin/pprof ./test-hashes \
+  &quot;/tmp/test-hashes.2977._main_-end.heap&quot;  \
+  --inuse_objects --lines --edgefraction=1e-10 --nodefraction=1e-10 --gv 2&gt;/dev/null
+
+HeapChecker: Below is this pprof's output:
+
+       1 100.0% 100.0%        1 100.0% main test-hashes.cpp:106
+       0   0.0% 100.0%        1 100.0% 0xb7c8d450 ??:0
+       0   0.0% 100.0%        1 100.0% _start ??:0
+
+
+HeapChecker: crashing because of leaks
+[1]    2977 segmentation fault (core dumped)  LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0
+           HEAPCHECK=normal ./test-hashes
+</pre>
+
+<p>Please mention, that when you search for memory leaks, you get report immediately (you can
+change some parameters, as some data are written to temporary file).  User can also
+specify additional environment variables that could change library's behaviour and/or get
+additional information about program's work (this is described below).</p>
+
+<p>The <code>HEAPCHECK</code> environment variable sets level of checks, that will applied during
+execution.  This variable can has one of four values &mdash; 
+<code>minimal</code>, <code>normal</code>, <code>strict</code> and
+<code>draconian</code> &mdash; from the simplest one to strictest, that could lead to slow execution of
+program.  Besides this, there are also two additional modes: <code>as-is</code> &mdash; when user can
+specify which checks should be executed, and <code>local</code> &mdash; when checks are performed only for
+code, that explicitly marked for checking (this is performed by adding calls to GPT's
+functions to source code).</p>
+
+<p>After the finding of memory leak (as in our example above) library terminates program, and
+prints call stack for functions, that lead to this memory leak.  In our example, memory
+leak is in <code>main</code> function, at 106th line of code in file <code>test-hashes.cpp</code>.</p>
+
+<p>During its work, library also use following environment variables (if they set), that are
+defined for all checks levels:</p>
+
+<dl>
+<dt><strong><code>HEAP_CHECK_REPORT</code></strong></dt>
+<dd>(<em>true</em> or <em>false</em>, by default: <em>true</em>), defines should report be printed
+on screen or not;</dd>
+
+<dt><strong><code>HEAP_CHECK_STRICT_CHECK</code></strong></dt>
+<dd>(<em>true</em> or <em>false</em>, by default: <em>true</em>), selects which function will
+be used to checks &mdash; 
+<code>SameHeap</code> or <code>NoLeaks</code>;</dd>
+
+<dt><strong><code>HEAP_CHECK_IDENTIFY_LEAKS</code></strong></dt>
+<dd>(<em>true</em> or <em>false</em>, by default: <em>false</em>), allows to get addresses
+of &quot;leaked&quot; objects;</dd>
+
+<dt><strong><code>HEAP_CHECK_TEST_POINTER_ALIGNMENT</code></strong></dt>
+<dd>(<em>true</em> or <em>false</em>, by default: <em>false</em>), check is memory
+leaks arise due non-aligned pointers or not;</dd>
+
+<dt><strong><code>PPROF_PATH</code></strong></dt>
+<dd>specify path to <code>pprof</code> utility;</dd>
+
+<dt><strong><code>HEAP_CHECK_DUMP_DIRECTORY</code></strong></dt>
+<dd>specify path to directory, where temporary files will
+created.</dd>
+</dl>
+
+<p>Additional information about memory leaks checking and about <code>as-is</code> and <code>local</code> modes, you
+can find in <a href="http://google-perftools.googlecode.com/svn/trunk/doc/heap_checker.html">following document</a>.</p>
+
+
+<h2><a name="sec4" id="sec4"></a>
+Analyse memory consumption</h2>
+
+<p class="first">Besides finding memory leaks, the <code>tcmalloc</code> library can analyse program's memory
+consumption (memory profiling).  To perform this task library checks allocations and
+de-allocations of all memory blocks.  Library can check following memory allocation
+functions &mdash; 
+<code>malloc</code>, <code>calloc</code>, <code>realloc</code> and <code>new</code>.</p>
+
+<p>The procedure of memory consumption analysis is almost same as procedure for memory leaks
+searching, and differs only in names of environment variables.  All data collected by
+library are stored in file, specified by <code>HEAPPROFILE</code> environment variable.  For example:</p>
+
+<pre class="example">
+LD_PRELOAD=/usr/lib/libtcmalloc.so.0.0.0 HEAPPROFILE=gpt-heapprofile.log ./your-program
+</pre>
+
+<p>All data, collected during library's work are available for analysis after program's
+execution is finished.  Analysis is performed with <code>pprof</code> utility, described below.  Data,
+processed by this utility could be obtained in text or graphical form.  These data
+includes statistic about memory allocations in program (and their functions), and also
+information about relationships between functions of program.</p>
+
+<p>By setting additional environment variables, we can change library's behaviour, for
+example, it can also analyse <code>mmap</code> calls in addition to analysis of standard memory
+allocation functions (this happen, if you set <code>HEAP_PROFILE_MMAP</code> environment variable to
+<code>true</code>).</p>
+
+<p>Description of additional environment variables, and also examples of data analysis you
+can find at <a href="http://google-perftools.googlecode.com/svn/trunk/doc/heapprofile.html">documentation</a>.</p>
+
+
+<h2><a name="sec5" id="sec5"></a>
+Performance analysis</h2>
+
+<p class="first">To use profiler, you need just to link your program with <code>profiler</code> library, and specify
+file name for data in the <code>CPUPROFILE</code> environment variables, as here:</p>
+
+<pre class="example">
+# CPUPROFILE=/tmp/cpuprofile.log ./your-program
+</pre>
+
+<p>or without linking of the library:</p>
+
+<pre class="example">
+# LD_PRELOAD=/usr/lib/libprofiler.so.0.0.0 CPUPROFILE=/tmp/cpuprofile.log ./your-program
+</pre>
+
+<p>Besides <code>CPUPROFILE</code> variable, you can set additional environment variables, that could be
+used to control library's behaviour.  For example, the <code>CPUPROFILE_FREQUENCY</code> variable could
+be used to set number of probes, performed by library every second.</p>
+
+<p>After finish of program, collected results are stored in your file, and you can perform
+its analysis with <code>pprof</code> utility.  You can get analysed data either in text form:</p>
+
+<pre class="example">
+23   2.4%  42.6%      309  32.4% std::less::operator
+</pre>
+
+<p>or in graphical form (this is only part of graph, generated by <code>pprof</code>):</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/prog-checking/gpt-cpuprof.png" alt="">
+</div>
+
+<p>When you get data in text form, then <code>pprof</code> utility prints list of functions, and for each
+function following information is specified (in corresponding column):</p>
+
+<ol>
+<li>Number of checks in this function</li>
+<li>Percentage of checks in this function</li>
+<li>Percentage of checks in the functions printed so far</li>
+<li>Number of checks in this function and its callees</li>
+<li>Percentage of checks in this function and its callees</li>
+<li>Function name</li>
+</ol>
+
+<p>When you get information in graphical form, then besides this information (function names,
+number of checks, etc.), you also get information about function's relationship.</p>
+
+<p>You can get more detailed information about cpu profiler and analysis of its data on the
+<a href="http://google-perftools.googlecode.com/svn/trunk/doc/cpuprofile.html">project's site</a>.</p>
+
+
+<h2><a name="sec6" id="sec6"></a>
+The <code>pprof</code> utility</h2>
+
+<p class="first">The <code>pprof</code> utility is used to perform analysis of data, collected by cpu and memory
+profiling routines.  Command line is looks like:</p>
+
+<pre class="example">
+pprof [options] program_name results_file_name
+</pre>
+
+<p>Some of options are common for all files, but other are specific for concrete mode.
+Common options allow to specify format and details level of output information &mdash; the
+<code>--addresses</code>, <code>--lines</code>, <code>--functions</code> (by default) or <code>--files</code> options specify which details
+will printed &mdash; physical address, line of code, function or file with source code.</p>
+
+<p>Utility can output information either in text (<code>--text</code> option), or in graphical form
+(<code>--gif</code>, <code>--ps</code>, <code>--pdf</code> and other options).  You can also select output in form of annotated
+source code (<code>--list</code> option), or in form of disassembled machine code (<code>--disasm</code> option).
+If you doesn't specify output format, then utility starts to work in interactive mode,
+where you can use different commands, those names are match to command-line options
+(without <code>--</code> sign).</p>
+
+<p>When you analyse data, collected by memory profiler, you can use additional options, that
+allow to display counts of used and/or allocated objects (<code>--inuse_objects</code> and/or
+<code>--alloc_objects</code>), information about allocated memory (<code>--alloc_space</code>), and use bytes
+instead of megabytes in reports (<code>--show_bytes</code> option).</p>
+
+<p>When you analyse data from cpu profiler, you can use options, controlling details level.
+For example, with <code>--ignore</code> option you can exclude objects, those names match specified
+regular expression.  There are also <code>--nodecount</code>, <code>--nodefraction</code> and <code>--edgefraction</code>
+options, that control details level for graphics.</p>
+
+<p>Full description of <code>pprof</code> utility you can find at manual page, that come in distribution.
+And more examples you can find in <a href="http://google-perftools.googlecode.com/svn/trunk/doc/index.html">documentation</a>, that describes GPT's components.</p>
+
+<div id="rule"><a href="index.html">Back to main page</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> There are some specific details when you use GPT 64-bit systems.  You can find their
+description in the <code>INSTALL</code> file, in GPT's distribution.</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> To use package on MS Windows you need to download special distribution, that contains
+project files for building with Visual C++.  Additional information you can also find
+in <code>README.windows</code> file, that come together with source code.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> Both libraries could be used in multi-threaded programs without any restrictions.</p>
+
+
+
+
+
+
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/prog-checking/GooglePT.html';
+var disqus_url = 'http://alexott.net/en/writings/prog-checking/GooglePT.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

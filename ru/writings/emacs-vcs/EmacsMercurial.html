@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Поддержка Mercurial</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, mercurial, hg, меркуриал, емакс, mercurial.el, ahg" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Поддержка Mercurial</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Mercurial.el</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec2">Установка и настройка пакета</a>
+</dt>
+<dt>
+<a href="#sec3">Работа с пакетом</a>
+</dt>
+<dt>
+<a href="#sec4">Настройка пакета</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec5">Пакет aHg</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec6">Установка и настройка</a>
+</dt>
+<dt>
+<a href="#sec7">Использование пакета</a>
+</dt>
+<dt>
+<a href="#sec8">Работа с изменениями</a>
+</dt>
+<dt>
+<a href="#sec9">Просмотр журнала изменений</a>
+</dt>
+<dt>
+<a href="#sec10">Работа с очередями патчей</a>
+</dt>
+<dt>
+<a href="#sec11">Прочие команды</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+<p>Поддержка Mercurial в Emacs реализуется несколькими пакетами, обеспечивающих разные уровни
+поддержки.  В поставке Mercurial идет пакет <em>mercurial.el</em>, обеспечивающий <em>родную</em> (native)
+поддержку системы Mercurial.  Кроме того, имеется пакет <a href="http://disi.unitn.it/~griggio/ahg.html">aHg</a>, который также обеспечивает
+работу с Mercurial.  Оба этих пакета описаны в данном разделе.</p>
+
+<p>Также поддержка Mercurial может обеспечиваться соответствующими модулями из пакетов <em>DVC</em> и
+<em>VC</em>, которые реализуют единообразный подход к работе с разными системами контроля версий.
+Эти пакеты описаны в соотствующих разделах данной статьи.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Mercurial.el</h2>
+
+<h3><a name="sec2" id="sec2"></a>
+Установка и настройка пакета</h3>
+
+<p class="first">Для установки пакета необходимо скопировать его из каталога <code>contrib</code> дистрибутива Mercurial
+в то место, где его сможет найти Emacs, и прописать в файле инициализации следующую
+команду<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">mercurial</span>)
+</pre>
+
+
+<h3><a name="sec3" id="sec3"></a>
+Работа с пакетом</h3>
+
+<p class="first">Принципы работы <em>mercurial.el</em> во многом аналогичны работе пакета <em>VC</em> (стоит отметить, что
+поддержка Mercurial имеется и в <em>VC</em>) и используют те же самые привязки клавиш, что и пакет
+<em>VC</em>.  <em>mercurial.el</em> &mdash; вспомогательный режим, который добавляет некоторое количество команд
+для выполнения основных задач при работе с репозиториями.</p>
+
+<p>Часть команд пакета имеет глобальные привязки клавиш (по умолчанию это <code>С-с h</code>, но может
+быть и изменено в настройке), а часть команд доступна только внутри буфера, в котором
+включен режим <code>hg-mode</code>.  При этом, для многих команд можно также задать префиксный
+аргумент, который позволит задать дополнительные параметры в интерактивном режиме.
+Справку по командам и привязкам клавиш пакета можно получить с помощью команды
+<code>hg-help-overview</code> (<code>С-с h р</code>).</p>
+
+<p>Чтобы просмотреть изменения, сделанные в процессе работы, пользователь может использовать
+либо команду <code>hg-diff</code> (<code>С-x v =</code>), которая показывает изменения для текущего
+файла, либо команду <code>hg-diff-repo</code> (<code>С-с h =</code>), которая показывает изменения для
+всего репозитория.  Обе этих команды, открывают дополнительный буфер, в котором и
+отображаются изменения.  Чтобы закрыть этот буфер используйте клавишу <code>q</code>.</p>
+
+<p>Подтверждение изменений осуществляется командой <code>hg-commit-start</code>, которая имеет две
+привязки клавиш: локальную &mdash; 
+<code>С-x v n</code> и глобальную &mdash; 
+<code>С-с h c</code>.  При выполнении этой
+команды, <em>mercurial.el</em> создает новый буфер, в котором пользователь может ввести текст
+сообщения, которое будет записано в журнал изменений.  Кроме текста пользователя, в нижней
+части буфера отображается список файлов, изменения для которых будут подтверждены.  По
+умолчанию, это все файлы, но пользователь может изменить этот список путем перемещения
+курсора на имя файла и изменения признака выбора (жирный шрифт) с помощью клавиш <code>SPC</code> или
+<code>RET</code>, или с помощью средней кнопки мыши.  На рисунке ниже можно увидеть пример работы с
+этим буфером, при подтверждении изменений.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/mercurial-el.png" alt="">
+</div>
+
+<p>В буфере, созданном при выполнении команды <code>hg-commit-start</code> включается отдельный режим,
+имеющий название <code>hg-commit-mode</code>.  Для него определено несколько сочетаний клавиш, которые
+могут быть использованы пользователем. <code>C-c C-c</code>, так же как и во многих других пакетах,
+производит операцию подтверждения изменений в репозиторий, используя введенный
+пользователем текст.  Сочетание <code>C-c C-k</code> прерывает процесс подтверждения изменений.  А
+сочетание <code>С-x v =</code> позволяет выполнить просмотр подтверждаемых изменений.</p>
+
+<p>Для отмены сделанных изменений можно также воспользоваться одной из двух команд:
+<code>hg-revert-buffer</code> (<code>С-x v u</code>) откатывает изменения только для текущего файла, а команда
+<code>hg-revert</code> (<code>С-с h U</code>) проделывает то же самое для всех измененных файлов в репозитории.</p>
+
+<p>Для добавления файла в репозиторий можно воспользоваться командой <code>hg-add</code> (<code>С-с h a</code>).  По
+умолчанию, она добавляет в репозиторий текущий файл, но если ей задать префиксный
+аргумент, то она запросит имя файла, который необходимо добавить в репозиторий.  Функция
+<code>hg-forget</code> (<code>С-с h f</code>) (она еще не реализована полностью) предназначена для отмены добавления
+файла в репозиторий, если вы еще не выполнили команду подтверждения изменений, что бывает
+полезно в некоторых случаях.</p>
+
+<p>Чтобы посмотреть статус файлов в репозитории, можно воспользоваться командой <code>hg-status</code>
+(<code>С-с h s</code>), но в отличии от других пакетов, пользователю не разрешается выполнять какие
+либо операции с полученными данными.  Для просмотра истории изменений конкретного файла
+определена команда <code>hg-log</code> (<code>С-x v l</code>).  Аналогичная команда для просмотра истории изменений
+репозитория называется <code>hg-log-repo</code> (<code>С-с h l</code>).  Также, определена и команда <code>hg-annotate</code>
+(<code>С-с h a</code>), которая должна показывать файл, с указанием того, в какой версии что менялось,
+но пока эта функция полностью не реализована.</p>
+
+<p>Кроме этих базовых операций, пакет также предоставляет набор основных операций для работы
+с ветками и удаленными репозиториями.  Команда <code>hg-incoming</code> (<code>С-с h ,</code>) позволяет просмотреть
+список изменений в удаленном репозитории, которые отсутствуют в текущем репозитории, а
+команды <code>hg-pull</code> (<code>С-с h &lt;</code>) и <code>hg-update</code> (<code>С-с h u</code>), соответственно, скачать изменения, и
+применить их к текущему репозиторию.  Команды <code>hg-outgoing</code> (<code>С-с h .</code>) и <code>hg-push</code> (<code>С-с h &gt;</code>)
+позволяют просмотреть какие изменения присутствуют в текущем репозитории, но отсутствуют в
+удаленном, и поместить их туда (push).</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Настройка пакета</h3>
+
+<p class="first">Настройка пакета осуществляется с помощью стандартных средств Emacs.  Группа настройки
+называется <code>mercurial</code>.  Пользователь может, например, изменить префикс для глобальных
+привязок клавиш, используемых некоторыми командами (по умолчанию &mdash; 
+<code>C-c h</code>).</p>
+
+<p>Пользователь для настройки поведения пакета может воспользоваться несколькими хуками,
+которые будут вызываться в определенные моменты работы пакета.  <code>hg-commit-mode-hook</code> будет
+вызываться после создания буфера, отображаемого пользователю перед подтверждением
+изменений.  В свою очередь <code>hg-pre-commit-hook</code> вызывается после того, как пользователь
+введет сообщение для журнала изменений, и перед тем, как будет выполнено подтверждение
+изменений в репозитории.  <code>hg-log-mode-hook</code> вызывается после создания буфера, заполненного
+информацией из журнала изменений при вызове команд <code>hg-log-repo</code> и <code>hg-log</code>.  И конечно,
+пользователь может определить <code>hg-mode-hook</code>, который будет выполнен в процессе включения
+<code>hg-mode</code> для данного буфера.</p>
+
+
+
+<h2><a name="sec5" id="sec5"></a>
+Пакет aHg</h2>
+
+<p class="first">Пакет <a href="http://disi.unitn.it/~griggio/ahg.html">aHg</a>, написанный Alberto Griggio, реализует простой, но достаточно мощный интерфейс
+для работы с Mercurial из Emacs.  Пакет реализует поддержку не только основных команд,
+используемых при работе с Mercurial (<code>commit</code>, <code>diff</code>, <code>log</code>, <code>status</code> и т.д.), но и работу с
+очередями.  Кроме того, пользователь может выполнить произвольную команду Mercurial из
+Emacs.</p>
+
+<h3><a name="sec6" id="sec6"></a>
+Установка и настройка</h3>
+
+<p class="first">Установка пакета проста &mdash; необходимо скачать исходный текст (достаточно одного файла
+<code>ahg.el</code> из <a href="http://freehg.org/u/agriggio/ahg">репозитория</a>), поместить указанный файл в каталог, где его найдет Emacs, и
+добавить в файл инициализации строку</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">ahg</span>)
+</pre>
+
+<p>которая выполнит загрузку пакета при запуске Emacs.</p>
+
+<p>Настройка пакета производится с помощью стандартных средств Emacs (команда
+<code>customize-group</code>).  Группа настройки называется <code>ahg</code>.  Пользователь может выполнить
+настройку начертаний, используемых пакетом, задать различные опции, влияющие на выполнение
+команд, а также изменить глобальное префиксное сочетание клавиш, используемое для вызова
+команд <em>ahg</em> (по умолчанию это <code>C-c h g</code>). Однако стоит отметить, что значения по умолчанию
+достаточно разумны, и в первое время пользователю не потребуется что-то менять.</p>
+
+<p>Для своей работы пакет может создавать новые буфера, в которых действуют специальные
+режимы, и пользователю предоставляется возможность настройки поведения пакета в этих
+буферах, используя различные хуки: <code>ahg-status-mode-hook</code> для буфера статуса,
+<code>ahg-log-mode-hook</code> и <code>ahg-short-log-mode-hook</code> для буферов просмотра журнала изменений, и
+<code>ahg-diff-mode-hook</code> для буфера, используемого для показа изменений в файле.</p>
+
+
+<h3><a name="sec7" id="sec7"></a>
+Использование пакета</h3>
+
+<p class="first">Выполнение команд пакета может производиться различными способами &mdash; используя привязки
+клавиш, прямое выполнение команд через <code>M-x команда</code>, а также через подменю <code>aHg</code> основного
+меню <code>Tools</code>, которое содержит основные команды, необходимые пользователю.  Многие команды
+создают отдельные буфера, в которых действуют специальные основные режимы, а также имеющие
+отдельные меню для выполнения основных действий.</p>
+
+<p>Также как и во многих других пакетах для работы с системами управления версиями, основная
+работа в <em>aHg</em> проводится из буфера статуса, который создается командой <code>ahg-status</code> (<code>C-c h g
+s</code>).  Пользователь может выполнить ее и используя пункт меню <code>Status</code> из меню <code>aHg</code>.</p>
+
+<p>Созданный буфер (он показан на рисунке ниже) имеет название <code>*hg status: путь_к_проекту*</code>,
+так что вы можете одновременно работать с разными репозиториями.  В данном буфере
+действует режим <code>ahg-status-mode</code>, который определяет некоторое количество команд для работы
+с объектами в репозитории.  Команды могут выполняться используя комбинации клавиш (многие
+из которых совпадают с клавишами, используемыми в других пакетах), или меню <code>aHg Status</code>,
+которое появляется при создании буфера.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/ahg-status.png" alt="">
+</div>
+
+
+<p>Операции в буфере статуса могут выполняться как с отдельными файлами, так и с группами
+отмеченных файлов.  Отметка на файл ставится клавишей <code>m</code> (команда <code>ahg-status-mark</code>), а
+снимается клавишей <code>u</code> (<code>ahg-status-unmark</code>).  Кроме того, пользователь может использовать
+клавишу <code>SPC</code> (<code>ahg-status-toggle-mark</code>) для переключения пометки на текущем файле.  А снять
+пометку со всех файлов можно с помощью сочетания клавиш <code>M-DEL</code> (<code>ahg-status-unmark-all</code>).
+Обновить буфер статуса можно нажав клавишу <code>g</code> или вызвав команду <code>ahg-status-refresh</code>.</p>
+
+<p>Пользователь может управлять показом содержимого в буфере статуса.  Для этого определен
+достаточно большой набор команд, начинающихся с префисной клавиши <code>s</code>:</p>
+
+<table class="muse-table" border="2" cellpadding="5">
+  <thead>
+    <tr>
+      <th>сочетание</th>
+      <th>команда</th>
+      <th>действие</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>s A</td>
+      <td>ahg-status-show-all</td>
+      <td>показать все файлы</td>
+    </tr>
+    <tr>
+      <td>s a</td>
+      <td>ahg-status-show-added</td>
+      <td>показать только добавленные файлы</td>
+    </tr>
+    <tr>
+      <td>s c</td>
+      <td>ahg-status-show-clean</td>
+      <td>показать неизмененные файлы</td>
+    </tr>
+    <tr>
+      <td>s d</td>
+      <td>ahg-status-show-deleted</td>
+      <td>показать удаленные файлы</td>
+    </tr>
+    <tr>
+      <td>s i</td>
+      <td>ahg-status-show-ignored</td>
+      <td>показать игнорируемые файлы</td>
+    </tr>
+    <tr>
+      <td>s m</td>
+      <td>ahg-status-show-modified</td>
+      <td>показать измененные файлы</td>
+    </tr>
+    <tr>
+      <td>s r</td>
+      <td>ahg-status-show-removed</td>
+      <td>показать файлы, отмеченные для удаления</td>
+    </tr>
+    <tr>
+      <td>s u</td>
+      <td>ahg-status-show-unknown</td>
+      <td>показать неизвестные файлы</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Добавление новых файлов в репозиторий производится с помощью команды <code>ahg-status-add</code>
+(клавиша <code>a</code>), а удалить файл можно с помощью клавиши <code>r</code> (<code>ahg-status-remove</code>).  При этом
+пользователь может просмотреть текущий файл в текущем окне нажав клавишу <code>RET</code> или <code>f</code>,
+которые вызывают команду <code>ahg-status-visit-file</code>.  А чтобы открыть файл в другом окне,
+предусмотрена команда <code>ahg-status-visit-file-other-window</code> (клавиша <code>o</code>).</p>
+
+
+<h3><a name="sec8" id="sec8"></a>
+Работа с изменениями</h3>
+
+<p class="first">Подтверждение изменений текущего или отмеченных файлов производится с помощью клавиши <code>c</code>
+(<code>ahg-status-commit</code>), при этом создается новый буфер в котором пользователь может ввести
+описание изменения, и подтвердить свое решение нажав <code>C-c C-c</code>.  Для подтверждения изменений
+только для текущего файла, пользователь может также использовать команду
+<code>ahg-commit-cur-file</code> (<code>C-c h g c</code>).  Однако отмена сделанных изменений может быть выполнена
+только из буфера статуса с помощью команды <code>ahg-status-undo</code> (клавиша <code>U</code>).</p>
+
+<p>А для просмотра изменений пакет определяет сразу несколько команд.  Для того, чтобы
+увидеть список изменений для выбранного файла в буфере статуса, вам необходимо нажать
+клавишу <code>=</code> (<code>ahg-status-diff</code>).  А для просмотра всех изменений в репозитории
+можно воспользоваться командой <code>ahg-status-diff-all</code> (клавиша <code>D</code>).  Кроме того, вы можете
+получить список изменений для текущего буфера с помощью команды <code>ahg-diff-cur-file</code>
+(<code>C-c h g =</code>).</p>
+
+<p>Все эти команды открывают новый буфер (пример можно увидеть на рисунке ниже) в котором
+действует специальный режим <code>ahg-diff-mode</code>, который является расширением стандартного
+режима <code>diff-mode</code>, так что пользователь может воспользоваться всеми его командами для
+перемещения между отдельными изменениями, перехода к соответствующим изменениям в файле и
+т.п.  Чтобы покинуть этот буфер нужно лишь нажать клавишу <code>q</code>.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/ahg-diff.png" alt="">
+</div>
+
+
+<h3><a name="sec9" id="sec9"></a>
+Просмотр журнала изменений</h3>
+
+<p class="first">Для работы с журналами изменений в пакете <em>aHg</em> определено несколько команд.  В основном они
+отличаются друг от друга форматом выдачи данных.  Так, нажатие <code>l</code> в буфере статуса приведет
+к выполнению команды <code>ahg-status-short-log</code>, которая выводит данные в сжатой форме (пример
+приведен на рисунке ниже).  Аналогичные результаты можно получить выполнив команду
+<code>ahg-short-log</code> которая связана с глобальным сочетанием клавиш <code>C-c h g l</code>.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/ahg-log.png" alt="">
+</div>
+
+<p>Чтобы получить более детальное описание изменений, пользователь может воспользоваться
+командами <code>ahg-status-log</code> (клавиша <code>L</code> в буфере статуса) или <code>ahg-log</code> (<code>C-c h g L</code>).  При
+использовании этих команд, результаты отображаются более подробно, в стиле вывода команды
+<code>hg log</code>, но кроме того, включают в себя информацию о тагах, связанных с конкретными
+изменениями, а также список файлов, измененных в конкретном изменении.  Подробный формат
+вывода информации также используется и командой <code>ahg-log-cur-file</code> (<code>C-c h g C-l</code>), которая
+выводит журнал изменений для текущего буфера.</p>
+
+<p>Все эти команды создают новые буфера, в которых действуют режимы <code>ahg-short-log</code> &mdash; для
+сжатого формата выдачи информации, и <code>ahg-log</code> &mdash; для подробной выдачи информации.  Оба
+режима определяют набор команд, незначительно отличающихся друг от друга<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>.  Клавиши <code>n</code> и <code>p</code>
+исполшьзуются для перемещения между следующим и предыдущим изменениями, <code>s</code> приводит к
+созданию буфера статуса, <code>g</code> обновляет журнал изменений, а <code>q</code> приводит к окончанию работы.</p>
+
+<p>Чтобы получить список сделанных изменений пользователь может воспользоваться клавишей
+<code>=</code>, которая создаст буфер только с изменениями, сделанными в конкретной
+версии.  А чтобы получить список изменений между двумя произвольными версиями,
+пользователь переместиться на нужное ему изменение, нажать <code>D</code>, и ввести номер другого
+изменения, относительно которого будет выполняться сравнение.</p>
+
+
+<h3><a name="sec10" id="sec10"></a>
+Работа с очередями патчей</h3>
+
+<p class="first">Отдельный набор команд определен для работы с очередями патчей, реализованных в Mercurial.
+Все команды из этого набора имеют глобальную привязку имеющую префикс <code>C-c h g Q</code>, или, если
+они выполняются в буфере статуса, то префиксной клавишей является <code>Q</code>.  При описании команды
+я буду давать только локальное сочетание клавиш, но вы всегда можете вызвать нужную
+команду использовав глобальную привязку для данной команды.</p>
+
+<p>Новый патч создается с помощью команды <code>ahg-qnew</code> (<code>Q n</code> при выполнении из буфера статуса),
+которая запрашивает у пользователя имя патча и выполняет соответствующую команду
+Mercurial.  Обновить текущий патч можно с помощью команды <code>ahg-qrefresh</code> (<code>Q r</code>).  Просмотр
+содержимого текущего патча можно осуществить с помощью команды <code>ahg-qdiff</code> (<code>Q
+=</code>).  Кроме того, текущий патч можно сконвертировать в набор изменений Mercurial с
+помощью команды <code>ahg-mq-convert-patch-to-changeset</code> (<code>Q c</code>).</p>
+
+<p>Остальные реализованные команды используются для управления набором примененных патчей и
+т.п.  Команда <code>ahg-mq-list-patches</code> (<code>Q l</code>) выводит список существующих патчей, а с помощью
+команды <code>ahg-qtop</code> (<code>Q t</code>) можно узнать имя текущего патча.  С помощью команды <code>ahg-qgoto</code> (<code>Q g</code>)
+можно поместить нужный патч на вершину стека патчей, а с помощью команды <code>ahg-qpop-all</code> (<code>Q
+p</code>) производится очистка стека патчей.  Полностью удалить патч из очереди можно с помощью
+команды <code>ahg-qdelete</code> (<code>Q d</code>).</p>
+
+
+<h3><a name="sec11" id="sec11"></a>
+Прочие команды</h3>
+
+<p class="first">Кроме описанных выше команд, пользователь может также выполнить произвольную, не
+реализованную пакетом, команду Mercurial для текущего репозитория.  Это делается с помощью
+команды <code>ahg-do-command</code> (<code>C-c h g !</code> или <code>!</code> в буфере статуса).  Пользователю необходимо будет
+ввести в мини-буфере имя команды (можно воспользоваться механизмом дополнения имен) и он
+получит результат выполнения в отдельном окне.</p>
+
+<p>Пользователь также может получить справку о конкретной команде Mercurial воспользовавшись
+командой <code>ahg-command-help</code> (<code>C-c h g h</code> или <code>h</code> в буфере статуса).  Как и в предыдущем случае,
+пользователь может использовать механизмы дополнения для ввода имени команды.</p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Самую последнюю версию пакета <em>mercurial.el</em> можно взять из репозитория, ссылка на
+который указана на <a href="http://www.emacswiki.org/cgi-bin/wiki/MercurialMode">странице Emacs WiKi, посвященной Mercurial</a>.</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> Разница между этими двумя режимами заключается в том, что в режиме вывода краткой
+информации, пользователь может нажать <code>RET</code> или <code>SPC</code> (<code>ahg-short-log-view-details</code>) для
+получения списка файлов и прочей информации.  А в режиме вывода полной информации,
+пользователь может использовать клавишу <code>TAB</code> для перемещения к следующему изменению.</p>
+
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-vcs/EmacsMercurial.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-vcs/EmacsMercurial.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

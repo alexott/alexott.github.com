@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>How to use Emacs to work with Mercurial</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, version control, mercurial, hg, mercurial.el, ahg," />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>How to use Emacs to work with Mercurial</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Mercurial.el</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec2">Installation</a>
+</dt>
+<dt>
+<a href="#sec3">Work with package</a>
+</dt>
+<dt>
+<a href="#sec4">Customization</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+<p>In Emacs support of <em>Mercurial</em> implemented by several packages, providing different levels
+of support.  In <em>Mercurial's</em> distribution exists package <em>mercurial.el</em>, that implement
+<em>native</em> support, and described in this document.  Another package, implementing <em>native</em>
+support is <a href="http://disi.unitn.it/~griggio/ahg.html">aHg</a>, and it also described here.</p>
+
+<p>There is also support for <em>Mercurial</em> in the <a href="EmacsDVC.html">DVC</a> &amp; <em>VC</em> packages, each of that implements a
+<em>common</em> approach for different version control systems.  These packages are described in
+corresponding sections of this article.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Mercurial.el</h2>
+
+<h3><a name="sec2" id="sec2"></a>
+Installation</h3>
+
+<p class="first">To install the package you need to copy the file <code>mercurial.el</code> from <code>contrib</code> directory in
+the <em>Mercurial's</em> distribution into place, where Emacs could find it, and put following
+command into Emacs's initialization file<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">mercurial</span>)
+</pre>
+
+
+<h3><a name="sec3" id="sec3"></a>
+Work with package</h3>
+
+<p><em>Mercurial.el</em> use almost same principles as the VC package (i need to mention, that VC also
+support work with <em>Mercurial</em>) and use almost same key bindings as VC does.  <em>mercurial.el</em> &mdash;
+minor mode, that add some number of commands to perform base tasks with repository.</p>
+
+<p>Some of commands also has global key bindings (by default this is <code>C-c h</code>, but it could be
+changed by user), and other commands available only inside buffer for which <code>hg-mode</code> is
+enabled.  For some commands user can use prefix argument and this allow him to set
+additional parameters interactively.  User can get help on commands and key bindings
+provided by <em>mercurial.el</em> with <code>hg-help-overview</code> (<code>C-c h h</code>) command.</p>
+
+<p>To view changes user can use either the <code>hg-diff</code> (<code>C-x v =</code>) command, that show
+changes for current file, either the <code>hg-diff-repo</code> (<code>C-c h =</code>) command, that
+show changes for whole repository.  Both commands create additional buffer in which
+changes are displayed.  To close this buffer just press <code>q</code> key.</p>
+
+<p>Committing of changes is performed with <code>hg-commit-start</code> command, that has two key
+bindings: local &mdash; 
+<code>C-x v n</code>, and global &mdash; 
+<code>C-c h c</code>.  During execution of this command
+<em>mercurial.el</em> creates a new buffer, in which user can enter commit message, that will
+written to log.  In addition to user's commit message, in this buffer also displayed list
+of files for which changes will committed.  By default commit will affect all files, but
+user can change this list by moving cursor to file and switch selection (shown as a bold
+face) with <code>SPC</code> or <code>RET</code> keys (or with middle mouse button).  On the picture below you can
+see work with this buffer.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/mercurial-el.png" alt="">
+</div>
+
+<p>In buffer, created by <code>hg-commit-start</code> function, work special mode called <code>hg-commit-mode</code>.
+It use several special key bindings, that could be used by user.  As in many other modes
+<code>C-c C-c</code> key binding is used to initiate commit operation using user's text as a commit
+message.  The <code>C-c C-k</code> key binding aborts the commit process.  And <code>C-x v =</code>
+could be used to view changes in this commit.</p>
+
+<p>To revert made changes user can also use one of two commands: <code>hg-revert-buffer</code> (<code>C-x v u</code>)
+command cancel changes only for current file, and the <code>hg-revert</code> (<code>C-c h U</code>) command do this
+for all modified files in repository.</p>
+
+<p>To add a new file to repository you can use <code>hg-add</code> (<code>C-c h a</code>) command.  By default it add
+current file to repository, but if you give it prefix argument, then it will ask for name
+of file to add.  And the <code>hg-forget</code> (<code>C-c h f</code>) command (it not implement) could be used to
+cancel addition of new file (if you hasn't committed it yet).</p>
+
+<p>To view status of files in repository user can use the <code>hg-status</code> (<code>C-c h s</code>) command, but in
+distinction from other packages, it doesn't allowed to perform commands with retrieved
+data.  To view history of changes for concrete file could be used the <code>hg-log</code> (<code>C-x v l</code>)
+command.  To view change log for whole repository exists separate command called
+<code>hg-log-repo</code> (<code>C-c h l</code>).  There is also the <code>hg-annotate</code> (<code>C-x v a</code>) command, that could be
+used to view annotated source code with version marks.</p>
+
+<p>Besides this base operation, the <em>mercurial.el</em> package also provide base commands for
+working with branches and remote repositories.  The <code>hg-incoming</code> (<code>C-c h ,</code>) command allow
+user to view of changes existing in remote repository. The <code>hg-pull</code> (<code>C-c h &lt;</code>)
+and hg-update (<code>C-c h u</code>) commands perform downloading and applying changes to current
+repository.  There are also commands <code>hg-outgoing</code> (<code>C-c h .</code>) and <code>hg-push</code> (<code>C-c h &gt;</code>) that
+allow to view which changes are missed in remote repository and push them to it.</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Customization</h3>
+
+<p class="first">User can customize behaviour of package using standard Emacs customization routines.
+Corresponding customization group has name <code>mercurial</code>.  User can change, for example,
+prefix key for global key bindings (by default this is <code>C-c h</code>).</p>
+
+<p>User can use several hooks for customize behaviour of different modes, used by
+<em>mercurial.el</em>.  <code>hg-commit-mode-hook</code> will called after creating a buffer, used for entering
+of commit message.  And <code>hg-pre-commit-hook</code> will called <em>after</em> entering of commit message
+and <em>before</em> performing actual commit.  <code>hg-log-mode-hook</code> called after creating a buffer that
+show log information (as result calling <code>hg-log-repo</code> and <code>hg-log</code> commands).  And user can
+also define <code>hg-mode-hook</code>, that will called when <code>hg-mode</code> will enabled for given buffer.</p>
+
+
+
+
+
+
+<div id="rule"><a href="index.html">Back to main page</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Latest version of <em>mercurial.el</em> you can download from repository, link to which you can
+find at <a href="http://www.emacswiki.org/cgi-bin/wiki/MercurialMode">Mercurial's page on Emacs WiKi</a>.</p>
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/emacs-vcs/EmacsMercurial.html';
+var disqus_url = 'http://alexott.net/en/writings/emacs-vcs/EmacsMercurial.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

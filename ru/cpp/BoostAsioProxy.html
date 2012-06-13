@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Как написать простой HTTP прокси используя Boost.Asio</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, boost, asio, boost.asio, http, proxy" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Как написать простой HTTP прокси используя Boost.Asio</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Главная</a></li><li><a href="../cf/">Информационная безопасность</a></li><li><a href="../fp/">Функциональное программирование</a></li><li><a href="../lisp/">Lisp</a></li><li><a href="../clojure/">Clojure</a></li><li><a href="../scheme/">Scheme</a></li><li><a href="../erlang/">Erlang</a></li><li><a href="../cpp/" class="current">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../writings/">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>В данной статье рассматривается процесс написания простого кросс-платформенного HTTP
+прокси.</p>
+
+<h2>Что нам потребуется</h2>
+
+<p class="first">Для разработки данного примера (<a href="../../common/asio-proxy-async/asio-proxy-async.tar.gz">исходные тексты в виде архива</a>) использовался Boost версии
+1.35 или выше.  Для сборки примера использовался <a href="http://www.cmake.org">cmake</a> (но в принципе вы можете собрать
+его и вручную).  Для конфигурации и сборки необходимо выполнить следующие команды (для
+Unix)<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>:</p>
+
+<pre class="src">
+&gt; cmake .
+&gt; make
+</pre>
+
+<p>после компиляции у вас получится файл <code>proxy-asio-async</code>, который можно запустить из
+командной строки, и который будет выполнять проксирование данных.  Эта программа принимает
+один аргумент &mdash; количество нитей, которые будут выполнять диспатчеризацию запросов (по
+умолчанию это число равно 2-м).  Номер порта на котором прокси будет принимать запросы
+равен <code>10001</code>, это значение заданно в тексте<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>.</p>
+
+
+<h2>Общее устройство прокси</h2>
+
+<p class="first">Также как и в <a href="BoostAsioNotes.html">предыдущих примерах</a>, наша программа состоит из трех частей:</p>
+
+<ul>
+<li>функции <code>main</code>, которая разбирает параметры командной строки, создает отдельные нити для
+сервисов <em>asio</em>, объект сервер, и входит в режим ожидания;</li>
+<li>класса <code>server</code>, который принимает запросы, и создает объект, реализующий логику
+обработки соединения;</li>
+<li>класса <code>connection</code>, который производит всю обработку клиентских данных, и осуществляет
+передачу запросов и ответов между клиентом и веб-сервером.</li>
+</ul>
+
+<p>Обработка данных производится в асинхронном режиме, при этом, для распределения нагрузки
+между процессорами, может использоваться несколько независимых сервисов выполняющих
+диспатчеризацию (<code>asio::io_service</code>).</p>
+
+<p><em>Философское замечание</em>: Самая трудная часть разработки асинхронного кода &mdash; правильное
+проектирование процесса обработки данных.  Я обычно рисую диаграмму состояний (<em>state
+diagram</em>), и затем превращаю каждое из состояний в отдельную процедуру.  Наличие такой
+диаграммы также сделает более легким понимание кода другими разработчиками.</p>
+
+
+<h2>Реализация</h2>
+
+<p class="first">Функция <code>main</code> достаточно проста, так что не будем на ней подробно останавливаться &mdash;
+достаточно лишь посмотреть на ее <a href="../../common/asio-proxy-async/proxy.cpp.html">исходный код</a> чтобы понять что она делает (все общие
+определения находятся в файле <a href="../../common/asio-proxy-async/common.h.html">common.h</a>).</p>
+
+<p>Реализация сервера (класс <code>server</code> &mdash; <a href="../../common/asio-proxy-async/proxy-server.hpp.html">proxy-server.hpp</a> &amp; <a href="../../common/asio-proxy-async/proxy-server.cpp.html">proxy-server.cpp</a>) также
+незначительно отличается от предыдущих примеров &mdash; изменения коснулись лишь способа
+задания сервиса, который выполняет диспатчеризацию.  В нашем примере новый сервис
+последовательно выбирается из списка сервисов, который представляет собой кольцевой
+список.  Таким образом мы можем достичь некоторого баланса загрузки сервисов.</p>
+
+<p>Вся логика обработки данных сосредоточена в классе, описывающем соединение (класс
+<code>connection</code> &mdash; <a href="../../common/asio-proxy-async/proxy-conn.hpp.html">proxy-conn.hpp</a> &amp; <a href="../../common/asio-proxy-async/proxy-conn.cpp.html">proxy-conn.cpp</a>).  Хочется сразу отметить, что разбор
+заголовков сделан безо всяких оптимизаций, максимально просто<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.</p>
+
+<p>Обработка начинается с вызова функции <code>start</code> классом <code>server</code>, который принимает соединение и
+создает новый объект класса <code>connection</code>.  Эта функция инициирует асинхронное чтение
+заголовков запроса от браузера.</p>
+
+<p>Чтение самих заголовков происходит в функции <code>handle_browser_read_headers</code>, которая
+вызывается при получении данных от браузера.  Стоит отметить, что если мы получили
+заголовки не полностью (отсутствует пустая строка (<code>\r\n\r\n</code>)), то она инициирует новое
+чтение, пытаясь получить заголовки целиком.</p>
+
+<p>После того, как заголовки были получены целиком, то эта функция выделяет версию протокола
+HTTP, метод и адрес, а также производит разбор заголовков (некоторые данные оттуда нам
+понадобятся для определения &mdash; нужно нам использовать постоянные соединения, или нет).</p>
+
+<p>После разбора заголовков, эта функция вызывает функцию <code>start_connect</code>, которая разбирает
+адрес сервера на имя хоста и порт, и если мы еще не имеем соединения с этим сервером, то
+она инициирует процесс получения адреса сервера по его имени.  А в том случае, если у нас
+уже открыто соединение с сервером, то мы просто начинаем передачу данных с помощью функции
+<code>start_write_to_server</code>.</p>
+
+<p>Функция <code>handle_resolve</code> вызывается при определении адреса сервера, и инициирует процесс
+установки соединения с сервером.  Данный процесс обрабатывается функцией <code>handle_connect</code>,
+которая инициирует процесс передачи данных с помощью функции <code>start_write_to_server</code>,
+которая формирует корректный заголовок и начинает отправку данных серверу.</p>
+
+<p>После окончания передачи данных серверу вызывается функция <code>handle_server_write</code>, которая
+выполняет простую операцию по началу чтения заголовков от сервера.  Обработка заголовков
+выполняется функцией <code>handle_server_read_headers</code>, которая во многом подобна функции
+<code>handle_browser_read_headers</code>, за тем исключением, что кроме разбора заголовков, она также
+пытается понять, нужно ли нам сохранять соединение после передачи данных пользователю, или
+нет &mdash; это оказывает влияние на весь процесс обработки данных.  После окончания обработки,
+эта функция инициирует передачу данных (в нашем случае это заголовки) браузеру.</p>
+
+<p>После передачи заголовков, организуется цикл, в котором передается уже тело ответа от
+сервера.  Для этого используются две функции &mdash; 
+<code>handle_server_read_body</code> и
+<code>handle_browser_write</code>, которые вызывают друг друга до тех пор, пока мы не считаем все
+данные с сервера (то количество данных, которое было указано сервером в заголовках), либо
+не получим признак конца файла.</p>
+
+<p>В том случае, если мы получили признак конца файла, мы передаем остаток данных браузеру и
+закрываем соединение, в противном случае, если у нас используется постоянное соединение,
+то мы инициируем с помощью функции <code>start</code> новый процесс чтения заголовков запроса от
+браузера.</p>
+
+<p>Вот и все.  Как уже отмечалось, основной проблемой является построение правильной
+последовательности вызова функций, реализующих передачу данных друг другу.</p>
+
+
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> В том случае, если <em>cmake</em> не может найти библиотек, вы можете указать их расположение с
+помощью переменных <em>cmake</em> &mdash; 
+<code>CMAKE_INCLUDE_PATH</code> и <code>CMAKE_LIBRARY_PATH</code>, запустив <em>cmake</em>
+например вот так:</p>
+
+<pre class="src">
+&gt; cmake . -DCMAKE_INCLUDE_PATH=~/exp/include -DCMAKE_LIBRARY_PATH=~/exp/lib
+</pre>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> В принципе можно было также вынести его в параметры командной строки, но было лень,
+поскольку это все-таки не рабочий код, а прототип для проверки идей.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> В настоящее время ведется разработка проекта <a href="http://sourceforge.net/projects/cpp-netlib">cpp-netlib</a>, в составе которого
+разрабатываются и парсеры для основных протоколов &mdash; HTTP, SMTP и т.п.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/cpp/BoostAsioProxy.html';
+var disqus_url = 'http://alexott.net/ru/cpp/BoostAsioProxy.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

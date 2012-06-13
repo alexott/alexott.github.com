@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>PSVN Package</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, svn, subversion, psvn" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>PSVN Package</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Installation of package</a>
+</dt>
+<dt>
+<a href="#sec2">Work with package</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec3">Navigation and work with marks</a>
+</dt>
+<dt>
+<a href="#sec4">Work with files</a>
+</dt>
+<dt>
+<a href="#sec5">Work with changes</a>
+</dt>
+<dt>
+<a href="#sec6">Work with metadata (properties)</a>
+</dt>
+<dt>
+<a href="#sec7">Information retrieving and other functions</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec8">Customization</a>
+</dt>
+</dl>
+</div>
+
+
+<p>The <em>PSVN</em> package provide same functionality for <em>Subversion</em>, as the <em>PCL-CVS</em> for <em>CVS</em>.  This
+package provide user access to all features of <em>Subversion</em>.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Installation of package</h2>
+
+<p class="first">Installation of package is pretty simple &mdash; download latest version from <a href="http://www.xsteve.at/prg/emacs/psvn.el">site</a>, put it to
+place, where Emacs can find it, and add following line to initialization file:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">psvn</span>)
+</pre>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Work with package</h2>
+
+<p class="first">The <em>PSVN</em> package use almost same principles as the <em>PCL-CVS</em> package &mdash; all work is
+performed in special buffer.  Currently this buffer is created only by <code>svn-status</code>
+function.  Buffer, that created by <code>svn-status</code> function has name <code>*svn-status*</code>.  Example of
+this buffer, you can see on the picture below.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/svn-status.png" alt="">
+</div>
+
+<p>As you can see on picture, information is displayed as a table.  In first column the
+status of object is displayed.  In second column &mdash; version number for given object, in
+the third &mdash; number of version, when file was changed, in the fourth column &mdash; name of
+user, who had changed this object, and in the last column &mdash; object's name.  List of
+available statuses and their descriptions you can find in the output of <code>svn status -v</code>
+command.</p>
+
+<p>Functions, that are performed by user is applied to current file, or to marked files.  User
+can execute functions using key bindings, or using menu, called <code>SVN</code>, that displayed in the
+<code>*svn-status*</code> buffer.</p>
+
+<h3><a name="sec3" id="sec3"></a>
+Navigation and work with marks</h3>
+
+<p class="first">User can navigate in <code>*svn-status*</code> buffer with almost same functions as in packages for
+other VCS &mdash; he can use either arrow keys, either functions: <code>svn-status-previous-line</code>
+(bound to <code>C-p</code>) to move to previous line, and <code>svn-status-next-line</code> (bound to <code>C-n</code>) to move
+to the next line.  This is slightly different from other packages, that use <code>n</code> and <code>p</code> for
+these actions.</p>
+
+<p>To set marks to objects <em>PSVN</em> use same key bindings as other packages &mdash; to mark object the
+<code>m</code> key (<code>svn-status-set-user-mark</code>) is used, and to remove mark the <code>u</code> key
+(<code>svn-status-unset-user-mark</code>) is used.  Besides this, to remove all marks, user can use the
+<code>svn-status-unset-all-usermarks</code> function (<code>M-DEL</code> or <code>* !</code> key bindings), and to remove a mark
+from an object, that located before cursor, user can use
+<code>svn-status-unset-user-mark-backwards</code> function, that bound to <code>DEL</code> key.</p>
+
+<p>User can also mark files with concrete status.  To mark modified files user can use
+<code>svn-status-mark-modified</code> function (<code>* M</code>), to mark added files &mdash; 
+<code>svn-status-mark-added</code>
+function (<code>* A</code>), and to mark not registered files &mdash; 
+<code>svn-status-mark-unknown</code> function (<code>* ?</code>).</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Work with files</h3>
+
+<p class="first">User can add files to repository using several functions.  Most often used function is
+<code>svn-status-add-file</code> (it bound to <code>a</code>), that add file(s) (current one or several marked) to
+repository.  There are also <code>svn-status-add-file-recursively</code> function (<code>A</code> key), that add
+files recursively, and <code>svn-status-make-directory</code> function (<code>+</code> key), that creates directory
+in repository.  Don't forget, that addition of files is performed only in your directory,
+and files will added to repository only after explicit commit.</p>
+
+<p>Deletion of files is performed with <code>svn-status-rm</code> function (<code>D</code> key or <code>C-d</code>), that executes
+<code>svn rm</code> command.  As <em>Subversion</em> supports renaming of files with preserving of history, and
+<em>PSVN</em> also has function to perform this operation.  This function is called <code>svn-status-mv</code>
+and bound to <code>R</code> key.  User also must explicitly commit its changes to repository.</p>
+
+<p>You can use update your work directory from repository with <code>svn-status-update-cmd</code> function
+(<code>U</code> key), that executes <code>svn update</code> command.  You can also fetch concrete version of file
+with <code>svn-status-get-specific-revision</code> function (<code>~</code> key).  After execution of this command,
+file with name <code>F.~REVISION~</code> will created, and it will contain data for concrete version.
+You can obtain state of parent directory with the <code>svn-status-examine-parent</code> function, that
+bound to <code>^</code> key.</p>
+
+<p>You can view and edit files directly from <code>*svn-status*</code> buffer.  To open file in the same
+windows as <code>*svn-status*</code> buffer you can use <code>svn-status-find-files</code> function (<code>f</code> key).  And to
+open file in other window, you can use <code>svn-status-find-file-other-window</code> function (<code>o</code> key).
+You can also view file with <code>svn-status-view-file-other-window</code> function (<code>v</code> key), that is
+very handy when you don't want to change file.  The <code>RET</code> key
+(<code>svn-status-find-file-or-examine-directory</code>) performs two operations &mdash; it either opens
+file, or displays state of files in given directory.</p>
+
+
+
+
+<h3><a name="sec5" id="sec5"></a>
+Work with changes</h3>
+
+<p class="first">As was mentioned above, after performing almost all operations you need explicitly commit
+changes to repository.  You can do this with <code>svn-status-commit-file</code> function (<code>c</code> key).
+After you perform this operation, your changes will available to all users, who are
+working with this repository.</p>
+
+<p>You can also remove changes, that you did in files.  This operation is performed with
+<code>svn-status-revert</code> function, that bound to <code>r</code> key.  <em>Subversion</em> supports removing of <em>conflict</em>
+state from files, that has this status.  To do this, you can use <code>svn-status-resolved</code>
+function (<code>V</code> key), that executes <code>svn resolved</code> command.</p>
+
+<p>As in many other packages that works with VCS, <em>PSVN</em> implements functions that allow to get
+list of changes in files between current and base versions.  The <code>svn-status-show-svn-diff</code>
+function (<code>=</code> key), displays differences between modified file and its version
+in repository.  The <code>svn-status-show-svn-diff-for-marked-files</code> function (<code>C-=</code>)
+performs this operation for all marked files.  And the <code>svn-status-ediff-with-revision</code>
+function (<code>E</code> key) uses <em>Ediff</em> to perform this operation.  All these functions support
+comparison with arbitrary version, if they'll get prefix argument before they execution.</p>
+
+
+<h3><a name="sec6" id="sec6"></a>
+Work with metadata (properties)</h3>
+
+<p><em>Subversion</em> allows users to add metadata (properties) to the files and concrete versions.
+Changes in metadata is propagated together with other changes, introduced in files.  More
+detailed information about metadata you can find at <a href="http://svnbook.red-bean.com/">Version Control with Subversion</a> book.
+The <em>PSVN</em> package provides number of functions to work with metadata.  These commands
+accessible via direct call of functions, and also via key bindings.  The <code>P</code> key is used as
+a prefix key for all these key bindings.</p>
+
+<p>All available functions we can split into two groups: first one is used for work with any
+metadata, and second &mdash; to work with concrete properties.</p>
+
+<p>The first group includes following functions:</p>
+
+<ul>
+<li><code>svn-status-property-parse</code> function (<code>P p</code>) is used to parse metadata record</li>
+<li><code>svn-status-property-set</code> (<code>P s</code>) is used to set value to concrete property</li>
+<li><code>svn-status-property-delete</code> (<code>P d</code>) removes selected property</li>
+<li><code>svn-status-property-list</code> function (<code>P l</code>) displays list of properties, defined for given
+object</li>
+<li><code>svn-status-property-edit-one-entry</code> (<code>P e</code>) allows user to change metadata interactively.</li>
+</ul>
+
+<p>Into second group are included following functions:</p>
+
+<ul>
+<li><code>svn-status-property-edit-svn-ignore</code> (<code>P TAB</code>) allows user to edit list of files, ignored
+by <em>Subversion</em></li>
+<li><code>svn-status-property-ignore-file</code> (<code>P i</code>) put current file (or marked files) into list of
+ignored objects</li>
+<li><code>svn-status-property-ignore-file-extension</code> (<code>P I</code>) add regular expression to list of
+ignored files, that allows to ignore all files with same extensions as for current file</li>
+<li><code>svn-status-property-set-eol-style</code> (<code>P y</code>) set 'end of line' style for given objects</li>
+<li><code>svn-status-property-set-keyword-list</code> (<code>P k</code>) allows to edit keywords list for given
+objects</li>
+</ul>
+
+
+<h3><a name="sec7" id="sec7"></a>
+Information retrieving and other functions</h3>
+
+<p class="first">To get information about current object user can use <code>svn-status-info</code> function, that bound
+to <code>i</code> key.  After its execution, buffer called <code>*svn-process*</code> will contain result of
+execution of <code>svn info</code> command.  If this information could contain too many details, then
+user can use <code>svn-status-parse-info</code> function (<code>I</code> key), that analyze this information and
+makes it more compact.  To get information about author and version of file, user can use
+<code>svn-status-blame</code> function (<code>b</code> key), and to view log for selected files, there is
+<code>svn-status-show-svn-log</code> function (<code>l</code> key).</p>
+
+<p>To update content of <code>*svn-status*</code> buffer you can use <code>svn-status-update</code> function (<code>g</code> key).
+To see output of <code>svn</code> process you can press <code>s</code> key (<code>svn-status-show-process-buffer</code>).</p>
+
+<p>You can also control, which files will displayed in the <code>*svn-status*</code> buffer (by default
+all files are shown).  To hide not modified files the <code>svn-status-toggle-hide-unmodified</code>
+function (<code>_</code> key) could be used, and to hide all unknown files exists
+<code>svn-status-toggle-hide-unknown</code> function (<code>?</code> key).  Both these commands works like switches,
+and could be used to switch between displaying and hiding.</p>
+
+<p>To leave the <code>*svn-status*</code> buffer, and kill it you can use <code>svn-status-bury-buffer</code> function,
+that bound to <code>q</code> key.</p>
+
+
+
+<h2><a name="sec8" id="sec8"></a>
+Customization</h2>
+
+<p class="first">User can change behaviour of package using standard Emacs customization routines.
+Corresponding customization groups is called <code>psvn</code>.  <em>PSVN</em> also use several hooks, that
+could be used to customize parameters of new buffers, or functions.  The
+<code>svn-log-edit-mode-hook</code> hook is called when some buffer enters into <code>svn-log-edit</code> mode, and
+<code>svn-log-view-mode-hook</code> is called, when buffer enters into <code>svn-log-view</code> mode.</p>
+
+<div id="rule"><a href="index.html">Back to main page</a></div>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/emacs-vcs/EmacsPSVN.html';
+var disqus_url = 'http://alexott.net/en/writings/emacs-vcs/EmacsPSVN.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

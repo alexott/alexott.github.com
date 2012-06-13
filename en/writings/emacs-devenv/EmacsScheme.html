@@ -1,0 +1,843 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Support for the Scheme programming language</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, scheme, emacs, gnu emacs, xemacs, bigloo, guile, plt scheme, mzscheme" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Support for the Scheme programming language</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>The Scheme language traditionally has very good support in Emacs.  This support is
+provided by the set of packages, that either could work with different implementation of
+Scheme (<em>scheme-mode</em>, <em>cmuscheme</em>, <em>quack</em>), or could work only with concrete implementations
+of language (<em>xscheme</em>, <em>gds</em>, <em>bee-mode</em>, <em>gambit</em>).  Usually, packages, implemented for concrete
+implementations of Scheme, have more features, comparing with packages, designed for work
+with different Scheme's implementations.</p>
+
+<p>In this article I'll try to describe all packages, related to the Scheme support.  First,
+I'll describe packages, working with all implementations of Scheme, and in the last
+sections, I'll describe packages, created for concrete implementations.</p>
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Scheme-mode</a>
+</dt>
+<dt>
+<a href="#sec2">Cmuscheme</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec3">Customization of the package</a>
+</dt>
+<dt>
+<a href="#sec4">Work with package</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec5">Quack</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec6">Installation &amp; customization</a>
+</dt>
+<dt>
+<a href="#sec7">Work with package</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec8">The GCA package</a>
+</dt>
+<dt>
+<a href="#sec9">The GDS package</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec10">Installation and customization</a>
+</dt>
+<dt>
+<a href="#sec11">Work with source code</a>
+</dt>
+<dt>
+<a href="#sec12">Debugging</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec13">Scheme48</a>
+</dt>
+<dt>
+<a href="#sec14">Xscheme</a>
+</dt>
+<dt>
+<a href="#sec15">Support for Gambit-C</a>
+</dt>
+<dt>
+<a href="#sec16">Bee-mode (bmacs)</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec17">Installation &amp; basic customization</a>
+</dt>
+<dt>
+<a href="#sec18">Work with source code</a>
+</dt>
+<dt>
+<a href="#sec19">Compilation &amp;  execution of source code</a>
+</dt>
+<dt>
+<a href="#sec20">Debugging &amp; profiling</a>
+</dt>
+<dt>
+<a href="#sec21">Other commands</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec22">Support for Scheme in SLIME</a>
+</dt>
+</dl>
+</div>
+
+
+
+<h2><a name="sec1" id="sec1"></a>
+<a name="scheme-mode" id="scheme-mode"></a>Scheme-mode</h2>
+
+<p><em>Scheme-mode</em>, that is distributed with Emacs, is modification of the <em>lisp-mode</em>, adapted to
+work with the Scheme programming language.  This package implements following
+functionality:</p>
+
+<ul>
+<li>syntax highlighting;</li>
+<li>work with language expressions;</li>
+<li>indenting of source code;</li>
+<li>highlighting of the paired brackets.</li>
+</ul>
+
+<p>There are several packages, built on the top of the <em>scheme-mode</em> &mdash; <a href="#cmuscheme">cmuscheme</a>, <a href="#xscheme">xscheme</a>,
+etc., that extends it functionality by adding functions for code execution directly from
+Emacs buffers, etc.</p>
+
+<p>As <em>scheme-mode</em> is based on the <em>lisp-mode</em>, it has same source code editing commands, as
+<em>lisp-mode</em>, so please look to the <a href="EmacsLisp.html#lisp-mode">corresponding section</a> of article, describing work with
+Lisp.</p>
+
+<p>This mode is enabled automatically for all files with standard extensions of Scheme source
+code &mdash; 
+<code>.scm</code>, <code>.ss</code>, etc.  To enable this mode for other files, you need to add following
+piece of code into your initialization file (replacing <code>.scm</code> with needed extension):</p>
+
+<pre class="src">
+(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.scm$"</span> . scheme-mode))
+</pre>
+
+<p>If you want to change behaviour of the package, you can set additional parameters in the
+function, specified in the <code>scheme-mode-hook</code>, and that will called during enabling of this
+mode in concrete buffer.  Besides this, some of parameters you can set using standard
+customization commands.  Corresponding customization group is called <code>scheme</code>.</p>
+
+<h2><a name="sec2" id="sec2"></a>
+<a name="cmuscheme" id="cmuscheme"></a>Cmuscheme</h2>
+
+<p class="first">The <em>cmuscheme</em> package was written by Olin Shivers long time ago, but it's still one of the
+most popular packages for work with Scheme.  This package implements interactive work with
+interactive Scheme interpreters.  This interactive work is implemented via the <em>comint</em>
+package, included into Emacs distribution.</p>
+
+<h3><a name="sec3" id="sec3"></a>
+Customization of the package</h3>
+
+<p class="first">Installation of package is pretty simple &mdash; just put into your initialization file
+following lines of code:</p>
+
+<pre class="src">
+(autoload 'run-scheme <span style="color: #008b00;">"cmuscheme"</span> <span style="color: #666666;">"Run an inferior Scheme"</span> t)
+(setq scheme-program-name <span style="color: #008b00;">"mzscheme"</span>)
+</pre>
+
+<p>and package will automatically loaded when you call the <code>run-scheme</code> command first time.
+Second line of example is used to set name of the Scheme interpreter, that you can replace
+with any other name.  All settings for this package is also available via customization
+group with name <code>cmuscheme</code>.</p>
+
+<p>In the interpreter buffer, that is created by package, the special major mode is used &mdash;
+<code>inferior-scheme-mode</code>, that you can customize with <code>inferior-scheme-mode-hook</code>.  Besides
+this, if there is <code>~/.emacs_SCHEMENAME</code> file, or <code>~/.emacs.d/init_SCHEMENAME.scm</code> file (where
+<code>SCHEMENAME</code> is a name of Scheme interpreter), then Scheme expressions from them will
+executed right after start of interpreter.</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Work with package</h3>
+
+<p class="first">Main command of the package is <code>run-scheme</code>, that run selected Scheme interpreter, and
+allows to interactively execute Scheme expressions without leaving Emacs.</p>
+
+<p>You can control which portion of source code (selected region, function's definition, or
+concrete expression) will evaluated by using different commands, defined in the package &mdash;
+the <code>scheme-send-definition</code> command (<code>C-c C-e</code> or <code>C-M-x</code> key bindings) pass to interpreter
+definition of current function; the <code>scheme-send-region</code> command (<code>C-c C-r</code>) allows to
+executed source code from selected region; the <code>scheme-send-last-sexp</code> command (<code>C-x C-e</code>) is
+used to evaluation of expression, before the current point; and the <code>scheme-load-file</code>
+command (<code>C-c C-l</code>) allows to load to interpreter whole file &mdash; it allows to load
+expressions from any file, specified by user, not only from current buffer.</p>
+
+<p>The Scheme interpreter is run in the separate buffer that is called <code>*scheme*</code><sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>, to which
+results of evaluations is also printed.  To quick switch to this buffer from the buffer
+with source code, there is the <code>switch-to-scheme</code> command (<code>C-c C-z</code>).  Besides this, as it's
+often need to execute some code and look to the results of its execution, package defines
+two additional commands that evaluate code and switch to <code>*scheme*</code> buffer &mdash; the
+<code>scheme-send-definition-and-go</code> command (<code>C-c M-e)</code> for evaluation of current definition, and
+the <code>scheme-send-region-and-go</code> command (<code>C-c M-r</code>) for evaluation of selected code.</p>
+
+<p>To work with Scheme macros, the package implements the <code>scheme-expand-current-form</code> command
+(<code>C-c C-x</code>), that allows to expand definition of the current macro into corresponding code
+in Scheme.  Code expansion is performed by interpreter and printed to the <code>*scheme*</code> buffer.
+And if your Scheme implementation, supports compilation of source code, then you can use
+the <code>scheme-compile-file</code> command (<code>C-c C-k</code>) and the <code>scheme-compile-definition</code> command (<code>C-c
+M-c</code>), that perform compilation of the file or current definition.</p>
+
+<p>As was mentioned above, in the interpreter's buffer the special major mode is used &mdash;
+<code>inferior-scheme-mode</code> that allows to use all commands of  <a href="EmacsDevelMisc#comint">comint</a> mode, and some additional
+<em>cmuscheme</em> commands &mdash; 
+<code>scheme-compile-file</code> (<code>C-c C-k</code>), <code>scheme-load-file</code> (<code>C-c C-l</code>),
+<code>scheme-send-last-sexp</code> (<code>C-x C-e</code>) &amp; <code>scheme-send-definition</code> (<code>C-M-x</code>).</p>
+
+<h2><a name="sec5" id="sec5"></a>
+<a name="quack" id="quack"></a>Quack</h2>
+
+<p class="first">The Quack package is an extension for the <em>cmuscheme</em> package, and it implements different
+additional features (most of them is designed for work with <a href="http://www.plt-scheme.org">PLT Scheme</a>):</p>
+
+<ul>
+<li>separate menu, from which user can access documentation about language, interpreter &amp;
+SRFI, and also search for description of function with name under point;</li>
+<li>new sets of expressions for <em>font-lock</em> highlighting &mdash; for PLT Scheme and extended
+scheme for other implementations;</li>
+<li>ability to use Greek <em>lambda</em> symbol for lambda-expressions (examples are below);</li>
+<li>additional options &amp; commands for insertion of opening &amp; closing brackets;</li>
+<li>extensions for source code indenting, with ability to set different schemes for
+different Scheme implementations;</li>
+<li>extended version of the <code>run-scheme</code> command, that knows about different Scheme
+implementations and names of their interpreters, and that also remember name of last
+run interpreter;</li>
+<li>extended version of the <code>switch-to-scheme</code> command;</li>
+<li>ability to view content of the <code>.plt</code> collections, and commands for open of <em>Dired</em> buffer
+for given collection.</li>
+</ul>
+
+<h3><a name="sec6" id="sec6"></a>
+Installation &amp; customization</h3>
+
+<p class="first">This package is written by Neil Van Dyke, and available for download from <a href="http://www.neilvandyke.org/quack/">author's site</a>.
+Package is installed by copying files to directory, where Emacs could find them, and
+putting following command into initialization file:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">quack</span>)
+</pre>
+
+<p>All settings could be set via customization group with name <code>quack</code>, or using the <code>Quack</code>
+menu.  These settings allow to specify URLs for manuals &amp; SRFIs, which prefix key will be
+used for Quack's commands, etc.</p>
+
+<p>For PLT Scheme users is recommended to download manuals for this implementation from the
+<a href="http://download.plt-scheme.org/doc/">project's site</a>, and install them into <em>doc</em> collection.  Location of the PLT Scheme
+collections is defined either by the <code>quack-pltcollect-dirs</code> variable, in which you need to
+list all of directories with collections, or by <code>PLTHOME</code> and/or <code>PLTCOLLECTS</code> environment
+variables.</p>
+
+<p>To proper work of the package, the <code>wget</code> program is also required &mdash; it will used for
+access to SRFI.</p>
+
+
+<h3><a name="sec7" id="sec7"></a>
+Work with package</h3>
+
+<p class="first">After loading of package, several additional commands become available to use.  User can
+run these commands either via key bindings, and/or direct call via <code>M-x</code>, or selecting them
+via the <code>Quack</code> menu.</p>
+
+<p>For work with documentation the package provides several commands.  The <code>quack-view-manual</code>
+command (<code>C-c C-q m</code>) is used to show documentation in a web-browser.  This command allows
+to view not only base Scheme documentation, but also documentation for concrete
+implementations.  To show SRFI's there is sepearate command &mdash; 
+<code>quack-view-srfi</code> (<code>C-c C-q
+s</code>), that asks a number of document, and shows it in browser.  For PLT Scheme users there
+is also the <code>quack-view-keyword-docs</code> command (<code>C-c C-q k</code>), that shows documentation for
+given keyword (<em>work of this command is depend on the proper installation of the PLT
+Scheme</em>).</p>
+
+<p>As was mentioned above, the package provides the <code>run-scheme</code> command (<code>C-c C-q r</code>), that
+allows to run  Scheme interpreters, selecting them from list  (and including run of them
+with all needed options), and also remembers last user's choice.</p>
+
+<p>For users of PLT Scheme also provided additional commands for work with collections.  The
+<code>quack-find-file</code> command (<code>C-c C-q f</code>) opens file, using its name from current context.  For
+example, if you'll run this command while you staying on expression <code>(require (lib
+&quot;list.ss&quot;))</code>, then package will suggest to open file <code>list.ss</code> from <em>mzlib</em> collection.
+Besides this, there is the <code>quack-dired-pltcollect</code> command, that allows to open <em>Dired</em>
+buffer for given PLT Scheme collection (when typing name of collection, user can use names
+completion).</p>
+
+<p>This package also implements several commands, that change source code formatting, making
+work with it more comfortable.  The <code>quack-tidy-buffer</code> command (<code>C-c C-q t</code>) performs
+re-inditing of source code, replace tabs with spaces, removes unneeded empty lines, and
+removes spaces at the end of lines, and so on.  The <code>quack-toggle-lambda</code> command (<code>C-c C-q
+l</code>) changes definition of the current function from <code>(define (func args) ...)</code> to <code>(define
+func (lambda (args) ..))</code>, that allows to show lambda character in the source code (if this
+is enabled in options), for example:</p>
+
+<p class="image"><img src="../../../common/writings/emacs-devenv/quack-lambda.png" alt=""></p>
+
+
+
+<h2><a name="sec8" id="sec8"></a>
+The GCA package</h2>
+
+<p class="first">The <em>GCA</em> package is created for effective work with source code written in Scheme language.
+It was designed for work with <a href="http://practical-scheme.net/gauche/index.html">Gauche Scheme</a>, but it could be used with other
+implementations.  As the <em>quack</em> package, it extends commands of the <em>cmuscheme</em> package. This
+package provides following features:</p>
+
+<ul>
+<li>insertion of source code snippets, using templates;</li>
+<li>show function's descriptions;</li>
+<li>completions of names;</li>
+</ul>
+
+<p>This package could be downloaded from the <a href="http://homepage.mac.com/naoki.koguro/prog/gca/gca-20060903.tar.gz">author's site</a>, but it almost hasn't
+documentation, and existing is written in Japan.  In English is available only
+<a href="http://subtech.g.hatena.ne.jp/antipop/20071108/1194528967">very short description</a> with example of configuration, and links to the source code &amp;
+videos, showing work with package.</p>
+
+<h2><a name="sec9" id="sec9"></a>
+<a name="gds" id="gds"></a>The GDS package</h2>
+
+<p class="first">The <em>gds</em> package extends the <em>cmuscheme</em> package with following features:</p>
+
+<ul>
+<li>completion of the names (that are known for corresponding Guile process);</li>
+<li>access to built-in Guile commands &mdash; 
+<code>help</code> &amp; <code>apropos</code>;</li>
+<li>debugging of source code &mdash; show of values for variables &amp; stack, step-by-step
+execution, etc.</li>
+</ul>
+
+<p>This package was developed for Guile Scheme, and has dependencies on the Guile's features.
+You can find detailed information in the <a href="http://www.gnu.org/software/guile/manual/html_node/Using-Guile-in-Emacs.html">Guile manual</a>.</p>
+
+<p>This package differs from other packages &mdash; instead of communication via standard
+input/output, it uses simple network protocol for data transmission.  This approach allows
+to implement more features, but it also requires a dedicated Scheme process (the <em>gds</em>
+server), that will be used for communication with other processes.</p>
+
+<h3><a name="sec10" id="sec10"></a>
+Installation and customization</h3>
+
+<p class="first">The <em>gds</em> package is distributed together with latest versions of the Guile Scheme, so you
+just need to add directory with package to the Emacs's search path, and add following line
+to your initialization file:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">gds</span>)
+</pre>
+
+<p>This command will load the package, and spawn separate process, that will responsible for
+communication with Scheme interpreters.  I need to mention, that this will require, that
+special package written in Scheme will available in the Guile's search path.  If this
+package is located in non-standard place, you can specify its location with
+<code>gds-scheme-directory</code> variable, or initialization will fail.</p>
+
+<p>Other settings could be specified via the <code>gds</code> customization group.</p>
+
+
+<h3><a name="sec11" id="sec11"></a>
+Work with source code</h3>
+
+<p class="first">For source code evaluation the <em>gds</em> package uses same key bindings as <em>cmuscheme</em> package.
+The only exception is the <code>gds-eval-expression</code> command (<code>C-c C-e</code>), that evaluates expression
+entered in mini-buffer.</p>
+
+<p>The most important features, implemented by  <em>gds</em> are completion of names of
+functions &amp; variables, getting help information for concrete symbols, and/or search for
+symbol using part of name.</p>
+
+<p>Completion of names is performed by <code>gds-complete-symbol</code> command (<code>M-TAB</code>), that tries to
+find all known symbols, whose names are match to string before point.  If only one name
+was found, then it inserted immediately, but if there are several names, then new buffer
+will displayed, where user can select needed name.</p>
+
+<p>To get help information for concrete symbol you can use the <code>gds-help-symbol</code> command (<code>C-h
+g</code>), that displays same information as direct evaluation of the <code>(help SYMBOL)</code> expression in
+Guile interpreter.  User is prompted for a name, and as default the name under point is
+used.  If you don't remember precise symbol's name, then you can use the <code>gds-apropos</code>
+command (<code>C-h G</code>), that performs <code>(apropos REGEXP)</code> in Guile interpreter, and displays list of
+symbols, whose names are matched to the entered regex.</p>
+
+
+<h3><a name="sec12" id="sec12"></a>
+Debugging</h3>
+
+<p class="first">Developer can explicitly control execution of the <em>gds</em> from debugged program.  To do this,
+he should add some code to his program, that will lead to pass of data to <em>gds</em> server.  You
+can find more information about this in the <a href="http://www.gnu.org/software/guile/manual/html_node/GDS-Getting-Started.html#GDS-Getting-Started">Guile manual</a>.</p>
+
+<p>To use <em>gds</em> features during interactive work, user should explicitly specify which modules
+should be loaded to provide work with <em>gds</em>.  For example, following code will load all
+modules, that are necessary for work:</p>
+
+<pre class="src">
+(use-modules (ice-9 gds-client debugging traps))
+(named-module-use! '(guile-user) '(ice-9 session))
+(gds-accept-input #f)
+</pre>
+
+<p>After execution of this code, you'll able to work with <em>gds</em>.  To set break point in
+procedure with name <code>proc_name</code>, use following code, that should be evaluated in the buffer
+with source code:</p>
+
+<pre class="src">
+(install-trap (make <span style="color: #0000ff;">&lt;procedure-trap&gt;</span>
+                     <span style="color: #006400;">#:behaviour</span> gds-debug-trap
+                     <span style="color: #006400;">#:procedure</span> proc_name))
+</pre>
+
+<p>and after call of given procedure, you'll get in <em>gds</em> buffer following trace:</p>
+
+<pre class="example">
+ Calling procedure:
+ =&gt; s  [proc_name]
+    s  [primitive-eval (proc_name)]
+
+
+ --:**  PID XXXXX         (Guile-Debug)--All--------
+</pre>
+
+<p>In this buffer you can navigate through stack, view its state, continue execution of
+program (including step-by-step execution).  There are several commands, that provide
+execution of different tasks in stack buffer.</p>
+
+<p>For navigation through call stack, user can use following keys: <code>u</code>, <code>C-p</code> or up arrow keys
+are used to move up in the call stack, and selecting next frame (the <code>gds-up</code> command), <code>d</code>,
+<code>C-n</code> and down arrow keys are used to move down through call stack (<code>gds-down</code>), and the <code>RET</code>
+key is used for selecting of the frame under point.  Selection of some frame lead to show
+of corresponding part of source code.  Besides this, some commands will use environment,
+corresponding to selected frame..</p>
+
+<p>Following commands could be used for perform different operations in stack buffer:</p>
+
+<dl>
+<dt><strong><code>gds-evaluate</code> (the <code>e</code> key)</strong></dt>
+<dd>allow to evaluate expression, using environment for selected
+frame.  Result of expression is shown in the echo area;</dd>
+<dt><strong><code>gds-frame-info</code> (<code>i</code>)</strong></dt>
+<dd>shows information about selected frame &mdash; line in file with source
+code, frame type, etc.;</dd>
+<dt><strong><code>gds-frame-args</code> (<code>A</code>)</strong></dt>
+<dd>shows frame arguments;</dd>
+<dt><strong><code>gds-proc-source</code> (<code>S</code>)</strong></dt>
+<dd>shows source code for called procedure.  This is very useful when
+procedure was created by anonymous lambda-expression, as such procedures are shown as
+<code>&lt;procedure #f (...)&gt;</code> in call stack, so you couldn't understand what will executed next.</dd>
+</dl>
+
+<p>To continue execution of program, user can use following commands:</p>
+
+<dl>
+<dt><strong><code>gds-go</code> (<code>g</code>, <code>c</code> or <code>q</code>)</strong></dt>
+<dd>continue execution of program;</dd>
+<dt><strong><code>gds-step-file</code> (<code>SPC</code>)</strong></dt>
+<dd>execute next operation in same source file, as selected stack
+frame.  Functions from other files are executed without stopping;</dd>
+<dt><strong><code>gds-step-into</code> (<code>i</code>)</strong></dt>
+<dd>execute next operation with entering into called procedure;</dd>
+<dt><strong><code>gds-step-over</code> (<code>o</code>)</strong></dt>
+<dd>execute program until end of current stack frame.</dd>
+</dl>
+
+<p>Using these functions developer can get detailed information about program's state, and
+has ability to find and fix errors.</p>
+
+
+
+<h2><a name="sec13" id="sec13"></a>
+Scheme48</h2>
+
+<p class="first">the <em>scheme48</em> package is also built on top of the <em>cmuscheme</em>, and it extends it with support
+for Scheme48 implementation.  This package extends <em>font-lock</em> with support of keywords and
+operators, specific for Scheme48.  It also introduce new key bindings for expressions
+evaluation.</p>
+
+<p>You can download this package from <a href="http://www.emacswiki.org/cgi-bin/wiki/Scheme48Mode">EmacsWiKi</a>, and install it like another packages &mdash; copy
+it in directory, where Emacs will find it, and add load command to your initialization
+file.</p>
+
+<h2><a name="sec14" id="sec14"></a>
+<a name="xscheme" id="xscheme"></a>Xscheme</h2>
+
+<p class="first">The <em>xscheme</em> package has almost same features as <em>cmuscheme</em> &mdash; it allows to perform code
+evaluation without leaving the buffer with source code.  Besides this, it also allows to
+view call stack, if something goes wrong.</p>
+
+<p>This package works only with MIT Scheme, as it uses some of features, available only in
+this implementation.  The package is distributed together with  Emacs, and to use it, you
+just need to add following command to your initialization file:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">xscheme</span>)
+</pre>
+
+<p>After loading of the package, user can run interpreter with the <code>start-scheme</code> command, and
+use corresponding commands for evaluation of code in interpreter.  To evaluate expression
+before point, user can use either <code>advertised-xscheme-send-previous-expression</code> command (<code>C-x
+C-e</code>), or the <code>xscheme-send-previous-expression</code> command (<code>M-RET</code>).  Commands
+<code>xscheme-send-definition</code> (<code>C-M-x</code> or <code>M-z</code>), <code>xscheme-send-region</code> (<code>C-M-z</code>), and
+<code>xscheme-send-buffer</code> (<code>M-o</code>) pass to interpreter definition of current function, selected
+region, or whole buffer.  To switch to interpreter buffer, user can use the
+<code>xscheme-select-process-buffer</code> command (<code>C-c C-s</code>).</p>
+
+<h2><a name="sec15" id="sec15"></a>
+<a name="gambit" id="gambit"></a>Support for Gambit-C</h2>
+
+<p class="first">For the Gambit Scheme implementation there is also separate package, based on the
+<em>cmuscheme</em>, and implementing several operations, supported only for Gambit &mdash; debugging,
+compilation, etc.  This package has name <em>gambit</em>, and distributed together with
+<a href="http://dynamo.iro.umontreal.ca/~gambit/">Gambit Scheme</a>.  Additional information about Gambit Scheme, and the <em>gambit</em> package, you
+can find in <a href="http://dynamo.iro.umontreal.ca/~gambit/wiki/index.php/Documentation">documentation</a>.</p>
+
+<p>Installation procedure is standard &mdash; put <code>gambit.el</code> into some directory, where Emacs will
+find it, and add following lines into initialization file:</p>
+
+<pre class="src">
+(autoload 'gambit-inferior-mode <span style="color: #008b00;">"gambit"</span> <span style="color: #666666;">"Hook Gambit mode into cmuscheme."</span>)
+(autoload 'gambit-mode <span style="color: #008b00;">"gambit"</span> <span style="color: #666666;">"Hook Gambit mode into scheme."</span>)
+(add-hook 'inferior-scheme-mode-hook (function gambit-inferior-mode))
+(add-hook 'scheme-mode-hook (function gambit-mode))
+(setq scheme-program-name <span style="color: #008b00;">"gsi -:d-"</span>)
+</pre>
+
+<p>Gambit interpreter is run with <code>run-scheme</code> command, implemented in <em>cmuscheme</em>, but the
+<em>gambit</em> package add to it procedures for output filtering, allowing to get information
+about source file.  After run of interpreter, user can use standard <a href="#cmuscheme">cmuscheme</a> key bindings
+for evaluation and compilation of code &mdash; 
+<code>C-x C-e</code>, <code>C-c C-l</code>, <code>C-c C-k</code>, etc.</p>
+
+<p>In addition to <em>cmuscheme</em> commands, the <em>gambit</em> package provides several commands, that
+could be used for debugging of source code:</p>
+
+<dl>
+<dt><strong><code>gambit-continue</code> (<code>F8</code> или <code>C-c c</code>)</strong></dt>
+<dd>continue execution of the code.  The same as  <code>,c</code>
+in interpreter;</dd>
+<dt><strong><code>gambit-crawl-backtrace-newer</code> (<code>F9</code> или <code>C-c ]</code>)</strong></dt>
+<dd>switch to previous stack frame. The same
+as <code>,-</code> in interpreter;</dd>
+<dt><strong><code>gambit-crawl-backtrace-older</code> (<code>F10</code> или <code>C-c [</code>)</strong></dt>
+<dd>switch to next stack frame. The same as
+<code>,+</code> in interpreter;</dd>
+<dt><strong><code>gambit-step-continuation</code> (<code>F11</code> или <code>C-c s</code>)</strong></dt>
+<dd>execute one operation with entering into
+calling function.  The same as <code>,s</code> in interpreter;</dd>
+<dt><strong><code>gambit-leap-continuation</code> (<code>F12</code> или <code>C-c l</code>)</strong></dt>
+<dd>execute one operation without entering into
+calling function. The same as <code>,l</code> in interpreter;</dd>
+<dt><strong><code>gambit-kill-last-popup</code> (<code>C-c _</code>)</strong></dt>
+<dd>delete window, that was created for displaying of
+source code.</dd>
+</dl>
+
+<p>There also more short key bindings for these commands: <code>M-c</code>, <code>M-[</code>, <code>M-]</code>, <code>M-s</code>, <code>M-l</code> and <code>M-_</code>,
+but they aren't activated by default, as they doesn't match to Emacs guidelines for key
+bindings.  To enable them, you need to execute following expression (and put it into
+initialization file):</p>
+
+<pre class="src">
+(setq gambit-repl-command-prefix <span style="color: #008b00;">"\e"</span>)
+</pre>
+
+<h2><a name="sec16" id="sec16"></a>
+<a name="bee-mode" id="bee-mode"></a>Bee-mode (bmacs)</h2>
+
+<p class="first">With the <em>bmacs</em> package authors had tried to create integrated development environment for
+work with <a href="http://www-sop.inria.fr/mimosa/fp/Bigloo/">Bigloo Scheme</a>.  This package implements following features:</p>
+
+<ul>
+<li>debugging;</li>
+<li>profiling;</li>
+<li>automatic creation &amp; update of Makefiles;</li>
+<li>navigation in source code;</li>
+<li>integration with version control systems;</li>
+<li>display of documentation;</li>
+<li>interactive evaluation of source code;</li>
+<li>macro expansion;</li>
+<li>basic support for literate programming.</li>
+</ul>
+
+<p>For proper work of this package some number of additional utilities are required, but most
+of them are distributed together with Bigloo Scheme.   Documentation you can find
+<a href="http://www-sop.inria.fr/mimosa/fp/Bigloo/doc/bigloo-31.html">project's site</a>, or in distribution.</p>
+
+<h3><a name="sec17" id="sec17"></a>
+Installation &amp; basic customization</h3>
+
+<p class="first">This package is distributed together with Bigloo Scheme and placed in <code>bmacs</code> sub-directory
+of distribution.  To install this package you need to switch to this sub-directory and
+execute following command:</p>
+
+<pre class="src">
+make
+make install <span style="color: #8b0000;">EMACSDIR</span>=&lt;your site lisp&gt;
+</pre>
+
+<p>that will install all needed files to place, that you specified.  After this, you can add
+following lines to your initialization file, to enable automatic loading of all needed
+parts when you'll open files with source code<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>:</p>
+
+<pre class="src">
+(autoload 'bdb <span style="color: #008b00;">"bdb"</span> <span style="color: #666666;">"bdb mode"</span> t)
+(autoload 'bee-mode <span style="color: #008b00;">"bee-mode"</span> <span style="color: #666666;">"bee mode"</span> t)
+(setq auto-mode-alist
+      (append '((<span style="color: #008b00;">"\\.scm$"</span> . bee-mode)
+                (<span style="color: #008b00;">"\\.sch$"</span> . bee-mode)
+                (<span style="color: #008b00;">"\\.scme$"</span> . bee-mode)
+                (<span style="color: #008b00;">"\\.bgl$"</span> . bee-mode)
+                (<span style="color: #008b00;">"\\.bee$"</span> . bee-mode))
+              auto-mode-alist))
+</pre>
+
+<p>All settings could be specified via customization group <code>bee</code>, that control behaviour for
+the <em>bee-mode</em>, and via groups <em>dbg</em> &amp; <em>bug</em>, that are used to specify settings for debugger.</p>
+
+
+<h3><a name="sec18" id="sec18"></a>
+Work with source code</h3>
+
+<p class="first">After loading of <em>bee-mode</em> user can execute commands using the pictures in toolbar or
+selecting corresponding items from menu <code>Bee</code>, that is appear when this mode is enabled.</p>
+
+<p>To proper indenting of source code, according to Bigloo rules, this package defines
+several commands: the <code>bee-indent-sexp</code> command (<code>C-M-q</code>) re-indents current expression,
+<code>bee-indent-define</code> (<code>C-c TAB C-d</code>) performs this operation for current function, and
+<code>bee-indent-last-sexp</code> (<code>C-c TAB C-l</code>) re-indents expression before point.</p>
+
+<p>One of important thing when you work with source code &mdash; commands for search of
+definitions of functions &amp; variables.  To find variable's definition, you can use the
+<code>bee-tags-find</code> command (<code>C-x 5 .</code>) or the <code>bee-tags-find-variable</code> command (<code>C-c C-d f</code>).  And to
+find definition of the module, you can use the <code>bee-find-module</code> command (<code>C-c C-d m</code>).
+Besides this, <em>bee-mode</em> redefines two key binding &mdash; 
+<code>M-.</code> &amp; <code>M-,</code>, that re-bound to the
+<code>bee-tag-find</code> and <code>bee-tags-find-next</code> commands, that allows to search definitions of
+functions &amp; classes.</p>
+
+<p>To simplify work with modules, <em>bee-mode</em> defines set of commands, that control list of
+modules, imported by current file &mdash; the <code>bee-import-binding</code> command (<code>C-c RET i</code>), and also
+control list of functions &amp; variables, exported from current file &mdash; this is commands
+<code>bee-export-function</code> (<code>C-c RET f</code>) and <code>bee-export-variable</code> (<code>C-c RET v</code>).  Besides this, exists
+command, that allows to import symbols from files, written in C &mdash; 
+<code>bee-import-c-file</code> (<code>C-c
+RET c</code>), it also updates <code>Makefile</code>, adding dependencies for compilation of corresponding
+code file.</p>
+
+<p>The package also provides basic support for literate programming.  It allows to insert
+into source code, links to descriptions of modules &amp; functions.  This is allowed by using
+keywords <code>@path</code>, <code>@node</code> &amp; <code>@deffn</code> in comments for modules &amp; functions. The <code>@path</code> &amp; <code>@node</code>
+keywords (used in commentary for module's declaration) define file and part of
+documentation, that describe given module.  The <code>@deffn</code> keyword is used in commentary for
+function.  By using these keywords, developer get ability to fast navigation between code
+and its description, allowing to make code more readable.</p>
+
+
+<h3><a name="sec19" id="sec19"></a>
+Compilation &amp;  execution of source code</h3>
+
+<p class="first">As other packages, the <em>bmacs</em> allows to execute Scheme code directly from Emacs buffer.  To
+perform these operations, you need to execute the <code>ude-repl-other-frame</code> command (<code>C-c C-r
+C-r</code>), or select corresponding icon in toolbar (<em>Repl</em>), or select corresponding menu item.</p>
+
+<p>After loading of interpreter, user can evaluate source code using following commands:</p>
+
+<ul>
+<li><code>ude-repl-send-buffer</code> (<code>C-c C-r b</code>) pass whole buffer to interpreter;</li>
+<li><code>ude-repl-send-region</code> (<code>C-c C-r r</code>), pass to interpreter only selected region of source code;</li>
+<li><code>bee-repl-send-define</code> (<code>C-c C-r d</code>) evaluates only current definition (<code>define</code>);</li>
+<li><code>bee-repl-send-last-sexp</code> (<code>C-c C-r l</code>) evaluates expression before point;</li>
+<li><code>bee-repl-send-toplevel-sexp</code> (<code>C-c C-r t</code>) evaluates current expression.</li>
+</ul>
+
+<p>When you working with macros, it's often need to expand them.  The <em>bee-mode</em> implements set
+of commands, that could be used to expand macros in your code (search of macros will
+performed in whole buffer):</p>
+
+<ul>
+<li><code>bee-expand-buffer</code> (<code>C-c C-e C-e</code>) expand all macros in current buffer;</li>
+<li><code>bee-expand-region</code> (<code>C-c C-e C-r</code>) expand macros in selected region;</li>
+<li><code>bee-expand-define</code> (<code>C-c C-e C-d</code>) expand macros in current definition (<code>define</code>)</li>
+<li><code>bee-expand-last-sexp</code> (<code>C-c C-e C-l</code>) expand macros in expression before point;</li>
+<li><code>bee-expand-toplevel-sexp</code> (<code>C-c C-e C-t</code>) expand macros in current expression.</li>
+</ul>
+
+<p>To compile code, you need to have <code>Makefile</code>, that describe dependencies between modules,
+and specify compilation flags.  For projects you also need to have root directory &mdash;
+<em>bee-mode</em> tries to find it by searching for <code>Makefile</code>, <code>.afile</code> or <code>.etags</code> files, or you can
+set it with the <code>ude-user-set-root-directory</code> command (<code>C-c C-p C-r</code>) or corresponding
+toolbar's icon.</p>
+
+<p>When root directory is specified, <code>Makefile</code> could be generated with the
+<code>ude-generate-makefile</code> command (<code>C-c C-c a</code> or <code>C-c C-c C-l</code>), that will ask user for name of
+executable, that will created from your source code.  If <code>Makefile</code> already exists, this
+command will update it, and also rebuild files <code>.afile</code> and <code>.etags</code>.  Besides this, you can
+edit <code>Makefile</code> with command <code>ude-edit-makefile</code> (<code>C-c C-c e</code>), update it with the
+<code>ude-update-makefile</code> command (<code>C-c C-c u</code>), and switch between debug &amp; release versions of
+executable with commands <code>ude-makefile-debug-mode</code> (<code>C-c C-c C-d</code>) &amp; <code>ude-makefile-final-mode</code>
+(<code>C-c C-c C-f</code>).</p>
+
+<p>When <code>Makefile</code> exists, then you can compile code with the <code>ude-mode-compile-from-menu</code>
+command (<code>C-c C-c C-c</code>)<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.  You can stop compilation with the <code>kill-compilation</code> command (<code>C-c
+C-c k</code>).  And when compilation is finished, you can run executable with the <code>ude-execute</code>
+command (<code>C-c C-c C-r</code>).</p>
+
+
+<h3><a name="sec20" id="sec20"></a>
+Debugging &amp; profiling</h3>
+
+<p class="first">Debugger is shipped together with Bigloo, and it allows to perform debugging on the level
+of source code.  <em>bee-mode</em> supports interaction with debugger from Emacs.  To run debugger
+you need to execute the <code>bee-debug</code> command (<code>C-c C-b C-b</code>) or select corresponding menu item
+or toolbar's icon.  But to connect current code to debugger you need explicitly execute
+the <code>bee-toggle-connect-buffer</code> command (<code>C-c C-b c</code>) that will link current buffer with
+debugger, and allows to set breakpoints, and perform other tasks, related to debugging of
+source code.</p>
+
+<p>Profiling of programs is supported out of box, if you generate <code>Makefile</code> with Bigloo tools.
+To make code profiling, you need to compile it first with appropriate flags.  This
+operation is could be performed with the <code>bee-profiler-start</code> command (<code>C-c C-p c</code>).  And
+after compilation, you can execute the <code>bee-profiler-inspect</code> command (<code>C-c C-p i</code>), that will
+run your program, and than it will run the <code>bglprof</code> utility, that will collect and process
+data about execution of your program.</p>
+
+
+<h3><a name="sec21" id="sec21"></a>
+Other commands</h3>
+
+<p class="first">The package implements commands to get help information.  This could be done by executing
+the  <code>bee-doc-visit</code> command (<code>C-c C-d i</code>), or pressing to the <code>Info</code> icon in toolbar.  This
+command behaves differently, depending on context &mdash; if cursor is on identifier, it
+displays information for this identifier, if there is selected region of code, it will try
+to find appropriate description.  Otherwise, it will ask user for name of section of
+documentation, and display it.</p>
+
+<p>Information is taken from files in Info format, that are distributed together with Bigloo.
+Besides this, search for documentation is performed in sub-directories of current project,
+and if it found, they it will added to documentation index.  User can also specify where
+to search for additional documentation.</p>
+
+<p>The <em>bmacs</em> package also implements several functions for work with version control systems,
+that allow to work with them on the project level.  But it supports only for limited
+number of VCSs, so this support become not actual for most of users.</p>
+
+<p>Besides commands, described above, package implements number of functions, dedicated for
+work with C code, etc.  But description of these functions is out of boundaries of this
+article.  You can find they description in documentation bundled with Bigloo.</p>
+
+
+
+<h2><a name="sec22" id="sec22"></a>
+Support for Scheme in SLIME</h2>
+
+<p class="first">The wonderful <a href="EmacsSLIME.html">SLIME package</a>, created for work with Lisp code, also has rudiment support
+for work with code in Scheme.  Currently it supports only two Scheme implementations &mdash;
+<em>Kawa</em> &amp; <em>MIT Scheme</em>.  Support for other implementations could be added by implementing
+protocol that is used by <em>SLIME</em> for work with concrete process<sup><a class="footref" name="fnr.4" href="#fn.4">4</a></sup>.</p>
+
+<p>To use <em>SLIME</em> with Scheme, you need to perform basic setup of the package, as described in
+manual, and then load all needed components<sup><a class="footref" name="fnr.5" href="#fn.5">5</a></sup>.  This will look something like this:</p>
+
+<pre class="src">
+(add-hook 'slime-load-hook (<span style="color: #a020f0;">lambda</span> () (<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">slime-scheme</span>)))
+</pre>
+
+<p>This command will setup all hooks, that are needed to work with <em>SLIME</em>, but for concrete
+implementation you'll need to perform additional setup, as described in corresponding
+files &mdash; 
+<code>swank-kawa.scm</code> or <code>swank-mit-scheme.scm</code>.</p>
+
+<p>All other details, related to the <em>SLIME</em> are described in <a href="EmacsSLIME.html">corresponding section</a>.</p>
+
+
+
+<div id="rule"><a href="index.html">To the main page</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> By default you can use only one active Scheme process.  But if you need to have
+several processes at the same time, you can use <a href="http://www.emacswiki.org/cgi-bin/wiki/RunSchemeHere">scheme-here.el</a> package.</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> Besides <em>bee-mode</em>, in the <em>bmacs</em> distribution there are following packages: <em>cee</em> package
+is used to edit C code, in which you can write Bigloo's extensions; <em>bug-mode</em> provides
+support for Bigloo debugger; <em>ude</em> (Unix Development Environment) implements commands
+for compilation, profiling, and other utilities, that could be used when you work with
+Bigloo.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> I need to mention, that if there is no <code>Makefile</code>, then this command will run
+compilation of program from one source file.</p>
+
+<p class="footnote"><a class="footnum" name="fn.4" href="#fnr.4">4.</a> So called <em>swank</em>-module.</p>
+
+<p class="footnote"><a class="footnum" name="fn.5" href="#fnr.5">5.</a> All components needed for work with Scheme, are located in the <code>contrib</code> sub-directory
+of the <em>SLIME</em> distribution, so don't forget to include it in Emacs search paths.</p>
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/emacs-devenv/EmacsScheme.html';
+var disqus_url = 'http://alexott.net/en/writings/emacs-devenv/EmacsScheme.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

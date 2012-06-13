@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Что такое Boost.Asio и зачем он нужен</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, boost, asio, boost::asio" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Что такое Boost.Asio и зачем он нужен</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Главная</a></li><li><a href="../cf/">Информационная безопасность</a></li><li><a href="../fp/">Функциональное программирование</a></li><li><a href="../lisp/">Lisp</a></li><li><a href="../clojure/">Clojure</a></li><li><a href="../scheme/">Scheme</a></li><li><a href="../erlang/">Erlang</a></li><li><a href="../cpp/" class="current">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../writings/">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>Проблема написания на С++ кросс-платформенного кода для работы с сетью существует
+достаточно давно, и для решения этой проблемы было создано некоторое количество библиотек.
+Но <a href="http://asio.sf.net">Boost.Asio</a> можно назвать лучшей реализацией среди существующих.  На базе Boost.Asio уже
+построено несколько библиотек (<a href="http://www.pion.org/projects/pion-network-library">libpion</a>, <a href="http://cpp-netlib.sf.net">cpp-netlib</a>), и кроме того, ведется разработка
+новых.  Кроме того, на базе Boost.Asio я спроектировал и разработал подсистему фильтрации
+для системы фильтрации веб-трафика <a href="http://jetsoft.ru/product/dozorskvt/purpose.html">СКВТ &quot;Дозор-Джет&quot;</a>.</p>
+
+<p>К основным возможностям Boost.Asio можно отнести следующие:</p>
+
+<ul>
+<li>возможность написания кросс-платформенного сетевого кода, работающего на большом
+количестве платформ - Windows, практически все Unix-подобные ОС, Tru64</li>
+<li>поддержка как IPv4, так и IPv6</li>
+<li>работа с TCP &amp; UDP</li>
+<li>поддержка выполнения асинхронных операций</li>
+<li>возможность использования интерфейсов, совместимых с std::iostream</li>
+<li>поддержка SSL</li>
+<li>поддержка отложенных операций (таймеры)</li>
+</ul>
+
+<p>Для меня, самым главным преимуществом Boost.Asio (не считая высокой переносимости кода)
+является то, что на каждой платформе реализуется наиболее эффективная стратегия работы
+(<code>epoll</code> на Linux 2.6, <code>kqueue</code> на FreeBSD/MacOSX, Overlapped IO на MS Windows), и то, что
+библиотека позволяет использовать разные стратегии &mdash; синхронная и асинхронная работа с
+сокетами, использование потокового ввода-вывода, совместимого с <code>std::iostream</code>.  И эти
+стратегии можно смешивать, например, принимать соединения используя асинхронную обработку
+событий, а затем, запускать тред, который будет использовать синхронный ввод-вывод данных
+(пример <a href="../../common/asio-notes/test-otpc.cpp.html">test-otpc.cpp</a>).</p>
+
+<p>Для демонстрации возможностей Boost.Asio я написал (частично адаптировав примеры из
+поставки) несколько примеров, реализующих разные стратегии обработки данных (большее
+количество примеров, можно найти на домашней странице Boost.Asio).  Я использовал эти
+примеры для оценки применимости разных стратегий в своих разработках.  Все эти примеры
+реализуют &quot;тупой&quot; веб-сервер &mdash; он принимает запрос, и отдает одну и ту же страницу,
+независимо от указанного URL.  Сейчас выложены следующие примеры (все исходные тексты
+включают в себя файл <a href="../../common/asio-notes/common.h.html">common.h</a>):</p>
+
+<ul>
+<li><a href="../../common/asio-notes/test-mcmt.cpp.html">test-mcmt.cpp</a> - реализует обработку данных в соответствии со стратегией Many
+Connections/Many Threads - запускается несколько нитей выполнения, которые по очереди
+принимают соединение и обрабатывают запросы в асинхронном режиме;</li>
+<li><a href="../../common/asio-notes/test-otpc.cpp.html">test-otpc.cpp</a> - реализует обработку данных в соответствии со стратегией One Thread per
+Connection - одна нить выполнения асинхронно принимает соединения (файлы
+<a href="../../common/asio-notes/test-otpc-conn.cpp.html">test-otpc-conn.cpp</a> &amp; <a href="../../common/asio-notes/test-otpc-conn.hpp.html">test-otpc-conn.hpp</a>), а затем запускает новую нить, в пределах
+которой используется синхронный ввод-вывод;</li>
+<li><a href="../../common/asio-notes/test-otpc-tp.cpp.html">test-otpc-tp.cpp</a> - аналогично <a href="../../common/asio-notes/test-otpc.cpp.html">test-otpc.cpp</a>, но новая нить не создается каждый раз, а
+используется пул нитей, реализуемый библиотекой <a href="http://threadpool.sf.net">threadpool</a>.</li>
+</ul>
+
+<p>Для сборки примеров (исходники лежат <a href="../../common/asio-notes/sources.tar.gz">тут</a>) нужен boost версии 1.35 или выше.</p>
+
+<p>Я думаю, что на основе данной заметки может получится написать более подробную статью, но
+это задел на будущее, а пока можно задавать мне вопросы :-)</p>
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/cpp/BoostAsioNotes.html';
+var disqus_url = 'http://alexott.net/ru/cpp/BoostAsioNotes.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

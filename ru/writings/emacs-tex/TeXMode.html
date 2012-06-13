@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Пакет TeX-mode</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, tex, latex, emacs, gnu emacs, xemacs, tex-mode" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Пакет TeX-mode</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Работа с пакетом</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec2">Редактирование файлов</a>
+</dt>
+<dt>
+<a href="#sec3">Печать результатов</a>
+</dt>
+<dt>
+<a href="#sec4">Прочие команды</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec5">Настройка</a>
+</dt>
+</dl>
+</div>
+
+
+<p><em>TeX-mode</em> &mdash; это специальный режим, предназначенный для редактирования файлов с исходными
+текстами в формате TeX и его вариантов.  Пакет предоставляет специальные команды для
+редактирования исходных текстов, подсветки разметки, и выполнения обработки текстов.
+Данный режим поддерживает следующие варианты &mdash; Plain TeX, LaTeX, SliTeX и DocTeX.</p>
+
+<p>Режим поставляется в составе GNU Emacs, а также в составе пакетов для XEmacs, так что
+специальных действий по его загрузке и установке не требуется.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Работа с пакетом</h2>
+
+<p class="first">Для начала работы с пакетом просто наберите <code>M-x tex-mode</code>.  Но обычно, пользователю не
+нужно это делать явно, путем настройки соотношения между расширениями файлов и
+соответствующими режимами.  При инициализации режима пакет пытается автоматически
+определить в каком режиме он будет работать &mdash; Plain TeX, LaTeX или SliTeX.  Это
+выполняется на основе анализа команд, заданных в открываемом файле.  Но если содержимого
+файла не достаточно, то для выбора нужного режима используется значение переменной
+<code>tex-default-mode</code>.  Когда определение варианта TeX произошло неправильно, то пользователь
+может явно переключиться на использование нужного варианта используя команды
+<code>plain-tex-mode</code>, <code>latex-mode</code> и <code>slitex-mode</code>.</p>
+
+<p>Команды пакета можно разделить на несколько групп &mdash; команды редактирования, команды
+печати результатов компиляции файлов, и прочие команды.  О них и будет идти рассказ в
+соответствующих подразделах.  Все описанные команды также доступны через соответствующие
+меню &mdash; 
+<code>TeX</code> и <code>LaTeX</code>.</p>
+
+<h3><a name="sec2" id="sec2"></a>
+Редактирование файлов</h3>
+
+<p class="first">Для работы со всеми вариантами TeX пакет предоставляется относительно небольшое количество
+команд.  Но кроме явных комманд, предоставляются возможности по подсвечиванию парных
+элементов, проверке правильности разметки и т.п. вещи.</p>
+
+<p>Команда <code>tex-terminate-paragraph</code> (она привязана к <code>C-j</code>) заканчивает текущий параграф,
+вставляя две пустых строки.  При этом производится проверка параграфа на наличие
+несбалансированных знаков доллара и скобок.  Проверить несколько параграфов на наличие
+несбалансированных элементов можно выделив их, и запустив команду <code>tex-validate-region</code>,
+которая проверит параграфы в выделенной области.</p>
+
+<p>Пакет <em>TeX-mode</em> предоставляет пользователю удобные средства для вставки и проверки
+элементов, которые должны иметь свою пару.  Так, для кавычек может использоваться команда
+<code>tex-insert-quote</code>, привязанная к клавише <code>&quot;</code>, которая вставляет либо <code>``</code>, либо <code>&quot;</code>, или <code>''</code> в
+зависимости от контекста и наличия предыдущей открывающей кавычки, что обеспечивает
+правильное отображение кавычек в результирующем файле.  Для вставки парных фигурных скобок
+может использоваться команда <code>tex-insert-braces</code>, привязанная к <code>C-c {</code>.  Для поиска
+несбалансированных скобок используется команда <code>up-list</code> (она привязана к <code>C-c }</code>), которая
+перемещает курсор за первую непарную закрывающую скобку.</p>
+
+<p>Для редактирования исходных текстов с разметкой LaTeX, пакет предоставляет еще две команды
+&mdash; 
+<code>tex-latex-block</code> (привязана к <code>C-c C-o</code>) и <code>tex-close-latex-block</code> (она привязана к <code>C-c
+C-e</code>).  Первая функция вставляет команды <code>\begin</code> и <code>\end</code> для заданного окружения LaTeX, и
+помещает курсор на пустой строке между ними.  При использовании этой команды пользователь
+указывает имя окружения, при этом он может использовать стандартные механизмы дополнения
+Emacs.  При дополнении могут использоваться как имена стандартных окружений, так и имена
+окружений созданных пользователем, которые можно задать изменяя значение переменной
+<code>latex-block-names</code>.  Вторая команда используется для вставки команды, закрывающей последнее
+незакрытое окружение LaTeX.</p>
+
+
+<h3><a name="sec3" id="sec3"></a>
+Печать результатов</h3>
+
+<p class="first">Набрав текст с разметкой, хочется увидеть как он будет выглядеть на бумаге.  Для этого,
+пакет <em>TeX-mode</em> предоставляет набор команд, которые позволяют получить результат обработки
+файла с исходным текстом.  Получение результатов происходит в два этапа.  На первом этапе
+исходные тексты обрабатываются TeX'ом, а на втором этапе может работать с результатом
+обработки.</p>
+
+<p>Для обработки исходного текста могут использоваться следующие команды: <code>tex-file</code> (сочетание
+клавиш <code>C-c C-f</code>) обрабатывает текущий файл, <code>tex-buffer</code> (сочетание <code>C-c C-b</code>) производит
+обработку текущего буфера, а <code>tex-region</code>, привязанная к <code>C-c C-r</code>, производит обработку
+выделенной области.  Кроме этого, вы можете обработать исходные тексты с помощью BibTeX,
+используя команду <code>tex-bibtex-file</code> (сочетание клавиш <code>C-c TAB</code>).  Для больших проектов,
+состоящих из нескольких файлов, вы можете указать головной файл, используя локальную
+переменную <code>tex-main-file</code>.</p>
+
+<p>Во время обработки исходных текстов, вы можете видеть журнал обработки в буфере
+<code>*tex-shell*</code>.  Для того, чтобы видеть текущий результат, включая последнюю строку вывода,
+можно использовать команду <code>tex-recenter-output-buffer</code>, привязанную к <code>C-c C-l</code>.  Если вы
+хотите прервать обработку документа, то можете воспользоваться командой <code>tex-kill-job</code>
+(сочетание клавиш <code>C-c C-k</code>).</p>
+
+<p>После обработки исходных текстов, пользователь может просмотреть результаты с помощью
+команды <code>tex-view</code>, привязанной к сочетанию клавиш <code>C-c C-v</code>, или напечатать результат с
+помощью команды <code>tex-print</code> (сочетание <code>C-c C-p</code>).  Для просмотра очереди печати можно
+использовать команду <code>tex-show-print-queue</code> (или сочетание клавиш <code>C-c C-q</code>).</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Прочие команды</h3>
+
+<p class="first">Для преобразования между символами в кодировке Latin-1 и соответствующими эквивалентами
+TeX могут использоваться команды <code>iso-iso2tex</code>, <code>iso-tex2iso</code>, <code>iso-iso2gtex</code> и <code>iso-gtex2iso</code>.</p>
+
+
+
+<h2><a name="sec5" id="sec5"></a>
+Настройка</h2>
+
+<p class="first">Настройку данного режима пользователь можно произвести используя средства настройки Emacs.
+Главной группой для этого режима является группа настройки <code>tex</code>.  Пользователь может
+задать, например, имена команд, которые будут выполняться на каждой из стадии &mdash; обработке
+исходных текстов, просмотре, печати и т.д.  При этом, пользователю необходимо задать имя
+для команды просмотра результатов, используя переменную <code>tex-dvi-view-command</code>, поскольку
+для этой переменной нет значения по умолчанию.</p>
+
+<p>Для тонкой настройки параметров редактирования файла, пользователю предоставляется
+несколько хуков.  При открытии любого файла с разметкой TeX и его вариантов, вызываются
+два хука &mdash; 
+<code>text-mode-hook</code> и <code>tex-mode-hook</code>, первый из которых применяется ко всем
+текстовым файлам, а второй &mdash; только к файлам TeX.  Кроме этого, для настройки
+редактирования файлов в отдельных вариантах TeX, пакет определяет специальные хуки &mdash;
+<code>plain-tex-mode-hook</code>, <code>latex-mode-hook</code> и <code>slitex-mode-hook</code>, которые вызываются при открытии
+файла с соответствующей разметкой.</p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-tex/TeXMode.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-tex/TeXMode.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

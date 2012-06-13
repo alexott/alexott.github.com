@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Work with Aegis</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, aegis, aegis-mode" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Work with Aegis</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Installation</a>
+</dt>
+<dt>
+<a href="#sec2">Work with package</a>
+</dt>
+<dt>
+<a href="#sec3">Customization</a>
+</dt>
+</dl>
+</div>
+
+
+<p><em>Aegis</em> &mdash; system for configurations management, developed by Peter Miller.  This system has
+many very interesting features and used by many projects.  One of the interest feature of
+this system is, that users could have different roles &mdash; developer, integrator,
+administrator, etc. and corresponding access levels.  Also <em>Aegis</em> supports atomic commits
+and change sets.  Another interesting feature, very useful for software developers &mdash;
+ability to automatic rebuilding of software and execution of tests after commit, and
+rejecting of commit if rebuild and/or tests fail.  More detailed information on <em>Aegis</em> you
+can find at <a href="http://aegis.sourceforge.net">Aegis's site</a>.</p>
+
+<p>Integration of <em>Aegis</em> and Emacs is performed by <em>aegis-mode</em> package.  There is one major
+difference between <em>Aegis</em> and other systems &mdash; there is no <em>VC</em> module for it, as <em>Aegis</em> has
+to many ideological differences with <em>RCS</em>, those ideology is a basis for for <em>VC</em> package.
+The <em>aegis-mode</em> package reflects ideology of <em>Aegis</em>, so you need to read documentation for
+it to use this package.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Installation</h2>
+
+<p class="first">You can download  <em>aegis-mode</em> from <a href="http://acsys.anu.edu.au/~tpot/aegis-mode/">author's site</a>.  Just put file to place, where it could
+be found by Emacs, and add following line to initialization file:</p>
+
+<pre class="src">
+(autoload 'aegis-mode <span style="color: #008b00;">"aegis-mode"</span> <span style="color: #666666;">"Mode for using aegis"</span> t)
+</pre>
+
+<p>And you can execute <code>M-x aegis-mode</code> function at any time, and it loads package.  But I need
+to mention, that if you enable <em>aegis-mode</em>, then you will not able to disable it, until you
+finish Emacs.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Work with package</h2>
+
+<p class="first">In <em>Aegis</em> users could play different roles, and <em>aegis-mode</em> also supports this concept.
+User can change its role by using command from <code>Aegis</code> menu, or by executing command
+<code>aegis-become-...</code> (and add corresponding role instead of <code>...</code>).  Currently <em>aegis-mode</em>
+supports four roles: administrator, developer, code integrator and reviewer.</p>
+
+<p>After package is loaded, all functions are available either via <code>M-x</code> key binding and
+specification of functions name, or via <code>Aegis</code> menu.  List of commands in menu depends on
+the current user's role .</p>
+
+<p>All functions, has special prefix <code>aegis-</code>, after which you could specify name of needed
+command of <em>Aegis</em>.  So work with package doesn't differ from work with <em>Aegis</em> in command
+line.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Customization</h2>
+
+<p class="first">User can customize behaviour of <em>aegis-mode</em> by setting big number of variables and hooks,
+defined in file <code>aegis-vars.el</code>.  I'll mention only most important variables, and
+descriptions of other you can find in file <code>aegis-vars.el</code>.</p>
+
+<p>For each of command of <em>Aegis</em> user can specify command line options, that will passed when
+corresponding commands will executed.  These options are stored in variables with names
+like <code>aegis-mode-COMMAND-flags</code>.  So, if you need to pass additional options to some
+command, you can set them in corresponding variable.</p>
+
+<p>To execute commands when user switch to other role, package provides some number of hooks,
+that named like <code>aegis-mode-become-ROLE_NAME-hook</code>.  By defining these hooks, user can add
+code, that will executed when user will switch to given role.  Role, that will set after
+loading of package is specified by <code>aegis-mode-default-hat</code> variable.</p>
+
+<div id="rule"><a href="index.html">Back to main page</a></div>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/emacs-vcs/EmacsAegis.html';
+var disqus_url = 'http://alexott.net/en/writings/emacs-vcs/EmacsAegis.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

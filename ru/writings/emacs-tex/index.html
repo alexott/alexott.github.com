@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Использование Emacs для работы с TeX и LaTeX</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, gnu emacs, xemacs, tex, latex, bibtex, auctex, reftex, preview-latex" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Использование Emacs для работы с TeX и LaTeX</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p><strong><em>это бета-версия рассказа, работа над текстом продолжается</em></strong></p>
+
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Введение</a>
+</dt>
+<dt>
+<a href="#sec2">Основные режимы</a>
+</dt>
+<dt>
+<a href="#sec3">Пакеты для визуальной и интерактивной работы с TeX/LaTeX</a>
+</dt>
+<dt>
+<a href="#sec4">Вспомогательные режимы</a>
+</dt>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+Введение</h2>
+
+<p class="first">Emacs в ходе своего развития имел большую популярность в университетской среде.  В то же
+время, в этой же среде стал популярен пакет для подготовки печатных изданий TeX,
+разработанный Дональдом Кнутом, и его расширение LaTeX, которые обеспечивали создание
+печатных изданий типографского качества.  Одновременная популярнасть не могла не привести
+к возникновению поддержки TeX и LaTeX в среде Emacs.  В настоящее время существует
+несколько пакетов, которые обеспечивают помощь пользователю при работе с файлами в формате
+TeX.  Пакет <em>TeX-mode</em> идет в поставке GNU Emacs и обеспечивает базовую поддержку
+редактирования текста, использующего разметку TeX и Texinfo.  А пакет <em>AUCTeX</em> обеспечивает
+расширеную поддержку работу с TeX, облегчая ввод имен окружений и команд TeX/LaTeX.</p>
+
+<p>Кроме перечисленных выше основных режимов, существует достаточно большое количество
+пакетов, делающих работу с TeX и LaTeX более комфортной.  Они обеспечивают работу с
+ссылками (пакет <em>RefTeX</em>), просмотр результатов прямо в буфере Emacs (пакеты <em>Preview-LaTeX</em> и
+другие), и прочие вещи.</p>
+
+<p>Об основных и вспомогательных режимах, которые могут использоваться для работы с TeX и
+LaTeX, вы можете прочитать в следующих разделах.  А дополнительную информацию об
+использовании и настройке пакетов, вы можете найти на страницах <a href="http://www.emacswiki.org/cgi-bin/wiki/CategoryTex">Emacs Wiki</a>.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Основные режимы</h2>
+
+<p class="first">Данные режимы обеспечивают основной функционал при работе с TeX/LaTeX, и его
+сопутствующими режимами &mdash; bibtex, и т.п.  К основным режимам относятся следующие:</p>
+
+<dl>
+<dt><strong><a href="TeXMode.html">TeX-mode</a></strong></dt>
+<dd>базовый режим для редактирования текстов в форматах TeX/LaTeX и др.</dd>
+<dt><strong><a href="AUCTeX.html">AUCTeX</a></strong></dt>
+<dd>пакет для редактирования текстов в TeX/LaTeX и др. с большим количеством
+возможностей, отсутствующих в других пакетах</dd>
+<dt><strong><a href="RefTeX.html">RefTeX</a></strong></dt>
+<dd>вспомогательный режим для работы с ссылками, оглавлениями, индексами и т.п.</dd>
+<dt><strong><a href="BibTeX.html">bibtex-mode</a></strong></dt>
+<dd>режим для работы с файлами BibTeX</dd>
+</dl>
+
+
+
+
+<h2><a name="sec3" id="sec3"></a>
+Пакеты для визуальной и интерактивной работы с TeX/LaTeX</h2>
+
+<p class="first">При работе с TeX и LaTeX очень часто хочется сразу видеть результаты набора формул и
+разных символов.  Для этой цели существуют отдельные программы, такие как <em>LyX</em> и <em>TeXmacs</em>,
+которые обеспечивают достаточно хорошее изображение вводимых данных.  Но и для Emacs
+существуют пакеты, которые обеспечивают изображение вводимых формул и символов.  Некоторые
+из этих пакетов работают с обеими версиями Emacs, а некоторые только с GNU Emacs или
+XEmacs.</p>
+
+<dl>
+<dd> <a href="PreviewLaTeX.html">Preview-LaTeX</a>:: пакет, обеспечивающий показ формул и рисунков при редактировании исходного текста</dd>
+<dt><strong><a href="WhizzyTeX.html">WhizzyTeX</a></strong></dt>
+<dd>обеспечивает наращиваемый (incremental) просмотр результатов редактирования</dd>
+<dt><strong><a href="iTe.html">iTe</a></strong></dt>
+<dd>обеспечивает интерактивное создание и редактирование документов TeX/LaTeX</dd>
+</dl>
+
+
+
+
+<h2><a name="sec4" id="sec4"></a>
+Вспомогательные режимы</h2>
+
+<p class="first">Кроме основных режимов, существует большое количество вспомогательных режимов для работы с
+TeX и LaTeX, которые реализуют дополнительные функции, очень удобные при работе с
+исходными текстами.  К данным режимам относятся:</p>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-tex/index.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-tex/index.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Work with Darcs</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, darcs" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Work with Darcs</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Installation</a>
+</dt>
+<dt>
+<a href="#sec2">Work with <em>darcsum</em></a>
+</dt>
+<dt>
+<a href="#sec3">Customization</a>
+</dt>
+</dl>
+</div>
+
+
+<p>User can use several packages to work with <em>Darcs</em>.  The <em>darcsum</em> package (available from
+<a href="http://www.newartisans.com/johnw/Emacs/darcsum.el">author's site</a>) implements native support for <em>Darcs</em>, reflecting it ideology.  Besides this,
+there are also <em>Darcs</em> support modules for <em>VC</em> (described in <a href="EmacsVC.html">Work with VC</a>) and for <em>DVC</em>
+(described in <a href="EmacsDVC.html">Work DVC</a>) packages.</p>
+
+<p>In this part I'll describe the <em>darcsum</em> package.  Package implements user interface,
+similar to interface of <em>PCL-CVS</em> package.  There are also some distinctions in work due
+differences between <em>CVS</em> and <em>Darcs</em>.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Installation</h2>
+
+<p class="first">To install package you need download it from <a href="http://www.newartisans.com/johnw/emacs.html">site</a>, and put it to place, where Emacs can
+find it.  And after this, you need to add following string to initialization file:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">darcsum</span>)
+</pre>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Work with <em>darcsum</em></h2>
+
+<p class="first">All work with package is performed in the <code>*darcs*</code> buffer, that is created by <code>M-x
+darcsum-whatsnew</code> command.  On the picture below you can see example of work with this
+buffer.  Many commands, available in this buffer, is coincide with commands of <em>PCL-CVS</em>
+package.  Commands could be performed on current change (at point where cursor is
+located), or on all marked changes<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.  You can mark file (or remove mark from marked
+file) with <code>m</code> key, which call the <code>darcsum-toggle-mark</code> function.  User can move between
+changes with arrow keys, or with <code>darcsum-next-line</code> (<code>n</code>) and <code>darcsum-previous-line</code> (<code>p</code>)
+functions.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-vcs/darcs.png" alt="">
+</div>
+
+<p>Usually user work using following scenario: after obtaining of changes, you preview
+concrete changes, mark needed, and then perform commands on them.  You can view changes
+with <code>darcsum-toggle</code> command, that bound to <code>RET</code> key.</p>
+
+<p>You can commit selected changes in repository with the <code>darcsum-record</code> command (<code>c</code> or <code>R</code>
+keys).  When you execute this command, a new buffer will created, where you can enter
+short (first line of buffer) and long (all other strings) description for this change.
+After you enter this information, you can confirm changes with <code>C-c C-c</code> key binding.</p>
+
+<p>You can remove changes from <code>*darcs*</code> buffer with <code>darcsum-remove</code> command (<code>r</code> key), or move
+them to another <em>darcsum</em> buffer with <code>darcsum-move</code> command (<code>M</code> key).  You can also undo
+changes with <code>darcsum-revert</code> command, that bound to <code>U</code> key.</p>
+
+<p>There are several commands, that could be used to view and apply changes: <code>darcsum-diff</code>
+(<code>=</code> key) show result of <code>diff</code> command, <code>darcsum-ediff</code> (<code>e</code> key) show changes with
+<em>Ediff</em>, and <code>darcsum-ediff-merge</code> (<code>E</code>) allow to perform three-way merge of changes with <em>Ediff</em>.</p>
+
+<p>To update buffer with changes, you can use <code>darcsum-redo</code> function, that will execute <code>darcs
+whatsnew</code> command and display changes in buffer.  To finish work with package, you can use
+<code>darcsum-quit</code> function, bound to <code>q</code> key.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Customization</h2>
+
+<p class="first">You can customize package using standard functions of Emacs.  Simply run <code>M-x
+customize-group darcsum</code>, and you can see all settings.  You can specify location of <code>darcs</code>
+executable, and faces, that are used to display data in <code>*darcs*</code> buffer.</p>
+
+<p>You can also make customization using the <code>darcsum-mode-hook</code>, that will called when
+<code>darcsum-mode</code> will set for buffer.</p>
+
+<div id="rule"><a href="index.html">Back to main page</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> <em>Darcs</em> can operate not only on changed files, but also on specific change, allow to do
+partial commit of change.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/emacs-vcs/EmacsDarcs.html';
+var disqus_url = 'http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

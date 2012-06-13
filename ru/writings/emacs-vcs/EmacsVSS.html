@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Интеграция с Microsoft &VSS;</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, vss, source safe" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Интеграция с Microsoft &VSS;</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Установка пакета source-safe.el</a>
+</dt>
+<dt>
+<a href="#sec2">Работа с пакетом</a>
+</dt>
+<dt>
+<a href="#sec3">Настройка пакета</a>
+</dt>
+</dl>
+</div>
+
+
+<p>Microsoft <em>Visual SourceSafe</em> является часто используемой системой контролей версий, в
+проектах по созданию программного обеспечения для операционных систем фирмы Microsoft.
+Кроме реализации этой системы для Microsoft Windows, существуют и реализации для других
+операционных систем.  Подробнее об этой системе вы можете прочитать на странице на
+<a href="http://www.microsoft.com/ssafe/">сайте Microsoft</a>.</p>
+
+<p>Интеграция Emacs с <em>Visual SourceSafe</em> обеспечивается пакетом <em>source-safe.el</em>.  Он позволяет
+работать с данной системой контроля версий не покидая Emacs.  В следующих разделах будет
+рассказано о установке, настройке и работе с пакетом.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Установка пакета source-safe.el</h2>
+
+<p class="first">Для установки пакета вам нужно скачать его со <a href="http://emacs.seanm.ca/cvs/lisp/source-safe.el">страницы автора</a>.  Поместите скачанный файл
+туда, где его найдет Emacs и используйте команды</p>
+
+<pre class="src">
+(setq ss-program <span style="color: #008b00;">"S:\\WinNT\\SS.exe"</span>
+      ss-project-dirs '((<span style="color: #008b00;">"^D:\\\\OCI\\\\"</span> . <span style="color: #008b00;">"$/PurifyW/"</span>)))
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">source-safe</span>)
+</pre>
+
+<p>для его загрузки.  Первые две строки задают расположение исполняемого модуля <em>Visual
+SourceSafe</em> и пути к каталогам проектов, а третья строка загружает пакет.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Работа с пакетом</h2>
+
+<p class="first">Получение данных из репозитория осуществляется с помощью нескольких команд.  Команда
+<code>ss-get</code> извлекает самую последнюю версию текущего файла из репозитория.  В том случае, если
+она запускается из буфера <em>Dired</em>, то обновляется весь текущий каталог и все его
+подкаталоги.  Для извлечения текущего файла из репозитория также может использоваться
+команда <code>ss-checkout</code>.  Команда <code>ss-lock</code> позволяет извлечь текущий файл из репозитория, но
+при этом не заменяет текущую копию данного файла.</p>
+
+<p>Получить список внесенных изменений пользователь может с помощью команды <code>ss-diff</code>.
+Сравнение производится с помощью команды, заданной переменной <code>ss-diff-program</code>.  В том
+случае, если задан параметр <code>non-interactive-p</code>, то результат выполнения команды
+отображается в новом буфере, иначе для работы с изменениями, используется <em>Ediff</em>.
+Подтверждение изменений в репозиторий производится с помощью команды <code>ss-checkin</code>.</p>
+
+<p>Пользователь может создать собственную ветку разработки с помощью команды <code>ss-branch</code>.  По
+завершении работы с ответвленным файлом, можно слить изменения, используя функцию
+<code>ss-merge</code>, которая обеспечивает трех-стороннее слияние изменений в базовую ветвь.  Удалить
+неиспользуемую ветвь можно с помощью команды <code>ss-unbranch</code>, при этом удаляются все внесенные
+в нее изменения.</p>
+
+<p>Для получения информации, пользователь может использовать несколько команд &mdash; команда
+<code>ss-history</code> отображает историю изменений для текущего файла, команда <code>ss-status</code> показывает
+статус текущего файла в репозитории <em>Visual SourceSafe</em>, а команда <code>ss-locate</code> позволяет найти
+расположение текущего файла в репозитории <em>Visual SourceSafe</em>.</p>
+
+<p>К остальным командам пакета относятся команды <code>ss-help</code>, которая показывает краткое описание
+основных команд и переменных пакета, и <code>ss-submit-bug-report</code>, которая позволяет отправить
+разработчикам пакета сообщение о найденной ошибке.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Настройка пакета</h2>
+
+<p class="first">Настройка пакета производится с помощью переопределения соответствующих переменных.
+Основными переменными настройки являются переменная <code>ss-program</code>, которая задает путь к
+исполняемому модулю <em>Visual SourceSafe</em> и переменная <code>ss-project-dirs</code>, которая задает связи
+между каталогами на диске и именами проектов.</p>
+
+<p>Пользователь также может настроить поведение пакета с помощью других переменных:</p>
+
+<dl>
+<dt><strong><code>ss-username</code></strong></dt>
+<dd>задает имя пользователя, если значение не задано, то будет использоваться
+имя текущего пользователя;</dd>
+<dt><strong><code>ss-password</code></strong></dt>
+<dd>задает пароль пользователя, если значение не задано, то пароль будет
+запрошен при первом доступе к репозиторию;</dd>
+<dt><strong><code>ss-database-alist</code></strong></dt>
+<dd>список, связывающий именя файлов с базами данных <em>Visual SourceSafe</em>.
+Эта переменная используется в том случае, если вы одновременно используете несколько
+баз <em>Visual SourceSafe</em>;</dd>
+<dt><strong><code>ss-update-email-to</code>, <code>ss-update-email-subject</code> и <code>ss-update-email-body</code></strong></dt>
+<dd>определяют адрес
+куда будут отраправляться сообщения о подтверждении данных в репозиторий, а также
+заголовок сообщения и его тело;</dd>
+<dt><strong><code>ss-multiple-checkouts-enabled</code></strong></dt>
+<dd>определяет, можно ли использовать множественное
+получение данных из репозитория;</dd>
+<dt><strong><code>ss-confirm-updates</code></strong></dt>
+<dd>определяет, нужно ли требовать подтверждения при выполенении
+команды <code>UPDATE</code> или нет.</dd>
+</dl>
+
+<p>Пакет также определяет два хука &mdash; 
+<code>ss-before-update-hooks</code> и <code>ss-after-update-hooks</code>, которые
+вызываются до и после выполнения команды <code>UPDATE</code> системы <em>Visual SourceSafe</em>.</p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-vcs/EmacsVSS.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-vcs/EmacsVSS.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Поддержка Monotone</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, monotone, emacs" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Поддержка Monotone</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Установка пакета <em>monotone.el</em></a>
+</dt>
+<dt>
+<a href="#sec2">Использование пакета</a>
+</dt>
+<dt>
+<a href="#sec3">Настройка пакета</a>
+</dt>
+</dl>
+</div>
+
+
+<p><em>Monotone</em> &mdash; распределённая система контроля версий по концепции схожая с <em>GNU Arch</em> и <em>Darcs</em>.
+Работа с <em>Monotone</em> из Emacs обеспечивается пакетом <em>monotone.el</em>, который идёт в составе
+дистрибутива <em>Monotone</em>.  Также достаточно полная поддержка <em>Monotone</em> обеспечивается
+специальным модулем из пакета <em>DVC</em>, который описан в разделе <a href="EmacsDVC.html">Работа с DVC</a>.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Установка пакета <em>monotone.el</em></h2>
+
+<p class="first">Пакет <em>monotone.el</em> идёт в поставке <em>Monotone</em>.  Вы можете найти его в подкаталоге <code>contrib</code>
+дистрибутива <em>Monotone</em>.  Пакет тестировался только с GNU Emacs версии 22.1, но наверное
+будет работать и с другими версиями Emacs.  Для работы с данным пакетом поместите его
+туда, где его найдёт Emacs и поместите в файл инициализации следующие команды:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">monotone</span>)
+(monotone-set-vc-prefix-key <span style="color: #008b00;">"\C-xv"</span>)
+(setq monotone-passwd-remember t)
+</pre>
+
+<p>первая строка загружает сам пакет, вторая строка устанавливает префикс для команд
+выполняемых с клавиатуры, а третья строка заставляет пакет запоминать введённые
+пользователем пароли<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Использование пакета</h2>
+
+<p class="first">Доступ к командам пакета может осуществляться разными способами &mdash; через меню, с
+использованием клавиатурных сочетаний и используя именованные команды (все команды имеют
+префикс <code>monotone</code>).  Префикс для клавиатурных сочетаний по умолчанию не определён, поэтому
+его нужно установить при инициализации пакета с помощью функции
+<code>monotone-set-vc-prefix-key</code>, в моем примере файла инициализации она привязывается к
+префиксу <code>C-x v</code>, и далее по тексту будет использоваться именно этот префикс.  Команды
+<em>Monotone</em> выполняются в буфере с именем <code>*monotone*</code>.</p>
+
+<p>Регистрация файла в системе контроля версий производится с помощью команды
+<code>monotone-vc-register</code> (сочетание клавиш <code>C-x v i</code>).  Изменения затем надо будет подтвердить с
+помощью команды <code>monotone-vc-commit</code> для вызова которой можно использовать как сочетание
+<code>C-x v q</code>, так и <code>C-x v C-q</code>.</p>
+
+<p>Работа с удалёнными серверами осуществляется с помощью трёх команд: команда <code>monotone-pull</code>
+(сочетание <code>C-x v p</code>) &mdash; вытягивает изменения с сервера; команда <code>monotone-push</code> (сочетание
+<code>C-x v P</code>) &mdash; помещает изменения на сервер; а команда <code>monotone-sync</code> &mdash; синхронизирует
+текущую базу данных с сервером.</p>
+
+<p>Пользователь может получить список сделанных изменений с помощью команды <code>monotone-vc-diff</code>,
+которая привязана к <code>C-x v =</code>.  Если этой команде передать аргумент, то просмотр изменений
+будет сделан для всего проекта.</p>
+
+<p>Получить информацию о зарегистрированных объектах можно с помощью нескольких команд.  В
+первую очередь это команда <code>monotone-vc-status</code> (сочетание клавиш <code>C-x v s</code>), которая выдаёт
+информацию о текущей ветке проекта.  С помощью команды <code>monotone-vc-print-log</code> (сочетание
+<code>C-x v l</code>) можно получить лог для текущего буфера (а при задании аргумента для этой команды,
+можно получить лог для всего проекта).  А получить идентификатор текущего объекта можно с
+помощью команды <code>monotone-grab-id</code> (сочетание клавиш <code>C-x v 6</code>) &mdash; данная команда сохраняет
+идентификатор объекта в буфере удаления (kill buffer), откуда вы её может вставить с
+помощью стандартных команд.</p>
+
+<p>В пакете определена одна команда общего назначения &mdash; 
+<code>monotone</code> (она привязана к сочетанию
+клавиш <code>C-x v x</code>), которая позволяет выполнить любую команду <em>Monotone</em> введённую в
+мини-буфере.</p>
+
+
+<h2><a name="sec3" id="sec3"></a>
+Настройка пакета</h2>
+
+<p class="first">Настройка пакета осуществляется путём установки некоторого количества переменных.  Одну из
+переменных вы уже видели, это переменная <code>monotone-passwd-remember</code>, которая заставляет
+пакет запоминать введённые пользователем пароли.  В том случае, если эта переменная
+установлена, пароли будут сохраняться в переменной <code>monotone-passwd-alist</code>.  Кроме этого,
+используя переменную <code>monotone-program</code> вы можете указать имя исполняемого файла <em>Monotone</em>.</p>
+
+<p>Адреса удалённого сервера и коллекций на нем задаются переменными <code>monotone-server</code> и
+<code>monotone-collection</code>.  Список уже использованных серверов и коллекций хранится в
+соответствующих переменных: <code>monotone-server-hist</code> и <code>monotone-collection-hist</code>.</p>
+
+<p>Кроме перечисленных выше переменных, существуют и другие переменные, изменять которые
+пользователь скорее всего не будет, но знать которые желательно.  Истинное значение
+переменной <code>monotone-cmd-show</code> приводит к показу результатов выполнения команд <em>Monotone</em>.  С
+помощью переменной <code>monotone-program-args-always</code> можно задать аргументы командной строки,
+которые всегда будут передаваться при запуске <em>Monotone</em>.  Если значение переменной
+<code>monotone-msg</code> не равно <code>nil</code>, то в буфер <code>*Messages*</code> будут выводиться сообщения пакета
+<em>monotone.el</em>, что может быть полезным при отладке.</p>
+
+<p>Тонкую настройку работы пакета можно осуществить, используя два хука &mdash;
+<code>monotone-output-mode-hook</code> и <code>monotone-commit-mode-hook</code>.  Первый хук будет вызываться при
+выводе данных, а второй &mdash; при входе в режим редактирования сообщений при подтверждении
+данных в репозиторий.</p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> Пароли сохраняются только на время текущей сессии, и если вы перезапустите Emacs, то
+пароли будут запрашиваться снова.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-vcs/EmacsMonotone.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-vcs/EmacsMonotone.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

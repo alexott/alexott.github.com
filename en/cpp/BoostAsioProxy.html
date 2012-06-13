@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>How to write simple HTTP proxy with Boost.Asio</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, boost, asio, boost.asio, http, proxy" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>How to write simple HTTP proxy with Boost.Asio</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Main</a></li><li><a href="../fp/">Functional programming</a></li><li><a href="../clojure/">Clojure</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../cf/">Information Security</a></li><li><a href="../cpp/" class="current">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../writings/">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>In this article I describe process of writing of simple cross-platform HTTP proxy.</p>
+
+<h2>What we need</h2>
+
+<p class="first">To develop this example (<a href="../../common/asio-proxy-async/asio-proxy-async.tar.gz">here you can find source codes in archive</a>) the Boost version 1.35
+was used.  To build example, you can use <a href="http://www.cmake.org">cmake</a> (but you can also build sources manually).
+To configure and build you need to run following commands (on Unix-like OSes)<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>:</p>
+
+<pre class="src">
+&gt; cmake .
+&gt; make
+</pre>
+
+<p>and after compilation you'll get <code>proxy-asio-async</code> executable, that you can run from
+command line.  This program accepts only one argument &mdash; number of threads, that will
+perform request processing (by default, this value is equal 2).  Port number on which
+requests will accepted is hardcoded in source code and equal to <code>10001</code><sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>.</p>
+
+
+<h2>Architecture</h2>
+
+<p class="first">As in <a href="BoostAsioNotes.html">previous examples</a>, our program consists from three parts:</p>
+
+<ul>
+<li>the <code>main</code> function, that parse command line, creates separate threads for <em>asio</em> services,
+and <code>server</code> object, and then enters to request processing loop;</li>
+<li><code>server</code> class, that accepts requests, and creates <code>connection</code> object, that implement all
+logic of connection processing;</li>
+<li><code>connection</code> class, that implement all logic, and pass data between client &amp; web-server.</li>
+</ul>
+
+<p>The data processing is performed in asynchronous mode, and to distribute load between
+processors, we can use several independent <em>asio</em> services, that perform dispatching of
+calls (<code>asio::io_service</code>).</p>
+
+<p><em>Note</em>: Most hard part of the development of asynchronous code is proper designing of data
+flow.  I'm usually draw a <em>state diagram</em> and then transform each state to separate
+procedure.  Existence of such diagram is very helpful for understanding of code by other
+developers.</p>
+
+
+<h2>Implementation</h2>
+
+<p class="first">The <code>main</code> function is pretty simple, so we'll not analyze it &mdash; you can just look to its
+<a href="../../common/asio-proxy-async/proxy.cpp.html">source code</a> and understand, what it does (all common definitions are in file <a href="../../common/asio-proxy-async/common.h.html">common.h</a>).</p>
+
+<p>Implementation of server (the <code>server</code> class &mdash; <a href="../../common/asio-proxy-async/proxy-server.hpp.html">proxy-server.hpp</a> &amp; <a href="../../common/asio-proxy-async/proxy-server.cpp.html">proxy-server.cpp</a>) also
+not so much differ from previous examples &mdash; changes was made only for way, that is used
+to select service, that will implement dispatching.  In our example new service is
+selected from circular list of services, that allow us to get some load balancing for
+requests.</p>
+
+<p>All data processing logic is implemented in <code>connection</code> class (<a href="../../common/asio-proxy-async/proxy-conn.hpp.html">proxy-conn.hpp</a> &amp;
+<a href="../../common/asio-proxy-async/proxy-conn.cpp.html">proxy-conn.cpp</a>).  I want to say, that parsing of headers was done without any
+optimisation<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.</p>
+
+<p>Data processing is started from call to <code>start</code> function from <code>server</code> class, that accepts
+connection and creates new object of <code>connection</code> class.  This function initiates
+asynchronous reading of request headers from browser.</p>
+
+<p>Reading of request headers is performed in the <code>handle_browser_read_headers</code> function, that
+called when we get some part of data from browser.  I need to mention, that if we get not
+all headers (there is no empty string (<code>\r\n\r\n</code>)), then this function initiates new
+reading of headers, trying to get them all.</p>
+
+<p>After we get all headers, this function parse them and extract version of HTTP protocol,
+used method and address of web-server (some of these data will required to detect
+persistent connections).</p>
+
+<p>After headers parsing, this function calls <code>start_connect</code>, that parse address of
+web-server, and if we doesn't have opened connection to this server, then it initiates
+process of name resolution.  If we have opened connection, then we simply start data
+transfer with <code>start_write_to_server</code> function.</p>
+
+<p>The <code>handle_resolve</code> function is called after name resolution, and if we get address of
+server, then it initiates process of connection establishing.  Result of this process is
+handled by <code>handle_connect</code> function, that initiates process of data transfer to the server
+with <code>start_write_to_server</code> function, that forms correct headers, and pass these data to
+the server.</p>
+
+<p>After transferring data to server, in function <code>handle_server_write</code> we initiate reading of
+response (only headers first) from server.  Processing of headers is handled by
+<code>handle_server_read_headers</code> function, that similar to the <code>handle_browser_read_headers</code>, but
+also tries to understand &mdash; should we close connection after data transfer or not.  After
+processing of headers, this function initiates process of sending data to browser.</p>
+
+<p>After sending of headers, we create a loop, that transfer body of response from server to
+browser.  In this loop we use two functions &mdash; 
+<code>handle_server_read_body</code> and
+<code>handle_browser_write</code>, each of them calls another function until we doesn't finish reading
+of data from server (either number of bytes, specified in headers) or doesn't get end of
+file.</p>
+
+<p>If we'll get end of file, then we pass rest of data to the browser and close connection,
+or if we use persistent connection, then we pass control to the  <code>start</code> function, that
+initiates reading of new headers from browser.</p>
+
+<p>That's all.  As I already mention above, main problem &mdash; building of right data flow
+sequence.</p>
+
+
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> If <em>cmake</em> can't find required libraries, you can specify their location with two
+&lt;em>cmake's</em> variables &mdash; 
+<code>CMAKE_INCLUDE_PATH</code> и <code>CMAKE_LIBRARY_PATH</code>, by running <em>cmake</em>
+following way:</p>
+
+<pre class="src">
+&gt; cmake . -DCMAKE_INCLUDE_PATH=~/exp/include -DCMAKE_LIBRARY_PATH=~/exp/lib
+</pre>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> I could also implement code, that allow to specify port number in command line, but I
+was lazy, as this example was just a prototype to check some of my ideas.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> There is also <a href="http://sourceforge.net/projects/cpp-netlib">cpp-netlib</a> project, that has (development in progress) parsers for basic
+protocols &mdash; HTTP, SMTP и т.п.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/cpp/BoostAsioProxy.html';
+var disqus_url = 'http://alexott.net/en/cpp/BoostAsioProxy.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

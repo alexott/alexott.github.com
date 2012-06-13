@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Работа с Jabber в Emacs</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, jabber, jabber.el, xemacs, article, емакс, джаббер, жаббер" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Работа с Jabber в Emacs</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Получение и установка</a>
+</dt>
+<dt>
+<a href="#sec2">Основные действия</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec3">Подключение, отключение и состояние</a>
+</dt>
+<dt>
+<a href="#sec4">Переговоры (chatting)</a>
+</dt>
+<dt>
+<a href="#sec5">Групповые чаты</a>
+</dt>
+<dt>
+<a href="#sec6">Работа с буфером roster</a>
+</dt>
+<dt>
+<a href="#sec7">Работа с сервисами jabber</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec8">Настройка и расширение возможностей</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec9">Настройка клиента</a>
+</dt>
+<dt>
+<a href="#sec10">Расширение возможностей пакета</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+<p>Поддержку сервиса Jabber в настоящее время осуществляют несколько пакетов для Emacs &mdash;
+<em>ejab</em>, который уже не развивается (замороженная версия доступна с
+<a href="http://ejab.sourceforge.net">http://ejab.sourceforge.net</a>), <em>smyrno</em>, который также почти не развивается, но обладает
+достаточным набором возможностей (он доступен с <a href="http://www.nongnu.org/smyrno/">http://www.nongnu.org/smyrno/</a>) и
+<em>jabber.el</em>, который активно развивается и представляет достаточно полную и расширяемую
+поддержку протокола Jabber.  Поскольку <em>jabber.el</em> динамично развивается, то я сосредоточусь
+исключительно на данном пакете.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+Получение и установка</h2>
+
+<p class="first">Пакет требует для своей работы GNU Emacs 21 и Gnus 5.10.x (из него нужно только пара
+файлов &mdash; 
+<code>sha1-el.el</code> и <code>hex-util.el</code>, так что вы можете их установить не устанавливая весь
+Gnus), или XEmacs с поддержкой Mule, а также установленными пакетами <code>gnus</code>, <code>net-utils</code> и
+<code>mule-ucs</code>.  Кроме этого, если установлен пакет <em>FLIM</em>, то <em>jabber.el</em> может использовать его
+для поддержки <em>SASL</em>.</p>
+
+<p>Установка пакета достаточно проста &mdash; надо просто скачать его дистрибутив с
+<a href="http://emacs-jabber.sourceforge.net">http://emacs-jabber.sourceforge.net</a>, развернуть его и настроить загрузку в стартовом
+скрипте Emacs'а, например следующими командами:</p>
+
+<pre class="src">
+<span style="color: #666666;">;; </span><span style="color: #666666;">&#1077;&#1089;&#1083;&#1080; &#1074;&#1099; &#1091;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1080;&#1083;&#1080; jabber.el &#1074; &#1085;&#1077;&#1089;&#1090;&#1072;&#1085;&#1076;&#1072;&#1088;&#1090;&#1085;&#1086;&#1077; &#1084;&#1077;&#1089;&#1090;&#1086;
+</span>(add-to-list 'load-path <span style="color: #008b00;">"path_to_jabber.el_dir"</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">jabber</span>)
+</pre>
+
+<p>После загрузки пакета, необходимо задать имя пользователя и сервера, что делается с
+помощью функции <code>jabber-customize</code>.  С помощью этой функции можно также зарегистрировать
+нового пользователя, если перед ее выполнением команды задать префикс.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Основные действия</h2>
+
+<p class="first">После настройки, <em>jabber.el</em> готов к работе, необходимо только подключиться к
+выбранному серверу Jabber.</p>
+
+<h3><a name="sec3" id="sec3"></a>
+Подключение, отключение и состояние</h3>
+
+<p class="first">Подключение к серверу выполняется одной командой &mdash; 
+<code>jabber-connect</code>, после подключения с
+помощью команды <code>jabber-send-presence</code> можно отправить на сервер уведомление о присутствии.
+Эта команда дает возможность вам указать статус присутствия, если вы оставили статус
+пустым, то будет установлено значение по умолчанию равное Online.</p>
+
+<p>Для отключения от сервера Jabber, просто выполните команду <code>jabber-disconnect</code> (<code>C-x C-j
+C-d</code>), и ваше подключение будет закрыто.</p>
+
+<p><strong><em>Замечание для новых версий</em></strong> Новые версии <em>jabber.el</em> поддерживают сразу несколько учетных
+записей jabber.  Список учетных записей также настраивается с помощью стандартных средств,
+но вы можете пометить некоторые из них, как неактивные.  Настройку учетных записей можно
+производить и с помощью кода на Emacs Lisp.  Список учетных записей хранится в переменной
+<code>jabber-account-list</code>.  Например, вот такой код определяет две учетных записи, одна из
+которых не является активной:</p>
+
+<pre class="src">
+(setq jabber-account-list
+ '((<span style="color: #008b00;">"XXXXXXXX@gmail.com/emacs"</span>
+   (<span style="color: #006400;">:network-server</span> . <span style="color: #008b00;">"talk.google.com"</span>)
+   (<span style="color: #006400;">:connection-type</span> . ssl))
+  (<span style="color: #008b00;">"XXXX@jabber.ru/emacs"</span>
+   (<span style="color: #006400;">:password</span> . <span style="color: #008b00;">"YYYYYY"</span>)
+   (<span style="color: #006400;">:network-server</span> . <span style="color: #008b00;">"jabber.ru"</span>)
+   (<span style="color: #006400;">:disabled</span> . t))))
+</pre>
+
+<p>Введение этого функционала немного изменило поведение команд подключения и отключения.
+Для подключения всех активных учетных записей может использоваться функция
+<code>jabber-connect-all</code> (она привязана к сочетанию (<code>C-x C-j C-c</code>), а <code>jabber-connect</code> производит
+подключение только к одной из учетных записей (в том числе и неактивной).  Для отключения
+одной записи используется функция <code>jabber-disconnect-one</code>, тогда как <code>jabber-disconnect</code> (<code>C-x
+C-j C-d</code>) производит отключение от всех серверов.</p>
+
+<p><em>jabber.el</em> позволяет вам изменять состояние вашей доступности. Это можно сделать как явно,
+с помощью команды <code>jabber-send-presence</code>, так и программно, с помощью этой же функции.
+Кроме этого, вы можете запрограммировать сервер Jabber на уведомление вас, об изменении
+статуса нужного вам человека. Это выполняется с помощью команды
+<code>jabber-send-subscription-request</code>.</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Переговоры (chatting)</h3>
+
+<p class="first">После подключения, пользователю становится доступен буфер roster'а, находясь в котором он
+может выполняться различные действия.  Одно из таких действий &mdash; переговоры (или
+chatting).  Для начала переговоров, нужно лишь выбрать персону с кем вы будете
+переговариваться и набрать <code>C-c C-c</code>, и будет создан буфер с именем
+<code>*-jabber-chat-:-ИМЯПЕРСОНЫ-*</code>, в котором вы и сможете вести переговоры.</p>
+
+
+<h3><a name="sec5" id="sec5"></a>
+Групповые чаты</h3>
+
+<p class="first">Для подключения к групповому чату пользователь может использовать команду
+<code>jabber-groupchat-join</code>, или использовать сочетание клавиш <code>C-c C-m</code> находясь в буфере
+roster'а.  После подключения к чату, будет создан буфер с именем
+<code>*-jabber-groupchat-:-ИМЯЧАТА-*</code>, что позволяет одновременно участвовать в нескольких
+обсуждениях.  Работа с буфером осуществляется точно так же, как и при обычных переговорах.
+Для выхода из группового чата просто наберите <code>jabber-groupchat-leave</code>.</p>
+
+<p>Кроме этого, если вы являетесь владельцем данного чата, пакет позволяет произвести его
+настройку, используя команду <code>jabber-groupchat-get-config</code>.</p>
+
+
+
+<h3><a name="sec6" id="sec6"></a>
+Работа с буфером roster</h3>
+
+<p class="first">Буфер roster'а называется <code>*-jabber-*</code>, и содержит в себе список контактов вашего roster'а.
+С использованием данного буфера проводятся все операции, которые требуют указания Jabber
+ID, такие как переговоры, групповые и многопользовательские чаты, получение информации
+roster'а и работа с сервисами.</p>
+
+
+<h3><a name="sec7" id="sec7"></a>
+Работа с сервисами jabber</h3>
+
+<p><em>jabber.el</em> позволяет пользователю получить доступ к большинству возможностей
+предоставляемых Jabber.  Сюда входят &mdash; просмотр списка сервисов, поиск в каталогах,
+регистрация для использования сервисов, а также поддержка набора специализированных команд
+(ad-hoc).</p>
+
+<p>Для использования каких-либо сервисов, вам сначала нужно их найти.  Это может выполняться
+двумя способами &mdash; поиском (discovering) и просмотром (browsing).  Первый способ является
+предпочтительным, поскольку использует новые протоколы.  Для поиска сервисов могут
+использоваться две команды &mdash; 
+<code>jabber-get-disco-items</code> и <code>jabber-get-disco-info</code>, которые
+выдают информацию либо о конкретном сервисе, либо о сервисах, относящихся к выбранному
+сервису.  Эти же команды доступны через меню, которое вызывается сочетанием клавиш <code>C-c C-i</code>
+из буфера roster'а.</p>
+
+<p>Поиск по сервисам выполняется с помощью команды <code>jabber-get-search</code>, или выбором пункта
+меню, отображаемого с помощью сочетания клавиш <code>C-c C-s</code>.  После выполнения запроса, вам
+будет показана форма поиска, которую необходимо заполнить для его выполнения.</p>
+
+<p>Регистрация производится аналогично проведению поиска, только используется команда
+<code>jabber-get-register</code>.  С помощью данного сервиса, вы можете например, сменить свой пароль,
+или зарегистрироваться для использования конкретного сервиса. Как и в случае с поиском,
+при регистрации, модуль отобразит форму регистрации, которую вам необходимо будет
+заполнить.</p>
+
+<p>Для работы со специализированными командами, пользователь сначала должен получить их
+список, поддерживаемых сервером. Это выполняется с помощью команды <code>jabber-ahc-get-list</code>.
+Для выполнения специализированной команды, используется команда
+<code>jabber-ahc-execute-command</code>.  Специализированные команды могут использоваться, например,
+для того, чтобы удаленно изменить состояние вашего клиента, или другие вещи.</p>
+
+
+
+<h2><a name="sec8" id="sec8"></a>
+Настройка и расширение возможностей</h2>
+
+<h3><a name="sec9" id="sec9"></a>
+Настройка клиента</h3>
+
+<p class="first">Настройка клиента выполняется с помощью команды <code>jabber-customize</code> или, что тоже самое, с
+помощью команды <code>M-x customize-group jabber</code>. Переходя по разделам группы, вы можете
+настроить как основные параметры, такие как имя, сервер, так и другие, например
+уведомления о событиях, параметры начертаний (faces) и различные хуки.</p>
+
+<p>Этот процесс является интуитивно-понятным, и поэтому я не буду заострять на нем внимание.
+Список переменных, которые используются для настройки с помощью этих команд, приведен в
+руководстве для <em>jabber.el</em>.</p>
+
+
+<h3><a name="sec10" id="sec10"></a>
+Расширение возможностей пакета</h3>
+
+<p><em>jabber.el</em> позволяет пользователю расширять возможности пакета,
+предоставляя возможности по приему и отправке новых типов запросов и ответов,
+осуществлять доступ к данным соединения и многое другое.</p>
+
+<p>XML, который используется для общения с сервером jabber, представляется в виде списков,
+которые создаются модулем <code>xml.el</code> &mdash; каждый тег представляется в виде списка, первым
+элементом которого является символ представляющий тег, за тем следует список из списков
+атрибутов, и затем идут вложенные тэги и содержимое.</p>
+
+<p>Текущее состояние roster'а представляется списком с именем <code>*jabber-roster*</code>.  В данном
+списке можно найти подробную информацию о группах, состоянии соединения и прочих
+параметрах.</p>
+
+<p>Подробное описание процесса расширения возможностей пакета приведено в разделе &quot;Hacking
+and extending&quot; справочной страницы <em>jabber.el</em></p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-im/EmacsJabber.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-im/EmacsJabber.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

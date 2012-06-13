@@ -1,0 +1,874 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<title>Работа с Erlang</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, erlang, distel, erlang-mode" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Работа с Erlang</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">erlang-mode</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec2">Установка и настройка пакета</a>
+</dt>
+<dt>
+<a href="#sec3">Редактирование исходного кода</a>
+</dt>
+<dt>
+<a href="#sec4">Навигация по коду</a>
+</dt>
+<dt>
+<a href="#sec5">Использование шаблонов кода</a>
+</dt>
+<dt>
+<a href="#sec6">Компиляция и работа с <code>erl</code></a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec7">erlware-mode</a>
+</dt>
+<dt>
+<a href="#sec8">distel</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec9">Установка и настройка distel</a>
+</dt>
+<dt>
+<a href="#sec10">Работа с исходным кодом</a>
+</dt>
+<dt>
+<a href="#sec11">Доступ к документации</a>
+</dt>
+<dt>
+<a href="#sec12">Выполнение и профилирование кода</a>
+</dt>
+<dt>
+<a href="#sec13">Работа с отладчиком</a>
+</dt>
+<dt>
+<a href="#sec14">Приложения для работы со средой выполнения Erlang</a>
+</dt>
+<dt>
+<a href="#sec15">Программирование с использованием distel</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec16">Настройка  flymake для работы с Erlang</a>
+</dt>
+<dt>
+<a href="#sec17">Пакет Wrangler</a>
+</dt>
+<dt>
+<a href="#sec18">ESense</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec19">Установка и настройка пакета</a>
+</dt>
+<dt>
+<a href="#sec20">Работа с пакетом</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+<p>Базовая поддержка Erlang в Emacs осуществляется пакетом <em>erlang-mode</em>, который поставляется
+вместе с дистрибутивом Erlang.  Этот пакет реализует основные операции по работе с
+исходным кодом на Erlang &mdash; подсветку синтаксиса, расстановку отступов и т.п.</p>
+
+<p>Кроме того, существуют и другие пакеты, обеспечивающие выполнение операций, не
+реализованных в <em>erlang-mode</em> &mdash; отладку, профилирование и т.д.  Сюда относятся пакеты
+<em>Distel</em><sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup> и <em>erlware-mode</em>.  В то время, как первый пакет является дополнением для
+<em>erlang-mode</em>, то второй, является прямой модификацией <em>erlang-mode</em> добавляющей
+дополнительные команды.</p>
+
+<h2><a name="sec1" id="sec1"></a>
+<a name="erlang-mode" id="erlang-mode"></a>erlang-mode</h2>
+
+<p><em>erlang-mode</em> входит в состав дистрибутива Erlang и поэтому доступен для работы сразу после
+установки Erlang.  Документация для данного пакета доступна либо с <a href="http://www.erlang.org/doc/man/erlang_mode.html">сайта Erlang</a>, либо как
+часть справочной документации Erlang, доступной с помощью команды <code>erl -man erlang_mode</code>.
+Документация достаточно подробная и содержит описания всех основных команд.</p>
+
+<p>Практически все команды реализуемые пакетом доступны для пользователя через меню <code>Erlang</code>, а
+наиболее часто используемые могут быть выполнены используя сочетания клавиш, описанные ниже.</p>
+
+<h3><a name="sec2" id="sec2"></a>
+<a name="erlang-customize" id="erlang-customize"></a>Установка и настройка пакета</h3>
+
+<p class="first">Установка пакета очень проста &mdash; вам необходимо указать путь где находится <em>erlang-mode</em>
+(обычно это подкаталог в дистрибутиве Erlang), и загрузить пакет <code>erlang-start</code>, например,
+вот так:</p>
+
+<pre class="src">
+(add-to-list 'load-path <span style="color: #008b00;">"....."</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">erlang-start</span>)
+
+(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.erl?$"</span> . erlang-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #008b00;">"\\.hrl?$"</span> . erlang-mode))
+
+(setq erlang-root-dir <span style="color: #008b00;">"/opt/local/lib/erlang"</span>)
+(add-to-list 'exec-path <span style="color: #008b00;">"/opt/local/lib/erlang/bin"</span>)
+(setq erlang-man-root-dir <span style="color: #008b00;">"/opt/local/lib/erlang/man"</span>)
+</pre>
+
+<p>в этом примере мы дополнительно устанавливаем список расширений, для которых <em>erlang-mode</em>
+будет включаться автоматически.  А также были изменены пути поиска исполняемых программ,
+так что все утилиты Erlang будут запускаться безо всяких проблем.  Две переменных &mdash;
+<code>erlang-root-dir</code> и <code>erlang-man-root-dir</code> задают корневого каталога, содержащего дистрибутив
+Erlang, а также каталога, содержащего документацию по Erlang.</p>
+
+<p>Кроме того, пользователь может использовать <code>erlang-mode-hook</code> для установки различных
+параметров, например, вот так:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-erlang-mode-hook</span> ()
+        <span style="color: #666666;">;; </span><span style="color: #666666;">when starting an Erlang shell in Emacs, default in the node name
+</span>        (setq inferior-erlang-machine-options '(<span style="color: #008b00;">"-sname"</span> <span style="color: #008b00;">"emacs"</span>))
+        <span style="color: #666666;">;; </span><span style="color: #666666;">add Erlang functions to an imenu menu
+</span>        (imenu-add-to-menubar <span style="color: #008b00;">"imenu"</span>)
+        <span style="color: #666666;">;; </span><span style="color: #666666;">customize keys
+</span>        (local-set-key [return] 'newline-and-indent)
+        )
+<span style="color: #666666;">;; </span><span style="color: #666666;">Some Erlang customizations
+</span>(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
+</pre>
+
+<p>Данный код устанавливает опции с которыми будет запускаться процесс Erlang, а также
+изменяет привязки некоторых клавиш и добавляет список функций Erlang в меню, реализуемое
+пакетом <em>Imenu</em>.</p>
+
+
+<h3><a name="sec3" id="sec3"></a>
+Редактирование исходного кода</h3>
+
+<p><em>erlang-mode</em> предоставляет пользователю набор команд для работы с кодом.  Сюда можно
+отнести команды навигации по коду, его редактирования и правильно расстановки отступов.</p>
+
+<p>Когда вы работаете с кодом функций, состоящих из нескольких отдельных выражений (clause),
+то вы можете воспользоваться командой <code>erlang-generate-new-clause</code> (она привязана к <code>C-c C-j</code>)
+для вставки нового выражения в текущей точке &mdash; эта команда берет название функции из
+предыдущего выражения, и генерирует новое выражение, оставляя курсор в точке вставки
+параметров функции.  В том случае, если параметры нового выражения почти совпадают с
+параметрами предыдущего, то вы можете воспользоваться командой <code>erlang-clone-arguments</code> (<code>C-c
+C-y</code>) для копирования параметров из предыдущего выражения и вставки их в текущее выражение.</p>
+
+<p>В зависимости от текущего контекста, клавиши '<code>,</code>', '<code>;</code>',
+'<code>&lt;</code>' и '<code>&gt;</code>' могут вести себя по разному.  Так, если вы находитесь
+в конце выражения и нажимаете <code>;</code>, то автоматически будет вставлен шаблон для нового
+выражения, так как будто вы воспользовались командой <code>erlang-generate-new-clause</code>.
+Аналогичным образом, ввод <code>,</code> в конце подвыражения, приведет к переходу на новую строку и
+выставлению правильного отступа.</p>
+
+<p>Для более удобного оформления кода Erlang пользователь может также воспользоваться
+командой <code>erlang-align-arrows</code> (<code>C-c C-a</code>), которая выполняет выравнивание в выделенном
+регионе текста стрелок (<code>-&gt;</code>) после выражений, что улучшает восприятие исходного кода за
+счет явного выделения границ выражений.</p>
+
+<p>Достаточно регулярно возникает необходимость в выделении текущего выражения или всей
+функции.  В этом случае пользователь может воспользоваться командами <code>erlang-mark-clause</code>
+(<code>M-h</code> или <code>C-c M-h</code>) для выделения выражения, или <code>erlang-mark-function</code> (<code>M-C-h</code>) для выделения
+функции целиком.</p>
+
+<p>Для работы с комментариями определено несколько команд.  Для конвертации выбранного
+региона в комментарий, пользователь может воспользоваться командой <code>comment-region</code> (<code>C-c
+C-c</code>), которая вставит по одному знаку комментария (<code>%</code>) в начало каждой строки региона.  В
+том случае, если вы хотите удалить комментарий с региона, то вы можете воспользоваться
+командой <code>erlang-uncomment-region</code> (<code>C-c C-u</code>).  Вы также можете воспользоваться командой
+<code>comment-dwim</code> (<code>M-;</code>) для того, чтобы закомментировать выделенный регион, или вставить
+однострочный комментарий в конце существующей строки.</p>
+
+<p>Кроме того, <em>erlang-mode</em> реализует команду <code>erlang-fill-paragraph</code> (<code>M-q</code>) которая пытается
+правильно отформатировать текущий параграф комментария, что также позволяет улучшить
+читаемость исходного кода.</p>
+
+<p><em>erlang-mode</em> реализует набор команд предназначенных для правильной расстановки отступов в
+исходном тексте.  Нажав на клавишу <code>TAB</code> вы вызовите команду <code>erlang-indent-command</code> которая
+сделает правильный отступ для текущей строки.  А для выделенного региона вы можете
+использовать стандартную команду <code>indent-region</code> (<code>M-C-\</code>).  Существуют также отдельные
+команды для расстановки отступов в текущем выражении &mdash; 
+<code>erlang-indent-clause</code>, функции &mdash;
+<code>erlang-indent-function</code> (<code>C-c C-q</code>) и всем буфере &mdash; 
+<code>erlang-indent-current-buffer</code>.</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Навигация по коду</h3>
+
+<p class="first">В дополнение к стандартным командам перемещения по коду &mdash; следующая/предыдущая скобка, и
+т.п., <em>erlang-mode</em> предоставляет набор дополнительных команд, которые позволяют выполнять
+перемещение среди объектов Erlang &mdash; выражений и функций.  Так, команды
+<code>erlang-beginning-of-function</code> (<code>C-a M-a</code>) и <code>erlang-end-of-function</code> (<code>C-a M-e</code>) перемещают
+курсор в начало и конец текущей функции Erlang<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>, а команды <code>erlang-beginning-of-clause</code>
+(<code>M-C-a</code>) и <code>erlang-end-of-clause</code> (<code>M-C-e</code>) выполняют перемещение курсора в начало или конец
+текущего выражения.</p>
+
+<p>Аналогичным образом <em>erlang-mode</em> расширяет набор стандартных команд для работы с тегами.
+Для использования этих команд вам необходимо создать файл <code>TAGS</code>, который может быть
+сгенерирован либо с помощью  утилиты <code>etags</code> из поставки Emacs, либо с помощью модуля <code>tags</code>
+из поставки Erlang.</p>
+
+<p>Используя имеющийся файл <code>TAGS</code> вы можете использовать стандартные команды работы с тегами
+&mdash; 
+<code>find-tag</code> (<code>M-.</code>), <code>tags-apropos</code>, <code>tags-search</code> (<code>C-x t s</code>) и другие.  <em>erlang-mode</em> добавляет
+следующие команды &mdash; 
+<code>erlang-find-tag</code>, которая является аналогом <code>find-tag</code>, но позволяет
+указывать модуль, в котором необходимо производить поиск (если тег задан в форме <code>module:</code>
+или <code>module:tag</code>), <code>erlang-find-next-tag</code> (<code>M-+</code>), которая ищет следующий тег, и две команды
+<code>erlang-find-tag-other-frame</code> (<code>C-x 5 .</code>) и <code>erlang-find-tag-other-window</code> (<code>C-x 4 .</code>), которые
+открывают определение тега в новом фрейме или окне, соответственно.</p>
+
+<p>Пользователь также может использовать команду <code>erlang-complete-tag</code> (<code>M-TAB</code>) для дополнения
+имен известных функций, используя данные из файла <code>TAGS</code>.</p>
+
+
+<h3><a name="sec5" id="sec5"></a>
+Использование шаблонов кода</h3>
+
+<p class="first">Для облегчения работы пользователя, <em>erlang-mode</em> имеет в своем составе набор шаблонов кода,
+которые могут вставляться пользователем используя пункт <code>Skeletons</code> меню <code>Erlang</code> или
+используя команду  <code>tempo-template-erlang-XXX</code>, где <code>XXX</code> &mdash; название шаблона.  Для вставки
+шаблонов используется пакет <em>tempo</em> входящий в состав Emacs.  В настоящее время пакет
+предоставляет следующие классы шаблонов:</p>
+
+<ul>
+<li>заготовки для простых конструкций типа <code>if</code>, <code>case</code>, <code>receive</code> и т.д.;</li>
+<li>заготовки для &quot;стандартных&quot; стилей оформления заголовков файлов &mdash; название модуля,
+автор модуля и т.д.;</li>
+<li>заготовки для различных стандартных серверов (<em>behaviour</em> в терминологии Erlang) &mdash;
+<code>gen_server</code>, <code>application</code>, <code>gen_fsm</code> и т.д.</li>
+</ul>
+
+
+<h3><a name="sec6" id="sec6"></a>
+Компиляция и работа с <code>erl</code></h3>
+
+<p class="first">Пользователь может интерактивно выполнять команды Erlang используя процесс <code>erl</code> запущенный
+в буфере Emacs (процесс запускается через <code>comint</code>, так что пользователь может использовать
+стандартные возможности этого пакета, например перемещения по истории команд с помощью
+клавиш <code>M-p</code> и <code>M-n</code>).  Этот же процесс используется <em>erlang-mode</em> для выполнения компиляции
+исходного кода.</p>
+
+<p>Для запуска нового процесса <code>erl</code> пользователь может воспользоваться командой <code>erlang-shell</code>,
+но он также может быть запущен неявно при выполнении команды компиляции или переключения в
+буфер <code>*erlang*</code> с помощью команды <code>erlang-shell-display</code> (<code>C-c C-z</code>).</p>
+
+<p>Компиляция и загрузка кода из текущего модуля осуществляется с помощью команды
+<code>erlang-compile</code> (<code>C-c C-k</code>).  В том случае если пользователь передаст этой команде префиксный
+аргумент, то компиляция будет осуществлена с использованием отладочных опций <code>debug_info</code> и
+<code>export_all</code>.  Для просмотра результатов компиляции пользователь может воспользоваться
+командой <code>erlang-compile-display</code> (<code>C-c C-l</code>).  Для перемещения между найденными ошибками
+используется команда <code>erlang-next-error</code> (<code>C-x `</code>).  В том случае, если вы хотите заново
+переместиться на первую найденную ошибку, то вам необходимо передать префиксный аргумент
+этой команде, например, вот так &mdash; 
+<code>C-u C-x `</code>.</p>
+
+
+
+<h2><a name="sec7" id="sec7"></a>
+erlware-mode</h2>
+
+<p><em>erlware-mode</em> является заменой <em>erlang-mode</em>, основанной на его коде, но добавляющей
+следующую функциональность:</p>
+
+<ul>
+<li>изменены шаблоны для вставки кода, теперь они содержат дополнительную информацию для
+утилиты <code>edoc</code>;</li>
+<li>ведется работа над интеграцией поддержки для проектов <em>Sinan</em> и <em>Faxien</em>, позволяющей более
+простую инсталяцию и сопровождение пакетов для Erlang.</li>
+</ul>
+
+<p>Пакет доступен для загрузки с <a href="http://www.erlware.org/tools/erlware-mode/index.html">сайта проекта</a>, и его установка и настройка практически не
+отличается от <a href="#erlang-customize">установки и настройки erlang-mode</a>.</p>
+
+<p>Выполнение основных команд также не отличается от выполнения команд <em>erlang-mode</em>.  Описания
+дополнительных команд будут добавляться по мере реализации новой функциональности.</p>
+
+
+<h2><a name="sec8" id="sec8"></a>
+distel</h2>
+
+<p class="first">Пакет <em>distel</em>, доступный с <a href="http://code.google.com/p/distel/">http://code.google.com/p/distel/</a>, является реализацией
+библиотекой на Emacs Lisp, которая позволяет использовать распределенный стиль
+программирования и взаимодействовать с кодом, написанным на Erlang.  За счет наличия этой
+функциональности, этот пакет позволяет реализовать набор команд, отсутствующих в
+<em>erlang-mode</em> и позволяющих выполнять следующие задачи:</p>
+
+<ul>
+<li>поиск определений функций и доступ к актуальной документации;</li>
+<li>дополнение имен модулей и функций, основываясь на актуальной информации, полученной от
+среды выполнения Erlang;</li>
+<li>вычисление фрагментов кода;</li>
+<li>базовая поддержка рефакторинга исходного кода;</li>
+<li>отладка программ на Erlang;</li>
+<li>отображение информации о запущенных процессах Erlang и работа с ними;</li>
+<li>профилирование кода.</li>
+</ul>
+
+<p>Краткий обзор возможностей пакета вы можете найти в <a href="http://bc.tech.coop/blog/070528.html">статье на сайте Bill Clementson</a>.
+Вместе с пакетом поставляется достаточно подробная документация, описывающая как общие
+концепции, лежащие в основе пакета, так и описывающая реализуемые функции.</p>
+
+<h3><a name="sec9" id="sec9"></a>
+Установка и настройка distel</h3>
+
+<p class="first">Для установки пакета, вам необходимо скачать его с <a href="http://code.google.com/p/distel/">сайта проекта</a> и распаковать в выбранное
+место.  После этого, вы можете добавить следующий код в ваш файл инициализации:</p>
+
+<pre class="src">
+(add-to-list 'load-path <span style="color: #008b00;">"~/emacs/distel/elisp"</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">distel</span>)
+(distel-setup)
+</pre>
+
+<p>который приведет к загрузке пакета и его базовой настройке.  Дополнительно мы можем
+провести тонкую настройку пакета используя механизм хуков.  Например, следующий код<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>
+добавит новые привязки клавиш к режиму, используемому для интерактивной работы с Erlang,
+что сделает работу с кодом более удобной:</p>
+
+<pre class="src">
+<span style="color: #666666;">;; </span><span style="color: #666666;">A number of the erlang-extended-mode key bindings are useful in the shell too
+</span>(<span style="color: #a020f0;">defconst</span> <span style="color: #8b0000;">distel-shell-keys</span>
+  '((<span style="color: #008b00;">"\C-\M-i"</span>   erl-complete)
+    (<span style="color: #008b00;">"\M-?"</span>      erl-complete)
+    (<span style="color: #008b00;">"\M-."</span>      erl-find-source-under-point)
+    (<span style="color: #008b00;">"\M-,"</span>      erl-find-source-unwind)
+    (<span style="color: #008b00;">"\M-*"</span>      erl-find-source-unwind)
+    )
+  <span style="color: #666666;">"Additional keys to bind when in Erlang shell."</span>)
+
+(add-hook 'erlang-shell-mode-hook
+                                        (<span style="color: #a020f0;">lambda</span> ()
+                                                <span style="color: #666666;">;; </span><span style="color: #666666;">add some Distel bindings to the Erlang shell
+</span>                                                (<span style="color: #a020f0;">dolist</span> (spec distel-shell-keys)
+                                                        (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
+</pre>
+
+
+<h3><a name="sec10" id="sec10"></a>
+Работа с исходным кодом</h3>
+
+<p class="first">Пакет <em>distel</em> добавляет некоторое количество команд для работы с исходным кодом,
+отсутствующих в <em>erlang-mode</em>.   Однако стоит отметить, что некоторые из них требуют наличия
+запущенной среды выполнения Erlang, и при первом запуске запросят у вас имя узла (node),
+который будет использоваться для получения необходимой информации.  Пользователь может
+переключаться между узлами с помощью команды <code>erl-choose-nodename</code> (<code>C-c C-d n</code>).  А проверить
+доступность конкретного узла можно с помощью команды <code>erl-ping</code> (<code>C-c C-d g</code>), которая
+запросит у вас имя узла, и в случае его доступности загрузит на него модули, необходимые
+для реализации команд <em>distel</em>.  Имя текущего узла всего отображается в строке статуса.</p>
+
+<p>Кроме выполнения команд напрямую, пользователь может воспользоваться командами из подменю
+<code>Distel</code> меню <code>Erlang</code>.</p>
+
+<p><em>Distel</em> реализует свой набор команд для дополнения имен модулей и функций.  Для их
+получения используется текущая информация из среды выполнения Erlang.  Для использования
+дополнения вы можете воспользоваться командой <code>erl-complete</code> (<code>M-TAB</code> и <code>M-?</code>).  В том случае,
+если набираемая часть имени соответствует нескольким именам, то будет показан буфер со
+всеми возможными вариантами, в котором вы можете выбрать нужное вам.</p>
+
+<p>Также, переопределяются и команды работы с тагами, но в отличии от <em>erlang-mode</em> вам нет
+необходимости регулярно обновлять файл <code>TAGS</code>, поскольку <em>distel</em> позволяет найти определение
+функции используя информацию от среды выполнения.  Для перехода к определению нужной
+функции вы можете использовать команду <code>erl-find-source-under-point</code> (<code>M-.</code>) &mdash; по умолчанию,
+эта команда в качестве имени функции берет то имя, которое находится под курсором.  Но вы
+можете изменить это поведение, если передадите префиксный аргумент (<code>C-u</code>), или если
+переменная <code>distel-tags-compliant</code> имеет не-<code>nil</code> значение &mdash; в этом случае, у вас запросят
+имя функции, определение которой вы хотите найти.  Чтобы вернуться назад, к точке вызова,
+вы можете использовать команду <code>erl-find-source-unwind</code> (<code>M-,</code> или <code>M-*</code>).</p>
+
+<p>Кроме того, в <em>distel</em> есть рудиментальные возможности по рефакторингу кода.  С помощью
+команды <code>erl-refactor-subfunction</code> (<code>C-c C-d f</code>) пользователь может выделить часть кода
+(пользователю необходимо выделить нужный блок с помощью стандартных команд) функции в
+отдельную функцию.  При выполнении данной команды, у пользователя будет запрошено название
+новой функции, будет определен список переменных, используемых в данной функции, и
+выделенная часть кода будет заменена на вызов новой функции.  Сама новая функция будет
+помещена в буфер обмена, откуда она может быть вставлена с помощью команды <code>yank</code> (<code>C-y</code>).
+Пример использования данной функции вы можете найти в документации <em>distel</em>.</p>
+
+
+<h3><a name="sec11" id="sec11"></a>
+Доступ к документации</h3>
+
+<p class="first">Для более удобной работы с документацией, пакет <em>distel</em> использует внешние программы,
+написанные на Erlang, которые выполняют предварительную обработку документации, и затем
+используют полученные данные для ее отображения.</p>
+
+<p>Для обработки документации в формате HTML, имеется модуль <code>otp_doc</code>, который выполняет
+анализ файлов, и генерирует набор пар &quot;сигнатура функции/ссылка на документацию&quot;.
+С помощью команды <code>erl-find-sig</code> пользователь может получить список сигнатур функций,
+соответствующих заданному выражению, а затем может воспользоваться командой <code>erl-find-doc</code>
+для отображения документации (для этого необходимо наличие пакета <em>w3m</em>).  В том случае если
+имеется несколько функций, соответствующих запросу, то пользователь должен будет выбрать
+нужную функцию из списка.</p>
+
+<p>Пользователь может также получить краткую документацию по загруженным модулям.  Для этого
+используется дополнительный модуль <code>fdoc</code>, который также, как и <code>otp_doc</code>, проводит анализ
+исходных текстов загруженных модулей и сохраняет собранные данные для последующего
+использования.  Получить описание модуля или функции из базы данных <code>fdoc</code> можно с помощью
+команды <code>erl-fdoc-describe</code> (<code>C-c C-d d</code>).  А с помощью команды <code>erl-fdoc-apropos</code> (<code>C-c C-d a</code>)
+можно получить перечень функций, чьи названия или комментарий соответствуют заданному
+регулярному выражению.  В том случае, если одна из команд получает префиксный аргумент,
+она вначале выполняет перестройку базы данных <code>fdoc</code>, и только затем выполняет требуемую
+операцию.</p>
+
+
+<h3><a name="sec12" id="sec12"></a>
+Выполнение и профилирование кода</h3>
+
+<p><em>Distel</em> расширяет набор команд <em>erlang-mode</em> предназначенных для выполнения кода Erlang.  С
+помощью команды <code>erl-eval-expression</code> (<code>C-c C-d :</code>) пользователь может ввести в мини-буфере
+выражение на Erlang и получить результаты его вычисления.  В том случае, если пользователь
+выделил регион кода, то этот код будет предложен в качестве значения по умолчанию.  Кроме
+того, определены две команды, которые позволяют перегружать модули на выбранном узле.  Это
+команда <code>erl-reload-module</code> (<code>C-c C-d L</code>), которая заново загружает модуль с заданным именем,
+и команда <code>erl-reload-modules</code> (<code>C-c C-d r</code>), которая заново загружает все обновленные
+используемые модули.</p>
+
+<p>Более мощные возможности по интерактивному выполнению кода Erlang реализованы в рамках так
+называемых &quot;интерактивных сессий&quot; &mdash; аналоге буфера <code>*scratch*</code> в Emacs, которые позволяют
+вводить и выполнять отдельные выражения Erlang не создавая выделенных файлов с исходным
+кодом (пример работы вы можете увидеть на скриншоте ниже).  Для начала работы в этом
+режиме, необходимо выполнить команду <code>erl-ie-show-session</code> (<code>C-c C-d e</code>), которая либо создаст
+новый, либо переключит в существующий буфер в котором пользователь может вводить команды.
+По умолчанию, буфер имеет название <code>*ie sessions имя_узла*</code>.  Внутри этого буфера,
+пользователь может вводить выражения и определения функций.  Для вычисления выражения,
+которое находится перед курсором, используется команда <code>erl-ie-eval-expression</code> (<code>C-j</code>), а для
+вычисления определения функции &mdash; команда <code>erl-ie-eval-defun</code> (<code>C-M-x</code>).</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-devenv/distel-ie-sessions.png" alt="">
+</div>
+
+<p>Также как и для документации, для профилирования используется существующий модуль Erlang
+&mdash; 
+<code>fprof</code>.  Для работы с ним <em>distel</em> предоставляет две команды.  С помощью команды <code>fpropf</code>
+(<code>C-c C-d p</code>) пользователь может ввести выражение Erlang и получить результаты выполнения
+этого выражения в режиме профилирования.  А с помощью команды <code>fprof-analyse</code> (<code>C-c C-d P</code>)
+можно загрузить файл с уже имеющимися данными профилирования, и проводить их анализ в
+удобной форме.   После проведения анализа, пользователь получает доступ к буферу, в
+котором перечислены все использованные в работе функции, и для каждой из них приводится
+следующая информация: <code>Calls</code> &mdash; общее количество вызовов данной функции; <code>ACC</code> &mdash; сколько
+времени (в миллисекундах) было затрачено на выполнение данной функции, включая вызов
+других функций, вызванных из нее; <code>Own</code> &mdash; сколько времени выполнялась сама функция, без
+учета других функций, вызванных из нее.  Пример вывода результатов профайлинга вы можете
+увидеть на рисунке ниже.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-devenv/distel-fprof.png" alt="">
+</div>
+
+
+<h3><a name="sec13" id="sec13"></a>
+Работа с отладчиком</h3>
+
+
+
+<p>Для реализации возможности отладки приложений, <em>distel</em> использует те же модули, что и
+отладчик, идущий в составе Erlang.  Для того, чтобы воспользоваться отладкой, необходимо
+скомпилировать модули с добавлением отладочной информации (необходимо явно указать ключ
+<code>+debug-info</code> компилятору <code>erlc</code> или выполнить команду <code>erlang-compile</code> с префиксным
+аргументом).</p>
+
+<p>При работе отладчика создаются отдельные буфера для отображения списка отлаживаемых
+(интерпретируемых) процессов (буфер <code>Monitor</code>) и отдельные буфера для каждого из
+интерпретируемых модулей, которые выполняются в пошаговом режиме (буфер <code>Attach</code>).</p>
+
+<p>Для того, чтобы получить возможность отладки текущего модуля, вам необходимо переключить
+его в режим интерпретации, что выполняется с помощью команды <code>edb-toggle-interpret</code> (<code>C-c C-d
+i</code>), после этого, вы можете расставлять в исходном тексте точки останова с помощью
+<code>edb-toggle-breakpoint</code> (<code>C-x SPC</code>).</p>
+
+<p>Сама отладка производится в буфере <code>Attach</code>, в который можно попасть через буфер <code>Monitor</code>.
+Чтобы переключиться в буфер <code>Monitor</code>, вы можете воспользоваться командой <code>edb-monitor</code> (<code>C-c
+C-d m</code>).  В этом буфере отображается список отлаживаемых процессов и пользователю доступно
+несколько команд: <code>RET</code> переключает в буфер <code>Attach</code>, соответствующий выбранному процессу; <code>q</code>
+скрывает буфер монитора, а <code>k</code> удаляет буфер монитора, удаляет все точки останова и
+отключается от модуля отладки на выбранном узле.</p>
+
+<p>Буфер <code>Attach</code> позволяет выполнять пошаговое выполнение кода конкретного модуля.  В нем
+отображается исходный код модуля и метка, показывающая следующую выполняемую строку (в том
+случае, если выполнение было остановлено на какой-то из точек останова).  В этом буфере
+пользователю доступны следующие команды:</p>
+
+<table class="muse-table" border="2" cellpadding="5">
+  <thead>
+    <tr>
+      <th>функция</th>
+      <th>клавиша</th>
+      <th>описание</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>edb-attach-step</code></td>
+      <td><code>SPC</code></td>
+      <td>выполнить следующее выражение, с заходом в вызываемую функцию (если это вызов функции)</td>
+    </tr>
+    <tr>
+      <td><code>edb-attach-next</code></td>
+      <td><code>n</code></td>
+      <td>выполнить следующее выражение, без захода в вызываемую функцию</td>
+    </tr>
+    <tr>
+      <td><code>edb-attach-continue</code></td>
+      <td><code>c</code></td>
+      <td>продолжить выполнение до следующей точки останова</td>
+    </tr>
+    <tr>
+      <td><code>edb-attach-up</code></td>
+      <td><code>u</code></td>
+      <td>показать предыдущий фрейм стека</td>
+    </tr>
+    <tr>
+      <td><code>edb-attach-down</code></td>
+      <td><code>d</code></td>
+      <td>показать следующий фрейм стека</td>
+    </tr>
+    <tr>
+      <td><code>edb-toggle-breakpoint</code></td>
+      <td><code>b</code></td>
+      <td>переключить точку останова на текущей строке</td>
+    </tr>
+    <tr>
+      <td><code>edb-attach-help</code></td>
+      <td><code>h</code></td>
+      <td>показать справку по пользованию данным буфером</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><code>q</code></td>
+      <td>удалить буфер <code>Attach</code> без завершения отлаживаемого процесса</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Во время отладки пользователь может изменять исходный код модулей, поэтому расстановка
+точек останова в исходном тексте, и в выполняемом процессе может отличаться.  Для того,
+чтобы их синхронизировать, <em>distel</em> имеет в своем составе команду <code>edb-synch-breakpoints</code> (<code>C-c
+C-d s</code>), которую необходимо использовать после перекомпиляции и перезагрузки модуля.  Кроме
+того, для перезагрузки модулей рекомендуется использовать команду <code>erl-reload-module</code>, а не
+загружать его вручную, поскольку эта команда позволяет сохранить все установленные точки
+останова и флаги интерпретации модулей.</p>
+
+<p>Еще одной возможностью <em>distel</em> полезной для отладки является то, что пакет может сохранить
+текущее состояние отладчика, и затем восстановить его на выбранном узле, что крайне
+полезно в тех случаях, когда вам необходимо перезапустить узел Erlang и продолжить отладку
+с того места, где вы остановились.  Для выполнения этой задачи, пакет определяет две
+команды: <code>edb-save-dbg-state</code> (<code>C-c C-d S</code>) для сохранения состояния отладчика, и
+<code>edb-restore-dbg-state</code> (<code>C-c C-d R</code>) для его восстановления.</p>
+
+
+<h3><a name="sec14" id="sec14"></a>
+Приложения для работы со средой выполнения Erlang</h3>
+
+<p class="first">Кроме описанных выше приложений, в составе <em>distel</em> поставляется еще несколько утилит,
+которые могут быть полезными для разработчика, активно работающего с Erlang. Например,
+сюда можно отнести менеджер процессов выполняемых на узле Erlang, к которому сейчас
+подключен <em>distel</em>.</p>
+
+<p>Менеджер процессов запускается командой <code>erl-process-list</code> (<code>C-c C-d l</code>) и создает буфер, в
+который выводится различная информация о выполняемых процессах (пример показан на
+скриншоте ниже).  В данном буфере пользователь может выполнять различные команды, которые
+позволяют получать более подробную информацию о процессе (<code>RET</code> или <code>i</code>), просматривать
+содержимое очереди сообщений (<code>m</code>), выполнять трассировку процесса (<code>b</code>).  Пользователь может
+даже завершить процесс воспользовавшись командой <code>k</code>.  Чтобы покинуть этот буфер необходимо
+нажать <code>q</code>, а чтобы обновить информацию &mdash; 
+<code>u</code>.</p>
+
+<div id="screenshot">
+<img src="../../../common/writings/emacs-devenv/distel-proc-monitor.png" alt="">
+</div>
+
+
+<h3><a name="sec15" id="sec15"></a>
+Программирование с использованием distel</h3>
+
+<p><em>Distel</em> позволяет писать на Emacs Lisp приложения в стиле Erlang, а также взаимодействовать
+с процессами, запущенными на узлах Erlang.  Краткое введение в программирование с помощью
+<em>distel</em> вы можете найти в статье <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.11.4770">Distel: Distributed Emacs Lisp</a> и/или
+<a href="http://bc.tech.coop/blog/070719.html">статье в блоге Bill Clementson</a>.</p>
+
+
+
+<h2><a name="sec16" id="sec16"></a>
+Настройка  flymake для работы с Erlang</h2>
+
+<p class="first">Пакет <em>flymake</em>, входящий в поставку Emacs, позволяет выполнять проверку корректности кода
+на лету.  Erlang пока не входит в список языков, поддерживаемых &quot;из коробки&quot;, но мы можем
+достаточно легко исправить это упущение<sup><a class="footref" name="fnr.4" href="#fn.4">4</a></sup>.</p>
+
+<p>Если вы еще не использовали <em>flymake</em>, то во первых вам необходимо загрузить его с помощью
+следующей команды:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">flymake</span>)
+</pre>
+
+<p>Затем нам необходимо написать процедуру, которая будет правильно инициализировать <em>flymake</em>,
+так чтобы он мог работать с кодом на Erlang.  Эта процедура будет захватывать код по мере
+набора и будет передавать его скрипту на Erlang, который и будет проверять код на наличие
+ошибок.  Процедура выглядит следующим образом:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">flymake-erlang-init</span> ()
+  (<span style="color: #a020f0;">let*</span> ((temp-file (flymake-init-create-temp-buffer-copy 'flymake-create-temp-inplace))
+         (local-file (file-relative-name temp-file
+                                         (file-name-directory buffer-file-name))))
+    (list <span style="color: #008b00;">"~/emacs/bin/eflymake"</span> (list local-file))))
+</pre>
+
+<p>Путь к скрипту указывается в теле процедуры, так что вам необходимо изменить путь в том
+случае, если он находится в другом месте.  Сам скрипт достаточно прост &mdash; он получает имя
+файла и пытается выполнить компиляцию кода, возвращая список ошибок и предупреждений:</p>
+
+<pre class="src">
+#!/usr/bin/env escript
+<span style="color: #006400;">-export</span>([<span style="color: #0000ff;">main/1</span>]).
+
+<span style="color: #0000ff;">main</span>([<span style="color: #8b0000;">File_Name</span>]) -&gt;
+    <span style="color: #0000ff;">compile</span>:<span style="color: #0000ff;">file</span>(<span style="color: #8b0000;">File_Name</span>, [warn_obsolete_guard, warn_unused_import,
+                                           warn_shadow_vars, warn_export_vars,
+                                           strong_validation, report]).
+</pre>
+
+<p>После написания процедуры и скрипта, нам необходимо указать <em>flymake</em>, что он должен
+использовать указанную процедуру для проверки файлов с расширением <code>.erl</code>, что делается с
+помощью следующего кода.</p>
+
+<pre class="src">
+(add-to-list 'flymake-allowed-file-name-masks
+                                                 '(<span style="color: #008b00;">"\\.erl\\'"</span> flymake-erlang-init))
+</pre>
+
+<p>На этом подготовительные действия заканчиваются и вы можете либо разрешить использовать
+<em>flymake</em> глобально, с помощью добавления хука открытия файла:</p>
+
+<pre class="src">
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+</pre>
+
+<p>либо явно включать режим <em>flymake</em> для нужных режимов, например, вот так:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-erlang-mode-hook</span> ()
+        (flymake-mode 1))
+(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
+</pre>
+
+<p>После этого, при открытии файла с расширением <code>.erl</code> режим <em>flymake</em> будет включаться
+автоматически, и вы будете видеть результаты проверки по мере набора вашего кода.  По
+умолчанию, строки содержащие ошибки выделяются светло-розовым цветом, а строки, вызывающие
+появление предупреждений &mdash; светло-голубым<sup><a class="footref" name="fnr.5" href="#fn.5">5</a></sup>.  Пример вы можете увидеть на скриншоте:</p>
+
+<p class="image"><img src="../../../common/writings/emacs-devenv/erlang-flymake.png" alt=""></p>
+
+<p>В данном примере, функции <code>some_wrong_function</code> не существует, и поэтому Erlang не может ее
+найти и рапортует об ошибке.  А объявление функции подсвечено из-за того, что параметр <code>Fun</code>
+не используется в теле функции, что приводит к получению предупреждения.</p>
+
+
+<h2><a name="sec17" id="sec17"></a>
+Пакет Wrangler</h2>
+
+<p class="first">Пакет <em>Wrangler</em> реализует базовую функциональность по рефакторингу программ написанных на
+Erlang.  Пакет доступен с <a href="http://www.cs.kent.ac.uk/projects/forse/">сайта проекта</a>, но работа пока находится в самом начале, и сами
+авторы не рекомендуют использовать его для серьезной работы.  Документация на пакет может
+быть найдена <a href="http://www.cs.kent.ac.uk/projects/forse/wrangler/doc/overview-summary.html">тут</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2><a name="sec18" id="sec18"></a>
+ESense</h2>
+
+<p><a href="http://esense.sourceforge.net/">Пакет ESense</a> (ErlangSense) реализует для связки Emacs + Erlang нечто подобное функции
+Intellisense в Microsoft Visual Studio.  Пакет реализует следующие возможности:</p>
+
+<ul>
+<li>дополнение имен модулей, функций, названий записей и полей в записях, а также имен макросов;</li>
+<li>переход к содержимому подключаемого (через <code>-include</code>) заголовочного файла;</li>
+<li>переход к определению функции в исходном коде;</li>
+<li>открытие документации на выбранную функцию или показ краткой подсказки в всплывающем
+окне.</li>
+</ul>
+
+<p>Этот пакет может использоваться как дополнительный режим при редактировании исходного кода
+Erlang, а также при работе с кодом в буфере в котором выполняются команды Erlang.</p>
+
+<h3><a name="sec19" id="sec19"></a>
+Установка и настройка пакета</h3>
+
+<p class="first">Скачать пакет <em>ESense</em> можно с <a href="http://esense.sourceforge.net/">сайта проекта</a>.  Для его работы требуется наличие модуля
+разбора HTML из состава веб-сервера <a href="http://yaws.hyber.org/">Yaws</a><sup><a class="footref" name="fnr.6" href="#fn.6">6</a></sup>.  Скачанный пакет необходимо развернуть и с
+помощью <code>make</code> скомпилировать код на Erlang, который будет использоваться для индексации
+модулей.</p>
+
+<p>После этого вам необходимо поместить файлы с расширением <code>.el</code> в то место, где их найдет
+Emacs, и добавить следующий код в ваш файл инициализации:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">esense-start</span>)
+(setq esense-indexer-program <span style="color: #008b00;">"/path/to/esense.sh"</span>)
+</pre>
+
+<p>Вам необходимо изменить значение второй строки таким образом, чтобы она указывала на
+расположение скрипта <code>esense.sh</code>, который используется для индексации кода.  Прочие
+настройки могут быть заданы используя группу настройки <code>esense</code>.</p>
+
+<p>Перед первым запуском вам необходимо сгенерировать первоначальные индексы, которые будут
+использоваться пакетом в процессе работы.  Эта задача выполняется с помощью скрипта
+<code>esense.sh</code>, в качестве параметра которому передается каталог с исходным кодом. (В первую
+очередь рекомендуется построить индексы для исходных текстов Erlang, поскольку наличие
+информации для некоторых модулей необходимо для работы пакета).  Индексные файлы по
+умолчанию сохраняются в каталоге <code>~/.esense</code>.</p>
+
+<p>После генерации индекса, вы можете или перезапустить Emacs, или выполнить команду
+<code>esense-initialize</code>, которая обновит информацию о существующих индексных файлах.  После
+генерации индексов для исходных текстов, вы можете сгенерировать индексы для документации
+в формате HTML, так что ссылки на нее смогут использоваться в процессе работы.</p>
+
+
+<h3><a name="sec20" id="sec20"></a>
+Работа с пакетом</h3>
+
+<p class="first">По умолчанию, <em>ESense</em> использует клавишу <code>F1</code> (команда <code>esense-do-something-at-point</code>) для
+выполнения практически всех операций.  В зависимости от положения курсора, пакет выполняет
+одно из следующих действий:</p>
+
+<ul>
+<li>если курсор находится в конце символа, то пакет пытается дополнить имя символа (имя
+модуля или функции из конкретного модуля).  Если существует несколько вариантов
+дополнения, то пакет отображает окно, в котором перечисляются все возможные варианты.
+В этом окне пользователь может перемещаться с помощью клавиш курсора, и выбрать нужный
+вариант с помощью клавиши <code>RET</code> или сочетания <code>C-m</code>;</li>
+<li>если курсор находится на символе (функции, макросе или записи), то пакет показывает
+документацию для данного символа в всплывающем окне (tooltip);</li>
+<li>если курсор находится на списке параметров, то показывается документация на
+соответствующий параметр функции;</li>
+<li>если курсор находится на строке с директивой <code>-include</code>, то будет показан соответствующий
+заголовочный файл.</li>
+</ul>
+
+<p>Нажатие комбинации <code>C-F1</code> приведет к вызову команды <code>esense-go-to-documentation</code>, что приведет
+к переходу к месту определения символа, находящегося под курсором (вернуться назад можно с
+помощью стандартной для <code>etags</code> комбинации <code>M-*</code>).  А комбинация <code>M-F1</code>
+(<code>esense-go-to-function-documentation</code>) запросит имя функции и выполнит переход к ее
+определению.</p>
+
+<p>Нажатие клавиш <code>:</code>, <code>#</code>, <code>.</code> и <code>?</code> также приводят к выдаче списка возможных вариантов для функций
+из модуля, имен записей, членов записей или макросов, соответственно.</p>
+
+
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> На самом деле, этот пакет является реализацией Erlang-подобного стиля программирования
+для Emacs Lisp.  <em>erlang-extended-mode</em>, реализуемый этим пакетом, построен на основе
+библиотеки, обеспечивающей взаимодействие с процессами Erlang.</p>
+
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> Вы также можете задать числовой префикс для этих команд, что обеспечит пропуск
+соответствующего количества функций Erlang.</p>
+
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> Этот код был опубликован в блоге <a href="http://bc.tech.coop/blog/">Bill Clementson</a></p>
+
+<p class="footnote"><a class="footnum" name="fn.4" href="#fnr.4">4.</a> Данный раздел основан на информации, полученной из <a href="http://weblog.hypotheticalabs.com/?p=265">блога Hypothetical Labs</a>.</p>
+
+<p class="footnote"><a class="footnum" name="fn.5" href="#fnr.5">5.</a> Вы можете сами указать нужные цвета, отредактировав параметры начертаний
+&lt;code>flymake-errline</code> &amp; <code>flymake-warnline</code>.</p>
+
+<p class="footnote"><a class="footnum" name="fn.6" href="#fnr.6">6.</a> Вам может понадобиться добавить каталог где установлен <em>Yaws</em> в список каталогов, где
+будет производиться поиск выполняемых модулей.  Это может быть сделано путем помещения
+команды <code>code:add_path</code> с нужным каталогом в файл инициализации <code>~/.erlang</code>.</p>
+
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 28.01.2010 15:32</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-devenv/EmacsErlang.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-devenv/EmacsErlang.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

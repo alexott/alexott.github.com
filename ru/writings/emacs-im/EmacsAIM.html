@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>AOL Instant Messaging (AIM)</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, aol, aim, tnt" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>AOL Instant Messaging (AIM)</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>Поддержка AIM в Emacs осуществляется пакетом <em>TNT</em>.  Он позволяет обмениваться
+сообщениями, и участвовать в групповых чатах.</p>
+
+<h2>Установка пакета</h2>
+
+<p class="first">Получить данный пакет можно с его домашней страницы, расположенной по адресу
+<a href="http://tnt.sourceforge.net/">http://tnt.sourceforge.net/</a>.  Установка пакета достаточно проста &mdash; надо раскрыть архив, и
+настроить Emacs для его использования.  Это выполняется с помощью следующих команд:</p>
+
+<pre class="src">
+(add-to-list 'load-path <span style="color: #008b00;">"path_to_tnt_dir"</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">tnt</span>)
+</pre>
+
+
+<h2>Работа с пакетом</h2>
+
+<p class="first">Для работы с AIM вам нужно иметь уже зарегистрированное имя.  Если у вас его нет, то вы
+можете зарегистрировать новое имя по адресу <a href="http://www.aol.com/aim">http://www.aol.com/aim</a>.</p>
+
+<p>Основная работа с пакетом осуществляется с помощью сочетаний клавиш, что позволяет удобно
+работать с пакетом.  Все команды можно разделить на несколько частей, которые представлены
+в виде соответствующих разделов.</p>
+
+<h3>Подключение, отключение и статус</h3>
+
+<p class="first">Подключение к сервису AIM выполняется с помощью команды <code>tnt-open</code> (<code>C-x t o</code>).  При
+подключении вам необходимо указать ваше имя и пароль, и если все пройдет нормально, то
+пакет сообщит о том, что вы подключились к системе.  Чтобы каждый раз не вводить имя и
+пароль, вы можете задать их с помощью переменных <code>tnt-default-username</code> и
+<code>tnt-default-password</code>.  Вы также можете использовать несколько разных имен для входа в
+систему. Более подробную информацию вы можете найти в разделе <a href="#customization">Настройка</a>.</p>
+
+<p>После подключения, вы можете выполнять стандартные задачи &mdash; ведение переговоров, общение
+в чатах и т.п.</p>
+
+<p>Изменение статуса с &quot;доступен&quot; в &quot;занят&quot; производится с помощью команды <code>tnt-away-toggle</code>
+(или <code>C-x t A</code>).  Вы можете задать сообщение, которое будет отображаться для пользователей,
+которые будут пытаться соединиться с вами, когда вы находитесь в данном режиме.</p>
+
+<p>Прекращение работы с AIM выполняется с помощью команды <code>tnt-kill</code> (<code>C-x t q</code>).</p>
+
+
+<h3>Обмен информацией</h3>
+
+<p><em>TNT</em> поддерживает два типа обмена информацией &mdash; прямые беседы между двумя пользователями,
+и общение к чатах.</p>
+
+<p>Для прямого общения используется команда <code>tnt-im</code> (или сочетание клавиш <code>C-x t i</code>). При этом у
+вас запросят имя пользователя с которым вы хотите пообщаться, и после установления связи,
+будет открыт буфер, в котором вы сможете печатать свои сообщения и видеть ответы. Если
+пользователь есть в вашем списке пользователей, то вы можете использовать механизм
+дополнения для ввода имени.</p>
+
+<p>Для начала общения в чатах используется команда <code>tnt-join-chat</code> (или сочетание <code>C-x t j</code>).  Вы
+можете ввести имя существующего чата, или ввести новое, и тогда чат будет создан. Как и в
+предыдущем случае, создается новый буфер, в котором и ведутся все переговоры.  Для выхода
+из чата вы можете использовать <code>tnt-leave-chat</code> (или <code>C-x t l</code>).</p>
+
+<p>В том случае, если кто-то другой присылает вам приглашение в чат, или сообщение, то вы
+можете принять его с помощью <code>tnt-accept</code> (<code>C-x t a</code>) или отклонить с помощью <code>tnt-reject</code> (<code>C-x
+t r</code>) &mdash; это может быть полезным, если вы заняты, или не хотите беседовать с данным
+пользователем. В том случае, если вы получаете несколько сообщений, или приглашений в чат,
+то они накапливаются в очереди, в которой их можно просматривать с помощью команд
+<code>tnt-next-event</code> (<code>C-x t n</code>) &mdash; для получения следующего сообщения, и <code>tnt-prev-event</code> (<code>C-x t p</code>)
+&mdash; для получения предыдущего сообщения.</p>
+
+
+<h3>Прочие команды</h3>
+
+<p class="first">Вы можете формировать списки друзей, для того, чтобы быстро набирать их имена.  Для
+просмотра существующего списка используется команда <code>tnt-show-buddies</code> (<code>C-x t b</code>), а для
+редактирования &mdash; команда <code>tnt-edit-buddies</code> (<code>C-x t B</code>).  Имена заданные в этом списке будут
+использованы для реализации механизма дополнений в строках ввода, там, где необходим ввод
+имен пользователей.</p>
+
+<p><em>TNT</em> может также работать как мост между AIM и электронной почтой.  Это очень удобно, если
+вы хотите получать сообщения из AIM на ваш почтовый адрес.  Это выполняется с помощью
+команды <code>tnt-toggle-email</code> (<code>C-x t M</code>). И для ее работы нужно задать две переменные
+<code>tnt-email-to-pipe-to</code> и <code>tnt-email-binary</code>.</p>
+
+<p>В том случае, если у вас несколько зарегистрированных имен, то вы можете использовать
+команду <code>tnt-switch-user</code> (<code>C-x t s</code>) для переключения между разными именами.</p>
+
+<p>Команда <code>tnt-mute</code> (<code>C-x t m</code>) может использоваться для включения и отключения звуковых
+сигналов, используемых TNT для оповещения пользователя.</p>
+
+<h2><a name="customization" id="customization"></a>Настройка</h2>
+
+<p class="first">Настройку <em>TNT</em> можно осуществлять как с помощью стандартных механизмов настройки Emacs, так
+и с помощью кода на Emacs Lisp. Для вызова настройки можно использовать команду <code>M-x
+tnt-customize</code>, или <code>M-x customize-group tnt</code>.</p>
+
+<h3>Настройка входа в систему</h3>
+
+<p><em>TNT</em> позволяет пользователю использовать несколько учетных записей для использования.  Для
+задания имени и пароля для входа, сразу после запуска <em>TNT</em>, используются переменные
+<code>tnt-default-username</code> и <code>tnt-default-password</code>.  А для задания связей между именами и
+паролями в учетных записях, используется ассоциативный список <code>tnt-username-alist</code>.  Но
+будьте осторожны с этими переменными &mdash; помните, что они хранятся в вашем файле настройки
+как обычный текст, и в случае установки неправильных прав на файл, могут быть прочитаны
+другими пользователями.</p>
+
+
+<h3>Настройка звука</h3>
+
+<p><em>TNT</em> позволяет настроить проигрывание разных сигналов в зависимости от разных
+событий. Настройка сигналов управляется с помощью переменных <code>tnt-beep-on-...</code>, например
+<code>tnt-beep-on-incoming-message</code>.  Кроме этого, вы можете настроить то, с помощью какой
+программы будут проигрываться звуковые сигналы. Эти настройки определяются переменными
+<code>tnt-sound-exec</code> и <code>tnt-sound-exec-args</code>.</p>
+
+
+<h3>Прочие настройки</h3>
+
+<p class="first">Пользователь имеет возможность настроить множество других параметров, полное описание
+которых доступно в файле <code>README</code> из поставки <em>TNT</em>, и которые можно настроить используя буфер
+настройки Emacs.</p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-im/EmacsAIM.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-im/EmacsAIM.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Interaction with с Growl from Emacs</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, mac os x, growl, applescript, emacs, aquamacs" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Interaction with с Growl from Emacs</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Main</a></li><li><a href="../fp/">Functional programming</a></li><li><a href="../clojure/">Clojure</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../cf/">Information Security</a></li><li><a href="../cpp/">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../writings/" class="current">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>For Mac OS X there is separate package <a href="http://growl.info">Growl</a>, that provides notification services for
+different programs.  Notifications are represented as floating windows, containing text
+and icon.  There notifications could be very useful for some things, like notifications
+from <em>org-mode</em>.</p>
+
+<p>After some search, I found information how I can output notifications
+<a href="http://growl.info/documentation/applescript-support.php">using AppleSript interface to Growl</a>.  To make this work, you need to perform two things &mdash;
+first you need to register your application and notifications types, produced by this
+application, and than you can send notifications to Growl.</p>
+
+<p>To register application you will need following script, that declares notification types
+and register them, together with application in Growl:<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup></p>
+
+<pre class="src">
+tell application <span style="color: #008b00;">"GrowlHelperApp"</span>
+ -- Declare a list of notification types
+ set the allNotificationsList to {<span style="color: #008b00;">"Emacs Notification"</span>}
+
+ -- Declare list of active notifications.  If some of them
+ -- isn't activated, user can do this later via preferences
+ set the enabledNotificationsList to {<span style="color: #008b00;">"Emacs Notification"</span>}
+
+ -- Register our application in Growl.
+ register as application <span style="color: #008b00;">"Aquamacs Emacs"</span> all notifications allNotificationsList \
+    default notifications enabledNotificationsList \
+    icon of application <span style="color: #008b00;">"Aquamacs Emacs"</span>
+end tell
+</pre>
+
+<p>You can execute this script with <code>osascript</code> command from command line, or put it into
+<code>Script Editor</code> and execute it directly.  After registration, user can customize look of the
+registered notification via <code>Applications</code> tab at preference pane of Growl.</p>
+
+<p>And after registration, user can send notifications with following script, that is a base
+of our Emacs's interface to Growl.</p>
+
+<pre class="src">
+        tell application <span style="color: #008b00;">"GrowlHelperApp"</span>
+                notify with name <span style="color: #008b00;">"Emacs Notification"</span> title <span style="color: #008b00;">"Emacs alert"</span> \
+       description <span style="color: #008b00;">"Message!!!"</span> application name <span style="color: #008b00;">"Aquamacs Emacs"</span>
+        end tell
+</pre>
+
+<p>This script also could be executed via <code>osascript</code>, and it'll output message <code>Message!!!</code> with
+title <code>Emacs alert</code>, but to output non-Latin1 symbols from AppleScript, you'll need to
+encode them using UTF-16 and represent them as hexadecimal string, so we'll going to add
+special code, that will recode message strings to corresponding format.</p>
+
+<p>To interact with AppleScript from Emacs we'll could use <code>do-applescript</code> function, but I
+found, that it doesn't properly handle multi-byte symbols <code>«</code> and <code>»</code>, that are used to
+specify text in multi-byte encoding.  So we'll form script in temporary file, and than
+execute it with <code>osascript</code>, and delete temporary file.  This executed with following
+function:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">output-to-growl</span> (msg)
+        (<span style="color: #a020f0;">let</span> ((fname (make-temp-file <span style="color: #008b00;">"/tmp/growlXXXXXX"</span>)))
+                (<span style="color: #a020f0;">with-temp-file</span> fname
+                        (setq coding-system-for-write 'utf-16)
+                        (insert (format <span style="color: #008b00;">"tell application \"GrowlHelperApp\"
+     notify with name \"Emacs Notification\" title \"Emacs alert\" \
+       description &#171;data utxt%s&#187; as Unicode text \
+       application name \"Aquamacs Emacs\"
+   end tell"</span>  (osd-text-to-utf-16-hex msg))))
+                (shell-command (format <span style="color: #008b00;">"osascript %s"</span> fname))
+                (delete-file fname)))
+</pre>
+
+<p>To proper output of strings, containing Cyrillic &amp; other non-Latin1 symbols, AppleScript
+requires, that data should be encoded in UTF-16, and presented as string <code>data utxtXXXXXX</code>,
+where <code>utxtXXXXXXX</code> &mdash; hexadecimal representation of corresponding bytes of string in UTF-16
+encoding.  To do this task, I wrote function <code>osd-text-to-utf-16-hex</code>, that is called from
+<code>output-to-growl</code> function:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">osd-text-to-utf-16-hex</span> (text)
+        (<span style="color: #a020f0;">let*</span> ((utext (encode-coding-string text 'utf-16))
+                                 (ltext (string-to-list utext)))
+                (apply #'concat
+                 (mapcar (<span style="color: #a020f0;">lambda</span> (x) (format <span style="color: #008b00;">"%02x"</span> x)) ltext))))
+</pre>
+
+<p>And that's all.  Now you can call <code>output-to-growl</code> from any place.  I use it to get
+notifications from <em>org-mode</em>.</p>
+
+<hr>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> I need to mention, that long lines were split with <code>\</code> just to get proper formatting on
+the screen.  In script, you need to combine them into one long line!</p>
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/writings/EmacsMacOSXAndGrowl.html';
+var disqus_url = 'http://alexott.net/en/writings/EmacsMacOSXAndGrowl.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

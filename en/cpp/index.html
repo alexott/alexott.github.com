@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>C & C++ languages</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, cpp, c++, boost, asio, unit testing" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>C & C++ languages</h1>
+<p><a href="../../ru/index.html">Russian</a>
+&middot; <a href="../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Main</a></li><li><a href="../fp/">Functional programming</a></li><li><a href="../clojure/">Clojure</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../cf/">Information Security</a></li><li><a href="../cpp/" class="current">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../writings/">Articles</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p>I'm programming in C &amp; C++ for more than 10 years, and now this is main language for my
+work &amp; some personal projects. I mostly use GCC as a compiler.</p>
+
+<p>For my projects I actively use libraries from the <a href="http://www.boost.org">Boost project</a>, that is beautiful, very
+portable and has high quality.  Their usage allow me to think about &quot;business logic&quot; in my
+programs without reimplementing common things, like sockets, serialization, etc.  I use
+many libraries, starting from simple ones, like smart_ptr &amp; regex, and finishing with
+bind, lambda, fusion, spirit, asio, etc.</p>
+
+<h2>Recommended books</h2>
+
+<ul>
+<li>Classical book &mdash; Bjarne Stroustrup <a href="http://www.amazon.com/gp/product/0201700735?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0201700735">The C++ Programming Language. Special Edition</a></li>
+<li><a href="http://www.amazon.com/gp/product/0321133544?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0321133544">Beyond the C++ Standard Library: An Introduction to Boost</a> &mdash; very good description of
+base Boost libraries</li>
+<li><a href="http://www.amazon.com/gp/product/0321227255?ie=UTF8&amp;tag=aleottshompag-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0321227255">C++ Template Metaprogramming. Concepts, Tools, and Techniques from Boost and Beyond</a> &mdash;
+book about metaprogramming in C++, based on Boost Metaprogramming Library</li>
+<li>Series of books with common name <a href="http://www.amazon.com/gp/redirect.html?ie=UTF8&amp;location=http%3A%2F%2Fwww.amazon.com%2Fs%3Fie%3DUTF8%26x%3D0%26ref_%3Dnb%255Fss%255F0%255F9%26y%3D0%26field-keywords%3Dc%252B%252B%2520in-depth%2520series%26url%3Dsearch-alias%253Dstripbooks%26sprefix%3DC%252B%252B%2520In-De&amp;tag=aleottshompag-20&amp;linkCode=ur2&amp;camp=1789&amp;creative=390957">C++ In-Depth</a>.<img src="https://www.assoc-amazon.com/e/ir?t=aleottshompag-20&l=ur2&o=1" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></li>
+</ul>
+
+
+<h2>Small articles about programming in C &amp; C++</h2>
+
+<p class="first">In my blog you can find some notes about <a href="http://alexott.blogspot.com/search/label/c%2B%2B">C++</a> &amp; <a href="http://alexott.blogspot.com/search/label/boost">Boost</a> &mdash; about releases of new libraries,
+tips &amp; tricks, etc. Beside this I also wrote articles dedicated to C &amp; C++ programming,
+and related topics:</p>
+
+<ul>
+<li><a href="BoostAsioNotes.html">What is Boost.Asio, and why we should use it</a></li>
+<li><a href="BoostAsioProxy.html">How to write simple HTTP proxy with Boost.Asio</a></li>
+<li><a href="../writings/prog-checking">Article about finding errors of work with memory</a> &mdash; memory leaks, access behind memory
+boundaries, etc.</li>
+<li><a href="CppTestingIntro.html">Test-driven development and unit testing with examples in C++</a> &mdash; provides introduction
+to test-driven development in C++.</li>
+</ul>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/en/cpp/index.html';
+var disqus_url = 'http://alexott.net/en/cpp/index.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

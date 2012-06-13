@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Пакет Rcirc</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, <contents>" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Пакет Rcirc</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<p><em>Rcirc</em> это другая реализация клиента IRC, которая отличается минимальным набором функций,
+которого достаточно для работы в IRC, но который не обладает полной мощью пакета
+<em>Erc</em>. <em>Rcirc</em> включен в состав GNU Emacs 22, поэтому он доступен сразу после установки данной
+версии.  <em>Rcirc</em> обладает следующими возможностями:</p>
+
+<ul>
+<li>Поддержка соединений с несколькими серверами;</li>
+<li>Для каждого из серверов можно открыть несколько каналов;</li>
+<li>Поддержка персонального общения между пользователями (chat).</li>
+</ul>
+
+<h2>Работа с пакетом</h2>
+
+<h3>Начало и завершение работы</h3>
+
+<p class="first">Для начала работы с пакетом нужно лишь выполнить команду <code>M-x irc</code>.  Для подключения
+необходимо указать следующие параметры:</p>
+
+<ul>
+<li>имя сервера IRC;</li>
+<li>порт сервера;</li>
+<li>ваше имя для данного сервера;</li>
+<li>список каналов, к которым вы хотите подключиться.  Имена каналов разделяются пробелами.</li>
+</ul>
+
+<p>После подключения, будет создан отдельный буфер для сервера (имя буфера будет равно
+<code>ИМЯСЕРВЕРА</code>) и по буферу для каждого из каналов.</p>
+
+<p>Для завершения работы с сервером необходимо лишь выполнить команду <code>/quit</code> или набрать
+сочетание <code>C-c C-x</code>.</p>
+
+
+<h3>Общение</h3>
+
+<p class="first">Работа с пакетом очень проста &mdash; просто набираете текст и/или команды и нажимаете клавишу
+<code>RET</code>. Если вам нужно ввести несколько строк текста, то вы можете ввести его в отдельном
+буфере, который появляется когда вы наберете <code>C-c C-c</code>. Для завершения редактирования также
+нажмите <code>C-c C-c</code>, и затем &mdash; нажмите <code>RET</code> для того, чтобы отправить его.</p>
+
+<p>В том случае, если в других окнах появляются данные, то этот признак отражается в строке
+статуса (в виде имени канала или имени пользователя). Для переключения в эти окна, просто
+наберите <code>C-c C-SPC</code>.</p>
+
+
+<h3>Наиболее часто используемые команды</h3>
+
+<p class="first">Для работы могут использоваться как команды IRC, так и специально определенные сочетания
+клавиш. Для получения полного списка команд и сочетаний клавиш для них (если они есть),
+наберите <code>C-h m</code>. Некоторые команды имеют аргументы, которые необходимо указать после набора
+команды. Те команды, которые не могут быть опознаны <em>Rcirc</em>, отправляются серверу без
+изменений.</p>
+
+<p>Ниже приведен список наиболее часто используемых команд:</p>
+
+<ul>
+<li><code>C-c C-j</code> (<code>/join список каналов</code>) &mdash; подключается к указанным каналам. Список каналов
+указывается через пробел;</li>
+<li><code>C-c C-p</code> (<code>/part сообщение</code>) &mdash; покидает текущий канал. Эта команда выполняется, когда вы
+удаляете буфер, в котором открыт канал;</li>
+<li><code>C-c C-r</code> (<code>/nick имя_пользователя</code>) &mdash; изменяет текущее имя пользователя на новое;</li>
+<li><code>C-c C-w</code> (<code>/whois имя_пользователя</code>) &mdash; получает базовую информацию о указанном
+пользователе;</li>
+<li><code>C-c C-q</code> (<code>/query имя_пользователя</code>) &mdash; открывает новый буфер для общения с указанным
+пользователем;</li>
+<li><code>C-c C-RET</code> (<code>/msg имя_пользователя сообщение</code>) &mdash; отправляет сообщение указанному
+пользователю. Если от пользователя придет ответ, то для него будет создан отдульный
+буфер;</li>
+<li><code>C-c C-x</code> (<code>/quit [сообщение]</code>) &mdash; отключается от сервера и отправляет сообщение, если оно
+заданно.</li>
+</ul>
+
+
+
+<h2>Настройка</h2>
+
+<p class="first">Пакет определяет несколько переменных, которые используются для установки значений по
+умолчанию. Ниже приведен их список:</p>
+
+<ul>
+<li><code>rcirc-server</code> &mdash; имя сервера, к которому будет проводиться подключение;</li>
+<li><code>rcirc-port</code> &mdash; порт, к которому будет проводиться подключение;</li>
+<li><code>rcirc-nick</code> &mdash; имя пользователя;</li>
+<li><code>rcirc-user-full-name</code> &mdash; &quot;реальное&quot; имя пользователя. В качестве значения по умолчанию,
+используется значение переменной <code>user-full-name</code>;</li>
+<li><code>rcirc-startup-channels-alist</code> &mdash; список каналов, к которым будет производиться
+подключение, при подключении к указанному серверу. Первым значением списка является
+регулярное выражение, при совпадении с которым, производится подключение к каналам,
+указанным в остальных элементах списка. Стоит отметить, что первым элементом
+указывается имя сервера, а не имя сети в которую входит данный сервер.</li>
+</ul>
+
+<p>Более тонкая настройка пакета может быть достигнута за счет создания функций,
+обрабатывающих конкретные события. Смотрите раздел &quot;Hacking and Tweaking&quot; по пакету.</p>
+
+<div id="rule"><a href="index.html">На главную страницу</a></div>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-im/EmacsRcirc.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-im/EmacsRcirc.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>
