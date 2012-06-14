@@ -304,7 +304,7 @@ Clojure для ввода и вывода данных.  Функция <code>wr
 <p>Например, вот такой код используется для определения задания и именем <code>job</code>:</p>
 
 <pre class="src">
-(defjob/defjob job
+(<span style="color: #a020f0;">defjob/defjob</span> <span style="color: #0000ff;">job</span>
   <span style="color: #00008b;">:map</span> my-map
   <span style="color: #00008b;">:map-reader</span> wrap/int-string-map-reader
   <span style="color: #00008b;">:reduce</span> my-reduce
@@ -349,32 +349,32 @@ Clojure для ввода и вывода данных.  Функция <code>wr
 
 (<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">delimiters</span> <span style="color: #008b00;">"0123456789[ \t\n\r!\"#$%&amp;'()*+,./:;&lt;=&gt;?@\\^`{|}~-]+"</span>)
 
-(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">gen-n-grams</span> [<span style="color: #0000ff;">#^String</span> s <span style="color: #0000ff;">#^Integer</span> n]
+(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">gen-n-grams</span> [<span style="color: #006400;">#^String</span> s <span style="color: #006400;">#^Integer</span> n]
   (<span style="color: #006400;">when</span> (<span style="color: #8b0000;">&gt;</span> (<span style="color: #006400;">.length</span> s) 0)
       (<span style="color: #006400;">let</span> [str (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">" "</span> s (<span style="color: #006400;">String.</span> ) (str2/repeat <span style="color: #008b00;">" "</span> (<span style="color: #8b0000;">-</span> n 1)))]
-        (<span style="color: #8b0000;">reduce</span> (<span style="color: #8b0000;">fn</span> [val elem]
+        (<span style="color: #8b0000;">reduce</span> (<span style="color: #a020f0;">fn</span> [val elem]
                   (<span style="color: #8b0000;">conj</span> val (<span style="color: #006400;">.substring</span> str elem (<span style="color: #8b0000;">+</span> elem n))))
                 []
                 (<span style="color: #8b0000;">range</span> 0 (<span style="color: #8b0000;">+</span> 1 (<span style="color: #006400;">.length</span> s)))))))
 
-(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">my-map</span> [key <span style="color: #0000ff;">#^String</span> value]
-  (<span style="color: #8b0000;">map</span> (<span style="color: #8b0000;">fn</span> [token] [token 1])
+(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">my-map</span> [key <span style="color: #006400;">#^String</span> value]
+  (<span style="color: #8b0000;">map</span> (<span style="color: #a020f0;">fn</span> [token] [token 1])
        (<span style="color: #8b0000;">flatten</span> (<span style="color: #8b0000;">map</span> #(gen-n-grams %1 3)
                      (<span style="color: #8b0000;">enumeration-seq</span> (<span style="color: #006400;">StringTokenizer.</span> value delimiters))))))
 
 (<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">my-reduce</span> [key values-fn]
   [ [key (<span style="color: #8b0000;">reduce</span> + (values-fn))] ])
 
-(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">string-long-writer</span> [<span style="color: #0000ff;">#^OutputCollector</span> output
-                          <span style="color: #0000ff;">#^String</span> key value]
+(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">string-long-writer</span> [<span style="color: #006400;">#^OutputCollector</span> output
+                          <span style="color: #006400;">#^String</span> key value]
   (<span style="color: #006400;">.collect</span> output (<span style="color: #006400;">Text.</span> key) (<span style="color: #006400;">LongWritable.</span> value)))
 
-(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">string-long-reduce-reader</span> [<span style="color: #0000ff;">#^Text</span> key wvalues]
+(<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">string-long-reduce-reader</span> [<span style="color: #006400;">#^Text</span> key wvalues]
   [(<span style="color: #006400;">.toString</span> key)
-   (<span style="color: #8b0000;">fn</span> [] (<span style="color: #8b0000;">map</span> (<span style="color: #8b0000;">fn</span> [<span style="color: #0000ff;">#^LongWritable</span> v] (<span style="color: #006400;">.get</span> v))
+   (<span style="color: #a020f0;">fn</span> [] (<span style="color: #8b0000;">map</span> (<span style="color: #a020f0;">fn</span> [<span style="color: #006400;">#^LongWritable</span> v] (<span style="color: #006400;">.get</span> v))
                (<span style="color: #8b0000;">iterator-seq</span> wvalues)))])
 
-(defjob/defjob job
+(<span style="color: #a020f0;">defjob/defjob</span> <span style="color: #0000ff;">job</span>
   <span style="color: #00008b;">:map</span> my-map
   <span style="color: #00008b;">:map-reader</span> wrap/int-string-map-reader
   <span style="color: #00008b;">:map-writer</span> string-long-writer
@@ -392,7 +392,7 @@ Clojure для ввода и вывода данных.  Функция <code>wr
 кода используется следующий проект Leiningen:</p>
 
 <pre class="src">
-(defproject hadoop1 <span style="color: #008b00;">"1.0"</span>
+(<span style="color: #a020f0;">defproject</span> <span style="color: #0000ff;">hadoop1</span> <span style="color: #008b00;">"1.0"</span>
   <span style="color: #00008b;">:description</span> <span style="color: #008b00;">"hadoop1"</span>
   <span style="color: #00008b;">:dependencies</span> [[org.clojure/clojure <span style="color: #008b00;">"1.1.0"</span>]
                  [org.clojure/clojure-contrib <span style="color: #008b00;">"1.1.0"</span>]

@@ -163,8 +163,8 @@ Clojure определять свои структуры данных, вмес�
 (<span style="color: #8b0000;">extend</span> &#1090;&#1080;&#1087;-&#1080;&#1083;&#1080;-&#1082;&#1083;&#1072;&#1089;&#1089;
   &#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;-1
    {<span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-1</span> &#1091;&#1078;&#1077;-&#1086;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1077;&#1085;&#1085;&#1072;&#1103;-&#1092;&#1091;&#1085;&#1082;&#1094;&#1080;&#1103;
-    <span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-2</span> (<span style="color: #8b0000;">fn</span> [a b] ...)
-    <span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-3</span> (<span style="color: #8b0000;">fn</span> ([a]...) ([a b] ...)...)}
+    <span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-2</span> (<span style="color: #a020f0;">fn</span> [a b] ...)
+    <span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-3</span> (<span style="color: #a020f0;">fn</span> ([a]...) ([a b] ...)...)}
   &#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;-2
     {...}
 ...)
@@ -226,7 +226,7 @@ Clojure определять свои структуры данных, вмес�
 <pre class="src">
 (<span style="color: #8b0000;">extend</span> <span style="color: #006400;">String</span>
   <span style="color: #006400;">Hello</span>
-  {<span style="color: #00008b;">:hello</span> (<span style="color: #8b0000;">fn</span> [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>))})
+  {<span style="color: #00008b;">:hello</span> (<span style="color: #a020f0;">fn</span> [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>))})
 
 (<span style="color: #8b0000;">extend-protocol</span> <span style="color: #006400;">Hello</span> <span style="color: #006400;">String</span>
                  (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>)))

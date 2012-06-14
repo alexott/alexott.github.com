@@ -851,7 +851,7 @@ user&gt; (<span style="color: #006400;">let</span> [ [a b &amp; c] [1 2 3 4]]
 user&gt; (<span style="color: #006400;">let</span> [ [a b &amp; c] <span style="color: #008b00;">"abcde"</span>]
   (<span style="color: #8b0000;">list</span> a b c))
 (\a \b (\c \d \e))
-user&gt; ((<span style="color: #8b0000;">fn</span> [ [a b] ] (<span style="color: #8b0000;">list</span> a b)) [1 2])
+user&gt; ((<span style="color: #a020f0;">fn</span> [ [a b] ] (<span style="color: #8b0000;">list</span> a b)) [1 2])
 (1 2)
 user&gt; (<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">dfunc1</span> [ [a b] ]
   (<span style="color: #8b0000;">list</span> a b))
@@ -1140,7 +1140,7 @@ finally is called
 следующие объявления являются одинаковыми:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">def</span>  <span style="color: #0000ff;">func1</span> (<span style="color: #8b0000;">fn</span> [x y] (<span style="color: #8b0000;">+</span> x y)))
+(<span style="color: #a020f0;">def</span>  <span style="color: #0000ff;">func1</span> (<span style="color: #a020f0;">fn</span> [x y] (<span style="color: #8b0000;">+</span> x y)))
 (<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">func2</span> [x y] (<span style="color: #8b0000;">+</span> x y))
 </pre>
 
@@ -1180,7 +1180,7 @@ user&gt; (func4 1 2 3 4)
 
 <pre class="src">
 (#(<span style="color: #8b0000;">+</span> %1 %2) 10 20)
-((<span style="color: #8b0000;">fn</span> [x y] (<span style="color: #8b0000;">+</span> x y)) 10 20)
+((<span style="color: #a020f0;">fn</span> [x y] (<span style="color: #8b0000;">+</span> x y)) 10 20)
 </pre>
 
 <p>оба этих выражения возвращают одно и то же число.  Специальная запись удобна, когда вам
@@ -1619,8 +1619,8 @@ Clojure определять свои структуры данных, вмес�
 (<span style="color: #8b0000;">extend</span> &#1090;&#1080;&#1087;-&#1080;&#1083;&#1080;-&#1082;&#1083;&#1072;&#1089;&#1089;
   &#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;-1
    {<span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-1</span> &#1091;&#1078;&#1077;-&#1086;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1077;&#1085;&#1085;&#1072;&#1103;-&#1092;&#1091;&#1085;&#1082;&#1094;&#1080;&#1103;
-    <span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-2</span> (<span style="color: #8b0000;">fn</span> [a b] ...)
-    <span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-3</span> (<span style="color: #8b0000;">fn</span> ([a]...) ([a b] ...)...)}
+    <span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-2</span> (<span style="color: #a020f0;">fn</span> [a b] ...)
+    <span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-3</span> (<span style="color: #a020f0;">fn</span> ([a]...) ([a b] ...)...)}
   &#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;-2
     {...}
 ...)
@@ -1682,7 +1682,7 @@ Clojure определять свои структуры данных, вмес�
 <pre class="src">
 (<span style="color: #8b0000;">extend</span> <span style="color: #006400;">String</span>
   <span style="color: #006400;">Hello</span>
-  {<span style="color: #00008b;">:hello</span> (<span style="color: #8b0000;">fn</span> [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>))})
+  {<span style="color: #00008b;">:hello</span> (<span style="color: #a020f0;">fn</span> [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>))})
 
 (<span style="color: #8b0000;">extend-protocol</span> <span style="color: #006400;">Hello</span> <span style="color: #006400;">String</span>
                  (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>)))
@@ -1979,7 +1979,7 @@ user&gt; (hello int-reify)
  #^{<span style="color: #00008b;">:doc</span> <span style="color: #008b00;">"my function"</span>
     <span style="color: #00008b;">:tag</span> <span style="color: #006400;">Integer</span>
     <span style="color: #00008b;">:private</span> true}
- <span style="color: #0000ff;">my-func</span> [<span style="color: #0000ff;">#^Integer</span> x] (<span style="color: #8b0000;">+</span> x 10))
+ <span style="color: #0000ff;">my-func</span> [<span style="color: #006400;">#^Integer</span> x] (<span style="color: #8b0000;">+</span> x 10))
 </pre>
 
 <p>определяет функцию <code>my-func</code>, которая получает и возвращает целое число (форма <code>#^Integer</code> при
@@ -2225,7 +2225,7 @@ user&gt; @counters
 
 <pre class="src">
 (<span style="color: #8b0000;">set-validator!</span> counters
-  (<span style="color: #8b0000;">fn</span> [st] (<span style="color: #006400;">or</span>
+  (<span style="color: #a020f0;">fn</span> [st] (<span style="color: #006400;">or</span>
              (<span style="color: #8b0000;">empty?</span> st)
              (<span style="color: #8b0000;">not-any?</span> #(<span style="color: #8b0000;">neg?</span> (<span style="color: #8b0000;">second</span> %)) st))))
 </pre>
@@ -2755,7 +2755,7 @@ REPL с загрузкой собранного пакета, а также за
 что-то вроде следующего кода:</p>
 
 <pre class="src">
-(defproject test-project <span style="color: #008b00;">"1.0-SNAPSHOT"</span>
+(<span style="color: #a020f0;">defproject</span> <span style="color: #0000ff;">test-project</span> <span style="color: #008b00;">"1.0-SNAPSHOT"</span>
   <span style="color: #00008b;">:description</span> <span style="color: #008b00;">"A test project."</span>
   <span style="color: #00008b;">:url</span> <span style="color: #008b00;">"http://my-cool-project.com"</span>
   <span style="color: #00008b;">:dependencies</span> [[org.clojure/clojure <span style="color: #008b00;">"1.2.0"</span>]
