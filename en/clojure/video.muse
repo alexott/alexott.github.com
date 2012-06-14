@@ -134,7 +134,7 @@ video materials, please leave them in comments to this page!*
  - [[http://www.youtube.com/watch?v=8fY687k7DMA][Datomic Database Functions]] -- Stuart Halloway explains Datomic Database Functions;
  - [[http://www.infoq.com/interviews/hickey-datomic][Rich Hickey on Datomic: Datalog, Databases, Persistent Data Structures]] -- Interview
    with Rich Hickey about Datomic;
-; - [[][] --
+ - [[http://www.infoq.com/presentations/The-Design-of-Datomic][The Design of Datomic]] -- Rich Hickey's lecture on Clojure/West 2012 conference
 ; - [[][] --
 ; - [[][] --
 

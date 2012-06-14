@@ -141,6 +141,8 @@ Clojure -- видео-лекции и учебники, выступления �
  - [[http://www.youtube.com/watch?v=8fY687k7DMA][Datomic Database Functions]] -- Stuart Halloway рассказывает про функции Datomic Database;
  - [[http://www.infoq.com/interviews/hickey-datomic][Rich Hickey on Datomic: Datalog, Databases, Persistent Data Structures]] -- интервью с
    Rich Hickey о Datomic;
+ - [[http://www.infoq.com/presentations/The-Design-of-Datomic][The Design of Datomic]] -- выступление Rich Hickey на конференции Clojure/West 2012, где
+   он рассказывает о дизайне Datomic
 
 
 ; TODO: http://ontwik.com/tag/clojure/
