@@ -123,7 +123,9 @@ video materials, please leave them in comments to this page!*
    presented by Nathan Marz;
  - [[http://www.youtube.com/playlist?list=PL5288D44FC6EA9A5E][2 Lectures about Storm]] -- talks about Storm by Nathan Marz & Ted Dunning at SF
    DataMining meeting;
-; - [[][] --
+ - [[https://vimeo.com/43804713][Introducing Cascalog: Functional Data Processing for Hadoop]] -- Stefan Hübner talks at
+   BerlinBuzzwords 2012 about Cascalog -- Clojure data processing library, built on top of
+   Cascading.
 ; - [[][] --
 
 ** Datomic

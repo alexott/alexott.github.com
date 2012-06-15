@@ -131,6 +131,9 @@ Clojure -- видео-лекции и учебники, выступления �
    [[https://github.com/nathanmarz/storm][Storm]], распределенной системе обработки данных, частично написанной на Clojure.
  - [[http://www.youtube.com/playlist?list=PL5288D44FC6EA9A5E][2 лекции о Storm]] -- Nathan Marz & Ted Dunning рассказывают о Storm на встрече SF
    DataMining;
+ - [[https://vimeo.com/43804713][Introducing Cascalog: Functional Data Processing for Hadoop]] -- рассказ Stefan Hübner на
+   BerlinBuzzwords 2012 о Cascalog -- библиотеке для обработки данных, построенной на базе
+   Clojure и Cascading.
 
 ** Datomic
 
