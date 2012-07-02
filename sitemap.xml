@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>http://alexott.net/404.html</loc>
+<lastmod>2012-06-12</lastmod></url>
 <url><loc>http://alexott.net/common/asio-notes/common.h.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/common/asio-notes/test-mcmt.cpp.html</loc>
@@ -37,7 +39,7 @@
 <url><loc>http://alexott.net/copyright.html</loc>
 <lastmod>2009-07-21</lastmod></url>
 <url><loc>http://alexott.net/de/writings/MBA/Masterarbeit-de.html</loc>
-<lastmod>2009-01-06</lastmod></url>
+<lastmod>2012-06-13</lastmod></url>
 <url><loc>http://alexott.net/en/alexott-cv-en.html</loc>
 <lastmod>2012-06-02</lastmod></url>
 <url><loc>http://alexott.net/en/cf/index.html</loc>
@@ -53,7 +55,7 @@
 <url><loc>http://alexott.net/en/clojure/index.html</loc>
 <lastmod>2012-03-05</lastmod></url>
 <url><loc>http://alexott.net/en/clojure/video.html</loc>
-<lastmod>2012-05-31</lastmod></url>
+<lastmod>2012-06-16</lastmod></url>
 <url><loc>http://alexott.net/en/cpp/BoostAsioNotes.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/en/cpp/BoostAsioProxy.html</loc>
@@ -65,7 +67,7 @@
 <url><loc>http://alexott.net/en/emacs/index.html</loc>
 <lastmod>2012-03-05</lastmod></url>
 <url><loc>http://alexott.net/en/fp/books/index.html</loc>
-<lastmod>2012-03-08</lastmod></url>
+<lastmod>2012-06-30</lastmod></url>
 <url><loc>http://alexott.net/en/fp/index.html</loc>
 <lastmod>2012-03-05</lastmod></url>
 <url><loc>http://alexott.net/en/index.html</loc>
@@ -160,26 +162,8 @@
 <lastmod>2011-01-04</lastmod></url>
 <url><loc>http://alexott.net/ru/alexott-cv-ru.html</loc>
 <lastmod>2012-06-02</lastmod></url>
-<url><loc>http://alexott.net/ru/cf/file-formats.html</loc>
-<lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/ru/cf/index.html</loc>
 <lastmod>2010-01-04</lastmod></url>
-<url><loc>http://alexott.net/ru/cf/ms-office/index.html</loc>
-<lastmod>2008-10-23</lastmod></url>
-<url><loc>http://alexott.net/ru/cf/ms-office/ms-access.html</loc>
-<lastmod>2008-10-23</lastmod></url>
-<url><loc>http://alexott.net/ru/cf/ms-office/ms-excel.html</loc>
-<lastmod>2008-10-23</lastmod></url>
-<url><loc>http://alexott.net/ru/cf/ms-office/ms-ole.html</loc>
-<lastmod>2008-10-23</lastmod></url>
-<url><loc>http://alexott.net/ru/cf/ms-office/ms-powerpoint.html</loc>
-<lastmod>2008-10-23</lastmod></url>
-<url><loc>http://alexott.net/ru/cf/ms-office/ms-project.html</loc>
-<lastmod>2008-10-23</lastmod></url>
-<url><loc>http://alexott.net/ru/cf/ms-office/ms-visio.html</loc>
-<lastmod>2008-10-23</lastmod></url>
-<url><loc>http://alexott.net/ru/cf/ms-office/ms-word.html</loc>
-<lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/ru/cf/squid-gsbapi.html</loc>
 <lastmod>2009-03-02</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/ClojureHadoop.html</loc>
@@ -195,7 +179,7 @@
 <url><loc>http://alexott.net/ru/clojure/index.html</loc>
 <lastmod>2011-03-23</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/video.html</loc>
-<lastmod>2012-05-31</lastmod></url>
+<lastmod>2012-07-01</lastmod></url>
 <url><loc>http://alexott.net/ru/cpp/BoostAsioNotes.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/ru/cpp/BoostAsioProxy.html</loc>
@@ -435,7 +419,7 @@
 <url><loc>http://alexott.net/ru/erlang/index.html</loc>
 <lastmod>2010-01-04</lastmod></url>
 <url><loc>http://alexott.net/ru/fp/books/index.html</loc>
-<lastmod>2012-05-22</lastmod></url>
+<lastmod>2012-06-28</lastmod></url>
 <url><loc>http://alexott.net/ru/fp/index.html</loc>
 <lastmod>2010-12-06</lastmod></url>
 <url><loc>http://alexott.net/ru/index.html</loc>
@@ -764,8 +748,6 @@
 <lastmod>2010-09-23</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/linux-s55-bluetooth-gprs/index.html</loc>
 <lastmod>2008-10-23</lastmod></url>
-<url><loc>http://alexott.net/ru/writings/MavenIzpack.html</loc>
-<lastmod>2010-03-31</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/MBA/Masterarbeit-ru.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/prog-checking/DMalloc.html</loc>
@@ -785,9 +767,9 @@
 <url><loc>http://alexott.net/ru/writings/zsh/index.html</loc>
 <lastmod>2010-01-21</lastmod></url>
 <url><loc>http://alexott.net/en/alexott-cv-en.pdf</loc>
-<lastmod>2012-06-05</lastmod></url>
+<lastmod>2012-06-14</lastmod></url>
 <url><loc>http://alexott.net/ru/alexott-cv-ru.pdf</loc>
-<lastmod>2012-06-05</lastmod></url>
+<lastmod>2012-06-14</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/Clojure-MarginCon.pdf</loc>
 <lastmod>2010-06-29</lastmod></url>
 <url><loc>http://alexott.net/ru/emacs/ru-refcard.pdf</loc>
