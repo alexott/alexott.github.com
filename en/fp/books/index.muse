@@ -1,543 +1,535 @@
-#title Functional programming literature review
+#title Functional programming books review
 #keywords functional programming, fp, lisp, ocaml, haskell, scheme, F#, clojure, scala, erlang, overview, book review, literature overview
 
 The first variant of this article was published in the [[http://fprog.ru/2009/issue1/][first issue]] of Russian magazine
 "[[http://fprog.ru/][Practice of functional programming]]", but I decided to continue to maintain it, as more
-and more books are released ([[../../../ru/fp/books/][Russian version of this article]] also includes description of
-books in Russian).  You can leave comments and suggestions in the comment widget on this
-page, or send them to me via [[mailto:alexott@gmail.com][e-mail]].
+books were released ([[../../../ru/fp/books/][Russian version of this article]] also includes description of books
+published in Russian).  You can leave comments and suggestions in the comment widget on
+this page, or send them to me via [[mailto:alexott@gmail.com][e-mail]].
 
 *If you will order some of these books, please (if possible), use links from this page --
 this allows me to buy new books and add them to review*.
 
 <contents>
 
-* Introduction
+Functional programming has very long history and a lot of books was released in paper &
+electronic forms. These books covers all areas, from theoretical foundations of functional
+programming to programming in concrete languages & frameworks.
 
-За долгую историю развития функционального и декларативного программирования в мире было
-издано большое количество книг, посвященных теоретическим и практическим аспектам этих
-тематик, включая описания конкретных языков программирования. 
+* Functional Programming in General
 
+In this list I tried to collect books, that are dedicated to functional programming in
+general, including theoretical foundations of lamda-calculus, etc.:
+ - [[http://www.amazon.com/gp/product/0262510871/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262510871][Structure and Interpretation of Computer Programs]] -- classical textbook on foundations
+   of programming, but it provides introduction to functional programming techniques &
+   uses Scheme as main language. The full version is also available
+   [[http://mitpress.mit.edu/sicp/][online on site of MIT Press]];
+ - [[http://www.amazon.com/gp/product/0521663504?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521663504][Purely Functional Data Structures]] -- wonderful book by Chris Okasaki on how to work
+   with complex data structures in pure functional programming languages.  I need to
+   mention, that there is freely available [[http://www.cs.cmu.edu/~rwh/theses/okasaki.pdf][theses with the same name]], but book's content
+   is slightly different from them;
+ - [[http://www.amazon.com/gp/product/0521576814?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521576814][The Functional Approach to Programming]] book by Guy Cousineau & Michel Mauny), describes
+   functional programming in general and could be used as a textbook (with examples in
+   Caml);
+ - [[http://www.cl.cam.ac.uk/teaching/Lectures/funprog-jrh-1996/index.html][Introduction to Functional Programming]] -- lecture notes for FP course by John Harrison
+   that he taught in Cambridge University.  This course provides description of
+   lambda-calculus, introduction to types and shows how this could be used in Caml Light;
+ - [[http://www.amazon.com/gp/product/0486478831/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0486478831][An Introduction to Functional Programming Through Lambda Calculus]] -- one more
+   introduction to functional programming & lambda calculus;
+ - The [[http://www.amazon.com/gp/product/0521513383?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521513383][Pearls of Functional Algorithm Design]] book by Richard Bird, shows how to implement
+   different tasks & algorithms using functional programming;
+ - The [[http://www.amazon.com/gp/product/0201596040?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0201596040][Algorithms: A Functional Programming Approach]] describes implementation of different
+   algorithms (including some from "Purely Functional Data Structures") in pure functional
+   programming languages. Examples are written in Haskell;
+ - The [[http://www.cs.brown.edu/~sk/Publications/Books/ProgLangs/][Programming Languages: Application and Interpretation]] book by Shriram Krishnamurthi
+   is textbook for course "Programming languages".  It reviews different aspects of design
+   and development of programming languages.  All examples are in Scheme;
+ - The [[http://www.amazon.com/gp/product/0262062186?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262062186][How to Design Programs: An Introduction to Programming and Computing]] book (it also
+   available [[http://htdp.org/][online]] and distributed with [[http://plt-scheme.org][PLT Scheme]]) is a textbook about programming in
+   general.  In demonstrates different approaches to programs development (using Scheme
+   for examples);
+ - The [[https://gustavus.edu/+max/concrete-abstractions.html][Concrete Abstractions. An Introduction to Computer Science Using Scheme]] book (also
+   freely available) is an introduction to core concepts of computer science &
+   programming;
+ - The [[http://www.amazon.com/gp/product/0521898854?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521898854][Lambda-Calculus and Combinators: An Introduction]] books provides introduction to
+   theoretical foundations of lambda-calculus;
+ - [[http://www.amazon.com/gp/product/0262133210/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262133210][Foundations for Programming Languages (Foundations of Computing)]] -- this book discusses
+   type theory & implementation of programming languages, including functional one.
 
-* Общие вопросы ФП
+More freely available books you can find at the site of [[http://www.freetechbooks.com/functional-programming-f34.html][Free Tech Books project]].
 
-В данном списке собраны книги, посвященные общим вопросам разработки ПО на функциональных
-языках, а также теоретическим вопросам ФП:
- - [[http://www.amazon.com/gp/product/0521663504?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521663504][Purely Functional Data Structures]] -- отличная книга Криса Окасаки (Chris Okasaki) в
-   которой описываются методы работы со сложными структурами данных в "чистых"
-   функциональных языках.
- - Книга [[http://www.amazon.com/gp/product/0521576814?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521576814][The Functional Approach to Programming]] (Guy Cousineau, Michel Mauny), описывающая
-   все основные вопросы ФП, может использоваться в качестве учебника по ФП.  Для примеров
-   используется язык Caml.
- - Недавно выпущенная книга Ричарда Бёрда [[http://www.amazon.com/gp/product/0521513383?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521513383][Pearls of Functional Algorithm Design]], описывает
-   подходы к решению разных задач с помощью функционального программирования;
- - В книге [[http://www.amazon.com/gp/product/0201596040?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0201596040][Algorithms: A Functional Programming Approach]] рассматриваются вопросы
-   реализации различных алгоритмов на "чистых" функциональных языках, включая некоторые
-   темы, описанные в книге "Purely Functional Data Structures".  Для примеров используется
-   Haskell;
- - Книга [[http://www.cs.brown.edu/~sk/Publications/Books/ProgLangs/][Programming Languages: Application and Interpretation]] (Shriram Krishnamurthi)
-   является учебником для курса "Языки программирования". В ней рассматриваются различные
-   аспекты проектирования и разработки языков программирования.  Для примеров используется
-   язык Scheme.
- - Книга [[http://www.amazon.com/gp/product/0262062186?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262062186][How to Design Programs: An Introduction to Programming and Computing]] (имеющаяся в
-   [[http://htdp.org/][свободном доступе]] и поставляемая вместе с [[http://plt-scheme.org][PLT Scheme]]), является учебником по
-   программированию, демонстрирующим различные подходы к разработке программ.  Для
-   примеров в книге используется язык Scheme.
- - [[http://www.amazon.com/gp/product/0262133210/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262133210][Foundations for Programming Languages (Foundations of Computing)]] Джона Митчелла
-   посвященная исследованию систем типов и прочих вопросов реализации языков
-   программирования (имеется и перевод на русский язык под названием
-   [[http://www.ozon.ru/context/detail/id/5204868/?partner=alexott][Основания языков программирования]]).
- - книга [[https://gustavus.edu/+max/concrete-abstractions.html][Concrete Abstractions. An Introduction to Computer Science Using Scheme]] (также
-   имеется в свободном доступе) старается ознакомить читателя с основными концепциями
-   computer science и программирования.
- - [[http://www.amazon.com/gp/product/0262660717?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262660717][Basic Category Theory for Computer Scientists]] -- данная книга рассматривает теорию
-   категорий, лежащую в основе некоторых приемов, используемых в ФП (в частности, монад в
-   языке Haskell);
- - Книга [[http://www.amazon.com/gp/product/0521898854?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521898854][Lambda-Calculus and Combinators: An Introduction]] посвящена изложению
-   теоретических основ лямбда-исчисления;
- - [[http://www.cis.upenn.edu/~bcpierce/sf/][Software Foundations]] -- книга Бенджамина Пирса с коллегами, является основной для курса
-   который читается в университете Пенсильвания.  Основными темами курса являются логика,
-   функциональное программирование, доказательство корректности программ (на базе Coq);
- - [[http://www.amazon.com/gp/product/0486478831/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0486478831][An Introduction to Functional Programming Through Lambda Calculus]] -- еще одно введение
-   в функциональное программирование и лямбда-исчисление;
- - [[http://www.amazon.com/gp/product/0521757606/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521757606][Computational Semantics with Functional Programming]];
- - [[http://www.amazon.com/gp/product/052171916X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=052171916X][Conceptual Mathematics: A First Introduction to Categories]] -- подробное и хорошо
-   написанное введение в теорию категорий, также может быть полезна при изучении
-   функциональных языков.
- - Книга [[http://www.amazon.com/gp/product/3540208542?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=3540208542][Interactive Theorem Proving and Program Development]] (Coq book) посвящена вопросам
-   доказательства корректности программ.  В качестве утилиты для доказательства теорем,
-   используеся [[http://coq.inria.fr/][Coq]].
- - [[http://adam.chlipala.net/cpdt/][Certified Programming with Dependent Types]] (бета-версия, доступная бесплатно) -- еще
-   одна книга, посвященная доказательству корректности программ, которая также использует
-   Coq;
- - [[http://www.freetechbooks.com/programming-in-martin-lof-s-type-theory-an-introduction-t429.html][Programming in Martin-Löf's Type Theory: An Introduction]] -- свободно-распространяемая
-   книга, посвященная теории типов;
- - [[http://www.freetechbooks.com/type-theory-and-functional-programming-t428.html][Type Theory and Functional Programming]] -- еще одна свободная книга, посвященная теории
-   типов;
- - [[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.17.7385][Lectures on the Curry-Howard Isomorphism]] -- в книге описывается связь между теорией
-   доказательств и теорией типов.
+** Type Theory, Category Theory, etc.
 
-Больше книг вы можете найти на страницах проекта [[http://www.freetechbooks.com/functional-programming-f34.html][Free Tech Books]].
+Type theory plays central role in functional programming, especially for strongly typed
+programming languages, like Haskell.  Category theory also belongs to the theoretical
+foundations of functional programming.  There are several books dedicated to these topics:
+ - [[http://www.amazon.com/gp/product/0262162091/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262162091][Types and Programming Languages]] -- classical book on type theory by Benjamin C. Pierce.
+   This books covers different areas of type theory, including type inference and related
+   questions;
+ - [[http://www.amazon.com/gp/product/0262162288/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262162288][Advanced Topics in Types and Programming Languages]] -- collection of articles on type
+   theory (by different authors);
+ - [[http://www.freetechbooks.com/programming-in-martin-lof-s-type-theory-an-introduction-t429.html][Programming in Martin-Löf's Type Theory: An Introduction]] -- freely available dedicated
+   to type theory;
+ - [[http://www.freetechbooks.com/type-theory-and-functional-programming-t428.html][Type Theory and Functional Programming]] -- freely available book about type theory and
+   its relation to functional programming;
+ - The [[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.17.7385][Lectures on the Curry-Howard Isomorphism]] book describes relationship between type
+   theory & proof theory; доказательств и теорией типов.
+ - [[http://www.amazon.com/gp/product/0262660717?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262660717][Basic Category Theory for Computer Scientists]] is an introduction to category theory
+   from the point of view of computer science;
+ - [[http://www.amazon.com/gp/product/052171916X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=052171916X][Conceptual Mathematics: A First Introduction to Categories]] is a very detailed and very
+   written introduction to category theory, that could be pretty useful when studying
+   functional programming;
+ - [[http://www.amazon.com/gp/product/1441931236/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1441931236][Categories for the Working Mathematician]] by Saunders Mac Lane is about basic concepts
+   of category theory, with more concentration on mathematical side of it;
+ - The [[http://www.amazon.com/gp/product/3540208542?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=3540208542][Interactive Theorem Proving and Program Development]] book is a practical
+   introduction to the development of proofs and certified programs using Coq;
+ - [[http://adam.chlipala.net/cpdt/][Certified Programming with Dependent Types]] (beta-version is freely available) describes
+   how Coq could be used to prove correctness of programs;
+ - [[http://www.cis.upenn.edu/~bcpierce/sf/][Software Foundations]], written by Benjamin C. Pierce together with colleagues, is base
+   for course on logic, functional programming & programs correctness (using Coq);
 
 
 #fp-implement
-* Implementation of functional languages
+** Implementation of Functional Programming Languages
 
-Вопросы реализации функциональных языков программирования рассматриваются в некоторых
-описанных выше книгах, посвященных теории ФП, но кроме этого, существуют книги, посвященные
-исключительно вопросам реализации таких языков программирования:
- - Книга [[http://www.amazon.com/gp/product/0262201755?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262201755][Design Concepts in Programming Languages]] посвящена теоретическим и практическим
-   аспектам разработки языков программирования.
- - Книга [[http://research.microsoft.com/en-us/um/people/simonpj/papers/slpj-book-1987/][The Implementation of Functional Programming Languages]], написанная Simon Peyton
-   Jones и изданная в 1987 году, описывает такие темы, как лямбда-исчисление, вывод и
-   проверка типов, сопоставление с образцом (pattern-matching), и использование этих
-   приемов при реализации функциональных языков программирования.
- - Книга [[http://research.microsoft.com/en-us/um/people/simonpj/papers/pj-lester-book/][Implementing functional languages: a tutorial]], написанная Simon Peyton Jones &
-   David Lester и изданная в 1992 году, рассматривает вопросы реализации функциональных
-   языков программирования на примере реализации простого языка.
- - Книга [[http://www.amazon.com/gp/product/0471941484?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0471941484][Garbage Collection: Algorithms for Automatic Dynamic Memory Management]] посвящена
-   описанию применяемых в функциональных языках программирования технологий "сборки
-   мусора".  В 2011-м году была выпущена обновленная версия этой книги под названием
-   [[http://www.amazon.com/gp/product/1420082795/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1420082795][The Garbage Collection Handbook: The Art of Automatic Memory Management]];
- - Свободно доступная книга [[http://clean.cs.ru.nl/contents/Addison__Wesley_book/addison__wesley_book.html][Functional Programming and Parallel Graph Rewriting]] описывает
-   разные модели реализации функциональных языков, с примерами реализации языка Clean.
+Some of aforementioned books provide some details of implementation of functional
+programming languages.  But there are also books, that are completely dedicated to this
+topic:
+ - The [[http://www.amazon.com/gp/product/0262201755?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262201755][Design Concepts in Programming Languages]] book is dedicated to theoretical &
+   practical aspects of development of programming languages;
+ - The [[http://research.microsoft.com/en-us/um/people/simonpj/papers/slpj-book-1987/][The Implementation of Functional Programming Languages]] book, written by Simon
+   Peyton Jones in 1987, describes such topics, as lambda-calculus, types infer &
+   checking, pattern matching, etc., and how these things could be used to implement
+   functional programming languages;
+ - The [[http://research.microsoft.com/en-us/um/people/simonpj/papers/pj-lester-book/][Implementing functional languages: a tutorial]] book was written by Simon Peyton
+   Jones & David Lester in 1992, and shows how to implement simple functional programming
+   language;
+ - Freely available [[http://clean.cs.ru.nl/contents/Addison__Wesley_book/addison__wesley_book.html][Functional Programming and Parallel Graph Rewriting]] book describes
+   different models of functional programming languages, and uses Clean language as
+   example;
+ - The [[http://www.amazon.com/gp/product/0471941484?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0471941484][Garbage Collection: Algorithms for Automatic Dynamic Memory Management]] is
+   completely dedicated to description of different strategies for garbage collection that
+   are often used in functional programming languages.  The new edition was published in
+   2011th under title [[http://www.amazon.com/gp/product/1420082795/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1420082795][The Garbage Collection Handbook: The Art of Automatic Memory Management]].
 
-* Обзоры разных языков, включая функциональные
+** Overview Books About Different Languages
 
-Имеется несколько книг, которые посвящены различным подходам к программированию,
-проиллюстрированные разными языкам программирования, включая функциональные.  Сюда можно
-отнести следующие книги:
- - Книга [[http://www.amazon.com/gp/product/0805311912?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0805311912][Advanced Programming Language Design]] ([[http://www.nondot.org/sabre/Mirrored/AdvProgLangDesign/][online-версия]]) содержит информацию о разных
-   подходах к программированию, в том числе и несколько глав о функциональном и логическом
-   программировании.
- - [[http://www.amazon.com/gp/product/0262220695/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262220695][Concepts, Techniques, and Models of Computer Programming]] -- описывает основные
-   парадигмы программирования и различные модели вычислений -- объектно-ориентированную,
-   функциональную, императивную и т.д.
- - [[http://www.amazon.com/gp/product/0521780985/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521780985][Concepts in Programming Languages]] -- еще одна книга Джона Митчелла, посвященная языкам
-   программирования;
- - [[http://www.amazon.com/gp/product/0123745144/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0123745144][Programming Language Pragmatics, 3ed]] рассматривает разные языки программирования,
-   включая F# и Scheme.
- - [[http://www.amazon.com/gp/product/0262062798/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262062798][Essentials of Programming Languages]] от автора книг Little/Seasoned/Reasoned Schemer и
-   других.  В книге рассматриваются основные концепции языков программирования.
+There are several books that describe different programming approaches & techniques, and
+use different programming languages for this task.  Usually they mention functional
+programming languages.  I want to mention following books that could provide good overview
+of functional programming approach:
+ - The [[http://www.amazon.com/gp/product/0805311912?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0805311912][Advanced Programming Language Design]] book ([[http://www.nondot.org/sabre/Mirrored/AdvProgLangDesign/][online-версия]]) contains information
+   about different programming paradigms, including several chapters on functional &
+   logical programming;
+ - [[http://www.amazon.com/gp/product/0262220695/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262220695][Concepts, Techniques, and Models of Computer Programming]] describes major programming
+   paradigms & computational models -- object-oriented, imperative, functional, etc.
+ - [[http://www.amazon.com/gp/product/0521780985/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521780985][Concepts in Programming Languages]] one more book of John Mitchell dedicated to
+   description of different programming languages;
+ - [[http://www.amazon.com/gp/product/0123745144/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0123745144][Programming Language Pragmatics, 3ed]] describes different programming languages,
+   including F# and Scheme;
+ - [[http://www.amazon.com/gp/product/0262062798/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262062798][Essentials of Programming Languages]], by author of Little/Seasoned/Reasoned Schemer
+   books.  This book describes main concepts of different programming languages.
 
-* Functional programming for programmers on other languages
+** Functional Programming for Programmers in Other Languages
 
-В последнее время было опубликовано несколько книг, посвященных функциональному
-программированию и ориентированных на программистах на "традиционных" языках, таких как
-Java, C# и другие.  Сюда можно отнести:
- - Книга [[http://www.amazon.com/gp/product/1449311032/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449311032][Functional programming for Java developers]] (от автора книги "Programming Scala")
-   показывает основные приемы и подходы функционального программирования, используя язык
-   Java для примеров.  Основная цель книги -- заинтересовать программистов на Java в новых
-   подходах и преимуществах функционального программирования;
- - Издательство Wiley опубликовало книгу
-   [[http://www.amazon.com/gp/product/0470744588/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470744588][Functional Programming in C#: Classic Programming Techniques for Modern Projects]],
-   которая показывает как использовать приемы функционального программирования при работе
-   с C#.
+In the last years, several books were published, whose main topic is an introduction to
+functional programming for developers in "traditional" languages, like Java, C#, etc.:
+ - The [[http://www.amazon.com/gp/product/1449311032/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449311032][Functional programming for Java developers]] book (by the author of "Programming
+   Scala") demonstrates main approaches & techniques of functional programming, but is
+   using Java for examples.  The main goal of this book -- make Java developers interested
+   in new approaches & benefits of functional programming;
+ - The Wiley, published the
+   [[http://www.amazon.com/gp/product/0470744588/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470744588][Functional Programming in C#: Classic Programming Techniques for Modern Projects]] book,
+   that shows how to use functional programming techniques in C#.
 
-* Specific programming languages
+* Specific Functional Programming Languages
 
-Ниже перечислены наиболее интересные книги на английском языке, посвященные конкретным
-функциональным языкам программирования.
+In this section I collected most interesting (IMHO) books on specific functional
+programming languages.
 
-Достаточно хорошее введение в конкретные языки функционального программирования можно
-найти в книге [[http://www.amazon.com/gp/product/193435659X/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435659X][Seven Languages in Seven Weeks]] издательства Pragmatic Bookshelf. В книге
-описываются основы программирования на 7 языках (Ruby, Io, Prolog, Scala, Erlang, Clojure,
-Haskell), показываются базовые концепции и небольшие примеры.  На мой взгляд этого может
-быть достаточно чтобы понять -- захотите ли вы продолжать изучать конкретный язык
-программирования.
+Relatively good introduction to specific functional programming languages you can find in
+the [[http://www.amazon.com/gp/product/193435659X/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435659X][Seven Languages in Seven Weeks]] book, published by Pragmatic Bookshelf.  It describes
+basics of programming in 7 languages (Ruby, Io, Prolog, Scala, Erlang, Clojure, Haskell),
+including small examples.  I think, that this book could be used to understand, will you
+want to continue to learn particular language, or not.
 
 ** Haskell
 
-Среди публикаций, посвященных языку Haskell, я хотел бы отметить следующие:
- - [[http://www.amazon.com/gp/product/0134843460?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0134843460][Introduction to Functional Programming using Haskell]] Ричарда Бёрда является учебником
-   по функциональному программированию, использующим Haskell в качестве основного языка.
-   В нем рассмотрены базовые концепции ФП и их применение в Haskell.  Книга содержит много
-   примеров и упражнений для самостоятельного решения.
- - [[http://www.amazon.com/gp/product/0596514980?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596514980][Real World Haskell]] является отличной книгой по языку Haskell, поскольку, кроме описания
-   самого языка, содержит множество примеров, показывающих применение Haskell в реальной
-   жизни: программирование баз данных и графических интерфейсов, разбор данных,
-   тестирование приложений и многое другое.  Эта книга находится в свободном доступе на
-   [[http://book.realworldhaskell.org/read/][официальном сайте]].
- - [[http://www.amazon.com/gp/product/0954300696?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0954300696][The Haskell Road To Logic, Maths And Programming]] показывает применение Haskell в
-   математике и логике.
- - [[http://www.amazon.com/gp/product/0521692695?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521692695][Programming in Haskell]], написанная Graham Hutton, описывает язык Haskell немного
-   суховато, но может использоваться в качестве справочника теми, кто уже знаком с этим
-   или другими функциональными языками, например, OCaml или Standard ML.  Эта книга также
-   используется в [[http://channel9.msdn.com/shows/Going+Deep/C9-Lectures-Dr-Erik-Meijer-Functional-Programming-Fundamentals-Chapter-13-of-13/][курсе видео-лекций]] Эрика Майера (Erik Meijer) на Channel9.
- - Книга [[http://www.amazon.com/gp/product/0201882957/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0201882957][Haskell: The Craft of Functional Programming]] посвящена описанию языка Haskell и
-   принципов программирования на этом языке, и включает отдельные главы по работе с типами
-   данных, классами типов и т.п.
+I want to mention following Haskell-specific books:
+ - The [[http://www.amazon.com/gp/product/0134843460?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0134843460][Introduction to Functional Programming using Haskell]] by Richard Bird is a
+   functional programming textbook and it uses Haskell for examples.  It describes base
+   concepts of functional programming and their application in Haskell.  The book contains
+   many examples & exercises for self study.
+ - The [[http://www.amazon.com/gp/product/0596514980?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596514980][Real World Haskell]] is a great book on Haskell language, because besides description
+   of the language itself, it also shows how to use Haskell in real-life: data parsing,
+   testing, database & GUI programming.  You can also read it [[http://book.realworldhaskell.org/read/][online for free]].
+ - [[http://www.amazon.com/gp/product/0954300696?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0954300696][The Haskell Road To Logic, Maths And Programming]] shows how Haskell could be used in
+   mathematics & logic.
+ - The [[http://www.amazon.com/gp/product/0521692695?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521692695][Programming in Haskell]] book, written by Graham Hutton, compactly describes Haskell,
+   and could be used as reference for people, who already know some Haskell, or other
+   functional language, such as, OCaml or Standard ML.  This book is also used in the
+   [[http://channel9.msdn.com/shows/Going+Deep/C9-Lectures-Dr-Erik-Meijer-Functional-Programming-Fundamentals-Chapter-13-of-13/][video-lectures]] by Erik Meijer at Channel9.
+ - The [[http://www.amazon.com/gp/product/0201882957/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0201882957][Haskell: The Craft of Functional Programming]] book describes main concepts of
+   Haskell, including separate chapters on data types, type classes, etc.
  - [[http://www.amazon.com/gp/product/0521644089?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521644089][The Haskell School of Expression: Learning Functional Programming through Multimedia]]
-   показывает практические аспекты применения Haskell, при этом описывает достаточно
-   сложные темы, такие как взаимодействие с внешним миром, проектирование программ на
-   Haskell и т.д.
- - Издательство O'Reilly планирует выпустить весной 2012-го года книгу
-   [[http://www.amazon.com/gp/product/1449316972/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449316972][Developing Web Applications with Haskell and Yesod]] посвященную разработке
-   веб-приложений используя фреймворк Yesod.
+   shows practical aspects of work with Haskell, and describes relatively complex topics,
+   such as, interaction with external stuff, designing Haskell programs, etc.
+ - At May 2012, O'Reilly released the [[http://www.amazon.com/gp/product/1449316972/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449316972][Developing Web Applications with Haskell and Yesod]]
+   book that describes how to develop web applications with Yesod framework. This book is
+   also [[http://www.yesodweb.com/book][available online]].
 
-Кроме напечатанных книг и учебников, имеются и материалы, доступные online.  К наиболее
-интересным можно отнести:
- - [[http://learnyouahaskell.com/][Learn You a Haskell for Great Good!: A Guide for Beginners]], которая также будет
-   доступна в виде [[http://www.amazon.com/gp/product/1593272839?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1593272839][отдельной книги]] в начале 2011-го года.  Написанная простым языком, она
-   является очень хорошим введением в язык Haskell;
- - Раздел на сайте проекта Wikibooks, посвященный [[http://en.wikibooks.org/wiki/Haskell][Haskell]], содержит очень большое
-   количество материалов различной степени сложности.
- - [[http://www.haskell.org/tutorial/][A Gentle Introduction to Haskell 98]] -- учебник по языку Haskell 98;
- - [[http://www.cs.utah.edu/~hal/htut/][Yet Another Haskell Tutorial]] -- еще один учебник по Haskell, содержащий примеры
-   использования языка и упражнения для самостоятельного решения;
- - [[http://en.wikibooks.org/wiki/Haskell/Write\_Yourself\_a\_Scheme\_in\_48\_Hours][Write Yourself a Scheme in 48 Hours]] -- данный учебник позволяет получить навыки
-   программирования на Haskell на практическом примере написания интерпретатора языка
-   Scheme.
- - [[http://www.haskell.org/all\_about\_monads/html/index.html][All About Monads]] -- учебник, посвященный теории и вопросам практического применения
-   монад в Haskell.
+Besides books, there are a lot of online materials.  I only list most interesting here:
+ - [[http://learnyouahaskell.com/][Learn You a Haskell for Great Good!: A Guide for Beginners]] (it's also available as
+   [[http://www.amazon.com/gp/product/1593272839?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1593272839][printed book]]) -- this book is written in very simple style, and I would recommend it as
+   good introduction into Haskell;
+ - There is [[http://en.wikibooks.org/wiki/Haskell][Haskell section]] on the Wikibooks project -- it contains materials on different
+   topics, with various degrees of complexity, including both theoretical & practical
+   things.
+ - [[http://www.haskell.org/tutorial/][A Gentle Introduction to Haskell 98]] is an "official" tutorial on Haskell 98;
+ - [[http://www.cs.utah.edu/~hal/htut/][Yet Another Haskell Tutorial]] -- one more Haskell tutorial -- besides description of
+   language, it contains many examples & exercises.
+ - [[http://en.wikibooks.org/wiki/Haskell/Write\_Yourself\_a\_Scheme\_in\_48\_Hours][Write Yourself a Scheme in 48 Hours]] -- this tutorial allows you to learn Haskell in
+   practice, when writing an interpreter for Scheme programming language.
+ - [[http://www.haskell.org/all\_about\_monads/html/index.html][All About Monads]] is tutorial dedicated to theory & practice of monads in Haskell.
 
 #erlang-en
 ** Erlang
 
-Книга [[http://www.amazon.com/gp/product/193435600X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435600X][Programming Erlang. Software for a Concurrent World]], написанная Джо Армстронгом (Joe
-Armstrong), является практически единственным доступным печатным изданием, посвященным
-языку Erlang, поскольку выпущенная ранее книга "[[http://www.amazon.com/gp/product/0132857928?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0132857928][Concurrent Programming in Erlang]]" стала
-уже библиографической редкостью (в интернете можно найти первую часть этой книги).
-"Programming Erlang" описывает язык простым языком и знакомит читателя с его основным
-функционалом.  Кроме самого языка, книга описывает более сложные темы: базы данных,
-использование OTP и т.п.
+The [[http://www.amazon.com/gp/product/193435600X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435600X][Programming Erlang. Software for a Concurrent World]] book, is written by Joe Armstrong.
+For a long time was the only available book on Erlang, as previous book
+"[[http://www.amazon.com/gp/product/0132857928?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0132857928][Concurrent Programming in Erlang]]" was out of print, and it was hard to buy it.  The
+"Programming Erlang" describes Erlang using very simple language and provides information
+about language itself & its base features. It also briefly describes more complex topics:
+databases, using the OTP, etc.  It's good introduction, but if you need to know more, it's
+better to take one of the books, described below.
 
-Издательство O'Reilly в 2009-м году выпустило книгу [[http://www.amazon.com/gp/product/0596518188?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596518188][Erlang Programming]], описывающую как
-сам язык, так и инфраструктурные вопросы, включая OTP, программирование графических
-приложений, test-driven разработку, отладку и т.д.  Эта книга более подробная чем книга
-Армстронга.
+The O'Reilly, released [[http://www.amazon.com/gp/product/0596518188?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596518188][Erlang Programming]] in 2009th. It describes both language, and
+infrastructure-related stuff, including OTP, creation of GUI, test-driven development,
+debugging and much more.  This book is more detailed comparing with Armstrong's.
 
-Книга [[http://www.amazon.com/gp/product/1933988789?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1933988789][Erlang and OTP in Action]], выпущена издательством Manning осенью 2010 года, и
-посвящена практическим аспектам использования OTP, а также вопросам использования Erlang'а
-с библиотеками на других языках программирования.  Предполагается, что читатель уже
-немного знаком с языком Erlang.
+Another book on Erlang, the [[http://www.amazon.com/gp/product/1933988789?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1933988789][Erlang and OTP in Action]] was released by Manning in 2010th, and
+almost completely dedicated to use of OTP, and using Erlang with libraries in other
+languages.  This book assume, that reader already knows Erlang.
 
-Кроме того, планируется выпуск следующих книг, посвященных как самому языку Erlang, так и
-применению его в конкретных задачах:
- - Erlang for .NET Developers -- эта книга была анонсирована в конце 2011-го года, но пока
-   неизвестно когда она будет выпущена.
- - Весной 2012-го, издательство O'Reilly выпустит небольшую книгу
-   [[http://www.amazon.com/gp/product/1449309968/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449309968][Building Web Applications with Erlang: Working with REST and Web Sockets on Yaws]]
+In the June 2012, the O'Reilly released small book
+[[http://www.amazon.com/gp/product/1449309968/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449309968][Building Web Applications with Erlang: Working with REST and Web Sockets on Yaws]], that
+describes how to use Yaws framework to develop web-based applications.
 
-Успех книги [[http://learnyouahaskell.com/][Learn You a Haskell for Great Good!]] привел к созданию аналогичного проекта и
-для языка Erlang: [[http://learnyousomeerlang.com][Learn You Some Erlang for Great Good]]. Работа над проектом все еще
-продолжается, но уже опубликовано достаточно большое количество материала.
-
-Следующие книги были запланированы к выпуску, но судя по всему уже не будут выпущены:
- - [[http://www.amazon.com/gp/product/1430227699?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430227699][Mastering Erlang: Writing Real World Applications]] (Apress), будет выпущена в 2012-м
-   году, и судя по содержанию должна содержать большое количество практических примеров
-   использования Erlang.
- - [[http://www.amazon.com/gp/product/0470743840?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470743840][Erlang Web Applications: Problem-Design-Solution]] будет доступна скорее всего в 2012-м
-   году.
+Besides these books, several Erlang-related books are planned for release:
+ - Erlang for .NET Developers -- this book was announced at the end of 2011th, but there is
+   no information when it will be released.
+ - Success of the [[http://learnyouahaskell.com/][Learn You a Haskell for Great Good!]] lead to creation of similar project
+   for Erlang: [[http://learnyousomeerlang.com][Learn You Some Erlang for Great Good]].  Work is still in progress, but
+   enough information was already released, so it could be also used to study Erlang.
 
 #ocaml-en
 ** Caml & Objective Caml
 
-Вопросам программирования на языке Objective Caml (OCaml) посвящено несколько книг.
+There are several books about  Objective Caml (OCaml) language:
+ - Most prominent between the is freely available
+   [[http://caml.inria.fr/pub/docs/oreilly-book/][Developing Applications with Objective Caml]], that describes not only the OCaml
+   language, but also provides many examples on how to develop software using this
+   language.
+ - One more freely available book, the [[http://www.freetechbooks.com/introduction-to-objective-caml-t698.html][Introduction to Objective Caml]] was released not so
+   long time ago. This book contains very good description of language, and examples of
+   its use.
+ - The [[http://www.ffconsultancy.com/products/ocaml_for_scientists/][OCaml for Scientists]] book describes how to use OCaml for "scientific programming"
+   -- data processing, mathematics, data visualization & performance optimization.
+ - One more existing book, [[http://www.amazon.com/gp/product/159059620X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=159059620X][Practical OCaml]], describes OCaml language, but as I can see
+   from reviews, it's written not so good as expected by many readers.
+ - The freely available [[http://www.thinkocaml.com/][Think OCaml. How to Think Like a Computer Scientist]] provides an
+   introduction to computer science & programming, and it uses OCaml as base language.
 
-Наиболее известной является свободно доступная книга
-[[http://caml.inria.fr/pub/docs/oreilly-book/][Developing Applications with Objective Caml]], которая не только описывает сам язык OCaml,
-но и рассматривает различные вопросы программирования с его использованием.
+[[http://pauillac.inria.fr/~xleroy/bibrefs/Leroy-ZINC.html][The ZINC experiment: an economical implementation of the ML language]] is a technical
+report, written by Xavier Leroy (author of OCaml) in 1990th, and it contains pretty
+detailed description of ML-like language implementation. This report could be very
+interesting for all who wants to know about internals of Caml & OCaml languages.
 
-Недавно также появилась свободно распространяемая книга [[http://www.freetechbooks.com/introduction-to-objective-caml-t698.html][Introduction to Objective Caml]],
-которая содержит достаточно подробное описание языка и примеры его применения.
-
-Книга [[http://www.ffconsultancy.com/products/ocaml\_for\_scientists/][OCaml for Scientists]] посвящена вопросам использования OCaml для "научного
-программирования" -- обработки данных, математических вычислений, визуализации данных и
-оптимизации кода для лучшей производительности.
-
-Еще одна книга -- [[http://www.amazon.com/gp/product/159059620X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=159059620X][Practical OCaml]], описывает язык OCaml и приемы программирования на
-нем. К сожалению, по многочисленными отзывами читателей, книга написана не очень хорошо.
-
-Свободно доступная книга [[http://www.thinkocaml.com/][Think OCaml. How to Think Like a Computer Scientist]] является
-введением в программирование пользуясь языком OCaml в качестве основы.
-
-Технический отчет [[http://pauillac.inria.fr/~xleroy/bibrefs/Leroy-ZINC.html][The ZINC experiment: an economical implementation of the ML language]],
-написанный Xavier Leroy в 1990 году, представляет собой подробное описание реализации
-языка ML и может быть интересен тем, кто интересуется внутренним устройством Caml & OCaml.
-
-А осенью 2012-го года, издательство O'Reilly планирует издать книгу [[http://realworldocaml.org/][Real World OCaml]],
-которая должна стать таким же популярным введением в язык OCaml как и Real World Haskell
-стал для языка Haskell.
+And in the fall of 2012th, O'Reilly plans to publish the [[http://realworldocaml.org/][Real World OCaml]] book that should
+be popular introduction into the OCaml language, like the "Real World Haskell" book was
+for Haskell.
 
 ** F#
 
-В настоящее время языку F# посвящено достаточно большое количество книг.
-
-[[http://www.amazon.com/gp/product/1590597575?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1590597575][Foundations of F#]], выпущенная в 2007-м году, описывает основы языка и показывает разные
-методы программирования на нем, включая создание пользовательских интерфейсов и работу с
-базами данных.  В конце 2009-го года вышла новая версия этой книги, под названием
-[[http://www.amazon.com/gp/product/1430223898?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430223898][Beginning F#]].
-
-Книга [[http://www.amazon.com/gp/product/1590598504?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1590598504][Expert F#]] в свою очередь посвящена более сложным вопросам применения F# для
-разработки программ, таким как взаимодействие с кодом, написанным на других языках,
-использование библиотек .Net, разбор данных, асинхронное программирование и т.д.
-
-[[http://www.amazon.com/gp/product/0470242116?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470242116][F# for Scientists]] является версией книги "OCaml for Scientists", адаптированной для языка
-F#, и содержит информацию по разным аспектам применения F# в "научном программировании" --
-визуализации данных, работе с базами данных, обработке данных и т.д.
-
-В октябре 2009-го года издательство O'Reilly выпустило книгу [[http://www.amazon.com/gp/product/0596153643?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596153643][Programming F#]], которая
-содержит описание актуальной версии языка F#, начиная с рассмотрения основ функционального
-и объектно-ориентированного программирования на данном языке, использование библиотек
-платформы .Net, метапрограммирование с помощью доступных средств платформы, а также
-использование возможностей языка для асинхронного и параллельного программирования.  Кроме
-этого, в приложениях приводится информация об имеющихся библиотеках для обработки и
-визуализации данных.
-
-В конце 2009-го года, издательство Manning опубликовало книгу
-[[http://www.amazon.com/gp/product/1933988924?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1933988924][Functional Programming for the Real World: With Examples in F# and C#]], которая описывает
-декларативный подход к разработке программ, и иллюстрирует его с помощью примеров на
-языках F# и C#.  Данная книга может быть интересна для программистов, имеющих опыт
-разработки для платформы .Net, и желающих ознакомиться с разными подходами к разработке
-программ.
-
-В июне 2010-го была выпущена книга [[http://www.amazon.com/gp/product/1430224312?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224312][Expert F# 2.0 (The Definitive Guide)]], написанная Don
-Syme, Adam Granicz и Antonio Cisternino.  Данная книга содержит подробное описание самой
-последней версии языка, которая была выпущена в составе MS Visual Studio 10.
-
-Flying Frog Consultancy также выпустило книгу [[http://www.ffconsultancy.com/products/fsharp_for_technical_computing/?ffb][Visual F# 2010 for Technical Computing]],
-которая описывает версию F#, поставляемую в составе Visual Studio 10.
-
-А летом 2010-го года в издательстве Wrox вышла книга [[http://www.amazon.com/gp/product/047052801X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=047052801X][Professional F# 2.0]].
-
-Также, через Амазон можно купить в электронном виде книгу
-[[http://www.amazon.com/gp/product/B005HHYIWC/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=B005HHYIWC][Friendly F# (Fun with game programming)]], которая знакомит с F# на примере разработки игр.
-
-Среди свободных ресурсов стоит отметить книгу [[http://ctocorner.com/fsharp/book/][The F# Survival Guide]], которая содержит
-достаточно полную информацию об основах функционального программирования и самом языке F#.
-
+There are several books about F# programming:
+ - [[http://www.amazon.com/gp/product/1590597575?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1590597575][Foundations of F#]] was published in 2007th and describes basics of language, plus shows
+   how to program in it using different approaches. It also shows how to use it in
+   practice for graphical user interface & work with databases.  The new edition of this
+   book was released in 2009th under title [[http://www.amazon.com/gp/product/1430223898?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430223898][Beginning F#]].
+ - The [[http://www.amazon.com/gp/product/1590598504?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1590598504][Expert F#]] book discusses more advanced topics, such as interoperation with code in
+   other languages, use of .Net libraries, work with databases, data parsing, asynchronous
+   programming, etc. Updated version of this book was released in 2010th as
+   [[http://www.amazon.com/gp/product/1430224312?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224312][Expert F# 2.0 (The Definitive Guide)]] -- this version contains detailed description of
+   latest version of F# language, that is provided together with MS Visual Studio 10.
+ - [[http://www.amazon.com/gp/product/0470242116?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470242116][F# for Scientists]] is similar to "OCaml for Scientists", but adapted for F#.  It
+   contains information on how to use F# for "scientific programming" -- data
+   visualization, data processing, etc.
+ - The [[http://www.amazon.com/gp/product/0596153643?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596153643][Programming F#]] book was released by O'Reilly in 2009th, and it contains description
+   of actual F# (at that time) version -- starting with basics language (including
+   functional & object-oriented programming approaches).  After that, it describes use of
+   .Net libraries, metaprogramming, asynchronous & parallel programming.  In appendix
+   there is an information about existing libraries for data processing and visualization.
+ - In the end of 2009th, Manning published the
+   [[http://www.amazon.com/gp/product/1933988924?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1933988924][Functional Programming for the Real World: With Examples in F# and C#]] book that
+   describes declarative approach to program development, and demonstrates it with
+   examples in F# and C#.  This book could be interesting for developers, who're working
+   on the .Net platform, and who want to learn new programming approaches.
+ - The Flying Frog Consultancy also released the [[http://www.ffconsultancy.com/products/fsharp_for_technical_computing/?ffb][Visual F# 2010 for Technical Computing]]
+   book that describes version of F# that is provided together with MS Visual Studio 10.
+ - Wrox also released book on F# called [[http://www.amazon.com/gp/product/047052801X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=047052801X][Professional F# 2.0]] -- it contains description of
+   language together with many examples.
+ - There is ebook [[http://www.amazon.com/gp/product/B005HHYIWC/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=B005HHYIWC][Friendly F# (Fun with game programming)]] that you can buy on Amazon.
+   This book introduces F# through game development.
+ - The free [[http://ctocorner.com/fsharp/book/][The F# Survival Guide]] book contains enough information about functional
+   programming and F# language.
 
 #ml-en
 ** Standard ML
 
-По языку Standard ML также выпущено достаточно большое количество книг:
- - Книга [[http://www.amazon.com/gp/product/052156543X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=052156543X][ML for the Working Programmer]] является практическим введением в этот язык,
-   описывающим сам язык и демонстрирующим некоторые приемы программирования на нем;
- - Книга [[http://www.amazon.com/gp/product/026256114X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026256114X][The Little MLer]] является кратким справочником по языку с примерами программ;
- - Книга "[[http://www.tweako.com/unix_system_programming_with_standard_ml_ebook][Unix System programming with Standard ML]]" ([[http://only.mawhrin.net/~alexey/sysprogsml.pdf][pdf]]) посвящена демонстрации
-   применимости функциональных языков в повседневной работе;
- - Книга [[http://www.amazon.com/gp/product/0137903871?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0137903871][Elements of ML Programming, ML97 Edition]], также описывающая сам язык и методы
-   программирования на нем, может использоваться как введение в язык Standard ML.
- - [[http://www.amazon.com/gp/product/0387946217/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0387946217][Elementary Standard ML]] -- введение в язык Standard ML
+The Standard ML language is described by several books:
+ - The [[http://www.amazon.com/gp/product/052156543X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=052156543X][ML for the Working Programmer]] book is an introduction to this language, with many
+   examples of its use;
+ - The [[http://www.amazon.com/gp/product/026256114X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026256114X][The Little MLer]] book is more like succinct reference for this language;
+ - The [[http://www.tweako.com/unix_system_programming_with_standard_ml_ebook][Unix System programming with Standard ML]] book ([[http://only.mawhrin.net/~alexey/sysprogsml.pdf][pdf]]) demonstrates how to use this
+   language to perform real-world tasks;
+ - The [[http://www.amazon.com/gp/product/0137903871?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0137903871][Elements of ML Programming, ML97 Edition]] book, describes both language, and how can
+   it be used in practice. This book could be used as an introduction to Standard ML.
+ - [[http://www.amazon.com/gp/product/0387946217/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0387946217][Elementary Standard ML]] is simple introduction to Standard ML
 
-Несколько книг посвящены изложению стандарта языка. К ним можно отнести книги
-[[http://www.amazon.com/gp/product/0262631814?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262631814][The Definition of Standard ML]] и [[http://www.amazon.com/gp/product/0521794781?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521794781][The Standard ML Basis Library]], которые содержат подробную
-информацию о языке и стандартной библиотеке.
-
-; books from http://www.cs.cmu.edu/~rwh/, Programming in Standard ML (http://www.cs.cmu.edu/~rwh/smlbook/)
+Besides these books, there also books that are dedicated to language's standard:
+[[http://www.amazon.com/gp/product/0262631814?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262631814][The Definition of Standard ML]] and [[http://www.amazon.com/gp/product/0521794781?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521794781][The Standard ML Basis Library]] describe both language &
+standard library in great details.
 
 #lisp-en
 ** Lisp
 
-Кроме описанных ранее русскоязычных книг по языку Lisp, существует большое
-количество книг на английском языке, посвященных Lisp и его диалектам:
+During the long history of Lisp development, many books were published about this language
+(and its variants):
+ - The [[http://www.amazon.com/gp/product/1590592395/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1590592395&linkCode=as2&tag=aleottshompag-20&l=as2&o=1&a=1590592395][Practical Common Lisp]] ([[http://www.gigamonkeys.com/book/][free online version]]) book is very good introduction to
+   programming in Common Lisp.  Besides language's description, it provides many useful
+   examples on how to organize your programs, how to use macros & CLOS, use CL for web &
+   network programming, etc.  Book shows how to build complete applications using Common
+   Lisp.
  - [[http://www.amazon.com/gp/product/1558601910?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1558601910][Paradigms of Artificial Intelligence Programming: Case Studies in Common LISP]] --
-   классическая книга Питера Норвига (Peter Norvig), посвященная вопросам искусственного
-   интеллекта, показывает применение языка Common Lisp для решения некоторых задач
-   искусственного интеллекта.
- - [[http://www.amazon.com/gp/product/0133708756?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0133708756][ANSI Common Lisp]], написанная Полом Гремом (Paul Graham),
-   предназначена для начинающих программировать на Common Lisp. Книга содержит описание
-   языка и примеры его использования.
- - [[http://www.paulgraham.com/onlisp.html][On Lisp]], также написанная Полом Гремом, раскрывает более сложные вопросы
-   программирования на Common Lisp: создание макросов, использование макросов для
-   построения domain-specific languages (DSL) и т.п.
- - Книги [[http://www.amazon.com/gp/product/0201175894?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0201175894][Object-Oriented Programming in Common Lisp: A Programmer's Guide to CLOS]] и
-   [[http://www.amazon.com/gp/product/0262610744?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262610744][The Art of Metaobject Protocol]] содержат подробную информацию о программировании с
-   использованием Common Lisp Object System. При этом, вторая книга в большей степени
-   посвящена вопросам реализации Metaobject Protocol, лежащего в основе CLOS, и
-   рекомендуется всем, кто интересуется вопросами объектно-ориентированного
-   программирования (ООП).
- - Книга [[http://www.amazon.com/gp/product/1435712757?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1435712757][Let Over Lambda]] посвящена рассмотрению сложных тем программирования на Common
-   Lisp -- созданию и использованию макросов, правильному проектированию программ и т.п.
- - Книга [[http://www.amazon.com/gp/product/1555580416?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1555580416][Common Lisp: The Language, 2ed]] (также [[http://www.cs.cmu.edu/Groups/AI/html/cltl/cltl2.html][доступна online]]) является полным
-   справочником по языку Common Lisp.
- - [[http://www.amazon.com/gp/product/3937526005?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=3937526005][Successful Lisp: How to Understand and Use Common Lisp]] -- еще одна книга для начинающих
-   программировать на Lisp'е.  Книга также имеет [[http://psg.com/~dlamkins/sl/contents.html][online версию]].
- - [[http://www.amazon.com/gp/product/0521545668?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521545668][Lisp in Small Pieces]] -- достаточно известная книга по Lisp.  В ней рассматриваются
-   реализации языков Lisp и Scheme, включая программирование с использованием
-   продолжений[5], построение интерпретатора и компилятора этих языков, поддержку макросов
-   и многое другое.
- - Свободно доступная книга [[http://www.cs.cmu.edu/~dst/LispBook/][Common Lisp: A Gentle Introduction to Symbolic Computation]]
-   является достаточно подробным введением в программирование на Common Lisp.
+   classical book by Peter Norvig.  It's main topic is artificial intelligence, and it
+   shows how to use Common Lisp to solve some of the tasks in this branch.
+ - The [[http://www.amazon.com/gp/product/0133708756?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0133708756][ANSI Common Lisp]] by Paul Graham, is for people, who're just starting to program in
+   Common Lisp.  The book contains description of the language together with many example.
+ - [[http://www.paulgraham.com/onlisp.html][On Lisp]], also by Paul Graham, is dedicated to more complex tasks of programming in
+   Common Lisp: how to use & write macros, how to use them to create domain-specific
+   languages (DLS), etc.
+ - The [[http://www.amazon.com/gp/product/1435712757?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1435712757][Let Over Lambda]] book also dedicated to "more complex" topics of Common Lisp
+   programming -- creation & use of macros, "correct" design of programs, etc.
+ - The [[http://www.amazon.com/gp/product/0201175894?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0201175894][Object-Oriented Programming in Common Lisp: A Programmer's Guide to CLOS]] and
+   [[http://www.amazon.com/gp/product/0262610744?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262610744][The Art of Metaobject Protocol]] books provide detailed information on programming with
+   Common Lisp Object System (CLOS).  The most part of the second book is dedicated to
+   description of Metaobject Protocol, that is grounding base of the CLOS, and I would
+   recommend it to all, who is interested in information about different approach to
+   object-oriented programming (OOP).
+ - The [[http://www.amazon.com/gp/product/1555580416?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1555580416][Common Lisp: The Language, 2ed]] (also [[http://www.cs.cmu.edu/Groups/AI/html/cltl/cltl2.html][available online]]) is a complete reference on
+   the Common Lisp language.
+ - [[http://www.amazon.com/gp/product/3937526005?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=3937526005][Successful Lisp: How to Understand and Use Common Lisp]] is one more book for beginners
+   -- it introduces Lisp in relatively easy way.  There is also [[http://psg.com/~dlamkins/sl/contents.html][online version]] of this
+   book.
+ - [[http://www.amazon.com/gp/product/0521545668?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521545668][Lisp in Small Pieces]] is well-known book on Lisp.  It describes implementations of Lisp
+   & Scheme, including programming with continuations, implementation of interpreter &
+   compiler for these languages, support for macros, and much more.
+ - The freely available [[http://www.cs.cmu.edu/~dst/LispBook/][Common Lisp: A Gentle Introduction to Symbolic Computation]] book is
+   pretty detailed introduction to programming in Common Lisp.
+ - The Starch Press released in 2010th one more book on Lisp --
+   [[http://www.amazon.com/gp/product/1593272812?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1593272812][Land of LISP: Learn to Program in LISP, One Game at a Time!]].  This book explains Lisp
+   is written in humorous manner, and using comics-like illustrations.  More information
+   you can find on the [[http://landoflisp.com/][site of this book]].
 
-Осенью 2010-го года, издательство No Starch Press выпустило еще одну книгу по Lisp --
-[[http://www.amazon.com/gp/product/1593272812?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1593272812][Land of LISP: Learn to Program in LISP, One Game at a Time!]]. Кроме того, у книги есть
-отдельный [[http://landoflisp.com/][сайт]], где можно найти более подробную информацию о книге.
-
-А издательство O'Reilly также планирует выпустить книгу о Common Lisp под названием "Lisp
-Outside the Box", и несколько глав уже доступно для чтения на [[http://lisp-book.org/][сайте проекта]].  Как видно из
-оглавления, в книге рассматривается широкий круг вопросов -- от основ Common Lisp, до
-разработки приложений для веб и десктопа, а также работа с конкретными библиотеками и
-средами разработки.
+Several years ago, the O'Reilly planned to release book on Common Lisp under title "Lisp
+Outside the Box", and several chapters were available on [[http://lisp-book.org/][project's site]], but this project
+was abandoned. As you can see from table of contents, it was planned to cover wide range
+of topics -- from Common Lisp's basics, to application development for web & desktop,
+including how to use concrete libraries & development environments.
 
 ** Scheme
 
-По языку программирования Scheme также выпущено несколько книг, в настоящее время можно
-купить следующие из них:
+There are enough books about Scheme programming language. Following books describe, both
+language & different aspects of its use.  These books could be used as references, and
+also as addition to "Structure and Interpretation of Computer Programs" and "How to Design
+Programs", where Scheme is used for examples:
+ - [[http://www.amazon.com/gp/product/0262560992?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262560992][The Little Schemer]];
+ - [[http://www.amazon.com/gp/product/026256100X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026256100X][The Seasoned Schemer]];
+ - [[http://www.amazon.com/gp/product/0262562146?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262562146][The Reasoned Schemer]];
+ - [[http://www.amazon.com/gp/product/026251298X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026251298X][The Scheme Programming Language, 4ed]], also [[http://scheme.com/tspl4/][available online]].
 
- - [[http://www.amazon.com/gp/product/0262560992?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262560992][The Little Schemer]]
- - [[http://www.amazon.com/gp/product/0262562146?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262562146][The Reasoned Schemer]]
- - [[http://www.amazon.com/gp/product/026256100X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026256100X][The Seasoned Schemer]]
- - [[http://www.amazon.com/gp/product/026251298X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026251298X][The Scheme Programming Language, 4ed]], также [[http://scheme.com/tspl4/][доступная свободно]].
-
-Книги описывают как сам язык, так и различные аспекты его использования.  Эти книги могут
-использоваться как справочники по языку и являются хорошим дополнением к книгам Structure
-and Interpretation of Computer Programs и How to Design Programs, в которых язык Scheme
-использован для примеров.
-
-А летом 2012-го года должна быть выпущена книга [[http://realmofracket.com/][Realm of Racket]], посвященная языку Racket
-(бывший PLT Scheme).  На создание этой книги сильно повлиял выход книги "Land of Lisp".
+In the summer 2012th, the [[http://realmofracket.com/][Realm of Racket]] book should be released.  This book will
+describe Racket language (former PLT Scheme).  This book should be similar to "Land of
+Lisp" book, and provide information in similar manner.
 
 #prolog-en
 ** Prolog
 
-Количество англоязычных книг по Прологу достаточно велико.  Ниже приведен лишь небольшой
-список имеющейся литературы -- я старался отобрать наиболее интересные книги:
-
- - [[http://www.amazon.com/gp/product/1852339381?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1852339381][Logic Programming with Prolog]] -- хорошая книга по Prolog начального уровня.  В ней
-   описываются основные принципы программирования на Prolog вместе с примерами решения
-   конкретных задач.
- - Книга [[http://www.amazon.com/gp/product/0262192500?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262192500][The Art of Prolog, Second Edition: Advanced Programming Techniques]] посвящена
-   вопросам использования языка, которые обычно не рассматриваются в книгах,
-   предназначенных для изучения самого языка: построение интерпретаторов и компиляторов,
-   преобразование программ, теории логического программирования.
- - [[http://www.amazon.com/gp/product/3540006788?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=3540006788][Programming in Prolog: Using the ISO Standard]] -- еще один учебник по Прологу,
-   демонстрирующий основные принципы программирования на этом языке.
- - [[http://www.amazon.com/gp/product/3540629718?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=3540629718][Clause and Effect: Prolog Programming for the Working Programmer]] является небольшим
-   введением в Пролог для программистов, владеющих другими языками.
- - [[http://www.amazon.com/gp/product/013138645X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=013138645X][Prolog Programming in Depth]] -- еще одна книга, посвященная "сложным" аспектам
-   применения Пролога: взаимодействию с внешним миром, императивному программированию на
-   Прологе, построению экспертных систем и т.п.
+Huge interest to Prolog in the 80-90th, lead to publishing a huge amount of books.  Here
+is only small part of available literature, that I think could be interesting for reader:
+ - [[http://www.amazon.com/gp/product/0321417461/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321417461][Prolog Programming for Artificial Intelligence, 4ed]] is a classical book on Prolog in
+   application to artificial intelligence;
+ - The [[http://www.amazon.com/gp/product/1852339381?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1852339381][Logic Programming with Prolog]] is a very good book on Prolog for beginners.  It
+   describes basics of logical programming with Prolog, together with examples of concrete
+   tasks;
+ - [[http://www.amazon.com/gp/product/1904987176/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1904987176][Learn Prolog Now!]] is an introductory course to programming in Prolog.  There is also
+   freely available [[http://www.learnprolognow.org/][online version]] of this book;
+ - [[http://www.amazon.com/gp/product/3540006788?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=3540006788][Programming in Prolog: Using the ISO Standard]] -- one more textbook on Prolog, that
+   demonstrates basic programming techniques for this language;
+ - [[http://www.amazon.com/gp/product/3540629718?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=3540629718][Clause and Effect: Prolog Programming for the Working Programmer]] is a small
+   introduction to Prolog for developers who are using other programming languages;
+ - The [[http://www.amazon.com/gp/product/0262512270/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262512270][The Craft of Prolog]] book is for people, who already learned Prolog, but want to
+   make their knowledge deeper;
+ - [[http://www.amazon.com/gp/product/0262192500?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262192500][The Art of Prolog, Second Edition: Advanced Programming Techniques]] book is dedicated to
+   discussion of problems, that are usually not covered in introduction-level books: how
+   to build interpreters & compilers, program transformations, logical programming
+   theory;;
+ - [[http://www.amazon.com/gp/product/0262514451/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262514451][The Practice of Prolog]] -- this book shows how to design and organize relatively big
+   Prolog programs for solving different problems;
+ - [[http://www.amazon.com/gp/product/013138645X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=013138645X][Prolog Programming in Depth]] is another book on "more complex" aspects of Prolog
+   programming: interaction with external systems, imperative programming in Prolog,
+   building of expert systems, etc.
 
 ** Scala
 
-Язык [[http://www.scala-lang.org/][Scala]] становится достаточно популярным, и начал использоваться в коммерческих
-проектах, таких как Twitter, LinkedIn, и других.  По данному языку существует достаточно
-большое количество литературы на английском языке:
+The [[http://www.scala-lang.org/][Scala]] language became relatively popular, and already used in many companies, such as,
+Twitter, LinkedIn, etc. Many books were already published for this language (I need to
+mention, that books published before 2011th, can be incompatible with current versions of
+the language):
+ - [[http://www.amazon.com/gp/product/0981531644?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531644][Programming in Scala: A Comprehensive Step-by-step Guide]] (published by Artima Inc.) was
+   a first book about this language.  This book contains very detailed description of the
+   language, together with explanation of different programming approaches.  Book also
+   covers practical aspects, such as, creation of graphical user interface, etc. The 2nd
+   edition of this book was released in 2011th, and 1st edition became [[http://www.artima.com/pins1ed/][freely available]].
+ - [[http://www.amazon.com/gp/product/0596155956?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596155956][Programming Scala: Scalability = Functional Programming + Objects]] (O'Reilly, 2009th)
+   provides detailed description of the language, and also covers some complex tasks, such
+   as, creation of domain specific languages, etc.  It also provides information about
+   existing tooling for Scala.  O'Reilly also made available [[http://programming-scala.labs.oreilly.com/][free beta-version]] of this
+   book.
+ - [[http://www.amazon.com/gp/product/193435631X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435631X][Programming Scala: Tackle Multi-Core Complexity on the Java Virtual Machine]] (Pragmatic
+   Programmers, 2009th) is a short (comparing to other books) introduction to programming
+   in Scala.  But this book describes all main topics -- interaction with JVM, concurrent
+   programming, pattern matching, etc.  It's assumed that reader is familiar with Java.
+ - [[http://www.amazon.com/gp/product/1430219890?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430219890][Beginning Scala]] (Apress, 2009) is similar to previous book -- it's practical
+   introduction to Scala programming, showing main features using practical examples.
+ - The [[http://www.amazon.com/gp/product/0521762170?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521762170][Steps in Scala: An Introduction to Object-Functional Programming]] book was released
+   in 2010th -- this book provides an introduction to Scala using step-by-step approach,
+   showing language on many examples.
+ - The [[http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321774094][Scala for the Impatient]] was released in 2012th -- it shows how to work with Scala
+   without much theoretical background -- everything is illustrated by many examples,
+   starting with base constructs, and up to very complex things, such as, parsing,
+   advanced types, continuations, etc.
+ - The [[http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182706][Scala in Depth]] book (Manning, 2012) should be a companion book for "Scala in
+   Action", and it's concentrated on the "not so easy" side of Scala programming -- type
+   system, actors, more functional programming, etc.
+ - [[http://www.amazon.com/gp/product/1430224215?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224215][The Definitive Guide to Lift: A Scala-based Web Framework]] book (Apress, 2009) provides
+   detailed description of Lift -- popular web-framework for Scala.
+ - In the 2011th, Manning also released book on Lift:
+   [[http://www.amazon.com/gp/product/1935182803/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182803][Lift in Action: The Simply Functional Web Framework for Scala]]. This book covers Lift
+   2.x using many practical examples to make subject more understandable.
+ - The [[http://www.amazon.com/gp/product/0981531652/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531652][Actors in Scala]] (Artima, 2012) is completely dedicated to description of actors
+   model of communications that is used in Scala.
+ - Another useful book to understand Scala's approach to concurrent programming is the
+   [[http://www.amazon.com/gp/product/193435676X/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435676X][Programming Concurrency on the JVM: Mastering Synchronization, STM, and Actors]] -- it
+   covers different approaches & models of concurrent programming, including
+   implementations in Scala, Clojure and other languages.
 
- - На [[http://www.scala-lang.org/node/198][сайте проекта]] кроме спецификации языка, также выложены "A Brief Scala Tutorial" и
-   "Scala by Example", которые позволяют достаточно быстро ознакомиться с данным языком.
-   Также полезным является раздел [[http://www.scala-lang.org/node/1305][Learning Scala]] который содержит ссылки на литературу,
-   лекции и другие материалы.
- - [[http://www.amazon.com/gp/product/0981531601?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531601][Programming in Scala: A Comprehensive Step-by-step Guide]] (издательство Artima Inc.) --
-   первая книга об этом языке, содержит очень подробное описание языка и приемов
-   программирования на нем, включая программирование приложений с графическим интерфейсом
-   пользователя.  В начале 2011-го года вышло [[http://www.amazon.com/gp/product/0981531644?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531644][2-е издание]] этой книги, а 1-е издание
-   официально [[http://www.artima.com/pins1ed/][стало бесплатным]].
- - [[http://www.amazon.com/gp/product/0596155956?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596155956][Programming Scala: Scalability = Functional Programming + Objects]] (издательство
-   O'Reilly) -- очень подробное описание языка, включая рассмотрение достаточно сложных
-   вопросов, таких как разработка Domain Specific Languages, и т.п.  Кроме того, в книге
-   приводится обзор существующих средств для разработки на языке Scala.  На сайте O'Reilly
-   доступна [[http://programming-scala.labs.oreilly.com/][бета-версия данной книги]].
- - [[http://www.amazon.com/gp/product/193435631X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435631X][Programming Scala: Tackle Multi-Core Complexity on the Java Virtual Machine]]
-   (издательство Pragmatic Programmers) является достаточно кратким, по сравнению с
-   другими книгами, введением в программирования на Scala, затрагивая основные темы --
-   взаимодействие с JVM, конкуретное программирование, сопоставление с образцом, и т.д.
-   Книга предполагает наличие опыта программирования на языке Java.
- - [[http://www.amazon.com/gp/product/1430219890?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430219890][Beginning Scala]] (издательство Apress) также, как и предыдущая книга, является небольшим
-   практическим введением в программирование на Scala, рассматривая основные возможности
-   языка на практических примерах.
- - Книга [[http://www.amazon.com/gp/product/1430224215?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224215][The Definitive Guide to Lift: A Scala-based Web Framework]] (издательство Apress)
-   представляет собой достаточно полное описание популярного веб-фреймворка Lift,
-   разработанного для языка Scala.
- - Осенью 2010-го года была выпущена книга
-   [[http://www.amazon.com/gp/product/0521762170?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521762170][Steps in Scala: An Introduction to Object-Functional Programming]].
- - Осенью 2011-го издательством Manning была выпущена книга
-   [[http://www.amazon.com/gp/product/1935182803/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182803][Lift in Action: The Simply Functional Web Framework for Scala]], которая достаточно
-   подробно описывает Lift -- Web-фреймворк для Scala.
- - А зимой 2012-го вышла книга [[http://www.amazon.com/gp/product/0981531652/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531652][Actors in Scala]] которая детально описывает использование
-   акторов при программировании на Scala.
- - Еще одной полезной книгой является
-   [[http://www.amazon.com/gp/product/193435676X/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435676X][Programming Concurrency on the JVM: Mastering Synchronization, STM, and Actors]], которая
-   описывает разные подходы к конкурентному программированию, в том числе и на Scala,
-   Clojure и других языках.
- - Twitter, который активно использует Scala, сделал свободно доступными два ресурса для
-   изучения Scala: [[http://twitter.github.com/scala_school/][Scala School! From ∅ to Distributed Service]] и [[http://twitter.github.com/effectivescala/][Effective Scala]] -- оба
-   ориентированы на начинающих изучать данный язык.
+There are also freely available materials about this language:
+ - Besides language's specification, on the [[http://www.scala-lang.org/node/198][language's site]] is also available documents "A
+   Brief Scala Tutorial" and "Scala by Example", that allows quickly get information about
+   this language.  Another useful section on the site is [[http://www.scala-lang.org/node/1305][Learning Scala]] that contains
+   links to books, lectures, and other study materials.
+ - Twitter, where Scala is actively used, published freely available several resources for
+   Scala learning: [[http://twitter.github.com/scala_school/][Scala School! From ∅ to Distributed Service]] and [[http://twitter.github.com/effectivescala/][Effective Scala]] -- both
+   are for people, who is just starting to study this language.
 
-К изданию планируются следующие книги:
- - издательством Apress будет выпущена книга
-   [[http://www.amazon.com/gp/product/143022844X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=143022844X][Pro Scala: Monadic Design Patterns for the Web]];
- - Издатетельство Manning планирует в 2012-м году выпустить две книги по Scala:
-   [[http://www.amazon.com/gp/product/1935182757/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182757][Scala in Action]] должна служить введением в программирование на этом языке, в то время
-   как [[http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182706][Scala in Depth]] описывает более сложные вопросы использования этого языка.  Обе
-   книги доступны в рамках программы раннего доступа (MEAP).
- - Также весной 2012-го будет выпущена книга [[http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321774094][Scala for the Impatient]].
+It's also planned to releases several books on Scala soon:
+ - Appress plans to publish the [[http://www.amazon.com/gp/product/143022844X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=143022844X][Pro Scala: Monadic Design Patterns for the Web]] book
+   (although, it still delaying).
+ - Manning plans to release several books in 2012: [[http://www.amazon.com/gp/product/1935182757/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182757][Scala in Action]] should provide an
+   introduction to Scala for beginners, covering basics of the language, together with
+   many practical examples.  Another book, the [[http://manning.com/bjarnason/][Functional Programming in Scala]] doesn't
+   describe language itself, but shows how to use functional programming approach in
+   Scala. And the [[http://www.manning.com/hilton/][Play for Scala]] book describes new web framework Play.  All these books
+   are available as part of Manning's early access program (MEAP).
+ - The [[http://www.amazon.com/gp/product/1439896666/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1439896666][Introduction to the Art of Programming Using Scala]] book should be released in the
+   fall 2012.  You can find detailed information about it on the [[http://www.programmingusingscala.net/][separate site]].
 
 ** Clojure
 
-[[http://clojure.org][Clojure]] -- недавно появившийся Lisp'ообразный язык программирования для Java Virtual
-Machine (JVM).  В отличии от других реализаций, он не совместим полностью ни с Common
-Lisp, ни с Scheme, а реализует свое подмножество Lisp.  Отказ от совместимости с другими
-реализациями, позволил реализовать некоторые интересные вещи, как неизменяемость данных,
-неявную параллелизацию кода, очень простую модель конкурентного программирования и другие
-вещи, при этом обеспечивая возможность двухстороннего взаимодействия с кодом на Java.
+[[http://clojure.org][Clojure]] is relatively young Lisp-like programming language for Java Virtual Machine (JVM).
+In contrast to other implementation, Clojure is separate language, not compatible neither
+with Common Lisp, nor with Scheme.  This allowed to implement many interesting things,
+like immutable data, implicit parallel execution of code, very simple model of concurrent
+programming, software transactional memory, etc., while keeping two-way interaction with
+code in Java.
 
-В 2009-м году в серии Pragmatic Programmers вышла книга [[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]]. Эта книга
-представляет собой достаточно хорошее введение в язык, описывая основные возможности языка
-(версии 1.0, существовавшей на время выхода книги).  Но в качестве справочника необходимо
-использовать [[http://clojure.org/Reference][соответствующий раздел]] сайта языка, поскольку в книге в основном дается
-описание концепций языка.  Весной 2012-го года, должно выйти второе издание этой книги.
+The first book on this language was released by Pragmatic Programmers in 2009 under title
+[[http://www.amazon.com/gp/product/1934356336?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356336][Programming Clojure]].  This book provided pretty good introduction to language, describing
+all basic features (for version 1.0, that was actual at the time of release). But you
+still need to use [[http://clojure.org/Reference][site of the language]] as a reference for functions, and other things.
+The [[http://www.amazon.com/gp/product/1934356867/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356867][2nd edition of this book]] was released in 2012th, and it was updated to include
+information about version 1.3, covering all major changes between versions.
 
-В мае 2010-го года вышла книга [[http://www.amazon.com/gp/product/1430272317?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430272317][Practical Clojure. The Definitive Guide]], которая содержит
-описание всех возможностей языка в достаточно кратком изложении.  Но при этом в книге
-отсутствует описание инфраструктурных вещей, таких как среды разработки, утилиты для
-сборки кода и т.д.  Но несмотря на это, эту книгу можно рекомендовать в качестве учебника
-по языку.
+The second book on Clojure was released in 2010 as [[http://www.amazon.com/gp/product/1430272317?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430272317][Practical Clojure. The Definitive Guide]]
+-- it contains succinct description of language, including new functionality from version
+1.2.0 -- datatypes & protocols.  But this book lacks description of infrastructure-related
+things, like IDE, build tools, etc.
 
-В 2011-м году, издательство Manning выпустило две книги про Clojure: [[http://www.amazon.com/gp/product/1935182595?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182595][Clojure in Action]] и
-[[http://www.amazon.com/gp/product/1935182641?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182641][The Joy of Clojure. Thinking the Clojure Way]]. Первая книга является введением в этот язык
-программирования, с разными примерами его использования, в то время как вторая книга
-ориентирована на людей уже знакомых с Clojure, но которые хотят научиться лучше
-программировать на этом языке (у меня в блоге есть [[http://alexott-ru.blogspot.com/2010/10/2010.html][более подробная рецензия на эту книгу]]).
+In 2011th, Manning published 2 books on Clojure: [[http://www.amazon.com/gp/product/1935182595?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182595][Clojure in Action]] and
+[[http://www.amazon.com/gp/product/1935182641?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182641][The Joy of Clojure. Thinking the Clojure Way]]. First books is an introduction to language,
+where basics of language is described together with many practical examples.  While the
+second book, is for people, who already has some Clojure experience and who want to get
+more information about "Clojure programming style".  More detailed review of this book you
+can find in [[http://alexott.blogspot.de/2010/10/readings-digest-september-2010.html][my blog]].
 
-Весной 2012-го года издательство O'Reilly должно выпустить книгу [[http://www.amazon.com/gp/product/1449394701/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449394701][Programming Clojure]],
-авторами которой являются известные разработчики языка и библиотек.
+O'Reilly also published book on Clojure -- the [[http://www.amazon.com/gp/product/1449394701/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449394701][Clojure Programming]] was written by
+well-known Clojure developers.  This book provides very good description of Clojure,
+different libraries, Clojurescript, shows how to use this language in practice, and also
+contains many advice on how to write idiomatic Clojure code.
 
-Издательство No Starch Press также должно выпустить книгу по Clojure под названием
-[[http://meetclj.raynes.me/][Meet Clojure]].
-
-Среди свободных источников информации можно отметить [[http://clojure-notes.rubylearning.org/][Clojure Notes]], который использовался
-в курсе обучения Clojure и книгу [[http://en.wikibooks.org/wiki/Clojure_Programming][Clojure Programming]], создаваемую в рамках проекта
-Wikibooks.  Также свободно доступна и [[http://www.lisperati.com/clojure-spels/casting.html][Clojure-версия книги "Casting SPELs in Lisp"]].
+The No Starch Press should also release book on Clojure under title [[http://meetclj.raynes.me/][Meet Clojure]].
 
 * Рекомендации
 
-Если вы хотите познакомиться с принципами создания функциональных языков программирования,
-то на русском языке базовую информацию вы почерпнете из книг
-"[[http://www.ozon.ru/context/detail/id/5322055/?partner=alexott][Структура и интерпретация компьютерных программ]]", "Функциональное программирование",
-"Функциональное программирование. Применение и реализация" (Хендерсон) и "Реализация
-функциональных языков". Из книг на английском языке я могу порекомендовать книги,
-перечисленные в разделе "[[#fp-implement][Реализация функциональных языков программирования]]".
+In this section I tried to put only that books, that I can recommend to read to study
+specific languages.
 
-Заинтересовавшиеся Common Lisp могут начать его изучение с книги [[http://www.gigamonkeys.com/book/][Practical Common Lisp]]
-(существующей и на [[http://pcl.catap.ru][русском языке]]), которая даст информацию по основным аспектам языка.
-Более сложные аспекты работы с Lisp описаны в [[http://www.paulgraham.com/onlisp.html][On Lisp]], [[http://www.amazon.com/gp/product/0262610744?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262610744][The Art of Metaobject Protocol]],
-[[http://www.amazon.com/gp/product/0521545668?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521545668][Lisp in Small Pieces]] и других [[#lisp-en][англоязычных книгах]].
+To study functional programming & Haskell, I can recommend the
+[[http://www.amazon.com/gp/product/0134843460?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0134843460][Introduction to Functional Programming using Haskell]] book by Richard Bird.  More
+practical-oriented introductory books are [[http://www.amazon.com/gp/product/0596514980?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596514980][Real World Haskell]] and
+[[http://www.amazon.com/gp/product/1593272839?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1593272839][Learn You a Haskell for Great Good!: A Guide for Beginners]].
 
-; TODO: add about Clojure
+Studying of Erlang it's better to start with either from [[http://www.amazon.com/gp/product/0596518188?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596518188][Erlang Programming]] by O'Reilly,
+or from [[http://www.amazon.com/gp/product/1933988789?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1933988789][Erlang and OTP in Action]] -- both books provides enough information about language,
+and OTP.
 
-Для обучения функциональному программированию на языке Haskell можно порекомендовать книгу
-[[http://www.amazon.com/gp/product/0134843460?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0134843460][Introduction to Functional Programming using Haskell]] Ричарда Бёрда.  Для желающих узнать о
-практическом применении Haskell хорошим выбором будет книга [[http://www.amazon.com/gp/product/0596514980?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596514980][Real World Haskell]] в которой
-приводятся практические примеры использования Haskell.  Среди учебников можно отметить *Yet
-another Haskell tutorial* и *A Gentle Introduction to Haskell 98* (также доступный на русском
-языке), ну и конечно [[http://learnyouahaskell.com/][Learn You a Haskell for Great Good!]].
+For Scala you can select between several books.  If you want to start to use it
+immediately, then you can choose [[http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321774094][Scala for the Impatient]].  But if you want to get more
+deep knowledge of this language, then the best choice is
+[[http://www.amazon.com/gp/product/0981531644?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531644][Programming in Scala: A Comprehensive Step-by-step Guide]].  And after them you can continue
+with [[http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182706][Scala in Depth]] and other books.
 
-Для изучения Erlang я бы посоветовал начать либо с книги [[http://www.amazon.com/gp/product/0596518188?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596518188][Erlang Programming]] от O'Reilly,
-либо с [[http://www.amazon.com/gp/product/1933988789?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1933988789][Erlang and OTP in Action]], выпущенной в Manning -- обе эти книги обеспечивают
-достаточно полное описание как самого языка, так и OTP.
+To learn Clojure, the most actual books are [[http://www.amazon.com/gp/product/1449394701/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449394701][Clojure Programming]] (more detailed) and 2nd
+edition of [[http://www.amazon.com/gp/product/1934356867/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356867][Programming Clojure]] -- the both will provide you enough information about
+language, together with examples. And after them, I would recommend you to read
+[[http://www.amazon.com/gp/product/1935182641?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182641][The Joy of Clojure. Thinking the Clojure Way]]!
 
-; TODO: add about Scala
+If you're interested in the Common Lisp, then you can start with [[http://www.amazon.com/gp/product/1590592395/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1590592395&linkCode=as2&tag=aleottshompag-20&l=as2&o=1&a=1590592395][Practical Common Lisp]]
+that will provide enough information to start with language.  The more complex things are
+described in the [[http://www.paulgraham.com/onlisp.html][On Lisp]], [[http://www.amazon.com/gp/product/0262610744?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262610744][The Art of Metaobject Protocol]], [[http://www.amazon.com/gp/product/0521545668?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521545668][Lisp in Small Pieces]] and
+[[#lisp-en][other books]].
 
-Для ознакомления с языками семейства ML существует достаточно много литературы.  Выбравшим
-OCaml лучше начать с книги *Introduction to Objective Caml*, используя её вместе со
-справочником по языку, а потом переходить к *Developing Applications with Objective Caml* и
-другим книгам из [[ocaml-en][списка выше]].  А изучение F# стоит начать с [[http://www.amazon.com/gp/product/1430224312?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224312][Expert F# 2.0]] или [[http://www.amazon.com/gp/product/1430223898?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430223898][Begining F#]]
-и продолжить с [[http://www.amazon.com/gp/product/0470242116?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470242116][F# for Scientists]].
+For ML family of languages exists enough books.  For OCaml you can start with an
+*Introduction to Objective Caml*, and use it together with language reference.  After that
+you can take *Developing Applications with Objective Caml* and/or [[#ocaml-en][other languages]].  For F#
+it good idea to start with [[http://www.amazon.com/gp/product/1430224312?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224312][Expert F# 2.0]] or [[http://www.amazon.com/gp/product/1430223898?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430223898][Begining F#]], and continue with
+[[http://www.amazon.com/gp/product/0470242116?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470242116][F# for Scientists]].
 
-Для Prologа выбор книг достаточно велик -- начать можно с книги Братко
-"[[http://www.ozon.ru/context/detail/id/1936908/?partner=alexott][Программирование на языке Пролог для искусственного интеллекта]]", а затем переходить к
-книгам на английском языке, перечисленным [[#prolog-en][выше]].
+For Prolog I would recommend to start with
+[[http://www.amazon.com/gp/product/0321417461/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321417461][Prolog Programming for Artificial Intelligence, 4ed]] , and then continue with books, listed
+[[#prolog-en][above]].
 
+
+;  LocalWords:  Haskell monads Yesod O'Reilly OCaml Meijer Erlang Wikibooks th Caml Scala
+;  LocalWords:  interoperation Prolog nd

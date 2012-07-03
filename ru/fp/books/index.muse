@@ -923,8 +923,7 @@ Lisp, ни с Scheme, а реализует свое подмножество Li
 В мае 2010-го года вышла книга [[http://www.amazon.com/gp/product/1430272317?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430272317][Practical Clojure. The Definitive Guide]], которая содержит
 описание всех возможностей языка в достаточно кратком изложении.  Но при этом в книге
 отсутствует описание инфраструктурных вещей, таких как среды разработки, утилиты для
-сборки кода и т.д.  Но несмотря на это, эту книгу можно рекомендовать в качестве учебника
-по языку.
+сборки кода и т.д.
 
 В 2011-м году, издательство Manning выпустило две книги про Clojure: [[http://www.amazon.com/gp/product/1935182595?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182595][Clojure in Action]] и
 [[http://www.amazon.com/gp/product/1935182641?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182641][The Joy of Clojure. Thinking the Clojure Way]]. Первая книга является введением в этот язык
@@ -932,7 +931,7 @@ Lisp, ни с Scheme, а реализует свое подмножество Li
 ориентирована на людей уже знакомых с Clojure, но которые хотят научиться лучше
 программировать на этом языке (у меня в блоге есть [[http://alexott-ru.blogspot.com/2010/10/2010.html][более подробная рецензия на эту книгу]]).
 
-Весной 2012-го года издательство O'Reilly выпустило книгу [[http://www.amazon.com/gp/product/1449394701/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449394701][Programming Clojure]] авторами
+Весной 2012-го года издательство O'Reilly выпустило книгу [[http://www.amazon.com/gp/product/1449394701/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449394701][Clojure Programming]] авторами
 которой являются известные разработчики языка и различных библиотек.  Книга представляет
 подробное описание самого языка (включая ClojureScript) и некоторых библиотек,
 рассказывает о его практическом применении.
@@ -969,10 +968,20 @@ another Haskell tutorial* и *A Gentle Introduction to Haskell 98* (также �
 либо с [[http://www.amazon.com/gp/product/1933988789?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1933988789][Erlang and OTP in Action]], выпущенной в Manning -- обе эти книги обеспечивают
 достаточно полное описание как самого языка, так и OTP.
 
+Для изучения Scala вы можете выбрать несколько книг. Если вам хочется сразу начать
+программировать, то в этом случае посмотрите на [[http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321774094][Scala for the Impatient]].  Если же вам
+хочется начать с более глубого изучения языка, то в этом случае начните с
+[[http://www.amazon.com/gp/product/0981531644?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0981531644][Programming in Scala: A Comprehensive Step-by-step Guide]].  Ну а после этих книг, можете
+продолжить изучение с помощью [[http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182706][Scala in Depth]] и других книг.
+
+Для Clojure, наиболее актуальными книгами являются [[http://www.amazon.com/gp/product/1449394701/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449394701][Clojure Programming]] (более детальная) и
+2-е издание [[http://www.amazon.com/gp/product/1934356867/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1934356867][Programming Clojure]].  А вот после этих книг, я очень советую прочитать
+[[http://www.amazon.com/gp/product/1935182641?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182641][The Joy of Clojure. Thinking the Clojure Way]] -- вы не пожалеете.
+
 Для ознакомления с языками семейства ML существует достаточно много литературы.  Выбравшим
 OCaml лучше начать с книги *Introduction to Objective Caml*, используя её вместе со
 справочником по языку, а потом переходить к *Developing Applications with Objective Caml* и
-другим книгам из [[ocaml-en][списка выше]].  А изучение F# стоит начать с [[http://www.amazon.com/gp/product/1430224312?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224312][Expert F# 2.0]] или [[http://www.amazon.com/gp/product/1430223898?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430223898][Begining F#]]
+другим книгам из [[#ocaml-en][списка выше]].  А изучение F# стоит начать с [[http://www.amazon.com/gp/product/1430224312?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224312][Expert F# 2.0]] или [[http://www.amazon.com/gp/product/1430223898?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430223898][Begining F#]]
 и продолжить с [[http://www.amazon.com/gp/product/0470242116?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470242116][F# for Scientists]].
 
 Для Prologа выбор книг достаточно велик -- начать можно с книги Братко
