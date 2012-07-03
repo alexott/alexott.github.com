@@ -490,7 +490,7 @@ contains many advice on how to write idiomatic Clojure code.
 
 The No Starch Press should also release book on Clojure under title [[http://meetclj.raynes.me/][Meet Clojure]].
 
-* Рекомендации
+* Recommendations
 
 In this section I tried to put only that books, that I can recommend to read to study
 specific languages.
