@@ -91,7 +91,7 @@ video materials, please leave them in comments to this page!*
  - [[http://www.confreaks.com/videos/860-railsconf2012-keynote-simplicity-matters][Simplicity Matters]] -- Rich Hickey's keynote at RailsConf 2012.
  - [[http://www.infoq.com/clojure-west-2012/][Videos from Clojure/West 2012 conference]] (right now, May 2012, not all videos were published yet);
  - [[https://vimeo.com/43808810][Clojure for the Web]] -- talk by Bodil Stokke on Norwegian Developers Conference 2012;
-; - [[][] --
+ - [[https://vimeo.com/euroclojure][Videos from EuroClojure conference]]
 ; - [[][] --
 ; - [[][] --
 ; - [[][] --
