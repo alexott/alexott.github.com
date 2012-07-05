@@ -11,6 +11,13 @@ Russian, but I also translate some of them to English.
  - Small article about [[./EmacsMuseMyPage][how this site was created with Emacs Muse]]
  - [[emacs-devenv/index][Alpha version of the article about "Emacs as development environment"]]
 
+** Functional programming
+
+ - [[../fp/books/][Review of existing literature about functional programming]]
+ - [[../clojure/ClojureMaven][How to use Maven to build Clojure code]]
+ - [[../clojure/ClojureLein][Using Leiningen to build  Clojure code]]
+ - [[../clojure/ClojureHadoop][Programming  Hadoop with Clojure]]
+
 ** Programming 
 
  - [[prog-checking/][Article about finding errors when working with memory]] -- memory leaks, incorrect memory

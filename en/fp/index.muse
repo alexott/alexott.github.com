@@ -1,13 +1,20 @@
 #title Functional programming
 #keywords functional programming, fp, ocaml, lisp, haskell, erlang, clojure
 
-I'm working with functional programming languages for a long time.  Lisp was my first
-functional language, that I studied. Now I mostly programm in Clojure, but also plays with
+I'm working with functional programming languages for a long time.  Lisp was first
+functional language, that I studied. Now I mostly program in [[../clojure][Clojure]], but also plays with
 Erlang, OCaml, Haskell, Scheme and Common Lisp.
+
+I'm author of [[../writings][many articles]], including articles on functional programming languages (many
+of them in Russian, including, published in the Russian magazine called
+"[[http://fprog.ru][Practice of functional programming]]".  I also translated to English my
+[[./books/][review of existing literature on functional programming]] that was published
+in the first issue of this magazine.
 
 * Some links about functional languages
 
-These links could be useful for users, interested in studying of functional programming:
+Following links could be useful for users, interested in studying of functional
+programming:
  - [[http://www.cl.cam.ac.uk/Teaching/Lectures/funprog-jrh-1996/index.html][Introduction in functional programming]], by John Harrison.
  - [[http://www.cl.cam.ac.uk/users/mjcg/Teaching/FuncProg/FuncProg.html][Introduction in functional programming]], by Mike Gordon.
  - [[http://www.cs.chalmers.se/~rjmh/tutorials.html][Tutorials for functional programming]]
@@ -17,3 +24,4 @@ These links could be useful for users, interested in studying of functional prog
  - [[http://www.luca.demon.co.uk/][Personal page by Luca Cardelli]].
  - [[http://www.math.chalmers.se/~rjmh/Papers/whyfp.html][Why Functional Programming Matters]]
  - [[http://plaslab.cis.nctu.edu.tw/eriol/TR/criticSML.364.ps.Z][Andrew W. Appel: A Critique of Standard ML]]
+
