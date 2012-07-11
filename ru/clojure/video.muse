@@ -109,6 +109,8 @@ Clojure -- видео-лекции и учебники, выступления �
    все выступления были выложены).
  - [[https://vimeo.com/43808810][Clojure for the Web]] -- презентация Bodil Stokke на Norwegian Developers Conference 2012;
  - [[https://vimeo.com/euroclojure][Выступления на конференции EuroClojure]]
+ - [[http://skillsmatter.com/podcast/home/functional-web][Functional Web Architecture]] -- James Reeves рассказывает о дизайне веб-приложений с
+   помощью Ring и Compojure
 
 ** Видео с встреч групп пользователей Clojure
 

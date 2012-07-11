@@ -92,7 +92,8 @@ video materials, please leave them in comments to this page!*
  - [[http://www.infoq.com/clojure-west-2012/][Videos from Clojure/West 2012 conference]] (right now, May 2012, not all videos were published yet);
  - [[https://vimeo.com/43808810][Clojure for the Web]] -- talk by Bodil Stokke on Norwegian Developers Conference 2012;
  - [[https://vimeo.com/euroclojure][Videos from EuroClojure conference]]
-; - [[][] --
+ - [[http://skillsmatter.com/podcast/home/functional-web][Functional Web Architecture]] -- James Reeves's talk on Designing web applications using
+   Ring and Compojure
 ; - [[][] --
 ; - [[][] --
 ; - [[][] --
