@@ -6,11 +6,11 @@ complete development environment (this is topic for [[emacs-devenv/index][separa
 provide a small description of "How to customize [[http://cedet.sf.net][CEDET]] to work with C & C++", although
 most of this description will be also applicable for other languages, supported by CEDET.
 
-Please note, that this article doesn't describe CEDET that is bundled with GNU Emacs -- it
-has slightly different structure of packages, and another method of activation.  This new
-method of activation will be used by default when all CEDET's development will switch to
-=newtrunk= development branch.  You can see how to setup CEDET for work with =newtrunk= branch
-in [[https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet-new.el][my config]].
+Please, take into account, that this article describes standalone versions of CEDET up to
+version 1.1.  After that release, many changes were made, and most important are related
+to changing of directory's structure & using the same activation method as CEDET in GNU
+Emacs. I plan to update this article soon, but in the meantime you can use
+[[https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet-new.el][my actual config file]], that I use together with fresh CEDET version.
 
 <contents>
 
@@ -512,7 +512,7 @@ Footnotes:
 
 [1] First line is need only when you build package from CVS
 
-[2] You can take [[http://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet.el][my configuration file for CEDET]] as a base, although it contains lot of
+[2] You can take [[http://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet-old.el][my configuration file for CEDET]] as a base, although it contains lot of
     not needed things
 
 [3] There is also =semantic-complete-analyze-inline= command, that shows list of all

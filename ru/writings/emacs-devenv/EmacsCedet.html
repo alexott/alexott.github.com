@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html><head>
-<title>Настройка Emacs & CEDET для программирования на C & C++</title>
+<title>Небольшое введение в использование  Emacs с CEDET</title>
 <meta name="generator" content="muse.el" />
 <meta name="author" content="Alex Ott" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,7 +13,7 @@
 <link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
 <link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
 </head><body>
-<div id="wrap"><div id="header"><h1>Настройка Emacs & CEDET для программирования на C & C++</h1>
+<div id="wrap"><div id="header"><h1>Небольшое введение в использование  Emacs с CEDET</h1>
 <p><a href="../../../ru/index.html">Russian</a>
 &middot; <a href="../../../en/index.html">English</a></p></div>
 
@@ -34,11 +34,12 @@
 большая часть изложенного подходит и к работе с другими языками, поддерживаемыми пакетом
 CEDET.</p>
 
-<p>Имейте ввиду, что эта статья не описывает CEDET который поставляется вместе с GNU Emacs &mdash;
-он имеет другую структуру пакетов, и другой метод их активации.  Этот метод активации
-станет методом по умолчанию только после того, как разработка CEDET переключится на ветку
-<code>newtrunk</code>.  Но вы можете посмотреть в <a href="https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet-new.el">мой конфигурационный файл</a> чтобы понять как настроить
-CEDET для работы с веткой <code>newtrunk</code>.</p>
+<p>Имейте ввиду, что данная статья описывает автономные версии CEDET вплоть до релиза 1.1.
+После этого релиза, произошло много изменений, связанных в первую очередь с переходом на
+новую структуру каталогов и использования того же метода активации CEDET, что используется
+в GNU Emacs.  Я постараюсь обновить статью в ближайшее время, а пока вы можете
+использовать <a href="https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet-new.el">мой конфигурационный файл</a> в котором уже используется новая схема активации
+пакетов CEDET.</p>
 
 <div class="contents">
 <dl>
@@ -670,7 +671,7 @@ B</code>), которая доступна при использовании <co
 <div id="rule"><a href="index.html">На главную страницу</a></div>
 
 <hr>
-<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> D моеv репозитории с конфигурацией Emacs вы можете найти мой <a href="http://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet.el">файл инициализации CEDET</a>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> D моеv репозитории с конфигурацией Emacs вы можете найти мой <a href="http://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet-old.el">файл инициализации CEDET</a>
 который можно использовать в качестве основы для дальнейшей работы (хотя там
 достаточно много лишнего).</p>
 
@@ -699,7 +700,7 @@ B</code>), которая доступна при использовании <co
 
 
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 03.04.2012 09:35</em></p></div>
+<div id="lastchange"><p><em>Last change: 18.10.2012 08:33</em></p></div>
 
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">
