@@ -10,7 +10,7 @@ Please, take into account, that this article describes standalone versions of CE
 version 1.1.  After that release, many changes were made, and most important are related
 to changing of directory's structure & using the same activation method as CEDET in GNU
 Emacs. I plan to update this article soon, but in the meantime you can use
-[[https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet-new.el][my actual config file]], that I use together with fresh CEDET version.
+[[https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet.el][my actual config file]] that I use together with fresh CEDET version.
 
 <contents>
 
