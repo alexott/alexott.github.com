@@ -54,8 +54,8 @@
 библиотека позволяет использовать разные стратегии &mdash; синхронная и асинхронная работа с
 сокетами, использование потокового ввода-вывода, совместимого с <code>std::iostream</code>.  И эти
 стратегии можно смешивать, например, принимать соединения используя асинхронную обработку
-событий, а затем, запускать тред, который будет использовать синхронный ввод-вывод данных
-(пример <a href="../../common/asio-notes/test-otpc.cpp.html">test-otpc.cpp</a>).</p>
+событий, а затем, запускать нить, которая будет использовать синхронный ввод-вывод данных
+(пример <a href="https://github.com/alexott/boost-asio-examples/blob/master/test-otpc.cpp">test-otpc.cpp</a>).</p>
 
 <p>Для демонстрации возможностей Boost.Asio я написал (частично адаптировав примеры из
 поставки) несколько примеров, реализующих разные стратегии обработки данных (большее
@@ -63,26 +63,26 @@
 примеры для оценки применимости разных стратегий в своих разработках.  Все эти примеры
 реализуют &quot;тупой&quot; веб-сервер &mdash; он принимает запрос, и отдает одну и ту же страницу,
 независимо от указанного URL.  Сейчас выложены следующие примеры (все исходные тексты
-включают в себя файл <a href="../../common/asio-notes/common.h.html">common.h</a>):</p>
+включают в себя файл <a href="https://github.com/alexott/boost-asio-examples/blob/master/common.h">common.h</a>):</p>
 
 <ul>
-<li><a href="../../common/asio-notes/test-mcmt.cpp.html">test-mcmt.cpp</a> - реализует обработку данных в соответствии со стратегией Many
-Connections/Many Threads - запускается несколько нитей выполнения, которые по очереди
+<li><a href="https://github.com/alexott/boost-asio-examples/blob/master/test-mcmt.cpp">test-mcmt.cpp</a> &mdash; реализует обработку данных в соответствии со стратегией Many
+Connections/Many Threads: запускается несколько нитей выполнения, которые по очереди
 принимают соединение и обрабатывают запросы в асинхронном режиме;</li>
-<li><a href="../../common/asio-notes/test-otpc.cpp.html">test-otpc.cpp</a> - реализует обработку данных в соответствии со стратегией One Thread per
-Connection - одна нить выполнения асинхронно принимает соединения (файлы
-<a href="../../common/asio-notes/test-otpc-conn.cpp.html">test-otpc-conn.cpp</a> &amp; <a href="../../common/asio-notes/test-otpc-conn.hpp.html">test-otpc-conn.hpp</a>), а затем запускает новую нить, в пределах
+<li><a href="https://github.com/alexott/boost-asio-examples/blob/master/test-otpc.cpp">test-otpc.cpp</a> &mdash; реализует обработку данных в соответствии со стратегией One Thread per
+Connection: одна нить выполнения асинхронно принимает соединения (файлы
+<a href="https://github.com/alexott/boost-asio-examples/blob/master/test-otpc-conn.cpp">test-otpc-conn.cpp</a> &amp; <a href="https://github.com/alexott/boost-asio-examples/blob/master/test-otpc-conn.hpp">test-otpc-conn.hpp</a>), а затем запускает новую нить, в пределах
 которой используется синхронный ввод-вывод;</li>
-<li><a href="../../common/asio-notes/test-otpc-tp.cpp.html">test-otpc-tp.cpp</a> - аналогично <a href="../../common/asio-notes/test-otpc.cpp.html">test-otpc.cpp</a>, но новая нить не создается каждый раз, а
+<li><a href="https://github.com/alexott/boost-asio-examples/blob/master/test-otpc-tp.cpp">test-otpc-tp.cpp</a> &mdash; аналогично <a href="https://github.com/alexott/boost-asio-examples/blob/master/test-otpc.cpp">test-otpc.cpp</a>, но новая нить не создается каждый раз, а
 используется пул нитей, реализуемый библиотекой <a href="http://threadpool.sf.net">threadpool</a>.</li>
 </ul>
 
-<p>Для сборки примеров (исходники лежат <a href="../../common/asio-notes/sources.tar.gz">тут</a>) нужен boost версии 1.35 или выше.</p>
+<p>Для сборки примеров (исходники лежат <a href="https://github.com/alexott/boost-asio-examples">на github</a>) нужен boost версии 1.35 или выше.</p>
 
 <p>Я думаю, что на основе данной заметки может получится написать более подробную статью, но
 это задел на будущее, а пока можно задавать мне вопросы :-)</p>
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+<div id="lastchange"><p><em>Last change: 28.10.2012 17:37</em></p></div>
 
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">

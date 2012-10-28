@@ -5,10 +5,9 @@ In this article I describe process of writing of simple cross-platform HTTP prox
 
 * What we need 
 
-To develop this example ([[../../common/asio-proxy-async/asio-proxy-async.tar.gz][here you can find source codes in archive]]) the Boost version 1.35
-was used.  To build example, you can use [[http://www.cmake.org][cmake]] (but you can also build sources manually).
-To configure and build you need to run following commands (on Unix-like OSes)[1]:
-
+To develop this example ([[https://github.com/alexott/boost-asio-proxy/][source code]]) I used Boost version 1.35.  To build example, you
+can use [[http://www.cmake.org][cmake]] (but you can also build sources manually).  To configure and build you need
+to run following commands (on Unix-like OSes)[1]:
 <src lang="sh">
 > cmake .
 > make
@@ -22,34 +21,33 @@ requests will accepted is hardcoded in source code and equal to =10001=[2].
 * Architecture
 
 As in [[./BoostAsioNotes][previous examples]], our program consists from three parts:
- - the =main= function, that parse command line, creates separate threads for *asio* services,
-   and =server= object, and then enters to request processing loop;
- - =server= class, that accepts requests, and creates =connection= object, that implement all
-   logic of connection processing;
- - =connection= class, that implement all logic, and pass data between client & web-server.
+ - the =main= function, that parses command line, creates separate threads for *asio* services
+   together with =server= object, and then enters into request processing loop;
+ - =server= class, that accepts requests, and creates =connection= object, that implements all
+   logic of connection handling;
+ - =connection= class, that implements all logic, and pass data between client & web-server.
 
 The data processing is performed in asynchronous mode, and to distribute load between
 processors, we can use several independent *asio* services, that perform dispatching of
 calls (=asio::io_service=).
 
-*Note*: Most hard part of the development of asynchronous code is proper designing of data
-flow.  I'm usually draw a *state diagram* and then transform each state to separate
-procedure.  Existence of such diagram is very helpful for understanding of code by other
-developers.
+*Note*: Most hard part of the development of asynchronous code is proper design of data
+flow.  I usually draw a *state diagram* and then transform each state to separate function.
+Presence of such diagram is very helpful for understanding of code by other developers.
 
 * Implementation
 
 The =main= function is pretty simple, so we'll not analyze it -- you can just look to its
-[[../../common/asio-proxy-async/proxy.cpp.html][source code]] and understand, what it does (all common definitions are in file [[../../common/asio-proxy-async/common.h.html][common.h]]).
+[[../../common/asio-proxy-async/proxy.cpp.html][source code]] and understand, what it does (all common definitions are in file [[https://github.com/alexott/boost-asio-proxy/blob/master/common.h][common.h]].
 
-Implementation of server (the =server= class -- [[../../common/asio-proxy-async/proxy-server.hpp.html][proxy-server.hpp]] & [[../../common/asio-proxy-async/proxy-server.cpp.html][proxy-server.cpp]]) also
-not so much differ from previous examples -- changes was made only for way, that is used
-to select service, that will implement dispatching.  In our example new service is
+Implementation of server (the =server= class -- [[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-server.hpp][proxy-server.hpp]] & [[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-server.cpp][proxy-server.cpp]]) also
+not so much different from previous examples -- changes were made only for method, that is
+used to select service, that will implement dispatching.  In our example new service is
 selected from circular list of services, that allow us to get some load balancing for
 requests.
 
-All data processing logic is implemented in =connection= class ([[../../common/asio-proxy-async/proxy-conn.hpp.html][proxy-conn.hpp]] &
-[[../../common/asio-proxy-async/proxy-conn.cpp.html][proxy-conn.cpp]]).  I want to say, that parsing of headers was done without any
+All data processing logic is implemented in =connection= class ([[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.hpp][proxy-conn.hpp]] &
+[[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.cpp][proxy-conn.cpp]].  I want to say, that parsing of headers was done without any
 optimisation[3].
 
 Data processing is started from call to =start= function from =server= class, that accepts
@@ -57,16 +55,16 @@ connection and creates new object of =connection= class.  This function initiate
 asynchronous reading of request headers from browser.
 
 Reading of request headers is performed in the =handle_browser_read_headers= function, that
-called when we get some part of data from browser.  I need to mention, that if we get not
-all headers (there is no empty string (=\r\n\r\n=)), then this function initiates new
+is called when we get some part of data from browser.  I need to mention, that if we get
+incomplete headers (there is no empty string (=\r\n\r\n=)), then this function initiates new
 reading of headers, trying to get them all.
 
-After we get all headers, this function parse them and extract version of HTTP protocol,
-used method and address of web-server (some of these data will required to detect
+After we get all headers, this function parses them and extracts version of HTTP protocol,
+used method and address of web-server (some of these data will be required to detect
 persistent connections).
 
-After headers parsing, this function calls =start_connect=, that parse address of
-web-server, and if we doesn't have opened connection to this server, then it initiates
+After parsing of headers, this function calls =start_connect=, that parses address of
+web-server, and if we don't have opened connection to this server, then it initiates
 process of name resolution.  If we have opened connection, then we simply start data
 transfer with =start_write_to_server= function.
 
@@ -78,21 +76,21 @@ the server.
 
 After transferring data to server, in function =handle_server_write= we initiate reading of
 response (only headers first) from server.  Processing of headers is handled by
-=handle_server_read_headers= function, that similar to the =handle_browser_read_headers=, but
-also tries to understand -- should we close connection after data transfer or not.  After
-processing of headers, this function initiates process of sending data to browser.
+=handle_server_read_headers= function, that is similar to the =handle_browser_read_headers=,
+but it also tries to understand -- should we close connection after data transfer, or not.
+After processing of headers, this function initiates process of sending data to browser.
 
 After sending of headers, we create a loop, that transfer body of response from server to
 browser.  In this loop we use two functions -- =handle_server_read_body= and
-=handle_browser_write=, each of them calls another function until we doesn't finish reading
-of data from server (either number of bytes, specified in headers) or doesn't get end of
+=handle_browser_write=, each of them calls another function until we don't finish reading
+of data from server (either number of bytes, specified in headers) or don't get end of
 file.
 
-If we'll get end of file, then we pass rest of data to the browser and close connection,
-or if we use persistent connection, then we pass control to the  =start= function, that
-initiates reading of new headers from browser.
+If we'll get end of file, then we'll pass rest of data to the browser and close
+connection. Or if we use persistent connection, then we'll pass control to the =start=
+function, that initiates reading of new headers from browser.
 
-That's all.  As I already mention above, main problem -- building of right data flow
+That's all.  As I already mentioned above, main problem -- building of right data flow
 sequence.
 
 ;  LocalWords:  lang asio http src cmake LocalWords

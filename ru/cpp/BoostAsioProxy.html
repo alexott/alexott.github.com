@@ -33,10 +33,9 @@
 
 <h2>Что нам потребуется</h2>
 
-<p class="first">Для разработки данного примера (<a href="../../common/asio-proxy-async/asio-proxy-async.tar.gz">исходные тексты в виде архива</a>) использовался Boost версии
-1.35 или выше.  Для сборки примера использовался <a href="http://www.cmake.org">cmake</a> (но в принципе вы можете собрать
-его и вручную).  Для конфигурации и сборки необходимо выполнить следующие команды (для
-Unix)<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>:</p>
+<p class="first">Для разработки данного примера (<a href="https://github.com/alexott/boost-asio-proxy">исходные тексты</a>) использовался Boost версии 1.35 или выше.
+Для сборки примера использовался <a href="http://www.cmake.org">cmake</a> (но в принципе вы можете собрать его и вручную).
+Для конфигурации и сборки необходимо выполнить следующие команды (для Unix)<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>:</p>
 
 <pre class="src">
 &gt; cmake .
@@ -76,17 +75,17 @@ diagram</em>), и затем превращаю каждое из состоян
 <h2>Реализация</h2>
 
 <p class="first">Функция <code>main</code> достаточно проста, так что не будем на ней подробно останавливаться &mdash;
-достаточно лишь посмотреть на ее <a href="../../common/asio-proxy-async/proxy.cpp.html">исходный код</a> чтобы понять что она делает (все общие
-определения находятся в файле <a href="../../common/asio-proxy-async/common.h.html">common.h</a>).</p>
+достаточно лишь посмотреть на ее <a href="https://github.com/alexott/boost-asio-proxy/blob/master/proxy.cpp">исходный код</a> чтобы понять что она делает (все общие
+определения находятся в файле <a href="https://github.com/alexott/boost-asio-proxy/blob/master/common.h">common.h</a>.</p>
 
-<p>Реализация сервера (класс <code>server</code> &mdash; <a href="../../common/asio-proxy-async/proxy-server.hpp.html">proxy-server.hpp</a> &amp; <a href="../../common/asio-proxy-async/proxy-server.cpp.html">proxy-server.cpp</a>) также
+<p>Реализация сервера (класс <code>server</code> &mdash; <a href="https://github.com/alexott/boost-asio-proxy/blob/master/proxy-server.hpp">proxy-server.hpp</a> &amp; <a href="https://github.com/alexott/boost-asio-proxy/blob/master/proxy-server.cpp">proxy-server.cpp</a> также
 незначительно отличается от предыдущих примеров &mdash; изменения коснулись лишь способа
 задания сервиса, который выполняет диспатчеризацию.  В нашем примере новый сервис
 последовательно выбирается из списка сервисов, который представляет собой кольцевой
 список.  Таким образом мы можем достичь некоторого баланса загрузки сервисов.</p>
 
 <p>Вся логика обработки данных сосредоточена в классе, описывающем соединение (класс
-<code>connection</code> &mdash; <a href="../../common/asio-proxy-async/proxy-conn.hpp.html">proxy-conn.hpp</a> &amp; <a href="../../common/asio-proxy-async/proxy-conn.cpp.html">proxy-conn.cpp</a>).  Хочется сразу отметить, что разбор
+<code>connection</code> &mdash; <a href="https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.hpp">proxy-conn.hpp</a> &amp; <a href="https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.cpp">proxy-conn.cpp</a>).  Хочется сразу отметить, что разбор
 заголовков сделан безо всяких оптимизаций, максимально просто<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.</p>
 
 <p>Обработка начинается с вызова функции <code>start</code> классом <code>server</code>, который принимает соединение и
@@ -156,7 +155,7 @@ HTTP, метод и адрес, а также производит разбор 
 
 
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+<div id="lastchange"><p><em>Last change: 28.10.2012 17:51</em></p></div>
 
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">

@@ -25,8 +25,8 @@
 библиотека позволяет использовать разные стратегии -- синхронная и асинхронная работа с
 сокетами, использование потокового ввода-вывода, совместимого с =std::iostream=.  И эти
 стратегии можно смешивать, например, принимать соединения используя асинхронную обработку
-событий, а затем, запускать тред, который будет использовать синхронный ввод-вывод данных
-(пример [[../../common/asio-notes/test-otpc.cpp.html][test-otpc.cpp]]).
+событий, а затем, запускать нить, которая будет использовать синхронный ввод-вывод данных
+(пример [[https://github.com/alexott/boost-asio-examples/blob/master/test-otpc.cpp][test-otpc.cpp]]).
 
 Для демонстрации возможностей Boost.Asio я написал (частично адаптировав примеры из
 поставки) несколько примеров, реализующих разные стратегии обработки данных (большее
@@ -34,19 +34,19 @@
 примеры для оценки применимости разных стратегий в своих разработках.  Все эти примеры
 реализуют "тупой" веб-сервер -- он принимает запрос, и отдает одну и ту же страницу,
 независимо от указанного URL.  Сейчас выложены следующие примеры (все исходные тексты
-включают в себя файл [[../../common/asio-notes/common.h.html][common.h]]):
+включают в себя файл [[https://github.com/alexott/boost-asio-examples/blob/master/common.h][common.h]]):
 
- - [[../../common/asio-notes/test-mcmt.cpp.html][test-mcmt.cpp]] - реализует обработку данных в соответствии со стратегией Many
-   Connections/Many Threads - запускается несколько нитей выполнения, которые по очереди
+ - [[https://github.com/alexott/boost-asio-examples/blob/master/test-mcmt.cpp][test-mcmt.cpp]] -- реализует обработку данных в соответствии со стратегией Many
+   Connections/Many Threads: запускается несколько нитей выполнения, которые по очереди
    принимают соединение и обрабатывают запросы в асинхронном режиме;
- - [[../../common/asio-notes/test-otpc.cpp.html][test-otpc.cpp]] - реализует обработку данных в соответствии со стратегией One Thread per
-   Connection - одна нить выполнения асинхронно принимает соединения (файлы
-   [[../../common/asio-notes/test-otpc-conn.cpp.html][test-otpc-conn.cpp]] & [[../../common/asio-notes/test-otpc-conn.hpp.html][test-otpc-conn.hpp]]), а затем запускает новую нить, в пределах
+ - [[https://github.com/alexott/boost-asio-examples/blob/master/test-otpc.cpp][test-otpc.cpp]] -- реализует обработку данных в соответствии со стратегией One Thread per
+   Connection: одна нить выполнения асинхронно принимает соединения (файлы
+   [[https://github.com/alexott/boost-asio-examples/blob/master/test-otpc-conn.cpp][test-otpc-conn.cpp]] & [[https://github.com/alexott/boost-asio-examples/blob/master/test-otpc-conn.hpp][test-otpc-conn.hpp]]), а затем запускает новую нить, в пределах
    которой используется синхронный ввод-вывод;
- - [[../../common/asio-notes/test-otpc-tp.cpp.html][test-otpc-tp.cpp]] - аналогично [[../../common/asio-notes/test-otpc.cpp.html][test-otpc.cpp]], но новая нить не создается каждый раз, а
+ - [[https://github.com/alexott/boost-asio-examples/blob/master/test-otpc-tp.cpp][test-otpc-tp.cpp]] -- аналогично [[https://github.com/alexott/boost-asio-examples/blob/master/test-otpc.cpp][test-otpc.cpp]], но новая нить не создается каждый раз, а
    используется пул нитей, реализуемый библиотекой [[http://threadpool.sf.net][threadpool]].
 
-Для сборки примеров (исходники лежат [[../../common/asio-notes/sources.tar.gz][тут]]) нужен boost версии 1.35 или выше.
+Для сборки примеров (исходники лежат [[https://github.com/alexott/boost-asio-examples][на github]]) нужен boost версии 1.35 или выше.
 
 Я думаю, что на основе данной заметки может получится написать более подробную статью, но
 это задел на будущее, а пока можно задавать мне вопросы :-)

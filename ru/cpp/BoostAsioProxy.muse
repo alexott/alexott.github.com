@@ -6,11 +6,9 @@
 
 * Что нам потребуется
 
-Для разработки данного примера ([[../../common/asio-proxy-async/asio-proxy-async.tar.gz][исходные тексты в виде архива]]) использовался Boost версии
-1.35 или выше.  Для сборки примера использовался [[http://www.cmake.org][cmake]] (но в принципе вы можете собрать
-его и вручную).  Для конфигурации и сборки необходимо выполнить следующие команды (для
-Unix)[1]:
-
+Для разработки данного примера ([[https://github.com/alexott/boost-asio-proxy][исходные тексты]]) использовался Boost версии 1.35 или выше.
+Для сборки примера использовался [[http://www.cmake.org][cmake]] (но в принципе вы можете собрать его и вручную).
+Для конфигурации и сборки необходимо выполнить следующие команды (для Unix)[1]:
 <src lang="sh">
 > cmake .
 > make
@@ -44,17 +42,17 @@ diagram*), и затем превращаю каждое из состояний
 * Реализация
 
 Функция =main= достаточно проста, так что не будем на ней подробно останавливаться --
-достаточно лишь посмотреть на ее [[../../common/asio-proxy-async/proxy.cpp.html][исходный код]] чтобы понять что она делает (все общие
-определения находятся в файле [[../../common/asio-proxy-async/common.h.html][common.h]]).
+достаточно лишь посмотреть на ее [[https://github.com/alexott/boost-asio-proxy/blob/master/proxy.cpp][исходный код]] чтобы понять что она делает (все общие
+определения находятся в файле [[https://github.com/alexott/boost-asio-proxy/blob/master/common.h][common.h]].
 
-Реализация сервера (класс =server= -- [[../../common/asio-proxy-async/proxy-server.hpp.html][proxy-server.hpp]] & [[../../common/asio-proxy-async/proxy-server.cpp.html][proxy-server.cpp]]) также
+Реализация сервера (класс =server= -- [[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-server.hpp][proxy-server.hpp]] & [[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-server.cpp][proxy-server.cpp]] также
 незначительно отличается от предыдущих примеров -- изменения коснулись лишь способа
 задания сервиса, который выполняет диспатчеризацию.  В нашем примере новый сервис
 последовательно выбирается из списка сервисов, который представляет собой кольцевой
 список.  Таким образом мы можем достичь некоторого баланса загрузки сервисов.
 
 Вся логика обработки данных сосредоточена в классе, описывающем соединение (класс
-=connection= -- [[../../common/asio-proxy-async/proxy-conn.hpp.html][proxy-conn.hpp]] & [[../../common/asio-proxy-async/proxy-conn.cpp.html][proxy-conn.cpp]]).  Хочется сразу отметить, что разбор
+=connection= -- [[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.hpp][proxy-conn.hpp]] & [[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.cpp][proxy-conn.cpp]]).  Хочется сразу отметить, что разбор
 заголовков сделан безо всяких оптимизаций, максимально просто[3].
 
 Обработка начинается с вызова функции =start= классом =server=, который принимает соединение и
