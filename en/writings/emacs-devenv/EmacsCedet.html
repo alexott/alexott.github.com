@@ -4,7 +4,7 @@
 <meta name="generator" content="muse.el" />
 <meta name="author" content="Alex Ott" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="alex ott, c, c++, emacs, cedet, programming, semantic, ede, ide, integrated development environment" />
+    <meta name="keywords" content="alex ott, c, c++, java, maven, emacs, cedet, programming, semantic, ede, ide, integrated development environment" />
     
     
 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
@@ -28,16 +28,10 @@
 </div> <!-- leftside -->
 
 <div id="contentwide">
-<p>This article doesn't pretend to be detailed description of how customize Emacs to be
-complete development environment (this is topic for <a href="index.html">separate article</a>).  I just tried to
-provide a small description of &quot;How to customize <a href="http://cedet.sf.net">CEDET</a> to work with C &amp; C++&quot;, although
-most of this description will be also applicable for other languages, supported by CEDET.</p>
-
-<p>Please, take into account, that this article describes standalone versions of CEDET up to
-version 1.1.  After that release, many changes were made, and most important are related
-to changing of directory's structure &amp; using the same activation method as CEDET in GNU
-Emacs. I plan to update this article soon, but in the meantime you can use
-<a href="https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet.el">my actual config file</a> that I use together with fresh CEDET version.</p>
+<p>This article doesn't pretend to be detailed description on how to setup Emacs to be
+complete development environment.  I just tried to provide a small description on &quot;How to
+setup <a href="http://cedet.sf.net">CEDET</a> to work with C, C++ &amp; Java&quot;, although most of this description will be also
+applicable for other languages, supported by CEDET<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>.</p>
 
 <div class="contents">
 <dl>
@@ -45,62 +39,71 @@ Emacs. I plan to update this article soon, but in the meantime you can use
 <a href="#sec1">What is CEDET?</a>
 </dt>
 <dt>
-<a href="#sec2">Installation of the CEDET</a>
+<a href="#sec2">CEDET's versions</a>
 </dt>
 <dt>
-<a href="#sec3">Customization</a>
+<a href="#sec3">Installation of standalone CEDET's version</a>
+</dt>
+<dt>
+<a href="#sec4">Customization</a>
 </dt>
 <dd>
 <dl>
 <dt>
-<a href="#sec4">Semantic's customization</a>
+<a href="#sec5">Semantic's customization</a>
 </dt>
 <dt>
-<a href="#sec5">Customization of Semanticdb</a>
+<a href="#sec6">System header files</a>
 </dt>
 <dt>
-<a href="#sec6">How to customize  Semantic to work with C &amp; C++ projects</a>
+<a href="#sec7">Semantic's work optimization</a>
 </dt>
 <dt>
-<a href="#sec7">Preprocessing of source code</a>
+<a href="#sec8">Integration with imenu</a>
+</dt>
+<dt>
+<a href="#sec9">Customization of Semanticdb</a>
+</dt>
+<dt>
+<a href="#sec10">EDE's customization</a>
 </dt>
 </dl>
 </dd>
 <dt>
-<a href="#sec8">Work with Semantic</a>
+<a href="#sec11">Work with Semantic</a>
 </dt>
 <dd>
 <dl>
 <dt>
-<a href="#sec9">Names completion</a>
+<a href="#sec12">Names completion</a>
 </dt>
 <dt>
-<a href="#sec10">Getting information about tags</a>
+<a href="#sec13">Getting information about tags</a>
 </dt>
 <dt>
-<a href="#sec11">Navigation in source code</a>
+<a href="#sec14">Navigation in source code</a>
 </dt>
 <dt>
-<a href="#sec12">Search for places where function is called</a>
+<a href="#sec15">Search for places where function is called</a>
 </dt>
 <dt>
-<a href="#sec13">Source code folding</a>
+<a href="#sec16">Source code folding</a>
 </dt>
 <dt>
-<a href="#sec14">More Senator's commands</a>
+<a href="#sec17">More Senator's commands</a>
 </dt>
 </dl>
 </dd>
 <dt>
-<a href="#sec15">Work with Srecode</a>
+<a href="#sec18">Work with Srecode</a>
 </dt>
 <dt>
-<a href="#sec16">Additional packages</a>
+<a href="#sec19">Additional packages</a>
 </dt>
 <dd>
 <dl>
 <dt>
-<a href="#sec17">The eassist package</a>
+<a href="#sec20">The eassist package</a>
 </dt>
 </dl>
 </dd>
@@ -111,146 +114,205 @@ Emacs. I plan to update this article soon, but in the meantime you can use
 <h2><a name="sec1" id="sec1"></a>
 What is CEDET?</h2>
 
-<p class="first">The CEDET package is a collection libraries, implementing different commands, but used for
-one goal &mdash; provide functionality for work with source code written in different
-programming languages:</p>
+<p class="first">The CEDET package is a collection of libraries, that implement different commands, but all
+of them have common goal &mdash; provide functionality for work with source code written in
+different programming languages (<em>please, take into account that not all of these packages
+are included into CEDET bundled with GNU Emacs</em>):</p>
 
 <ul>
 <li><em>Semantic</em> is a base for construction of syntactic analyzers for different programming
-languages. It allows to provide common representation for information extracted from
-code.  Using this information, CEDET &amp; other packages, such as <a href="http://jdee.sourceforge.net/">JDEE</a> and <a href="http://ecb.sf.net">ECB</a>, can
-implement functionality, required for modern development environment (something like
-Eclipse, NetBeans, etc.);</li>
-<li><em>SemanticDB</em> is included into Semantic, and implements interfaces to different storage
-modules, that keep information, needed for names completion, source code navigation,
-and so on.  Syntactic information could be saved between Emacs sessions, so it reduce
-need for re-parsing of source code that wasn't modified;</li>
-<li><em>Senator</em> implements navigation in source code, using information, extracted by Semantic;</li>
-<li><em>Srecode</em> &mdash; package for source code generation, using syntactic information (including
+languages. It provides common representation of information extracted from code.  Using
+this information, CEDET &amp; other packages, such as <a href="http://jdee.sourceforge.net/">JDEE</a> and <a href="http://ecb.sf.net">ECB</a>, can implement
+functionality, required for modern development environment &mdash; name completion, code
+navigation, etc.;</li>
+<li><em>SemanticDB</em> is included into Semantic, and implements different storage modules, that
+store information, needed for names completion, source code navigation, etc.  Syntactic
+information may be saved between Emacs sessions, so this reduces need for re-parsing of
+source code that wasn't modified since last parse;</li>
+<li><em>Senator</em> implements navigation in source code using information extracted by Semantic;</li>
+<li><em>Srecode</em> is a package for source code generation using syntactic information (including
 information, extracted by Semantic);</li>
-<li><em>EDE</em> implements set of extensions to work with projects &mdash; user can control list of the
-targets to build, build the project, etc.  Besides this, using the notion of the
-project, you can have more precise control about Semantic's operations &mdash; name
-completions, navigation, and so on;</li>
+<li><em>EDE</em> implements a set of extensions to work with projects &mdash; user can control list of
+the targets to build, build the project, etc.  Besides this, using the notion of the
+project, you can have more precise control over Semantic's operations &mdash; name
+completions, navigation, etc.;</li>
 <li><em>Speedbar</em> is used to display information about current buffer using different sources of
-information &mdash; Semantic, some specialized information providers (for texinfo &amp; html,
+information &mdash; Semantic, some specialized information providers (for texinfo &amp; HTML,
 for example).</li>
-<li><em>Eieio</em> &mdash; library, that implements CLOS-like (Common Lisp Object System) infrastructure
-for Emacs Lisp;</li>
-<li><em>Cogre</em> is a library for drawing of UML-like diagrams in Emacs buffer, with basic
+<li><em>Eieio</em> is a library, that implements CLOS-like (Common Lisp Object System)
+infrastructure for Emacs Lisp;</li>
+<li><em>Cogre</em> is a library for generation of UML-like diagrams in Emacs buffer, with basic
 integration with Semantic.</li>
 </ul>
 
 
 <h2><a name="sec2" id="sec2"></a>
-Installation of the CEDET</h2>
+CEDET's versions</h2>
 
-<p class="first">Currently it's better to use development version of the CEDET, that is available from
-repository at <a href="http://sourceforge.net/projects/cedet/develop">Sourceforge.net</a>.  After downloading of code, you need to change to cedet
-directory and compile the package with following command:</p>
+<p class="first">We need to understand that there are several versions of CEDET, that differ from each
+other by installation &amp; customization methods:</p>
 
-<pre class="src">
-emacs -Q -l cedet-build.el -f cedet-build
-</pre>
+<ul>
+<li>standalone versions of CEDET up to version 1.1 (including) &mdash; these versions are
+available for <a href="https://sourceforge.net/projects/cedet/files/">downloading from project's site</a>.  This version uses &quot;old&quot; layout for
+source code &amp; activation method that isn't compatible with version included into GNU
+Emacs.  In this version, files with source code often had &quot;long names&quot;, like
+<code>semanticdb.el</code>, or <code>semantic-gcc.el</code>, and this made them incompatible with some of
+operating systems supported by GNU Emacs;</li>
+<li>standalone CEDET versions after 1.1 release &mdash; they use &quot;new&quot; directory layout and the
+same activation method as in GNU Emacs, but these versions usually have more
+functionality &amp; include some additional packages, like Senator.  In this version,
+layout of source code was changed to match GNU Emacs, so some files was renamed: for
+example, <code>semanticdb.el</code> was renamed to <code>semantic/db.el</code>, and <code>semantic-gcc.el</code> became
+<code>semantic/bovine/gcc.el</code>, etc.</li>
+<li>version that is bundled with GNU Emacs (starting with GNU Emacs 23.2) &mdash; some packages
+aren't included into this version, and code could be &quot;outdated&quot;, comparing with current
+standalone versions of CEDET.</li>
+</ul>
 
-<p>or, to compile in terminal window, and exit after compilation, you can use following
-command:</p>
-
-<pre class="src">
-emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
-</pre>
+<p>This article describes new version of CEDET, including version bundled with GNU Emacs.  If
+you want to use standalone release 1.1, or earlier, then you need to read
+<a href="EmacsCedetOld.html">previous version of this article</a>.</p>
 
 
 <h2><a name="sec3" id="sec3"></a>
+Installation of standalone CEDET's version</h2>
+
+<p class="first">Right now (October, 2012) there is no released version of CEDET with &quot;new&quot; activation
+method, so you need to take <a href="http://www.randomsample.de/cedet-snapshots/">current snapshot</a>, or get <a href="http://cedet.sourceforge.net/bzr-repo.shtml">version from repository</a>.  Unpack
+source code, if this is necessary, change to directory &amp; perform following command that
+will compile everything:</p>
+
+<pre class="src">
+make clean-all &amp;&amp; make
+</pre>
+
+
+<h2><a name="sec4" id="sec4"></a>
 Customization</h2>
 
-<p class="first">The loading of package is performed by <code>cedet.el</code> script, so all you need to do &mdash; just add
-following line to the your Emacs initialization file<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>:</p>
+<p class="first">If you're using standalone CEDET's version, then you need to load it with following command:</p>
 
 <pre class="src">
-(load-file <span style="color: #008b00;">"~/emacs/cedet/common/cedet.el"</span>)
+(load-file <span style="color: #008b00;">"~/emacs/cedet-bzr/cedet-devel-load.el"</span>)
 </pre>
 
-<p>If you plan to use EDE projects, then you need to switch on corresponding mode &mdash; it's
-implemented by EDE package:</p>
+<p>But if you're using CEDET bundled with GNU Emacs, then everything will be already loaded
+on start.</p>
 
-<pre class="src">
-(global-ede-mode t)
-</pre>
-
-<h3><a name="sec4" id="sec4"></a>
+<h3><a name="sec5" id="sec5"></a>
 Semantic's customization</h3>
 
-<p class="first">Depending on your requirements, you can use one of commands, described below, to load
-corresponding set of features (these commands are listed in increasing order, and each
-command include features from previous commands):</p>
-
-<ul>
-<li><code>semantic-load-enable-minimum-features</code> &mdash; enables only minimum of necessary features &mdash;
-keep syntactic information for current buffer up-to date, storing of syntactic
-information for later use (Semanticdb), and loading of syntactic information with
-Semanticdb and Ebrowse;</li>
-<li><code>semantic-load-enable-code-helpers</code> &mdash; enables <code>senator-minor-mode</code> for navigation in
-buffer, <code>semantic-mru-bookmark-mode</code> for storing positions of visited tags, and
-<code>semantic-idle-summary-mode</code>, that shows information about tag under point when Emacs is
-idle;</li>
-<li><code>semantic-load-enable-gaudy-code-helpers</code> &mdash; enables <code>semantic-stickyfunc-name</code> that
-displays name of current function in topmost line of buffer, <code>semantic-decoration-mode</code>
-to decorate tags, using different styles, and <code>semantic-idle-completion-mode</code> for
-automatic generation of possible names completions, if user stops his work for some
-time;</li>
-<li><code>semantic-load-enable-excessive-code-helpers</code> &mdash; enables <code>which-func-mode</code>, that shows name
-of current function in status line;</li>
-<li><code>semantic-load-enable-semantic-debugging-helpers</code> &mdash; enables several modes, that are
-useful when you debugging Semantic &mdash; to show parsing errors, Semantic's state, etc.</li>
-</ul>
-
-<p>So, you need to add call to one of these commands right after command, that performs
-loading of CEDET.  For example:</p>
+<p class="first">All standalone versions until release 1.1 (including) had activation method that was
+different from method for CEDET bundled into GNU Emacs.  In new versions activation of
+package is performed by adding of symbols for selected sub-modes into special list, and
+then activating <code>semantic-mode</code>.  While in the &quot;old&quot; versions, functionality was activated
+by calling one of the functions, each of them activated some specific set of features.  So
+in the &quot;new&quot; version, it's enough to do following:</p>
 
 <pre class="src">
-(semantic-load-enable-excessive-code-helpers)
+(semantic-mode 1)
 </pre>
 
-<p>The rest of this section assumes that the minimal Semantic features have been loaded.</p>
+<p>And set of enabled features will depend on what will be put into list
+<code>semantic-default-submodes</code>, that can contain following symbols (it's better to populate
+this list before enabling <code>semantic-mode</code>):</p>
 
-<p>To use additional features for names completion, and displaying of information for tags &amp;
-classes, you also need to load the <code>semantic-ia</code> package.  This could be done with following
-command:</p>
+<dl>
+<dt><strong><code>global-semanticdb-minor-mode</code></strong></dt>
+<dd>enables global support for  Semanticdb;</dd>
+<dt><strong><code>global-semantic-mru-bookmark-mode</code></strong></dt>
+<dd>enables automatic bookmarking of tags that you
+edited, so you can return to them later with the <code>semantic-mrub-switch-tags</code> command;</dd>
+<dt><strong><code>global-cedet-m3-minor-mode</code></strong></dt>
+<dd>activates CEDET's context menu that is bound to right mouse
+button;</dd>
+<dt><strong><code>global-semantic-highlight-func-mode</code></strong></dt>
+<dd>activates highlighting of first line for current
+tag (function, class, etc.);</dd>
+<dt><strong><code>global-semantic-stickyfunc-mode</code></strong></dt>
+<dd>activates mode when name of current tag will be shown
+in top line of buffer;</dd>
+<dt><strong><code>global-semantic-decoration-mode</code></strong></dt>
+<dd>activates use of separate styles for tags decoration
+(depending on tag's class).  These styles are defined in the <code>semantic-decoration-styles</code>
+list;</dd>
+<dt><strong><code>global-semantic-idle-local-symbol-highlight-mode</code></strong></dt>
+<dd>activates highlighting of local names
+that are the same as name of tag under cursor;</dd>
+<dt><strong><code>global-semantic-idle-scheduler-mode</code></strong></dt>
+<dd>activates automatic parsing of source code in the
+idle time;</dd>
+<dt><strong><code>global-semantic-idle-completions-mode</code></strong></dt>
+<dd>activates displaying of possible name
+completions in the idle time.  Requires that <code>global-semantic-idle-scheduler-mode</code> was
+enabled;</dd>
+<dt><strong><code>global-semantic-idle-summary-mode</code></strong></dt>
+<dd>activates displaying of information about current
+tag in the idle time.  Requires that <code>global-semantic-idle-scheduler-mode</code> was enabled.</dd>
+</dl>
+
+<p>Following sub-modes are usually useful when you develop and/or debug CEDET:</p>
+
+<dl>
+<dt><strong><code>global-semantic-show-unmatched-syntax-mode</code></strong></dt>
+<dd>shows which elements weren't processed by
+current parser's rules;</dd>
+<dt><strong><code>global-semantic-show-parser-state-mode</code></strong></dt>
+<dd>shows current parser state in the modeline;</dd>
+<dt><strong><code>global-semantic-highlight-edits-mode</code></strong></dt>
+<dd>shows changes in the text that weren't processed
+by incremental parser yet.</dd>
+</dl>
+
+<p>This approach allows to make Semantic's customization more flexible, as user can switch on
+only necessary features.  You can also use functions with the same names to enable/disable
+corresponding sub-modes for current Emacs session.  And you can also enable/disable these
+modes on the per-buffer basis (usually this is done from hook): names of corresponding
+variables you can find in description of <code>global-semantic-*</code> functions.</p>
+
+<p>To enable more advanced functionality for name completion, etc., you can load the
+<code>semantic/ia</code> with following command:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-ia</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic/ia</span>)
 </pre>
 
 <p>After loading of this package, you'll get access to commands, described below.</p>
 
-<h4>System header files</h4>
+
+<h3><a name="sec6" id="sec6"></a>
+System header files</h3>
 
 <p class="first">To normal work with system-wide libraries, Semantic should has access to system include
 files, that contain information about functions &amp; data types, implemented by these
 libraries.</p>
 
-<p>If you're using GCC for programming in C &amp; C++, then Semantic can automatically find path,
-where system include files are stored.  To do this, you need to load <code>semantic-gcc</code> package
+<p>If you're using GCC for programming in C &amp; C++, then Semantic can automatically find
+directory, where system include files are stored.  Just load <code>semantic/bovine/gcc</code> package
 with following command:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-gcc</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic/bovine/gcc</span>)
 </pre>
 
-<p>You can also explicitly specify additional paths for look up of include files (and these
-paths also could be different for specific modes).  To add some path to list of system
-include paths, you can use the <code>semantic-add-system-include</code> command, that accepts two
-parameters &mdash; string with path to include files, and symbol, representing name of major
-mode, for which this path will used.  For example, to add Boost header files for C++ mode,
-you need to add following code:</p>
+<p>You can also explicitly specify additional directories for searching of include files (and
+these directories also could be different for specific modes).  To add some directory to
+list of system include paths, you can use the <code>semantic-add-system-include</code> command &mdash; it
+accepts two parameters: string with path to include files, and symbol, representing name
+of major mode, for which this path will be used.  For example, to add Boost header files
+for C++ mode, you need to add following code:</p>
 
 <pre class="src">
 (semantic-add-system-include <span style="color: #008b00;">"~/exp/include/boost_1_37"</span> 'c++-mode)
 </pre>
 
+<p><em>Although I want to say, that customization for Boost support is more complex, and requires
+to specify where Semantic can find files with constant's definitions, etc.</em></p>
 
-<h4>Optimization of Semantic's work</h4>
+
+<h3><a name="sec7" id="sec7"></a>
+Semantic's work optimization</h3>
 
 <p class="first">To optimize work with tags, you can use several techniques:</p>
 
@@ -259,7 +321,7 @@ you need to add following code:</p>
 <li>explicitly specify a list of root directories for your projects, so Semantic will use
 limited number of databases with syntactic information;</li>
 <li>explicitly generate tags databases for often used directories (<code>/usr/include</code>,
-<code>/usr/local/include</code>, etc.) using commands <code>semanticdb-create-ebrowse-database</code> or
+<code>/usr/local/include</code>, etc.). You can use commands <code>semanticdb-create-ebrowse-database</code> or
 <code>semanticdb-create-cscope-database</code>;</li>
 <li>limit search by customization of the <code>semanticdb-find-default-throttle</code> variable for
 concrete modes &mdash; for example, don't use information from system include files, by
@@ -273,15 +335,15 @@ removing <code>system</code> symbol from list of objects to search for <code>c-m
 
 <p>Semantic extracts syntactic information when Emacs is idle.  You can customize the
 <code>semantic-idle-scheduler-idle-time</code> variable to specify idle time (in seconds), if you don't
-want to use default value (2 seconds).</p>
+want to use default value (1 second).</p>
 
 
-<h4>Integration with imenu</h4>
+<h3><a name="sec8" id="sec8"></a>
+Integration with imenu</h3>
 
 <p class="first">The Semantic package can be integrated with the <em>imenu</em> package.  This lead to creation of a
-menu with a list of functions, variables, and other tags.  To enable this feature you can
-either use <code>semantic-load-enable-code-helpers</code>, or you need to add following code into your
-initialization file:</p>
+menu with a list of functions, variables, and other tags.  To enable this feature you need
+to add following code into your initialization file:</p>
 
 <pre class="src">
 (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-semantic-hook</span> ()
@@ -290,32 +352,22 @@ initialization file:</p>
 </pre>
 
 
-
-<h3><a name="sec5" id="sec5"></a>
+<h3><a name="sec9" id="sec9"></a>
 Customization of Semanticdb</h3>
 
-<p class="first">If you're using standard procedure for loading of CEDET, then Semanticdb will be loaded
-automatically.  Otherwise, you can load and enable it with following commands:</p>
+<p class="first">To enable Semanticdb you need to add the <code>global-semanticdb-minor-mode</code> symbol into the
+<code>semantic-default-submodes</code> list.  And you can specify some customization variables to
+control behaviour of Semanticdb &mdash; for example, where to save data, etc.  These variables
+could be set via <code>semanticdb</code> customization group.</p>
 
-<pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semanticdb</span>)
-(global-semanticdb-minor-mode 1)
-</pre>
-
-<p>To customize Semanticdb you need to specify number of variables, that are used to specify
-path, where databases will be stored, and some other parameters.  These variables could be
-set via <code>semanticdb</code> customization group.</p>
-
-<p>Besides this, Semanticdb can use databases generated by external utilities &mdash; 
-<code>gtags</code> from
-<a href="http://www.gnu.org/software/global/">GNU Global</a>, <code>ctags</code>, <code>ebrowse</code> &amp; <code>cscope</code>.  To activate this you can use following code (please,
-note that these commands will fail if you have no utilities installed, or have an
-incorrect versions of them &mdash; that's why they a wrapped into <code>when</code>):</p>
+<p>Semanticdb can also use databases generated by external utilities: <code>gtags</code> (from
+<a href="http://www.gnu.org/software/global/">GNU Global</a>), <code>ctags</code>, <code>ebrowse</code> &amp; <code>cscope</code>.  To activate this functionality you can use
+following code (please, note that these commands may fail if you have no utilities
+installed, or have an incorrect versions of them &mdash; that's why they a wrapped into <code>when</code>):</p>
 
 <pre class="src">
 <span style="color: #666666;">;; </span><span style="color: #666666;">if you want to enable support for gnu global
 </span>(<span style="color: #a020f0;">when</span> (cedet-gnu-global-version-check t)
-  (<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semanticdb-global</span>)
   (semanticdb-enable-gnu-global-databases 'c-mode)
   (semanticdb-enable-gnu-global-databases 'c++-mode))
 
@@ -326,8 +378,20 @@ incorrect versions of them &mdash; that's why they a wrapped into <code>when</co
 </pre>
 
 
-<h3><a name="sec6" id="sec6"></a>
-How to customize  Semantic to work with C &amp; C++ projects</h3>
+<h3><a name="sec10" id="sec10"></a>
+EDE's customization</h3>
+
+<p class="first">If you plan to use projects, then you need to enable corresponding mode, implemented by
+the EDE package:</p>
+
+<pre class="src">
+(global-ede-mode t)
+</pre>
+
+<p>There are several types of projects supported by EDE, and I want to describe here only
+some of them.</p>
+
+<h4>Using EDE for C &amp; C++ projects</h4>
 
 <p class="first">For correct work of Semantic with С &amp; C++ code it's recommended to use the EDE package (it
 allows to work with projects, etc.).  For these languages, EDE package defines special
@@ -356,11 +420,11 @@ isn't parsed &mdash; it's used only as an anchor to search all other files in pr
 <p>To search include files, Semantic uses directories from two lists, that could be specified
 for project.  The <code>:system-include-path</code> parameter is used to specify list of full paths
 where lookup for &quot;system&quot; include files will be performed.  Another parameter &mdash;
-<code>:include-path</code> specifies the list of directories, relative to the project's root directory,
-that will used to search of &quot;local&quot; include files (if names are starting with <code>/</code>, this
-means, that path is specified relative to project's root directory).  Instead of
-specifying paths as lists, you can also provide function, that will perform search of
-include files in your project.  You can read about it in the EDE manual.</p>
+<code>:include-path</code> specifies the list of directories, that will be used to search of &quot;local&quot;
+include files (if names are starting with <code>/</code>, this means, that path is specified relative
+to project's root directory).  Instead of specifying paths as lists, you can also provide
+function, that will perform search of include files in your project.  You can read about
+it in the EDE manual.</p>
 
 <p>Another parameter, that could be specified in project's declaration is a list of
 definitions, that will be used during code preprocessing.  The <code>:spp-table</code> parameter allows
@@ -369,22 +433,20 @@ In our example above, we defined two symbols &mdash;
 <code>isUnix</code> and <code>BOOST_TEST_DYN_LINK</code>, that will
 be passed to preprocessor, and this will allow to perform proper parsing of the code.</p>
 
-<p>User, if this is needed, can redefine some variables for files inside project.  This could
-be done by specifying the <code>:local-variables</code> parameter with value consisting of list of
-pairs in form symbol name/value, and these values will be set for files in project.</p>
+<p>User, if required, can redefine some variables for files inside project.  This could be
+done by specifying the <code>:local-variables</code> parameter with value that is a list of pairs in
+form symbol name/value, and these values will be set for files in project.</p>
 
+<h5>Preprocessing of source code</h5>
 
-<h3><a name="sec7" id="sec7"></a>
-Preprocessing of source code</h3>
-
-<p class="first">More information about definitions for C/C++ preprocessor you can find in documentation
+<p>More information about definitions for C/C++ preprocessor you can find in documentation
 for the <code>semantic-lex-c-preprocessor-symbol-map</code> variable. You can obtain list of
-preprocessor symbols, defined for file with source code, using the
+preprocessor symbols, defined for file with source code, by using the
 <code>semantic-lex-spp-describe</code> command.  And then use these results to set <code>:spp-table</code> parameter
 or <code>semantic-lex-c-preprocessor-symbol-map</code> variable.</p>
 
 <p>Many libraries store all macro definitions in one or more include files, so you can use
-these definitions as-is.  To do this you need to list these files in the
+these definitions as-is.  To do this you need to specify these files in the
 <code>semantic-lex-c-preprocessor-symbol-file</code> variable, and when CEDET will perform analysis,
 then values from these files will be used.  By default, this variable has only one value
 &mdash; file with definitions for C++ standard library, but you can add more data there.  As
@@ -399,7 +461,7 @@ example, I want to show CEDET's configuration for work with Qt4:</p>
 (add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #008b00;">"/Qt/qglobal.h"</span>))
 </pre>
 
-<p>After you'll add these lines to initialization file, you should be able to use name
+<p>After you'll add these lines to initialization file, you should be able to use names
 completion for classes, defined in Qt4 library.  Example you can see on the picture below:</p>
 
 <div id="screenshot">
@@ -408,16 +470,66 @@ completion for classes, defined in Qt4 library.  Example you can see on the pict
 
 
 
-<h2><a name="sec8" id="sec8"></a>
+<h4>Using EDE for Java projects</h4>
+
+<p class="first">Semantic includes a parser for source code written in Java, so name completion for source
+code always worked, and the main problem was to get name completions for classes from JDK,
+or other libraries that are used in project.  For compiled code, Semanticdb can get
+information about name by using <code>javap</code> on the list libraries in the <code>CLASSPATH</code>.  The path to
+the JDK's main library (<code>rt.jar</code> on Linux &amp; Windows, and <code>classes.jar</code> on Mac OS X) is usually
+detected automatically by the <code>cedet-java-find-jdk-core-jar</code> function, although you can
+change its behaviour by setting <code>JAVA_HOME</code> environment variables, or some other parameters.</p>
+
+<p>If you're using Maven to build your projects, then <code>CLASSPATH</code> will be calculating
+automatically by running Maven in the root of your project (also for multi-module
+projects).  And it isn't necessary to specify project's root manually &mdash; EDE will find it
+automatically by searching for the <code>pom.xml</code> file.  <em>I need to mention that first call to
+name completion functions could be relatively slow &mdash; EDE should run Maven and collect
+information about libraries that are used in the project.  But after first run, this
+information is cached, and next completions will be performed faster.</em></p>
+
+<p>If you aren't using Maven, then you can either specify all used libraries in the
+<code>semanticdb-javap-classpath</code> variable, or use the <code>ede-java-root-project</code> class, that is
+similar to <code>ede-cpp-root-project</code> that was described above.  To use this type of project,
+you need to add something like to you initialization file:</p>
+
+<pre class="src">
+ (ede-java-root-project <span style="color: #008b00;">"TestProject"</span>
+         :file <span style="color: #008b00;">"~/work/TestProject/build.xml"</span>
+         :srcroot '(<span style="color: #008b00;">"src"</span> <span style="color: #008b00;">"test"</span>)
+         :localclasspath '(<span style="color: #008b00;">"/relative/path.jar"</span>)
+         :classpath '(<span style="color: #008b00;">"/absolute/path.jar"</span>))
+</pre>
+
+<p>As for C/C++, you need to specify name of the project, point to existing file at the
+project's root directory, and some additional options:</p>
+
+<dl>
+<dt><strong><code>:srcroot</code></strong></dt>
+<dd>list of directories with source code.  Directory names are specified
+relatively of project's root (in this example this is <code>src</code> &amp; <code>test</code>);</dd>
+<dt><strong><code>:classpath</code></strong></dt>
+<dd>list of absolute file names for used libraries;</dd>
+<dt><strong><code>:localclasspath</code></strong></dt>
+<dd>list of file names for used libraries, relative to project's root.</dd>
+</dl>
+
+<p>When Semantic finds such project, it can use provided information for name completion.</p>
+
+
+
+
+<h2><a name="sec11" id="sec11"></a>
 Work with Semantic</h2>
 
-<p class="first">From the user's point of view, Semantic implements several major functions &mdash; name
-completions, retrieving information about tags (variables, functions, etc.), and
-navigation in source code.  Some of these functions are implemented by <code>semantic-ia</code>
-package, while other are implemented by Senator, and Semantic's kernel.</p>
+<p class="first">From user's point of view, Semantic provides several major features &mdash; names completions,
+retrieving information about tags (variables, functions, etc.), and navigation in source
+code.  Some of these features are implemented by <code>semantic/ia</code> package, while other are
+implemented by Senator, and Semantic's kernel.</p>
 
 <p>Some of commands have no standard key bindings, so it's better to select key bindings,
-that are comfortable to you, and bind commands to them, like this:</p>
+that are comfortable to you, and bind commands to them, like this (only for standalone
+CEDET):</p>
 
 <pre class="src">
 (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-cedet-hook</span> ()
@@ -432,48 +544,53 @@ that are comfortable to you, and bind commands to them, like this:</p>
 work, or works wrong, then please, send examples of code to the <a href="https://lists.sourceforge.net/lists/listinfo/cedet-devel">cedet-devel mailing list</a>
 &mdash; the CEDET's authors usually answers pretty fast.</em></p>
 
-<h3><a name="sec9" id="sec9"></a>
+<h3><a name="sec12" id="sec12"></a>
 Names completion</h3>
 
 <p class="first">Text completion for names of functions, variables &amp; classes is pretty often used feature
-when you work with source code<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.  There are two packages inside Semantic that implement
+when you work with source code<sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>.  There are two packages inside Semantic that implement
 this functionality &mdash; 
-<code>semantic-ia</code> and Senator.  Commands, implemented by <code>semantic-ia</code> use
-the <code>semantic-analyze-possible-completions</code> function to create a list of all possible names
-completion, and this function takes into account many parameters (plus it can be augmented
-by user's code to provide more precise list of names).  At the same time, commands from
-Senator package use simpler methods to create a list of all possibles completions (usually
-they use information only about definitions in the current file), and this sometime lead
-to the wrong completion of names.</p>
+<code>semantic/ia</code> and Senator (it doesn't included into GNU Emacs).  <em>You
+need to take into account, that in the new versions it's recommended to use Semantic only
+as source of information, and perform names completion using other packages, such as
+<code>auto-complete</code>.  You see example below.</em></p>
 
-<p>If you execute the <code>semantic-ia-complete-symbol</code> command when you typing code, then this
+<p>Commands, implemented by <code>semantic/ia</code> use the <code>semantic-analyze-possible-completions</code>
+function to create a list of all possible names completion, and this function takes into
+account many parameters (plus it can be augmented by user's code to provide more precise
+list of names).  At the same time, commands from Senator package use simpler methods to
+create a list of all possibles completions (usually they use information only about
+definitions in the current file), and this sometime lead to wrong names completion.</p>
+
+<p>If you execute the <code>semantic-ia-complete-symbol</code> command when you're typing code, then this
 will lead to completion of corresponding name &mdash; name of function, variable, or class
 member, depending on the current context.  If there are several possible variants, then
 this name will be completed to most common part, and if you'll call this command second
 time, then buffer with all possible completions will be shown.  User can also use the
 <code>semantic-ia-complete-symbol-menu</code> command &mdash; it also performs analysis of current context,
-but will display list of possible completions as a graphical menu, from which the needed
-name should be selected<sup><a class="footref" name="fnr.4" href="#fn.4">4</a></sup>.  Besides this, there is <code>semantic-ia-complete-tip</code> command, that
+but will display list of possible completions as a graphical menu, from which the required
+name should be selected<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.  Besides this, there is <code>semantic-ia-complete-tip</code> command, that
 displays list of possible completions as tooltip.</p>
 
-<p>As was mentioned above, the Senator package, also provides commands for names completion,
-that work fast, but with less precision (as they use few parameters during computation of
-variants for completions). The <code>senator-complete-symbol</code> command (<code>C-c , TAB</code>) completes name
-for current tag, and insert first found completion as result.  If it inserts wrong name,
-then you can insert second name from completion list by repeating this command, and so on.
-If there are a lot of the possible variants, or you want to see full list of functions and
-variables for some class, then it's better to use the <code>senator-completion-menu-popup</code>
-command (<code>C-c , SPC</code>), that displays list of all possible completions as a graphical menu.</p>
+<p>As was mentioned above, the Senator package, also provides commands for names completion.
+It work very fast, but with less precision (as they use few parameters during computation
+of variants for completions). The <code>senator-complete-symbol</code> command (<code>C-c , TAB</code>) completes
+name for current tag, and insert first found completion as result.  If it inserts wrong
+name, then you can insert second name from completion list by repeating this command, and
+so on.  If there are a lot of the possible variants, or you want to see full list of
+functions and variables for some class, then it's better to use the
+<code>senator-completion-menu-popup</code> command (<code>C-c , SPC</code>) &mdash; it displays list of all possible
+completions as a graphical menu.</p>
 
 <p>Besides these commands, user can use special mode (only for some languages) &mdash;
-<code>semantic-idle-completions-mode</code> (it's loaded when you use the
-<code>emantic-load-enable-gaudy-code-helpers</code> command, or you can enable it explicitly) &mdash; in
+<code>semantic-idle-completions-mode</code> (or enable it globally by adding
+<code>global-semantic-idle-completions-mode</code> symbol into <code>semantic-default-submodes</code> list) &mdash; in
 this mode names completions are shown automatically if user stops its work for a some time
 (idle time).  By default, only first possible completion is shown, and user can use the
 <code>TAB</code> key to navigate through list of possible completions.</p>
 
 <p>For C-like languages, user can use the <code>semantic-complete-self-insert</code> command, bound to the
-<code>.</code> and/or <code>&gt;</code> keys, as this show below:</p>
+<code>.</code> and/or <code>&gt;</code> keys, as this shown below:</p>
 
 <pre class="src">
 (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-c-mode-cedet-hook</span> ()
@@ -483,14 +600,50 @@ this mode names completions are shown automatically if user stops its work for a
 </pre>
 
 <p>Evaluation of this code will lead to execution of the <code>semantic-complete-self-insert</code>
-command when user will press <code>.</code> or <code>&gt;</code> after variables, that are instances of some class or
-structure, and displaying of list of possible completions for given class or structure.</p>
+command when user will press <code>.</code> or <code>&gt;</code> after variables, that are instances of some data
+structure, and displaying a list of possible completions for given class or structure.</p>
+
+<p>If you're programming in C &amp; C++, then you can also get name completions using information
+from Clang (versions 2.9 &amp; above).  To do this, you need to load the <code>semantic/bovine/clang</code>
+package, and call the <code>semantic-clang-activate</code> function.  After that, Semantic will start
+to call Clang, and use its code analyzer to calculate list of possible names completions.</p>
+
+<h4>Names completion with  auto-complete package</h4>
+
+<p class="first">The <a href="http://cx4a.org/software/auto-complete/">auto-complete</a> package was developed to automatically complete text using information
+from different sources: predefined dictionaries, text from current buffer, external
+programs (GNU Global, etags, ...), etc.  Semantic could be also used as source of
+information.</p>
+
+<p>This package is available in the GNU Emacs's package repository (execute <code>M-x
+package-list-packages</code> to get list of available packages), but you can also install it via
+<code>el-get</code> or manually.  Installation &amp; customization are described in <a href="http://cx4a.org/software/auto-complete/manual.html">user's manual</a>, so I
+won't cover these parts.</p>
+
+<p>To use information from Semantic for names completion, you need to add <code>ac-source-semantic</code>
+or <code>ac-source-semantic-raw</code> into <code>ac-sources</code> list (this list allows you to control which data
+sources will be used for current buffer, so you can change it as you want).
+<code>ac-source-semantic-raw</code> differs from <code>ac-source-semantic</code> that for it the filtering of
+information isn't performed.</p>
+
+<p>So your setup can be performed following way &mdash; instead of bounding keys for
+<code>semantic-ia-complete-symbol-menu</code>, <code>semantic-ia-complete-symbol</code> &amp; other functions, you can
+simply add new names completion sources, and after that use <code>auto-complete</code> bindings to get
+names completion:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-c-mode-cedet-hook</span> ()
+  (add-to-list 'ac-sources 'ac-source-gtags)
+  (add-to-list 'ac-sources 'ac-source-semantic))
+(add-hook 'c-mode-common-hook 'my-c-mode-cedet-hook)
+</pre>
 
 
-<h3><a name="sec10" id="sec10"></a>
+
+<h3><a name="sec13" id="sec13"></a>
 Getting information about tags</h3>
 
-<p class="first">The <code>semantic-ia</code> package provides several commands, that allow to get information about
+<p class="first">The <code>semantic/ia</code> package provides several commands, that allow to get information about
 classes, functions &amp; variables (including documentation from Doxygen-style comments).
 Currently following commands are implemented:</p>
 
@@ -498,8 +651,8 @@ Currently following commands are implemented:</p>
 <dt><strong><code>semantic-ia-show-doc</code></strong></dt>
 <dd>shows documentation for function or variable, whose names is
 under point.  Documentation is shown in separate buffer.  For variables this command
-shows their declaration, including type of variable, and documentation string, if it's
-available.  For functions, prototype of the function is shown, including documentation
+shows their declaration, including type of variable, and documentation string (if it's
+available).  For functions, prototype of the function is shown, including documentation
 for arguments and returning value (if comments are available);</dd>
 <dt><strong><code>semantic-ia-show-summary</code></strong></dt>
 <dd>shows documentation for name under point, but information is
@@ -511,21 +664,20 @@ functions &amp; variables, defined in given class, plus all its parent classes.<
 </dl>
 
 
-<h3><a name="sec11" id="sec11"></a>
+<h3><a name="sec14" id="sec14"></a>
 Navigation in source code</h3>
 
-<p class="first">One of the most useful commands for navigation in the source code is the
-<code>semantic-ia-fast-jump</code> command, that allows to jump to declaration of variable or function,
-whose name is under point.  You can return back by using the <code>semantic-mrub-switch-tag</code>
-command (<code>C-x B</code>), that is available when you enable the <code>semantic-mru-bookmark-mode</code> minor
-mode.</p>
+<p class="first">One of the most useful commands for navigation in source code is the <code>semantic-ia-fast-jump</code>
+command, that allows to jump to declaration of variable or function, whose name is under
+point.  You can return back by using the <code>semantic-mrub-switch-tag</code> command (<code>C-x B</code>), that is
+available when you enable the <code>semantic-mru-bookmark-mode</code> minor mode.</p>
 
 <p>Semantic also provides two additional commands for jumping to function or variable:
 defined in current file &mdash; 
 <code>semantic-complete-jump-local</code> (<code>C-c , j</code>), or defined in current
 project &mdash; 
 <code>semantic-complete-jump</code> (<code>C-c , J</code>).  Both commands allow to enter name of
-function or variable (including local variables for functions) and jump to given
+function or variable (including local variables inside functions) and jump to given
 definition (you can use name completion when entering the name).</p>
 
 <p>The main difference between <code>semantic-ia-fast-jump</code> &amp; <code>semantic-complete-jump</code> commands is
@@ -540,22 +692,22 @@ under cursor.</p>
 
 <p>Senator provides several commands for navigation in source code.  This is <code>senator-next-tag</code>
 (<code>C-c , n</code>) and <code>senator-previous-tag</code> (<code>C-c , p</code>) commands, that move cursor to next or
-previous tag.  There is also the <code>senator-go-to-up-reference</code> command (<code>C-c , u</code>), that move
+previous tag.  There is also the <code>senator-go-to-up-reference</code> command (<code>C-c , u</code>), that moves
 cursor to the &quot;parent&quot; tag (for example, for class member function, &quot;parent&quot; tag is class
 declaration).</p>
 
 
-<h3><a name="sec12" id="sec12"></a>
+<h3><a name="sec15" id="sec15"></a>
 Search for places where function is called</h3>
 
-<p class="first">Not so long ago a very useful command was implemented in Semantic &mdash; 
-<code>semantic-symref</code>, that
-allows to find places, where symbol, whose name is under point, is used in your project.
-If you want to find use of symbol with arbitrary name, then you can use the
-<code>semantic-symref-symbol</code> command, that allows to enter name of the symbol to lookup.</p>
+<p class="first">Semantic also has very useful command &mdash; 
+<code>semantic-symref</code>, that allows to find places,
+where symbol (whose name is under point) is used in your project.  If you want to find use
+of symbol with arbitrary name, then you can use the <code>semantic-symref-symbol</code> command, that
+allows to enter name of the symbol to lookup.</p>
 
 <p>If references to given name weren't found in corresponding database (GNU Global, etc.),
-then these commands try to find them using the <code>find-grep</code> command.  As result of execution
+then these commands will try to find them using the <code>find-grep</code> command.  As result of execution
 of these commands, a new buffer with results will be created, and user can jump to found
 places:</p>
 
@@ -564,7 +716,7 @@ places:</p>
 </div>
 
 
-<h3><a name="sec13" id="sec13"></a>
+<h3><a name="sec16" id="sec16"></a>
 Source code folding</h3>
 
 <p class="first">As Semantic has almost complete syntactic information about source code, this allows it to
@@ -572,15 +724,15 @@ implement folding functionality, similar to functionality implemented by <em>hid
 To enable this feature, you need to perform customization of the
 <code>global-semantic-tag-folding-mode</code> variable.  When you'll enable it, this will lead to
 displaying of small triangles at the <em>fringle</em> field, and you will able to fold and unfold
-pieces of code pressing on them (this should work not only for source code, but also
+pieces of code by clicking on them (this should work not only for source code, but also
 for comments, and other objects).</p>
 
-<p>Senator also has similar functionality, but it usually used for top-level objects &mdash;
+<p>Senator also has similar functionality, but it's usually used for top-level objects &mdash;
 functions, class declarations, etc.  You can fold piece of code with the <code>senator-fold-tag</code>
 command (<code>C-c , -</code>), and unfold it with <code>senator-unfold-tag</code> (<code>C-c , +</code>).</p>
 
 
-<h3><a name="sec14" id="sec14"></a>
+<h3><a name="sec17" id="sec17"></a>
 More Senator's commands</h3>
 
 <p class="first">The Senator package provides number of commands for work with tags, that allow user to cut
@@ -589,7 +741,7 @@ declaration of some function, or its implementation) the <code>senator-kill-tag<
 C-w</code>) should be used.  You can insert complete tag with standard key binding <code>C-y</code>, while the
 <code>senator-yank-tag</code> command (<code>C-c , C-y</code>) inserts only tag declaration, without body. Another
 useful command is <code>senator-copy-tag</code> (<code>C-c , M-w</code>), that copies current tag &mdash; this is very
-handy when you want to insert declaration of function into include file, for example.</p>
+handy when, for example, you want to insert declaration of function into include file.</p>
 
 <p>Senator allows to change behaviour of standard search commands (<code>re-search-forward</code>,
 <code>isearch-forward</code> and other), when you work with source code, such way, so they will perform
@@ -604,14 +756,14 @@ corresponding command: <code>senator-search-forward</code> or <code>senator-sear
 
 
 
-<h2><a name="sec15" id="sec15"></a>
+<h2><a name="sec18" id="sec18"></a>
 Work with Srecode</h2>
 
 <p class="first">The Srecode package allows user to define code templates, but it differs from other
-packages, that provide insertion of templates, as list of available templates can vary
-depending on the current context.  For example, insertion of <code>get/set</code> functions should
-happen only when you inside class declaration.  Or, insertion of function declaration,
-could happen only outside of other function.</p>
+packages, that provide insertion of templates, because list of available templates can
+vary depending on the current context.  For example, insertion of <code>get/set</code> functions should
+happen only when you inside class declaration.  Or, insertion of function's declaration,
+may happen only outside of other function.</p>
 
 <p>The main command, that is used to insert templates, is the <code>srecode-insert</code>, that is bound
 to the <code>C-c / /</code> keys.  This command will ask user for template's name (you can enter it
@@ -619,10 +771,10 @@ using name completion).  List of available templates will vary, depending on the
 context.  If you want to insert the same template once again, then you can use the
 <code>srecode-insert-again</code> command (<code>C-c / .</code>).</p>
 
-<p>Templates, defined by user, could also use they own key bindings.  They can use lower-case
-symbols from range <code>C-c / [a..z]</code>, and user can specify in template's definition, which key
-will be assigned to it.  For example, for C++ you can use the <code>C-c / c</code> key binding to
-insert class declaration.</p>
+<p>Templates that are defined by user, can also use they own key bindings.  They can use
+lower-case symbols from range <code>C-c / [a..z]</code>, and user can specify in template's definition,
+which key will be assigned to it.  For example, for C++ you can use the <code>C-c / c</code> key
+binding to insert class declaration.</p>
 
 <p>Key bindings, that use upper-case symbols, are reserved for templates &amp; commands defined
 in Srecode.  For example, <code>C-c / G</code> (<code>srecode-insert-getset</code>) inserts pair of functions
@@ -631,19 +783,18 @@ templates.  List of these commands isn't constant, so you need to look into docu
 to find actual list of commands.</p>
 
 <p>Besides templates, supplied with CEDET, user can define their own templates, and store
-them in the <code>~/.srecode</code> directory, where CEDET finds them automatically.  You can read
+them in the <code>~/.srecode</code> directory, where CEDET will find them automatically.  You can read
 about template's creation in the Srecode manual, that comes together with other
 documentation in the CEDET distribution.</p>
 
 
-<h2><a name="sec16" id="sec16"></a>
+<h2><a name="sec19" id="sec19"></a>
 Additional packages</h2>
 
 <p class="first">Together with CEDET the number of additional packages is supplied.  Some of them are
-located in the <code>contrib</code> subdirectory, that is also added to library search list, when you
-load CEDET, so you don't need to do anything special to load them.</p>
+located in the <code>contrib</code> subdirectory, that you need to add to library search list.</p>
 
-<h3><a name="sec17" id="sec17"></a>
+<h3><a name="sec20" id="sec20"></a>
 The eassist package</h3>
 
 <p class="first">The <em>eassist</em> package provides several commands, that use information obtained from
@@ -661,15 +812,14 @@ implementation (if they have same names, but different extensions).</p>
 <div id="rule"><a href="index.html">To the main page</a></div>
 
 <hr>
-<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> First line is need only when you build package from CVS</p>
+<p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> You can use following configuration files as a base for your configuration:
+<a href="https://gist.github.com/3968635">standalone versions up to 1.1</a>,
+<a href="https://gist.github.com/3930120">standalone version after 1.1 release &amp; bundled with GNU Emacs</a>.</p>
 
-<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> You can take <a href="http://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-cedet-old.el">my configuration file for CEDET</a> as a base, although it contains lot of
-not needed things</p>
-
-<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> There is also <code>semantic-complete-analyze-inline</code> command, that shows list of all
+<p class="footnote"><a class="footnum" name="fn.2" href="#fnr.2">2.</a> There is also <code>semantic-complete-analyze-inline</code> command, that shows list of all
 possible completions in separate window, that is often handy than graphical menu</p>
 
-<p class="footnote"><a class="footnum" name="fn.4" href="#fnr.4">4.</a> If name completion works improperly, then try to analyze why this happens, and send
+<p class="footnote"><a class="footnum" name="fn.3" href="#fnr.3">3.</a> If name completion works improperly, then try to analyze why this happens, and send
 bug report only after this.  Information about debugging you can find in Semantic User
 Guide in section <em>Smart Completion Debugging</em></p>
 
@@ -689,7 +839,7 @@ Guide in section <em>Smart Completion Debugging</em></p>
 
 
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 23.10.2012 08:50</em></p></div>
+<div id="lastchange"><p><em>Last change: 30.10.2012 15:28</em></p></div>
 
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">
