@@ -322,10 +322,17 @@ completion for classes, defined in Qt4 library.  Example you can see on the pict
 Semantic includes a parser for source code written in Java, so name completion for source
 code always worked, and the main problem was to get name completions for classes from JDK,
 or other libraries that are used in project.  For compiled code, Semanticdb can get
-information about name by using =javap= on the list libraries in the =CLASSPATH=.  The path to
-the JDK's main library (=rt.jar= on Linux & Windows, and =classes.jar= on Mac OS X) is usually
-detected automatically by the =cedet-java-find-jdk-core-jar= function, although you can
-change its behaviour by setting =JAVA_HOME= environment variables, or some other parameters.
+information about name by using =javap= on the list libraries in the =CLASSPATH=.  To make it
+working, you need to load the =semantic/db-javap= package:
+
+<src lang="emacs-lisp">
+(require 'semantic/db-javap)
+</src>
+
+The path to the JDK's main library (=rt.jar= on Linux & Windows, and =classes.jar= on Mac OS
+X) is usually detected automatically by the =cedet-java-find-jdk-core-jar= function,
+although you can change its behaviour by setting =JAVA_HOME= environment variables, or some
+other parameters.
 
 If you're using Maven to build your projects, then =CLASSPATH= will be calculating
 automatically by running Maven in the root of your project (also for multi-module
