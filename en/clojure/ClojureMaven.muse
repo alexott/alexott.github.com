@@ -16,9 +16,9 @@ but also for code, written in other languages. You can read more about Maven in
 [[http://www.sonatype.com/products/maven/documentation/book-defguide][following book]] (freely available).
 
 Maven differs from other tools, such as Ant -- it describes *what* we want to do, in
-contrast with Ant, that describes *how* to do something.  Maven uses declarative style to
-describe tasks that we want to execute, and all described tasks are performed by
-corresponding plugins.
+contrast with Ant, that describes *how* to do it.  Maven uses declarative style to describe
+tasks that we want to execute, and all described tasks are performed by the corresponding
+plugins.
 
 Description of software lifecycle and information about project is stored in =pom.xml= file,
 that should exist in root directory of the project (and in root directories of
@@ -34,7 +34,7 @@ testing (=test=), creation of package (=package=), and installation (=install=).
 phases has dependencies on other phases, that should be executed before its invocation
 (compilation should be executed before testing, testing before packaging, etc.).
 
-Usually developer uses phase's name to start process.  For example, =mvn package=, or =mvn
+Usually developer uses phase's name to start a process.  For example, =mvn package=, or =mvn
 install=, etc.  But developer can also execute concrete Maven's goal.  To do this, he
 should specify name of plugin, that implements concrete goal, and task name in given
 plugin.  For example, =mvn clojure:run= will start Clojure and execute script, specified in
@@ -115,7 +115,7 @@ By default, Clojure's source code is placed in the =src/main/clojure= directory 
 project's tree, while source code for tests is placed in the =src/test/clojure= directory.
 These default values could be changed in [[#configure][plugin's configuration]].
 
-** Goals, defined in clojure-maven-plugin
+** Goals in the clojure-maven-plugin
 
 =clojure-maven-plugin= implements several commands (goals) that could be divided into
 following groups:
@@ -166,13 +166,13 @@ To use repository you need to add following code into =repositories= section in 
  </repository>
 </src>
 
-** Dependencies
+** Dependencies Management
 
-Maven automatically downloads all necessary dependencies from default repository, and
+Maven automatically downloads the all necessary dependencies from default repository, and
 repositories, specified by user (as shown above).  Downloaded packages are stored in
 user's home directory and could be used by other projects without additional downloading.
 Each package is uniquely identified by combination of three parameters -- group's name
-(=groupId= tag), artifact's name (=artifactId= tag), and version (=version= tag).
+(the =groupId= tag), artifact's name (the =artifactId= tag), and version (the =version= tag).
 
 To use Clojure in your project you need at least specify dependency on language itself.
 Right now, the stable version of Clojure is 1.4.0.  To declare this dependency, add
@@ -186,8 +186,8 @@ following code into =dependencies= section of =pom.xml= file:
  </dependency>
 </src>
 
-If you want to use latest version of the language, then you need to add corresponding
-repository (snapshots) and use version number like =1.5.0-SNAPSHOTS= instead of version
+If you want to use the latest version of the language, then you need to add corresponding
+repository (snapshots) and use version number like =1.5.0-master-SNAPSHOTS= instead of version
 =1.4.0=.
 
 To perform some tasks, implemented by =clojure-maven-plugin=, you need to specify additional
@@ -208,11 +208,11 @@ dependencies:
  <dependency>
   <groupId>de.kotka</groupId>
   <artifactId>vimclojure</artifactId>
-  <version>X.X.X</version>
+  <version>X.Y.Z</version>
  </dependency>
 </src>
- - the JLine library isn't required, but it could be useful if you plan to use REPL --
-   this library implements history of commands, etc.  Presence of this library is detected
+ - the JLine library isn't required, but it could be useful if you plan to use the REPL --
+   this library provides history of commands, etc.  Presence of this library is detected
    automatically when =mvn clojure:repl= goal is executed. You can add dependency for this
    library with following code:
 <src lang="nxml">

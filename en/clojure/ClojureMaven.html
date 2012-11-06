@@ -42,13 +42,13 @@ Clojure, and other languages, such as Java).</p>
 <dd>
 <dl>
 <dt>
-<a href="#sec3">Goals, defined in clojure-maven-plugin</a>
+<a href="#sec3">Goals in the clojure-maven-plugin</a>
 </dt>
 <dt>
 <a href="#sec4">Clojure-related repositories</a>
 </dt>
 <dt>
-<a href="#sec5">Dependencies</a>
+<a href="#sec5">Dependencies Management</a>
 </dt>
 <dt>
 <a href="#sec6">Plugin's configuration</a>
@@ -73,9 +73,9 @@ but also for code, written in other languages. You can read more about Maven in
 <a href="http://www.sonatype.com/products/maven/documentation/book-defguide">following book</a> (freely available).</p>
 
 <p>Maven differs from other tools, such as Ant &mdash; it describes <em>what</em> we want to do, in
-contrast with Ant, that describes <em>how</em> to do something.  Maven uses declarative style to
-describe tasks that we want to execute, and all described tasks are performed by
-corresponding plugins.</p>
+contrast with Ant, that describes <em>how</em> to do it.  Maven uses declarative style to describe
+tasks that we want to execute, and all described tasks are performed by the corresponding
+plugins.</p>
 
 <p>Description of software lifecycle and information about project is stored in <code>pom.xml</code> file,
 that should exist in root directory of the project (and in root directories of
@@ -91,7 +91,7 @@ testing (<code>test</code>), creation of package (<code>package</code>), and ins
 phases has dependencies on other phases, that should be executed before its invocation
 (compilation should be executed before testing, testing before packaging, etc.).</p>
 
-<p>Usually developer uses phase's name to start process.  For example, <code>mvn package</code>, or <code>mvn
+<p>Usually developer uses phase's name to start a process.  For example, <code>mvn package</code>, or <code>mvn
 install</code>, etc.  But developer can also execute concrete Maven's goal.  To do this, he
 should specify name of plugin, that implements concrete goal, and task name in given
 plugin.  For example, <code>mvn clojure:run</code> will start Clojure and execute script, specified in
@@ -175,7 +175,7 @@ project's tree, while source code for tests is placed in the <code>src/test/cloj
 These default values could be changed in <a href="#configure">plugin's configuration</a>.</p>
 
 <h3><a name="sec3" id="sec3"></a>
-Goals, defined in clojure-maven-plugin</h3>
+Goals in the clojure-maven-plugin</h3>
 
 <p><code>clojure-maven-plugin</code> implements several commands (goals) that could be divided into
 following groups:</p>
@@ -253,13 +253,13 @@ projects.</p>
 
 
 <h3><a name="sec5" id="sec5"></a>
-Dependencies</h3>
+Dependencies Management</h3>
 
-<p class="first">Maven automatically downloads all necessary dependencies from default repository, and
+<p class="first">Maven automatically downloads the all necessary dependencies from default repository, and
 repositories, specified by user (as shown above).  Downloaded packages are stored in
 user's home directory and could be used by other projects without additional downloading.
 Each package is uniquely identified by combination of three parameters &mdash; group's name
-(<code>groupId</code> tag), artifact's name (<code>artifactId</code> tag), and version (<code>version</code> tag).</p>
+(the <code>groupId</code> tag), artifact's name (the <code>artifactId</code> tag), and version (the <code>version</code> tag).</p>
 
 <p>To use Clojure in your project you need at least specify dependency on language itself.
 Right now, the stable version of Clojure is 1.4.0.  To declare this dependency, add
@@ -273,8 +273,8 @@ following code into <code>dependencies</code> section of <code>pom.xml</code> fi
  &lt;/<span style="color: #0000ff;">dependency</span>&gt;
 </pre>
 
-<p>If you want to use latest version of the language, then you need to add corresponding
-repository (snapshots) and use version number like <code>1.5.0-SNAPSHOTS</code> instead of version
+<p>If you want to use the latest version of the language, then you need to add corresponding
+repository (snapshots) and use version number like <code>1.5.0-master-SNAPSHOTS</code> instead of version
 <code>1.4.0</code>.</p>
 
 <p>To perform some tasks, implemented by <code>clojure-maven-plugin</code>, you need to specify additional
@@ -303,13 +303,13 @@ Maven repository.  And after this, you need to add following dependency on
  &lt;<span style="color: #0000ff;">dependency</span>&gt;
   &lt;<span style="color: #0000ff;">groupId</span>&gt;de.kotka&lt;/<span style="color: #0000ff;">groupId</span>&gt;
   &lt;<span style="color: #0000ff;">artifactId</span>&gt;vimclojure&lt;/<span style="color: #0000ff;">artifactId</span>&gt;
-  &lt;<span style="color: #0000ff;">version</span>&gt;X.X.X&lt;/<span style="color: #0000ff;">version</span>&gt;
+  &lt;<span style="color: #0000ff;">version</span>&gt;X.Y.Z&lt;/<span style="color: #0000ff;">version</span>&gt;
  &lt;/<span style="color: #0000ff;">dependency</span>&gt;
 </pre>
 
 <ul>
-<li>the JLine library isn't required, but it could be useful if you plan to use REPL &mdash;
-this library implements history of commands, etc.  Presence of this library is detected
+<li>the JLine library isn't required, but it could be useful if you plan to use the REPL &mdash;
+this library provides history of commands, etc.  Presence of this library is detected
 automatically when <code>mvn clojure:repl</code> goal is executed. You can add dependency for this
 library with following code:</li>
 </ul>
@@ -438,7 +438,7 @@ tightly integrated with Clojure-specific subsystems, such Marginalia, Ritz, etc.
 
 
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 24.10.2012 12:37</em></p></div>
+<div id="lastchange"><p><em>Last change: 06.11.2012 08:13</em></p></div>
 
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">
