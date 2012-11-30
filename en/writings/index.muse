@@ -6,6 +6,7 @@ Russian, but I also translate some of them to English.
 
 ** Emacs
 
+ - [[emacs-devenv/EmacsCedet][A Gentle introduction to CEDET]]
  - [[emacs-vcs/index][Article about using Emacs for work with version control systems]]
  - [[emacs-im/index][Article about using Emacs for interactive messaging]] 
  - Small article about [[./EmacsMuseMyPage][how this site was created with Emacs Muse]]

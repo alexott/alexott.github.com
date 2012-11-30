@@ -7,6 +7,7 @@
 
 * Статьи про Emacs
 
+ - [[emacs-devenv/EmacsCedet][Использование Emacs вместе с CEDET]]
  - [[emacs-22/index][Статья с обзором новых возможностей GNU Emacs 22]]
  - [[altlinux-emacs/index][Статья]] для руководства пользователя дистрибутивов [[http://www.altlinux.ru][ALTLinux]]
  - [[altlinux-gnus/index][Статья]] про использование Emacs для работы с почтой и новостями, также для руководства

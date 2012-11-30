@@ -1,4 +1,4 @@
-#title Начала использования  Emacs с CEDET
+#title Использование Emacs вместе с CEDET
 #keywords c, c++, java, maven, emacs, cedet, programming, semantic, ede, программирование, ide, integrated development environment, ява, с++
 
 Этот рассказ не претендует на звание полного описания настройки Emacs как среды разработки
