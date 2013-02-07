@@ -9,7 +9,7 @@ video materials, please leave them in comments to this page!*
 
 ** Lectures, Tutorials and Screencasts
 
- - http://clojure.blip.tv/ -- contains set of video-lectures & presentation about Clojure
+ - http://www.youtube.com/user/ClojureTV -- contains set of video-lectures & presentation about Clojure
    by Rich Hickey (and other developers).  Lectures like "Clojure for Lisp developers" &
    "Clojure for Java developers" could be used as introductions into this language.  It
    also contains vdeos from Clojure/conj conference;
