@@ -27,11 +27,11 @@
 <url><loc>http://alexott.net/en/clojure/ClojureLein.html</loc>
 <lastmod>2012-10-03</lastmod></url>
 <url><loc>http://alexott.net/en/clojure/ClojureMaven.html</loc>
-<lastmod>2012-10-24</lastmod></url>
+<lastmod>2012-11-06</lastmod></url>
 <url><loc>http://alexott.net/en/clojure/index.html</loc>
 <lastmod>2012-03-05</lastmod></url>
 <url><loc>http://alexott.net/en/clojure/video.html</loc>
-<lastmod>2012-07-11</lastmod></url>
+<lastmod>2013-02-07</lastmod></url>
 <url><loc>http://alexott.net/en/cpp/BoostAsioNotes.html</loc>
 <lastmod>2012-10-28</lastmod></url>
 <url><loc>http://alexott.net/en/cpp/BoostAsioProxy.html</loc>
@@ -43,7 +43,7 @@
 <url><loc>http://alexott.net/en/emacs/index.html</loc>
 <lastmod>2012-03-05</lastmod></url>
 <url><loc>http://alexott.net/en/fp/books/index.html</loc>
-<lastmod>2012-07-03</lastmod></url>
+<lastmod>2013-02-13</lastmod></url>
 <url><loc>http://alexott.net/en/fp/index.html</loc>
 <lastmod>2012-07-05</lastmod></url>
 <url><loc>http://alexott.net/en/index.html</loc>
@@ -57,7 +57,7 @@
 <url><loc>http://alexott.net/en/writings/cf/index.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html</loc>
-<lastmod>2012-10-30</lastmod></url>
+<lastmod>2012-11-01</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-devenv/EmacsCedetOld.html</loc>
 <lastmod>2012-10-28</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-devenv/EmacsErlang.html</loc>
@@ -101,7 +101,7 @@
 <url><loc>http://alexott.net/en/writings/emacs-vcs/EmacsDVC.html</loc>
 <lastmod>2008-11-06</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-vcs/EmacsGit.html</loc>
-<lastmod>2012-04-03</lastmod></url>
+<lastmod>2012-11-02</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-vcs/EmacsMercurial.html</loc>
 <lastmod>2009-03-18</lastmod></url>
 <url><loc>http://alexott.net/en/writings/emacs-vcs/EmacsMonotone.html</loc>
@@ -121,7 +121,7 @@
 <url><loc>http://alexott.net/en/writings/emacs-vcs/index.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/en/writings/index.html</loc>
-<lastmod>2012-07-05</lastmod></url>
+<lastmod>2012-11-30</lastmod></url>
 <url><loc>http://alexott.net/en/writings/prog-checking/DMalloc.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/en/writings/prog-checking/ElectricFence.html</loc>
@@ -157,7 +157,7 @@
 <url><loc>http://alexott.net/ru/clojure/index.html</loc>
 <lastmod>2011-03-23</lastmod></url>
 <url><loc>http://alexott.net/ru/clojure/video.html</loc>
-<lastmod>2012-08-09</lastmod></url>
+<lastmod>2013-02-07</lastmod></url>
 <url><loc>http://alexott.net/ru/cpp/BoostAsioNotes.html</loc>
 <lastmod>2012-10-28</lastmod></url>
 <url><loc>http://alexott.net/ru/cpp/BoostAsioProxy.html</loc>
@@ -397,7 +397,7 @@
 <url><loc>http://alexott.net/ru/erlang/index.html</loc>
 <lastmod>2010-01-04</lastmod></url>
 <url><loc>http://alexott.net/ru/fp/books/index.html</loc>
-<lastmod>2012-07-11</lastmod></url>
+<lastmod>2013-02-13</lastmod></url>
 <url><loc>http://alexott.net/ru/fp/index.html</loc>
 <lastmod>2010-12-06</lastmod></url>
 <url><loc>http://alexott.net/ru/index.html</loc>
@@ -627,7 +627,7 @@
 <url><loc>http://alexott.net/ru/writings/emacs-22/index.html</loc>
 <lastmod>2010-07-26</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsCedet.html</loc>
-<lastmod>2012-10-30</lastmod></url>
+<lastmod>2012-11-30</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsCedetOld.html</loc>
 <lastmod>2012-10-28</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/emacs-devenv/EmacsClojure.html</loc>
@@ -725,7 +725,7 @@
 <url><loc>http://alexott.net/ru/writings.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/index.html</loc>
-<lastmod>2010-09-23</lastmod></url>
+<lastmod>2012-11-30</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/linux-s55-bluetooth-gprs/index.html</loc>
 <lastmod>2008-10-23</lastmod></url>
 <url><loc>http://alexott.net/ru/writings/MBA/Masterarbeit-ru.html</loc>

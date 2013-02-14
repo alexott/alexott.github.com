@@ -53,8 +53,19 @@ general, including theoretical foundations of lamda-calculus, etc.:
    programming;
  - The [[http://www.amazon.com/gp/product/0521898854?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521898854][Lambda-Calculus and Combinators: An Introduction]] books provides introduction to
    theoretical foundations of lambda-calculus;
+ - [[http://www.amazon.com/gp/product/184890066X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=184890066X&linkCode=as2&tag=aleottshompag-20][The Lambda Calculus. Its Syntax and Semantics]] describes theoretical foundations of
+   lambda calculus in great details;
+ - [[http://www.amazon.com/gp/product/3540891846/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=3540891846&linkCode=as2&tag=aleottshompag-20][Pattern Calculus: Computing with Functions and Structures]] tries to describes dependencies between  pattern
+   calculus, lambda-calculus, programming languages, etc.
  - [[http://www.amazon.com/gp/product/0262133210/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262133210][Foundations for Programming Languages (Foundations of Computing)]] -- this book discusses
    type theory & implementation of programming languages, including functional one.
+ - [[http://www.amazon.com/gp/product/1107029570/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1107029570&linkCode=as2&tag=aleottshompag-20][Practical Foundations for Programming Languages]] by Robert Harper describes foundations
+   of programming languages, based on the type theory.  This draft version of this book is
+   also [[http://www.cs.cmu.edu/~rwh/plbook/book.pdf][freely available]].
+ - The [[http://www.amazon.com/gp/product/1447141555/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1447141555&linkCode=as2&tag=aleottshompag-20][Programming Language Concepts (Undergraduate Topics in Computer Science)]] book uses
+   F# to demonstrate basic concepts of programming languages, and also describes some
+   problems of implementation, such as garbage collection, etc., including implementation
+   of small toy language.
 
 More freely available books you can find at the site of [[http://www.freetechbooks.com/functional-programming-f34.html][Free Tech Books project]].
 
@@ -87,7 +98,9 @@ foundations of functional programming.  There are several books dedicated to the
    how Coq could be used to prove correctness of programs;
  - [[http://www.cis.upenn.edu/~bcpierce/sf/][Software Foundations]], written by Benjamin C. Pierce together with colleagues, is base
    for course on logic, functional programming & programs correctness (using Coq);
-
+ - [[ftp://ftp.math.mcgill.ca/barr/pdffiles/ctcs.pdf][Category Theory for Computing Science]] is an introduction to category theory;
+ - [[https://github.com/liamoc/learn-you-an-agda][Learn you an Agda and Achieve Enlightenment!]] - this book should be an introduction into
+   the Agda language.
 
 #fp-implement
 ** Implementation of Functional Programming Languages
@@ -111,6 +124,11 @@ topic:
    completely dedicated to description of different strategies for garbage collection that
    are often used in functional programming languages.  The new edition was published in
    2011th under title [[http://www.amazon.com/gp/product/1420082795/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1420082795][The Garbage Collection Handbook: The Art of Automatic Memory Management]].
+ - The [[http://www.amazon.com/gp/product/0521607647/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0521607647&linkCode=as2&tag=aleottshompag-20][Modern Compiler Implementation in ML]] books describes how to implement compilers
+   (parsing, code generation, etc.) using the Standard ML;
+ - [[http://www.amazon.com/gp/product/052103311X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=052103311X&linkCode=as2&tag=aleottshompag-20][Compiling with Continuations]] shows how continuation-passing programming style could be
+   used for performing optimization & programs transformations.  The book uses the
+   Standard ML as implementation language.
 
 ** Overview Books About Different Languages
 
@@ -141,6 +159,9 @@ functional programming for developers in "traditional" languages, like Java, C#,
  - The Wiley, published the
    [[http://www.amazon.com/gp/product/0470744588/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470744588][Functional Programming in C#: Classic Programming Techniques for Modern Projects]] book,
    that shows how to use functional programming techniques in C#.
+ - [[https://leanpub.com/fp-oo][Functional Programming for the Object-Oriented Programmer]] is an introduction into
+   functional programming for people, who has an experience with object-oriented
+   programming.  The book uses Clojure to demonstrate described concepts.
 
 * Specific Functional Programming Languages
 
@@ -191,6 +212,7 @@ Besides books, there are a lot of online materials.  I only list most interestin
  - [[http://en.wikibooks.org/wiki/Haskell/Write\_Yourself\_a\_Scheme\_in\_48\_Hours][Write Yourself a Scheme in 48 Hours]] -- this tutorial allows you to learn Haskell in
    practice, when writing an interpreter for Scheme programming language.
  - [[http://www.haskell.org/all\_about\_monads/html/index.html][All About Monads]] is tutorial dedicated to theory & practice of monads in Haskell.
+ - [[http://pragprog.com/magazines/2012-09/thinking-functionally-with-haskell][Thinking Functionally with Haskell]]
 
 #erlang-en
 ** Erlang
@@ -205,7 +227,9 @@ better to take one of the books, described below.
 
 The O'Reilly, released [[http://www.amazon.com/gp/product/0596518188?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596518188][Erlang Programming]] in 2009th. It describes both language, and
 infrastructure-related stuff, including OTP, creation of GUI, test-driven development,
-debugging and much more.  This book is more detailed comparing with Armstrong's.
+debugging and much more.  This book is more detailed comparing with Armstrong's. Besides
+this, O'Reilly published the [[http://www.amazon.com/gp/product/1449331769/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449331769&linkCode=as2&tag=aleottshompag-20][Introducing Erlang]] book that could be used as a short
+introduction into Erlang & base concepts of OTP.
 
 Another book on Erlang, the [[http://www.amazon.com/gp/product/1933988789?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1933988789][Erlang and OTP in Action]] was released by Manning in 2010th, and
 almost completely dedicated to use of OTP, and using Erlang with libraries in other
@@ -215,12 +239,18 @@ In the June 2012, the O'Reilly released small book
 [[http://www.amazon.com/gp/product/1449309968/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449309968][Building Web Applications with Erlang: Working with REST and Web Sockets on Yaws]], that
 describes how to use Yaws framework to develop web-based applications.
 
+Success of the [[http://learnyouahaskell.com/][Learn You a Haskell for Great Good!]] lead to creation of similar project for
+Erlang: [[http://www.amazon.com/gp/product/1593274351/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1593274351&linkCode=as2&tag=aleottshompag-20][Learn You Some Erlang for Great Good!]], and you can read it [[http://learnyousomeerlang.com/content][online for free]].
+
+In the end of 2012th, the Springer company released unusual (for them) book:
+[[http://www.amazon.com/gp/product/1461444624/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1461444624&linkCode=as2&tag=aleottshompag-20][Handbook of Neuroevolution Through Erlang]], that describes how Erlang was used for building
+of neural networks.
+
 Besides these books, several Erlang-related books are planned for release:
  - Erlang for .NET Developers -- this book was announced at the end of 2011th, but there is
    no information when it will be released.
- - Success of the [[http://learnyouahaskell.com/][Learn You a Haskell for Great Good!]] lead to creation of similar project
-   for Erlang: [[http://learnyousomeerlang.com][Learn You Some Erlang for Great Good]].  Work is still in progress, but
-   enough information was already released, so it could be also used to study Erlang.
+ - Addison-Wesley plans to release the [[http://www.amazon.com/gp/product/0321636465/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321636465&linkCode=as2&tag=aleottshompag-20][Building Scalable Applications with Erlang]] book
+   that should provide an introduction into Erlang & OTP.
 
 #ocaml-en
 ** Caml & Objective Caml
@@ -239,14 +269,17 @@ There are several books about  Objective Caml (OCaml) language:
    from reviews, it's written not so good as expected by many readers.
  - The freely available [[http://www.thinkocaml.com/][Think OCaml. How to Think Like a Computer Scientist]] provides an
    introduction to computer science & programming, and it uses OCaml as base language.
+ - Another freely available book -- [[http://ocamlunix.forge.ocamlcore.org/index.html][Unix system programming in OCaml]] by Xavier Leroy and
+   Didier Rémy, explains how to use OCaml for Unix programming, including work with files,
+   sockets, processes, threads, etc.
 
 [[http://pauillac.inria.fr/~xleroy/bibrefs/Leroy-ZINC.html][The ZINC experiment: an economical implementation of the ML language]] is a technical
 report, written by Xavier Leroy (author of OCaml) in 1990th, and it contains pretty
 detailed description of ML-like language implementation. This report could be very
 interesting for all who wants to know about internals of Caml & OCaml languages.
 
-And in the fall of 2012th, O'Reilly plans to publish the [[http://realworldocaml.org/][Real World OCaml]] book that should
-be popular introduction into the OCaml language, like the "Real World Haskell" book was
+And in the fall of 2012th, O'Reilly plans to publish the [[http://www.amazon.com/gp/product/144932391X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=144932391X&linkCode=as2&tag=aleottshompag-20][Real World OCaml]] book that should
+be a popular introduction into the OCaml language, like the "Real World Haskell" book was
 for Haskell.
 
 ** F#
@@ -256,11 +289,9 @@ There are several books about F# programming:
    how to program in it using different approaches. It also shows how to use it in
    practice for graphical user interface & work with databases.  The new edition of this
    book was released in 2009th under title [[http://www.amazon.com/gp/product/1430223898?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430223898][Beginning F#]].
- - The [[http://www.amazon.com/gp/product/1590598504?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1590598504][Expert F#]] book discusses more advanced topics, such as interoperation with code in
-   other languages, use of .Net libraries, work with databases, data parsing, asynchronous
-   programming, etc. Updated version of this book was released in 2010th as
-   [[http://www.amazon.com/gp/product/1430224312?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1430224312][Expert F# 2.0 (The Definitive Guide)]] -- this version contains detailed description of
-   latest version of F# language, that is provided together with MS Visual Studio 10.
+ - The [[http://www.amazon.com/gp/product/1430246502/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1430246502&linkCode=as2&tag=aleottshompag-20][Expert F# 3.0]] book discusses more advanced topics, such as interoperation with code
+   in other languages, use of .Net libraries, work with databases, data parsing,
+   asynchronous programming, etc.
  - [[http://www.amazon.com/gp/product/0470242116?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0470242116][F# for Scientists]] is similar to "OCaml for Scientists", but adapted for F#.  It
    contains information on how to use F# for "scientific programming" -- data
    visualization, data processing, etc.
@@ -269,6 +300,9 @@ There are several books about F# programming:
    functional & object-oriented programming approaches).  After that, it describes use of
    .Net libraries, metaprogramming, asynchronous & parallel programming.  In appendix
    there is an information about existing libraries for data processing and visualization.
+   In 2012th, O'Reilly released the [[http://www.amazon.com/gp/product/1449320295/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449320295&linkCode=as2&tag=aleottshompag-20][2nd edition]] of this book, that describes F# 3.0.
+ - Besides this, O'Reilly released one small book dedicated to F#:
+   [[http://www.amazon.com/gp/product/1449333761/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449333761&linkCode=as2&tag=aleottshompag-20][Building Web, Cloud, and Mobile Solutions with F#]].
  - In the end of 2009th, Manning published the
    [[http://www.amazon.com/gp/product/1933988924?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1933988924][Functional Programming for the Real World: With Examples in F# and C#]] book that
    describes declarative approach to program development, and demonstrates it with
@@ -282,6 +316,10 @@ There are several books about F# programming:
    This book introduces F# through game development.
  - The free [[http://ctocorner.com/fsharp/book/][The F# Survival Guide]] book contains enough information about functional
    programming and F# language.
+ - Another useful online resource is [[http://fsharpforfunandprofit.com/][F# for fun and profit]] that contains many articles about F#.
+
+The Manning plans to release another book on F#: [[http://www.manning.com/petricek2/][F# Deep Dives]], that describes how to use
+F# to solve concrete tasks.
 
 #ml-en
 ** Standard ML
@@ -294,7 +332,8 @@ The Standard ML language is described by several books:
    language to perform real-world tasks;
  - The [[http://www.amazon.com/gp/product/0137903871?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0137903871][Elements of ML Programming, ML97 Edition]] book, describes both language, and how can
    it be used in practice. This book could be used as an introduction to Standard ML.
- - [[http://www.amazon.com/gp/product/0387946217/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0387946217][Elementary Standard ML]] is simple introduction to Standard ML
+ - [[http://www.amazon.com/gp/product/0387946217/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0387946217][Elementary Standard ML]] is simple introduction to Standard ML.
+ - [[http://www.cs.cmu.edu/~rwh/smlbook/][Programming in Standard ML]] - the draft version of Robert Harper's book on Standard ML.
 
 Besides these books, there also books that are dedicated to language's standard:
 [[http://www.amazon.com/gp/product/0262631814?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262631814][The Definition of Standard ML]] and [[http://www.amazon.com/gp/product/0521794781?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0521794781][The Standard ML Basis Library]] describe both language &
@@ -358,7 +397,7 @@ Programs", where Scheme is used for examples:
  - [[http://www.amazon.com/gp/product/0262562146?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0262562146][The Reasoned Schemer]];
  - [[http://www.amazon.com/gp/product/026251298X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=026251298X][The Scheme Programming Language, 4ed]], also [[http://scheme.com/tspl4/][available online]].
 
-In the summer 2012th, the [[http://realmofracket.com/][Realm of Racket]] book should be released.  This book will
+In the spring of 2013th, the [[http://www.amazon.com/gp/product/1593274912/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1593274912&linkCode=as2&tag=aleottshompag-20][Realm of Racket]] book should be released.  This book will
 describe Racket language (former PLT Scheme).  This book should be similar to "Land of
 Lisp" book, and provide information in similar manner.
 
@@ -389,6 +428,15 @@ is only small part of available literature, that I think could be interesting fo
  - [[http://www.amazon.com/gp/product/013138645X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=013138645X][Prolog Programming in Depth]] is another book on "more complex" aspects of Prolog
    programming: interaction with external systems, imperative programming in Prolog,
    building of expert systems, etc.
+
+There is also a number of freely available resources that have some relation to Prolog and
+logic programming:
+ - [[http://www.mtome.com/Publications/PNLA/prolog-digital.pdf][Prolog and Natural Language Analysis]] book
+ - [[http://www.coli.uni-saarland.de/projects/milca/courses/coal/html/][Algorithms for Computational Linguistics]]
+ - [[http://www.coli.uni-saarland.de/projects/milca/courses/comsem/html/][Computational Semantics]]
+ - [[http://logic.stanford.edu/dataintegration/][Data Integration. The Relational Logic Approach]]
+ - [[http://wambook.sourceforge.net/][Warren's Abstract Machine: A Tutorial Reconstruction]]
+ - [[http://www.cs.bris.ac.uk/~flach/SimplyLogical.html][Simply Logical. Intelligent Reasoning by Example]]
 
 ** Scala
 
@@ -433,6 +481,13 @@ the language):
    [[http://www.amazon.com/gp/product/193435676X/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=193435676X][Programming Concurrency on the JVM: Mastering Synchronization, STM, and Actors]] -- it
    covers different approaches & models of concurrent programming, including
    implementations in Scala, Clojure and other languages.
+ - The Akka framework is often used with Scala, so following books could be useful:
+   [[http://www.amazon.com/gp/product/0981531660/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0981531660&linkCode=as2&tag=aleottshompag-20][Akka Concurrency]], [[http://www.amazon.com/gp/product/1849518289/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1849518289&linkCode=as2&tag=aleottshompag-20][Akka Essentials]], and [[http://www.slinnbooks.com/books/futures/][Composable Futures with Akka 2.0]].
+ - The [[http://www.amazon.com/gp/product/1439896666/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1439896666][Introduction to the Art of Programming Using Scala]] book was released in fall 2012.
+   There is also [[http://www.programmingusingscala.net/][separate site]] where you can find more detailed information about this
+   book.
+ - The [[http://www.amazon.com/gp/product/1449315119/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449315119&linkCode=as2&tag=aleottshompag-20][Testing in Scala]] book describes how to use the ScalaTest and Spec2 testing
+   frameworks, including how to integrate them into SBT's builds.
 
 There are also freely available materials about this language:
  - Besides language's specification, on the [[http://www.scala-lang.org/node/198][language's site]] is also available documents "A
@@ -446,14 +501,20 @@ There are also freely available materials about this language:
 It's also planned to releases several books on Scala soon:
  - Appress plans to publish the [[http://www.amazon.com/gp/product/143022844X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=143022844X][Pro Scala: Monadic Design Patterns for the Web]] book
    (although, it still delaying).
- - Manning plans to release several books in 2012: [[http://www.amazon.com/gp/product/1935182757/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182757][Scala in Action]] should provide an
-   introduction to Scala for beginners, covering basics of the language, together with
-   many practical examples.  Another book, the [[http://manning.com/bjarnason/][Functional Programming in Scala]] doesn't
-   describe language itself, but shows how to use functional programming approach in
-   Scala. And the [[http://www.manning.com/hilton/][Play for Scala]] book describes new web framework Play.  All these books
-   are available as part of Manning's early access program (MEAP).
- - The [[http://www.amazon.com/gp/product/1439896666/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1439896666][Introduction to the Art of Programming Using Scala]] book should be released in the
-   fall 2012.  You can find detailed information about it on the [[http://www.programmingusingscala.net/][separate site]].
+ - Manning plans to release several books in the near future (all these books are
+   available as part of Manning's early access program (MEAP)):
+   - [[http://www.amazon.com/gp/product/1935182757/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182757][Scala in Action]] should provide an introduction to Scala for beginners, covering
+   basics of the language, together with many practical examples.  
+   - The [[http://manning.com/bjarnason/][Functional Programming in Scala]] doesn't describe language itself, but shows how
+   to use functional programming approach in Scala. 
+   - [[http://www.manning.com/hilton/][Play for Scala]] book describes new web framework Play.
+   - [[http://www.manning.com/carrero2/][Scalatra in Action]] describes the Scalatra web framework that is more simple comparing
+     with Lift or Play.
+ - The [[http://www.atomicscala.com/book/][Atomic Scala]] should be an introduction into the Scala language.
+
+Besides book & web-sites, there are several online courses for Scala, such as
+http://www.scalacourses.com/ or [[https://www.coursera.org/course/progfun][Functional Programming Principles in Scala]] (that is taught
+by Martin Odersky).
 
 ** Clojure
 
@@ -481,12 +542,18 @@ In 2011th, Manning published 2 books on Clojure: [[http://www.amazon.com/gp/prod
 where basics of language is described together with many practical examples.  While the
 second book, is for people, who already has some Clojure experience and who want to get
 more information about "Clojure programming style".  More detailed review of this book you
-can find in [[http://alexott.blogspot.de/2010/10/readings-digest-september-2010.html][my blog]].
+can find in [[http://alexott.blogspot.de/2010/10/readings-digest-september-2010.html][my blog]]. And the 2nd edition of "The Joy of Clojure" is currently in
+development.
 
 O'Reilly also published book on Clojure -- the [[http://www.amazon.com/gp/product/1449394701/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449394701][Clojure Programming]] was written by
 well-known Clojure developers.  This book provides very good description of Clojure,
-different libraries, Clojurescript, shows how to use this language in practice, and also
-contains many advice on how to write idiomatic Clojure code.
+different libraries, shows how to use this language in practice, and also contains many
+advice on how to write idiomatic Clojure code.
+
+The ClojureScript language, that is developed in parallel with Clojure, allows you to
+write web applications that are executed in browser. The O'Reilly released a small book
+[[http://www.amazon.com/gp/product/1449327435/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449327435&linkCode=as2&tag=aleottshompag-20][ClojureScript: Up and Running]] that describes basics of development with ClojureScript,
+including information about existing libraries.
 
 The No Starch Press should also release book on Clojure under title [[http://meetclj.raynes.me/][Meet Clojure]].
 
