@@ -108,7 +108,9 @@
  - Online courses:<br>
   [[http://www.ai-class.com/][An Introduction to Artificial Intelligence]] (Stanford). Score: 89%<br>
   [[https://www.coursera.org/course/ml][Machine Learning]] (Stanford). Score: 100%<br>
-  [[https://www.coursera.org/course/nlp/][Natural Language Processing]] (Stanford). Score: 93%
+  [[https://www.coursera.org/course/nlp/][Natural Language Processing]] (Stanford/Coursera). Score: 93%<br>
+  [[https://www.coursera.org/course/hetero][Heterogeneous Parallel Programming]] (University of Illinois at Urbana-Champaign/Coursera). Score: 100% with distinction<br>
+  [[https://www.coursera.org/course/compdata][Computing for Data Analysis]] (Johns Hopkins Bloomberg School of Public Health/Coursera). Score: 100% with distinction
 
 * Technical skills and competences
 
