@@ -1,12 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html><head>
-<title>Типы и протоколы в Clojure</title>
+<html><head><title>Типы и протоколы в Clojure</title>
 <meta name="generator" content="muse.el" />
 <meta name="author" content="Alex Ott" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="alex ott, clojure, кложура, datatype, protocol, defprotocol, reify" />
-    
-    
+<meta name="keywords" content="alex ott, clojure, кложура, datatype, protocol, defprotocol, reify" />
+
+
 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
 <link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
 <link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
@@ -16,17 +15,11 @@
 <div id="wrap"><div id="header"><h1>Типы и протоколы в Clojure</h1>
 <p><a href="../../ru/index.html">Russian</a>
 &middot; <a href="../../en/index.html">English</a></p></div>
-
 <div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Главная</a></li><li><a href="../cf/">Информационная безопасность</a></li><li><a href="../fp/">Функциональное программирование</a></li><li><a href="../lisp/">Lisp</a></li><li><a href="../clojure/" class="current">Clojure</a></li><li><a href="../scheme/">Scheme</a></li><li><a href="../erlang/">Erlang</a></li><li><a href="../cpp/">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../writings/">Статьи</a></li></ul>
 <div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
 <input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
 <input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
-<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
-</script>
-<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
-<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
-</div> <!-- leftside -->
-
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru"></script></div></div> <!-- leftside -->
 <div id="contentwide">
 <p>Одно из самых больших изменений в Clojure версии 1.2 &mdash; введение в язык новых артефактов:
 протоколов (protocols) и типов данных (datatypes).  Данные изменения позволяют улучшить
@@ -160,7 +153,7 @@ Clojure определять свои структуры данных, вмес�
 <code>extend</code>, использование которой выглядит следующим образом:</p>
 
 <pre class="src">
-(<span style="color: #8b0000;">extend</span> &#1090;&#1080;&#1087;-&#1080;&#1083;&#1080;-&#1082;&#1083;&#1072;&#1089;&#1089;
+(<span style="color: #006400;">extend</span> &#1090;&#1080;&#1087;-&#1080;&#1083;&#1080;-&#1082;&#1083;&#1072;&#1089;&#1089;
   &#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;-1
    {<span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-1</span> &#1091;&#1078;&#1077;-&#1086;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1077;&#1085;&#1085;&#1072;&#1103;-&#1092;&#1091;&#1085;&#1082;&#1094;&#1080;&#1103;
     <span style="color: #00008b;">:&#1084;&#1077;&#1090;&#1086;&#1076;-2</span> (<span style="color: #a020f0;">fn</span> [a b] ...)
@@ -185,7 +178,7 @@ Clojure определять свои структуры данных, вмес�
 соответствующий вызов <code>extend</code>):</p>
 
 <pre class="src">
-(<span style="color: #8b0000;">extend-type</span> &#1090;&#1080;&#1087;-&#1080;&#1083;&#1080;-&#1082;&#1083;&#1072;&#1089;&#1089;
+(<span style="color: #006400;">extend-type</span> &#1090;&#1080;&#1087;-&#1080;&#1083;&#1080;-&#1082;&#1083;&#1072;&#1089;&#1089;
   &#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;-1
     (&#1084;&#1077;&#1090;&#1086;&#1076;-2 [a b] ...)
     (&#1084;&#1077;&#1090;&#1086;&#1076;-3 ([a]...)
@@ -200,7 +193,7 @@ Clojure определять свои структуры данных, вмес�
 <code>extend-protocol</code> выглядит следующим образом:</p>
 
 <pre class="src">
-(<span style="color: #8b0000;">extend-protocol</span> &#1085;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077;-&#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;&#1072;
+(<span style="color: #006400;">extend-protocol</span> &#1085;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077;-&#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;&#1072;
   &#1058;&#1080;&#1087;-&#1080;&#1083;&#1080;-&#1050;&#1083;&#1072;&#1089;&#1089;-1
    (&#1084;&#1077;&#1090;&#1086;&#1076;-1 ...)
    (&#1084;&#1077;&#1090;&#1086;&#1076;-2 ...)
@@ -224,15 +217,15 @@ Clojure определять свои структуры данных, вмес�
 класса <code>String</code>:</p>
 
 <pre class="src">
-(<span style="color: #8b0000;">extend</span> <span style="color: #006400;">String</span>
+(<span style="color: #006400;">extend</span> <span style="color: #006400;">String</span>
   <span style="color: #006400;">Hello</span>
-  {<span style="color: #00008b;">:hello</span> (<span style="color: #a020f0;">fn</span> [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>))})
+  {<span style="color: #00008b;">:hello</span> (<span style="color: #a020f0;">fn</span> [this] (<span style="color: #006400;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>))})
 
-(<span style="color: #8b0000;">extend-protocol</span> <span style="color: #006400;">Hello</span> <span style="color: #006400;">String</span>
-                 (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>)))
+(<span style="color: #006400;">extend-protocol</span> <span style="color: #006400;">Hello</span> <span style="color: #006400;">String</span>
+                 (hello [this] (<span style="color: #006400;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>)))
 
-(<span style="color: #8b0000;">extend-type</span> <span style="color: #006400;">String</span> <span style="color: #006400;">Hello</span>
-             (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>)))
+(<span style="color: #006400;">extend-type</span> <span style="color: #006400;">String</span> <span style="color: #006400;">Hello</span>
+             (hello [this] (<span style="color: #006400;">str</span> <span style="color: #008b00;">"Hello "</span> this <span style="color: #008b00;">"!"</span>)))
 </pre>
 
 <p>При использовании любой из этих реализаций для объекта класса <code>String</code> мы получим один и тот
@@ -320,7 +313,7 @@ deftype &amp; defrecord</h3>
 <pre class="src">
 (<span style="color: #a020f0;">deftype</span> <span style="color: #0000ff;">A</span> []
   <span style="color: #006400;">Hello</span>
-  (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello A!"</span>)))
+  (hello [this] (<span style="color: #006400;">str</span> <span style="color: #008b00;">"Hello A!"</span>)))
 </pre>
 
 <p>Мы можем вызвать функцию <code>hello</code> для нашего объекта, и получим следующий вывод:</p>
@@ -335,7 +328,7 @@ user&gt; (hello (<span style="color: #006400;">A.</span>))
 <pre class="src">
 (<span style="color: #a020f0;">defrecord</span> <span style="color: #0000ff;">B</span> [name]
   <span style="color: #006400;">Hello</span>
-  (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> name <span style="color: #008b00;">"!"</span>)))
+  (hello [this] (<span style="color: #006400;">str</span> <span style="color: #008b00;">"Hello "</span> name <span style="color: #008b00;">"!"</span>)))
 </pre>
 
 <p>и вызвать метод <code>hello</code> для этого типа:</p>
@@ -357,7 +350,7 @@ aval)</code> для изменения данных.  Давайте посмо�
   (set-name [this new-name]))
 (<span style="color: #a020f0;">deftype</span> <span style="color: #0000ff;">AM</span> [^{<span style="color: #00008b;">:volatile-mutable</span> true} mfield]
   <span style="color: #006400;">Hello</span>
-  (hello [this] (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">"Hello "</span> mfield <span style="color: #008b00;">"!"</span>))
+  (hello [this] (<span style="color: #006400;">str</span> <span style="color: #008b00;">"Hello "</span> mfield <span style="color: #008b00;">"!"</span>))
   <span style="color: #006400;">Setter</span>
   (set-name [this new-name] (set! mfield new-name)))
 </pre>
@@ -395,7 +388,7 @@ reify</h3>
 <p>Вот небольшой пример реализации протокола <code>Hello</code> для конкретного объекта:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">int-reify</span> (<span style="color: #8b0000;">reify</span> <span style="color: #006400;">Hello</span>
+(<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">int-reify</span> (<span style="color: #006400;">reify</span> <span style="color: #006400;">Hello</span>
                  (hello [this] <span style="color: #008b00;">"Hello integer!"</span>)))
 </pre>
 
@@ -490,8 +483,7 @@ user&gt; (hello int-reify)
 
 
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
-
+<div id="lastchange"><p><em>Last change: 05.03.2013 16:54</em></p></div>
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">
 var disqus_shortname = 'alexottnet';
@@ -505,12 +497,7 @@ var disqus_url = 'http://alexott.net/ru/clojure/ClojureProtocols.html';
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 </div></div><!-- div-contentwide -->
-
 <div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
-
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+<script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
-</body></html>
+</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script></body></html>

@@ -1,1 +1,334 @@
-index.html
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Что новый Emacs нам готовит? Что нового ожидается в GNU Emacs 22.1</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, gnu emacs, gnu emacs 22, whats new, емакс 22, что нового" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Что новый Emacs нам готовит? Что нового ожидается в GNU Emacs 22.1</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Введение</a>
+</dt>
+<dt>
+<a href="#sec2">Изменения видимые для пользователя</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec3">Поддержка новой системы виджетов на основе GTK+ 2.x</a>
+</dt>
+<dt>
+<a href="#sec4">Улучшенная поддержка языков</a>
+</dt>
+<dt>
+<a href="#sec5">Поддержка различных платформ</a>
+</dt>
+<dt>
+<a href="#sec6">Новая документация</a>
+</dt>
+<dt>
+<a href="#sec7">Прочие улучшения</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec8">Новые пакеты в составе GNU Emacs</a>
+</dt>
+<dt>
+<a href="#sec9">Обновленные пакеты</a>
+</dt>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+Введение</h2>
+
+<p class="first">Грядущий выход GNU Emacs 22.1, готовит своим пользователям много приятных сюрпризов: новые
+и обновленные пакеты в составе дистрибутива, улучшенная поддержка разных языков, новый
+вид, обновленную и расширенную документацию, и другие расширения направленные на улучшение
+работы.</p>
+
+<p>В целом все улучшения и изменения можно разделить на несколько частей, которые
+представлены ниже в виде соответствующих разделов.  Данная статья написана на основе
+списка рассылки разработчиков GNU Emacs, а также документа <code>NEWS</code>, который идет в составе
+дистрибутива и который более подробно описывает все изменения.  Целью написания данной
+статьи была задача дать представление о новых возможностях GNU Emacs.</p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Изменения видимые для пользователя</h2>
+
+<h3><a name="sec3" id="sec3"></a>
+Поддержка новой системы виджетов на основе GTK+ 2.x</h3>
+
+<p class="first">Теперь GNU Emacs можно собрать с поддержкой набора виджетов на основе GTK+ версий серии
+2.x, что позволяет интегрировать Emacs в современные оконные системы и среды. Кроме этого,
+это позволит уменьшить объем потребляемых ресурсов для тех пользователей, которые
+интенсивно используют приложения на базе GTK+.</p>
+
+<p>Правда пока в новых версиях нет поддержки сглаживания шрифтов при редактировании текста
+(есть нестабильная ветка разработки в которой эта возможность реализована).</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Улучшенная поддержка языков</h3>
+
+<p class="first">В новой версии улучшена поддержка языков за счет использования mule-unicode в качестве
+внутренней кодировки, а также внесены улучшения в работу с кодировками utf-8/utf-16, и
+поддержку Unicode (iso-10646-1) шрифтов, которые могут использоваться для отображения
+символов из любого диапазона символов.  Сделана базовая поддержка для преобразования
+символов относительно стандартных таблиц Unicode.  Для русского и греческого языков можно
+делать преобразование либо в Unicode, либо в iso-8859-x кодировки.</p>
+
+<p>Кроме этого, значительно улучшена подсистема печати, позволяя печатать данные на разных
+языках и т.п.</p>
+
+<p>Leim теперь является частью дистрибутива GNU Emacs и его не нужно качать отдельно.
+Добавлено много языковых сред, при этом их установка может производиться автоматически на
+основании информации из locale.</p>
+
+<p>Добавлены новые методы ввода, в том числе для русского языка добавлена поддержка
+windows-подобной раскладки клавиатуры.</p>
+
+
+<h3><a name="sec5" id="sec5"></a>
+Поддержка различных платформ</h3>
+
+<p class="first">Новая версия GNU Emacs теперь имеет поддержку MacOS X, Cygwin, FreeBSD/Alpha, Linux на IBM
+S390 и на X86-64.</p>
+
+<p>Кроме этого, значительно улучшена поддержка Emacs на Microsoft Windows, включая поддержку
+изображений, звука и всплывающих подсказок (tooltips).</p>
+
+<p>Реализована поддержка drag'n'drop в X Window System, можно открыть файл, вставить текст в
+буфер, в dired перетаскивание файла копирует или перемещает файл в данный каталог.</p>
+
+<p>В X Window System по умолчанию включена поддержка Mouse Wheel.  Улучшена поддержка работы
+с X selection, и пользователь может указывать какие типы данных можно получать из буфера
+обмена.</p>
+
+<p>Улучшена поддержка работы с разными типами терминалов, включая поддержку цветных
+терминалов.</p>
+
+
+<h3><a name="sec6" id="sec6"></a>
+Новая документация</h3>
+
+<p class="first">Начиная с новой версии, в состав GNU Emacs включается новая документация &mdash; Introduction
+to Emacs Lisp и Emacs Lisp Manual, которые раньше поставлялись отдельно.  Кроме этого, в
+состав стандартной документации включены новые переводы TUTORIAL и Emacs Reference Card (в
+том числе и переводы на русский язык).</p>
+
+
+<h3><a name="sec7" id="sec7"></a>
+Прочие улучшения</h3>
+
+<p class="first">Увеличены размеры буферов и целых чисел.  Размер буфера теперь может достигать 256M.</p>
+
+<p>файлы инициализации могут располагаться либо в домашнем каталоге пользователя, либо в
+каталоге <code>~/.emacs.d</code></p>
+
+<p>Перед сохранением файла с помощью C-x s, пользователь может просмотреть список изменений
+между буфером и оригинальным файлом.</p>
+
+<p>Большое количество изменений в Emacs Lisp, включая новые пакеты, улучшения в работе с
+сетью и процессами и т.п.</p>
+
+
+
+<h2><a name="sec8" id="sec8"></a>
+Новые пакеты в составе GNU Emacs</h2>
+
+<p class="first">В новой версии GNU Emacs в состав дистрибутива включены новые пакеты. Ниже приведен
+краткий список этих пакетов и небольшие их описания, хотя может быть что-то новое и
+ускользнуло от моего взгляда.</p>
+
+<dl>
+<dt><strong><em>tramp</em></strong></dt>
+<dd>пакет для доступа к файлам на удаленных машинах с использованием разных методов
+доступа &mdash; 
+<code>ssh</code>, <code>su</code>, <code>scp</code> и других.  Является более безопасной заменой <em>ange-ftp</em>.</dd>
+<dt><strong><em>url</em></strong></dt>
+<dd>предоставляет унифицированный интерфейс для доступа к интернет ресурсам,
+используется в различных пакетах для доступа ftp, www и другим ресурсам.</dd>
+<dt><strong><em>ses</em></strong></dt>
+<dd>электронная таблица написанная на Emacs Lisp, очень удобная при работе с
+небольшими объемами данных.</dd>
+<dt><strong><em>visible-mode</em></strong></dt>
+<dd>переключает показ невидимого текста в буфере.</dd>
+<dt><strong><em>calc</em></strong></dt>
+<dd>обеспечивает поддержку расширенного калькулятора и набора математических утилит.</dd>
+<dt><strong><em>cua</em></strong></dt>
+<dd>предоставляет пользователю возможность использования привязок клавиш
+соответствующих стандарту CUA.</dd>
+<dt><strong><em>kmacro</em></strong></dt>
+<dd>упрощенный интерфейс к работе с клавиатурными макросами.</dd>
+<dt><strong><em>ibuffer</em></strong></dt>
+<dd>сильно улучшенная замена <em>buff-menu</em>.</dd>
+<dt><strong><em>printing</em></strong></dt>
+<dd>предоставляет возможности предварительного просмотра выводимых на принтер
+данных, прогона данных через ghostscript для не postscript принтеров или отправки этих
+данных прямо на принтер.</dd>
+<dt><strong><em>table</em></strong></dt>
+<dd>пакет для интерактивной работы с таблицами в тексте, позволяет интерактивное
+добавление/изменение количества строк и столбцов, а также изменение ширины ячеек
+таблиц.  Умеет генерировать созданную таблицу в форматах TeX и HTML.</dd>
+<dt><strong><em>multi-occur</em></strong></dt>
+<dd>аналог <em>occur</em> для множества буферов или файлов, подпадающих под заданное
+регулярное выражение.</dd>
+<dt><strong><em>wdired</em></strong></dt>
+<dd>расширение к <em>dired</em> для поддержки нормальных команд редактирования имен файлов,
+прав доступа и других операций.</dd>
+<dt><strong><em>python</em></strong></dt>
+<dd>для редактирования программ на Python и Jython.</dd>
+<dt><strong><em>ido</em></strong></dt>
+<dd>расширения к пакету <em>iswitchb</em>.</dd>
+<dt><strong><em>master-mode</em></strong></dt>
+<dd>дает возможность прокручивать подчиненный буфер без перехода из
+основного. Очень полезно при работе с интерактивными сессиями, например при работе с
+SQL или Lisp.</dd>
+<dt><strong><em>gdb-ui</em></strong></dt>
+<dd>обеспечивает графический интерфейс к GDB.</dd>
+<dt><strong><em>bindat</em></strong></dt>
+<dd>для работы с бинарными структурами, такими как пакеты сетевых протоколов.</dd>
+<dt><strong><em>erc</em></strong></dt>
+<dd>реализация irc-клиента с очень богатым функционалом.</dd>
+<dt><strong><em>rcirc</em></strong></dt>
+<dd>еще один irc-клиент, реализующий только базовые возможности.</dd>
+<dt><strong><em>org-mode</em></strong></dt>
+<dd>используется для хранения заметок и т.п.</dd>
+</dl>
+
+
+<h2><a name="sec9" id="sec9"></a>
+Обновленные пакеты</h2>
+
+<p class="first">Также было обновлено достаточно большое количество пакетов, уже входящих в состав GNU
+Emacs.  Вот краткий список обновленных пакетов, часто с достаточно большой новой
+функциональностью:</p>
+
+<dl>
+<dt><strong><em>cc-mode</em></strong></dt>
+<dd>улучшена поддержка font-lock, теперь он делается для всех языков, позволяя
+пользователю задавать дополнительные ключевые слова для подсветки.  Поддержка подсветки
+комментариев для документации, таких как javadoc и аналогичные.  Улучшена работа с
+шаблонами C++.  Добавлена поддержка AWK и улучшена поддержка Objective-C и IDL.
+Улучшена обработка отступов.</dd>
+<dt><strong><em>emacsserver</em></strong></dt>
+<dd>заменен на реализацию на Emacs Lisp. Кроме этого, добавлена возможность
+использования нескольких серверов на одной машине.</dd>
+<dt><strong><em>tcl</em></strong></dt>
+<dd>теперь называется <em>tcl-mode</em>.</dd>
+<dt><strong><em>vc</em></strong></dt>
+<dd>добавлена поддержка новых систем контроля версий MetaCVS, Subversion, GNU Arch.</dd>
+<dt><strong><em>mh-e</em></strong></dt>
+<dd>произведено обновление до версии 7.3.  Изменений очень много, поэтому нужно
+посмотреть их список в файле <code>MH-E-NEWS</code>.</dd>
+<dt><strong><em>gud</em></strong></dt>
+<dd>добавлена поддержка <code>jdb</code> (java debugger), и другие улучшения для работы с
+отладчиками.</dd>
+<dt><strong><em>sql-mode</em></strong></dt>
+<dd>много улучшений и поддержка новых диалектов Oracle9i, MS SQL Server 2000,
+SQLite.  imenu пока поддерживает списки индексов, таблиц, правил и других объектов.</dd>
+<dt><strong><em>gnus</em></strong></dt>
+<dd>обновлен до версии 5.10, очень много изменений. Полный их список смотрите в файле
+<code>GNUS-NEWS</code> в поставке Emacs.</dd>
+<dt><strong><em>sgml-mode</em></strong></dt>
+<dd>добавлена поддержка XML документов.  <em>xml-mode</em> теперь является алиасом для
+sgml-mode.  Автоматически устанавливается кодировка буфера в зависимости от кодировки
+документа.</dd>
+<dt><strong><em>bibtex-mode</em></strong></dt>
+<dd>различные улучшения в работе с записями BibTeX.</dd>
+<dt><strong><em>diff</em></strong></dt>
+<dd>использует <em>diff-mode</em> вместо <em>compilation-mode</em></dd>
+<dt><strong><em>grep</em></strong></dt>
+<dd>сделан отдельным пакетом, не зависимым от <em>compilation-mode</em>.</dd>
+<dt><strong><em>compile</em></strong></dt>
+<dd>улучшено распознавание ошибок.  Также добавлена возможность по выполнению <code>grep</code>
+относительно буфера компиляции.</dd>
+<dt><strong><em>apropos</em></strong></dt>
+<dd>добавлена возможность сортировки найденных данных по весам поиска.  Можно
+указывать несколько слов для поиска, тогда будет искать совпадение как минимум двух
+указанных слов.</dd>
+<dt><strong><em>dired</em></strong></dt>
+<dd>добавлены новые параметры изображения, команды. Для команды <code>!</code> можно управлять
+параметрами подстановки имен файлов.</dd>
+<dt><strong><em>info</em></strong></dt>
+<dd>добавлена команда <code>info-appropos</code>, которая производит поиск по индексам
+info. Добавлена поддержка изображений в буфере info.  Также возможно использовать режим
+<em>font-lock</em> в буфере info.</dd>
+<dt><strong><em>ps-print</em></strong></dt>
+<dd>добавлена возможность по печати символов из наборов mule-unicode.</dd>
+<dt><strong><em>smtpmail</em></strong></dt>
+<dd>добавлена поддержка SMTP Auth.</dd>
+<dt><strong><em>etags</em></strong></dt>
+<dd>добавлена поддержка новых языков &mdash; PHP, HTML, и улучшена поддержка старых &mdash;
+Perl, TeX, C++ и других. Улучшения работы с регулярными выражениями, позволяющие
+задавать многострочные регулярные выражения.</dd>
+<dt><strong><em>po-mode</em></strong></dt>
+<dd>файлы декодируются в соответствии с MIME-заголовками указанными в нем.</dd>
+<dt><strong><em>tex-mode</em></strong></dt>
+<dd>новый режим для редактирования <code>.dtx</code> файлов.  Улучшена поддержка подсветки
+фрагментов файлов.</dd>
+<dt><strong><em>abbrevs</em></strong></dt>
+<dd>автоматически считывает файл с определениями при запуске Emacs.</dd>
+<dt><strong><em>ediff</em></strong></dt>
+<dd>добавлена возможность сравнения файла с его последней резервной копией.</dd>
+<dt><strong><em>ldap</em></strong></dt>
+<dd>теперь использует <code>ldapsearch</code> из <em>OpenLDAP</em> версии 2.x.</dd>
+<dt><strong><em>pc-selection-mode</em></strong></dt>
+<dd>ведет себя подобно нормальному вспомогательному режиму, так что его
+можно запретить и разрешить локально для буфера.</dd>
+</dl>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/emacs-22/index.html';
+var disqus_url = 'http://alexott.net/ru/writings/emacs-22/index.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

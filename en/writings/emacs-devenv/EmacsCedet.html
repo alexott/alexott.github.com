@@ -1,12 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html><head>
-<title>A Gentle introduction to CEDET</title>
+<html><head><title>A Gentle introduction to CEDET</title>
 <meta name="generator" content="muse.el" />
 <meta name="author" content="Alex Ott" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="alex ott, c, c++, java, maven, emacs, cedet, programming, semantic, ede, ide, integrated development environment" />
-    
-    
+<meta name="keywords" content="alex ott, c, c++, java, maven, emacs, cedet, programming, semantic, ede, ide, integrated development environment" />
+
+
 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
 <link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
 <link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
@@ -16,17 +15,11 @@
 <div id="wrap"><div id="header"><h1>A Gentle introduction to CEDET</h1>
 <p><a href="../../../ru/index.html">Russian</a>
 &middot; <a href="../../../en/index.html">English</a></p></div>
-
 <div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Main</a></li><li><a href="../../fp/">Functional programming</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../cf/">Information Security</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../writings/" class="current">Articles</a></li></ul>
 <div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
 <input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
 <input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
-<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
-</script>
-<p>Ad for <a href="http://users.livejournal.com/_darkus_/615051.html">Russian fund for functional programming</a></p>
-<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
-</div> <!-- leftside -->
-
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru"></script></div></div> <!-- leftside -->
 <div id="contentwide">
 <p>This article doesn't pretend to be detailed description on how to setup Emacs to be
 complete development environment.  I just tried to provide a small description on &quot;How to
@@ -194,7 +187,7 @@ Customization</h2>
 <p class="first">If you're using standalone CEDET's version, then you need to load it with following command:</p>
 
 <pre class="src">
-(load-file <span style="color: #8b2252;">"~/emacs/cedet-bzr/cedet-devel-load.el"</span>)
+(load-file <span style="color: #008b00;">"~/emacs/cedet-bzr/cedet-devel-load.el"</span>)
 </pre>
 
 <p>But if you're using CEDET bundled with GNU Emacs, then everything will be already loaded
@@ -275,7 +268,7 @@ variables you can find in description of <code>global-semantic-*</code> function
 <code>semantic/ia</code> with following command:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">semantic/ia</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic/ia</span>)
 </pre>
 
 <p>After loading of this package, you'll get access to commands, described below.</p>
@@ -293,7 +286,7 @@ directory, where system include files are stored.  Just load <code>semantic/bovi
 with following command:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">semantic/bovine/gcc</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic/bovine/gcc</span>)
 </pre>
 
 <p>You can also explicitly specify additional directories for searching of include files (and
@@ -304,7 +297,7 @@ of major mode, for which this path will be used.  For example, to add Boost head
 for C++ mode, you need to add following code:</p>
 
 <pre class="src">
-(semantic-add-system-include <span style="color: #8b2252;">"~/exp/include/boost_1_37"</span> 'c++-mode)
+(semantic-add-system-include <span style="color: #008b00;">"~/exp/include/boost_1_37"</span> 'c++-mode)
 </pre>
 
 <p><em>Although I want to say, that customization for Boost support is more complex, and requires
@@ -347,7 +340,7 @@ to add following code into your initialization file:</p>
 
 <pre class="src">
 (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-semantic-hook</span> ()
-  (imenu-add-to-menubar <span style="color: #8b2252;">"TAGS"</span>))
+  (imenu-add-to-menubar <span style="color: #008b00;">"TAGS"</span>))
 (add-hook 'semantic-init-hooks 'my-semantic-hook)
 </pre>
 
@@ -366,13 +359,13 @@ following code (please, note that these commands may fail if you have no utiliti
 installed, or have an incorrect versions of them &mdash; that's why they a wrapped into <code>when</code>):</p>
 
 <pre class="src">
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">if you want to enable support for gnu global
+<span style="color: #666666;">;; </span><span style="color: #666666;">if you want to enable support for gnu global
 </span>(<span style="color: #a020f0;">when</span> (cedet-gnu-global-version-check t)
   (semanticdb-enable-gnu-global-databases 'c-mode)
   (semanticdb-enable-gnu-global-databases 'c++-mode))
 
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">enable ctags for some languages:
-</span><span style="color: #7f7f7f;">;;  </span><span style="color: #7f7f7f;">Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
+<span style="color: #666666;">;; </span><span style="color: #666666;">enable ctags for some languages:
+</span><span style="color: #666666;">;;  </span><span style="color: #666666;">Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
 </span>(<span style="color: #a020f0;">when</span> (cedet-ectag-version-check)
   (semantic-load-enable-primary-exuberent-ctags-support))
 </pre>
@@ -401,17 +394,17 @@ this information will be used to analyze source code of your project.</p>
 <p>To define a project, you need to add following code:</p>
 
 <pre class="src">
-(ede-cpp-root-project <span style="color: #8b2252;">"Test"</span>
-                <span style="color: #483d8b;">:name</span> <span style="color: #8b2252;">"Test Project"</span>
-                <span style="color: #483d8b;">:file</span> <span style="color: #8b2252;">"~/work/project/CMakeLists.txt"</span>
-                <span style="color: #483d8b;">:include-path</span> '(<span style="color: #8b2252;">"/"</span>
-                                <span style="color: #8b2252;">"/Common"</span>
-                                <span style="color: #8b2252;">"/Interfaces"</span>
-                                <span style="color: #8b2252;">"/Libs"</span>
+(ede-cpp-root-project <span style="color: #008b00;">"Test"</span>
+                <span style="color: #006400;">:name</span> <span style="color: #008b00;">"Test Project"</span>
+                <span style="color: #006400;">:file</span> <span style="color: #008b00;">"~/work/project/CMakeLists.txt"</span>
+                <span style="color: #006400;">:include-path</span> '(<span style="color: #008b00;">"/"</span>
+                                <span style="color: #008b00;">"/Common"</span>
+                                <span style="color: #008b00;">"/Interfaces"</span>
+                                <span style="color: #008b00;">"/Libs"</span>
                                )
-                <span style="color: #483d8b;">:system-include-path</span> '(<span style="color: #8b2252;">"~/exp/include"</span>)
-                <span style="color: #483d8b;">:spp-table</span> '((<span style="color: #8b2252;">"isUnix"</span> . <span style="color: #8b2252;">""</span>)
-                             (<span style="color: #8b2252;">"BOOST_TEST_DYN_LINK"</span> . <span style="color: #8b2252;">""</span>)))
+                <span style="color: #006400;">:system-include-path</span> '(<span style="color: #008b00;">"~/exp/include"</span>)
+                <span style="color: #006400;">:spp-table</span> '((<span style="color: #008b00;">"isUnix"</span> . <span style="color: #008b00;">""</span>)
+                             (<span style="color: #008b00;">"BOOST_TEST_DYN_LINK"</span> . <span style="color: #008b00;">""</span>)))
 </pre>
 
 <p>For the <code>:file</code> parameter you can use any file at root directory of your project.  This file
@@ -453,12 +446,12 @@ then values from these files will be used.  By default, this variable has only o
 example, I want to show CEDET's configuration for work with Qt4:</p>
 
 <pre class="src">
-(setq qt4-base-dir <span style="color: #8b2252;">"/usr/include/qt4"</span>)
+(setq qt4-base-dir <span style="color: #008b00;">"/usr/include/qt4"</span>)
 (semantic-add-system-include qt4-base-dir 'c++-mode)
 (add-to-list 'auto-mode-alist (cons qt4-base-dir 'c++-mode))
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #8b2252;">"/Qt/qconfig.h"</span>))
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #8b2252;">"/Qt/qconfig-dist.h"</span>))
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #8b2252;">"/Qt/qglobal.h"</span>))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #008b00;">"/Qt/qconfig.h"</span>))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #008b00;">"/Qt/qconfig-dist.h"</span>))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #008b00;">"/Qt/qglobal.h"</span>))
 </pre>
 
 <p>After you'll add these lines to initialization file, you should be able to use names
@@ -479,7 +472,7 @@ information about name by using <code>javap</code> on the list libraries in the 
 working, you need to load the <code>semantic/db-javap</code> package:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">semantic/db-javap</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic/db-javap</span>)
 </pre>
 
 <p>The path to the JDK's main library (<code>rt.jar</code> on Linux &amp; Windows, and <code>classes.jar</code> on Mac OS
@@ -501,11 +494,11 @@ similar to <code>ede-cpp-root-project</code> that was described above.  To use t
 you need to add something like to you initialization file:</p>
 
 <pre class="src">
- (ede-java-root-project <span style="color: #8b2252;">"TestProject"</span>
-         :file <span style="color: #8b2252;">"~/work/TestProject/build.xml"</span>
-         :srcroot '(<span style="color: #8b2252;">"src"</span> <span style="color: #8b2252;">"test"</span>)
-         :localclasspath '(<span style="color: #8b2252;">"/relative/path.jar"</span>)
-         :classpath '(<span style="color: #8b2252;">"/absolute/path.jar"</span>))
+ (ede-java-root-project <span style="color: #008b00;">"TestProject"</span>
+         :file <span style="color: #008b00;">"~/work/TestProject/build.xml"</span>
+         :srcroot '(<span style="color: #008b00;">"src"</span> <span style="color: #008b00;">"test"</span>)
+         :localclasspath '(<span style="color: #008b00;">"/relative/path.jar"</span>)
+         :classpath '(<span style="color: #008b00;">"/absolute/path.jar"</span>))
 </pre>
 
 <p>As for C/C++, you need to specify name of the project, point to existing file at the
@@ -541,9 +534,9 @@ CEDET):</p>
 <pre class="src">
 (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-cedet-hook</span> ()
   (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-  (local-set-key <span style="color: #8b2252;">"\C-c?"</span> 'semantic-ia-complete-symbol-menu)
-  (local-set-key <span style="color: #8b2252;">"\C-c&gt;"</span> 'semantic-complete-analyze-inline)
-  (local-set-key <span style="color: #8b2252;">"\C-cp"</span> 'semantic-analyze-proto-impl-toggle))
+  (local-set-key <span style="color: #008b00;">"\C-c?"</span> 'semantic-ia-complete-symbol-menu)
+  (local-set-key <span style="color: #008b00;">"\C-c&gt;"</span> 'semantic-complete-analyze-inline)
+  (local-set-key <span style="color: #008b00;">"\C-cp"</span> 'semantic-analyze-proto-impl-toggle))
 (add-hook 'c-mode-common-hook 'my-cedet-hook)
 </pre>
 
@@ -601,8 +594,8 @@ this mode names completions are shown automatically if user stops its work for a
 
 <pre class="src">
 (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-c-mode-cedet-hook</span> ()
- (local-set-key <span style="color: #8b2252;">"."</span> 'semantic-complete-self-insert)
- (local-set-key <span style="color: #8b2252;">"&gt;"</span> 'semantic-complete-self-insert))
+ (local-set-key <span style="color: #008b00;">"."</span> 'semantic-complete-self-insert)
+ (local-set-key <span style="color: #008b00;">"&gt;"</span> 'semantic-complete-self-insert))
 (add-hook 'c-mode-common-hook 'my-c-mode-cedet-hook)
 </pre>
 
@@ -846,8 +839,7 @@ Guide in section <em>Smart Completion Debugging</em></p>
 
 
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 01.11.2012 09:44</em></p></div>
-
+<div id="lastchange"><p><em>Last change: 05.03.2013 16:54</em></p></div>
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">
 var disqus_shortname = 'alexottnet';
@@ -861,12 +853,7 @@ var disqus_url = 'http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html';
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 </div></div><!-- div-contentwide -->
-
 <div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
-
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+<script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
-</body></html>
+</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script></body></html>

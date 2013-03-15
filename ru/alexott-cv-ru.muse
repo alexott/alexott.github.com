@@ -12,8 +12,14 @@
 
 * Опыт работы
 
+ - Software Architect в *McAfee, Inc. (подразделение Intel Corporation)*<br>
+ **Дата (с-по)**: 03.2013-now<br>
+ **Название и адрес работодателя**: [[http://www.mcafee.com][McAfee, Inc.]] 33100 Paderborn, Germany<br>
+ **Вид бизнеса**: Разработка ПО<br>
+ **Служебные обязаности**: 
+    - Проектирование и разработка ПО Identity Management<br>
  - Principal Software Engineer в *McAfee, Inc. (подразделение Intel Corporation)*<br>
- **Дата (с-по)**: 04.2011-н.в.<br>
+ **Дата (с-по)**: 04.2011-02.2012<br>
  **Название и адрес работодателя**: [[http://www.mcafee.com][McAfee, Inc.]] 33100 Paderborn, Germany<br>
  **Вид бизнеса**: Разработка ПО<br>
  **Служебные обязаности**: 

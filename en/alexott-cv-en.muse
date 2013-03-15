@@ -21,13 +21,21 @@
 
 * Work Experience
 
+ - **Software Architect** at *McAfee, Inc. (subsidiary of Intel Corporation)*<br>
+ **Dates (from-to)**: 03.2013-now<br>
+ **Name and address of employer**: [[http://www.mcafee.com][McAfee, Inc]]. 33100 Paderborn, Germany<br>
+ **Positions held**: Software Architect<br>
+ **Type of business**: Software Development<br>
+ **Main activities and responsibilities**: 
+    - Architecture and development of identity management components inside MWG (McAfee Web Gateway)
+    - Coordination of development with other teams
  - **Principal Software Engineer** at *McAfee, Inc. (subsidiary of Intel Corporation)*<br>
- **Dates (from-to)**: 04.2011-now<br>
+ **Dates (from-to)**: 04.2011-02.2013<br>
  **Name and address of employer**: [[http://www.mcafee.com][McAfee, Inc]]. 33100 Paderborn, Germany<br>
  **Positions held**: Principal Software Engineer<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
-    - Architect and development of web-filtering and data leak prevention software (McAfee Web Gateway)
+    - Architecture and development of web-filtering and data leak prevention software (McAfee Web Gateway)
     - Provide support for 3rd party developers
     - Quality "tzar", responsible for introduction of quality-improving techniques and methodologies -- code review, unit testing, analysis of existing problems & errors, etc.
 

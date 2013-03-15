@@ -1,12 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html><head>
-<title>Программирование Hadoop с помощью Clojure</title>
+<html><head><title>Программирование Hadoop с помощью Clojure</title>
 <meta name="generator" content="muse.el" />
 <meta name="author" content="Alex Ott" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="alex ott, hadoop, clojure" />
-    
-    
+<meta name="keywords" content="alex ott, hadoop, clojure" />
+
+
 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../web.css" />
 <link rel="stylesheet" type="text/css" href="../../print.css" media="print" />
 <link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
@@ -16,17 +15,11 @@
 <div id="wrap"><div id="header"><h1>Программирование Hadoop с помощью Clojure</h1>
 <p><a href="../../ru/index.html">Russian</a>
 &middot; <a href="../../en/index.html">English</a></p></div>
-
 <div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../index.html">Главная</a></li><li><a href="../cf/">Информационная безопасность</a></li><li><a href="../fp/">Функциональное программирование</a></li><li><a href="../lisp/">Lisp</a></li><li><a href="../clojure/" class="current">Clojure</a></li><li><a href="../scheme/">Scheme</a></li><li><a href="../erlang/">Erlang</a></li><li><a href="../cpp/">C++</a></li><li><a href="../oss/">Open Source Projects</a></li><li><a href="../emacs/">Emacs</a></li><li><a href="../writings/">Статьи</a></li></ul>
 <div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
 <input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
 <input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
-<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
-</script>
-<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
-<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
-</div> <!-- leftside -->
-
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru"></script></div></div> <!-- leftside -->
 <div id="contentwide">
 <p>Данная статья является небольшим введением в программирование Hadoop с помощью Clojure.</p>
 
@@ -336,7 +329,7 @@ Clojure для ввода и вывода данных.  Функция <code>wr
 <code>my-reduce</code> очень проста &mdash; она просто суммирует количество вхождений каждого ключа.</p>
 
 <pre class="src">
-(<span style="color: #006400;">ns</span> hadoop1
+(<span style="color: #a020f0;">ns</span> hadoop1
     (<span style="color: #00008b;">:require</span> [clojure-hadoop.wrap <span style="color: #00008b;">:as</span> wrap]
               [clojure-hadoop.defjob <span style="color: #00008b;">:as</span> defjob]
               [clojure-hadoop.imports <span style="color: #00008b;">:as</span> imp])
@@ -350,20 +343,20 @@ Clojure для ввода и вывода данных.  Функция <code>wr
 (<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">delimiters</span> <span style="color: #008b00;">"0123456789[ \t\n\r!\"#$%&amp;'()*+,./:;&lt;=&gt;?@\\^`{|}~-]+"</span>)
 
 (<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">gen-n-grams</span> [<span style="color: #006400;">#^String</span> s <span style="color: #006400;">#^Integer</span> n]
-  (<span style="color: #006400;">when</span> (<span style="color: #8b0000;">&gt;</span> (<span style="color: #006400;">.length</span> s) 0)
-      (<span style="color: #006400;">let</span> [str (<span style="color: #8b0000;">str</span> <span style="color: #008b00;">" "</span> s (<span style="color: #006400;">String.</span> ) (str2/repeat <span style="color: #008b00;">" "</span> (<span style="color: #8b0000;">-</span> n 1)))]
-        (<span style="color: #8b0000;">reduce</span> (<span style="color: #a020f0;">fn</span> [val elem]
-                  (<span style="color: #8b0000;">conj</span> val (<span style="color: #006400;">.substring</span> str elem (<span style="color: #8b0000;">+</span> elem n))))
+  (<span style="color: #a020f0;">when</span> (<span style="color: #006400;">&gt;</span> (<span style="color: #006400;">.length</span> s) 0)
+      (<span style="color: #a020f0;">let</span> [str (<span style="color: #006400;">str</span> <span style="color: #008b00;">" "</span> s (<span style="color: #006400;">String.</span> ) (str2/repeat <span style="color: #008b00;">" "</span> (<span style="color: #006400;">-</span> n 1)))]
+        (<span style="color: #006400;">reduce</span> (<span style="color: #a020f0;">fn</span> [val elem]
+                  (<span style="color: #006400;">conj</span> val (<span style="color: #006400;">.substring</span> str elem (<span style="color: #006400;">+</span> elem n))))
                 []
-                (<span style="color: #8b0000;">range</span> 0 (<span style="color: #8b0000;">+</span> 1 (<span style="color: #006400;">.length</span> s)))))))
+                (<span style="color: #006400;">range</span> 0 (<span style="color: #006400;">+</span> 1 (<span style="color: #006400;">.length</span> s)))))))
 
 (<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">my-map</span> [key <span style="color: #006400;">#^String</span> value]
-  (<span style="color: #8b0000;">map</span> (<span style="color: #a020f0;">fn</span> [token] [token 1])
-       (<span style="color: #8b0000;">flatten</span> (<span style="color: #8b0000;">map</span> #(gen-n-grams %1 3)
-                     (<span style="color: #8b0000;">enumeration-seq</span> (<span style="color: #006400;">StringTokenizer.</span> value delimiters))))))
+  (<span style="color: #006400;">map</span> (<span style="color: #a020f0;">fn</span> [token] [token 1])
+       (<span style="color: #006400;">flatten</span> (<span style="color: #006400;">map</span> #(gen-n-grams %1 3)
+                     (<span style="color: #006400;">enumeration-seq</span> (<span style="color: #006400;">StringTokenizer.</span> value delimiters))))))
 
 (<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">my-reduce</span> [key values-fn]
-  [ [key (<span style="color: #8b0000;">reduce</span> + (values-fn))] ])
+  [ [key (<span style="color: #006400;">reduce</span> + (values-fn))] ])
 
 (<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">string-long-writer</span> [<span style="color: #006400;">#^OutputCollector</span> output
                           <span style="color: #006400;">#^String</span> key value]
@@ -371,8 +364,8 @@ Clojure для ввода и вывода данных.  Функция <code>wr
 
 (<span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">string-long-reduce-reader</span> [<span style="color: #006400;">#^Text</span> key wvalues]
   [(<span style="color: #006400;">.toString</span> key)
-   (<span style="color: #a020f0;">fn</span> [] (<span style="color: #8b0000;">map</span> (<span style="color: #a020f0;">fn</span> [<span style="color: #006400;">#^LongWritable</span> v] (<span style="color: #006400;">.get</span> v))
-               (<span style="color: #8b0000;">iterator-seq</span> wvalues)))])
+   (<span style="color: #a020f0;">fn</span> [] (<span style="color: #006400;">map</span> (<span style="color: #a020f0;">fn</span> [<span style="color: #006400;">#^LongWritable</span> v] (<span style="color: #006400;">.get</span> v))
+               (<span style="color: #006400;">iterator-seq</span> wvalues)))])
 
 (<span style="color: #a020f0;">defjob/defjob</span> <span style="color: #0000ff;">job</span>
   <span style="color: #00008b;">:map</span> my-map
@@ -475,8 +468,7 @@ Clojure &amp; Hadoop для анализа данных, собранных с R
 
 
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
-
+<div id="lastchange"><p><em>Last change: 05.03.2013 16:54</em></p></div>
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">
 var disqus_shortname = 'alexottnet';
@@ -490,12 +482,7 @@ var disqus_url = 'http://alexott.net/ru/clojure/ClojureHadoop.html';
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 </div></div><!-- div-contentwide -->
-
 <div id="footer"><p>Copyright &copy; 1997-2011<a href="../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
-
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+<script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
-</body></html>
+</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script></body></html>

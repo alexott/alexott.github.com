@@ -1,1 +1,461 @@
-index.html
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+<title>Использование Emacs для работы с электронной почтой и новостями  Usenet</title>
+<meta name="generator" content="muse.el" />
+<meta name="author" content="Alex Ott" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="alex ott, emacs, xemacs, gnu emacs, gnus, news, mail, почта, емакс, гнус, новости usenet, usenet, altlinux" />
+    
+    
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
+<link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's English Blog" href="http://feeds.feedburner.com/alexott" />
+<link rel="alternate" type="application/atom+xml" title="Alex Ott's German Blog" href="http://feeds.feedburner.com/alexott-de" />
+</head><body>
+<div id="wrap"><div id="header"><h1>Использование Emacs для работы с электронной почтой и новостями  Usenet</h1>
+<p><a href="../../../ru/index.html">Russian</a>
+&middot; <a href="../../../en/index.html">English</a></p></div>
+
+<div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
+<div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
+<input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
+<input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
+</script>
+<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
+<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
+</div> <!-- leftside -->
+
+<div id="contentwide">
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">Введение</a>
+</dt>
+<dt>
+<a href="#sec2">Пакет <em>Gnus</em></a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec3">Буфера <em>Gnus</em></a>
+</dt>
+<dt>
+<a href="#sec4">Запуск <em>Gnus</em></a>
+</dt>
+<dt>
+<a href="#sec5">Работа с <em>Gnus</em></a>
+</dt>
+<dt>
+<a href="#sec6">Настройка <em>Gnus</em> для работы с электронной почтой</a>
+</dt>
+<dt>
+<a href="#sec7">Другие возможности <em>Gnus</em></a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec8">Пакет <em>Rmail</em></a>
+</dt>
+<dt>
+<a href="#sec9">Пакет <em>MH-E</em></a>
+</dt>
+<dt>
+<a href="#sec10">Дополнительные пакеты</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec11">Отправка почты без использования дополнительных пакетов</a>
+</dt>
+<dt>
+<a href="#sec12">Пакет <em>Supercite</em></a>
+</dt>
+<dt>
+<a href="#sec13">Пакет <em>Mailcrypt</em></a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec14">Пакет <em>BBDB</em></a>
+</dt>
+</dl>
+</div>
+
+
+<h2><a name="sec1" id="sec1"></a>
+<a name="intro" id="intro"></a>Введение</h2>
+
+<p class="first">В этом документе рассказывается о том, как можно использовать Emacs для работы с
+электронной почтой и новостями Usenet. В статье упоминается GNU Emacs, но практически всё
+сказанное справедливо и для XEmacs.</p>
+
+<p>Достаточно подробный список пакетов для работы с почтой вы можете <a href="http://www.emacswiki.org/cgi-bin/wiki.pl?GettingMail">найти</a> на сервере
+<a href="http://www.emacswiki.org/">EmacsWiki</a></p>
+
+
+<h2><a name="sec2" id="sec2"></a>
+Пакет <em>Gnus</em></h2>
+
+<p><em>Gnus</em> &mdash; это пакет Emacs, разработанный в первую очередь для чтения и отправки новостей
+Usenet. Его также можно использовать для чтения и написания ответов на сообщения из многих
+других источников &mdash; почты, удалённых каталогов, дайджестов и других источников
+данных. Большой набор заметок о <em>Gnus</em> вы сможете найти в
+<a href="http://www.emacswiki.org/cgi-bin/wiki.pl?CategoryGnus">соответствующем разделе</a>
+<a href="http://www.emacswiki.org/cgi-bin/wiki/">EmacsWiki</a>.</p>
+
+<h3><a name="sec3" id="sec3"></a>
+Буфера <em>Gnus</em></h3>
+
+<p class="first">Для показа информации и получения команд <em>Gnus</em> использует несколько разных буферов. Большую
+часть времени пользователи проводят в трех буферах &mdash; 
+<em>буфере групп</em>, <em>буфере резюме</em> и <em>буфере
+статьи</em>.</p>
+
+<p><em>Буфер групп</em> содержит перечень групп. Это первый буфер, который Gnus показывает после
+запуска. Обычно в нем показаны только те группы, на которые вы подписаны, и в которых есть
+непрочитанные статьи. Используйте этот буфер для выбора конкретной группы.</p>
+
+<p><em>Буфер резюме</em> построчно перечисляет статьи одной группы. По умолчанию для каждой статьи
+показываются автор, заголовок и число строк, но это можно настроить по своему вкусу, как и
+большую часть того, что отображает <em>Gnus</em>. Буфер резюме создается, когда вы выбираете группу
+в буфере групп, и уничтожается, когда вы покидаете эту группу. Используйте этот буфер для
+выбора статьи.</p>
+
+<p><em>Буфер статьи</em> отображает саму статью. При обычном использовании <em>Gnus</em> вы не выбираете этот
+буфер &mdash; все полезные команды, предназначенные для работы над статьей, прекрасно работают
+и из буфера резюме. Но вы можете выбрать буфер статьи и выполнять все команды <em>Gnus</em> из
+него, если вы этого хотите.</p>
+
+
+<h3><a name="sec4" id="sec4"></a>
+Запуск <em>Gnus</em></h3>
+
+<p class="first">Для запуска <em>Gnus</em> просто наберите <code>M-x gnus</code>. При запуске <em>Gnus</em> считывает ваш файл
+инициализации новостей <code>.newsrc</code> и пытается установить связь с локальным сервером новостей,
+который служит хранилищем статей. Сервер новостей не обязан быть тем же компьютером, на
+который вы вошли.</p>
+
+<p>Если вы запустили <em>Gnus</em> и соединились с сервером, но не видите в буфере групп ни одной
+группы, наберите <code>L</code> или <code>A k</code>, чтобы получить список всех доступных групп. Затем нажимайте <code>u</code>
+на нужной вам группе, чтобы переключать подписку на данную группу.</p>
+
+<p>Когда вы запускаете <em>Gnus</em> первый раз, он подписывает вас на несколько избранных групп. Все
+остальные группы сначала невидимы для вас; вы можете получить их список с помощью
+последовательности клавиш <code>A k</code>. Все новые группы, появляющиеся в дальнейшем на сервере,
+становятся для вас &quot;зомбированными&quot;; чтобы получить их перечень наберите <code>A z</code>. Вы можете
+подписаться на группы, показанные в этих списках, используя команду <code>u</code>.</p>
+
+<p>Когда вы покидаете <em>Gnus</em> при помощи команды <code>q</code>, то он автоматически записывает в ваших
+файлах инициализации <code>.newsrc</code> и <code>.newsrc.eld</code> статус подписки всех групп. Обычно вам не стоит
+редактировать эти файлы вручную, но вы можете это сделать, если точно уверены в том, что
+надо в них писать.</p>
+
+
+<h3><a name="sec5" id="sec5"></a>
+Работа с <em>Gnus</em></h3>
+
+<p class="first">Для чтения статей из конкретной группы, надо просто установить курсор на нужную группу и
+нажать на клавишу пробела. При этом будет открыт буфер резюме, в котором будет отображен
+список непрочитанных статей и отображена первая непрочитанная вами статья. Если
+непрочитанных статей слишком много, то <em>Gnus</em> выдаст запрос о том, сколько статей необходимо
+отобразить. Переменная <code>gnus-large-newsgroup</code> определяет пороговое значение, при превышении
+которого группа будет считаться большой и будет выдаваться предупреждение.</p>
+
+<p>Если вам необходимо увидеть и прочитанные статьи, то для их выбора вам нужно использовать
+комбинацию <code>C-u space</code>. Кроме того, после префиксной комбинации вы можете указать число,
+которое определит количество выбираемых статей. Положительное число <em>N</em> выбирает <em>N</em> самых
+последних статей, а отрицательное число &mdash; 
+<em>N</em> самых старых статей. Например, <code>C-u - 5 0
+space</code> выберет 50 самых старых статей.</p>
+
+
+<h3><a name="sec6" id="sec6"></a>
+Настройка <em>Gnus</em> для работы с электронной почтой</h3>
+
+<p><em>Gnus</em> обрабатывает почту точно также, как и новости Usenet. Для того чтобы читать
+электронную почту в <em>Gnus</em>, надо просто задать метод для обработки почты и источники её
+получения. Это определяется с помощью следующего кода в вашем файле <code>~/.emacs</code> или <code>~/.gnus</code>
+(этот файл используется только для инициализации <em>Gnus</em>):</p>
+
+<pre class="src">
+  (setq gnus-secondary-select-methods '((nnml <span style="color: #008b00;">""</span>)))
+  (setq mail-sources
+  '((file <span style="color: #006400;">:path</span> <span style="color: #008b00;">"/var/spool/mail/user-name"</span>)
+  (pop <span style="color: #006400;">:server</span> <span style="color: #008b00;">"pop3.mail.server"</span>
+  <span style="color: #006400;">:user</span> <span style="color: #008b00;">"user-name"</span>
+  <span style="color: #006400;">:port</span> <span style="color: #008b00;">"pop3"</span>
+  <span style="color: #006400;">:password</span> <span style="color: #008b00;">"secret"</span>)))
+</pre>
+
+<p>Первая строка задает список вторичных методов получения новостей для <em>Gnus</em>. В нашем примере
+этот список состоит только из одного элемента &mdash; 
+<code>nnml</code>, который задает метод для чтения
+почты. Вторая и последующая строки перечисляют источники получения почты. Переменная
+<code>mail-sources</code> содержит список, каждый элемент которого является списком, в котором первый
+элемент указывает на тип источника почты, а затем идет список ключевых слов и значений для
+них. Список ключевых слов зависит от типа источника почты и полное их описание вы можете
+найти в справке по <em>Gnus</em>. В нашем примере задаётся два источника почты.  Первый &mdash; это
+локальный файл с почтой, который задается путем <code>/var/spool/mail/user-name</code>, а второй
+источник &mdash; это POP3-сервер, для которого указывается большее количество ключевых слов,
+описывающих параметры подключения к данному серверу. Будьте внимательны, помещая пароль
+для доступа к почте в ваш файл настройки Emacs: если вы хотите хранить в нём ваш пароль,
+то запретите чтение этого файла для всех остальных пользователей вашей системы.</p>
+
+<p><em>Gnus</em> обладает очень богатыми возможностями по разбиению почты на группы. Его возможности
+позволяют разбить почту по множеству признаков. Разбиение почты на группы зависит от
+содержимого переменной <code>nnmail-split-methods</code>, которая содержит список списков, состоящих из
+пар строк &mdash; имени группы и регулярного выражения, при соответствии которому сообщение
+помещается в соответствующую группу.  Следующий код продемонстрирует простой пример
+обработки входящей почты:</p>
+
+<pre class="src">
+  (setq nnmail-split-methods '(
+  (<span style="color: #008b00;">"ALT-sisyphus"</span> <span style="color: #008b00;">"^</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">To</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">|</span><span style="color: #008b00;">From</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">|</span><span style="color: #008b00;">Cc</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">:.*sisyphus@altlinux\\.ru.*"</span>)
+  (<span style="color: #008b00;">"ALT-devel"</span> <span style="color: #008b00;">"^</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">(</span><span style="color: #008b00;">To</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">|</span><span style="color: #008b00;">From</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">|</span><span style="color: #008b00;">Cc</span><span style="color: #008b00; font-weight: bold;">\\</span><span style="color: #008b00; font-weight: bold;">)</span><span style="color: #008b00;">:.*devel@altlinux\\.ru.*"</span>)
+  (<span style="color: #008b00;">"inbox"</span> <span style="color: #008b00;">""</span>)))
+</pre>
+
+<p>В этом примере создается три группы. В первые две группы помещаются сообщения только из
+списков рассылки <em>ALTLinux Sisyphus</em> и <em>ALTLinux Devel</em>. В группу <em>inbox</em> помещаются все
+остальные сообщения, для которых не было совпадения по регулярным выражениям.</p>
+
+<p>Чтобы создать новое почтовое сообщение просто нажмите на клавишу <code>m</code> в буфере групп или
+буфере резюме. При этом будет отображено новое окно, в котором вы можете ввести адрес
+получателя и тему сообщения, а также сам текст сообщения. Текст сообщения должен идти
+после строки</p>
+
+<pre class="example">
+--text follows this line--
+</pre>
+
+<p>Все, что находится до этой строки, рассматривается как заголовки. Это позволяет вам
+вручную задавать дополнительные заголовки, такие как <em>Bcc</em>. Часть заголовков может
+подставляться автоматически. К примеру, чтобы все отправляемые сообщения складывались в
+отдельную группу, вам необходимо вписать в ваш файл инициализации следующий код:</p>
+
+<pre class="src">
+(setq gnus-outgoing-message-group <span style="color: #008b00;">"nnml:sent"</span>)
+</pre>
+
+<p>После установки этой переменной, все отправляемые сообщения будут помещаться в группу
+<em>sent</em>, доступ к которой осуществляется с помощью метода <em>nnml</em>.</p>
+
+
+<h3><a name="sec7" id="sec7"></a>
+Другие возможности <em>Gnus</em></h3>
+
+<p class="first">В предыдущем тексте была описана лишь малая часть возможностей <em>Gnus</em>. Кроме обычных групп
+для почты и новостей, <em>Gnus</em> позволяет создавать виртуальные группы, которые состоят из
+частей других групп. Также можно отображать в виде групп новостей результаты поиска в
+Интернете, серверы каталогов и прочее.</p>
+
+<p>Кроме того, <em>Gnus</em> обладает мощными средствами по фильтрации и удалению ненужных вам
+сообщений. Работа этого средства основана на подсчёте весов сообщения (Scoring). Веса
+могут добавляться или удаляться в зависимости от текста и заголовка сообщения, его авторов
+и многих других параметров. Это позволяет эффективно работать с новостями, читая только
+то, что необходимо.</p>
+
+<p><em>Gnus</em> также умеет взаимодействовать с разными системами определения нежелательных почтовых
+рассылок, позволяя вам не отвлекаться на ненужную вам почту.</p>
+
+<h2><a name="sec8" id="sec8"></a>
+<a name="rmail" id="rmail"></a>Пакет <em>Rmail</em></h2>
+
+<p class="first">Этот пакет поставляется вместе с GNU Emacs и предназначен для чтения и хранения получаемой
+вами почты. Для запуска этого пакета достаточно просто набрать <code>M-x rmail</code>. При этом будет
+прочитан файл с почтой <em>Rmail</em> (обычно это <code>~/RMAIL</code>), забрана почта из ваших почтовых ящиков,
+и отображено первое непрочитанное вами сообщение.</p>
+
+<p>Emacs использует сужение для того, чтобы отображать только одно сообщение в каждый
+отдельно взятый момент времени. Внутри файла <em>Rmail</em> сообщения располагаются в порядке их
+поступления в ваши почтовые ящики. Вы также можете указать другие методы сортировки
+сообщений.</p>
+
+<p>Кроме основного файла с сообщениями <em>Rmail</em> вы можете создавать и использовать другие файлы
+с сообщениями. Почта в эти файлы может поступать из других почтовых ящиков или из своего
+основного файла <em>Rmail</em>.</p>
+
+<p><em>Rmail</em> предоставляет пользователю возможность назначения меток на конкретные почтовые
+сообщения, или группы сообщений. Обычно метки используются для классификации
+сообщений. Затем эти метки можно использовать для сортировки писем, или для перемещения их
+в другие файлы <em>Rmail</em>.</p>
+
+<p>Более подробную информацию о пакете <em>Rmail</em> можно получить в документации, которая
+поставляется вместе с GNU Emacs. Вы также можете прочитать об этом пакете в русском
+переводе руководства по GNU Emacs.</p>
+
+<h2><a name="sec9" id="sec9"></a>
+<a name="mh-e" id="mh-e"></a>Пакет <em>MH-E</em></h2>
+
+<p class="first">Этот пакет предоставляет доступ к почтовой программе <em>MH</em> прямо из Emacs. Этот пакет
+поставляется вместе с GNU Emacs, так что нет никакой необходимости устанавливать его
+самостоятельно.</p>
+
+<p>Пакет поддерживает чтение и отправку электронной почты, в том числе и сообщений,
+соответствующих стандарту <em>MIME</em>. Умеет работать с каталогами, в которых вы можете хранить
+письма, например, относящиеся к одной теме. Также поддерживается работа с
+письмами-дайджестами, и письмами, закодированными программами <code>shar</code> и <code>uuencode</code>.</p>
+
+<h2><a name="sec10" id="sec10"></a>
+<a name="add-packages" id="add-packages"></a>Дополнительные пакеты</h2>
+
+<h3><a name="sec11" id="sec11"></a>
+Отправка почты без использования дополнительных пакетов</h3>
+
+<p class="first">GNU Emacs умеет отправлять электронную почту без использования каких-либо дополнительных
+пакетов. Для создания сообщения используется команда <code>compose-mail</code>, которая создает буфер
+<code>*mail*</code>.</p>
+
+<p>Метод отправки и создания сообщения зависит от того, какое значение имеет переменная
+<code>mail-user-agent</code>. В настоящее время можно отправлять почту с помощью программы Sendmail,
+пакетов Emacs <em>MH-E</em>, <em>Gnus</em> и <em>Message</em>.</p>
+
+<p>Для получения более подробной информации смотрите раздел <em>Sending Mail</em> в руководстве по GNU
+Emacs.</p>
+
+<h3><a name="sec12" id="sec12"></a>
+<a name="sc" id="sc"></a>Пакет <em>Supercite</em></h3>
+
+<p class="first">Этот пакет позволяет гибко настроить параметры цитирования чужих писем при ответе на них
+почтой или в группы Usenet. Пакет поддерживает все основные пакеты Emacs для работы с
+почтой и новостями.</p>
+
+<p>Когда вы отвечаете на письмо или статью, то производится вызов функции <em>Supercite</em>
+<code>sc-cite-original</code>, которая осуществляет анализ заголовков исходного текста, запоминая их
+параметры. Затем <em>Supercite</em> проходится по каждой из строк ответа и изменяет их в
+соответствии с заданными функциями преобразования. Оригинальное сообщение может быть
+отформатировано в соответствии с вашими предпочтениями во время работы функций <em>Supercite</em>.</p>
+
+<p>Для того чтобы любой почтовый пакет Emacs стал использовать <em>Supercite</em> для цитирования
+писем, вам необходимо вставить в файл инициализации <code>~/.emacs</code> следующую строку:</p>
+
+<pre class="src">
+(add-hook 'mail-citation-hook 'sc-cite-original)
+</pre>
+
+<p>Но если вы используете пакет <em>Gnus</em>, то вам надо добавить ещё и следующую строку:</p>
+
+<pre class="src">
+(setq news-reply-header-hook nil)
+</pre>
+
+<p>которая предотвратит вставку одинаковых заголовков обоими пакетами. Более полную
+информацию вы сможете найти в справочных страницах Info, которые поставляются вместе с
+пакетом.</p>
+
+<h3><a name="sec13" id="sec13"></a>
+<a name="mailcrypt" id="mailcrypt"></a>Пакет <em>Mailcrypt</em></h3>
+
+<p class="first">Этот пакет является интерфейсом к популярной системе шифрования PGP. Он позволяет работать
+как с оригинальным PGP, так и с его свободным клоном &mdash; GnuPG. Использование этих программ
+возможно из нескольких пакетов для работы с почтой &mdash; 
+<em>Gnus</em>, <em>VM</em>, <em>Rmail</em>, <em>MH-E</em>, <em>Mew</em>. Среди
+реализованных операций &mdash; шифрование и расшифровка сообщений, подпись сообщений, проверка
+электронных подписей. Данный пакет входит в состав дистрибутивов ALTLinux. Кроме того, его
+можно скачать с сайта <a href="http://mailcrypt.sourceforge.net">http://mailcrypt.sourceforge.net</a>.</p>
+
+<p>Вот как можно заставить <em>Mailcrypt</em> работать вместе с пакетом <em>Gnus</em>:</p>
+
+<pre class="src">
+(load-library <span style="color: #008b00;">"mailcrypt"</span>)
+(mc-setversion <span style="color: #008b00;">"gpg"</span>)
+(autoload 'mc-install-write-mode <span style="color: #008b00;">"mailcrypt"</span> nil t)
+(autoload 'mc-install-read-mode <span style="color: #008b00;">"mailcrypt"</span> nil t)
+(add-hook 'mail-mode-hook 'mc-install-write-mode)
+</pre>
+
+<p>Первые пять строк одинаковы для всех пакетов работы с почтой. Первая строка загружает
+пакет <em>Mailcrypt</em>. Вторая строка задает тип программы, которая будет использоваться для
+обработки почты (в нашем примере это <em>gpg</em> &mdash; GNU-версия программы PGP). Третья и четвертая
+строки описывают, что при вызове функций <code>mc-install-write-mode</code> и <code>mc-install-read-mode</code>
+необходимо подгрузить их из библиотеки <code>mailcrypt</code>. Пятая строка устанавливает ловушку на
+запуск режима работы с почтой (<code>mail-mode</code>).</p>
+
+<pre class="src">
+(add-hook 'gnus-summary-mode-hook 'mc-install-read-mode)
+(add-hook 'message-mode-hook 'mc-install-write-mode)
+(add-hook 'news-reply-mode-hook 'mc-install-write-mode)
+</pre>
+
+<p>Эти команды являются специфическими для пакета <em>Gnus</em> и устанавливают &quot;ловушки&quot; на создание
+списка сообщений, создание сообщения и режим ответа на сообщение в Usenet.</p>
+
+<p>В составе пакета для GNU Emacs в дистрибутивах ALTLinux поставляется скрипт инициализации,
+в котором можно раскомментировать строку, соответствующую используемому вами пакету для
+работы с почтой. Полное описание пакета и примеры настройки можно найти в руководстве,
+которое поставляется вместе с пакетом.</p>
+
+<h2><a name="sec14" id="sec14"></a>
+<a name="&BASEID;.bbdb" id="&BASEID;.bbdb"></a>Пакет <em>BBDB</em></h2>
+
+<p class="first">Этот пакет позволяет организовать на основе Emacs базу данных для хранения адресов,
+телефонов и прочей информации. Пакет обеспечивает интеграцию со многими популярными
+пакетами чтения новостей usenet и почты. Существуют утилиты, которые позволяют
+экспортировать эту базу данных в формате, понятном для программ синхронизации с популярным
+PDA Palm Pilot. Данный пакет входит в состав дистрибутивов ALTLinux. Кроме того, пакет
+можно скачать с его <a href="http://bbdb.sourceforge.net">собственного сайта</a>.</p>
+
+<p>В руководстве, которое поставляется вместе с <em>BBDB</em>, приведены примеры настройки данного
+пакета для разных пакетов работы с почтой. Следующий пример демонстрирует настройку пакета
+для работы с почтой с помощью пакета <em>Gnus</em>:</p>
+
+<pre class="src">
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">bbdb</span>)
+(bbdb-initialize 'gnus 'message)
+(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+(add-hook 'message-setup-hook 'bbdb-define-all-aliases)
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-message-mode-hook</span> () (local-set-key [(tab)] 'bbdb-complete-name))
+(setq bbdb-use-pop-up nil)
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-bbdb-tab-complete</span> ()
+(interactive)
+(<span style="color: #a020f0;">if</span> (mail-abbrev-in-expansion-header-p)
+(bbdb-complete-name)
+(message-tab)))
+(define-key message-mode-map [tab] 'my-bbdb-tab-complete)
+</pre>
+
+<p>Этот пример можно сразу помещать в ваш файл настройки Emacs.  Предварительно стоит
+убедиться, что у вас установлены пакеты <em>Gnus</em> и <em>BBDB</em>.</p>
+
+<p>Первая строка данного примера производит загрузку самого пакета. Вторая строка производит
+начальную настройку <em>BBDB</em>, указывая, что пакет будет использоваться вместе с пакетом <em>Gnus</em>
+(<em>message</em> &mdash; это специальный режим из поставки <em>Gnus</em>, который используется при создании
+электронных сообщений. Третья и четвертая строки устанавливают ловушки для правильной
+инициализации пакета при запуске соответствующих режимов. Пятая строка устанавливает
+локальную привязку клавиши <code>TAB</code> для дополнения имен из базы <em>BBDB</em>. Шестая строка запрещает
+открытие отдельного окна для отображения информации о выбранном пользователе (слишком
+частое открытие окна может просто раздражать, поэтому и используется такая настройка).</p>
+
+<p>Строки с седьмой по одиннадцатую определяют функцию, которая производит дополнение имени
+только в том случае, если точка находится в почтовом заголовке. Двенадцатая строка
+связывает данную функцию с клавишей <code>TAB</code> при использовании режима редактирования
+электронного сообщения.</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<div id="lastchange"><p><em>Last change: 09.03.2012 14:36</em></p></div>
+
+<div id="rule"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'alexottnet';
+var disqus_identifier = '/ru/writings/altlinux-gnus/index.html';
+var disqus_url = 'http://alexott.net/ru/writings/altlinux-gnus/index.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div></div><!-- div-contentwide -->
+
+<div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
+</body></html>

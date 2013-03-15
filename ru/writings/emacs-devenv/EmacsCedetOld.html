@@ -1,12 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html><head>
-<title>Небольшое введение в использование  Emacs с CEDET</title>
+<html><head><title>Небольшое введение в использование  Emacs с CEDET</title>
 <meta name="generator" content="muse.el" />
 <meta name="author" content="Alex Ott" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="alex ott, c, c++, emacs, cedet, programming, semantic, ede, программирование, ide, integrated development environment" />
-    
-    
+<meta name="keywords" content="alex ott, c, c++, emacs, cedet, programming, semantic, ede, программирование, ide, integrated development environment" />
+
+
 <link rel="stylesheet" type="text/css" charset="utf-8" media="screen,projection" href="../../../web.css" />
 <link rel="stylesheet" type="text/css" href="../../../print.css" media="print" />
 <link rel="alternate" type="application/atom+xml" title="Alex Ott's Russian Blog" href="http://feeds.feedburner.com/alexott-ru" />
@@ -16,17 +15,11 @@
 <div id="wrap"><div id="header"><h1>Небольшое введение в использование  Emacs с CEDET</h1>
 <p><a href="../../../ru/index.html">Russian</a>
 &middot; <a href="../../../en/index.html">English</a></p></div>
-
 <div id="leftside"><h2 class="hide">Меню:</h2><ul class="avmenu"><li><a href="../../index.html">Главная</a></li><li><a href="../../cf/">Информационная безопасность</a></li><li><a href="../../fp/">Функциональное программирование</a></li><li><a href="../../lisp/">Lisp</a></li><li><a href="../../clojure/">Clojure</a></li><li><a href="../../scheme/">Scheme</a></li><li><a href="../../erlang/">Erlang</a></li><li><a href="../../cpp/">C++</a></li><li><a href="../../oss/">Open Source Projects</a></li><li><a href="../../emacs/">Emacs</a></li><li><a href="../../writings/" class="current">Статьи</a></li></ul>
 <div class="announce"><br><form action="http://www.google.com/cse" id="searchbox_006849776194404728512:q7vjogjzehm">  
 <input type="hidden" name="cx" value="006849776194404728512:q7vjogjzehm">  
 <input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
-<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru">
-</script>
-<p>Баннер для <a href="http://users.livejournal.com/_darkus_/615051.html">фонда поддержки ФП</a></p></p>
-<script type="text/javascript">google_ad_client = "ca-pub-3939516554853109"; google_ad_slot = "1719545528"; google_ad_width = 120; google_ad_height = 240;</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></div>
-</div> <!-- leftside -->
-
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru"></script></div></div> <!-- leftside -->
 <div id="contentwide">
 <p>Этот рассказ не претендует на звание полного описания настройки Emacs как среды разработки
 на разных языках (это будет <a href="../../../en/writings/emacs-devenv/index.html">отдельная статья</a>), а является попыткой написать краткий
@@ -171,7 +164,7 @@ emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
 следующую строку в ваш файл инициализации<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup>:</p>
 
 <pre class="src">
-(load-file <span style="color: #8b2252;">"~/emacs/cedet/common/cedet.el"</span>)
+(load-file <span style="color: #008b00;">"~/emacs/cedet/common/cedet.el"</span>)
 </pre>
 
 <p>Если планируете использовать проекты, то необходимо включить соответствующий режим,
@@ -219,7 +212,7 @@ emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
 классах, вам необходимо загрузить пакет <code>semantic-ia</code> с помощью следующей команды:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">semantic-ia</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-ia</span>)
 </pre>
 
 <p>После загрузки этого пакета, вы получите возможность использования соответствующего
@@ -236,7 +229,7 @@ emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
 пакет <code>semantic-gcc</code> с помощью следующей команды:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">semantic-gcc</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semantic-gcc</span>)
 </pre>
 
 <p>Вы также можете явно задать дополнительные пути поиска подключаемых файлов, которые будут
@@ -245,7 +238,7 @@ emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
 файлам, и имя режима в котором этот путь будет использоваться.  Например:</p>
 
 <pre class="src">
-(semantic-add-system-include <span style="color: #8b2252;">"~/exp/include/boost_1_37"</span> 'c++-mode)
+(semantic-add-system-include <span style="color: #008b00;">"~/exp/include/boost_1_37"</span> 'c++-mode)
 </pre>
 
 
@@ -285,7 +278,7 @@ emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
 
 <pre class="src">
 (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-semantic-hook</span> ()
-  (imenu-add-to-menubar <span style="color: #8b2252;">"TAGS"</span>))
+  (imenu-add-to-menubar <span style="color: #008b00;">"TAGS"</span>))
 (add-hook 'semantic-init-hooks 'my-semantic-hook)
 </pre>
 
@@ -299,7 +292,7 @@ emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
 команд:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">semanticdb</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semanticdb</span>)
 (global-semanticdb-minor-mode 1)
 </pre>
 
@@ -313,14 +306,14 @@ emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
 можете использовать следующий код:</p>
 
 <pre class="src">
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">&#1077;&#1089;&#1083;&#1080; &#1074;&#1099; &#1093;&#1086;&#1090;&#1080;&#1090;&#1077; &#1074;&#1082;&#1083;&#1102;&#1095;&#1080;&#1090;&#1100; &#1087;&#1086;&#1076;&#1076;&#1077;&#1088;&#1078;&#1082;&#1091; gnu global
+<span style="color: #666666;">;; </span><span style="color: #666666;">&#1077;&#1089;&#1083;&#1080; &#1074;&#1099; &#1093;&#1086;&#1090;&#1080;&#1090;&#1077; &#1074;&#1082;&#1083;&#1102;&#1095;&#1080;&#1090;&#1100; &#1087;&#1086;&#1076;&#1076;&#1077;&#1088;&#1078;&#1082;&#1091; gnu global
 </span>(<span style="color: #a020f0;">when</span> (cedet-gnu-global-version-check t)
-  (<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">semanticdb-global</span>)
+  (<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">semanticdb-global</span>)
   (semanticdb-enable-gnu-global-databases 'c-mode)
   (semanticdb-enable-gnu-global-databases 'c++-mode))
 
-<span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">&#1074;&#1082;&#1083;&#1102;&#1095;&#1080;&#1090;&#1100; &#1087;&#1086;&#1076;&#1076;&#1077;&#1088;&#1078;&#1082;&#1091; ctags &#1076;&#1083;&#1103; &#1086;&#1089;&#1085;&#1086;&#1074;&#1085;&#1099;&#1093; &#1103;&#1079;&#1099;&#1082;&#1086;&#1074;:
-</span><span style="color: #7f7f7f;">;;  </span><span style="color: #7f7f7f;">Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
+<span style="color: #666666;">;; </span><span style="color: #666666;">&#1074;&#1082;&#1083;&#1102;&#1095;&#1080;&#1090;&#1100; &#1087;&#1086;&#1076;&#1076;&#1077;&#1088;&#1078;&#1082;&#1091; ctags &#1076;&#1083;&#1103; &#1086;&#1089;&#1085;&#1086;&#1074;&#1085;&#1099;&#1093; &#1103;&#1079;&#1099;&#1082;&#1086;&#1074;:
+</span><span style="color: #666666;">;;  </span><span style="color: #666666;">Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
 </span>(<span style="color: #a020f0;">when</span> (cedet-ectag-version-check)
   (semantic-load-enable-primary-exuberent-ctags-support))
 </pre>
@@ -341,17 +334,17 @@ EDE (работа с проектами и т.п.) также из постав�
 <p>Для определения проекта используется следующий код:</p>
 
 <pre class="src">
-(ede-cpp-root-project <span style="color: #8b2252;">"Test"</span>
-                <span style="color: #483d8b;">:name</span> <span style="color: #8b2252;">"Test Project"</span>
-                <span style="color: #483d8b;">:file</span> <span style="color: #8b2252;">"~/work/project/CMakeLists.txt"</span>
-                <span style="color: #483d8b;">:include-path</span> '(<span style="color: #8b2252;">"/"</span>
-                                <span style="color: #8b2252;">"/Common"</span>
-                                <span style="color: #8b2252;">"/Interfaces"</span>
-                                <span style="color: #8b2252;">"/Libs"</span>
+(ede-cpp-root-project <span style="color: #008b00;">"Test"</span>
+                <span style="color: #006400;">:name</span> <span style="color: #008b00;">"Test Project"</span>
+                <span style="color: #006400;">:file</span> <span style="color: #008b00;">"~/work/project/CMakeLists.txt"</span>
+                <span style="color: #006400;">:include-path</span> '(<span style="color: #008b00;">"/"</span>
+                                <span style="color: #008b00;">"/Common"</span>
+                                <span style="color: #008b00;">"/Interfaces"</span>
+                                <span style="color: #008b00;">"/Libs"</span>
                                )
-                <span style="color: #483d8b;">:system-include-path</span> '(<span style="color: #8b2252;">"~/exp/include"</span>)
-                <span style="color: #483d8b;">:spp-table</span> '((<span style="color: #8b2252;">"isUnix"</span> . <span style="color: #8b2252;">""</span>)
-                             (<span style="color: #8b2252;">"BOOST_TEST_DYN_LINK"</span> . <span style="color: #8b2252;">""</span>)))
+                <span style="color: #006400;">:system-include-path</span> '(<span style="color: #008b00;">"~/exp/include"</span>)
+                <span style="color: #006400;">:spp-table</span> '((<span style="color: #008b00;">"isUnix"</span> . <span style="color: #008b00;">""</span>)
+                             (<span style="color: #008b00;">"BOOST_TEST_DYN_LINK"</span> . <span style="color: #008b00;">""</span>)))
 </pre>
 
 <p>В качестве параметра <code>:file</code> вам надо указать любой из файлов, находящихся в корневом
@@ -396,12 +389,12 @@ EDE (работа с проектами и т.п.) также из постав�
 библиотекой Qt4:</p>
 
 <pre class="src">
-(setq qt4-base-dir <span style="color: #8b2252;">"/usr/include/qt4"</span>)
+(setq qt4-base-dir <span style="color: #008b00;">"/usr/include/qt4"</span>)
 (semantic-add-system-include qt4-base-dir 'c++-mode)
 (add-to-list 'auto-mode-alist (cons qt4-base-dir 'c++-mode))
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #8b2252;">"/Qt/qconfig.h"</span>))
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #8b2252;">"/Qt/qconfig-dist.h"</span>))
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #8b2252;">"/Qt/qglobal.h"</span>))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #008b00;">"/Qt/qconfig.h"</span>))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #008b00;">"/Qt/qconfig-dist.h"</span>))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat qt4-base-dir <span style="color: #008b00;">"/Qt/qglobal.h"</span>))
 </pre>
 
 <p>После добавления этого кода в ваш файл инициализации, вы сможете использовать механизмы
@@ -429,9 +422,9 @@ EDE (работа с проектами и т.п.) также из постав�
 <pre class="src">
 (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-cedet-hook</span> ()
   (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-  (local-set-key <span style="color: #8b2252;">"\C-c?"</span> 'semantic-ia-complete-symbol-menu)
-  (local-set-key <span style="color: #8b2252;">"\C-c&gt;"</span> 'semantic-complete-analyze-inline)
-  (local-set-key <span style="color: #8b2252;">"\C-cp"</span> 'semantic-analyze-proto-impl-toggle))
+  (local-set-key <span style="color: #008b00;">"\C-c?"</span> 'semantic-ia-complete-symbol-menu)
+  (local-set-key <span style="color: #008b00;">"\C-c&gt;"</span> 'semantic-complete-analyze-inline)
+  (local-set-key <span style="color: #008b00;">"\C-cp"</span> 'semantic-analyze-proto-impl-toggle))
 (add-hook 'c-mode-common-hook 'my-cedet-hook)
 </pre>
 
@@ -486,8 +479,8 @@ EDE (работа с проектами и т.п.) также из постав�
 
 <pre class="src">
 (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-c-mode-cedet-hook</span> ()
- (local-set-key <span style="color: #8b2252;">"."</span> 'semantic-complete-self-insert)
- (local-set-key <span style="color: #8b2252;">"&gt;"</span> 'semantic-complete-self-insert))
+ (local-set-key <span style="color: #008b00;">"."</span> 'semantic-complete-self-insert)
+ (local-set-key <span style="color: #008b00;">"&gt;"</span> 'semantic-complete-self-insert))
 (add-hook 'c-mode-common-hook 'my-c-mode-cedet-hook)
 </pre>
 
@@ -700,8 +693,7 @@ B</code>), которая доступна при использовании <co
 
 
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 28.10.2012 16:33</em></p></div>
-
+<div id="lastchange"><p><em>Last change: 05.03.2013 16:54</em></p></div>
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">
 var disqus_shortname = 'alexottnet';
@@ -715,12 +707,7 @@ var disqus_url = 'http://alexott.net/ru/writings/emacs-devenv/EmacsCedetOld.html
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 </div></div><!-- div-contentwide -->
-
 <div id="footer"><p>Copyright &copy; 1997-2011<a href="../../../copyright.html">Alex Ott</a> &middot; Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>&nbsp;&middot;&nbsp; <a href="http://mwolson.org/projects/EmacsMuse.html"><img alt="muse logo" src="../../../muse-grey-bar.png" /></a></p></div></div> <!-- div-wrap -->
-
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+<script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script>
-</body></html>
+</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-78697-10");pageTracker._trackPageview();} catch(err) {}</script></body></html>
