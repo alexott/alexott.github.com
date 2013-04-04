@@ -207,8 +207,8 @@ make clean-all && make
 также другие параметры.  Эти переменные можно настроить через группу настройки =semanticdb=.
 
 Кроме того, Semanticdb может использовать базы данных, сгенерированные внешними утилитами
--- =gtags= из состава [[http://www.gnu.org/software/global/][GNU Global]], =ctags=, =ebrowse= & =cscope=.  Для активации этой поддержки, вы
-можете использовать следующий код:
+-- =gtags= из состава [[http://www.gnu.org/software/global/][GNU Global]], [[http://ctags.sourceforge.net/][exubertant ctags]], =ebrowse= & =cscope=.  Для активации этой
+поддержки, вы можете использовать следующий код:
 
 <src lang="emacs-lisp">
 ;; если вы хотите включить поддержку gnu global
