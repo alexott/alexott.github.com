@@ -550,6 +550,13 @@ well-known Clojure developers.  This book provides very good description of Cloj
 different libraries, shows how to use this language in practice, and also contains many
 advice on how to write idiomatic Clojure code.
 
+The Developer.Press also released small book called [[http://www.amazon.com/gp/product/B00BSY20HS/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00BSY20HS&linkCode=as2&tag=aleottshompag-20][Clojure Made Simple]] that describes the
+basics of language -- data types, core functions, etc. But this book almost completely
+lacks description of concurrent programming stuff.
+
+The Packt Publishing also published a book on Clojure: the [[http://www.amazon.com/gp/product/178216264X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=178216264X&linkCode=as2&tag=aleottshompag-20][Clojure Data Analysis Cookbook]]
+describes how Clojure could be used for data analysis, including use of [[http://incanter.org/][Incanter]] project.
+
 The ClojureScript language, that is developed in parallel with Clojure, allows you to
 write web applications that are executed in browser. The O'Reilly released a small book
 [[http://www.amazon.com/gp/product/1449327435/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449327435&linkCode=as2&tag=aleottshompag-20][ClojureScript: Up and Running]] that describes basics of development with ClojureScript,

@@ -1006,6 +1006,14 @@ Lisp, ни с Scheme, а реализует свое подмножество Li
 подробное описание самого языка и некоторых библиотек, рассказывает о его практическом
 применении.
 
+Издательство Developer.Press выпустило небольшую книжку под названием [[http://www.amazon.com/gp/product/B00BSY20HS/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00BSY20HS&linkCode=as2&tag=aleottshompag-20][Clojure Made Simple]]
+которая описывает самые основы языка -- типы данных, функции и т.п.  Правда в книге почти
+не упоминаются возможности в части конкуретного программирования.
+
+Издательство Packt также не обошло Clojure своим вниманием и выпустило книгу
+[[http://www.amazon.com/gp/product/178216264X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=178216264X&linkCode=as2&tag=aleottshompag-20][Clojure Data Analysis Cookbook]] которая описывает как Clojure может быть использована для
+анализа данных, включая использование [[http://incanter.org/][Incanter]].
+
 Издательство No Starch Press также должно выпустить книгу по Clojure под названием
 [[http://meetclj.raynes.me/][Meet Clojure]].
 
@@ -1017,6 +1025,7 @@ Wikibooks.  Также свободно доступна и [[http://www.lispera
 разрабатывать веб-приложения выполняемые в броузере.  Издательство O'Reilly выпустило
 небольшую книгу [[http://www.amazon.com/gp/product/1449327435/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449327435&linkCode=as2&tag=aleottshompag-20][ClojureScript: Up and Running]] которая кратко описывает основные принципы
 разработки с использованием ClojureScript, включая информацию о существующих библиотеках.
+
 
 * Рекомендации
 
