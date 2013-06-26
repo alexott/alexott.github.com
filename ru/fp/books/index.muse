@@ -1008,13 +1008,13 @@ Scheme).  На создание этой книги сильно повлиял 
    [[http://twitter.github.com/scala_school/ru/index.html][Scala Школа!]] и [[http://twitter.github.com/effectivescala/index-ru.html][Эффективная Scala]]).
  - Весной 2012 года была выпущена книга [[http://www.amazon.com/gp/product/0321774094/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0321774094][Scala for the Impatient]] - она описывает язык,
    начиная с простых конструкций, и заканчивая сложными вещами.
+ - Книга [[http://www.amazon.com/gp/product/1935182757/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182757][Scala in Action]] издательства Manning служит введением в программирование на этом языке. 
  - Также весной 2012-го года, вышла книга [[http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182706][Scala in Depth]] описывает сложные вопросы
    использования этого языка.
  - Осенью 2012-го года вышла книга [[http://www.amazon.com/gp/product/1439896666/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1439896666][Introduction to the Art of Programming Using Scala]].  С
    подробным содержанием этой книги можно ознакомиться на [[http://www.programmingusingscala.net/][специальном сайте]].
  - Книга [[http://www.amazon.com/gp/product/1449315119/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449315119&linkCode=as2&tag=aleottshompag-20][Testing in Scala]] посвящена использованию тестовых фреймворков ScalaTest и Spec2,
    а также описывает как интегрировать тесты в проекты SBT.
- - Книга [[http://www.amazon.com/gp/product/1935182757/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182757][Scala in Action]] издательства Manning служит введением в программирование на этом языке. 
  - Книга [[http://www.amazon.com/gp/product/1484007662/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1484007662&linkCode=as2&tag=aleottshompag-20][Pragmatic Enterprise Scala]] описывает как Scala может применяться вместе с
    технологиями применяющимися в Java Enterprise Edition.
 

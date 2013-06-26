@@ -502,6 +502,8 @@ the language):
    without much theoretical background -- everything is illustrated by many examples,
    starting with base constructs, and up to very complex things, such as, parsing,
    advanced types, continuations, etc.
+ - The [[http://www.amazon.com/gp/product/1935182757/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182757][Scala in Action]] book by Manning provides an introduction to Scala for beginners,
+   covering basics of the language, together with many practical examples.
  - The [[http://www.amazon.com/gp/product/1935182706/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182706][Scala in Depth]] book (Manning, 2012) should be a companion book for "Scala in
    Action", and it's concentrated on the "not so easy" side of Scala programming -- type
    system, actors, more functional programming, etc.
@@ -523,6 +525,8 @@ the language):
    book.
  - The [[http://www.amazon.com/gp/product/1449315119/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449315119&linkCode=as2&tag=aleottshompag-20][Testing in Scala]] book describes how to use the ScalaTest and Spec2 testing
    frameworks, including how to integrate them into SBT's builds.
+ - The [[http://www.amazon.com/gp/product/1484007662/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1484007662&linkCode=as2&tag=aleottshompag-20][Pragmatic Enterprise Scala]] book describes how Scala could be used together with
+   Java Enterprise Edition.
 
 There are also freely available materials about this language:
  - Besides language's specification, on the [[http://www.scala-lang.org/node/198][language's site]] is also available documents "A
@@ -532,10 +536,6 @@ There are also freely available materials about this language:
  - Twitter, where Scala is actively used, published freely available several resources for
    Scala learning: [[http://twitter.github.com/scala_school/][Scala School! From ∅ to Distributed Service]] and [[http://twitter.github.com/effectivescala/][Effective Scala]] -- both
    are for people, who is just starting to study this language.
- - The [[http://www.amazon.com/gp/product/1935182757/ref=as_li_ss_tl?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1935182757][Scala in Action]] book by Manning provides an introduction to Scala for beginners,
-   covering basics of the language, together with many practical examples.
- - The [[http://www.amazon.com/gp/product/1484007662/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1484007662&linkCode=as2&tag=aleottshompag-20][Pragmatic Enterprise Scala]] book describes how Scala could be used together with
-   Java Enterprise Edition.
 
 It's also planned to releases several books on Scala soon:
  - Appress plans to publish the [[http://www.amazon.com/gp/product/143022844X?ie=UTF8&tag=aleottshompag-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=143022844X][Pro Scala: Monadic Design Patterns for the Web]] book
