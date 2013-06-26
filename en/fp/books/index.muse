@@ -272,6 +272,8 @@ Besides these books, several Erlang-related books are planned for release:
    that should provide an introduction into Erlang & OTP.
  - Pragmatic Bookshelf plans to release the [[http://pragprog.com/book/elixir/programming-elixir][Programming Elixir]] book that describes the
    Elixir programming language that was designed for Erlang VM.
+ - O'Reilly also plans to release book about the Elixir language that is called
+   [[http://shop.oreilly.com/product/0636920030584.do][Introducing Elixir.  Getting Started in Functional Programming]].
 
 #ocaml-en
 ** Caml & Objective Caml

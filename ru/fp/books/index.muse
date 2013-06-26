@@ -739,6 +739,8 @@ Armstrong), долгое время являлась практически ед
    которая должна служить введением в программирование на Erlang и OTP.
  - Pragmatic Bookshelf планирует выпустить книгу [[http://pragprog.com/book/elixir/programming-elixir][Programming Elixir]], посвященную языку
    Elixir, который был создан для Erlang VM.
+ - O'Reilly также планирует выпустить книгу посвященную языку Elixir под названием
+   [[http://shop.oreilly.com/product/0636920030584.do][Introducing Elixir.  Getting Started in Functional Programming]].
 
 #ocaml-en
 *** Caml & Objective Caml
