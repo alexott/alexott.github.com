@@ -773,7 +773,7 @@ Armstrong), долгое время являлась практически ед
 
 А осенью 2013-го года, издательство O'Reilly планирует издать книгу [[http://www.amazon.com/gp/product/144932391X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=144932391X&linkCode=as2&tag=aleottshompag-20][Real World OCaml]]
 которая должна стать таким же популярным введением в язык OCaml как и Real World Haskell
-стал для языка Haskell.
+стал для языка Haskell.  Текст книги в электронном виде также доступен на [[https://realworldocaml.org/][отдельном сайте]].
 
 
 *** F#

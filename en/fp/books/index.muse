@@ -304,9 +304,9 @@ report, written by Xavier Leroy (author of OCaml) in 1990th, and it contains pre
 detailed description of ML-like language implementation. This report could be very
 interesting for all who wants to know about internals of Caml & OCaml languages.
 
-And in the fall of 2012th, O'Reilly plans to publish the [[http://www.amazon.com/gp/product/144932391X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=144932391X&linkCode=as2&tag=aleottshompag-20][Real World OCaml]] book that should
+And in the fall of 2013th, O'Reilly plans to publish the [[http://www.amazon.com/gp/product/144932391X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=144932391X&linkCode=as2&tag=aleottshompag-20][Real World OCaml]] book that should
 be a popular introduction into the OCaml language, like the "Real World Haskell" book was
-for Haskell.
+for Haskell.  The text of book is also available on [[https://realworldocaml.org/][separate site]].
 
 ** F#
 
