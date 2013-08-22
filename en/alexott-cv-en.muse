@@ -119,6 +119,7 @@
   [[https://www.coursera.org/course/nlp/][Natural Language Processing]] (Stanford/Coursera). Score: 93%<br>
   [[https://www.coursera.org/course/hetero][Heterogeneous Parallel Programming]] (University of Illinois at Urbana-Champaign/Coursera). Score: 100% with distinction<br>
   [[https://www.coursera.org/course/compdata][Computing for Data Analysis]] (Johns Hopkins Bloomberg School of Public Health/Coursera). Score: 100% with distinction
+  [[https://www.coursera.org/course/datasci][Introduction to Data Science]] (University of Washington).
 
 * Technical skills and competences
 
@@ -126,7 +127,7 @@
 
  - C and C++ – more than 10 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
  - Scheme and Common Lisp – 8 years (commercial & personal projects)
- - Clojure - 2 years (commercial & personal projects)
+ - Clojure - 4 years (commercial & personal projects)
  - Erlang - 1,5 year (personal projects)
  - Haskell - 1 year (personal projects)
  - Java (including J2EE) – 5 years (currently inactive)
@@ -136,8 +137,8 @@
  - SQL – 7 years (Oracle and PostgreSQL)
  - UML modeling in complex projects
  - x86 Assembler – 5 years (currently inactive)
- - Hadoop and corresponding topics - 1 year
- - Lucene - 1 year (via Clojure)
+ - Hadoop and corresponding topics - 2 years
+ - Lucene - 2 years (via Clojure)
 
 ** Other computer-related skills
 
