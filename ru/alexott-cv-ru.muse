@@ -110,7 +110,8 @@
   [[https://www.coursera.org/course/nlp/][Natural Language Processing]] (Stanford/Coursera). Результат: 93%
   [[https://www.coursera.org/course/hetero][Heterogeneous Parallel Programming]] (University of Illinois at Urbana-Champaign/Coursera). Результат: 100% с отличием<br>
   [[https://www.coursera.org/course/compdata][Computing for Data Analysis]] (Johns Hopkins Bloomberg School of Public Health/Coursera). Результат: 100% с отличием<br>
-  [[https://www.coursera.org/course/datasci][Introduction to Data Science]] (University of Washington).
+  [[https://www.coursera.org/course/datasci][Introduction to Data Science]] (University of Washington/Coursera). Результат: 90.1% с отличием<br>
+  [[https://www.coursera.org/course/modelthinking][Model Thinking]] (University of Michigan/Coursera). Результат: 95% с отличием
 
 * Технические навыки
 
