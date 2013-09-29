@@ -1924,8 +1924,8 @@ user> @counters
 (defn add-acounter [key val]
   (send acounters assoc key val))
 
-(defn increment-acounter [key]
-  (send acounters assoc key (inc (@counters key 0))))
+(defn increment-counter [key]
+  (send acounters update-in [key] (fnil inc 0)))
 
 (defn get-acounter [key]
   (@acounters key 0))
