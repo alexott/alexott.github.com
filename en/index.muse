@@ -24,7 +24,7 @@ At work and at home I working on different projects, using different programming
 languages.  My main languages at work are [[cpp/index][C & C++]], but I also use [[./clojure][Clojure]], Lisp, Scheme,
 Haskell, and other [[fp/index][functional programming]] languages.
 
-For a long time (more than 10 years) I'm working with Unix-like operating systems --
+For a long time (more than 10 years) I have been working with Unix-like operating systems --
 Linux, Solaris, HP-UX, FreeBSD, and Mac OS X.
 
 I use [[emacs/index][Emacs editor]], for most of my tasks -- from programming to mail reading and Internet

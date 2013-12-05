@@ -5,7 +5,12 @@ The first variant of this article was published in the [[http://fprog.ru/2009/is
 "[[http://fprog.ru/][Practice of functional programming]]", but I decided to continue to maintain it, as more
 books were released ([[../../../ru/fp/books/][Russian version of this article]] also includes description of books
 published in Russian).  You can leave comments and suggestions in the comment widget on
-this page, or send them to me via [[mailto:alexott@gmail.com][e-mail]].
+this page, or send them to me via [[mailto:alexott@gmail.com][e-mail]] (Updates to this page usually happening not so
+often -- every 2-3 months).
+
+Descriptions for the books are relatively short -- just to give an overview of the book's
+topics, otherwise this article will become too big.  For some of books there are more
+detailed reviews [[http://alexott.blogspot.de/search/label/book][published in my blog]].  You can also follow [[https://www.goodreads.com/author/show/5350963.Alex_Ott][my reviews on Goodreads]].
 
 *If you will order some of these books, please (if possible), use links from this page --
 this allows me to buy new books and add them to review*.
