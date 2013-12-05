@@ -228,7 +228,7 @@ Besides books, there are a lot of online materials.  I only list most interestin
    language, it contains many examples & exercises.
  - [[http://en.wikibooks.org/wiki/Haskell/Write\_Yourself\_a\_Scheme\_in\_48\_Hours][Write Yourself a Scheme in 48 Hours]] -- this tutorial allows you to learn Haskell in
    practice, when writing an interpreter for Scheme programming language.
- - [[http://www.haskell.org/all\_about\_monads/html/index.html][All About Monads]] is tutorial dedicated to theory & practice of monads in Haskell.
+ - [[http://www.haskell.org/haskellwiki/All_About_Monads][All About Monads]] is tutorial dedicated to theory & practice of monads in Haskell.
  - [[http://pragprog.com/magazines/2012-09/thinking-functionally-with-haskell][Thinking Functionally with Haskell]]
  - The Small book [[http://www.etnassoft.com/biblioteca/speeding-through-haskell/][Speeding Through Haskell]] (site is in Spanish, but book is in English)
    tries to provide short introduction into this language.
