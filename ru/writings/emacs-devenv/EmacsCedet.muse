@@ -218,7 +218,7 @@ make clean-all && make
 
 ;; включить поддержку ctags для основных языков:
 ;;  Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
-(when (cedet-ectag-version-check)
+(when (cedet-ectag-version-check t)
   (semantic-load-enable-primary-exuberent-ctags-support))
 </src>
 
