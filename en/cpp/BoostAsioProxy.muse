@@ -1,7 +1,9 @@
 #title How to write simple HTTP proxy with Boost.Asio
 #keywords boost, asio, boost.asio, http, proxy
 
-In this article I describe process of writing of simple cross-platform HTTP proxy.
+In this article I describe process of writing of simple cross-platform HTTP proxy. **Please,
+note that this code isn't production-ready - it was used as simple demonstration on how it
+could be implemented, and contains obvious bugs**.
 
 * What we need 
 
