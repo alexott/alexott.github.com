@@ -4,7 +4,7 @@
 * Personal Information
 
  - **Name**: Alexey (Alex) Ott
- - **Address**: Im Schlinge 59, 33106 Paderborn, Germany
+ - **Address**: Freihof 6b, 33106 Paderborn, Germany
  - **Phone**: +4917650439409 (mobile), +4952549210056 (home)
  - **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]]
  - **Citizenship**: German, Russian
@@ -22,7 +22,15 @@
 * Work Experience
 
  - **Software Architect** at *McAfee, Inc. (subsidiary of Intel Corporation)*<br>
- **Dates (from-to)**: 03.2013-now<br>
+ **Dates (from-to)**: 07.2014-now<br>
+ **Name and address of employer**: [[http://www.mcafee.com][McAfee, Inc]]. 33100 Paderborn, Germany<br>
+ **Positions held**: Software Architect<br>
+ **Type of business**: Software Development<br>
+ **Main activities and responsibilities**: 
+    - Architecture and development of new URL Categorization system using the range of
+      machine learning & big data technologies
+ - **Software Architect** at *McAfee, Inc. (subsidiary of Intel Corporation)*<br>
+ **Dates (from-to)**: 03.2013-06.2014<br>
  **Name and address of employer**: [[http://www.mcafee.com][McAfee, Inc]]. 33100 Paderborn, Germany<br>
  **Positions held**: Software Architect<br>
  **Type of business**: Software Development<br>

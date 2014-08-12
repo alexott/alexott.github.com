@@ -4,7 +4,7 @@
 * Персональная информация
 
  - **Имя**: Алексей (Алекс) Отт
- - **Адрес**: Im Schlinge 59, 33106 Paderborn, Germany
+ - **Адрес**: Freihof 6b, 33106 Paderborn, Germany
  - **Телефон**: +4917650439409 (mobile), +4952549210056 (home)
  - **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]]
  - **Гражданство**: Россия, Германия
@@ -13,7 +13,14 @@
 * Опыт работы
 
  - Software Architect в *McAfee, Inc. (подразделение Intel Corporation)*<br>
- **Дата (с-по)**: 03.2013-now<br>
+ **Дата (с-по)**: 07.2014-now<br>
+ **Название и адрес работодателя**: [[http://www.mcafee.com][McAfee, Inc.]] 33100 Paderborn, Germany<br>
+ **Вид бизнеса**: Разработка ПО<br>
+ **Служебные обязаности**: 
+    - Проектирование и разработка ПО для контентной категоризации (используя технологии
+      машинного обучения и big data)<br>
+ - Software Architect в *McAfee, Inc. (подразделение Intel Corporation)*<br>
+ **Дата (с-по)**: 03.2013-06.2014<br>
  **Название и адрес работодателя**: [[http://www.mcafee.com][McAfee, Inc.]] 33100 Paderborn, Germany<br>
  **Вид бизнеса**: Разработка ПО<br>
  **Служебные обязаности**: 
