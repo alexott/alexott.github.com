@@ -121,6 +121,12 @@
   [[https://www.coursera.org/course/modelthinking][Model Thinking]] (University of Michigan/Coursera). Результат: 95% с отличием<br>
   [[https://weka.waikato.ac.nz/dataminingwithweka/][Data Mining with Weka]] (University of Waikato). Результат: 100%<br>
   [[https://www.coursera.org/course/progfun][Functional Programming Principles in Scala]] (École Polytechnique Fédérale de Lausanne/Coursera): Результат: 100% с отличием
+  [[https://www.coursera.org/course/patterndiscovery][Pattern Discovery in Data Mining]] (University of Illinois at Urbana-Champaign/Coursera)<br>
+  [[https://www.coursera.org/course/clusteranalysis][Cluster Analysis in Data Mining]] (University of Illinois at Urbana-Champaign/Coursera)<br>
+  [[https://www.coursera.org/course/mmds][Mining Massive Datasets]] (Stanford/Coursera)<br>
+  [[https://courses.edx.org/courses/BerkeleyX/CS100.1x/1T2015/info][CS100.1x Introduction to Big Data with Apache Spark]] (Berkley/edX)<br>
+  [[https://courses.edx.org/courses/BerkeleyX/CS190.1x/1T2015/info][CS190.1x Scalable Machine Learning]] (Berkley/edX)<br>
+  [[https://courses.edx.org/courses/UTAustinX/UT.5.02x/1T2015/info][UT.5.02x LAFF: Linear Algebra - Foundations to Frontiers]] (University of Texas/edX)
 
 * Технические навыки
 
