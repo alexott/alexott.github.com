@@ -6,7 +6,7 @@
  - **Name**: Alexey (Alex) Ott
  - **Address**: Paderborn, Germany
  - **Phone**: +4917650439409 (mobile)
- - **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]]
+ - **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]] (please use it s primary contact)
  - **Citizenship**: German, Russian
  - **Date of Birth**: 1974
  - **Personal site**: http://alexott.net/en/
@@ -21,14 +21,18 @@
 
 * Work Experience
 
- - **Software Architect** at *McAfee, Inc. (subsidiary of Intel Corporation)*<br>
+ - **Software Architect** at Intel Security. (subsidiary of Intel Corporation)*<br>
  **Dates (from-to)**: 07.2014-now<br>
- **Name and address of employer**: [[http://www.mcafee.com][McAfee, Inc]]. 33100 Paderborn, Germany<br>
+ **Name and address of employer**: [[http://intelsecurity.com][Intel Security]], 33100 Paderborn, Germany<br>
  **Positions held**: Software Architect<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
-    - Architecture and development of new URL Categorization system using the range of
-      machine learning & big data technologies
+    - Architecture and development of new URL & Content Categorization system using the
+      range of machine learning & big data technologies (HBase, Solr, Spark).
+      Implementing the full machine learning workflow - model design, data collection &
+      cleanup, feature extraction & selection, model evaluation, production deployment;
+    - Design & implementation of the log processing system (Kafka, Spark, Elasticsearch).
+
  - **Software Architect** at *McAfee, Inc. (subsidiary of Intel Corporation)*<br>
  **Dates (from-to)**: 03.2013-06.2014<br>
  **Name and address of employer**: [[http://www.mcafee.com][McAfee, Inc]]. 33100 Paderborn, Germany<br>
