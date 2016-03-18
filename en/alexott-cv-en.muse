@@ -27,10 +27,7 @@
  **Positions held**: Software Architect<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
-    - Architecture and development of new URL & Content Categorization system using the
-      range of machine learning & big data technologies (HBase, Solr, Spark).
-      Implementing the full machine learning workflow - model design, data collection &
-      cleanup, feature extraction & selection, model evaluation, production deployment;
+    - Architecture and development of new URL & Content Categorization system using the range of machine learning & big data technologies (HBase, Solr, Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.  Introduction of new system lead to greater coverage of the categorized resources, increased customer satisfaction, and decreasing of number of escalations;
     - Design & implementation of the log processing system (Kafka, Spark, Elasticsearch).
 
  - **Software Architect** at *McAfee, Inc. (subsidiary of Intel Corporation)*<br>
@@ -39,17 +36,18 @@
  **Positions held**: Software Architect<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
-    - Architecture and development of identity management components inside MWG (McAfee Web Gateway)
-    - Coordination of development with other teams
+    - Architecture and development of identity management & CASB (cloud access security broker) components inside McAfee Web Gateway: SSO (Single Sign-On), Cloud Storage Encryption, etc.;
+    - Coordination of development with other teams.
+
  - **Principal Software Engineer** at *McAfee, Inc. (subsidiary of Intel Corporation)*<br>
  **Dates (from-to)**: 04.2011-02.2013<br>
  **Name and address of employer**: [[http://www.mcafee.com][McAfee, Inc]]. 33100 Paderborn, Germany<br>
  **Positions held**: Principal Software Engineer<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
-    - Architecture and development of web-filtering and data leak prevention software (McAfee Web Gateway)
-    - Provide support for 3rd party developers
-    - Quality "tzar", responsible for introduction of quality-improving techniques and methodologies -- code review, unit testing, analysis of existing problems & errors, etc.
+    - Architecture and development of web-filtering and data leak prevention software (McAfee Web Gateway);
+    - Provide training & support for 3rd party developers;
+    - Quality "tzar", responsible for introduction of quality-improving techniques and methodologies (code reviews, unit testing, analysis of existing problems & errors, etc.) -- together with other organizational activities this lead to increase of product's quality, decrease number of customer escalations.
 
  - **Author & Editor** at *Practice of Functional Programming (Journal)*<br>
  **Dates (from-to)**: 04.2009-now<br>
@@ -63,7 +61,7 @@
  **Positions held**: Senior Software Developer<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
-    - Development of content-filtering software
+    - Development of content-filtering software (Webwasher/McAfee Web Gateway);
     - Architect of new versions of software -- collecting requirements, creating top-level view, planning development activity, etc.
 
  - **Head of Software development group** at *Jet Infosystems*<br>
