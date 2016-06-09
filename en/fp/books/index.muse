@@ -1,6 +1,9 @@
 #title Functional programming books overview
 #keywords functional programming, fp, lisp, ocaml, haskell, scheme, F#, clojure, scala, erlang, overview, book review, literature overview
 
+*Unfortunately, I don't have time anymore to update this list, the last additions were
+about 2 years ago :-(*
+
 The first variant of this article was published in the [[http://fprog.ru/2009/issue1/][first issue]] of Russian magazine
 "[[http://fprog.ru/][Practice of functional programming]]", but I decided to continue to maintain it, as more
 books were released ([[../../../ru/fp/books/][Russian version of this article]] also includes description of books
