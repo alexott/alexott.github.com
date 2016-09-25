@@ -6,29 +6,35 @@
  - **Name**: Alexey (Alex) Ott
  - **Address**: Paderborn, Germany
  - **Phone**: +4917650439409 (mobile)
- - **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]] (please use it s primary contact)
+ - **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]] (please use it as primary contact)
  - **Citizenship**: German, Russian
  - **Date of Birth**: 1974
  - **Personal site**: http://alexott.net/en/
  - **LinkedIn profile**: http://www.linkedin.com/in/alexott
+ - Blog: http://alexott.blogspot.com/
 
 * Summary 
 
- - Serious experience in products development for Data Leak Prevention & Content Filtering 
- - Leader of software development projects (commercial & open-source)
- - Software architect and developer using many different programming languages
- - Business vision of problems and requirements
+ - Significant experience in products development for Data Leak Prevention & Content Filtering;
+ - Leader of software development projects (commercial & open-source);
+ - Software architect and developer using different programming languages & technologies;
+ - Business vision of tasks & requirements
 
 * Work Experience
 
- - **Software Architect** at Intel Security. (subsidiary of Intel Corporation)*<br>
+ - **Software Architect** at Intel Security. *(subsidiary of Intel Corporation)*<br>
  **Dates (from-to)**: 07.2014-now<br>
  **Name and address of employer**: [[http://intelsecurity.com][Intel Security]], 33100 Paderborn, Germany<br>
  **Positions held**: Software Architect<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
-    - Architecture and development of new URL & Content Categorization system using the range of machine learning & big data technologies (HBase, Solr, Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.  Introduction of new system lead to greater coverage of the categorized resources, increased customer satisfaction, and decreasing of number of escalations;
-    - Design & implementation of the log processing system (Kafka, Spark, Elasticsearch).
+    - Architecture and development of new URL & Content Categorization system using the range of machine learning & big data technologies (Apache HBase, Apache Solr, Apache Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.  Introduction of new system lead to greater coverage of the categorized resources, increased customer satisfaction, and decreasing of number of escalations;
+    - Architecture & implementation of the log processing system (Apache Kafka, Apache Spark, Elasticsearch);
+    - Architecture of the CASB solution involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition for involved teams, prototyping, implementation of some components.
+
+ - **Mentor** at Google Summer of Code 2014<br>
+ **Dates (from-to)**: 05.2014-08.2014<br>
+ **Main activities and responsibilities**: Mentor for the project "Incanter and core.matrix integration"
 
  - **Software Architect** at *McAfee, Inc. (subsidiary of Intel Corporation)*<br>
  **Dates (from-to)**: 03.2013-06.2014<br>
@@ -50,7 +56,7 @@
     - Quality "tzar", responsible for introduction of quality-improving techniques and methodologies (code reviews, unit testing, analysis of existing problems & errors, etc.) -- together with other organizational activities this lead to increase of product's quality, decrease number of customer escalations.
 
  - **Author & Editor** at *Practice of Functional Programming (Journal)*<br>
- **Dates (from-to)**: 04.2009-now<br>
+ **Dates (from-to)**: 04.2009-04.2011<br>
  **Main activities and responsibilities**:
     - Author of several articles on functional programming (Clojure, Scheme, etc.)
     - Preparation of new journal issues 
@@ -133,44 +139,44 @@
   [[https://www.coursera.org/course/modelthinking][Model Thinking]] (University of Michigan/Coursera).  Score: 95% with distinction<br>
   [[https://weka.waikato.ac.nz/dataminingwithweka/][Data Mining with Weka]] (University of Waikato). Score: 100%<br>
   [[https://www.coursera.org/course/progfun][Functional Programming Principles in Scala]] (École Polytechnique Fédérale de Lausanne/Coursera): Score: 100% with distinction<br>
-  [[https://www.coursera.org/course/patterndiscovery][Pattern Discovery in Data Mining]] (University of Illinois at Urbana-Champaign/Coursera)<br>
+  [[https://www.coursera.org/course/patterndiscovery][Pattern Discovery in Data Mining]] (University of Illinois at Urbana-Champaign/Coursera). Score: 90.6%<br>
   [[https://www.coursera.org/course/clusteranalysis][Cluster Analysis in Data Mining]] (University of Illinois at Urbana-Champaign/Coursera)<br>
   [[https://www.coursera.org/course/mmds][Mining Massive Datasets]] (Stanford/Coursera)<br>
-  [[https://courses.edx.org/courses/BerkeleyX/CS100.1x/1T2015/info][CS100.1x Introduction to Big Data with Apache Spark]] (Berkley/edX)<br>
-  [[https://courses.edx.org/courses/BerkeleyX/CS190.1x/1T2015/info][CS190.1x Scalable Machine Learning]] (Berkley/edX)<br>
-  [[https://courses.edx.org/courses/UTAustinX/UT.5.02x/1T2015/info][UT.5.02x LAFF: Linear Algebra - Foundations to Frontiers]] (University of Texas/edX)
+  [[https://courses.edx.org/courses/BerkeleyX/CS100.1x/1T2015/info][CS100.1x Introduction to Big Data with Apache Spark]] (Berkley/edX). Score: 100%<br>
+  [[https://courses.edx.org/courses/BerkeleyX/CS190.1x/1T2015/info][CS190.1x Scalable Machine Learning]] (Berkley/edX). Score: 100%<br>
+  [[https://courses.edx.org/courses/UTAustinX/UT.5.02x/1T2015/info][UT.5.02x LAFF: Linear Algebra - Foundations to Frontiers]] (University of Texas/edX)<br>
+  [[https://www.coursera.org/account/accomplishments/records/sXxgywdRUTjpRAC7][Introduction to Natural Language Processing]] (University of Michigan). Score: 95.2%<br>
 
+  
 * Technical skills and competences
 
 ** Programming languages and software development skills
 
  - C and C++ – more than 10 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
+ - Java – 10 years
+ - Clojure - 7 years (commercial & personal projects)
  - Scheme and Common Lisp – 8 years (commercial & personal projects)
- - Clojure - 4 years (commercial & personal projects)
- - Erlang - 1,5 year (personal projects)
- - Haskell - 1 year (personal projects)
- - Java (including J2EE) – 5 years (currently inactive)
+ - Erlang - 1,5 year (personal projects, currently inactive)
+ - Haskell - 1 year (personal projects, currently inactive)
  - Perl – 5 years (currently inactive)
  - OCaml and F# – 3 years (currently inactive)
- - Prolog - 2 years (currently inactive)
  - SQL – 7 years (Oracle and PostgreSQL)
  - UML modeling in complex projects
- - x86 Assembler – 5 years (currently inactive)
- - Hadoop and corresponding topics - 2 years
- - Lucene - 2 years (via Clojure)
+ - Shell scripting languages - bash, sh, zsh, ...
 
 ** Other computer-related skills
 
- - Administration of UNIX-like OS – Linux (since 1996), Sun Solaris (since 2000), HP-UX
-   (since 2001), FreeBSD (since 2000) 
- - Administration of Windows OSes – NT4, 2000, XP
- - Administration of relational databases (Oracle and PostgreSQL) 
+ - Administration of UNIX-like OSes – Linux (since 1996), Sun Solaris (since 2000-2006),
+   HP-UX (2001-2006), FreeBSD (2000-2006);
+ - Administration of Windows OSes – NT4, 2000, XP, ...;
+ - Administration of relational databases (Oracle and PostgreSQL);
+ - NoSQL databases: Apache HBase, Apache Solr, Elasticsearch, CouchDB.
 
 ** Open Source projects
 
-I'm participating in different open source code projects including:
+I'm contributing to different open source code projects including:
  - Clojure-related: Incanter, Leiningen, swank-clojure, Clojure, clojure-hadoop, labrepl;
- - Emacs-related: el-get, magit, Muse, GNU Emacs;
+ - Emacs-related: el-get, magit, Muse, GNU Emacs, CEDET;
  - ALTLinux -- Linux distribution, package maintainer (2001-2004)
  - Catdoc -- Open-source converter for MS Office files, development of PPT & XLS converters;
  - Dansguardian – web-filtering software;
@@ -203,8 +209,8 @@ Information about other open source projects you can find on [[http://github.com
 
 ** Social and organizational skills and competences
 
- - Ability to working in multinational commands, working with foreign customers
- - Ability to work in teams and alone
+ - Ability to work in multinational teams, work with foreign customers
+ - Ability to work in teams (also geographically distributed) and alone
  - Experience in managing of software development teams, coordinating different departments to make projects.
  - Participation in Open Source projects
 
@@ -212,7 +218,7 @@ Information about other open source projects you can find on [[http://github.com
 
  - **Driving license**: present
  - **Artistic skills and competences**: 
-   - Author of different articles, in physic and computer-related branches (functional programming, Emacs, programming);
+   - Author of different articles, in physics and computer-related branches (functional programming, Emacs, programming);
    - Co-author of Russian translation of "GNU Emacs manual",  "Practical Common Lisp", "Types and programming languages", and some other.
 
 
