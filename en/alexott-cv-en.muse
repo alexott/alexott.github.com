@@ -15,10 +15,10 @@
 
 * Summary 
 
- - Significant experience in products development for Data Leak Prevention & Content Filtering;
- - Leader of software development projects (commercial & open-source);
- - Software architect and developer using different programming languages & technologies;
- - Business vision of tasks & requirements
+ - Significant experience in products development for information security;
+ - Leadership in software development projects (commercial & open-source);
+ - Software architect and developer using different programming languages & technologies (cloud, on-premise);
+ - Business vision of tasks & requirements, results-oriented.
 
 * Work Experience
 
@@ -30,7 +30,7 @@
  **Main activities and responsibilities**: 
     - Architecture and development of new URL & Content Categorization system using the range of machine learning & big data technologies (Apache HBase, Apache Solr, Apache Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.  Introduction of new system lead to greater coverage of the categorized resources, increased customer satisfaction, and decreasing of number of escalations;
     - Architecture & implementation of the log processing system (Apache Kafka, Apache Spark, Elasticsearch);
-    - Architecture of the CASB solution involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition for involved teams, prototyping, implementation of some components.
+    - Architecture of the CASB (Cloud Access Security Broker) solution involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition for involved teams, evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure).
 
  - **Mentor** at Google Summer of Code 2014<br>
  **Dates (from-to)**: 05.2014-08.2014<br>
@@ -43,7 +43,7 @@
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
     - Architecture and development of identity management & CASB (cloud access security broker) components inside McAfee Web Gateway: SSO (Single Sign-On), Cloud Storage Encryption, etc.;
-    - Coordination of development with other teams.
+    - Coordination of development with other teams, requirements analysis, tasks definition, etc.
 
  - **Principal Software Engineer** at *McAfee, Inc. (subsidiary of Intel Corporation)*<br>
  **Dates (from-to)**: 04.2011-02.2013<br>
@@ -70,10 +70,10 @@
     - Development of content-filtering software (Webwasher/McAfee Web Gateway);
     - Architect of new versions of software -- collecting requirements, creating top-level view, planning development activity, etc.
 
- - **Head of Software development group** at *Jet Infosystems*<br>
+ - **Head of Software development group & architect** at *Jet Infosystems*<br>
  **Dates (from-to)**: 10.2001-11.2006<br>
  **Name and address of employer**: [[http://www.jetinfo.com][Jet Infosystems]]. B. Novodmitrovskaya, 14/1, 127015 Moscow, Russia<br>
- **Positions held**: Head of Software development group, Chief System Architect<br>
+ **Positions held**: Head of Software development group, System Architect<br>
  **Type of business**: System Integration<br>
  **Main activities and responsibilities**: 
     - Head of development group (9 people);
@@ -145,21 +145,21 @@
   [[https://courses.edx.org/courses/BerkeleyX/CS100.1x/1T2015/info][CS100.1x Introduction to Big Data with Apache Spark]] (Berkley/edX). Score: 100%<br>
   [[https://courses.edx.org/courses/BerkeleyX/CS190.1x/1T2015/info][CS190.1x Scalable Machine Learning]] (Berkley/edX). Score: 100%<br>
   [[https://courses.edx.org/courses/UTAustinX/UT.5.02x/1T2015/info][UT.5.02x LAFF: Linear Algebra - Foundations to Frontiers]] (University of Texas/edX)<br>
-  [[https://www.coursera.org/account/accomplishments/records/sXxgywdRUTjpRAC7][Introduction to Natural Language Processing]] (University of Michigan). Score: 95.2%<br>
-
+  [[https://www.coursera.org/account/accomplishments/records/sXxgywdRUTjpRAC7][Introduction to Natural Language Processing]] (University of Michigan). Score: 95.2%
   
 * Technical skills and competences
 
 ** Programming languages and software development skills
 
- - C and C++ – more than 10 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
- - Java – 10 years
+ - C and C++ – more than 15 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
+ - Java – 10 years (commercial & personal projects)
  - Clojure - 7 years (commercial & personal projects)
  - Scheme and Common Lisp – 8 years (commercial & personal projects)
- - Erlang - 1,5 year (personal projects, currently inactive)
+ - Erlang - 2 year (personal projects, currently inactive)
  - Haskell - 1 year (personal projects, currently inactive)
  - Perl – 5 years (currently inactive)
- - OCaml and F# – 3 years (currently inactive)
+ - OCaml and F# – 2 years (currently inactive)
+ - Go – 1 year (currently inactive)
  - SQL – 7 years (Oracle and PostgreSQL)
  - UML modeling in complex projects
  - Shell scripting languages - bash, sh, zsh, ...
