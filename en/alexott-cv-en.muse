@@ -22,15 +22,24 @@
 
 * Work Experience
 
+ - **Solution Architect** at McAfee<br>
+ **Dates (from-to)**: 04.2017-now<br>
+ **Name and address of employer**: [[http://mcafee.com][McAfee]], 33100 Paderborn, Germany<br>
+ **Positions held**: Solution Architect<br>
+ **Type of business**: Software Development<br>
+ **Main activities and responsibilities**: 
+    - Architecture of the [[https://www.mcafee.com/us/beta/public-betas/data-protection/cloud-data-protection.aspx][CDP (Cloud Data Protection)]] solution involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition for involved teams, evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure);
+    - Development of URL & Content Categorization system using the range of machine learning & big data technologies (Apache HBase, Apache Solr, Apache Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.
+
  - **Software Architect** at Intel Security. *(subsidiary of Intel Corporation)*<br>
- **Dates (from-to)**: 07.2014-now<br>
+ **Dates (from-to)**: 07.2014-03.2017<br>
  **Name and address of employer**: [[http://intelsecurity.com][Intel Security]], 33100 Paderborn, Germany<br>
  **Positions held**: Software Architect<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
     - Architecture and development of new URL & Content Categorization system using the range of machine learning & big data technologies (Apache HBase, Apache Solr, Apache Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.  Introduction of new system lead to greater coverage of the categorized resources, increased customer satisfaction, and decreasing of number of escalations;
-    - Architecture & implementation of the log processing system (Apache Kafka, Apache Spark, Elasticsearch);
-    - Architecture of the CASB (Cloud Access Security Broker) solution involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition for involved teams, evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure).
+    - Architecture & implementation of the log processing system (Apache Kafka, Apache Spark, Elasticsearch) that is base for [[https://www.mcafee.com/us/products/cloud-visibility-community-edition.aspx][McAfee Cloud Visibility]] offering & reporting in [[https://www.mcafee.com/us/products/web-gateway-cloud-service.aspx][Web Gateway Cloud Service]];
+    - Architecture of the CDP (Cloud Data Protection) solution involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition for involved teams, evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure).
 
  - **Mentor** at Google Summer of Code 2014<br>
  **Dates (from-to)**: 05.2014-08.2014<br>
