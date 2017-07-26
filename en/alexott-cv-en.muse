@@ -1,12 +1,12 @@
 #title Alexey Ott's Curriculum Vitae
-#keywords cv, curriculum vitae, alexey ott, haskell, erlang, clojure, lisp, scheme, ocaml
+#keywords cv, curriculum vitae, alexey ott, clojure, java
 
 * Personal Information
 
  - **Name**: Alexey (Alex) Ott
  - **Address**: Paderborn, Germany
- - **Phone**: +4917650439409 (mobile)
  - **E-mail**: [[mailto:alexott@gmail.com][alexott@gmail.com]] (please use it as primary contact)
+ - **Phone**: +4917650439409 (mobile)
  - **Citizenship**: German, Russian
  - **Date of Birth**: 1974
  - **Personal site**: http://alexott.net/en/
@@ -28,7 +28,7 @@
  **Positions held**: Solution Architect<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
-    - Architecture of the [[https://www.mcafee.com/us/beta/public-betas/data-protection/cloud-data-protection.aspx][CDP (Cloud Data Protection)]] solution involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition for involved teams, evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure);
+    - Architecture of the [[https://www.mcafee.com/us/beta/public-betas/data-protection/cloud-data-protection.aspx][CDP (Cloud Data Protection)]] solution (implementing elements of CASB), involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition & coordination for involved teams (very geo-distributed), evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure);
     - Development of URL & Content Categorization system using the range of machine learning & big data technologies (Apache HBase, Apache Solr, Apache Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.
 
  - **Software Architect** at Intel Security. *(subsidiary of Intel Corporation)*<br>
@@ -38,7 +38,7 @@
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
     - Architecture and development of new URL & Content Categorization system using the range of machine learning & big data technologies (Apache HBase, Apache Solr, Apache Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.  Introduction of new system lead to greater coverage of the categorized resources, increased customer satisfaction, and decreasing of number of escalations;
-    - Architecture & implementation of the log processing system (Apache Kafka, Apache Spark, Elasticsearch) that is base for [[https://www.mcafee.com/us/products/cloud-visibility-community-edition.aspx][McAfee Cloud Visibility]] offering & reporting in [[https://www.mcafee.com/us/products/web-gateway-cloud-service.aspx][Web Gateway Cloud Service]];
+    - Architecture & implementation of the log processing system (Apache Kafka, Apache Spark Streaming, Elasticsearch) that is base for [[https://www.mcafee.com/us/products/cloud-visibility-community-edition.aspx][McAfee Cloud Visibility]] offering & reporting in [[https://www.mcafee.com/us/products/web-gateway-cloud-service.aspx][Web Gateway Cloud Service]];
     - Architecture of the CDP (Cloud Data Protection) solution involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition for involved teams, evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure).
 
  - **Mentor** at Google Summer of Code 2014<br>
@@ -85,16 +85,13 @@
  **Positions held**: Head of Software development group, System Architect<br>
  **Type of business**: System Integration<br>
  **Main activities and responsibilities**: 
-    - Head of development group (9 people);
-    - Lead of development projects;
+    - Head of development group (9 people), lead of of development projects;
     - Architect and development of custom and off-the-shelf software (C/C++, Scheme, Lisp, Java);
-    - Negotiation with customers
-    - Present solutions for customers;
-    - Participation in marketing activity;
+    - Participation in marketing activity, present solutions for customers;
     - Infrastructure architect (data & process integration projects, network projects, mail projects).
     - *Performed Projects*:
-     - **Mailboss** (aka SMAP "Dozor-Jet") – mail filtering and archiving software (architect and developer, leader of development process); http://www.jetinfosecurity.com;
-     - **Webboss** (aka SKVT "Dozor-Jet") – web filtering software (architect and develop software, lead the development process); http://www.jetinfosecurity.com;
+     - **Mailboss** (aka SMAP "Dozor-Jet") – mail filtering and archiving software (architect and developer, leader of development process); https://jet.su/en/services/information_security/;
+     - **Webboss** (aka SKVT "Dozor-Jet") – web filtering software (architect and develop software, lead the development process); https://jet.su/en/services/information_security/;
      - **BeepayXP** – payment processing software for the Vimpelkom – large Russian Mobile Company (Data architect, server infrastructure architect, project coordinator); 
      - **File-NG** – data type detection library;
      - KC IAS - lead architect in data and process integration pilot project (on the base of Sun Java CAPS) for a Russian Central bank. Business process analysis, Project architecture design, product selection.
@@ -103,7 +100,7 @@
      - Mail projects for different clients (Infrastructure architect, project coordinator);
      - Custom software solutions (Development in C/C++, Java, Scheme).
 
- - **Teacher** at *Tomsk Polytechnic University*<br>
+ - **Teaching assistant & lecturer** at *Tomsk Polytechnic University*<br>
  **Dates (from-to)**: 09.1998-08.2001<br>
  **Name and address of employer**: Tomsk Polytechnic University, Lenina Str, 30, Tomsk, Russia<br>
  **Positions held**: Assistant lecturer at Technical Physic's department (Teacher)<br>
@@ -121,7 +118,6 @@
  **Main activities and responsibilities**: 
     - Writing modules for search engine (Perl, Oracle);
     - Web programming (HTML, JavaScript).
-
 
 * Education and trainings
 
@@ -163,11 +159,13 @@
  - C and C++ – more than 15 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
  - Java – 10 years (commercial & personal projects)
  - Clojure - 7 years (commercial & personal projects)
- - Scheme and Common Lisp – 8 years (commercial & personal projects)
- - Erlang - 2 year (personal projects, currently inactive)
- - Haskell - 1 year (personal projects, currently inactive)
+ - Other functional languages:
+   - Scheme and Common Lisp – 8 years (commercial & personal projects)
+   - Erlang - 2 year (personal projects, currently inactive)
+   - Haskell - 1 year (personal projects, currently inactive)
+   - OCaml and F# – 2 years (personal projects, currently inactive)
+   - Scala (personal projects)
  - Perl – 5 years (currently inactive)
- - OCaml and F# – 2 years (currently inactive)
  - Go – 1 year (currently inactive)
  - SQL – 7 years (Oracle and PostgreSQL)
  - UML modeling in complex projects
@@ -175,8 +173,8 @@
 
 ** Other computer-related skills
 
- - Administration of UNIX-like OSes – Linux (since 1996), Sun Solaris (since 2000-2006),
-   HP-UX (2001-2006), FreeBSD (2000-2006);
+ - Administration of UNIX-like OSes – Linux (since 1996), Sun Solaris (2000-2006), HP-UX
+   (2001-2006), FreeBSD (2000-2006);
  - Administration of Windows OSes – NT4, 2000, XP, ...;
  - Administration of relational databases (Oracle and PostgreSQL);
  - NoSQL databases: Apache HBase, Apache Solr, Elasticsearch, CouchDB.
