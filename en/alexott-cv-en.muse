@@ -11,7 +11,7 @@
  - **Date of Birth**: 1974
  - **Personal site**: http://alexott.net/en/
  - **LinkedIn profile**: http://www.linkedin.com/in/alexott
- - Blog: http://alexott.blogspot.com/
+ - Blog: http://alexott.blogspot.com
 
 * Summary 
 
@@ -22,13 +22,13 @@
 
 * Work Experience
 
- - **Solution Architect** at McAfee/Intel Security<br>
+ - **Senior Software Architect** at McAfee/Intel Security<br>
  **Dates (from-to)**: 10.2016-now<br>
  **Name and address of employer**: [[http://mcafee.com][McAfee]], 33100 Paderborn, Germany<br>
  **Positions held**: Solution Architect<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
-    - Architecture of the [[https://www.mcafee.com/us/beta/public-betas/data-protection/cloud-data-protection.aspx][CDP (Cloud Data Protection)]] solution (implementing elements of CASB), involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition & coordination for involved teams (very geo-distributed), evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure);
+    - Architecture of the [[https://www.mcafee.com/us/beta/public-betas/data-protection/cloud-data-protection.aspx][CDP (Cloud Data Protection)]] solution (implementing elements of CASB), involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition & coordination for involved teams (very geo-distributed), evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure, Docker-based microservices, ...);
     - Development of URL & Content Categorization system using the range of machine learning & big data technologies (Apache HBase, Apache Solr, Apache Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.  Development of experimental models with Keras, XGBoost, scikit-learn, other frameworks.
 
  - **Software Architect** at Intel Security. *(subsidiary of Intel Corporation)*<br>
