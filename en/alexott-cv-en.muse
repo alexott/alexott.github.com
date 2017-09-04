@@ -62,7 +62,7 @@
  **Main activities and responsibilities**: 
     - Architecture and development of web-filtering and data leak prevention software (McAfee Web Gateway);
     - Provide training & support for 3rd party developers;
-    - Quality "tzar", responsible for introduction of quality-improving techniques and methodologies (code reviews, unit testing, analysis of existing problems & errors, etc.) -- together with other organizational activities this lead to increase of product's quality, decrease number of customer escalations.
+    - Quality "owner", responsible for introduction of quality-improving techniques and methodologies (code reviews, unit testing, analysis of existing problems & errors, continuous integration, static code analysis, etc.) -- together with other organizational activities this lead to increase of product's quality, decrease number of customer escalations.
 
  - **Author & Editor** at *Practice of Functional Programming (Journal)*<br>
  **Dates (from-to)**: 04.2009-04.2011<br>
@@ -146,7 +146,7 @@
   [[https://www.coursera.org/course/progfun][Functional Programming Principles in Scala]] (École Polytechnique Fédérale de Lausanne/Coursera): Score: 100% with distinction<br>
   [[https://www.coursera.org/course/patterndiscovery][Pattern Discovery in Data Mining]] (University of Illinois at Urbana-Champaign/Coursera). Score: 90.6%<br>
   [[https://www.coursera.org/course/clusteranalysis][Cluster Analysis in Data Mining]] (University of Illinois at Urbana-Champaign/Coursera)<br>
-  [[https://www.coursera.org/course/mmds][Mining Massive Datasets]] (Stanford/Coursera)<br>
+  [[https://www.coursera.org/course/mmds][Mining of Massive Datasets]] (Stanford/Coursera)<br>
   [[https://courses.edx.org/courses/BerkeleyX/CS100.1x/1T2015/info][CS100.1x Introduction to Big Data with Apache Spark]] (Berkley/edX). Score: 100%<br>
   [[https://courses.edx.org/courses/BerkeleyX/CS190.1x/1T2015/info][CS190.1x Scalable Machine Learning]] (Berkley/edX). Score: 100%<br>
   [[https://courses.edx.org/courses/UTAustinX/UT.5.02x/1T2015/info][UT.5.02x LAFF: Linear Algebra - Foundations to Frontiers]] (University of Texas/edX)<br>
@@ -168,7 +168,7 @@
 
  - C and C++ – more than 15 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
  - Java – 10 years (commercial & personal projects)
- - Clojure - 7 years (commercial & personal projects)
+ - Clojure - 8 years (commercial & personal projects)
  - Other functional languages:
    - Scheme and Common Lisp – 8 years (commercial & personal projects)
    - Erlang - 2 year (personal projects, currently inactive)
@@ -181,6 +181,9 @@
  - UML modeling in complex projects
  - Shell scripting languages - bash, sh, zsh, ...
  - NoSQL databases: Apache HBase, Apache Solr, Elasticsearch, CouchDB.
+ - Continuous integration using Jenkins
+ - Static code analysis using Coverity
+ - Test-driven development (TDD) using different frameworks - JUnit, Mockito, GMock, GTest, Boost.Test, ...
 
 ** Other computer-related skills
 
