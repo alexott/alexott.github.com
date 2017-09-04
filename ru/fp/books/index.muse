@@ -1168,3 +1168,7 @@ Footnotes:
 [4] Это, к сожалению, беда многих советских и российских учебников.
 
 [5] Продолжение -- continutation.
+
+<literal style="html">
+<script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=06373e90-55e1-4566-88d4-201b3a9eaf39"></script>
+</literal>

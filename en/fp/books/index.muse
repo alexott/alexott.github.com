@@ -663,3 +663,7 @@ For Prolog I would recommend to start with
 
 ;  LocalWords:  Haskell monads Yesod O'Reilly OCaml Meijer Erlang Wikibooks th Caml Scala
 ;  LocalWords:  interoperation Prolog nd
+
+<literal style="html">
+<script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=06373e90-55e1-4566-88d4-201b3a9eaf39"></script>
+</literal>
