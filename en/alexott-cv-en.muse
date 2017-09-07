@@ -121,18 +121,18 @@
 
 * Education and trainings
 
+ - **MBA** at *Magdeburg University*, Germany<br>
+ **Dates (from-to)**: 2003-2005<br>
+ **Title of qualification awarded**: Master of Business Administration<br>
+ **Name and type of organisation**:  Deutsches MBA Program, Magdeburg University, Germany<br>
+ **Principal subjects**: General management, Finance, Marketing
+
  - **Engineer** at *Tomsk Polytechnic University*, Russia<br>
  **Dates (from-to)**: 1991-1997<br>
  **Title of qualification awarded**: Physic (Engineer)<br>
  **Name and type of organisation**: Physical-technical department of Tomsk Polytechnic University<br>
  **Principal subjects**: Physic and Chemistry of Plasma, Mathematics<br>
  **Level in national classification**: Higher education diploma<br>
-
- - **MBA** at *Magdeburg University*, Germany<br>
- **Dates (from-to)**: 2003-2005<br>
- **Title of qualification awarded**: Master of Business Administration<br>
- **Name and type of organisation**:  Deutsches MBA Program, Magdeburg University, Germany<br>
- **Principal subjects**: General management, Finance, Marketing
 
  - Online courses:<br>
   [[http://www.ai-class.com/][An Introduction to Artificial Intelligence]] (Stanford). Score: 89%<br>
@@ -231,12 +231,12 @@ Information about other open source projects you can find on [[http://github.com
 
  - Ability to work in multinational teams, work with foreign customers
  - Ability to work in teams (also geographically distributed) and alone
- - Experience in managing of software development teams, coordinating different departments to make projects.
+ - Experience in management of development teams
+ - Practical experience in management of software projects
  - Participation in Open Source projects
 
 * Other personal info
 
- - **Driving license**: present
  - **Artistic skills and competences**: 
    - Author of different articles, in physics and computer-related branches (functional programming, Emacs, programming);
    - Co-author of Russian translation of "GNU Emacs manual",  "Practical Common Lisp", "Types and programming languages", and some other.
