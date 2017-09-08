@@ -166,23 +166,16 @@
 
 ** Programming languages and software development skills
 
- - C and C++ – more than 15 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD)
- - Java – 10 years (commercial & personal projects)
- - Clojure - 8 years (commercial & personal projects)
- - Other functional languages:
-   - Scheme and Common Lisp – 8 years (commercial & personal projects)
-   - Erlang - 2 year (personal projects, currently inactive)
-   - Haskell - 1 year (personal projects, currently inactive)
-   - OCaml and F# – 2 years (personal projects, currently inactive)
-   - Scala (personal projects)
- - Perl – 5 years (currently inactive)
- - Go – 1 year (currently inactive)
- - SQL – 7 years (Oracle and PostgreSQL)
- - UML modeling in complex projects
+ - C and C++ – more than 15 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD);
+ - Java – 10 years (commercial & personal projects);
+ - Clojure - 8 years (commercial & personal projects);
+ - Python - 3 years (mostly personal projects);
+ - Other languages (mostly not active right now): Scheme and Common Lisp (8 years, commercial & personal projects), Erlang (2 years, personal projects),  Haskell (1 year, personal projects), OCaml and F# (2 years, personal projects), Scala (personal projects), Go (1 year, personal projects), Perl (5 years, personal & commercial projects), SQL (7 years, Oracle and PostgreSQL);
+ - UML modeling in complex projects;
  - Shell scripting languages - bash, sh, zsh, ...
- - NoSQL databases: Apache HBase, Apache Solr, Elasticsearch, CouchDB.
- - Continuous integration using Jenkins
- - Static code analysis using Coverity
+ - NoSQL databases: Apache HBase, Apache Solr, Elasticsearch, CouchDB;
+ - Continuous integration using Jenkins;
+ - Static code analysis using Coverity;
  - Test-driven development (TDD) using different frameworks - JUnit, Mockito, GMock, GTest, Boost.Test, ...
 
 ** Other computer-related skills
@@ -205,20 +198,6 @@ I'm contributing to different open source code projects including:
 
 Information about other open source projects you can find on [[http://github.com/alexott][github]] and [[https://www.ohloh.net/accounts/alexott][ohloh]].
 
-** Certification
-
- - Authorised "ALTLinux specialist", certificate number 0x000C;
- - Brainbench certification ([[http://www.brainbench.com/xml/bb/transcript/public/viewtranscript.xml?pid=5075245][Brainbench ID 5075245]]):
-  - Master C++
-  - Master C++ Fundamentals
-  - Master Unix Programming
-  - Master Linux Programming
-  - Master Network Authentication
-  - Master Unix Administration (General)
-  - Master Linux Administration (General)
-  - Master Linux Administration (Redhat)
-  - C Programmer
-
 * Personal skills and competences
 
 ** Languages
@@ -229,17 +208,18 @@ Information about other open source projects you can find on [[http://github.com
 
 ** Social and organizational skills and competences
 
- - Ability to work in multinational teams, work with foreign customers
- - Ability to work in teams (also geographically distributed) and alone
- - Experience in management of development teams
- - Practical experience in management of software projects
- - Participation in Open Source projects
+ - Ability to work in multinational teams, work with foreign customers;
+ - Ability to work in teams (also geographically distributed) and alone;
+ - Experience in management of development teams;
+ - Practical experience in management of software projects;
+ - Participation in Open Source projects.
 
 * Other personal info
 
  - **Artistic skills and competences**: 
    - Author of different articles, in physics and computer-related branches (functional programming, Emacs, programming);
    - Co-author of Russian translation of "GNU Emacs manual",  "Practical Common Lisp", "Types and programming languages", and some other.
-
+ - **Hobbies**:
+   - Sport: Running, Cycling, Hiking
 
 ;  LocalWords:  Mailboss SMAP Dozor Webboss SKVT IAS BeepayXP NG
