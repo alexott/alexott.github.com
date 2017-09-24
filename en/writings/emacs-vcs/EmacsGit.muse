@@ -66,7 +66,7 @@ case, if you've got conflicts during merge, you can run conflict resolving comma
 =git-resolve-file= (=R= key).
 
 You can add new files to repository with the =git-add-file= command (=a= key), and remove
-files with the =git-remove-file= command (=r= key).  To get reed from files that are stored in
+files with the =git-remove-file= command (=r= key).  To hide files that are stored in
 directory, but not registered in repository, you can put them into list of ignored files.
 This could be done with the =git-ignore-file= command (=i=).
 

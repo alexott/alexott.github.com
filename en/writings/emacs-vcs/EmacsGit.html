@@ -134,7 +134,7 @@ parameter to <code>make</code>, or just copy all files to the directory, where E
 <p>To use <em>git.el</em>, you need to put following line into your initialization file:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">git</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">git</span>)
 </pre>
 
 <p>and after evaluation, you'll get access all commands, provided by this package.</p>
@@ -177,7 +177,7 @@ case, if you've got conflicts during merge, you can run conflict resolving comma
 <code>git-resolve-file</code> (<code>R</code> key).</p>
 
 <p>You can add new files to repository with the <code>git-add-file</code> command (<code>a</code> key), and remove
-files with the <code>git-remove-file</code> command (<code>r</code> key).  To get reed from files that are stored in
+files with the <code>git-remove-file</code> command (<code>r</code> key).  To hide files that are stored in
 directory, but not registered in repository, you can put them into list of ignored files.
 This could be done with the <code>git-ignore-file</code> command (<code>i</code>).</p>
 
@@ -228,7 +228,7 @@ Installation and customisation</h3>
 add following line of code in Emacs's initialisation file:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">git-emacs</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">git-emacs</span>)
 </pre>
 
 <p>Initial customisation of package could be performed with the <code>git-config-init</code> command, that
@@ -387,7 +387,7 @@ make &amp;&amp; make install
 <p>After installation, just add following line to your initialisation file:</p>
 
 <pre class="src">
-(autoload 'magit-status <span style="color: #008b00;">"magit"</span> nil t)
+(autoload 'magit-status <span style="color: #8b2252;">"magit"</span> nil t)
 </pre>
 
 <p>This command will load package when on first call of the <code>magit-status</code> command.</p>
@@ -606,13 +606,13 @@ package, described <a href="#git-emacs">above</a>.  To load the package, put fol
 initialization file:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">git-blame</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">git-blame</span>)
 </pre>
 
 <p>or you can use following, if you don't want to load package until first call:</p>
 
 <pre class="src">
-(autoload 'git-blame-mode <span style="color: #008b00;">"git-blame"</span> <span style="color: #666666;">"Minor mode for incremental blame for Git."</span> t)
+(autoload 'git-blame-mode <span style="color: #8b2252;">"git-blame"</span> <span style="color: #8b2252;">"Minor mode for incremental blame for Git."</span> t)
 </pre>
 
 <p>To use this package in some buffer, user should enable in it the <code>git-blame-mode</code> minor
@@ -631,7 +631,7 @@ download it from <a href="http://github.com/chneukirchen/gitsum/tree/master">rep
 following line into initialization file:</p>
 
 <pre class="src">
-(<span style="color: #a020f0;">require</span> '<span style="color: #00008b;">gitsum</span>)
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">gitsum</span>)
 </pre>
 
 <p>The <em>gitsum</em> package provides to user only one command &mdash; 
@@ -661,9 +661,9 @@ package, you need to download it from <a href="http://github.com/jimhourihan/egi
 following code to the initialization file:</p>
 
 <pre class="src">
-(autoload 'egit <span style="color: #008b00;">"egit"</span> <span style="color: #666666;">"Emacs git history"</span> t)
-(autoload 'egit-file <span style="color: #008b00;">"egit"</span> <span style="color: #666666;">"Emacs git history file"</span> t)
-(autoload 'egit-dir <span style="color: #008b00;">"egit"</span> <span style="color: #666666;">"Emacs git history directory"</span> t)
+(autoload 'egit <span style="color: #8b2252;">"egit"</span> <span style="color: #8b2252;">"Emacs git history"</span> t)
+(autoload 'egit-file <span style="color: #8b2252;">"egit"</span> <span style="color: #8b2252;">"Emacs git history file"</span> t)
+(autoload 'egit-dir <span style="color: #8b2252;">"egit"</span> <span style="color: #8b2252;">"Emacs git history directory"</span> t)
 </pre>
 
 <p>The package defines three commands, that have similar functionality, but working with
@@ -713,7 +713,7 @@ key binding <code>C-x v v</code>.</p>
 
 
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 05.03.2013 16:54</em></p></div>
+<div id="lastchange"><p><em>Last change: 24.09.2017 11:45</em></p></div>
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">
 var disqus_shortname = 'alexottnet';
