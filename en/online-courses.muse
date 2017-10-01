@@ -1,0 +1,21 @@
+#title Online courses
+#keywords coursera, edx
+
+ - [[http://www.ai-class.com/][An Introduction to Artificial Intelligence]] (Stanford). Score: 89%
+ - [[https://www.coursera.org/course/ml][Machine Learning]] (Stanford). Score: 100%
+ - [[https://www.coursera.org/course/nlp/][Natural Language Processing]] (Stanford/Coursera). Score: 93%
+ - [[https://www.coursera.org/course/hetero][Heterogeneous Parallel Programming]] (University of Illinois at Urbana-Champaign/Coursera). Score: 100% with distinction
+ - [[https://www.coursera.org/course/compdata][Computing for Data Analysis]] (Johns Hopkins Bloomberg School of Public Health/Coursera). Score: 100% with distinction
+ - [[https://www.coursera.org/course/datasci][Introduction to Data Science]] (University of Washington/Coursera).  Score: 90.1% with distinction
+ - [[https://www.coursera.org/course/modelthinking][Model Thinking]] (University of Michigan/Coursera).  Score: 95% with distinction
+ - [[https://weka.waikato.ac.nz/dataminingwithweka/][Data Mining with Weka]] (University of Waikato). Score: 100%
+ - [[https://www.coursera.org/course/progfun][Functional Programming Principles in Scala]] (École Polytechnique Fédérale de Lausanne/Coursera): Score: 100% with distinction
+ - [[https://www.coursera.org/course/patterndiscovery][Pattern Discovery in Data Mining]] (University of Illinois at Urbana-Champaign/Coursera). Score: 90.6%
+ - [[https://www.coursera.org/course/clusteranalysis][Cluster Analysis in Data Mining]] (University of Illinois at Urbana-Champaign/Coursera)
+ - [[https://www.coursera.org/course/mmds][Mining of Massive Datasets]] (Stanford/Coursera)
+ - [[https://courses.edx.org/courses/BerkeleyX/CS100.1x/1T2015/info][CS100.1x Introduction to Big Data with Apache Spark]] (Berkley/edX). Score: 100%
+ - [[https://courses.edx.org/courses/BerkeleyX/CS190.1x/1T2015/info][CS190.1x Scalable Machine Learning]] (Berkley/edX). Score: 100%
+ - [[https://courses.edx.org/courses/UTAustinX/UT.5.02x/1T2015/info][UT.5.02x LAFF: Linear Algebra - Foundations to Frontiers]] (University of Texas/edX)
+ - [[https://www.coursera.org/account/accomplishments/records/sXxgywdRUTjpRAC7][Introduction to Natural Language Processing]] (University of Michigan). Score: 95.2%
+
+
