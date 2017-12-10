@@ -8,8 +8,7 @@
 **Jabber**: [[xmpp://alexott@gmail.com][alexott@gmail.com]]<br>
 **Живу в**: Германии
 
-Остальную персональную информацию вы можете найти в моем профиле на [[http://gplus.to/alexott/][Google+]]. А свои *wish
-lists* я веду на [[http://amazon.de/gp/registry/wishlist/3GN7PNIFBJSHC][Amazon.de]] & [[http://www.amazon.co.uk/wishlist/T6DNC3CKUHZ2][Amazon UK]].
+Остальную персональную информацию вы можете найти в моем профиле на [[https://plus.google.com/+AlexOtt][Google+]].
 
 Вы также можете ознакомиться с моим [[alexott-cv-ru][резюме]] ([[alexott-cv-ru.pdf][PDF]]).  Также профессиональную информацию вы
 можете найти в сети [[http://www.linkedin.com/in/alexott][LinkedIn]].
@@ -23,7 +22,8 @@ lists* я веду на [[http://amazon.de/gp/registry/wishlist/3GN7PNIFBJSHC][A
 Основная работа -- разработка программного обеспечения, начиная с проектирования и
 заканчивая его реализацией, и продвижением (маркетинговая активность).  Также занимаюсь
 консультированием сторонних проектов.  В настоящее время основная специализация --
-информационная безопасность и [[cf/index][контентная фильтрация данных]].
+информационная безопасность и [[cf/index][контентная фильтрация данных]], включая применение технологий
+машинного обучения и big data.
 
 Разработка ПО, производится на разных языках программирования.  Основной рабочий язык --
 [[cpp/index][C & C++]], но кроме этого, часто используется [[lisp/index][Lisp]], [[scheme/index][Scheme]] [[clojure/index][Clojure]], [[erlang/index][Erlang]], Haskell, и
