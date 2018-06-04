@@ -12,6 +12,7 @@
  - **Personal site**: http://alexott.net/en/
  - **LinkedIn profile**: http://www.linkedin.com/in/alexott
  - Blog: http://alexott.blogspot.com
+ - Github: https://github.com/alexott
 
 * Summary 
 
@@ -22,8 +23,18 @@
 
 * Work Experience
 
+ - **Solutions Architect** at DataStax<br>
+ **Dates (from-to)**: 01.2018-now<br>
+ **Name and address of employer**: [[http://datastax.com][DataStax]], 33100 Paderborn, Germany<br>
+ **Positions held**: Solutions Architect<br>
+ **Type of business**: Software Development/Big Data<br>
+ **Main activities and responsibilities**:
+    - Working with customers on delivery of solutions based on the DataStax Enterprise (Apache Cassandra-based database, Spark, Solr, ...), including architectural reviews, building prototypes, implementation guidance, pre- & post-release health checks, analysis of performance & other problems, providing guidance on fixing them, etc.;
+    - Pre-sales activity - discussion of possible architectures with customers, helping prepare sound technical proposals, ...;
+    - Providing feedback to product teams on new functionality requested by customers, and general feedback on existing functionality.
+
  - **Senior Software Architect** at McAfee/Intel Security<br>
- **Dates (from-to)**: 10.2016-now<br>
+ **Dates (from-to)**: 10.2016-12.2017<br>
  **Name and address of employer**: [[http://mcafee.com][McAfee]], 33100 Paderborn, Germany<br>
  **Positions held**: Solution Architect<br>
  **Type of business**: Software Development<br>
@@ -217,7 +228,7 @@ Information about other open source projects you can find on [[http://github.com
 * Other personal info
 
  - **Artistic skills and competences**: 
-   - Author of different articles, in physics and computer-related branches (functional programming, Emacs, programming);
+   - Author of multiple articles, in physics and computer-related branches (functional programming, Emacs, programming);
    - Co-author of Russian translation of "GNU Emacs manual",  "Practical Common Lisp", "Types and programming languages", and some other.
  - **Hobbies**:
    - Sport: Running, Cycling, Hiking
