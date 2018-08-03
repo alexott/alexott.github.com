@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-07-26 Thu 12:57 -->
+<!-- 2018-08-03 Fri 16:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Performance testing of DSE with gatling-dse-plugin</title>
@@ -247,114 +247,114 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org95894b4">1. Introduction</a></li>
-<li><a href="#orgd1db2a6">2. Basics of simulation's creation</a>
+<li><a href="#orgfb9e0a9">1. Introduction</a></li>
+<li><a href="#orgc8cfb91">2. Basics of simulation's creation</a>
 <ul>
-<li><a href="#orgb0873e5">2.1. Declaring simulation</a></li>
-<li><a href="#orgd5b2059">2.2. Preparing environment</a>
+<li><a href="#orgd0f62f3">2.1. Declaring simulation</a></li>
+<li><a href="#org3424400">2.2. Prepare environment</a>
 <ul>
-<li><a href="#org269060a">2.2.1. Setting up connection/session/protocol</a></li>
-<li><a href="#org33ed91a">2.2.2. Preparing CQL statements</a></li>
+<li><a href="#org2372ab7">2.2.1. Setup connection/session/protocol</a></li>
+<li><a href="#org9ed79ac">2.2.2. Prepare CQL statements</a></li>
 </ul>
 </li>
-<li><a href="#orgfa02174">2.3. Defining feeders</a></li>
-<li><a href="#orga590789">2.4. Defining scenario</a></li>
-<li><a href="#org0197af7">2.5. Setup simulation</a></li>
+<li><a href="#orge8d4254">2.3. Define feeder(s)</a></li>
+<li><a href="#orga6969b2">2.4. Define scenario</a></li>
+<li><a href="#orgbfa0678">2.5. Setup simulation</a></li>
 </ul>
 </li>
-<li><a href="#org37d1e02">3. Building simulation</a>
+<li><a href="#org8f64244">3. Building simulation</a>
 <ul>
-<li><a href="#org9b8e9bd">3.1. Building complete package with Maven</a></li>
+<li><a href="#org5305b09">3.1. Building complete package with Maven</a></li>
 </ul>
 </li>
-<li><a href="#orgf3b17f1">4. Executing simulation</a></li>
-<li><a href="#org0182bab">5. Checking results</a></li>
-<li><a href="#orgd1a7d70">6. Simulation examples</a>
+<li><a href="#orgf26421f">4. Executing simulation</a></li>
+<li><a href="#org8e2a64a">5. Checking results</a></li>
+<li><a href="#org51af323">6. Simulation examples</a>
 <ul>
-<li><a href="#orgeccb44a">6.1. Data structure</a></li>
-<li><a href="#org735a516">6.2. Simulation for loading data into database</a>
+<li><a href="#org81baa0d">6.1. Data structure</a></li>
+<li><a href="#org2af3fc3">6.2. Simulation for loading data into database</a>
 <ul>
-<li><a href="#org62b236a">6.2.1. Preparing environment</a></li>
-<li><a href="#orgb77a6cd">6.2.2. Defining feeders</a></li>
-<li><a href="#org9c419e0">6.2.3. Defining scenario</a></li>
-<li><a href="#org1fdd5fa">6.2.4. Setup/execute simulation</a></li>
-<li><a href="#org3576931">6.2.5. Running simulation</a></li>
-<li><a href="#org8ca9c67">6.2.6. Checking results</a></li>
+<li><a href="#org8b0ab1b">6.2.1. Prepare environment</a></li>
+<li><a href="#org0e64b7f">6.2.2. Define feeders</a></li>
+<li><a href="#orgd620bcc">6.2.3. Define scenario</a></li>
+<li><a href="#orgb23c128">6.2.4. Setup/execute simulation</a></li>
+<li><a href="#org25aad9e">6.2.5. Run simulation</a></li>
+<li><a href="#org691f3d6">6.2.6. Check results</a></li>
 </ul>
 </li>
-<li><a href="#orgf2760e0">6.3. Simulation of mixed load</a></li>
+<li><a href="#org9251495">6.3. Simulation of mixed load</a></li>
 </ul>
 </li>
-<li><a href="#orgf5e50be">7. Additional information</a></li>
+<li><a href="#org6055d86">7. Additional information</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org95894b4" class="outline-2">
-<h2 id="org95894b4"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-orgfb9e0a9" class="outline-2">
+<h2 id="orgfb9e0a9"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-Traditionally, to perform load testing of DSE &amp; Cassandra the <a href="https://docs.datastax.com/en/cassandra/3.0/cassandra/tools/toolsCStress.html">cassandra-stress</a> tool was used - it's included into Cassandra's distribution, and needs only the configuration file to run. This is enough for simple types of testing, but does not allow to perform very complex testing with accessing multiple tables, generation of real-looking data, tuning individual queries, etc.
+Traditionally, to perform load testing of DSE &amp; Cassandra the <a href="https://docs.datastax.com/en/cassandra/3.0/cassandra/tools/toolsCStress.html">cassandra-stress</a> tool was used - it's included into Cassandra's distribution, and only needs a configuration file to run. This is enough for simple types of testing, but it does not allow to perform very complex testing with access to multiple tables, generation of real-looking data, tuning individual queries, etc.
 </p>
 
 <p>
-<a href="http://gatling.io/">Gatling</a> is popular tool for load testing of web applications that builds an embedded domain-specific language (DSL) on top of Scala (so basic knowledge of Scala is required).  One of the main advantages of Gatling is that it allows to build complex scenarios, consisting of multiple steps and generate realistic workloads because test's creator have the full control on how data generated.  You can also use assertions to check that response time meets your SLAs, and checks that will perform additional check of returned data. 
+<a href="http://gatling.io/">Gatling</a> is popular tool for load testing of web applications that provides an embedded domain-specific language (DSL) on top of Scala (so basic knowledge of Scala is required).  One of the main advantages of Gatling is that it allows to build complex scenarios, potentially consisting of multiple steps, and generate realistic workloads because test's author has complete control on how data is generated.  You can also use <b>assertions</b> to check that response time, and other parameters meets your SLAs, and <b>checks</b> that are used to perform additional check of returned data. 
 </p>
 
 <p>
-For a long time, there was <a href="https://github.com/gatling-cql/GatlingCql">GatlingCql plugin</a> that allowed to execute CQL statements from Gatling simulations, but it wasn't very actively developed in the last years, and it doesn't support full set of DSE functionality.
+For a long time, there was <a href="https://github.com/gatling-cql/GatlingCql">GatlingCql plugin</a> that allowed to execute CQL statements from Gatling simulations, but it wasn't very actively developed in the last years, and it doesn't support full set of DSE functionality, such as, Graph.
 </p>
 
 <p>
-In April 2018, DataStax testing team open sourced its own implementation of <a href="https://github.com/datastax/gatling-dse-plugin">Gatling plugin for DSE</a> that could be used to create real-looking emulations. Besides plugin, testing team also open sourced 2 other projects:
+In April 2018 DataStax testing team open sourced its own implementation of <a href="https://github.com/datastax/gatling-dse-plugin">Gatling plugin for DSE</a> that could be used to create real-looking simulations. Besides plugin, testing team also open sourced two other projects:
 </p>
 <ul class="org-ul">
-<li><a href="https://github.com/datastax/gatling-dse-stress">gatling-dse-stress</a> - it simplifies creation of simulations by providing implementation of feeders, and additional helper functions;</li>
+<li><a href="https://github.com/datastax/gatling-dse-stress">gatling-dse-stress</a> - it simplifies creation of simulations by providing implementation of feeders, configuration of connection to DSE, and additional helper functions;</li>
 <li><a href="https://github.com/datastax/gatling-dse-simcatalog">gatling-dse-simcatalog</a> - catalog of already implemented simulations that could be reused to build the new one.</li>
 </ul>
 
 <p>
-Both of them will be described in a separate blog post.
+Both of these projects will be described in a separate article.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgd1db2a6" class="outline-2">
-<h2 id="orgd1db2a6"><span class="section-number-2">2</span> Basics of simulation's creation</h2>
+<div id="outline-container-orgc8cfb91" class="outline-2">
+<h2 id="orgc8cfb91"><span class="section-number-2">2</span> Basics of simulation's creation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-Before we starting, we need to understand some of the Gatling's concepts:
+Before we start, we need to understand some of the Gatling's concepts:
 </p>
 <ul class="org-ul">
-<li><b><a href="https://gatling.io/docs/current/session/feeder/">Feeder</a></b> is data generator that is used to populate user session;</li>
-<li><b><a href="https://gatling.io/docs/current/session/session_api/">Session</a></b> keeps the user's data generated by feeder, together with additional data that could be added via API, or other methods;</li>
 <li><b><a href="https://gatling.io/docs/current/general/scenario/">Scenario</a></b> defines a set of actions that should be executed, emulating real user's behaviour, etc.;</li>
-<li><b><a href="https://gatling.io/docs/current/general/simulation_structure">Simulation</a></b> combines together feeders and scenarios, and defines what kind workload will be used (constant, increasing, etc.), what configuration to use, etc.;</li>
-<li><b><a href="https://gatling.io/docs/current/general/assertions/">Assertions</a></b> are used to verify that global statistics like response time or number of failed requests matches expectations for a whole simulation.</li>
+<li><b><a href="https://gatling.io/docs/current/session/session_api/">Session</a></b> keeps the user's data, generated by feeder, together with additional data that could be added via API, or other methods;</li>
+<li><b><a href="https://gatling.io/docs/current/session/feeder/">Feeder</a></b> is data generator that is used to populate user session. There could be multiple feeders defined for single session;</li>
+<li><b><a href="https://gatling.io/docs/current/general/simulation_structure">Simulation</a></b> combines together scenario(s), and defines what kind workload will be used (constant, increasing, etc.), configuration, etc.;</li>
+<li><b><a href="https://gatling.io/docs/current/general/assertions/">Assertions</a></b> are used to verify that global statistics, like response time, or number of failed requests, matches expectations for a whole simulation.</li>
 </ul>
 
 <p>
 The code of simulation is usually organized in following manner, similar to other <a href="https://gatling.io/docs/current/quickstart/">Gatling simulations</a>:
 </p>
 <ul class="org-ul">
-<li>Declaring simulation;</li>
-<li>Preparing environment:
+<li>Declare simulation;</li>
+<li>Prepare environment:
 <ul class="org-ul">
-<li>Setting up DSE connection, create session, and instance of Gatling protocol;</li>
+<li>Setup DSE connection, create session, and instance of Gatling protocol;</li>
 <li>(optional) Create schema;</li>
-<li>Preparing necessary CQL statements;</li>
+<li>Prepare necessary CQL statements;</li>
 </ul></li>
-<li>Defining the feeder(s) that will generate test data;</li>
-<li>Defining scenario(s);</li>
+<li>Define feeder(s) that will generate test data;</li>
+<li>Define scenario(s);</li>
 <li>Setup/execute simulation (if necessary, add assertions to check against desired SLAs).</li>
 </ul>
 </div>
 
-<div id="outline-container-orgb0873e5" class="outline-3">
-<h3 id="orgb0873e5"><span class="section-number-3">2.1</span> Declaring simulation</h3>
+<div id="outline-container-orgd0f62f3" class="outline-3">
+<h3 id="orgd0f62f3"><span class="section-number-3">2.1</span> Declaring simulation</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
-First, you need to have a number of imports at the beginning of file - we need to import classes for Gatling, DSE Java driver, and gatling-dse-plugin (Note, that we import all classes from <code>com.datastax.driver.core</code> except the <code>Session</code>, because it will clash with Gatling's <code>Session</code> class):
+First, you need to have a number of imports at the beginning of file - we need to import classes for Gatling, DSE Java driver, and gatling-dse-plugin (Note, that we import all classes from <code>com.datastax.driver.core</code> except the <code>Session</code> class, because it will clash with Gatling's <code>Session</code> class):
 </p>
 
 <div class="org-src-container">
@@ -383,19 +383,19 @@ Then you need to create a class that extends the <code>io.gatling.core.scenario.
 </div>
 </div>
 
-<div id="outline-container-orgd5b2059" class="outline-3">
-<h3 id="orgd5b2059"><span class="section-number-3">2.2</span> Preparing environment</h3>
+<div id="outline-container-org3424400" class="outline-3">
+<h3 id="org3424400"><span class="section-number-3">2.2</span> Prepare environment</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
-Preparing of the execution environment usually consists of 2 steps - establishing session to DSE cluster, and preparing queries that will be executed during test.  In some cases, like data load tests, the preparation stage may also take care for creation of necessary tables - when session is established, you can execute arbitrary CQL statements by using <code>session.execute</code>.
+Preparing of the execution environment usually consists of 2 steps - establishing session to DSE cluster, and preparing queries that will be executed during test.  In some cases, like data load tests, the preparation stage could also take care for creation of necessary tables (when session is established, you can execute arbitrary CQL statements via <code>session.execute</code>).
 </p>
 </div>
 
-<div id="outline-container-org269060a" class="outline-4">
-<h4 id="org269060a"><span class="section-number-4">2.2.1</span> Setting up connection/session/protocol</h4>
+<div id="outline-container-org2372ab7" class="outline-4">
+<h4 id="org2372ab7"><span class="section-number-4">2.2.1</span> Setup connection/session/protocol</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <p>
-To initialize connection to DSE cluster &amp; instantiate the Gatling's protocol, we need, as usual, create the <code>DseCluster</code> instance, and create an instance of <code>DseSession</code> from it. The last step is creation of the <code>DseProtocolBuilder</code> object that will be used to setup the simulation (at last step).  The code could be from simple code like this (with hardcoded IP address):
+To initialize connection to DSE cluster, and instantiate the Gatling's protocol, we need, as usual, create an instance of <code>DseCluster</code> class, and then obtain from it an instance of <code>DseSession</code>.  The last step is creation of a <code>DseProtocolBuilder</code> object that will be used to setup the simulation (at last step).  The code could be from simple code like this (with hardcoded IP address):
 </p>
 
 <div class="org-src-container">
@@ -443,16 +443,16 @@ As you can see from this code, we can configure all necessary parameters, such a
 </p>
 
 <p>
-After the <code>DseSession</code> object is created, it's then used to obtain an instance of the `DseProtocolBuilder` that will be used to configure simulation at the last step of the whole process.
+After the <code>DseSession</code> object is created, it's then used to obtain an instance of the <code>DseProtocolBuilder</code> that will be used to configure simulation at the last step of the whole process.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org33ed91a" class="outline-4">
-<h4 id="org33ed91a"><span class="section-number-4">2.2.2</span> Preparing CQL statements</h4>
+<div id="outline-container-org9ed79ac" class="outline-4">
+<h4 id="org9ed79ac"><span class="section-number-4">2.2.2</span> Prepare CQL statements</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <p>
-To reach optimal performance it's always recommended to prepare queries if they are used multiple times.  And it's done the same way as in normal Java/Scala code - by calling the <code>prepare</code> function on the <code>session</code> object, like this:
+To reach optimal performance it's always recommended to prepare queries if they are used multiple times.  In Gatling simulations  it's done the same way as in normal Java/Scala code - by calling the <code>prepare</code> function on the <code>session</code> object, like this:
 </p>
 
 <div class="org-src-container">
@@ -463,15 +463,15 @@ To reach optimal performance it's always recommended to prepare queries if they 
 </div>
 </div>
 
-<div id="outline-container-orgfa02174" class="outline-3">
-<h3 id="orgfa02174"><span class="section-number-3">2.3</span> Defining feeders</h3>
+<div id="outline-container-orge8d4254" class="outline-3">
+<h3 id="orge8d4254"><span class="section-number-3">2.3</span> Define feeder(s)</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
-Definition of feeder is really important for success of your load test - it should generate data with distribution maximally close to the expected (or already existing) data distribution inside the tables. 
+Feeder(s) definition is really important for success of your load test - it should generate data with distribution maximally close to the expected (or already existing) data distribution inside the tables. 
 </p>
 
 <p>
-Gatling's <code>Feeder</code> type is just an alias for <code>Iterator[Map[String, T]]</code> type - this means that we can use any implementation that produce instances of the <code>Map[String, T]</code> class. The simplest approach to it is to use <code>Iterator.continually</code> with function that will generate instances of the <code>Map</code> class, something like this:
+Gatling's <code>Feeder</code> type is just an alias for <code>Iterator[Map[String, T]]</code> type - this means that we can use any implementation that produce instances of the <code>Map[String, T]</code> class. The simplest approach to it is to use <code>Iterator.continually</code> with function that will generate instances of the <code>Map</code> class, something like this (type here is <code>Map[String, Any]</code>):
 </p>
 
 <div class="org-src-container">
@@ -485,32 +485,32 @@ Gatling's <code>Feeder</code> type is just an alias for <code>Iterator[Map[Strin
 </div>
 
 <p>
-Gatling provides <a href="https://gatling.io/docs/current/session/feeder/">several feeder implementations</a> - they can feed data from CSV, JSON, Redis, JDBC, and other sources, and allows to apply necessary transformations for input data - for example, CSV feeder only returns <code>String</code> instances, and you may need to convert some fields to numbers, or other types.  
+Gatling provides <a href="https://gatling.io/docs/current/session/feeder/">several implementations of feeders</a> - they can feed data from CSV, JSON, Redis, JDBC, and other sources, and allows to apply necessary transformations for input data.  For example, CSV feeder only returns <code>String</code> objects, and you may need to convert some fields to numbers, or other types.
 </p>
 
 <p>
-Sometimes, when you work with DSE, you'll need to define your own feeders with more complex implementation.  This is usually required when your tables use the user-defined types (UDTs).  In this case, you can't simply create a value, but you need to fetch necessary metadata from database to create an instances of the UDT.  This task is not really complex as you may see in <a href="https://gist.github.com/bradfordcp/9a10fdb0588e00c3fc69716eb1edac68">following example</a>, but requires some coding to create correct object instances.
+Sometimes, when you work with DSE, you'll need to define your own feeders with more complex implementation.  This is usually required when your tables use the user-defined types (UDTs).  In this case, you can't simply create a value, but you need to fetch necessary metadata from database to create an instance of the UDT.  This task is not really complex, as you may see in <a href="https://gist.github.com/bradfordcp/9a10fdb0588e00c3fc69716eb1edac68">following example</a>, but requires some coding to create correct object instances.
 </p>
 
 <p>
-When you're plug in the feeder into scenario, the data generated by feeder is merged with already existing data in the user's session object.  This allows us to use multiple feeders in the same scenario - this is especially useful when you have an existing library of feeder's implementations, and can reuse them in new tests.
+When you're plug-in the feeder into scenario, the data generated by feeder is merged with data already existing in the user's session object.  This allows us to use multiple feeders in the same scenario - this is especially useful when you have an existing library of feeder's implementations, and can reuse them in new tests.
 </p>
 
 <p>
-<b>Note</b>: Quite often, the <a href="https://github.com/DiUS/java-faker">Java Faker</a> library is used for generation of people/company names, domains, addresses, numbers, dates, etc.  Using this library it's possible to generate much more realistically looking data than by using standard random generators.
+<b>Note</b>: Quite often, the <a href="https://github.com/DiUS/java-faker">Java Faker</a> library is used for generation of people/company names, domains, addresses, numbers, dates, etc.  Using this library it's possible to generate much more realistically looking data than by using standard random generators.  But we need to take into account that it could slow down the data generation (for example, in examples below, generation of user name, address &amp; book code adds almost 600 microseconds per call to data generation).
 </p>
 </div>
 </div>
 
-<div id="outline-container-orga590789" class="outline-3">
-<h3 id="orga590789"><span class="section-number-3">2.4</span> Defining scenario</h3>
+<div id="outline-container-orga6969b2" class="outline-3">
+<h3 id="orga6969b2"><span class="section-number-3">2.4</span> Define scenario</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
-The <a href="https://gatling.io/docs/current/general/scenario">scenario</a> is defined by using <code>scenario</code> function that accepts the name of scenario as an argument, and then this instance is populated with feeders, structure elements (<code>exec</code>, <code>pause</code>, &#x2026;), and other components, such as groups, loops, conditionals, etc.  The <code>exec</code> accepts the action definition, or function that should transform the user's session object.  There are multiple implementations of actions, like, <code>http</code> that comes together with Gatling and used to execute HTTP requests.  The gatling-dse-plugin adds the <code>cql</code> action that is used to execute queries against DSE. The action alone doesn't do anything, so you need to specify an additional parameters by calling different functions on the action object - you can execute raw CQL with <code>executeCql</code>, execute prepared query with <code>executePrepared</code>, plus some other.  You can also set query-specific options, by adding the call to functions like, <code>withConsistencyLevel</code>, <code>withDefaultTimestamp</code>, <code>withFetchSize</code>, etc.
+The <a href="https://gatling.io/docs/current/general/scenario">scenario</a> is defined by <code>scenario</code> function that accepts the name of scenario as an argument, and then this instance is populated with feeders, structure elements (<code>exec</code>, <code>pause</code>, &#x2026;), and other components, such as groups, loops, conditionals, etc.  The <code>exec</code> element accepts the action's definition, or function that should transform the user session object.  There are multiple implementations of actions, like, <code>http</code> that comes together with Gatling, and used to execute HTTP requests.  The gatling-dse-plugin adds the <code>cql</code> action that is used to execute queries against DSE. This action alone doesn't do anything, so you need to specify additional parameters by calling different functions on the action object.  You can execute raw CQL with <code>executeCql</code>, execute prepared query with <code>executePrepared</code>, plus some other.  You can also set query-specific options, by adding the call to functions like, <code>withConsistencyLevel</code>, <code>withDefaultTimestamp</code>, <code>withFetchSize</code>, etc.
 </p>
 
 <p>
-In the simplest case, scenario could look as following - we add feeder to it &amp; executing one CQL statement per session (we're using Gatling's string interpolation to feed data into string):
+In the simplest case, scenario could look as following: we create it, then add feeder to it, and executing one CQL statement per user session (we're using Gatling's string interpolation to feed data into string):
 </p>
 
 <div class="org-src-container">
@@ -549,11 +549,11 @@ In more complex cases scenario could look as following:
 </div>
 
 <p>
-In this case scenario consists of 2 groups with pause between them, and every group consists of execution of 2 prepared queries for insertion &amp; update of data. The <code>withParams</code> function is used to specify parameters that will be bound into the query.  You can either specify a list of key names in the session object, or you can specify a variable number of session expressions that will be bound into query.
+In this case scenario consists of 2 groups with pause between them, and every group includes execution of 2 prepared queries - for insertion and update of data correspondingly.  The <code>withParams</code> function is used to specify parameters that will be bound into the query.  You can either specify a list of key names from the session object, or you can specify a variable number of session expressions that will be bound into query.
 </p>
 
 <p>
-If you have many tests &amp; complex scenarios you may consider to refactor scenarios into individual steps by defining the number of the <code>ChainBuilder</code> instances that are later wired into scenario, like this:
+If you have many tests and complex scenarios you may consider to refactor scenarios into individual steps by defining the number of the <code>ChainBuilder</code> instances that are later wired into scenario, like this:
 </p>
 
 <div class="org-src-container">
@@ -576,7 +576,7 @@ You can find more examples on how you can structure your tests in the <a href="h
 </p>
 
 <p>
-Action may contain not only execution of the queries, but also can contain additional checks that could be added to query via  functions <code>withCheck</code> (or simply <code>check</code> for single check), or <code>withChecks</code> (for multiple checks).  gatling-dse-plugin provides a number of checks, for example, <code>rowCount</code> returns a number of fetched rows, <code>schemaInAgreement</code> returns current state of schema agreement in cluster, <code>resultSet</code> is returning the <code>ResultSet</code> instance for given query (there are also functions <code>allRows</code> &amp; <code>oneRow</code>), and many other. For example, result set could be stored in the session object with <code>saveAs</code> function implemented in Gatling, and then analyzed as a separate step (for example, populate session with data from database).  Here is the small example:
+Action may contain not only execution of the queries, but can also contain additional checks that could be added to query via  functions <code>withCheck</code> (or simply <code>check</code> for single check), or <code>withChecks</code> (for multiple checks).  gatling-dse-plugin provides a number of checks, for example, <code>rowCount</code> returns a number of fetched rows, <code>schemaInAgreement</code> returns current state of schema agreement in cluster, <code>resultSet</code> is returning the <code>ResultSet</code> instance for given query (there are also functions <code>allRows</code> &amp; <code>oneRow</code>), and many other. For example, result set could be stored in the session object with <code>saveAs</code> function implemented in Gatling, and then analyzed as a separate step (for example, to populate user session with data from database).  Here is the small example:
 </p>
 
 <div class="org-src-container">
@@ -595,18 +595,22 @@ Action may contain not only execution of the queries, but also can contain addit
 
 </pre>
 </div>
+
+<p>
+Full list of checks implemented by plugin you can find <a href="https://github.com/datastax/gatling-dse-plugin/wiki/Checks">on GitHub</a>.
+</p>
 </div>
 </div>
 
-<div id="outline-container-org0197af7" class="outline-3">
-<h3 id="org0197af7"><span class="section-number-3">2.5</span> Setup simulation</h3>
+<div id="outline-container-orgbfa0678" class="outline-3">
+<h3 id="orgbfa0678"><span class="section-number-3">2.5</span> Setup simulation</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
-After you defined the scenario, you can setup it for execution - this is done by defining <code>setUp</code> where you need to  inject necessary load into scenario, and then specifying which protocol(s) to use.  For example, following example use our <code>loadData</code> scenario with 3 injection profiles:
+After you defined the scenario, you can setup it for execution.  This is done by defining <code>setUp</code> where you need to inject necessary load into scenario, and then specify which protocol(s) to use.  For example, following example use our <code>loadData</code> scenario with 3 injection profiles:
 </p>
 <ul class="org-ul">
-<li>perform the load test with 25% of concurrent users during 1/4 of the total test duration time (configured elsewhere) - this step is used to warm up the database, etc.;</li>
-<li>do nothing for 1 minute, so DB can catch up with GC, compactions, etc.;</li>
+<li>perform the load test with 25% of concurrent users during 1/4 of the total test duration time (configured elsewhere) - this step is usually used to warm up the database;</li>
+<li>do nothing for 1 minute, so DB can catch up with GC, compactions;</li>
 <li>perform full-scale test with configured number of concurrent users during the configured test duration time.</li>
 </ul>
 
@@ -622,18 +626,28 @@ After you defined the scenario, you can setup it for execution - this is done by
 </div>
 
 <p>
-Gatling provides several implementation of injection profiles - with constant number of concurrent users per second (with <code>constantUsersPerSec</code>), with increasing number of users per second from one number to another number (with <code>rampUsersPerSec</code>), injection of given number of users at once (with <code>atOnceUsers</code>), etc.  Please check <a href="https://gatling.io/docs/current/general/simulation_setup/#injection">Gatling's documentation for more information</a>.  You need to select injection profile that matches your needs - for example, you can use <code>constantUsersPerSec</code> profile for load tests where you want to make sure that there are no performance problems with code, or use <code>rampUsersPerSec</code> profile to detect what is the maximal number of users your system can handle.
+Gatling provides several implementation of injection profiles:
+</p>
+<ul class="org-ul">
+<li>with constant number of concurrent users per second (with <code>constantUsersPerSec</code>);</li>
+<li>with increasing number of users per second from one number to another number (with <code>rampUsersPerSec</code>);</li>
+<li>injection of given number of users at once (with <code>atOnceUsers</code>);</li>
+<li>etc.</li>
+</ul>
+
+<p>
+Please check <a href="https://gatling.io/docs/current/general/simulation_setup/#injection">Gatling's documentation for more information</a>.  You need to select injection profile that matches your needs.  For example, you can use <code>constantUsersPerSec</code> profile for load tests where you want to make sure that there are no performance problems with code, or use <code>rampUsersPerSec</code> profile to detect what is the maximal number of users your system can handle.
 </p>
 
 <p>
-The <code>protocols</code> function specifies what protocol implementation should be used for given test scenario - we've created an instance of protocol for CQL, but you can also use multiple protocols at the same time, for example, if you want to test mixed application that makes both CQL &amp; HTTP queries.
+The <code>protocols</code> function specifies what protocol implementation should be used for given test scenario.  We've created an instance of protocol for CQL, but you can also use multiple protocols at the same time, for example, if you want to test mixed application that makes both CQL &amp; HTTP queries (for example, if you're using DSE Search functionality that only available via HTTP API).
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org37d1e02" class="outline-2">
-<h2 id="org37d1e02"><span class="section-number-2">3</span> Building simulation</h2>
+<div id="outline-container-org8f64244" class="outline-2">
+<h2 id="org8f64244"><span class="section-number-2">3</span> Building simulation</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 There are several ways to build &amp; execute your simulation:
@@ -641,7 +655,7 @@ There are several ways to build &amp; execute your simulation:
 <ul class="org-ul">
 <li>Build the complete package together with Gatling, and execute it - this method is described below;</li>
 <li><p>
-Build the package without Gatling (but with all other dependencies), copy resulting package into Gatling's <code>lib</code> directory &amp; execute it with command like this:
+Build the package without Gatling (but with all other dependencies - this should be faster to build), copy resulting package into Gatling's <code>lib</code> directory &amp; execute it with command like this:
 </p>
 
 <div class="org-src-container">
@@ -655,16 +669,16 @@ where the <code>-s</code> flag specifies the name of Simulation class, and <code
 </p>
 
 <p>
-For this case, the <code>pom.xml</code> file looks almost the same way as when we're building the package with Gatling, but declaring the <code>gatling-charts-highcharts</code> dependency as <code>provided</code>;
+For this case, the <code>pom.xml</code> file looks almost the same way as when we're building the package with Gatling, but need to declare the <code>gatling-charts-highcharts</code> dependency as <code>provided</code>;
 </p></li>
 
-<li>Copy the source code for your simulation into <code>user-files/simulations</code> directory of Gatling's distribution, and execute it via <code>bin/gatling.sh</code> script that will compile source code, and run it. (This approach unfortunately won't work out of the box because of the <a href="https://docs.datastax.com/en/developer/java-driver-dse/1.6/faq/#why-am-i-encountering-an-illegal-cyclic-reference-error-when-using-the-driver-with-scala">existing problem with Scala compiler &amp; <code>DseCluster</code> class</a> - our testing team sent a pull request to Gatling that should allow to handle this problem, but it could be available only in the next version of Gatling). You also need to copy all necessary dependencies, such as, <code>gatling-dse-plugin</code>, etc. into <code>lib</code> directory of unpacked Gatling distribution;</li>
-<li>folder <a href="https://gatling.io/docs/current/extensions/maven_plugin/">gatling-maven-plugin</a> or <a href="https://gatling.io/docs/current/extensions/sbt_plugin/">gatling-sbt-plugin</a> to execute simulations (there is also unofficial <a href="https://gatling.io/docs/current/extensions/">Gradle plugins</a>).  By using these plugins you can easier integrate Gatling-based load tests into your projects.</li>
+<li>Copy the source code for your simulation into <code>user-files/simulations</code> directory of Gatling's distribution, and execute it via <code>bin/gatling.sh</code> script that will compile source code, and execute resulting class.  (This approach unfortunately won't work out of the box because of the <a href="https://docs.datastax.com/en/developer/java-driver-dse/1.6/faq/#why-am-i-encountering-an-illegal-cyclic-reference-error-when-using-the-driver-with-scala">existing problem with Scala compiler and <code>DseCluster</code> class</a>.  Our testing team sent a pull request to Gatling that should allow to handle this problem, but it could be available only in the next version of Gatling). You also need to copy all necessary dependencies, such as, <code>gatling-dse-plugin</code>, etc. into <code>lib</code> directory of unpacked Gatling distribution;</li>
+<li>Use <a href="https://gatling.io/docs/current/extensions/maven_plugin/">gatling-maven-plugin</a> or <a href="https://gatling.io/docs/current/extensions/sbt_plugin/">gatling-sbt-plugin</a> to execute simulations (there is also unofficial <a href="https://gatling.io/docs/current/extensions/">Gradle plugins</a>).  By using these plugins you can easier integrate Gatling-based load tests into your projects.</li>
 </ul>
 </div>
 
-<div id="outline-container-org9b8e9bd" class="outline-3">
-<h3 id="org9b8e9bd"><span class="section-number-3">3.1</span> Building complete package with Maven</h3>
+<div id="outline-container-org5305b09" class="outline-3">
+<h3 id="org5305b09"><span class="section-number-3">3.1</span> Building complete package with Maven</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 The official builds of the <code>gatling-dse-plugin</code> are available at <a href="https://repo.datastax.com/public-repos/com/datastax/gatling/plugin/">DataStax's Maven repository</a>, so to use it in your project, you need to add corresponding declaration to your <code>pom.xml</code> file:
@@ -681,14 +695,14 @@ The official builds of the <code>gatling-dse-plugin</code> are available at <a h
 </div>
 
 <p>
-Then you need to include necessary dependencies for gatling-dse-plugin &amp; Gatling itself (you can find the latest version of the plugin on GitHub):
+Then you need to include necessary dependencies for gatling-dse-plugin &amp; Gatling itself (you can find information about the latest version of the plugin on GitHub):
 </p>
 
 <div class="org-src-container">
 <pre class="src src-nxml">&lt;<span style="color: #b22222;">dependency</span>&gt;
   &lt;<span style="color: #b22222;">groupId</span>&gt;com.datastax.gatling.plugin&lt;/<span style="color: #b22222;">groupId</span>&gt;
   &lt;<span style="color: #b22222;">artifactId</span>&gt;gatling-dse-plugin_2.12&lt;/<span style="color: #b22222;">artifactId</span>&gt;
-  &lt;<span style="color: #b22222;">version</span>&gt;1.3.2&lt;/<span style="color: #b22222;">version</span>&gt;
+  &lt;<span style="color: #b22222;">version</span>&gt;1.2.2&lt;/<span style="color: #b22222;">version</span>&gt;
 &lt;/<span style="color: #b22222;">dependency</span>&gt;
 &lt;<span style="color: #b22222;">dependency</span>&gt;
   &lt;<span style="color: #b22222;">groupId</span>&gt;io.gatling.highcharts&lt;/<span style="color: #b22222;">groupId</span>&gt;
@@ -701,17 +715,17 @@ Then you need to include necessary dependencies for gatling-dse-plugin &amp; Gat
 </div>
 
 <p>
-And add <a href="https://github.com/alexott/gatling-dse-examples/blob/master/plugin-sim/pom.xml#L44">necessary pieces</a> to compile the Java code &amp; pack everything into one jar file when you execute the <code>mvn package</code> command.
+And add <a href="https://github.com/alexott/gatling-dse-examples/blob/master/plugin-sim/pom.xml#L44">necessary pieces</a> to compile the Scala code &amp; pack everything into one jar file when you execute the <code>mvn package</code> command.
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf3b17f1" class="outline-2">
-<h2 id="orgf3b17f1"><span class="section-number-2">4</span> Executing simulation</h2>
+<div id="outline-container-orgf26421f" class="outline-2">
+<h2 id="orgf26421f"><span class="section-number-2">4</span> Executing simulation</h2>
 <div class="outline-text-2" id="text-4">
 <p>
-Execution of packaged simulation is just simple - specify the path to the packaged jar file, and specify the name of the simulation class plus necessary parameters:
+Execution of packaged simulation is just simple - specify the path to the packaged jar file, and specify the name of the class with simulation, plus necessary parameters:
 </p>
 
 <div class="org-src-container">
@@ -741,7 +755,7 @@ For example, here is the command line that was used to run the example simulatio
 </div>
 
 <p>
-During the execution of the simulation, the current statistics is printed to the screen - it shows the number of executed requests globally &amp; per group, current &amp; execution time, number of active/waiting/finished users, and other information, like overall progress.  The status <code>OK</code> shows the number of successfully executed requests, and <code>KO</code> shows the number of failed requests (0 in our example):
+During execution of the simulation, current statistics is printed to the screen.  It shows the number of executed requests globally &amp; per group, current and execution time, number of active/waiting/finished users, and other information, like overall progress.  The status <code>OK</code> shows the number of successfully executed requests, and <code>KO</code> shows the number of failed requests (0 in our example):
 </p>
 
 <pre class="example">
@@ -798,24 +812,24 @@ Please open the following file: &lt;some-path...&gt;/results/gatlingloadsim-1532
 </pre>
 
 <p>
-This screen includes basic statistics about execution of simulation - number of requests, minimal/maximal/percentiles of response time, etc.  This information is often enough to get a quick understanding of your system's performance, and you can also find more information in the generated HTML report described in the next session.
+This includes basic statistics about execution of simulation: number of requests, minimal/maximal/percentiles of response time, etc.  This information is often enough to get a quick understanding of your system performance, and you can also find more information in the generated HTML report described below.
 </p>
 
 <p>
-<b>Note</b>: as you may see, the test was completed in 157 seconds, although the test duration was specified as 120 seconds (2 minutes).
+<b>Note</b>: as you may see, the test was completed in 157 seconds, although the test duration was specified as 120 seconds (2 minutes).  This is a signal that system don't have enough throughput, and need an additional time to finish processing of all scheduled user sessions.
 </p>
 
 <p>
-To get correct results from load testing we need to perform test enough time, so the things like garbage collection, compaction, etc. will happen during that time, and we'll see how this can influence performance of the system.
+To get correct results from load testing we need to perform test quite long enough, so the things like garbage collection, compaction, etc. will happen during that time, and we'll see how this can influence performance of our system.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org0182bab" class="outline-2">
-<h2 id="org0182bab"><span class="section-number-2">5</span> Checking results</h2>
+<div id="outline-container-org8e2a64a" class="outline-2">
+<h2 id="org8e2a64a"><span class="section-number-2">5</span> Checking results</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-When simulation finishes Gatling may generate an HTML report that will be put as separated directory under directory specified as <code>-rf</code> command-line flag.  The directory name has format <code>gatlingloadsim-&lt;timestamp&gt;</code>, and full path to the entry file is printed as part of final message (see above).  This report has 2 parts:
+When simulation finishes Gatling may generate an HTML report that will be put as separated directory under directory specified in the <code>-rf</code> command-line option.  The directory name has format <code>gatlingloadsim-&lt;timestamp&gt;</code>, and full path to the main file is printed as part of final message (see above).  This report has 2 parts:
 </p>
 <ul class="org-ul">
 <li><b>Global</b>, that provides information about whole simulation (with some statistics about individual groups &amp; actions);</li>
@@ -837,7 +851,7 @@ First part of the Global page includes information about overall requests number
 </div>
 
 <p>
-Most important numbers here are response times, especially the 99th percentile &amp; max response time, together with number of requests per second &amp; number of requests executed with error.
+Most important numbers here are response times, especially the 99th percentile and max response time, together with number of requests per second, and number of requests executed with error.
 </p>
 
 <p>
@@ -851,7 +865,7 @@ Next section shows the number of active users in the executed simulation - in th
 </div>
 
 <p>
-Next 2 sections show the data about response times - overall distribution of response time values &amp; how the response time percentiles are changed during execution of the simulation.  If you're using the complex scenario, the response time will be calculated for whole scenario - to check response time of individual queries you need to look into "Details" tab.  Please note, that the second part for convenience shows the number of active users:
+Next 2 sections show the data about response times - overall distribution of response time values, and how the response time percentiles are changed during execution of the simulation.  If you're using the complex scenario, the response time will be calculated for whole scenario - to check response time of individual queries you need to look into "Details" tab.  Please note, that the second graph, for convenience, shows the number of active users:
 </p>
 
 
@@ -861,7 +875,7 @@ Next 2 sections show the data about response times - overall distribution of res
 </div>
 
 <p>
-And the last 2 sections shows the data about number of request/response over the time: 
+And the last 2 sections shows the data about number of requests/responses over the time: 
 </p>
 
 
@@ -882,7 +896,7 @@ The Details part allows use to look to the results for individual tests, like, i
 
 
 <p>
-We can compare graphs from above, that were generated for simulation with <code>rampUsersPerSec</code> injection with graphs from simulation with <code>constantUsersPerSec</code> injection.   The first graph shows data for 10,000 simultaneous users - you can notice that number of active users is increasing over the time until it reach specified period of time, and then is decreasing when simulation doesn't create new users. You may also notice that latency is quite high, even for 50th percentile.  This is a clear sign that the system is overloaded, although it's able to handle about 20,000 requests per second.
+We can compare graphs from above, that were generated for simulation with <code>rampUsersPerSec</code> injection with graphs from simulation with <code>constantUsersPerSec</code> injection.   The first graph shows data for 10,000 simultaneous users - you can notice that number of active users is increasing over the time until it reach specified period of time, and then is decreasing when simulation stops creation of new users. You may also notice that latency is quite high, even for 50th percentile.  This is a clear sign that the system is overloaded, although it's able to handle about 20,000 requests per second.
 </p>
 
 
@@ -893,7 +907,7 @@ We can compare graphs from above, that were generated for simulation with <code>
 </div>
 
 <p>
-We can try the same simulation with 5,000 simultaneous users, and we can notice the difference - all latencies went down, and number of active users is almost on the same level, except the initial period of time.  But in this case we're able to handle only slightly more then 10,000 requests per second.
+We can try the same simulation with 5,000 simultaneous users, and we can notice the difference - all latencies went down, and number of active users is almost on the same level, except the initial period of time.  But in this case we're able to handle only slightly more than 10,000 requests per second.
 </p>
 
 
@@ -905,13 +919,9 @@ We can try the same simulation with 5,000 simultaneous users, and we can notice 
 </div>
 
 
-<div id="outline-container-orgd1a7d70" class="outline-2">
-<h2 id="orgd1a7d70"><span class="section-number-2">6</span> Simulation examples</h2>
+<div id="outline-container-org51af323" class="outline-2">
+<h2 id="org51af323"><span class="section-number-2">6</span> Simulation examples</h2>
 <div class="outline-text-2" id="text-6">
-<p>
-TODO: add example of performing SELECT &amp; re-use data received from it&#x2026;
-</p>
-
 <p>
 This section contains examples of the Gatling-based simulations for DSE load testing.  We're implementing something like OAuth token management (<b>this is just an example, not real application!</b>).
 </p>
@@ -922,11 +932,11 @@ Full source code for these simulations is located in the directory <code>plugin-
 </p>
 </div>
 
-<div id="outline-container-orgeccb44a" class="outline-3">
-<h3 id="orgeccb44a"><span class="section-number-3">6.1</span> Data structure</h3>
+<div id="outline-container-org81baa0d" class="outline-3">
+<h3 id="org81baa0d"><span class="section-number-3">6.1</span> Data structure</h3>
 <div class="outline-text-3" id="text-6-1">
 <p>
-We'll have data in the 2 tables with similar structure, but with different primary key - one table will keep individual OAuth tokens, and second table will store OAuth tokens issued for specific user, so we can revoke all of them if necessary.  The tables are in the <code>gatling</code> keyspace with table structure defined as:
+We'll have data in the 2 tables with similar structure, but with different primary key:  one table will keep individual OAuth tokens, and second table will store OAuth tokens issued for specific user, so we can revoke all of them if necessary.  The tables are in the <code>gatling</code> keyspace with table structure is defined as:
 </p>
 
 <pre class="example">
@@ -955,7 +965,7 @@ CREATE TABLE user_tokens (
 </pre>
 
 <p>
-The full schema specification is in the <a href="https://github.com/alexott/gatling-dse-examples/blob/master/plugin-sim/cql/create-schema.cql">cql/create-schema.cql</a> file, and could be created by using following command (modify keyspace names, and replication strategy if necessary):
+The full schema specification is in the <a href="https://github.com/alexott/gatling-dse-examples/blob/master/plugin-sim/cql/create-schema.cql">cql/create-schema.cql</a> file, and could be created by using following command (modify keyspace names and replication strategy, if necessary):
 </p>
 
 <div class="org-src-container">
@@ -965,23 +975,23 @@ The full schema specification is in the <a href="https://github.com/alexott/gatl
 </div>
 </div>
 
-<div id="outline-container-org735a516" class="outline-3">
-<h3 id="org735a516"><span class="section-number-3">6.2</span> Simulation for loading data into database</h3>
+<div id="outline-container-org2af3fc3" class="outline-3">
+<h3 id="org2af3fc3"><span class="section-number-3">6.2</span> Simulation for loading data into database</h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
 During execution of this simulation, we'll insert data into tables, and then updates the parts of the data several seconds later.  Source code is in the file <a href="https://github.com/alexott/gatling-dse-examples/blob/master/plugin-sim/src/main/scala/com/datastax/demos/gatling/GatlingDataLoadSim.scala">GatlingLoadSim.scala</a>.
 </p>
 </div>
 
-<div id="outline-container-org62b236a" class="outline-4">
-<h4 id="org62b236a"><span class="section-number-4">6.2.1</span> Preparing environment</h4>
+<div id="outline-container-org8b0ab1b" class="outline-4">
+<h4 id="org8b0ab1b"><span class="section-number-4">6.2.1</span> Prepare environment</h4>
 <div class="outline-text-4" id="text-6-2-1">
 <p>
 The necessary imports, etc. are matching to the examples shown at the begin of the article, so we just concentrate on pieces of code:
 </p>
 
 <p>
-First we need to setup connection, establish connection &amp; create configuration object that will be used to setup simulation:
+First we need to setup connection, establish it, and create configuration object that will be used to setup simulation:
 </p>
 
 <div class="org-src-container">
@@ -1030,11 +1040,11 @@ After that we'll need to create necessary prepared statements:
 </div>
 </div>
 
-<div id="outline-container-orgb77a6cd" class="outline-4">
-<h4 id="orgb77a6cd"><span class="section-number-4">6.2.2</span> Defining feeders</h4>
+<div id="outline-container-org0e64b7f" class="outline-4">
+<h4 id="org0e64b7f"><span class="section-number-4">6.2.2</span> Define feeders</h4>
 <div class="outline-text-4" id="text-6-2-2">
 <p>
-Definition of feeder is very important for our use case.  We need to create real-world looking authentication token IDs &amp; user names.  For token IDs we're just generating random UUIDs, and for user names are generated by using methods from Java Faker library. Other fields are generated by appropriate methods just to fill enough space in table. Every record also gets the TTL of the 30 minutes:
+Definition of feeder is very important for our use case.  We need to create real-world looking authentication token IDs &amp; user names.  For token IDs we're just generating random UUIDs, and for user names are generated by using methods from Java Faker library. Other fields are generated by appropriate methods just to occupy enough space in table. Every record also gets the TTL of the 30 minutes:
 </p>
 
 <div class="org-src-container">
@@ -1070,8 +1080,8 @@ Be very careful with data types - they need to match the actual data types in ta
 </div>
 </div>
 
-<div id="outline-container-org9c419e0" class="outline-4">
-<h4 id="org9c419e0"><span class="section-number-4">6.2.3</span> Defining scenario</h4>
+<div id="outline-container-orgd620bcc" class="outline-4">
+<h4 id="orgd620bcc"><span class="section-number-4">6.2.3</span> Define scenario</h4>
 <div class="outline-text-4" id="text-6-2-3">
 <p>
 As was mentioned above, our scenario includes two inserts into separate tables, and two updates of the <code>nonce</code> field in both tables, simulating rotation of the authentication token.  Our scenario consists of feeder, two groups for inserts/updates, and pause between them:
@@ -1101,13 +1111,13 @@ As was mentioned above, our scenario includes two inserts into separate tables, 
 </div>
 
 <p>
-Every group &amp; individual actions have names, so we can easily get information for any of them in the report.
+Every group together with individual actions have names, so we can easily find information about any of them in the report.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org1fdd5fa" class="outline-4">
-<h4 id="org1fdd5fa"><span class="section-number-4">6.2.4</span> Setup/execute simulation</h4>
+<div id="outline-container-orgb23c128" class="outline-4">
+<h4 id="orgb23c128"><span class="section-number-4">6.2.4</span> Setup/execute simulation</h4>
 <div class="outline-text-4" id="text-6-2-4">
 <p>
 To make our test more flexible, we can pass the number of concurrent users &amp; test duration (in minutes) as system properties with names <code>concurrentSessionCount</code> &amp; <code>testDuration</code> correspondingly:
@@ -1166,7 +1176,7 @@ using <code>constantUsersPerSec</code> to create load with the same number of co
 </ul>
 
 <p>
-It's also easy to add assertion to check that we don't have the failed requests - just add the `assertion` into chain when setting up the simulation, and provide the condition(s) to check
+It's also easy to add assertion to check that we don't have the failed requests - just add the <code>assertion</code> into chain when setting up the simulation, and provide condition(s) to check:
 </p>
 
 <div class="org-src-container">
@@ -1183,9 +1193,8 @@ It's also easy to add assertion to check that we don't have the failed requests 
 </div>
 </div>
 
-
-<div id="outline-container-org3576931" class="outline-4">
-<h4 id="org3576931"><span class="section-number-4">6.2.5</span> Running simulation</h4>
+<div id="outline-container-org25aad9e" class="outline-4">
+<h4 id="org25aad9e"><span class="section-number-4">6.2.5</span> Run simulation</h4>
 <div class="outline-text-4" id="text-6-2-5">
 <p>
 We can use following command to run the simulation, specifying necessary parameters (it's the same as was shown above):
@@ -1204,8 +1213,8 @@ In this case we're running test for 10 minutes with maximal number of concurrent
 </div>
 </div>
 
-<div id="outline-container-org8ca9c67" class="outline-4">
-<h4 id="org8ca9c67"><span class="section-number-4">6.2.6</span> Checking results</h4>
+<div id="outline-container-org691f3d6" class="outline-4">
+<h4 id="org691f3d6"><span class="section-number-4">6.2.6</span> Check results</h4>
 <div class="outline-text-4" id="text-6-2-6">
 <p>
 When using <code>rampUsersPerSec</code> we get following graph for response time &amp; number of requests per second:
@@ -1245,11 +1254,11 @@ For constant load with pre-warm we've got following results - as you can see, ev
 </div>
 </div>
 
-<div id="outline-container-orgf2760e0" class="outline-3">
-<h3 id="orgf2760e0"><span class="section-number-3">6.3</span> Simulation of mixed load</h3>
+<div id="outline-container-org9251495" class="outline-3">
+<h3 id="org9251495"><span class="section-number-3">6.3</span> Simulation of mixed load</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
-This simulation is slight modification of the previous example and used to show how we can perform data selection - it will insert data into one table, wait 1 second, select data, and then update <code>nonce</code> field. Source code is in the <a href="https://github.com/alexott/gatling-dse-examples/blob/master/plugin-sim/src/main/scala/com/datastax/demos/gatling/GatlingMixedSim.scala">GatlingMixedSim.scala</a>.
+This simulation is slight modification of the previous example, and it's used to show how we can perform data selection.  It will insert data into one table, wait 1 second, select data, and then update <code>nonce</code> field. Source code is in the <a href="https://github.com/alexott/gatling-dse-examples/blob/master/plugin-sim/src/main/scala/com/datastax/demos/gatling/GatlingMixedSim.scala">GatlingMixedSim.scala</a>.
 </p>
 
 <p>
@@ -1314,8 +1323,8 @@ After we build this example, we can run it (don't forget to change the simulatio
 </div>
 </div>
 
-<div id="outline-container-orgf5e50be" class="outline-2">
-<h2 id="orgf5e50be"><span class="section-number-2">7</span> Additional information</h2>
+<div id="outline-container-org6055d86" class="outline-2">
+<h2 id="org6055d86"><span class="section-number-2">7</span> Additional information</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 This tutorial contains just enough information to start writing tests for DSE using Gatling.   Gatling's site has quite <a href="https://gatling.io/docs/current/">detailed documentation</a> on how you can use it.  The <a href="https://gatling.io/docs/current/cheat-sheet/">Gatling cheatsheet</a> page is also very useful resource when you just need to look to the syntax of particular function.
@@ -1329,7 +1338,7 @@ gatling-dse-plugin's <a href="https://github.com/datastax/gatling-dse-plugin/wik
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Alex Ott</p>
-<p class="date">Created: 2018-07-26 Thu 12:57</p>
+<p class="date">Created: 2018-08-03 Fri 16:25</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
