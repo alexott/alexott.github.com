@@ -2,29 +2,21 @@
 
 Вот список ресурсов Интернет которыми я пользуюсь:
 
- - [[http://alexott-ru.blogspot.com][Блог на около-компьютерные темы]]
+ - [[http://alexott-ru.blogspot.com][Блог на около-компьютерные темы (на русском)]]
+ - [[http://alexott.blogspot.com][Блог на около-компьютерные темы (на английском)]]
  - [[http://alexott.livejournal.com][Блог на "бытовые" темы]], с фотографиями, разными рассказами и т.п.
- - Оба блога транслируются в [[http://ottalex.ya.ru/][блог на Я.ру]]
- - Wishlists на [[http://www.amazon.de/wishlist/3GN7PNIFBJSHC][Amazon Germany]], или на [[http://www.amazon.co.uk/wishlist/T6DNC3CKUHZ2][Amazon UK]]
+ - Wishlists на [[http://www.amazon.de/wishlist/3GN7PNIFBJSHC][Amazon Germany]]
 
 ** Социальные сети
 
- - [[http://www.shelfari.com/alexott][Shelfari]] используется для ведения списков книг, которые я прочитал, читаю или собираюсь
-   читать
+ - [[https://www.goodreads.com/author/show/5350963.Alex_Ott][Goodreads]] используется для ведения списков книг, которые я прочитал, читаю или собираюсь читать
  - Мой профиль на [[http://www.facebook.com/alexott/][Facebook]]
- - Мой профиль на [[http://vkontakte.ru/id2310336][ВКонтакте]]
  - Профиль на [[http://www.linkedin.com/in/alexott][LinkedIn]]
- - Закладки хранятся на [[http://del.icio.us/alexott][del.icio.us]]
- - [[http://twitter.com/alexott][Аккаунт на twitter]]
+ - [[http://twitter.com/alexott][Аккаунт Twitter (на русском)]], [[http://twitter.com/alexott][Аккаунт Twitter (на английском)]]
  - Аккаунт на [[http://www.last.fm/user/alexott][Last.fm]]
 
 ** Фото-хостинги
 
  - Фотографии на [[http://picasaweb.google.com/alexott/][Google Picasa]]
  - Фотографии на [[http://fotki.yandex.ru/users/ottalex/][Яндекс.Фотки]]
-
-** Что меня интересует
-
- - [[../common/google-reader-subscriptions.xml][Список сайтов новости которых я читаю]] (в формате OPML)
- - [[http://www.google.com/reader/shared/alexott][Shared items]] in Google Reader
 
