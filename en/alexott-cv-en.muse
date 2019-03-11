@@ -23,15 +23,29 @@
 
 * Work Experience
 
+ - **Senior Solutions Architect** at DataStax<br>
+ **Dates (from-to)**: 03.2019-now<br>
+ **Name and address of employer**: [[http://datastax.com][DataStax]], 33100 Paderborn, Germany<br>
+ **Positions held**: Senior Solutions Architect<br>
+ **Type of business**: Software Development/Big Data<br>
+ **Main activities and responsibilities**:
+    - Working with customers on delivery of solutions based on the DataStax Enterprise, including architectural reviews, building prototypes, implementation guidance, pre- & post-release health checks, analysis of performance & other problems, providing guidance on fixing them, etc.;
+    - Pre-sales activity - discussion of possible architectures with customers, helping prepare sound technical proposals, ...;
+    - Providing feedback to product teams on new functionality requested by customers, and general feedback on existing functionality.
+
+ Technology stack: DataStax Enterprise, Apache Cassandra, Apache Spark, Apache Solr, DC/OS (Apache Mesos), Kubernetes, Java, Python, Clojure, Scala, Apache Kafka/Kafka Streams/KSQL, Linux, ...
+
  - **Solutions Architect** at DataStax<br>
- **Dates (from-to)**: 01.2018-now<br>
+ **Dates (from-to)**: 01.2018-02.2019<br>
  **Name and address of employer**: [[http://datastax.com][DataStax]], 33100 Paderborn, Germany<br>
  **Positions held**: Solutions Architect<br>
  **Type of business**: Software Development/Big Data<br>
  **Main activities and responsibilities**:
-    - Working with customers on delivery of solutions based on the DataStax Enterprise (Apache Cassandra-based database, Spark, Solr, ...), including architectural reviews, building prototypes, implementation guidance, pre- & post-release health checks, analysis of performance & other problems, providing guidance on fixing them, etc.;
+    - Working with customers on delivery of solutions based on the DataStax Enterprise, including architectural reviews, building prototypes, implementation guidance, pre- & post-release health checks, analysis of performance & other problems, providing guidance on fixing them, etc.;
     - Pre-sales activity - discussion of possible architectures with customers, helping prepare sound technical proposals, ...;
     - Providing feedback to product teams on new functionality requested by customers, and general feedback on existing functionality.
+
+ Technology stack: DataStax Enterprise, Apache Cassandra, Apache Spark, Apache Solr, DC/OS (Apache Mesos), Kubernetes, Java, Python, Clojure, Scala, Apache Kafka/Kafka Streams/KSQL, Linux, ...
 
  - **Senior Software Architect** at McAfee/Intel Security<br>
  **Dates (from-to)**: 10.2016-12.2017<br>
