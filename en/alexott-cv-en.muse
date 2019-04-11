@@ -31,7 +31,8 @@
  **Main activities and responsibilities**:
     - Working with customers on delivery of solutions based on the DataStax Enterprise, including architectural reviews, building prototypes, implementation guidance, pre- & post-release health checks, analysis of performance & other problems, providing guidance on fixing them, etc.;
     - Pre-sales activity - discussion of possible architectures with customers, helping prepare sound technical proposals, ...;
-    - Providing feedback to product teams on new functionality requested by customers, and general feedback on existing functionality.
+    - Providing feedback to product teams on new functionality requested by customers, and general feedback on existing functionality;
+    - Contribution to tooling, documentation, etc.
 
  Technology stack: DataStax Enterprise, Apache Cassandra, Apache Spark, Apache Solr, DC/OS (Apache Mesos), Kubernetes, Java, Python, Clojure, Scala, Apache Kafka/Kafka Streams/KSQL, Linux, ...
 
@@ -41,11 +42,10 @@
  **Positions held**: Solutions Architect<br>
  **Type of business**: Software Development/Big Data<br>
  **Main activities and responsibilities**:
-    - Working with customers on delivery of solutions based on the DataStax Enterprise, including architectural reviews, building prototypes, implementation guidance, pre- & post-release health checks, analysis of performance & other problems, providing guidance on fixing them, etc.;
-    - Pre-sales activity - discussion of possible architectures with customers, helping prepare sound technical proposals, ...;
-    - Providing feedback to product teams on new functionality requested by customers, and general feedback on existing functionality.
-
- Technology stack: DataStax Enterprise, Apache Cassandra, Apache Spark, Apache Solr, DC/OS (Apache Mesos), Kubernetes, Java, Python, Clojure, Scala, Apache Kafka/Kafka Streams/KSQL, Linux, ...
+    - Same as above
+ **Awards**:
+    - Execution Excellence Q2 FY19
+    - President's club FY19
 
  - **Senior Software Architect** at McAfee/Intel Security<br>
  **Dates (from-to)**: 10.2016-12.2017<br>
