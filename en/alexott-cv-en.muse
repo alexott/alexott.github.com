@@ -23,18 +23,30 @@
 
 * Work Experience
 
+ - **Principal Architect** at DataStax<br>
+ **Dates (from-to)**: 09.2019-now<br>
+ **Name and address of employer**: [[http://datastax.com][DataStax]], 33100 Paderborn, Germany<br>
+ **Positions held**: Principal Architect<br>
+ **Type of business**: Software Development/Big Data<br>
+ **Main activities and responsibilities**:
+    - Working with customers on delivery of solutions based on the DataStax Enterprise, including architectural reviews, building prototypes, implementation guidance, pre- & post-release health checks, analysis of performance & other problems, providing guidance on fixing them, etc.;
+    - Delivering the trainings to customers;
+    - Preparing statements of work, and other customer-facing documents;
+    - Mentoring team members;
+    - Working on improving internal processes;
+    - Contribution to tooling, documentation, etc.;
+    - Pre-sales activity - discussion of possible architectures with customers, helping prepare sound technical proposals, etc.;
+    - Providing feedback to product teams on new functionality requested by customers, and general feedback on existing functionality;
+
+ Technology stack: DataStax Enterprise, Apache Cassandra, Apache Spark, Apache Solr, DC/OS (Apache Mesos), Kubernetes, Java, Python, Clojure, Scala, Apache Kafka/Kafka Streams/KSQL, Linux, ...
+
  - **Senior Solutions Architect** at DataStax<br>
- **Dates (from-to)**: 03.2019-now<br>
+ **Dates (from-to)**: 03.2019-08.2019<br>
  **Name and address of employer**: [[http://datastax.com][DataStax]], 33100 Paderborn, Germany<br>
  **Positions held**: Senior Solutions Architect<br>
  **Type of business**: Software Development/Big Data<br>
  **Main activities and responsibilities**:
-    - Working with customers on delivery of solutions based on the DataStax Enterprise, including architectural reviews, building prototypes, implementation guidance, pre- & post-release health checks, analysis of performance & other problems, providing guidance on fixing them, etc.;
-    - Pre-sales activity - discussion of possible architectures with customers, helping prepare sound technical proposals, ...;
-    - Providing feedback to product teams on new functionality requested by customers, and general feedback on existing functionality;
-    - Contribution to tooling, documentation, etc.
-
- Technology stack: DataStax Enterprise, Apache Cassandra, Apache Spark, Apache Solr, DC/OS (Apache Mesos), Kubernetes, Java, Python, Clojure, Scala, Apache Kafka/Kafka Streams/KSQL, Linux, ...
+    - Same as above;
 
  - **Solutions Architect** at DataStax<br>
  **Dates (from-to)**: 01.2018-02.2019<br>
@@ -42,7 +54,7 @@
  **Positions held**: Solutions Architect<br>
  **Type of business**: Software Development/Big Data<br>
  **Main activities and responsibilities**:
-    - Same as above
+    - Similar to above, with slightly smaller scope;
  **Awards**:
     - Execution Excellence Q2 FY19
     - President's club FY19
@@ -213,6 +225,7 @@
 ** Open Source projects
 
 I'm contributing to different open source code projects including:
+ - Apache Zeppelin, Apache Tika, ...;
  - Clojure-related: Incanter, Leiningen, swank-clojure, Clojure, clojure-hadoop, labrepl;
  - Emacs-related: el-get, magit, Muse, GNU Emacs, CEDET;
  - ALTLinux -- Linux distribution, package maintainer (2001-2004)
