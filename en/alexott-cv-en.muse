@@ -30,11 +30,11 @@
  **Type of business**: Software Development/Big Data<br>
  **Main activities and responsibilities**:
     - Working with customers on delivery of solutions based on the DataStax Enterprise, including architectural reviews, building prototypes, implementation guidance, pre- & post-release health checks, analysis of performance & other problems, providing guidance on fixing them, etc.;
-    - Delivering the trainings to customers;
+    - Delivering advanced trainings to customers;
     - Preparing statements of work, and other customer-facing documents;
     - Mentoring team members;
     - Working on improving internal processes;
-    - Contribution to tooling, documentation, etc.;
+    - Contribution to products, tooling, documentation, etc. in form of patches, JIRAs, reviews;
     - Pre-sales activity - discussion of possible architectures with customers, helping prepare sound technical proposals, etc.;
     - Providing feedback to product teams on new functionality requested by customers, and general feedback on existing functionality;
 
@@ -203,14 +203,14 @@
 
 ** Programming languages and software development skills
 
- - C and C++ – more than 15 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD);
- - Java – 10 years (commercial & personal projects);
- - Clojure - 8 years (commercial & personal projects);
+ - C and C++ – more than 25 years (mostly in Unix – Linux, Sun Solaris, HP-UX, FreeBSD);
+ - Java – 15 years (commercial & personal projects);
+ - Clojure - 10 years (commercial & personal projects);
  - Python - 3 years (mostly personal projects);
  - Other languages (mostly not active right now): Scheme and Common Lisp (8 years, commercial & personal projects), Erlang (2 years, personal projects),  Haskell (1 year, personal projects), OCaml and F# (2 years, personal projects), Scala (personal projects), Go (1 year, personal projects), Perl (5 years, personal & commercial projects), SQL (7 years, Oracle and PostgreSQL);
  - UML modeling in complex projects;
  - Shell scripting languages - bash, sh, zsh, ...
- - NoSQL databases: Apache HBase, Apache Solr, Elasticsearch, CouchDB;
+ - NoSQL databases: Cassandra, Apache HBase, Apache Solr, Elasticsearch, CouchDB;
  - Continuous integration using Jenkins;
  - Static code analysis using Coverity;
  - Test-driven development (TDD) using different frameworks - JUnit, Mockito, GMock, GTest, Boost.Test, ...
@@ -225,7 +225,7 @@
 ** Open Source projects
 
 I'm contributing to different open source code projects including:
- - Apache Zeppelin, Apache Tika, ...;
+ - Apache Zeppelin (committer), Apache Tika, ...;
  - Clojure-related: Incanter, Leiningen, swank-clojure, Clojure, clojure-hadoop, labrepl;
  - Emacs-related: el-get, magit, Muse, GNU Emacs, CEDET;
  - ALTLinux -- Linux distribution, package maintainer (2001-2004)
@@ -234,7 +234,7 @@ I'm contributing to different open source code projects including:
  - openfwtk -- application level firewall;
  - Russian documentation for Linux – author of different articles about Linux.
 
-Information about other open source projects you can find on [[http://github.com/alexott][github]] and [[https://www.ohloh.net/accounts/alexott][ohloh]].
+Information about these & other OSS projects you can find on [[http://github.com/alexott][github]] and [[https://www.ohloh.net/accounts/alexott][ohloh]].
 
 * Personal skills and competences
 
@@ -242,11 +242,11 @@ Information about other open source projects you can find on [[http://github.com
 
  - **Russian**: Mother tongue
  - **English**: Good reading, writing & verbal skills
- - **German**: Good reading, basic writing and verbal skills
+ - **German**: Good reading, writing and verbal skills
 
 ** Social and organizational skills and competences
 
- - Ability to work in multinational teams, work with foreign customers;
+ - Ability to work in multinational teams;
  - Ability to work in teams (also geographically distributed) and alone;
  - Experience in management of development teams;
  - Practical experience in management of software projects;
