@@ -65,7 +65,7 @@
  **Positions held**: Solution Architect<br>
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
-    - Architecture of the [[https://www.mcafee.com/us/beta/public-betas/data-protection/cloud-data-protection.aspx][CDP (Cloud Data Protection)]] solution (implementing elements of CASB), involving multiple teams & products.  Communication with stakeholders, preparing the architecture, tasks definition & coordination for involved teams (very geo-distributed), evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure, Docker-based microservices, ...);
+    - Architecture of the [[https://www.mcafee.com/us/beta/public-betas/data-protection/cloud-data-protection.aspx][CDP (Cloud Data Protection)]] solution (implementing elements of CASB), involving multiple teams & products (18 teams, ~150-180 engineers).  Communication with stakeholders, preparing the architecture, tasks definition & coordination for involved teams (very geo-distributed - from India to US West coast), evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure, Docker-based microservices, Elasticsearch, Kafka, Spark, ...);
     - Development of URL & Content Categorization system using the range of machine learning & big data technologies (Apache HBase, Apache Solr, Apache Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.  Development of experimental models with Keras, XGBoost, scikit-learn, other frameworks.
 
  - **Software Architect** at Intel Security. *(subsidiary of Intel Corporation)*<br>
