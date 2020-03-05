@@ -40,6 +40,9 @@
 
  Technology stack: DataStax Enterprise, Apache Cassandra, Apache Spark, Apache Solr, DC/OS (Apache Mesos), Kubernetes, Java, Python, Clojure, Scala, Apache Kafka/Kafka Streams/KSQL, Linux, ...
 
+ **Awards**:
+    - President's club FY20 (2019)
+
  - **Senior Solutions Architect** at DataStax<br>
  **Dates (from-to)**: 03.2019-08.2019<br>
  **Name and address of employer**: [[http://datastax.com][DataStax]], 33100 Paderborn, Germany<br>
@@ -56,8 +59,8 @@
  **Main activities and responsibilities**:
     - Similar to above, with slightly smaller scope;
  **Awards**:
-    - Execution Excellence Q2 FY19
-    - President's club FY19
+    - Execution Excellence Q2 FY19 (2018)
+    - President's club FY19 (2018)
 
  - **Senior Software Architect** at McAfee/Intel Security<br>
  **Dates (from-to)**: 10.2016-12.2017<br>
