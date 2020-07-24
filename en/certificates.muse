@@ -1,0 +1,80 @@
+#title Certificates, etc.
+#keywords certificates
+
+This page contains 
+
+* Online courses
+
+ - [[http://www.ai-class.com/][An Introduction to Artificial Intelligence]] (Stanford, Fall 2011th). Score: 89% ([[../files/certificates/online-courses/ai-class.pdf][certificate]])
+ - [[https://www.coursera.org/course/ml][Machine Learning]] (Stanford, Fall 2011th). Score: 100%  ([[../files/certificates/online-courses/ml-class.pdf][certificate]])
+ - [[https://www.coursera.org/course/nlp/][Natural Language Processing]] (Stanford/Coursera, Fall 2012th). Score: 93% ([[../files/certificates/online-courses/Coursera-nlp-2016.pdf][certificate]])
+ - [[https://www.coursera.org/course/hetero][Heterogeneous Parallel Programming]] (University of Illinois at Urbana-Champaign/Coursera, Winter 2013th). Score: 100% with distinction ([[../files/certificates/online-courses/Coursera-hetero-2016.pdf][certificate]])
+ - [[https://www.coursera.org/course/compdata][Computing for Data Analysis]] (Johns Hopkins Bloomberg School of Public Health/Coursera, Spring 2013th). Score: 100% with distinction ([[../files/certificates/online-courses/Coursera-compdata-2016.pdf][certificate]])
+ - [[https://www.coursera.org/course/datasci][Introduction to Data Science]] (University of Washington/Coursera).  Score: 90.1% with distinction ([[../files/certificates/online-courses/Coursera-datasci-2016.pdf][certificate]], Spring 2013th)
+ - [[https://www.coursera.org/course/modelthinking][Model Thinking]] (University of Michigan/Coursera, Fall 2013th).  Score: 95% with distinction ([[../files/certificates/online-courses/Coursera-modelthinking-2016.pdf][certificate]])
+ - [[https://weka.waikato.ac.nz/dataminingwithweka/][Data Mining with Weka]] (University of Waikato, Fall 2013th). Score: 100% ([[../files/certificates/online-courses/weka.pdf][certificate]])
+ - [[https://www.coursera.org/course/progfun][Functional Programming Principles in Scala]] (École Polytechnique Fédérale de Lausanne/Coursera, Fall 2013th): Score: 100% with distinction ([[../files/certificates/online-courses/Coursera-progfun-2016.pdf][certificate]])
+ - [[https://www.coursera.org/course/patterndiscovery][Pattern Discovery in Data Mining]] (University of Illinois at Urbana-Champaign/Coursera, Spring 2015th). Score: 90.6% ([[../files/certificates/online-courses/Coursera-patterndiscovery-2016.pdf][certificate]])
+ - [[https://www.coursera.org/course/clusteranalysis][Cluster Analysis in Data Mining]] (University of Illinois at Urbana-Champaign/Coursera, Spring 2015th). Score: 100% 
+ - [[https://www.coursera.org/course/mmds][Mining of Massive Datasets]] (Stanford/Coursera) ([[../files/certificates/online-courses/Coursera-mmds-2016.pdf][certificate]], Fall 2014th)
+ - [[https://courses.edx.org/courses/BerkeleyX/CS100.1x/1T2015/info][CS100.1x Introduction to Big Data with Apache Spark]] (Berkley/edX, Summer 2015th). Score: 100% ([[../files/certificates/online-courses/edx-cs100.1.pdf][certificate]])
+ - [[https://courses.edx.org/courses/BerkeleyX/CS190.1x/1T2015/info][CS190.1x Scalable Machine Learning]] (Berkley/edX, Summer 2015th). Score: 100% ([[../files/certificates/online-courses/edx-cs190.1.pdf][certificate]])
+ - [[https://courses.edx.org/courses/UTAustinX/UT.5.02x/1T2015/info][UT.5.02x LAFF: Linear Algebra - Foundations to Frontiers]] (University of Texas/edX, Spring 2015th) ([[../files/certificates/online-courses/edx-laff.pdf][certificate]])
+ - [[https://www.coursera.org/account/accomplishments/records/sXxgywdRUTjpRAC7][Introduction to Natural Language Processing]] (University of Michigan, Winter 2016th). Score: 95.2% ([[../files/certificates/online-courses/Coursera-nlpintro-2016.pdf][certificate]])
+
+
+* Vendor-specific courses
+
+** Databricks
+
+Customer/Partner Introductory Learning (April/May 2020th):
+ - Introduction to Unified Data Analytics with Databricks ([[../files/certificates/databricks/award-a22bd363-221a-3ce2-9655-5a001d8ef884.pdf][certificate]])
+ - Getting Started with Apache Spark SQL ([[../files/certificates/databricks/award-74ede576-49c6-314d-9647-1113f5383764.pdf][certificate]])
+ - ETL Part 1: Data Extraction ([[../files/certificates/databricks/award-312086a1-b7a4-392b-8742-c93cc47f352e.pdf][certificate]])
+ - ETL Part 2: Transformations and Loads ([[../files/certificates/databricks/proof-of-completion-8f11b167-6f00-3623-a261-1a3dc506e3ab.pdf][certificate]])
+ - ETL Part 3: Production ([[../files/certificates/databricks/proof-of-completion-58920d10-b9ba-367c-a06c-cffac86996ca.pdf][certificate]])
+ - Structured Streaming ([[../files/certificates/databricks/proof-of-completion-885aae7d-a61c-317c-b54d-15bf063a06ed.pdf][certificate]])
+ - Fundamentals of Delta Lake ([[../files/certificates/databricks/proof-of-completion-f6fca5b4-10af-388c-92fa-424e1e20b9b8.pdf][certificate]])
+ - Delta Lake Rapid Start with Spark SQL ([[../files/certificates/databricks/proof-of-completion-63c1106a-4734-3c39-bbd7-97cbf9725d0e.pdf][certificate]])
+ - Managed Delta Lake ([[../files/certificates/databricks/proof-of-completion-10ce4c55-e54e-30c4-bcb1-b3aa7a62dc19.pdf][certificate]])
+ - MLflow: Managing the Machine Learning Lifecycle ([[../files/certificates/databricks/proof-of-completion-bdfb7491-6c24-311f-9234-040e73c2a4e3.pdf][certificate]])
+ - Administration on AWS Databricks ([[../files/certificates/databricks/proof-of-completion-3833ef08-b43d-3da5-ae74-76437d9edfc5.pdf][certificate]])
+ - Setting Up Your AWS Databricks Account ([[../files/certificates/databricks/proof-of-completion-584b84cc-016d-3d32-93f9-87f7c6f3b13b.pdf][certificate]])
+ - How to Upload Data to the Databricks Workspace Using Databricks ([[../files/certificates/databricks/proof-of-completion-5f075ca9-94f8-38b6-bfa5-facf09b18f14.pdf][certificate]])
+ - How to Share Data Insights Using Databricks ([[../files/certificates/databricks/proof-of-completion-62daa7f3-01ef-325b-a4de-08f23fdf03ec.pdf][certificate]])
+ - How to Manage Clusters in Databricks ([[../files/certificates/databricks/proof-of-completion-74d75775-3d10-34a6-aa62-0231c3a228ec.pdf][certificate]])
+ - Introduction to Big Data ([[../files/certificates/databricks/proof-of-completion-7904b3e1-0fb1-3d56-ba8e-3e6533ba1147.pdf][certificate]])
+ - Fundamentals of SQL on Databricks ([[../files/certificates/databricks/proof-of-completion-e6b12582-24f0-3335-8a8e-d1edbcbccf81.pdf][certificate]])
+ - Applications of SQL on Databricks ([[../files/certificates/databricks/proof-of-completion-883499f9-0b04-3763-83c1-989be65d193f.pdf][certificate]])
+ - How to Query and Visualize Data Using Databricks ([[../files/certificates/databricks/proof-of-completion-8b45c8ad-ba51-3e08-9978-86ed062a4721.pdf][certificate]])
+ - Databricks Workspace Fundamentals for Business Analytics ([[../files/certificates/databricks/proof-of-completion-c83f8198-5a4f-3ad1-91ea-98a3912e894a.pdf][certificate]])
+ - Introduction to Unified Data Analytics with Databricks Accreditation ([[../files/certificates/databricks/proof-of-completion-d4a11bc9-ba5f-317d-bdbc-7ad772ed8844.pdf][certificate]])
+ - Quick Reference: Spark Architecture ([[../files/certificates/databricks/proof-of-completion-d8e5537c-a055-331e-a396-face76ddd8a9.pdf][certificate]])
+
+** DataStax
+
+Architect path (Fall 2017th, [[../files/certificates/datastax/DataStax-Architect-Path-Certificate.pdf][certificate]]):
+ - DS101: Introduction to Apache Cassandra ([[../files/certificates/datastax/DS101.pdf][certificate]])
+ - DS201: DataStax Enterprise Foundations of Apache Cassandra ([[../files/certificates/datastax/DS201.pdf][certificate]])
+ - DS210: DataStax Enterprise Operations with Apache Cassandra ([[../files/certificates/datastax/DS210.pdf][certificate]])
+ - DS220: Data Modeling ([[../files/certificates/datastax/DS220.pdf][certificate]])
+ - DS310: DataStax Enterprise Search ([[../files/certificates/datastax/DS310.pdf][certificate]])
+ - DS320: DataStax Enterprise Analytics with Apache Spark ([[../files/certificates/datastax/DS320.pdf][certificate]])
+
+** Elastic
+
+Covid-19 offer (April, 2020th)
+ - Kibana Fundamentals ([[../files/certificates/elastic/award-a6dd84fd-1239-3f0b-8923-1420306bcdec.pdf][certificate]])
+ - Anomaly Detection for Cybersecurity ([[../files/certificates/elastic/proof-of-completion-06ef2cc2-c15e-3b71-9f68-e75e0581ebcd.pdf][certificate]])
+ - SIEM Fundamentals ([[../files/certificates/elastic/proof-of-completion-6ce6bdad-8170-3095-971c-d8b878d2ea7b.pdf][certificate]])
+ - Observability Fundamentals ([[../files/certificates/elastic/proof-of-completion-991ec38f-a3d1-3b34-ab69-894654e9362e.pdf][certificate]])
+ - Endpoint Security Fundamentals ([[../files/certificates/elastic/proof-of-completion-bbab96b1-4637-3e71-b7b1-eb15a9522e57.pdf][certificate]])
+
+** MapR
+
+Summer 2015th:
+ - DEV 320 - HBase Data Model and Architecture ([[../files/certificates/mapr/mapr-dev-320-certificate.pdf][certificate]])
+ - DEV 325 - HBase Schema Design ([[../files/certificates/mapr/mapr-dev-325-certificate.pdf][certificate]])
+ - DEV 360 - Apache Spark Essentials ([[../files/certificates/mapr/mapr-dev-360-certificate.pdf][certificate]])
+ - DEV 361 - Build and Monitor Apache Spark Applications ([[../files/certificates/mapr/mapr-dev-361-certificate.pdf][certificate]])
+ - DA 410 - Drill Essentials ([[../files/certificates/mapr/mapr-da-410-certificate.pdf][certificate]])
