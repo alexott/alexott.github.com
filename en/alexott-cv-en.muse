@@ -23,9 +23,19 @@
 
 * Work Experience
 
+ - **Resident Solutions Architect** at Databricks<br>
+ **Dates (from-to)**: 08.2020-now<br>
+ **Name and address of employer**: [[http://databricks.com][Databrics]] (remote)<br>
+ **Positions held**: Resident Solutions Architect<br>
+ **Type of business**: Software Development/Big Data<br>
+ **Main activities and responsibilities**:
+    - Working with customers on implementation of solutions based on the Databrics Unified Data Analytics Platform
+
+ Technology stack: Apache Spark, MLFlow, Delta Lake, Scala, Python, SQL, ...
+
  - **Principal Architect** at DataStax<br>
- **Dates (from-to)**: 09.2019-now<br>
- **Name and address of employer**: [[http://datastax.com][DataStax]], 33100 Paderborn, Germany<br>
+ **Dates (from-to)**: 09.2019-07.2020<br>
+ **Name and address of employer**: [[http://datastax.com][DataStax]] (remote)<br>
  **Positions held**: Principal Architect<br>
  **Type of business**: Software Development/Big Data<br>
  **Main activities and responsibilities**:
@@ -45,7 +55,7 @@
 
  - **Senior Solutions Architect** at DataStax<br>
  **Dates (from-to)**: 03.2019-08.2019<br>
- **Name and address of employer**: [[http://datastax.com][DataStax]], 33100 Paderborn, Germany<br>
+ **Name and address of employer**: [[http://datastax.com][DataStax]] (remote)<br>
  **Positions held**: Senior Solutions Architect<br>
  **Type of business**: Software Development/Big Data<br>
  **Main activities and responsibilities**:
@@ -53,7 +63,7 @@
 
  - **Solutions Architect** at DataStax<br>
  **Dates (from-to)**: 01.2018-02.2019<br>
- **Name and address of employer**: [[http://datastax.com][DataStax]], 33100 Paderborn, Germany<br>
+ **Name and address of employer**: [[http://datastax.com][DataStax]] (remote)<br>
  **Positions held**: Solutions Architect<br>
  **Type of business**: Software Development/Big Data<br>
  **Main activities and responsibilities**:
