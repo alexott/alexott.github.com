@@ -4,6 +4,10 @@
 I often write articles on themes that are very interesting for me.  Many of them are in
 Russian, but I also translate some of them to English.
 
+** Big Data
+
+ - [[../../files/gatling-dse-plugin/gatling-dse-plugin.html][Performance testing of DSE with gatling-dse-plugin]]
+
 ** Emacs
 
  - [[emacs-devenv/EmacsCedet][A Gentle introduction to CEDET]]

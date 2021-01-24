@@ -27,29 +27,39 @@ This page contains
 
 ** Databricks
 
-Customer/Partner Introductory Learning (April/May 2020th):
- - Introduction to Unified Data Analytics with Databricks ([[../files/certificates/databricks/award-a22bd363-221a-3ce2-9655-5a001d8ef884.pdf][certificate]])
- - Getting Started with Apache Spark SQL ([[../files/certificates/databricks/award-74ede576-49c6-314d-9647-1113f5383764.pdf][certificate]])
- - ETL Part 1: Data Extraction ([[../files/certificates/databricks/award-312086a1-b7a4-392b-8742-c93cc47f352e.pdf][certificate]])
- - ETL Part 2: Transformations and Loads ([[../files/certificates/databricks/proof-of-completion-8f11b167-6f00-3623-a261-1a3dc506e3ab.pdf][certificate]])
- - ETL Part 3: Production ([[../files/certificates/databricks/proof-of-completion-58920d10-b9ba-367c-a06c-cffac86996ca.pdf][certificate]])
- - Structured Streaming ([[../files/certificates/databricks/proof-of-completion-885aae7d-a61c-317c-b54d-15bf063a06ed.pdf][certificate]])
- - Fundamentals of Delta Lake ([[../files/certificates/databricks/proof-of-completion-f6fca5b4-10af-388c-92fa-424e1e20b9b8.pdf][certificate]])
- - Delta Lake Rapid Start with Spark SQL ([[../files/certificates/databricks/proof-of-completion-63c1106a-4734-3c39-bbd7-97cbf9725d0e.pdf][certificate]])
- - Managed Delta Lake ([[../files/certificates/databricks/proof-of-completion-10ce4c55-e54e-30c4-bcb1-b3aa7a62dc19.pdf][certificate]])
- - MLflow: Managing the Machine Learning Lifecycle ([[../files/certificates/databricks/proof-of-completion-bdfb7491-6c24-311f-9234-040e73c2a4e3.pdf][certificate]])
- - Administration on AWS Databricks ([[../files/certificates/databricks/proof-of-completion-3833ef08-b43d-3da5-ae74-76437d9edfc5.pdf][certificate]])
- - Setting Up Your AWS Databricks Account ([[../files/certificates/databricks/proof-of-completion-584b84cc-016d-3d32-93f9-87f7c6f3b13b.pdf][certificate]])
- - How to Upload Data to the Databricks Workspace Using Databricks ([[../files/certificates/databricks/proof-of-completion-5f075ca9-94f8-38b6-bfa5-facf09b18f14.pdf][certificate]])
- - How to Share Data Insights Using Databricks ([[../files/certificates/databricks/proof-of-completion-62daa7f3-01ef-325b-a4de-08f23fdf03ec.pdf][certificate]])
- - How to Manage Clusters in Databricks ([[../files/certificates/databricks/proof-of-completion-74d75775-3d10-34a6-aa62-0231c3a228ec.pdf][certificate]])
- - Introduction to Big Data ([[../files/certificates/databricks/proof-of-completion-7904b3e1-0fb1-3d56-ba8e-3e6533ba1147.pdf][certificate]])
- - Fundamentals of SQL on Databricks ([[../files/certificates/databricks/proof-of-completion-e6b12582-24f0-3335-8a8e-d1edbcbccf81.pdf][certificate]])
- - Applications of SQL on Databricks ([[../files/certificates/databricks/proof-of-completion-883499f9-0b04-3763-83c1-989be65d193f.pdf][certificate]])
- - How to Query and Visualize Data Using Databricks ([[../files/certificates/databricks/proof-of-completion-8b45c8ad-ba51-3e08-9978-86ed062a4721.pdf][certificate]])
- - Databricks Workspace Fundamentals for Business Analytics ([[../files/certificates/databricks/proof-of-completion-c83f8198-5a4f-3ad1-91ea-98a3912e894a.pdf][certificate]])
- - Introduction to Unified Data Analytics with Databricks Accreditation ([[../files/certificates/databricks/proof-of-completion-d4a11bc9-ba5f-317d-bdbc-7ad772ed8844.pdf][certificate]])
- - Quick Reference: Spark Architecture ([[../files/certificates/databricks/proof-of-completion-d8e5537c-a055-331e-a396-face76ddd8a9.pdf][certificate]])
+ - Databricks Certified Associate Platform Administrator ([[../files/certificates/databricks/certification-47f4a096-9e08-3a6a-8dc1-e9e733e48199.pdf][certificate]])
+ - DB 301 - Apache Spark for Machine Learning and Data Science ([[../files/certificates/databricks/proof-of-completion-1a5a8b96-1a08-30d5-abba-900b68acef76.pdf][certificate]])
+ - Customer/Partner Introductory Learning (April/May 2020th):
+   - Introduction to Unified Data Analytics with Databricks ([[../files/certificates/databricks/award-a22bd363-221a-3ce2-9655-5a001d8ef884.pdf][certificate]]
+   - Getting Started with Apache Spark SQL ([[../files/certificates/databricks/award-74ede576-49c6-314d-9647-1113f5383764.pdf][certificate]])
+   - ETL Part 1: Data Extraction ([[../files/certificates/databricks/award-312086a1-b7a4-392b-8742-c93cc47f352e.pdf][certificate]])
+   - ETL Part 2: Transformations and Loads ([[../files/certificates/databricks/proof-of-completion-8f11b167-6f00-3623-a261-1a3dc506e3ab.pdf][certificate]])
+   - ETL Part 3: Production ([[../files/certificates/databricks/proof-of-completion-58920d10-b9ba-367c-a06c-cffac86996ca.pdf][certificate]])
+   - Structured Streaming ([[../files/certificates/databricks/proof-of-completion-885aae7d-a61c-317c-b54d-15bf063a06ed.pdf][certificate]])
+   - Fundamentals of Delta Lake ([[../files/certificates/databricks/proof-of-completion-f6fca5b4-10af-388c-92fa-424e1e20b9b8.pdf][certificate]])
+   - Delta Lake Rapid Start with Spark SQL ([[../files/certificates/databricks/proof-of-completion-63c1106a-4734-3c39-bbd7-97cbf9725d0e.pdf][certificate]])
+   - Managed Delta Lake ([[../files/certificates/databricks/proof-of-completion-10ce4c55-e54e-30c4-bcb1-b3aa7a62dc19.pdf][certificate]])
+   - MLflow: Managing the Machine Learning Lifecycle ([[../files/certificates/databricks/proof-of-completion-bdfb7491-6c24-311f-9234-040e73c2a4e3.pdf][certificate]])
+   - Administration on AWS Databricks ([[../files/certificates/databricks/proof-of-completion-3833ef08-b43d-3da5-ae74-76437d9edfc5.pdf][certificate]])
+   - Setting Up Your AWS Databricks Account ([[../files/certificates/databricks/proof-of-completion-584b84cc-016d-3d32-93f9-87f7c6f3b13b.pdf][certificate]])
+   - How to Upload Data to the Databricks Workspace Using Databricks ([[../files/certificates/databricks/proof-of-completion-5f075ca9-94f8-38b6-bfa5-facf09b18f14.pdf][certificate]])
+   - How to Share Data Insights Using Databricks ([[../files/certificates/databricks/proof-of-completion-62daa7f3-01ef-325b-a4de-08f23fdf03ec.pdf][certificate]])
+   - How to Manage Clusters in Databricks ([[../files/certificates/databricks/proof-of-completion-74d75775-3d10-34a6-aa62-0231c3a228ec.pdf][certificate]])
+   - Introduction to Big Data ([[../files/certificates/databricks/proof-of-completion-7904b3e1-0fb1-3d56-ba8e-3e6533ba1147.pdf][certificate]])
+   - Fundamentals of SQL on Databricks ([[../files/certificates/databricks/proof-of-completion-e6b12582-24f0-3335-8a8e-d1edbcbccf81.pdf][certificate]])
+   - Applications of SQL on Databricks ([[../files/certificates/databricks/proof-of-completion-883499f9-0b04-3763-83c1-989be65d193f.pdf][certificate]])
+   - How to Query and Visualize Data Using Databricks ([[../files/certificates/databricks/proof-of-completion-8b45c8ad-ba51-3e08-9978-86ed062a4721.pdf][certificate]])
+   - Databricks Workspace Fundamentals for Business Analytics ([[../files/certificates/databricks/proof-of-completion-c83f8198-5a4f-3ad1-91ea-98a3912e894a.pdf][certificate]])
+   - Introduction to Unified Data Analytics with Databricks Accreditation ([[../files/certificates/databricks/proof-of-completion-d4a11bc9-ba5f-317d-bdbc-7ad772ed8844.pdf][certificate]])
+   - Quick Reference: Spark Architecture ([[../files/certificates/databricks/proof-of-completion-d8e5537c-a055-331e-a396-face76ddd8a9.pdf][certificate]])
+   - What's New In Spark 3.0 ([[../files/certificates/databricks/proof-of-completion-c6e32702-bce2-363d-9132-dbe210643520.pdf][certificate]])
+
+** A Cloud Guru
+
+ - AZ-900 Microsoft Azure Fundamentals 2020 ([[../files/certificates/cloud/B43F6E6BADBF.pdf][certificate]])
+ - Introduction to AWS ([[../files/certificates/cloud/ECAC15AF7FBA.pdf][certificate]])
+ - Introduction to Azure ([[../files/certificates/cloud/C2824E1120F9.pdf][certificate]])
+
 
 ** DataStax
 
