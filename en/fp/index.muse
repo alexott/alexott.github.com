@@ -1,8 +1,8 @@
 #title Functional programming
 #keywords functional programming, fp, ocaml, lisp, haskell, erlang, clojure
 
-I'm working with functional programming languages for a long time.  Lisp was first
-functional language, that I studied. Now I mostly program in [[../clojure][Clojure]], but also plays with
+I've been working with functional programming languages for a long time.  Lisp was first
+functional language, that I studied. Now I mostly program in [[../clojure][Clojure]], but also play with
 Erlang, OCaml, Haskell, Scheme and Common Lisp.
 
 I'm author of [[../writings][many articles]], including articles on functional programming languages (many

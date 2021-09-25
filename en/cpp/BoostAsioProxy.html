@@ -21,7 +21,7 @@
 <input type="text" name="q" size="17">  <input type="submit" name="sa" value="Search"> </form>
 <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_006849776194404728512%3Aq7vjogjzehm&lang=ru"></script></div></div> <!-- leftside -->
 <div id="contentwide">
-<p>In this article I describe process of writing of simple cross-platform HTTP proxy. <strong>Please,
+<p>In this article I describe the process of writing of a simple cross-platform HTTP proxy. <strong>Please,
 note that this code isn't production-ready - it was used as simple demonstration on how it
 could be implemented, and contains obvious bugs</strong>.</p>
 
@@ -39,7 +39,7 @@ to run following commands (on Unix-like OSes)<sup><a class="footref" name="fnr.1
 <p>and after compilation you'll get <code>proxy-asio-async</code> executable, that you can run from
 command line.  This program accepts only one argument &mdash; number of threads, that will
 perform request processing (by default, this value is equal 2).  Port number on which
-requests will accepted is hardcoded in source code and equal to <code>10001</code><sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>.</p>
+requests will be accepted is hardcoded in source code and equal to <code>10001</code><sup><a class="footref" name="fnr.2" href="#fn.2">2</a></sup>.</p>
 
 
 <h2>Architecture</h2>
@@ -51,7 +51,7 @@ requests will accepted is hardcoded in source code and equal to <code>10001</cod
 together with <code>server</code> object, and then enters into request processing loop;</li>
 <li><code>server</code> class, that accepts requests, and creates <code>connection</code> object, that implements all
 logic of connection handling;</li>
-<li><code>connection</code> class, that implements all logic, and pass data between client &amp; web-server.</li>
+<li><code>connection</code> class, that implements all logic, and passes data between client &amp; web-server.</li>
 </ul>
 
 <p>The data processing is performed in asynchronous mode, and to distribute load between
@@ -59,8 +59,8 @@ processors, we can use several independent <em>asio</em> services, that perform 
 calls (<code>asio::io_service</code>).</p>
 
 <p><em>Note</em>: Most hard part of the development of asynchronous code is proper design of data
-flow.  I usually draw a <em>state diagram</em> and then transform each state to separate function.
-Presence of such diagram is very helpful for understanding of code by other developers.</p>
+flow.  I usually draw a <em>state diagram</em> and then transform each state to a separate function.
+Presence of such a diagram is very helpful for understanding of code by other developers.</p>
 
 
 <h2>Implementation</h2>
@@ -70,20 +70,19 @@ Presence of such diagram is very helpful for understanding of code by other deve
 
 <p>Implementation of server (the <code>server</code> class &mdash; <a href="https://github.com/alexott/boost-asio-proxy/blob/master/proxy-server.hpp">proxy-server.hpp</a> &amp; <a href="https://github.com/alexott/boost-asio-proxy/blob/master/proxy-server.cpp">proxy-server.cpp</a>) also
 not so much different from previous examples &mdash; changes were made only for method, that is
-used to select service, that will implement dispatching.  In our example new service is
+used to select a service that will implement dispatching.  In our example new service is
 selected from circular list of services, that allow us to get some load balancing for
 requests.</p>
 
-<p>All data processing logic is implemented in <code>connection</code> class (<a href="https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.hpp">proxy-conn.hpp</a> &amp;
-<a href="https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.cpp">proxy-conn.cpp</a>.  I want to say, that parsing of headers was done without any
-optimisation<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.</p>
+<p>All data processing logic is implemented in <code>connection</code> class (<a href="https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.hpp">proxy-conn.hpp</a> &amp; <a href="https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.cpp">proxy-conn.cpp</a>.  I want to say, that parsing of headers was done without any
+optimization<sup><a class="footref" name="fnr.3" href="#fn.3">3</a></sup>.</p>
 
 <p>Data processing is started from call to <code>start</code> function from <code>server</code> class, that accepts
-connection and creates new object of <code>connection</code> class.  This function initiates
-asynchronous reading of request headers from browser.</p>
+connection and creates a new object of <code>connection</code> class.  This function initiates
+asynchronous reading of request headers from the browser.</p>
 
 <p>Reading of request headers is performed in the <code>handle_browser_read_headers</code> function, that
-is called when we get some part of data from browser.  I need to mention, that if we get
+is called when we get some part of data from the browser.  I need to mention, that if we get
 incomplete headers (there is no empty string (<code>\r\n\r\n</code>)), then this function initiates new
 reading of headers, trying to get them all.</p>
 
@@ -97,8 +96,8 @@ process of name resolution.  If we have opened connection, then we simply start 
 transfer with <code>start_write_to_server</code> function.</p>
 
 <p>The <code>handle_resolve</code> function is called after name resolution, and if we get address of
-server, then it initiates process of connection establishing.  Result of this process is
-handled by <code>handle_connect</code> function, that initiates process of data transfer to the server
+server, then it initiates the process of connection establishing.  Result of this process is
+handled by <code>handle_connect</code> function, that initiates the process of data transfer to the server
 with <code>start_write_to_server</code> function, that forms correct headers, and pass these data to
 the server.</p>
 
@@ -106,7 +105,7 @@ the server.</p>
 response (only headers first) from server.  Processing of headers is handled by
 <code>handle_server_read_headers</code> function, that is similar to the <code>handle_browser_read_headers</code>,
 but it also tries to understand &mdash; should we close connection after data transfer, or not.
-After processing of headers, this function initiates process of sending data to browser.</p>
+After processing of headers, this function initiates the process of sending data to the browser.</p>
 
 <p>After sending of headers, we create a loop, that transfer body of response from server to
 browser.  In this loop we use two functions &mdash; 
@@ -117,7 +116,7 @@ file.</p>
 
 <p>If we'll get end of file, then we'll pass rest of data to the browser and close
 connection. Or if we use persistent connection, then we'll pass control to the <code>start</code>
-function, that initiates reading of new headers from browser.</p>
+function that initiates reading of new headers from the browser.</p>
 
 <p>That's all.  As I already mentioned above, main problem &mdash; building of right data flow
 sequence.</p>
@@ -142,7 +141,7 @@ protocols &mdash; HTTP, SMTP и т.п.</p>
 
 
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 16.06.2014 10:13</em></p></div>
+<div id="lastchange"><p><em>Last change: 25.09.2021 14:21</em></p></div>
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">
 var disqus_shortname = 'alexottnet';

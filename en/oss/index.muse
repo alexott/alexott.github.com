@@ -9,5 +9,5 @@ ago:
  - [[http://sourceforge.net/projects/openfwtk][openfwtk]] -- application level firewall, supporting different protocols.  Very portable
    and working on different hardware and OSes.
  - [[../cf/squid-gsbapi][squid-gsb]] -- utility, that implement support of Safe Browsing API in Squid
- - [[http://sourceforge.net/projects/dgav][dgav]] -- for of [[http://dansguardian.org/][dansguardian]] project for adding of antivirus support in it.
+ - [[http://sourceforge.net/projects/dgav][dgav]] -- for of [[http://dansguardian.org/][dansguardian]] project for adding antivirus support in it.
  - [[http://wagner.pp.ru/~vitus/software/catdoc/][catdoc]] -- open source converters for MS Office files

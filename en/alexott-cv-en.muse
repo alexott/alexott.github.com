@@ -23,15 +23,25 @@
 
 * Work Experience
 
+ - **Senior Resident Solutions Architect** at Databricks<br>
+ **Dates (from-to)**: 08.2021-now<br>
+ **Name and address of employer**: [[http://databricks.com][Databrics]] (remote)<br>
+ **Positions held**: Resident Solutions Architect<br>
+ **Type of business**: Software Development/Big Data<br>
+ **Main activities and responsibilities**:
+    - Working with strategic customers on implementation of solutions based on the Databricks' Unified Data Analytics Platform.
+
+ Technology stack: Apache Spark, MLFlow, Delta Lake, Scala, Python, SQL, Terraform, ...
+
  - **Resident Solutions Architect** at Databricks<br>
  **Dates (from-to)**: 08.2020-now<br>
  **Name and address of employer**: [[http://databricks.com][Databrics]] (remote)<br>
  **Positions held**: Resident Solutions Architect<br>
  **Type of business**: Software Development/Big Data<br>
  **Main activities and responsibilities**:
-    - Working with customers on implementation of solutions based on the Databrics Unified Data Analytics Platform
+    - Working with customers on implementation of solutions based on the Databricks' Unified Data Analytics Platform
 
- Technology stack: Apache Spark, MLFlow, Delta Lake, Scala, Python, SQL, ...
+ Technology stack: Apache Spark, MLFlow, Delta Lake, Scala, Python, SQL, Terraform, ...
 
  - **Principal Architect** at DataStax<br>
  **Dates (from-to)**: 09.2019-07.2020<br>
@@ -79,7 +89,7 @@
  **Type of business**: Software Development<br>
  **Main activities and responsibilities**: 
     - Architecture of the [[https://www.mcafee.com/us/beta/public-betas/data-protection/cloud-data-protection.aspx][CDP (Cloud Data Protection)]] solution (implementing elements of CASB), involving multiple teams & products (18 teams, ~150-180 engineers).  Communication with stakeholders, preparing the architecture, tasks definition & coordination for involved teams (very geo-distributed - from India to US West coast), evaluation of technologies & prototyping, implementation of some components (Java, C++, Clojure, Docker-based microservices, Elasticsearch, Kafka, Spark, ...);
-    - Development of URL & Content Categorization system using the range of machine learning & big data technologies (Apache HBase, Apache Solr, Apache Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.  Development of experimental models with Keras, XGBoost, scikit-learn, other frameworks.
+    - Development of URL & Content Categorization system using a range of machine learning & big data technologies (Apache HBase, Apache Solr, Apache Spark).  Implementing the full machine learning workflow - model design, data collection & cleanup, feature extraction & selection, model evaluation, production deployment.  Development of experimental models with Keras, XGBoost, scikit-learn, and other frameworks.
 
  - **Software Architect** at Intel Security. *(subsidiary of Intel Corporation)*<br>
  **Dates (from-to)**: 07.2014-09.2016<br>
@@ -142,7 +152,7 @@
     - **Projects done**:
      - **Mailboss** (aka SMAP "Dozor-Jet") – mail filtering and archiving software (architect and developer, leader of development process); https://jet.su/en/services/information_security/;
      - **Webboss** (aka SKVT "Dozor-Jet") – web filtering software (architect and develop software, lead the development process); https://jet.su/en/services/information_security/;
-     - **BeepayXP** – payment processing software for the Vimpelkom – large Russian Mobile Company (Data architect, server infrastructure architect, project coordinator); 
+     - **BeepayXP** – payment processing software for the Vimpelcom – large Russian Mobile Company (Data architect, server infrastructure architect, project coordinator); 
      - **File-NG** – data type detection library;
      - KC IAS - lead architect in data and process integration pilot project (on the base of Sun Java CAPS) for a Russian Central bank. Business process analysis, Project architecture design, product selection.
      - Content-type detection add-on for the Cerberus software (Mail filtering software for Lotus Notes);
@@ -153,7 +163,7 @@
  - **Teaching assistant & lecturer** at *Tomsk Polytechnic University*<br>
  **Dates (from-to)**: 09.1998-08.2001<br>
  **Name and address of employer**: Tomsk Polytechnic University, Lenina Str, 30, Tomsk, Russia<br>
- **Positions held**: Assistant lecturer at Technical Physic's department (Teacher)<br>
+ **Positions held**: Assistant lecturer at Technical Physics department (Teacher)<br>
  **Type of business**: Education<br>
  **Main activities and responsibilities**: 
     - Provide trainings for students in branch of thermodynamic, molecular physic, computer modeling of physical processes;

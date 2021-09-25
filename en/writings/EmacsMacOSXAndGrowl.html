@@ -29,24 +29,24 @@ from <em>org-mode</em>.</p>
 <p>After some search, I found information how I can output notifications
 <a href="http://growl.info/documentation/applescript-support.php">using AppleSript interface to Growl</a>.  To make this work, you need to perform two things &mdash;
 first you need to register your application and notifications types, produced by this
-application, and than you can send notifications to Growl.</p>
+application, and then you can send notifications to Growl.</p>
 
 <p>To register application you will need following script, that declares notification types
 and register them, together with application in Growl:<sup><a class="footref" name="fnr.1" href="#fn.1">1</a></sup></p>
 
 <pre class="src">
-tell application <span style="color: #008b00;">"GrowlHelperApp"</span>
+tell application <span style="color: #8b2252;">"GrowlHelperApp"</span>
  -- Declare a list of notification types
- set the allNotificationsList to {<span style="color: #008b00;">"Emacs Notification"</span>}
+ set the allNotificationsList to {<span style="color: #8b2252;">"Emacs Notification"</span>}
 
- -- Declare list of active notifications.  If some of them
+ -- Declare a list of active notifications.  If some of them
  -- isn't activated, user can do this later via preferences
- set the enabledNotificationsList to {<span style="color: #008b00;">"Emacs Notification"</span>}
+ set the enabledNotificationsList to {<span style="color: #8b2252;">"Emacs Notification"</span>}
 
  -- Register our application in Growl.
- register as application <span style="color: #008b00;">"Aquamacs Emacs"</span> all notifications allNotificationsList \
+ register as application <span style="color: #8b2252;">"Aquamacs Emacs"</span> all notifications allNotificationsList \
     default notifications enabledNotificationsList \
-    icon of application <span style="color: #008b00;">"Aquamacs Emacs"</span>
+    icon of application <span style="color: #8b2252;">"Aquamacs Emacs"</span>
 end tell
 </pre>
 
@@ -58,9 +58,9 @@ registered notification via <code>Applications</code> tab at preference pane of 
 of our Emacs's interface to Growl.</p>
 
 <pre class="src">
-        tell application <span style="color: #008b00;">"GrowlHelperApp"</span>
-                notify with name <span style="color: #008b00;">"Emacs Notification"</span> title <span style="color: #008b00;">"Emacs alert"</span> \
-       description <span style="color: #008b00;">"Message!!!"</span> application name <span style="color: #008b00;">"Aquamacs Emacs"</span>
+        tell application <span style="color: #8b2252;">"GrowlHelperApp"</span>
+                notify with name <span style="color: #8b2252;">"Emacs Notification"</span> title <span style="color: #8b2252;">"Emacs alert"</span> \
+       description <span style="color: #8b2252;">"Message!!!"</span> application name <span style="color: #8b2252;">"Aquamacs Emacs"</span>
         end tell
 </pre>
 
@@ -70,22 +70,22 @@ encode them using UTF-16 and represent them as hexadecimal string, so we'll goin
 special code, that will recode message strings to corresponding format.</p>
 
 <p>To interact with AppleScript from Emacs we'll could use <code>do-applescript</code> function, but I
-found, that it doesn't properly handle multi-byte symbols <code>«</code> and <code>»</code>, that are used to
+found, that it doesn't properly handle multibyte symbols <code>«</code> and <code>»</code>, that are used to
 specify text in multi-byte encoding.  So we'll form script in temporary file, and than
-execute it with <code>osascript</code>, and delete temporary file.  This executed with following
+execute it with <code>osascript</code>, and delete the temporary file.  This executed with following
 function:</p>
 
 <pre class="src">
 (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">output-to-growl</span> (msg)
-        (<span style="color: #a020f0;">let</span> ((fname (make-temp-file <span style="color: #008b00;">"/tmp/growlXXXXXX"</span>)))
+        (<span style="color: #a020f0;">let</span> ((fname (make-temp-file <span style="color: #8b2252;">"/tmp/growlXXXXXX"</span>)))
                 (<span style="color: #a020f0;">with-temp-file</span> fname
-                        (setq coding-system-for-write 'utf-16)
-                        (insert (format <span style="color: #008b00;">"tell application \"GrowlHelperApp\"
+                        (<span style="color: #a020f0;">setq</span> coding-system-for-write 'utf-16)
+                        (insert (format <span style="color: #8b2252;">"tell application \"GrowlHelperApp\"
      notify with name \"Emacs Notification\" title \"Emacs alert\" \
        description &#171;data utxt%s&#187; as Unicode text \
        application name \"Aquamacs Emacs\"
    end tell"</span>  (osd-text-to-utf-16-hex msg))))
-                (shell-command (format <span style="color: #008b00;">"osascript %s"</span> fname))
+                (shell-command (format <span style="color: #8b2252;">"osascript %s"</span> fname))
                 (delete-file fname)))
 </pre>
 
@@ -100,7 +100,7 @@ encoding.  To do this task, I wrote function <code>osd-text-to-utf-16-hex</code>
         (<span style="color: #a020f0;">let*</span> ((utext (encode-coding-string text 'utf-16))
                                  (ltext (string-to-list utext)))
                 (apply #'concat
-                 (mapcar (<span style="color: #a020f0;">lambda</span> (x) (format <span style="color: #008b00;">"%02x"</span> x)) ltext))))
+                 (mapcar (<span style="color: #a020f0;">lambda</span> (x) (format <span style="color: #8b2252;">"%02x"</span> x)) ltext))))
 </pre>
 
 <p>And that's all.  Now you can call <code>output-to-growl</code> from any place.  I use it to get
@@ -110,7 +110,7 @@ notifications from <em>org-mode</em>.</p>
 <p class="footnote"><a class="footnum" name="fn.1" href="#fnr.1">1.</a> I need to mention, that long lines were split with <code>\</code> just to get proper formatting on
 the screen.  In script, you need to combine them into one long line!</p>
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 05.03.2013 16:54</em></p></div>
+<div id="lastchange"><p><em>Last change: 25.09.2021 14:14</em></p></div>
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">
 var disqus_shortname = 'alexottnet';

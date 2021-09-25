@@ -85,7 +85,7 @@ repetition of a very short development cycle:</p>
 </ul>
 
 <p>Test-driven development is related to the test-first programming concepts of
-<a href="http://en.wikipedia.org/wiki/Extreme_programming">extreme programming</a>, and often linked to agile programming approach. In its pure form, TDD
+<a href="http://en.wikipedia.org/wiki/Extreme_programming">extreme programming</a>, and often linked to an agile programming approach. In its pure form, TDD
 has <a href="http://en.wikipedia.org/wiki/Test-driven_development#Benefits">benefits</a>, but it also has <a href="http://en.wikipedia.org/wiki/Test-driven_development#Vulnerabilities">drawbacks</a>.  But we can use some practices to improve quality
 of code in our projects.</p>
 
@@ -99,7 +99,7 @@ of code in our projects.</p>
 <li>refactor code;</li>
 <li>repeat tests, fix the code if there are failing tests;</li>
 <li>commit changes;</li>
-<li>switch to next feature (repeat all process starting from first step).</li>
+<li>switch to the next feature (repeat the whole process starting from the first step).</li>
 </ul>
 
 <p class="image"><img src="TDD.png" alt=""></p>
@@ -138,7 +138,7 @@ and be sure that code still works correctly;</li>
 can be used in a bottom-up testing style approach. By testing the parts of a program
 first, and then testing the sum of its parts, integration testing becomes much easier;</li>
 <li>unit testing provides a sort of living documentation for the system. Developers can
-look at the unit test's code to gain a basic understanding of implemented API.</li>
+look at the unit test's code to gain a basic understanding of the implemented API.</li>
 </ul>
 
 <h4>Unit testing frameworks</h4>
@@ -147,8 +147,8 @@ look at the unit test's code to gain a basic understanding of implemented API.</
 framework should provide following functionality:</p>
 
 <ul>
-<li>Writing of unit tests should be simple and obvious for new users.</li>
-<li>Framework should allow advanced users to perform nontrivial tests.</li>
+<li>Writing unit tests should be simple and obvious for new users.</li>
+<li>Framework should allow advanced users to perform non-trivial tests.</li>
 <li>Test module should be able to have many small test cases and developer should be able
 to group them into test suites.</li>
 <li>At the beginning of the development users may want to see verbose and descriptive error
@@ -158,7 +158,7 @@ any failed tests.</li>
 want to wait a minute to compile a test that takes a second to run.</li>
 <li>For long running and complex tests users may want to be able to see the test's
 progress.</li>
-<li>Execution of individual tests should be independent on other tests. For example,
+<li>Execution of individual tests should be independent of other tests. For example,
 termination (crashing) of one test shouldn't lead to skipping of all other tests.</li>
 <li>Simple tests shouldn't require an external library.</li>
 </ul>
@@ -173,7 +173,7 @@ architecture.  Each of such frameworks consists from:</p>
 <li>Test cases, that combine several assertions, based on some common functionality;</li>
 <li>Test suites, that combine several tests, logically related to each other;</li>
 <li>Fixtures, that provide setup of data or state, needed for execution of some tests, and
-cleanup of state and/or data after test is finished. (Some frameworks provide separate
+cleanup of state and/or data after the test is finished. (Some frameworks provide separate
 per-test case, per-test suite, and/or global fixtures)</li>
 <li>Frameworks also include execution monitor, that controls how tests are executed, and
 collects data about failed tests.</li>
@@ -201,9 +201,9 @@ allows unit tests to be very short and easy to understand.</p>
 <li>your test case should test only one thing;</li>
 <li>test case should be short;</li>
 <li>test should run fast, so it will possible to run it very often;</li>
-<li>each test should work independent on other tests. Broken test shouldn't prevent other
+<li>each test should work independent of other tests. Broken test shouldn't prevent other
 tests from execution;</li>
-<li>tests shouldn't be dependent on order of their execution.</li>
+<li>tests shouldn't be dependent on the order of their execution.</li>
 </ul>
 
 <p>Some people argues, that combining of all test cases into big functions, improves
@@ -218,7 +218,7 @@ will be skipped and there is no way to prevent this;</li>
 
 <p>Testability of code also depends on its design.  Sometimes it's very hard to write unit
 tests, because functionality to be tested is hidden behind many interfaces, or there are many
-dependencies, so it's hard to setup test correctly.  There are some suggestions on how
+dependencies, so it's hard to set up the test correctly.  There are some suggestions on how
 code should be written to allow easier writing of unit tests for it:</p>
 
 <ul>
@@ -232,7 +232,7 @@ several classes, that perform separate tasks, instead of creating one class, tha
 everything.</li>
 </ul>
 
-<p>More advices on writing testable code you can find in <a href="http://googletesting.blogspot.com/2008/08/by-miko-hevery-so-you-decided-to.html">following blog post</a>.</p>
+<p>More advice on writing testable code you can find in <a href="http://googletesting.blogspot.com/2008/08/by-miko-hevery-so-you-decided-to.html">following blog post</a>.</p>
 
 
 
@@ -276,11 +276,11 @@ Inside this test case you do following:
 <ul>
 <li>you create an instance of mocked class;</li>
 <li>you setup behavior and expectations on mocked object &mdash; which methods should be
-called (or not called), which data will be returned for particular call, etc.</li>
+called (or not called), which data will be returned for a particular call, etc.</li>
 <li>you run your code that will use mocked object some way;</li>
 <li>after execution of your code, you evaluate results of execution and check
 expectations against actual results &mdash; usually this is done automatically by
-framework, when mocked object is destroyed.</li>
+framework, when a mocked object is destroyed.</li>
 </ul></li>
 </ul>
 
@@ -334,7 +334,7 @@ could be used together with it.</p>
 
 <p>Boost.Test could be used differently, depending on complexity of tests.  User can either
 write test functions themself, and register them manually, forming a hierarchy of tests,
-or he can use special macros, that will register test automatically.</p>
+or it can use special macros that will register tests automatically.</p>
 
 <p>In this text we'll use &quot;automatic&quot; tests as examples, and you can read about manual test
 registration in <a href="http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/user-guide.html">Boost.Test documentation</a>.</p>
@@ -366,8 +366,8 @@ function that will perform setup of tests, and their execution).</p>
 <p class="first">Here is minimal example, that defines one test:</p>
 
 <pre class="src">
-<span style="color: #006400;">#define</span> <span style="color: #8b0000;">BOOST_TEST_MODULE</span> Simple testcases
-<span style="color: #006400;">#include</span> <span style="color: #008b00;">&lt;boost/test/unit_test.hpp&gt;</span>
+<span style="color: #483d8b;">#define</span> <span style="color: #a0522d;">BOOST_TEST_MODULE</span> <span style="color: #228b22;">Simple</span> <span style="color: #a0522d;">testcases</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;boost/test/unit_test.hpp&gt;</span>
 
 <span style="color: #0000ff;">BOOST_AUTO_TEST_CASE</span>(simple_test) {
   BOOST_CHECK_EQUAL(2+2, 4);
@@ -393,9 +393,9 @@ verbosity of output with execution monitor's options &mdash; see below):</p>
 
 <pre class="src">
   Running 1 test case...
-  test-simple.cpp(5): error in <span style="color: #008b00;">"simple_test"</span>: check 2+2 == 5 failed [4 != 5]
+  test-simple.cpp(5): error in <span style="color: #8b2252;">"simple_test"</span>: check 2+2 == 5 failed [4 != 5]
 
-  *** 1 failure detected in test suite <span style="color: #008b00;">"Simple testcases"</span>
+  *** 1 failure detected in test suite <span style="color: #8b2252;">"Simple testcases"</span>
 </pre>
 
 <p>This information includes number of failures in given test program (called <code>Simple
@@ -416,8 +416,8 @@ test suite, and the <code>BOOST_AUTO_TEST_SUITE_END</code> macro after last test
 included in this test suite:</p>
 
 <pre class="src">
-<span style="color: #006400;">#define</span> <span style="color: #8b0000;">BOOST_TEST_MODULE</span> Simple testcases 2
-<span style="color: #006400;">#include</span> <span style="color: #008b00;">&lt;boost/test/unit_test.hpp&gt;</span>
+<span style="color: #483d8b;">#define</span> <span style="color: #a0522d;">BOOST_TEST_MODULE</span> <span style="color: #228b22;">Simple</span> <span style="color: #a0522d;">testcases</span> 2
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;boost/test/unit_test.hpp&gt;</span>
 
 BOOST_AUTO_TEST_SUITE(suite1)
 
@@ -464,7 +464,7 @@ can find in <a href="http://www.boost.org/doc/libs/release/libs/test/doc/html/ut
 expression to check, like following:</p>
 
 <pre class="src">
- BOOST_WARN( <span style="color: #a020f0;">sizeof</span>(<span style="color: #0000ff;">int</span>) == <span style="color: #a020f0;">sizeof</span>(<span style="color: #0000ff;">short</span>) );
+ BOOST_WARN( <span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">int</span>) == <span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">short</span>) );
  BOOST_CHECK( i == 1 );
  BOOST_REQUIRE( i &gt; 5 );
 </pre>
@@ -481,8 +481,8 @@ predicates, if you'll use <code>BOOST_&lt;level&gt;_PREDICATE</code> macros).  F
 following code:</p>
 
 <pre class="src">
- <span style="color: #0000ff;">int</span> <span style="color: #8b0000;">i</span> = 2;
- <span style="color: #0000ff;">int</span> <span style="color: #8b0000;">j</span> = 1;
+ <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span> = 2;
+ <span style="color: #228b22;">int</span> <span style="color: #a0522d;">j</span> = 1;
 
  BOOST_CHECK( i == j );
  BOOST_CHECK_EQUAL( i, j );
@@ -491,14 +491,14 @@ following code:</p>
 <p>the first checker will only report that check was failed:</p>
 
 <pre class="src">
-test.cpp(4): error in <span style="color: #008b00;">"test"</span>: check i == j failed
+test.cpp(4): error in <span style="color: #8b2252;">"test"</span>: check i == j failed
 </pre>
 
 <p>while the second checker, will report about problem, together with actual values, used in
 comparison:</p>
 
 <pre class="src">
-test.cpp(5): error in <span style="color: #008b00;">"test"</span>: check i == j failed [2 != 1]
+test.cpp(5): error in <span style="color: #8b2252;">"test"</span>: check i == j failed [2 != 1]
 </pre>
 
 <p>Boost.Test also provides specialized checkers for comparison of collections
@@ -510,7 +510,7 @@ need to include additional header file to use them:
 <code>boost/test/floating_point_comparison.hpp</code>): <code>BOOST_&lt;level&gt;_CLOSE</code>,
 <code>BOOST_&lt;level&gt;_CLOSE_FRACTION</code>, and <code>BOOST_&lt;level&gt;_SMALL</code>.</p>
 
-<p>In some situations, you need to check, does your code throws exception or not.  To check
+<p>In some situations, you need to check whenever your code throws an exception or not.  To check
 that your code doesn't throw exception, you can use <code>BOOST_&lt;level&gt;_NO_THROW</code> macro, that
 receives expression, that will be evaluated, and if exception is thrown, it will perform
 corresponding action, depending on level.  To check, that your code throws given
@@ -524,7 +524,7 @@ checker, that will check data inside exception object, and return true or false.
 could be used to check functionality of <code>&lt;&lt;</code> operator, or similar things.  Boost.Test
 provides special output class, compatible to <code>std::ostream</code>, and you can output data to it,
 and explicitly get access to its content.  You can also create a file with &quot;desired
-output&quot;, and use data from this file to compare against output, produced by your code.</p>
+output&quot;, and use data from this file to compare against output produced by your code.</p>
 
 <p>In some cases, it could be also useful to get checkpoints, where test case was in normal
 state.  Boost.Test provides 2 macros for this task:</p>
@@ -542,7 +542,7 @@ printed.</li>
 <h4>Fixtures</h4>
 
 <p class="first">Fixtures &mdash; special objects that are used to implement setup and cleanup of data/resources
-required to execution of unit tests.  Separation of code between fixtures and actual test
+required for execution of unit tests.  Separation of code between fixtures and actual test
 code, allows to simplify unit test's code, and use the same initialization code for
 different test cases and test suites.</p>
 
@@ -550,10 +550,10 @@ different test cases and test suites.</p>
 performs initialization of data, while destructor performs cleanup.  For example:</p>
 
 <pre class="src">
-<span style="color: #a020f0;">struct</span> <span style="color: #0000ff;">MyFixture</span> {
-     <span style="color: #0000ff;">MyFixture</span>() { i = <span style="color: #a020f0;">new</span> <span style="color: #0000ff;">int</span>;*i = 0; }
+<span style="color: #a020f0;">struct</span> <span style="color: #228b22;">MyFixture</span> {
+     <span style="color: #0000ff;">MyFixture</span>() { i = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">int</span>;*i = 0; }
      ~ <span style="color: #0000ff;">MyFixture</span>() { <span style="color: #a020f0;">delete</span> i; }
-    <span style="color: #0000ff;">int</span>* <span style="color: #8b0000;">i</span>;
+    <span style="color: #228b22;">int</span>* <span style="color: #a0522d;">i</span>;
 };
 </pre>
 
@@ -562,29 +562,29 @@ performs initialization of data, while destructor performs cleanup.  For example
 <pre class="src">
 <span style="color: #0000ff;">BOOST_AUTO_TEST_CASE</span>( test_case1 )
 {
-    <span style="color: #0000ff;">MyFixture</span> <span style="color: #8b0000;">f</span>;
-    <span style="color: #666666;">// </span><span style="color: #666666;">do something with f.i
+    <span style="color: #228b22;">MyFixture</span> <span style="color: #a0522d;">f</span>;
+    <span style="color: #7f7f7f;">// </span><span style="color: #7f7f7f;">do something with f.i
 </span>}
 </pre>
 
-<p>But Boost.Test also provides special macros that allows to simplify use of fixtures. For
+<p>But Boost.Test also provides special macros that allows simplify use of fixtures. For
 test cases you can use the <code>BOOST_FIXTURE_TEST_CASE</code> macro instead of <code>BOOST_AUTO_TEST_CASE</code>
 &mdash; the only difference between them is that former has second argument (fixture name),
-that will be created automatically and passed to test case.  There is also additional
+that will be created automatically and passed to the test case.  There is also additional
 advantage over direct use of fixtures in your code &mdash; you have direct access to public and
 protected members of fixture, for example:</p>
 
 <pre class="src">
-<span style="color: #006400;">#define</span> <span style="color: #8b0000;">BOOST_TEST_MODULE</span> Test-<span style="color: #a020f0;">case</span> fixture example
-<span style="color: #006400;">#include</span> <span style="color: #008b00;">&lt;boost/test/unit_test.hpp&gt;</span>
+<span style="color: #483d8b;">#define</span> <span style="color: #a0522d;">BOOST_TEST_MODULE</span> Test-<span style="color: #a020f0;">case</span> fixture example
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;boost/test/unit_test.hpp&gt;</span>
 
-<span style="color: #a020f0;">struct</span> <span style="color: #0000ff;">F</span> {
+<span style="color: #a020f0;">struct</span> <span style="color: #228b22;">F</span> {
     <span style="color: #0000ff;">F</span>() : i(1) {}
     ~<span style="color: #0000ff;">F</span>() { }
-    <span style="color: #0000ff;">int</span> <span style="color: #8b0000;">i</span>;
+    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
 };
 
-<span style="color: #0000ff;">BOOST_FIXTURE_TEST_CASE</span>(simple_test, <span style="color: #0000ff;">F</span>) {
+<span style="color: #0000ff;">BOOST_FIXTURE_TEST_CASE</span>(simple_test, <span style="color: #228b22;">F</span>) {
     BOOST_CHECK_EQUAL(i, 1);
 }
 </pre>
@@ -613,9 +613,9 @@ test.</p>
 what will be printed by using different options, described below.  There are also
 <a href="http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/user-guide/test-output/log-ct-config.html">compile time options</a>, that allows to control output, for example, threshold level, etc.
 Usually Boost.Test prints results in human-readable format, but it can also output data in
-XML, so you can feed them into database, or dashboard.</p>
+XML, so you can feed them into a database, or dashboard.</p>
 
-<p>There is also macro, that provides explicit printing of data.  The <code>BOOST_TEST_MESSAGE</code>
+<p>There is also a macro that provides explicit printing of data.  The <code>BOOST_TEST_MESSAGE</code>
 macro receives one argument &mdash; message to print, that will be printed together with other
 messages.</p>
 
@@ -623,7 +623,7 @@ messages.</p>
 <h4>Execution control</h4>
 
 <p class="first">Tests are executed by execution monitor, that takes list of registered tests, execute them
-(creating fixtures, if necessary), and count number of failures.  By default execution
+(creating fixtures, if necessary), and count the number of failures.  By default execution
 monitor handles all exceptions, including system problems, like wrong memory access.  But
 this behaviour isn't required all the time &mdash; sometime you need to get core from the
 crashed process, or run only some tests, etc.</p>
@@ -632,8 +632,8 @@ crashed process, or run only some tests, etc.</p>
 why Boost.Test provides <a href="http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/user-guide/runtime-config.html">many run-time options</a> that control behaviour of execution monitor
 (some of these options also have compile-time equivalents).</p>
 
-<p>There are two ways to specify run-time configuration option &mdash; from command line or via
-setting environment variable.</p>
+<p>There are two ways to specify run-time configuration option &mdash; from command line or by
+setting an environment variable.</p>
 
 <p>When test program is initializing, execution monitor analyzes command-line options, and
 excludes from them all options, belonging to its own configuration.  Command-line options
@@ -656,14 +656,14 @@ specifies, should Boost.Test to catch system errors, or not;</dd>
 <dd>(<code>all</code>, <code>success</code>, <code>test_suite</code>, <code>message</code>, <code>warning</code>, <code>error</code>,
 <code>cpp_exception</code>, <code>system_error</code>, <code>fatal_error</code>, or <code>nothing</code>, default is <code>error</code>) allows to
 specify which messages will be printed by test program.  You can use this to see which
-test is currently executing, together with related information.</dd>
+the test is currently executing, together with related information.</dd>
 <dt><strong><code>--random</code> (<code>BOOST_TEST_RANDOM</code>)</strong></dt>
 <dd>allows to run tests in random order (use <code>0</code> to disable
 this &mdash; default value). If value is greater than 1, then it's used as random seed, if
 it is equal to 1, then system time is used as random seed;</dd>
 <dt><strong><code>--run_test</code> (<code>BOOST_TEST_RUN_TEST</code>)</strong></dt>
 <dd>allows to specify names of tests to be executed.
-User can list test names, or use mask. See <a href="http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html">documentation</a> on more details and examples;</dd>
+Users can list test names, or use masks. See <a href="http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html">documentation</a> on more details and examples;</dd>
 <dt><strong><code>--show_progress</code> (<code>BOOST_TEST_SHOW_PROGRESS</code>)</strong></dt>
 <dd>(<code>yes</code> or <code>no</code>, default <code>no</code>) specifies, should
 Boost.Test display progress indicator during execution of test cases, or not.</dd>
@@ -683,7 +683,7 @@ functionality.</p>
 <p>Google mocking framework has pretty good documentation, that is <a href="https://code.google.com/p/googlemock/w/list">available as wiki</a>.  You
 can find tutorial in <a href="https://code.google.com/p/googlemock/wiki/ForDummies">following document</a>, and find more in <a href="https://code.google.com/p/googlemock/wiki/CookBook">cookbook</a>, <a href="https://code.google.com/p/googlemock/wiki/CheatSheet">cheatsheet</a>, and <a href="https://code.google.com/p/googlemock/wiki/FrequentlyAskedQuestions">FAQ</a>.
 In this section we'll concentrate on high-level overview of framework and will provide
-small example of its use.  I assume, that google mock library is already installed on
+a small example of its use.  I assume, that google mock library is already installed on
 machine.</p>
 
 <p>Google mock follows standard workflow of mocking:</p>
@@ -706,29 +706,29 @@ and printing which expectation(s) were failed.</li>
 </ul></li>
 </ul>
 
-<p>So, let's look on practical example.  To use mock test, we need to include corresponding
+<p>So, let's look at a practical example.  To use mock test, we need to include corresponding
 header file &mdash; 
 <code>gmock/gmock.h</code>:</p>
 
 <pre class="src">
-<span style="color: #006400;">#include</span> <span style="color: #008b00;">&lt;gmock/gmock.h&gt;</span>
-<span style="color: #006400;">#include</span> <span style="color: #008b00;">&lt;string&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;gmock/gmock.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;string&gt;</span>
 
-<span style="color: #006400;">#define</span> <span style="color: #8b0000;">BOOST_TEST_MODULE</span> Mock example
-<span style="color: #006400;">#include</span> <span style="color: #008b00;">&lt;boost/test/unit_test.hpp&gt;</span>
+<span style="color: #483d8b;">#define</span> <span style="color: #a0522d;">BOOST_TEST_MODULE</span> <span style="color: #228b22;">Mock</span> <span style="color: #a0522d;">example</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;boost/test/unit_test.hpp&gt;</span>
 </pre>
 
-<p>We need to have class, that we'll mock.  This should be virtual class, so Google mock will
+<p>We need to have a class, that we'll mock.  This should be virtual class, so Google mock will
 able to override methods in it:</p>
 
 <pre class="src">
-<span style="color: #a020f0;">class</span> <span style="color: #0000ff;">PropHolder</span> {
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">PropHolder</span> {
 <span style="color: #a020f0;">public</span>:
     <span style="color: #0000ff;">PropHolder</span>()  { }
     <span style="color: #a020f0;">virtual</span> ~<span style="color: #0000ff;">PropHolder</span>() { }
 
-    <span style="color: #a020f0;">virtual</span> <span style="color: #0000ff;">void</span> <span style="color: #0000ff;">SetProperty</span>(<span style="color: #a020f0;">const</span> <span style="color: #00008b;">std</span>::<span style="color: #0000ff;">string</span>&amp; <span style="color: #8b0000;">name</span>, <span style="color: #0000ff;">int</span> <span style="color: #8b0000;">value</span>) = 0;
-    <span style="color: #a020f0;">virtual</span> <span style="color: #0000ff;">int</span> <span style="color: #0000ff;">GetProperty</span>(<span style="color: #a020f0;">const</span> <span style="color: #00008b;">std</span>::<span style="color: #0000ff;">string</span>&amp; <span style="color: #8b0000;">name</span>) = 0;
+    <span style="color: #a020f0;">virtual</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">SetProperty</span>(<span style="color: #a020f0;">const</span> <span style="color: #008b8b;">std</span>::<span style="color: #228b22;">string</span>&amp; <span style="color: #a0522d;">name</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">value</span>) = 0;
+    <span style="color: #a020f0;">virtual</span> <span style="color: #228b22;">int</span> <span style="color: #0000ff;">GetProperty</span>(<span style="color: #a020f0;">const</span> <span style="color: #008b8b;">std</span>::<span style="color: #228b22;">string</span>&amp; <span style="color: #a0522d;">name</span>) = 0;
 };
 </pre>
 
@@ -736,39 +736,39 @@ able to override methods in it:</p>
 instance of our base class <code>PropHolder</code>:</p>
 
 <pre class="src">
-<span style="color: #a020f0;">class</span> <span style="color: #0000ff;">TestClass</span> {
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">TestClass</span> {
 <span style="color: #a020f0;">public</span>:
-    <span style="color: #0000ff;">TestClass</span>(<span style="color: #0000ff;">PropHolder</span>&amp; <span style="color: #8b0000;">ph</span>) : fPropHolder(ph) { }
-    <span style="color: #0000ff;">void</span> <span style="color: #0000ff;">doCalc</span>() {
-        <span style="color: #a020f0;">if</span> (fPropHolder.GetProperty(<span style="color: #00008b;">std</span>::string(<span style="color: #008b00;">"test"</span>)) &gt; 100) {
-            fPropHolder.SetProperty(<span style="color: #008b00;">"test2"</span>, 555);
+    <span style="color: #0000ff;">TestClass</span>(<span style="color: #228b22;">PropHolder</span>&amp; <span style="color: #a0522d;">ph</span>) : fPropHolder(ph) { }
+    <span style="color: #228b22;">void</span> <span style="color: #0000ff;">doCalc</span>() {
+        <span style="color: #a020f0;">if</span> (fPropHolder.GetProperty(<span style="color: #008b8b;">std</span>::string(<span style="color: #8b2252;">"test"</span>)) &gt; 100) {
+            fPropHolder.SetProperty(<span style="color: #8b2252;">"test2"</span>, 555);
         } <span style="color: #a020f0;">else</span>
-            fPropHolder.SetProperty(<span style="color: #008b00;">"test2"</span>, 785);
+            fPropHolder.SetProperty(<span style="color: #8b2252;">"test2"</span>, 785);
     }
 <span style="color: #a020f0;">private</span>:
-    <span style="color: #0000ff;">PropHolder</span>&amp; <span style="color: #8b0000;">fPropHolder</span>;
+    <span style="color: #228b22;">PropHolder</span>&amp; <span style="color: #a0522d;">fPropHolder</span>;
 };
 </pre>
 
 <p>Now we need to create mocked class, that is inherited from <code>PropHolder</code>, and uses macros to
 implement corresponding stubs.  Google mock provides different macros &mdash; 
 <code>MOCK_METHODN</code>,
-<code>MOCK_CONST_METHODN</code>, where last <code>N</code> should match to number of arguments of mocked function.
+<code>MOCK_CONST_METHODN</code>, where last <code>N</code> should match to the number of arguments of the mocked function.
 First argument of these macros is a name of method to mock, and second &mdash; function's
 signature:</p>
 
 <pre class="src">
-<span style="color: #a020f0;">class</span> <span style="color: #0000ff;">MockPropHolder</span> : <span style="color: #a020f0;">public</span> <span style="color: #0000ff;">PropHolder</span> {
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">MockPropHolder</span> : <span style="color: #a020f0;">public</span> <span style="color: #228b22;">PropHolder</span> {
 <span style="color: #a020f0;">public</span>:
     <span style="color: #0000ff;">MockPropHolder</span>() { }
     <span style="color: #a020f0;">virtual</span> ~<span style="color: #0000ff;">MockPropHolder</span>() { }
 
-    MOCK_METHOD2(SetProperty, <span style="color: #0000ff;">void</span>(<span style="color: #a020f0;">const</span> <span style="color: #00008b;">std</span>::<span style="color: #0000ff;">string</span>&amp; <span style="color: #8b0000;">name</span>, <span style="color: #0000ff;">int</span> <span style="color: #8b0000;">value</span>));
-    MOCK_METHOD1(GetProperty, <span style="color: #0000ff;">int</span>(<span style="color: #a020f0;">const</span> <span style="color: #00008b;">std</span>::<span style="color: #0000ff;">string</span>&amp; <span style="color: #8b0000;">name</span>));
+    MOCK_METHOD2(SetProperty, <span style="color: #228b22;">void</span>(<span style="color: #a020f0;">const</span> <span style="color: #008b8b;">std</span>::<span style="color: #228b22;">string</span>&amp; <span style="color: #a0522d;">name</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">value</span>));
+    MOCK_METHOD1(GetProperty, <span style="color: #228b22;">int</span>(<span style="color: #a020f0;">const</span> <span style="color: #008b8b;">std</span>::<span style="color: #228b22;">string</span>&amp; <span style="color: #a0522d;">name</span>));
 };
 </pre>
 
-<p>Now we can use mocked class in our test.  We create an instance of mocked class called
+<p>Now we can use a mock class in our test.  We create an instance of mocked class called
 <code>mholder</code>, and will set expectations on it. First expectation is that function <code>GetProperty</code>
 will be called once with parameter <code>&quot;test&quot;</code>, and mocked object should return <code>101</code> for this
 call.  The second expectation specifies that <code>SetProperty</code> function will be called with two
@@ -779,13 +779,13 @@ arguments &mdash;
 
 <pre class="src">
 <span style="color: #0000ff;">BOOST_AUTO_TEST_CASE</span>(test_gmock) {
-    <span style="color: #a020f0;">using</span> ::<span style="color: #00008b;">testing</span>::Return;
+    <span style="color: #a020f0;">using</span> ::<span style="color: #008b8b;">testing</span>::Return;
 
-    <span style="color: #0000ff;">MockPropHolder</span> <span style="color: #8b0000;">mholder</span>;
-    EXPECT_CALL(mholder, GetProperty(<span style="color: #00008b;">std</span>::string(<span style="color: #008b00;">"test"</span>))).Times(1).WillOnce(Return(101));
-    EXPECT_CALL(mholder, SetProperty(<span style="color: #00008b;">std</span>::string(<span style="color: #008b00;">"test2"</span>),555));
+    <span style="color: #228b22;">MockPropHolder</span> <span style="color: #a0522d;">mholder</span>;
+    EXPECT_CALL(mholder, GetProperty(<span style="color: #008b8b;">std</span>::string(<span style="color: #8b2252;">"test"</span>))).Times(1).WillOnce(Return(101));
+    EXPECT_CALL(mholder, SetProperty(<span style="color: #008b8b;">std</span>::string(<span style="color: #8b2252;">"test2"</span>),555));
 
-    <span style="color: #0000ff;">TestClass</span> <span style="color: #8b0000;">t</span>(mholder);
+    <span style="color: #228b22;">TestClass</span> <span style="color: #a0522d;">t</span>(mholder);
     t.doCalc();
 }
 </pre>
@@ -795,11 +795,11 @@ arguments &mdash;
 global fixture object to do this:</p>
 
 <pre class="src">
-<span style="color: #a020f0;">struct</span> <span style="color: #0000ff;">InitGMock</span> {
+<span style="color: #a020f0;">struct</span> <span style="color: #228b22;">InitGMock</span> {
     <span style="color: #0000ff;">InitGMock</span>() {
-        ::<span style="color: #00008b;">testing</span>::GTEST_FLAG(throw_on_failure) = <span style="color: #00008b;">true</span>;
-        ::<span style="color: #00008b;">testing</span>::InitGoogleMock(&amp;<span style="color: #00008b;">boost</span>::<span style="color: #00008b;">unit_test</span>::<span style="color: #00008b;">framework</span>::master_test_suite().argc,
-                                  <span style="color: #00008b;">boost</span>::<span style="color: #00008b;">unit_test</span>::<span style="color: #00008b;">framework</span>::master_test_suite().argv);
+        ::<span style="color: #008b8b;">testing</span>::GTEST_FLAG(throw_on_failure) = <span style="color: #008b8b;">true</span>;
+        ::<span style="color: #008b8b;">testing</span>::InitGoogleMock(&amp;<span style="color: #008b8b;">boost</span>::<span style="color: #008b8b;">unit_test</span>::<span style="color: #008b8b;">framework</span>::master_test_suite().argc,
+                                  <span style="color: #008b8b;">boost</span>::<span style="color: #008b8b;">unit_test</span>::<span style="color: #008b8b;">framework</span>::<span style="color: #228b22;">master_test_suite</span>().argv);
     }
     ~<span style="color: #0000ff;">InitGMock</span>() { }
 };
@@ -836,13 +836,13 @@ incorrectly, then we'll get something like:</p>
   Actual function call count doesn't match this expectation.
          Expected: to be called once
            Actual: never called - unsatisfied and active
-  unknown location(0): fatal error in <span style="color: #008b00;">"test_gmock"</span>: signal: SIGABRT (application abort requested)
+  unknown location(0): fatal error in <span style="color: #8b2252;">"test_gmock"</span>: signal: SIGABRT (application abort requested)
   test-mock.cpp(65): last checkpoint
 
-  *** 1 failure detected in test suite <span style="color: #008b00;">"Mock example"</span>
+  *** 1 failure detected in test suite <span style="color: #8b2252;">"Mock example"</span>
 </pre>
 
-<p>That's all for mocking part.  More information you can find in documentation for Google
+<p>That's all for the mocking part.  More information you can find in documentation for Google
 mock framework, where you can also find many examples of its usage.</p>
 
 
@@ -900,7 +900,7 @@ testing;</li>
 
 
 <!-- Page published by Emacs Muse ends here -->
-<div id="lastchange"><p><em>Last change: 05.03.2013 16:54</em></p></div>
+<div id="lastchange"><p><em>Last change: 25.09.2021 14:33</em></p></div>
 <div id="rule"><div id="disqus_thread"></div>
 <script type="text/javascript">
 var disqus_shortname = 'alexottnet';

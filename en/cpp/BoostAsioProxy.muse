@@ -1,7 +1,7 @@
 #title How to write simple HTTP proxy with Boost.Asio
 #keywords boost, asio, boost.asio, http, proxy
 
-In this article I describe process of writing of simple cross-platform HTTP proxy. **Please,
+In this article I describe the process of writing of a simple cross-platform HTTP proxy. **Please,
 note that this code isn't production-ready - it was used as simple demonstration on how it
 could be implemented, and contains obvious bugs**.
 
@@ -18,7 +18,7 @@ to run following commands (on Unix-like OSes)[1]:
 and after compilation you'll get =proxy-asio-async= executable, that you can run from
 command line.  This program accepts only one argument -- number of threads, that will
 perform request processing (by default, this value is equal 2).  Port number on which
-requests will accepted is hardcoded in source code and equal to =10001=[2].
+requests will be accepted is hardcoded in source code and equal to =10001=[2].
 
 * Architecture
 
@@ -27,15 +27,15 @@ As in [[./BoostAsioNotes][previous examples]], our program consists from three p
    together with =server= object, and then enters into request processing loop;
  - =server= class, that accepts requests, and creates =connection= object, that implements all
    logic of connection handling;
- - =connection= class, that implements all logic, and pass data between client & web-server.
+ - =connection= class, that implements all logic, and passes data between client & web-server.
 
 The data processing is performed in asynchronous mode, and to distribute load between
 processors, we can use several independent *asio* services, that perform dispatching of
 calls (=asio::io_service=).
 
 *Note*: Most hard part of the development of asynchronous code is proper design of data
-flow.  I usually draw a *state diagram* and then transform each state to separate function.
-Presence of such diagram is very helpful for understanding of code by other developers.
+flow.  I usually draw a *state diagram* and then transform each state to a separate function.
+Presence of such a diagram is very helpful for understanding of code by other developers.
 
 * Implementation
 
@@ -44,20 +44,19 @@ The =main= function is pretty simple, so we'll not analyze it -- you can just lo
 
 Implementation of server (the =server= class -- [[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-server.hpp][proxy-server.hpp]] & [[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-server.cpp][proxy-server.cpp]]) also
 not so much different from previous examples -- changes were made only for method, that is
-used to select service, that will implement dispatching.  In our example new service is
+used to select a service that will implement dispatching.  In our example new service is
 selected from circular list of services, that allow us to get some load balancing for
 requests.
 
-All data processing logic is implemented in =connection= class ([[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.hpp][proxy-conn.hpp]] &
-[[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.cpp][proxy-conn.cpp]].  I want to say, that parsing of headers was done without any
-optimisation[3].
+All data processing logic is implemented in =connection= class ([[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.hpp][proxy-conn.hpp]] & [[https://github.com/alexott/boost-asio-proxy/blob/master/proxy-conn.cpp][proxy-conn.cpp]].  I want to say, that parsing of headers was done without any
+optimization[3].
 
 Data processing is started from call to =start= function from =server= class, that accepts
-connection and creates new object of =connection= class.  This function initiates
-asynchronous reading of request headers from browser.
+connection and creates a new object of =connection= class.  This function initiates
+asynchronous reading of request headers from the browser.
 
 Reading of request headers is performed in the =handle_browser_read_headers= function, that
-is called when we get some part of data from browser.  I need to mention, that if we get
+is called when we get some part of data from the browser.  I need to mention, that if we get
 incomplete headers (there is no empty string (=\r\n\r\n=)), then this function initiates new
 reading of headers, trying to get them all.
 
@@ -71,8 +70,8 @@ process of name resolution.  If we have opened connection, then we simply start 
 transfer with =start_write_to_server= function.
 
 The =handle_resolve= function is called after name resolution, and if we get address of
-server, then it initiates process of connection establishing.  Result of this process is
-handled by =handle_connect= function, that initiates process of data transfer to the server
+server, then it initiates the process of connection establishing.  Result of this process is
+handled by =handle_connect= function, that initiates the process of data transfer to the server
 with =start_write_to_server= function, that forms correct headers, and pass these data to
 the server.
 
@@ -80,7 +79,7 @@ After transferring data to server, in function =handle_server_write= we initiate
 response (only headers first) from server.  Processing of headers is handled by
 =handle_server_read_headers= function, that is similar to the =handle_browser_read_headers=,
 but it also tries to understand -- should we close connection after data transfer, or not.
-After processing of headers, this function initiates process of sending data to browser.
+After processing of headers, this function initiates the process of sending data to the browser.
 
 After sending of headers, we create a loop, that transfer body of response from server to
 browser.  In this loop we use two functions -- =handle_server_read_body= and
@@ -90,7 +89,7 @@ file.
 
 If we'll get end of file, then we'll pass rest of data to the browser and close
 connection. Or if we use persistent connection, then we'll pass control to the =start=
-function, that initiates reading of new headers from browser.
+function that initiates reading of new headers from the browser.
 
 That's all.  As I already mentioned above, main problem -- building of right data flow
 sequence.

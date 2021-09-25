@@ -15,7 +15,9 @@ You can look into my [[alexott-cv-en][CV]] ([[alexott-cv-en.pdf][PDF]]), and oth
 
 * What I do
 
-My main work -- software development, starting from its architecture, and finishing in
+(please note that many pages are outdated...)
+
+My main area of work -- software development, starting from its architecture, and finishing in
 implementation and marketing activity.  Besides this, I do consulting of external
 projects.  Currently my specialization are information & data security (including
 [[cf/index][content filtering]]), with application of big data & machine learning technologies.

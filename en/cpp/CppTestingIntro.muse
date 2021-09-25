@@ -24,7 +24,7 @@ repetition of a very short development cycle:
  - and finally refactors the new code to acceptable standards.
 
 Test-driven development is related to the test-first programming concepts of
-[[http://en.wikipedia.org/wiki/Extreme_programming][extreme programming]], and often linked to agile programming approach. In its pure form, TDD
+[[http://en.wikipedia.org/wiki/Extreme_programming][extreme programming]], and often linked to an agile programming approach. In its pure form, TDD
 has [[http://en.wikipedia.org/wiki/Test-driven_development#Benefits][benefits]], but it also has [[http://en.wikipedia.org/wiki/Test-driven_development#Vulnerabilities][drawbacks]].  But we can use some practices to improve quality
 of code in our projects.
 
@@ -36,7 +36,7 @@ TDD workflow could be described as repetition of following steps (shown on pictu
  - refactor code;
  - repeat tests, fix the code if there are failing tests;
  - commit changes;
- - switch to next feature (repeat all process starting from first step).
+ - switch to the next feature (repeat the whole process starting from the first step).
 
 [[TDD.png]]
 
@@ -67,14 +67,14 @@ Use of unit tests has several benefits:
    can be used in a bottom-up testing style approach. By testing the parts of a program
    first, and then testing the sum of its parts, integration testing becomes much easier;
  - unit testing provides a sort of living documentation for the system. Developers can
-   look at the unit test's code to gain a basic understanding of implemented API.
+   look at the unit test's code to gain a basic understanding of the implemented API.
 
 *** Unit testing frameworks
 
 To simplify development of unit tests, unit test frameworks are usually used. Unit testing
 framework should provide following functionality:
- - Writing of unit tests should be simple and obvious for new users.
- - Framework should allow advanced users to perform nontrivial tests.
+ - Writing unit tests should be simple and obvious for new users.
+ - Framework should allow advanced users to perform non-trivial tests.
  - Test module should be able to have many small test cases and developer should be able
    to group them into test suites.
  - At the beginning of the development users may want to see verbose and descriptive error
@@ -84,7 +84,7 @@ framework should provide following functionality:
    want to wait a minute to compile a test that takes a second to run.
  - For long running and complex tests users may want to be able to see the test's
    progress.
- - Execution of individual tests should be independent on other tests. For example,
+ - Execution of individual tests should be independent of other tests. For example,
    termination (crashing) of one test shouldn't lead to skipping of all other tests.
  - Simple tests shouldn't require an external library.
 
@@ -96,7 +96,7 @@ architecture.  Each of such frameworks consists from:
  - Test cases, that combine several assertions, based on some common functionality;
  - Test suites, that combine several tests, logically related to each other;
  - Fixtures, that provide setup of data or state, needed for execution of some tests, and
-   cleanup of state and/or data after test is finished. (Some frameworks provide separate
+   cleanup of state and/or data after the test is finished. (Some frameworks provide separate
    per-test case, per-test suite, and/or global fixtures)
  - Frameworks also include execution monitor, that controls how tests are executed, and
    collects data about failed tests.
@@ -120,9 +120,9 @@ There are some recommended ways to implement tests:
  - your test case should test only one thing;
  - test case should be short;
  - test should run fast, so it will possible to run it very often;
- - each test should work independent on other tests. Broken test shouldn't prevent other
+ - each test should work independent of other tests. Broken test shouldn't prevent other
    tests from execution;
- - tests shouldn't be dependent on order of their execution.
+ - tests shouldn't be dependent on the order of their execution.
 
 Some people argues, that combining of all test cases into big functions, improves
 readability of code, and make it more concise.  But there are arguments against this
@@ -133,7 +133,7 @@ approach (some of them are mentioned in [[http://www.boost.org/doc/libs/1_45_0/l
 
 Testability of code also depends on its design.  Sometimes it's very hard to write unit
 tests, because functionality to be tested is hidden behind many interfaces, or there are many
-dependencies, so it's hard to setup test correctly.  There are some suggestions on how
+dependencies, so it's hard to set up the test correctly.  There are some suggestions on how
 code should be written to allow easier writing of unit tests for it:
  - code should be loosely coupled -- class or function should have as few dependencies as
    possible;
@@ -144,7 +144,7 @@ code should be written to allow easier writing of unit tests for it:
    several classes, that perform separate tasks, instead of creating one class, that does
    everything.
 
-More advices on writing testable code you can find in [[http://googletesting.blogspot.com/2008/08/by-miko-hevery-so-you-decided-to.html][following blog post]].
+More advice on writing testable code you can find in [[http://googletesting.blogspot.com/2008/08/by-miko-hevery-so-you-decided-to.html][following blog post]].
 
 ** Mocking
 
@@ -178,11 +178,11 @@ Typical workflow looks following way:
    Inside this test case you do following:
    - you create an instance of mocked class;
    - you setup behavior and expectations on mocked object -- which methods should be
-     called (or not called), which data will be returned for particular call, etc.
+     called (or not called), which data will be returned for a particular call, etc.
    - you run your code that will use mocked object some way;
    - after execution of your code, you evaluate results of execution and check
      expectations against actual results -- usually this is done automatically by
-     framework, when mocked object is destroyed.
+     framework, when a mocked object is destroyed.
 
 [[#gmock-example][Below]] you can see example of using Google C++ Mocking framework
 
@@ -224,7 +224,7 @@ could be used together with it.
 
 Boost.Test could be used differently, depending on complexity of tests.  User can either
 write test functions themself, and register them manually, forming a hierarchy of tests,
-or he can use special macros, that will register test automatically.
+or it can use special macros that will register tests automatically.
 
 In this text we'll use "automatic" tests as examples, and you can read about manual test
 registration in [[http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/user-guide.html][Boost.Test documentation]].
@@ -380,7 +380,7 @@ need to include additional header file to use them:
 =boost/test/floating_point_comparison.hpp=): =BOOST_<level>_CLOSE=,
 =BOOST_<level>_CLOSE_FRACTION=, and =BOOST_<level>_SMALL=.
 
-In some situations, you need to check, does your code throws exception or not.  To check
+In some situations, you need to check whenever your code throws an exception or not.  To check
 that your code doesn't throw exception, you can use =BOOST_<level>_NO_THROW= macro, that
 receives expression, that will be evaluated, and if exception is thrown, it will perform
 corresponding action, depending on level.  To check, that your code throws given
@@ -394,7 +394,7 @@ Another task, automated by Boost.Test is [[http://www.boost.org/doc/libs/release
 could be used to check functionality of =<<= operator, or similar things.  Boost.Test
 provides special output class, compatible to =std::ostream=, and you can output data to it,
 and explicitly get access to its content.  You can also create a file with "desired
-output", and use data from this file to compare against output, produced by your code.
+output", and use data from this file to compare against output produced by your code.
 
 In some cases, it could be also useful to get checkpoints, where test case was in normal
 state.  Boost.Test provides 2 macros for this task:
@@ -408,7 +408,7 @@ state.  Boost.Test provides 2 macros for this task:
 *** Fixtures
 
 Fixtures -- special objects that are used to implement setup and cleanup of data/resources
-required to execution of unit tests.  Separation of code between fixtures and actual test
+required for execution of unit tests.  Separation of code between fixtures and actual test
 code, allows to simplify unit test's code, and use the same initialization code for
 different test cases and test suites.
 
@@ -431,10 +431,10 @@ BOOST_AUTO_TEST_CASE( test_case1 )
 }
 </src>
 
-But Boost.Test also provides special macros that allows to simplify use of fixtures. For
+But Boost.Test also provides special macros that allows simplify use of fixtures. For
 test cases you can use the =BOOST_FIXTURE_TEST_CASE= macro instead of =BOOST_AUTO_TEST_CASE=
 -- the only difference between them is that former has second argument (fixture name),
-that will be created automatically and passed to test case.  There is also additional
+that will be created automatically and passed to the test case.  There is also additional
 advantage over direct use of fixtures in your code -- you have direct access to public and
 protected members of fixture, for example:
 <src lang="c++">
@@ -474,16 +474,16 @@ Usually Boost.Test prints only messages about errors and exceptions, but you can
 what will be printed by using different options, described below.  There are also
 [[http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/user-guide/test-output/log-ct-config.html][compile time options]], that allows to control output, for example, threshold level, etc.
 Usually Boost.Test prints results in human-readable format, but it can also output data in
-XML, so you can feed them into database, or dashboard.
+XML, so you can feed them into a database, or dashboard.
 
-There is also macro, that provides explicit printing of data.  The =BOOST_TEST_MESSAGE=
+There is also a macro that provides explicit printing of data.  The =BOOST_TEST_MESSAGE=
 macro receives one argument -- message to print, that will be printed together with other
 messages.
 
 *** Execution control
 
 Tests are executed by execution monitor, that takes list of registered tests, execute them
-(creating fixtures, if necessary), and count number of failures.  By default execution
+(creating fixtures, if necessary), and count the number of failures.  By default execution
 monitor handles all exceptions, including system problems, like wrong memory access.  But
 this behaviour isn't required all the time -- sometime you need to get core from the
 crashed process, or run only some tests, etc.
@@ -492,8 +492,8 @@ Commenting out not necessary tests, or do something similar, isn't a good idea -
 why Boost.Test provides [[http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/user-guide/runtime-config.html][many run-time options]] that control behaviour of execution monitor
 (some of these options also have compile-time equivalents).
 
-There are two ways to specify run-time configuration option -- from command line or via
-setting environment variable.
+There are two ways to specify run-time configuration option -- from command line or by
+setting an environment variable.
 
 When test program is initializing, execution monitor analyzes command-line options, and
 excludes from them all options, belonging to its own configuration.  Command-line options
@@ -511,12 +511,12 @@ variables):
  =--log_level= (=BOOST_TEST_LOG_LEVEL=) :: (=all=, =success=, =test_suite=, =message=, =warning=, =error=,
    =cpp_exception=, =system_error=, =fatal_error=, or =nothing=, default is =error=) allows to
    specify which messages will be printed by test program.  You can use this to see which
-   test is currently executing, together with related information.
+   the test is currently executing, together with related information.
  =--random= (=BOOST_TEST_RANDOM=) :: allows to run tests in random order (use =0= to disable
    this -- default value). If value is greater than 1, then it's used as random seed, if
    it is equal to 1, then system time is used as random seed;
  =--run_test= (=BOOST_TEST_RUN_TEST=) :: allows to specify names of tests to be executed.
-   User can list test names, or use mask. See [[http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html][documentation]] on more details and examples;
+   Users can list test names, or use masks. See [[http://www.boost.org/doc/libs/release/libs/test/doc/html/utf/user-guide/runtime-config/run-by-name.html][documentation]] on more details and examples;
  =--show_progress= (=BOOST_TEST_SHOW_PROGRESS=) :: (=yes= or =no=, default =no=) specifies, should
    Boost.Test display progress indicator during execution of test cases, or not.
 
@@ -534,7 +534,7 @@ functionality.
 Google mocking framework has pretty good documentation, that is [[https://code.google.com/p/googlemock/w/list][available as wiki]].  You
 can find tutorial in [[https://code.google.com/p/googlemock/wiki/ForDummies][following document]], and find more in [[https://code.google.com/p/googlemock/wiki/CookBook][cookbook]], [[https://code.google.com/p/googlemock/wiki/CheatSheet][cheatsheet]], and [[https://code.google.com/p/googlemock/wiki/FrequentlyAskedQuestions][FAQ]].
 In this section we'll concentrate on high-level overview of framework and will provide
-small example of its use.  I assume, that google mock library is already installed on
+a small example of its use.  I assume, that google mock library is already installed on
 machine.
 
 Google mock follows standard workflow of mocking:
@@ -551,7 +551,7 @@ Google mock follows standard workflow of mocking:
      results, and if they weren't met, then it will report error by throwing an exception,
      and printing which expectation(s) were failed.
 
-So, let's look on practical example.  To use mock test, we need to include corresponding
+So, let's look at a practical example.  To use mock test, we need to include corresponding
 header file -- =gmock/gmock.h=:
 <src lang="c++">
 #include <gmock/gmock.h>
@@ -561,7 +561,7 @@ header file -- =gmock/gmock.h=:
 #include <boost/test/unit_test.hpp>
 </src>
 
-We need to have class, that we'll mock.  This should be virtual class, so Google mock will
+We need to have a class, that we'll mock.  This should be virtual class, so Google mock will
 able to override methods in it:
 <src lang="c++">
 class PropHolder {
@@ -593,7 +593,7 @@ private:
 
 Now we need to create mocked class, that is inherited from =PropHolder=, and uses macros to
 implement corresponding stubs.  Google mock provides different macros -- =MOCK_METHODN=,
-=MOCK_CONST_METHODN=, where last =N= should match to number of arguments of mocked function.
+=MOCK_CONST_METHODN=, where last =N= should match to the number of arguments of the mocked function.
 First argument of these macros is a name of method to mock, and second -- function's
 signature:
 <src lang="c++">
@@ -607,7 +607,7 @@ public:
 };
 </src>
 
-Now we can use mocked class in our test.  We create an instance of mocked class called
+Now we can use a mock class in our test.  We create an instance of mocked class called
 =mholder=, and will set expectations on it. First expectation is that function =GetProperty=
 will be called once with parameter ="test"=, and mocked object should return =101= for this
 call.  The second expectation specifies that =SetProperty= function will be called with two
@@ -675,7 +675,7 @@ incorrectly, then we'll get something like:
   *** 1 failure detected in test suite "Mock example"
 </src>
 
-That's all for mocking part.  More information you can find in documentation for Google
+That's all for the mocking part.  More information you can find in documentation for Google
 mock framework, where you can also find many examples of its usage.
 
 * Additional information

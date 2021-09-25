@@ -2,31 +2,31 @@
 #keywords home page, muse, emacs
 
 Idea to recreate my home page was pretty old -- old variant was created more than 10 years ago,
-and had very primitive design, like many sites of HTML, version 2.
+and had a very primitive design, like many sites of HTML, version 2.
 
 ** Preparatory work
 
 As on my current hosting I able to host only static files, this restricted my choice of
-technologies, that could be used for implementation.  First, I wanted to write HTML
+technologies that could be used for implementation.  First, I wanted to write HTML
 generator myself, using something like Perl, but I just remembered, that I saw sites, that
-was created using [[http://mwolson.org/projects/EmacsMuse.html][Emacs Muse]], that I already used for my notes and articles.
+was created using [[http://mwolson.org/projects/EmacsMuse.html][Emacs Muse]], which I already used for my notes and articles.
 
-Another task for this site was creation of new design.  As I'm not so good designer/HTML
-coder, I searched Internet for good free site designs.  During surfing, I found site of
+Another task for this site was the creation of a new design.  As I'm not so good designer/HTML
+coder, I searched the Internet for good free site designs.  During surfing, I found site of
 [[http://andreasviklund.com/][Andreas Viklund]] and took suitable template (I change it at the end, but this was mostly
 changes in fonts sizes, etc.)
 
 Main parts of design was plugged to Muse without any problem, and I also use it for all my
 notes and articles, some of them you can find on this site.  To create a dynamic parts of
-pages -- menus for navigation between parts of site, I wrote some amount of code in Elisp.
+pages -- menus for navigation between parts of the site, I wrote some amount of code in Elisp.
 
 ** Implementation
 
 For generation of site from Muse source files I created configuration file, consisting
 from several parts, described below.
 
-First we need to initialize package and set all necessary variables.  Some loadable
-packages doesn't used for site generation, but they are used for my other projects.  Some
+First we need to initialize the package and set all necessary variables.  Some loadable
+packages aren't used for site generation, but they are used for my other projects.  Some
 variables changes package's behaviour, for example, associating =.muse= extension with Muse
 files, set encoding for files & generated html, etc.
 
@@ -123,7 +123,7 @@ for current file[1]:
 </src>
 
 Structure of navigation menu, generated for every page, is defined by variable
-=my-page-menu=, and represented as alist, every element of which consists from language tag,
+=my-page-menu=, and represented as =alist=, every element of which consists from language tag,
 and list of pair, representing file (or directory) name and corresponding title for menu
 item.
 
@@ -190,7 +190,7 @@ data for given page:
 
 
 That's all. Everything is pretty simple and doesn't require manual changes in generated
-pages.  Generated files are ready to upload to server.
+pages.  Generated files are ready to upload to a server.
 
 Footnotes: 
 [1] Implementation of this function isn't optimal and it could fail sometimes, but it
