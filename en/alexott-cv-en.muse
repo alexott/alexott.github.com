@@ -31,7 +31,10 @@
  **Main activities and responsibilities**:
     - Working with strategic customers on implementation of solutions based on the Databricks' Unified Data Analytics Platform.
 
- Technology stack: Apache Spark, MLFlow, Delta Lake, Scala, Python, SQL, Terraform, ...
+ Technology stack: Apache Spark, MLFlow, Delta Lake, Scala, Python, SQL, Terraform, Go, ...
+
+ **Awards**:
+    - President's club FY22 (2021)
 
  - **Resident Solutions Architect** at Databricks<br>
  **Dates (from-to)**: 08.2020-now<br>
@@ -41,7 +44,7 @@
  **Main activities and responsibilities**:
     - Working with customers on implementation of solutions based on the Databricks' Unified Data Analytics Platform
 
- Technology stack: Apache Spark, MLFlow, Delta Lake, Scala, Python, SQL, Terraform, ...
+ Technology stack: Apache Spark, MLFlow, Delta Lake, Scala, Python, SQL, Terraform, Go, ...
 
  - **Principal Architect** at DataStax<br>
  **Dates (from-to)**: 09.2019-07.2020<br>
