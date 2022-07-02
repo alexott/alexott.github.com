@@ -15,6 +15,11 @@ echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> $FILE
 # - skip news part
 # - skip common/emacs/ part
 
+LSCMD=ls
+if [ "$(uname)" = "Darwin" ]; then
+    LSCMD=gls
+fi
+
 for file in **/*.html **/*.pdf ; do
     DFILE=`dirname "$file"`
     MFILE=$DFILE/`basename "$file" .html`.muse
@@ -28,7 +33,7 @@ for file in **/*.html **/*.pdf ; do
                 echo "skip german pages $MFILE"
                 ;;
             *)
-                MTIME=`ls -l --time-style='full-iso' "$MFILE" |awk '{print $6}'`
+                MTIME=$($LSCMD -l --time-style='full-iso' "$MFILE" |awk '{print $6}')
                 echo "MTIME=$MTIME MFILE=$MFILE"
                 echo "<url><loc>http://alexott.net/$file</loc>\n<lastmod>$MTIME</lastmod></url>" >> $FILE
                 ;;
@@ -42,7 +47,7 @@ for file in **/*.html **/*.pdf ; do
                 echo "skip emacs config $file"
                 ;;
             *)
-                ls -l --time-style='full-iso' "$file" |awk '{print "<url><loc>http://alexott.net/" $9 "</loc>\n<lastmod>" $6 "</lastmod></url>"}' >> $FILE
+                $LSCMD -l --time-style='full-iso' "$file" |awk '{print "<url><loc>http://alexott.net/" $9 "</loc>\n<lastmod>" $6 "</lastmod></url>"}' >> $FILE
                 ;;
         esac
     fi
