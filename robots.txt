@@ -7,7 +7,6 @@ Disallow: /tex/
 Disallow: /ru/gnu/
 Disallow: /ru/tex/
 Disallow: /perl/
-Disallow: /files/
 Disallow: /misc/
 Disallow: /header.tmpl
 Disallow: /footer.tmpl
