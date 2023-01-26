@@ -23,13 +23,23 @@
 
 * Work Experience
 
+ - **Lead Specialist Solutions Architect** at Databricks<br>
+ **Dates (from-to)**: 02.2023-now<br>
+ **Name and address of employer**: [[http://databricks.com][Databrics]] (remote)<br>
+ **Positions held**: Specialist Solutions Architect<br>
+ **Type of business**: Software Development/Big Data<br>
+ **Main activities and responsibilities**:
+    - Working with strategic customers on implementation of solutions based on the Databricks' Lakehouse Platform.
+
+ Technology stack: Apache Spark, MLFlow, Delta Lake, Scala, Python, SQL, Terraform, Go, ...
+
  - **Senior Resident Solutions Architect** at Databricks<br>
- **Dates (from-to)**: 08.2021-now<br>
+ **Dates (from-to)**: 08.2021-02.2023<br>
  **Name and address of employer**: [[http://databricks.com][Databrics]] (remote)<br>
  **Positions held**: Resident Solutions Architect<br>
  **Type of business**: Software Development/Big Data<br>
  **Main activities and responsibilities**:
-    - Working with strategic customers on implementation of solutions based on the Databricks' Unified Data Analytics Platform.
+    - Working with strategic customers on implementation of solutions based on the Databricks' Lakehouse Platform.
 
  Technology stack: Apache Spark, MLFlow, Delta Lake, Scala, Python, SQL, Terraform, Go, ...
 
