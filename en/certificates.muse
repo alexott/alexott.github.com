@@ -28,6 +28,7 @@ This page contains
 ** Databricks
 
  - Databricks Certified Associate Platform Administrator ([[../files/certificates/databricks/certification-47f4a096-9e08-3a6a-8dc1-e9e733e48199.pdf][certificate]])
+ - Fundamentals of the Databricks Lakehouse Platform Accreditation ([[../files/certificates/databricks/529_3_13242_1659961250_Databricks - Generic.pdf][certificate]])
  - DB 301 - Apache Spark for Machine Learning and Data Science ([[../files/certificates/databricks/proof-of-completion-1a5a8b96-1a08-30d5-abba-900b68acef76.pdf][certificate]])
  - Customer/Partner Introductory Learning (April/May 2020th):
    - Introduction to Unified Data Analytics with Databricks ([[../files/certificates/databricks/award-a22bd363-221a-3ce2-9655-5a001d8ef884.pdf][certificate]]
@@ -57,8 +58,16 @@ This page contains
 ** A Cloud Guru
 
  - AZ-900 Microsoft Azure Fundamentals 2020 ([[../files/certificates/cloud/B43F6E6BADBF.pdf][certificate]])
+ - HashiCorp Certified Terraform Associate ([[../files/certificates/77D8FDD579EC.pdf][certificate]])
+ - AWS Certified Solutions Architect Associate SAA-C02 ([[../files/certificates/cloud/23DCCC07E434.pdf][certificate]])
+ - Microsoft Azure Architect Technologies - Exam AZ-300 ([[../files/certificates/cloud/D81B7204B36C.pdf][certificate]])
  - Introduction to AWS ([[../files/certificates/cloud/ECAC15AF7FBA.pdf][certificate]])
  - Introduction to Azure ([[../files/certificates/cloud/C2824E1120F9.pdf][certificate]])
+ - Crash Course on Google Cloud Platform ([[../files/certificates/cloud/B24EB7EDF09C.pdf][certificate]])
+
+** SkillPort
+
+ - Google Associate Cloud Engineer: Google Cloud Platform Ecosystem ([[../files/certificates/cloud/Certificate of Completion - GCP Ecosystem.pdf][certificate]])
 
 
 ** DataStax
