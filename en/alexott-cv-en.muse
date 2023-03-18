@@ -1,14 +1,11 @@
-#title Alexey Ott's Curriculum Vitae
-#keywords cv, curriculum vitae, alexey ott, clojure, java
+#title Alex Ott's Curriculum Vitae
+#keywords cv, curriculum vitae, alex ott, spark, databricks, solution architecture
 
 * Personal Information
 
- - **Name**: Alexey (Alex) Ott
+ - **Name**: Alex Ott
  - **Address**: Paderborn, Germany
  - **E-mail**: alexott@gmail.com (please use it as primary contact)
- - **Phone**: +4917650439409 (mobile)
- - **Citizenship**: German, Russian
- - **Date of Birth**: 1974
  - **Personal site**: http://alexott.net/en/
  - **LinkedIn profile**: http://www.linkedin.com/in/alexott
  - Blog: http://alexott.blogspot.com
